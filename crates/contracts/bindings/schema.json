@@ -727,6 +727,22 @@
         "oneOf": [
           {
             "additionalProperties": false,
+            "description": "Authenticated local exit; never available in the peer protocol. The Node invalidates output and releases all owned resources before exit.",
+            "properties": {
+              "kind": {
+                "enum": [
+                  "ExitNode"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "kind"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
             "properties": {
               "kind": {
                 "enum": [

@@ -195,7 +195,9 @@
       "resource_leases": [],
       "evidence": [
         "docs/evidence/T006-20261005/leader-checks.json",
-        "docs/evidence/T006-20261005/PROVENANCE.md"
+        "docs/evidence/T006-20261005/PROVENANCE.md",
+        "docs/adr/0002-local-node-exit.md",
+        "docs/evidence/T006-20261005/exit-contract/checks.json"
       ],
       "review": null,
       "attempts": 0,

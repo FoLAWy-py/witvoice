@@ -7,3 +7,5 @@
 - 根会话leader；6种子角色；最多4并发/2写入/1硬件测试；35固定任务。
 
 M0将实现细节写入带编号ADR；不能将尚未实施的决定记作测试结果。
+
+- [ADR 0002](../adr/0002-local-node-exit.md)：T006 补齐本地鉴权 ExitNode、输出失效与 Node-owned worker Job；不增加 LAN 退出权限。实现/独立审查待。

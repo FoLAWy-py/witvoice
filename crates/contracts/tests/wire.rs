@@ -177,6 +177,19 @@ fn local_and_peer_start_are_distinct() {
     assert_eq!(p.validate(), Err(ErrorCode::SessionMismatch));
 }
 #[test]
+fn node_exit_is_local_only_and_has_no_execution_arguments() {
+    let payload = br#"{"protocol_version":1,"request_id":"01234567-89ab-cdef-0123-456789abcdef","command":{"kind":"ExitNode"}}"#;
+    assert!(matches!(
+        decode_request(payload).unwrap().command,
+        Command::ExitNode
+    ));
+    assert!(serde_json::from_str::<PeerMessage>(r#"{"kind":"ExitNode"}"#).is_err());
+    assert!(
+        serde_json::from_str::<Command>(r#"{"kind":"ExitNode","args":{"shell":"cmd.exe"}}"#)
+            .is_err()
+    );
+}
+#[test]
 fn safe_state_guards_and_failure_effects() {
     assert!(transition(SessionState::Idle, Event::Start).is_err());
     assert!(transition(SessionState::FailedMuted, Event::Unmute).is_err());

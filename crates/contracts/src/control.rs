@@ -13,6 +13,9 @@ pub struct Request {
 #[derive(Debug, Clone, Serialize, Deserialize, JsonSchema)]
 #[serde(tag = "kind", content = "args", deny_unknown_fields)]
 pub enum Command {
+    /// Authenticated local exit; never available in the peer protocol.
+    /// The Node invalidates output and releases all owned resources before exit.
+    ExitNode,
     ListDevices,
     GetCapabilities,
     GetState,

@@ -1,0 +1,2 @@
+    Checking witvoice-contracts v0.1.0 (D:\Project\witvoice\crates\contracts)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.36s

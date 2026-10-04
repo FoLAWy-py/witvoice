@@ -28,18 +28,14 @@
     },
     {
       "task_id": "T006",
-      "agent_instance_id": "/root/backend",
+      "agent_instance_id": "/root",
       "allowed_paths": [
-        "apps/voice-node/src/",
-        "apps/voice-node/tests/",
-        "apps/voice-node/examples/",
-        "apps/voice-node/README.md",
-        "crates/session/src/",
-        "crates/session/tests/",
-        "crates/session/README.md",
-        "crates/platform/src/",
-        "crates/platform/tests/",
-        "crates/platform/README.md"
+        "crates/contracts/src/control.rs",
+        "crates/contracts/tests/wire.rs",
+        "crates/contracts/bindings/",
+        "docs/adr/0002-local-node-exit.md",
+        "docs/project/DECISIONS.md",
+        "docs/evidence/T006-20261005/"
       ],
       "resource_leases": [],
       "depends_on": [
@@ -53,7 +49,7 @@
       ],
       "contract": "docs/spec/01-architecture.md +04-lan-protocol.md +06-security-distribution.md",
       "reviewer": "/root/reviewer_t001",
-      "execution_note": "code frozen awaiting independent review; all writer/GPU/audio leases released"
+      "execution_note": "ExitNode契约12Rust+1Python/fmt/clippy/generator0；实际shutdown/jobs未实现；leader切片已冻结，backend仍T002只读中继"
     },
     {
       "task_id": "T007",

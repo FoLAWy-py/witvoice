@@ -33,3 +33,5 @@ T006实际/root/backend首切片完成并停止：11文件，普通用户受限n
 T007 independent首切片r1发现1S2（PCM24/32应使用完整WAVEFORMATEXTENSIBLE）；实际audio已修仅2files，新2描述符字段/往返测试。leader修复后全workspace34tests（15audio+11contracts+8Node）/fmt/clippy0，证据T007-20261005/final-*，source起点hash未采集明确NOT_CAPTURED。r2只签slice，整个T007stream/removal/hardware仍未完成。
 
 当前所有作者停止写入，GPU/audio/代码租约全部释放；原sessionIDs34002/27717/77859/20224/84074均已完成，不继续轮询。reviewer自身规则拒绝提权只读（不是auto-review拒绝），继续冻结全文中继；不冒称独立复跑。下一Task T002 r2，随后T006/T007剩余实际实现。会话中断不会保证后台继续。
+
+T006 leader 补齐现有需求中的本地 ExitNode 契约（ADR0002），PeerMessage不增加远端退出权限。Rust schema/TS重新生成；12契约+1Python黄金向量测试、fmt/clippy/generator全部exit0，证据T006-20261005/exit-contract。测试基线20442af，源码当时未提交已明确记录；仅契约，尚无实际退出资源清理实现/独立审查。初次patch后才登记租约，后续派发先登记再开工；当前leader停止此切片写入，租约释放，backend继续T002冻结只读中继。
