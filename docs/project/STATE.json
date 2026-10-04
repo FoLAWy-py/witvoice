@@ -35,7 +35,9 @@
         "crates/contracts/bindings/",
         "docs/adr/0002-local-node-exit.md",
         "docs/project/DECISIONS.md",
-        "docs/evidence/T006-20261005/"
+        "docs/evidence/T006-20261005/",
+        "crates/platform/Cargo.toml",
+        "docs/project/T006-supervision-assignment.md"
       ],
       "resource_leases": [],
       "depends_on": [
@@ -49,7 +51,7 @@
       ],
       "contract": "docs/spec/01-architecture.md +04-lan-protocol.md +06-security-distribution.md",
       "reviewer": "/root/reviewer_t001",
-      "execution_note": "ExitNode契约12Rust+1Python/fmt/clippy/generator0；实际shutdown/jobs未实现；leader切片已冻结，backend仍T002只读中继"
+      "execution_note": "ExitNode契约冻结43f0459；既有windows0.62.2 JobObjects feature check0；监督派发已准备，backend完成T002中继后启动"
     },
     {
       "task_id": "T007",
@@ -57,10 +59,11 @@
       "allowed_paths": [
         "crates/audio/src/",
         "crates/audio/tests/",
-        "crates/audio/examples/",
         "crates/audio/README.md"
       ],
-      "resource_leases": [],
+      "resource_leases": [
+        "code-writer:audio-notifications"
+      ],
       "depends_on": [
         "T003"
       ],
@@ -71,7 +74,7 @@
       ],
       "reviewer": "/root/reviewer_t001",
       "contract": "docs/spec/02-audio-engine.md + 07-tests-acceptance.md",
-      "execution_note": "code frozen awaiting independent review; all writer/GPU/audio leases released"
+      "execution_note": "actual audio_runtime T007 native notification切片；仅控制通知/纯单测，禁止Initialize/Start/record/play/GPU；leader统一manifest"
     }
   ],
   "milestones": {

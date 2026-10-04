@@ -89,3 +89,5 @@ offline-210.json. First checker attempt exit1 was a return-contract KeyError
 (status versus decode_status), fixed without changing decoder/results. Guards,
 raw experiments and real command exits remain distinct. GPU lease released;
 no microphone,playback,network media or Mac operation occurred.
+
+归档精度更正（c270原报告不改）：首次paced-210 FAILED的JSON实际省略output和guard_calls字段，并非包含null值。上文null仅意指没有报告输出对象；独立offline后验WAV检查另行记录产物，不能把原FAILED变为PASS。此更正不改变实验、阈值或原375steps。

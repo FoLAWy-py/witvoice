@@ -1,0 +1,9 @@
+{
+  "command": "cargo check --locked -p witvoice-platform -p witvoice-node",
+  "started_utc": "2026-10-04T18:30:58.2965173Z",
+  "ended_utc": "2026-10-04T18:31:06.8289536Z",
+  "exit_code": 0,
+  "purpose": "existing windows0.62.2 JobObjects feature compilation only",
+  "process_supervision": "NOT_IMPLEMENTED_AT_THIS_CHECK",
+  "hardware": "NOT_RUN"
+}
