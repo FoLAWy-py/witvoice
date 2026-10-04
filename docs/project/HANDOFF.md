@@ -52,3 +52,7 @@ T007 notification实际audio交5files并停止，21纯tests/fmt/clippy0，5000�
 T002-r2已归档并DONE/attempts2，B003仅实验范围RESOLVED，保留原FAIL/两兼容预算/许可B001/productiondeps缺项。M0-closure-audit待独立合计核对，不把单项批准扩为M0全批准。T007通知source2e9366a整合41tests/fmt/clippy全0，完整stdout/UTC在notifications/leader-*。当前backend T006代码lease已先登记后派发，audio作者已停；无GPU/audio硬件活动。
 
 当前补充整合：冻结4eff1ae后51workspace真实tests/fmt/featureClippy全部0；T021 final静态50色对/生成CSS/十状态0，账本自检0仅文档。完整stdout/UTC归档，T006/T021独立r1材料中继已派发；无运行测试/GPU/audio。T005增加实际子线程UUID元数据，不把历史7角色称同时存活。
+
+T007在新写入前登记leader仅notification_probe example白名单/代码lease；实际audio/backend各只读中继T006、frontend只读T021，reviewer独立审查。探针只注册/关闭metadata通知，硬件运行另登记，尚未运行。
+
+T007下一操作为leader notification_probe，既有私有metadata派生明确capture/render UID（不换default、不采集/播放）；源编译/clippy0，initial private native导入compile101已修public re-export，独占metadata hardware lease先登记。仅注册/初次重查/注销，无事件递送/拔出证明。

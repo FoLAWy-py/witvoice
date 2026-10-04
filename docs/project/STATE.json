@@ -42,7 +42,9 @@
         "crates/audio/tests/",
         "crates/audio/README.md"
       ],
-      "resource_leases": [],
+      "resource_leases": [
+        "audio-hardware:leader-metadata-registration"
+      ],
       "depends_on": [
         "T003"
       ],
@@ -53,7 +55,11 @@
       ],
       "reviewer": "/root/reviewer_t001",
       "contract": "docs/spec/02-audio-engine.md + 07-tests-acceptance.md",
-      "execution_note": "正式slice r2批准，21audio/41workspace0；整个T007保留stream/removal/hardware与注销失败引用保留限制"
+      "execution_note": "leader probe compiled/check/clippy0，source即冻结；明确现有私有metadata两个UID，只实际Register/Revalidate/Unregister，不Initialize/Start/采集/播放；hardware lease独占",
+      "integration_author": "/root",
+      "integration_allowed_paths": [
+        "crates/audio/examples/notification_probe.rs"
+      ]
     },
     {
       "task_id": "T021",
