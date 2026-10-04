@@ -127,7 +127,10 @@
       "result": "FAILED_BEFORE_DISPATCH",
       "error": "agent thread limit reached",
       "new_execution": false
-    }
+    },
+    "executor_session_cli_version": "0.160.0",
+    "root_thread_id": "01a10764-d851-7d02-ac79-365d2576a226",
+    "spawn_provenance": "docs/project/T005-spawn-provenance.json"
   },
   "completion_claim_allowed": false
 }

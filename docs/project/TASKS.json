@@ -158,7 +158,8 @@
       "resource_leases": [],
       "evidence": [
         "docs/project/T005-agent-runtime.md",
-        "docs/project/T005-runtime-check.json"
+        "docs/project/T005-runtime-check.json",
+        "docs/project/T005-spawn-provenance.json"
       ],
       "review": null,
       "attempts": 1,

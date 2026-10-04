@@ -1,0 +1,125 @@
+{
+  "task_id": "T005",
+  "kind": "EXTRACTED_ACTUAL_SPAWN_CALLS",
+  "archived_at": "2026-10-04T16:40:27.924008+00:00",
+  "source": "own root session log; no other session read",
+  "session_metadata": {
+    "id": "01a10764-d851-7d02-ac79-365d2576a226",
+    "cwd": "D:\\Project\\witvoice",
+    "source": "vscode",
+    "cli_version": "0.160.0"
+  },
+  "spawn_calls": [
+    {
+      "call_id": "call_OlG0WT6qz5to1ClamNDVdy40",
+      "called_at": "2026-10-04T14:52:41.281Z",
+      "call_log_line": 71,
+      "name": "spawn_agent",
+      "arguments": {
+        "task_name": "reviewer",
+        "agent_type": "reviewer"
+      },
+      "message_sha256": "691d32dff5be32cd0b3d2882a1478a45589299e9aa2d379b24220a5b4662c910",
+      "message_omitted": "privacy and scope; only type/name needed for dispatch provenance",
+      "returned_at": "2026-10-04T14:52:41.824Z",
+      "output_log_line": 74,
+      "raw_tool_output": "{\"task_name\":\"/root/reviewer\"}"
+    },
+    {
+      "call_id": "call_DbfWGDmyNvhfnu2JlqjyhnSq",
+      "called_at": "2026-10-04T14:52:53.579Z",
+      "call_log_line": 77,
+      "name": "spawn_agent",
+      "arguments": {
+        "task_name": "backend",
+        "agent_type": "backend"
+      },
+      "message_sha256": "4733b7748d4de006debf1da0b2a6f19d770acc18aa897a3feea9bebbe5f2ac3d",
+      "message_omitted": "privacy and scope; only type/name needed for dispatch provenance",
+      "returned_at": "2026-10-04T14:52:53.769Z",
+      "output_log_line": 80,
+      "raw_tool_output": "{\"task_name\":\"/root/backend\"}"
+    },
+    {
+      "call_id": "call_otvqbuwy3IRi7ytiJZYlK1NC",
+      "called_at": "2026-10-04T14:53:06.099Z",
+      "call_log_line": 83,
+      "name": "spawn_agent",
+      "arguments": {
+        "task_name": "audio_runtime",
+        "agent_type": "audio_runtime"
+      },
+      "message_sha256": "f3194660baefde3339a2253acdb9bf51d78c737ce90f46f7c5ce8bdc10c06890",
+      "message_omitted": "privacy and scope; only type/name needed for dispatch provenance",
+      "returned_at": "2026-10-04T14:53:06.626Z",
+      "output_log_line": 86,
+      "raw_tool_output": "{\"task_name\":\"/root/audio_runtime\"}"
+    },
+    {
+      "call_id": "call_cawyOeLULIUf8RWWMXCD9TA3",
+      "called_at": "2026-10-04T14:53:19.058Z",
+      "call_log_line": 89,
+      "name": "spawn_agent",
+      "arguments": {
+        "task_name": "ml_engine",
+        "agent_type": "ml_engine"
+      },
+      "message_sha256": "35b3431ef96cebfabe7d238a3b32f830d823ccee2f7a33209cba0dff9df2e4e0",
+      "message_omitted": "privacy and scope; only type/name needed for dispatch provenance",
+      "returned_at": "2026-10-04T14:53:19.257Z",
+      "output_log_line": 92,
+      "raw_tool_output": "{\"task_name\":\"/root/ml_engine\"}"
+    },
+    {
+      "call_id": "call_Qio7ASBt5LbwZlQequ2j8UM7",
+      "called_at": "2026-10-04T14:54:36.672Z",
+      "call_log_line": 126,
+      "name": "spawn_agent",
+      "arguments": {
+        "task_name": "frontend",
+        "agent_type": "frontend"
+      },
+      "message_sha256": "c099e4d2e8173c06b3a07f66ce541e7fecde48b64ea1208f9eda385012de2e99",
+      "message_omitted": "privacy and scope; only type/name needed for dispatch provenance",
+      "returned_at": "2026-10-04T14:54:36.921Z",
+      "output_log_line": 129,
+      "raw_tool_output": "{\"task_name\":\"/root/frontend\"}"
+    },
+    {
+      "call_id": "call_BkqNIBCYqpaHOg4Rd4G6Q5xn",
+      "called_at": "2026-10-04T14:54:46.632Z",
+      "call_log_line": 134,
+      "name": "spawn_agent",
+      "arguments": {
+        "task_name": "hci",
+        "agent_type": "hci"
+      },
+      "message_sha256": "66bd3b58670ee5c7161181a1a08312610e93b3f191a38b13a7ae38882e837949",
+      "message_omitted": "privacy and scope; only type/name needed for dispatch provenance",
+      "returned_at": "2026-10-04T14:54:47.250Z",
+      "output_log_line": 137,
+      "raw_tool_output": "{\"task_name\":\"/root/hci\"}"
+    },
+    {
+      "call_id": "call_Bj7EwnVRvrGI3fsLvzIMj9Ix",
+      "called_at": "2026-10-04T15:15:51.204Z",
+      "call_log_line": 410,
+      "name": "spawn_agent",
+      "arguments": {
+        "task_name": "reviewer_t001",
+        "agent_type": "reviewer"
+      },
+      "message_sha256": "23a43b4a2c117bec96aadd70b0b5375e2a1e95bb42d0fb21b21dd2a982fd29ac",
+      "message_omitted": "privacy and scope; only type/name needed for dispatch provenance",
+      "returned_at": "2026-10-04T15:15:51.883Z",
+      "output_log_line": 413,
+      "raw_tool_output": "{\"task_name\":\"/root/reviewer_t001\"}"
+    }
+  ],
+  "disk_config_full_schema_loading": "UNVERIFIED",
+  "sandbox_enforcement": "UNVERIFIED",
+  "installed_external_cli_version": "0.153.4; separate T001 probe",
+  "executor_session_cli_version": "0.160.0",
+  "desktop_app_build_version": "UNKNOWN",
+  "extractor_prior_failure": "exit1 asserted agent_name; actual tool field task_name inspected and preserved without rewriting"
+}

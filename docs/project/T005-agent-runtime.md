@@ -1,6 +1,6 @@
 # T005 · 实际多角色与兼容执行记录
 
-主会话实际ID /root，直接负责leader。实际CLI codex-cli 0.153.4，来源T001 doctor版本探测；desktop客户端构建版本UNKNOWN，不把CLI版本当desktop版本。六种角色曾由真实collaboration工具派发，未另建leader、未递归spawn。canonical ID由工具返回，UUID未暴露。
+主会话实际ID /root，直接负责leader。外部安装CLI codex-cli 0.153.4，来源T001 doctor探测；当前会话执行器session_meta.cli_version实际0.160.0，root thread ID为01a10764-d851-7d02-ac79-365d2576a226；desktop客户端构建版本UNKNOWN。版本不能相互替代。六种角色曾由真实collaboration工具派发，未另建leader、未递归spawn。子agent canonical ID由工具返回，子thread UUID未暴露。
 
 | 角色 | 实际ID | 本轮实际工作 | 尚未证明 |
 |---|---|---|---|
@@ -13,6 +13,8 @@
 | reviewer（后续实际审查） | /root/reviewer_t001 | T001两轮、T003/T004审查；与实现者不同ID | 直接读磁盘与独立复跑 |
 
 已证实：可派发自定义agent_type、获得真实子agent、角色职责进入上下文。`.codex/agents/*.toml`字段原文与注入职责吻合；这不证明当前客户端从这些磁盘文件读取了完整schema。保留custom_roles_verified=false、project_file_schema_verified=false。采用native_custom_role_dispatch_disk_schema_unverified兼容方式，任务消息显式给规则、白名单、依赖、契约、命令和资源锁；不写成builtin或串行模拟。
+
+原始派发追溯：T005-spawn-provenance.json从本root会话日志抽取七次spawn调用的task_name/agent_type、时间、行号、call_id及原样工具返回（含最初六角色和后续reviewer_t001）。核对session id与cwd后仅读本会话；消息正文以SHA记录、不提交正文或其他会话。先前抽取脚本猜agent_name字段exit1，检查实际工具字段task_name后修正，原始返回不改写。canonical ID归档由此有独立可追溯来源，不靠事后自述。
 
 默认shell/node在进程创建前因apply deny-read ACLs失败，无进程退出码。leader的限定命令经auto-review require_escalated可执行；leader又逐项授权backend/audio进行固定路径的只读文本中继，以及audio在独立tests/fixtures和tests/hardware白名单写T004。没有更改ACL、全局Codex配置或绕开系统安全。reviewer不自行提权、不写被审源码；审查基于其他agent/leader转交的冻结源码与完整结果，报告明确非独立复跑。跨agent functions.store不共享，读取返回STORE_UNAVAILABLE，后改文本中继。
 
