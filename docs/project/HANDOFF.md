@@ -21,6 +21,8 @@ T007 watched增补10文件交付并停止，33纯tests/fmt/clippy/examples编译
 
 T007第三/最后正式review已登记attempts3 IN_PROGRESS，实际reviewer_t001，source3af/evidence56f fulltext兼容中继，不独立复跑、不提前DONE；review r3结果待。
 
+T007 r3补证126ac24普通用户实际Win11环境+20日志byteproof，冻结源码不变。T016 root登记nativeDNS依赖lease，backend已停，准备ADR0003标准WindowsDNS-SD替代未提供cache上限的mdnsdaemon；不减mDNS需求/无新模型、服务或驱动，无网络调用。
+
 以下保留历史过程；当前状态以本段、STATE/TASKS及最新正式review为准。
 T001已DONE：源码0f283ffe460be3382aae89f481be62a73ab4d60f，13负向测试、C/Rust原生编译运行通过，独立/root/reviewer_t001第2轮批准。目录初始无Git，安全建立本地历史，无push/reset/clean，保留原有文件。
 

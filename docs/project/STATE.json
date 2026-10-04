@@ -22,6 +22,30 @@
       ],
       "reviewer": "/root/reviewer_t001",
       "execution_note": "last formal r3, actual native review role readonly+no escalation; frontend/audio authorized fixed fulltext relay"
+    },
+    {
+      "task_id": "T016",
+      "agent_instance_id": "/root",
+      "allowed_paths": [
+        "Cargo.toml",
+        "Cargo.lock",
+        "crates/transport/Cargo.toml",
+        "crates/platform/Cargo.toml"
+      ],
+      "resource_leases": [
+        "code-writer:leader-native-dns-setup"
+      ],
+      "depends_on": [
+        "T003",
+        "T006"
+      ],
+      "contract": "SPEC04/06 + ADR0003nativeDNS",
+      "acceptance_commands": [
+        "cargo generate-lockfile --offline preserving retained versions/checksums",
+        "cargo check --locked -p witvoice-platform -p witvoice-transport"
+      ],
+      "reviewer": "/root/reviewer_t001",
+      "execution_note": "backend author stopped; root one codewriter removesunused mdns dependency and enables existing windows nativeDNS only, no listener/service calls"
     }
   ],
   "milestones": {
