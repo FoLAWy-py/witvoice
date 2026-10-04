@@ -5,7 +5,25 @@
   "project_status": "IN_PROGRESS",
   "authorized_target": "WINDOWS_DELIVERED",
   "active_milestone": "M1",
-  "active_tasks": [],
+  "active_tasks": [
+    {
+      "task_id": "T007",
+      "agent_instance_id": "/root/reviewer_t001",
+      "allowed_paths": [],
+      "resource_leases": [
+        "review-readonly:T007-r3"
+      ],
+      "depends_on": [
+        "T003"
+      ],
+      "contract": "fixed T007 acceptance + SPEC02/07, source3af/evidence56f; no T008 inverted deps",
+      "acceptance_commands": [
+        "readonly full frozen source/evidence relay; no independent test rerun"
+      ],
+      "reviewer": "/root/reviewer_t001",
+      "execution_note": "last formal r3, actual native review role readonly+no escalation; frontend/audio authorized fixed fulltext relay"
+    }
+  ],
   "milestones": {
     "M0": {
       "status": "DONE",

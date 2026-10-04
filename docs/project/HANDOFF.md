@@ -19,6 +19,8 @@ T007 watched增补10文件交付并停止，33纯tests/fmt/clippy/examples编译
 
 冻结ab89088整合78有意义workspace tests/fmt/clippy0（33audio+12contracts+8session+10IPC监督+15身份保护），不计空harness。两作者原始CommandExecution全部归档（audio9个0；backend11个含两101失败），不是复跑。T007最后正式r3准备，身份只是T016 partial，不关闭T016/M1/M3/REQ全产品。
 
+T007第三/最后正式review已登记attempts3 IN_PROGRESS，实际reviewer_t001，source3af/evidence56f fulltext兼容中继，不独立复跑、不提前DONE；review r3结果待。
+
 以下保留历史过程；当前状态以本段、STATE/TASKS及最新正式review为准。
 T001已DONE：源码0f283ffe460be3382aae89f481be62a73ab4d60f，13负向测试、C/Rust原生编译运行通过，独立/root/reviewer_t001第2轮批准。目录初始无Git，安全建立本地历史，无push/reset/clean，保留原有文件。
 

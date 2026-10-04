@@ -256,9 +256,10 @@
         "docs/evidence/T016-20261005/identity/leader-checks.json",
         "docs/evidence/T016-20261005/identity/workspace-count.json"
       ],
-      "review": "docs/project/reviews/T007-slice-r2.md",
-      "attempts": 2,
-      "blocked_reason": null
+      "review": "docs/project/reviews/T007-r3.md",
+      "attempts": 3,
+      "blocked_reason": null,
+      "execution_note": "Third and last formal review IN_PROGRESS; do not mark DONE before independent result, source3af/evidence56f; last r1/r2 preserved"
     },
     {
       "id": "T008",
