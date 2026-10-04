@@ -503,7 +503,7 @@
       "acceptance": "默认监听关闭；mDNS不建立信任；双端身份字符串导入、pin验证与撤销；陌生端无音频权限。",
       "agent_instance_id": "/root/backend",
       "resource_leases": [
-        "code-writer:leader-native-dns-setup"
+        "code-writer:backend-native-dns"
       ],
       "evidence": [
         "docs/evidence/T016-20261005/dependency-metadata.json",
@@ -516,12 +516,15 @@
         "docs/evidence/T016-20261005/identity/source-sha256.json",
         "docs/evidence/T016-20261005/identity/author-event-index.json",
         "docs/evidence/T016-20261005/identity/leader-checks.json",
-        "docs/evidence/T016-20261005/identity/workspace-count.json"
+        "docs/evidence/T016-20261005/identity/workspace-count.json",
+        "docs/adr/0003-native-dns-sd.md",
+        "docs/evidence/T016-20261005/native-dns-lock-audit.json",
+        "docs/evidence/T016-20261005/native-dns-feature-command.json"
       ],
       "review": null,
       "attempts": 0,
       "blocked_reason": null,
-      "execution_note": "Identity slice frozenab/evidence56f; root nativeDNS deps setup before backend next narrow slice"
+      "execution_note": "native WindowsDNS-SD standard adapter assigned; root pruned12unusedpackages 94->82, retainedchecksum/versions nochange; featurecheck0 only; actualDNSnoexecution"
     },
     {
       "id": "T017",

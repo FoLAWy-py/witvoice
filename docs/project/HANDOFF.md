@@ -23,6 +23,8 @@ T007第三/最后正式review已登记attempts3 IN_PROGRESS，实际reviewer_t00
 
 T007 r3补证126ac24普通用户实际Win11环境+20日志byteproof，冻结源码不变。T016 root登记nativeDNS依赖lease，backend已停，准备ADR0003标准WindowsDNS-SD替代未提供cache上限的mdnsdaemon；不减mDNS需求/无新模型、服务或驱动，无网络调用。
 
+T016 ADR0003root标准nativeDNS准备已完成：离线94→82packages仅移除12未用依赖、retained版本/源/checksum不变，existingWindows0.62.2Dns featurecheck0只编译。rootcodelease已release，backend新窄平台/transport nativeDNS白名单lease登记，纯注入测试/有限probe创建，禁止实际network calls/firewall；T007r3只读中继仍进行。
+
 以下保留历史过程；当前状态以本段、STATE/TASKS及最新正式review为准。
 T001已DONE：源码0f283ffe460be3382aae89f481be62a73ab4d60f，13负向测试、C/Rust原生编译运行通过，独立/root/reviewer_t001第2轮批准。目录初始无Git，安全建立本地历史，无push/reset/clean，保留原有文件。
 

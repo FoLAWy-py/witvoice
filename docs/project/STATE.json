@@ -25,27 +25,33 @@
     },
     {
       "task_id": "T016",
-      "agent_instance_id": "/root",
+      "agent_instance_id": "/root/backend",
       "allowed_paths": [
-        "Cargo.toml",
-        "Cargo.lock",
-        "crates/transport/Cargo.toml",
-        "crates/platform/Cargo.toml"
+        "crates/platform/src/discovery.rs",
+        "crates/platform/src/discovery/",
+        "crates/platform/src/lib.rs",
+        "crates/platform/tests/discovery.rs",
+        "crates/platform/README.md",
+        "crates/transport/src/discovery.rs",
+        "crates/transport/src/discovery/",
+        "crates/transport/tests/discovery.rs",
+        "crates/transport/examples/native_discovery_probe.rs",
+        "crates/transport/README.md"
       ],
       "resource_leases": [
-        "code-writer:leader-native-dns-setup"
+        "code-writer:backend-native-dns"
       ],
       "depends_on": [
         "T003",
         "T006"
       ],
-      "contract": "SPEC04/06 + ADR0003nativeDNS",
+      "contract": "ADR0003 + T016-assignment native addendum + SPEC04/06",
       "acceptance_commands": [
-        "cargo generate-lockfile --offline preserving retained versions/checksums",
-        "cargo check --locked -p witvoice-platform -p witvoice-transport"
+        "cargo test/fmt/clippy platform+transport locked",
+        "cargo build -p witvoice-transport --locked --examples; no native network probe run"
       ],
       "reviewer": "/root/reviewer_t001",
-      "execution_note": "backend author stopped; root one codewriter removesunused mdns dependency and enables existing windows nativeDNS only, no listener/service calls"
+      "execution_note": "root dependency setup finished/released; defaultnoAPI, no actualDNS/LAN/firewall/GPU/audio; identity slice protected unchanged exceptnecessary APIintegration"
     }
   ],
   "milestones": {

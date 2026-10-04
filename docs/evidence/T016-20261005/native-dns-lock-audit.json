@@ -1,0 +1,121 @@
+{
+  "old_count": 94,
+  "new_count": 82,
+  "added": [],
+  "removed": [
+    {
+      "name": "fastrand",
+      "version": "2.5.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "checksum": "da7c62ceae207dd37ea5b845da6a0696c799f85e97da1ab5b7910be3c1c80223"
+    },
+    {
+      "name": "flume",
+      "version": "0.12.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "checksum": "5e139bc46ca777eb5efaf62df0ab8cc5fd400866427e56c68b22e414e53bd3be",
+      "dependencies": [
+        "spin"
+      ]
+    },
+    {
+      "name": "if-addrs",
+      "version": "0.15.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "checksum": "c0a05c691e1fae256cf7013d99dad472dc52d5543322761f83ec8d47eab40d2b",
+      "dependencies": [
+        "libc",
+        "windows-sys 0.61.2"
+      ]
+    },
+    {
+      "name": "lock_api",
+      "version": "0.4.14",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "checksum": "224399e74b87b5f3557511d98dff8b14089b3dadafcab6bb93eab67d3aace965",
+      "dependencies": [
+        "scopeguard"
+      ]
+    },
+    {
+      "name": "log",
+      "version": "0.4.34",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "checksum": "f9f8bd3e56ce4dfc153cf470fffbfa98c7620958b312ca5c3a4b8d5181fd13c6"
+    },
+    {
+      "name": "mdns-sd",
+      "version": "0.21.4",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "checksum": "1067efe2aadc6967f84c95977dca910e98f3edfd6403efc8fa8508d289ce012d",
+      "dependencies": [
+        "fastrand",
+        "flume",
+        "if-addrs",
+        "mio",
+        "socket-pktinfo",
+        "socket2"
+      ]
+    },
+    {
+      "name": "mio",
+      "version": "1.2.4",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "checksum": "1788edb87fdc09c7e26304471e2f5be8cdefb1b6930d6e3985fc02ff53bf86ee",
+      "dependencies": [
+        "libc",
+        "log",
+        "wasi",
+        "windows-sys 0.61.2"
+      ]
+    },
+    {
+      "name": "scopeguard",
+      "version": "1.2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "checksum": "94143f37725109f92c262ed2cf5e59bce7498c01bcc1502d7b9afe439a4e9f49"
+    },
+    {
+      "name": "socket-pktinfo",
+      "version": "0.4.1",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "checksum": "612942246d0cc239cfd83af1dfd39be47f649208a3524e5e9da651910128e0ac",
+      "dependencies": [
+        "libc",
+        "socket2",
+        "windows-sys 0.61.2"
+      ]
+    },
+    {
+      "name": "socket2",
+      "version": "0.6.5",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "checksum": "c3d1e2c7f27f8d4cb10542a02c49005dbd6e93095799d6f3be745fae9f8fedd4",
+      "dependencies": [
+        "libc",
+        "windows-sys 0.61.2"
+      ]
+    },
+    {
+      "name": "spin",
+      "version": "0.9.9",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "checksum": "3763264f6b73151db08c50ff20d7d8a0b8796e021cdea7ceedad07b80155fa0e",
+      "dependencies": [
+        "lock_api"
+      ]
+    },
+    {
+      "name": "windows-sys",
+      "version": "0.61.2",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "checksum": "ae137229bcbd6cdf0f7b80a31df61766145077ddf49416a728b02cb3921ff3fc",
+      "dependencies": [
+        "windows-link"
+      ]
+    }
+  ],
+  "all_retained_version_source_checksum_unchanged": true,
+  "lock_sha256": "f199d7be816b5185bedd17598d6c387a43707e7168235e5ad18129aa569d8e92",
+  "scripts_or_network_service_executed": false
+}

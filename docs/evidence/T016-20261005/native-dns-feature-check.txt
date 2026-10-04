@@ -1,0 +1,5 @@
+    Checking windows v0.62.2
+    Checking witvoice-contracts v0.1.0 (D:\Project\witvoice\crates\contracts)
+    Checking witvoice-platform v0.1.0 (D:\Project\witvoice\crates\platform)
+    Checking witvoice-transport v0.1.0 (D:\Project\witvoice\crates\transport)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 3.96s

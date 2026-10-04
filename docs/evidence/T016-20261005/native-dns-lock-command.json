@@ -1,0 +1,12 @@
+{
+  "new_package_downloads": false,
+  "start": "2026-10-04T20:51:15.9082959Z",
+  "exit": 0,
+  "argv": [
+    "cargo",
+    "generate-lockfile",
+    "--offline"
+  ],
+  "end": "2026-10-04T20:51:16.2761049Z",
+  "network_service_calls": false
+}

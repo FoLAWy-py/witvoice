@@ -1,0 +1,16 @@
+{
+  "start": "2026-10-04T20:51:16.3496389Z",
+  "exit": 0,
+  "argv": [
+    "cargo",
+    "check",
+    "--locked",
+    "-p",
+    "witvoice-platform",
+    "-p",
+    "witvoice-transport"
+  ],
+  "end": "2026-10-04T20:51:20.3656124Z",
+  "native_discovery_implemented": false,
+  "network_service_calls": false
+}

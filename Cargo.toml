@@ -16,4 +16,3 @@ windows-core = "=0.62.2"
 rcgen = { version = "=0.14.10", default-features = false, features = ["ring"] }
 ring = { version = "=0.17.14", default-features = false, features = ["std"] }
 x509-parser = { version = "=0.18.1", default-features = false, features = ["verify"] }
-mdns-sd = { version = "=0.21.4", default-features = false }
