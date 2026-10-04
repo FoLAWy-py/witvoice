@@ -9,6 +9,8 @@ T007 native 8文件作者已停止，26纯tests/fmt/clippy0；用户明确批准
 T021正式r1独立批准DONE/attempts1：五页/十状态/键盘缩放规则和深浅tokens、50静态色对/CSS/schema覆盖0。source4eff、final evidence6e9e，review T021-r1.md。实际leader作者、frontend建议/只读中继，没有新hci派发或实际UI/HCI签收；T022/T025/T029仍须真实验证。
 
 实际线程UUID新证据T005-thread-id-provenance.json；历史七角色不等于当前同时保留，当前4子agent以内，作者最多2、硬件最多1。共享契约/manifest/lock/账本仍leader统一。不运行真实麦克风/输出/装驱动/开防火墙/外传。会话中断前停止作者并保存next_task，不承诺后台继续。
+T016依赖/manifest/lock统一leader完成，62新增registry归档与2942源码文件逐字节核对；4新Windows构建脚本全文实际frontend只读审计，未运行构建。root代码lease释放，T016-assignment已登记backend独立路径代码lease，源码功能尚未实现/不标PASS。mDNS内部cache无已证明容量，是需明确处理的事实。
+
 以下保留历史过程；当前状态以本段、STATE/TASKS及最新正式review为准。
 T001已DONE：源码0f283ffe460be3382aae89f481be62a73ab4d60f，13负向测试、C/Rust原生编译运行通过，独立/root/reviewer_t001第2轮批准。目录初始无Git，安全建立本地历史，无push/reset/clean，保留原有文件。
 

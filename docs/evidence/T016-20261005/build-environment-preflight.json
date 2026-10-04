@@ -1,0 +1,20 @@
+{
+  "utc": "2026-10-04T20:13:41.856466+00:00",
+  "checked_environment_set": {
+    "RING_PREGENERATE_ASM": false,
+    "PERL_EXECUTABLE": false,
+    "RUSTC_WRAPPER": false,
+    "RUSTC_WORKSPACE_WRAPPER": false,
+    "RUSTC_BOOTSTRAP": false,
+    "CC": false,
+    "CXX": false,
+    "AR": false,
+    "CFLAGS": false,
+    "CXXFLAGS": false,
+    "RUSTFLAGS": false,
+    "CARGO_ENCODED_RUSTFLAGS": false
+  },
+  "current_target": "x86_64-pc-windows-msvc",
+  "scripts_executed": false,
+  "note": "current process only; each later cargo build must recheck, toolchain-env sets process tool paths"
+}

@@ -1,0 +1,10 @@
+{
+  "owner": "/root",
+  "source_base": "5f82cf1bd1ecdde99d68cc98448f37a57a9e3920",
+  "input_state": "root new pinned manifests, not yet committed; no placeholder source created",
+  "command": "cargo fetch",
+  "started_at": "2026-10-04T19:59:13.2581371Z",
+  "finished_at": "2026-10-04T19:59:19.1805945Z",
+  "exit_code": 0,
+  "scope": "dependency download only; no build scripts or app/hardware execution"
+}

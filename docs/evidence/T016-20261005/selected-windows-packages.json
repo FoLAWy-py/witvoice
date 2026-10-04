@@ -1,0 +1,402 @@
+{
+  "kind": "FILTERED_GRAPH_TRANSPORT_REACHABILITY_NOT_BUILD",
+  "target": "x86_64-pc-windows-msvc",
+  "packages": [
+    {
+      "name": "witvoice-contracts",
+      "version": "0.1.0",
+      "build_script": false
+    },
+    {
+      "name": "witvoice-platform",
+      "version": "0.1.0",
+      "build_script": false
+    },
+    {
+      "name": "witvoice-transport",
+      "version": "0.1.0",
+      "build_script": false
+    },
+    {
+      "name": "asn1-rs-derive",
+      "version": "0.6.0",
+      "build_script": false
+    },
+    {
+      "name": "asn1-rs-impl",
+      "version": "0.2.0",
+      "build_script": false
+    },
+    {
+      "name": "asn1-rs",
+      "version": "0.7.2",
+      "build_script": false
+    },
+    {
+      "name": "autocfg",
+      "version": "1.5.1",
+      "build_script": false
+    },
+    {
+      "name": "bit-vec",
+      "version": "0.9.1",
+      "build_script": false
+    },
+    {
+      "name": "cc",
+      "version": "1.6.0",
+      "build_script": false
+    },
+    {
+      "name": "cfg-if",
+      "version": "1.0.5",
+      "build_script": false
+    },
+    {
+      "name": "data-encoding",
+      "version": "2.11.1",
+      "build_script": false
+    },
+    {
+      "name": "der-parser",
+      "version": "10.0.0",
+      "build_script": false
+    },
+    {
+      "name": "deranged",
+      "version": "0.5.8",
+      "build_script": false
+    },
+    {
+      "name": "displaydoc",
+      "version": "0.2.7",
+      "build_script": false
+    },
+    {
+      "name": "dyn-clone",
+      "version": "1.0.20",
+      "build_script": false
+    },
+    {
+      "name": "fastrand",
+      "version": "2.5.0",
+      "build_script": false
+    },
+    {
+      "name": "find-msvc-tools",
+      "version": "0.1.14",
+      "build_script": false
+    },
+    {
+      "name": "flume",
+      "version": "0.12.0",
+      "build_script": false
+    },
+    {
+      "name": "getrandom",
+      "version": "0.2.17",
+      "build_script": false
+    },
+    {
+      "name": "if-addrs",
+      "version": "0.15.0",
+      "build_script": false
+    },
+    {
+      "name": "itoa",
+      "version": "1.0.18",
+      "build_script": false
+    },
+    {
+      "name": "lazy_static",
+      "version": "1.5.1",
+      "build_script": false
+    },
+    {
+      "name": "lock_api",
+      "version": "0.4.14",
+      "build_script": false
+    },
+    {
+      "name": "log",
+      "version": "0.4.34",
+      "build_script": false
+    },
+    {
+      "name": "mdns-sd",
+      "version": "0.21.4",
+      "build_script": false
+    },
+    {
+      "name": "memchr",
+      "version": "2.8.3",
+      "build_script": false
+    },
+    {
+      "name": "minimal-lexical",
+      "version": "0.2.1",
+      "build_script": false
+    },
+    {
+      "name": "mio",
+      "version": "1.2.4",
+      "build_script": false
+    },
+    {
+      "name": "nom",
+      "version": "7.1.3",
+      "build_script": false
+    },
+    {
+      "name": "num-bigint",
+      "version": "0.4.8",
+      "build_script": false
+    },
+    {
+      "name": "num-conv",
+      "version": "0.2.2",
+      "build_script": false
+    },
+    {
+      "name": "num-integer",
+      "version": "0.1.47",
+      "build_script": false
+    },
+    {
+      "name": "num-traits",
+      "version": "0.2.19",
+      "build_script": true
+    },
+    {
+      "name": "oid-registry",
+      "version": "0.8.1",
+      "build_script": true
+    },
+    {
+      "name": "powerfmt",
+      "version": "0.2.0",
+      "build_script": false
+    },
+    {
+      "name": "proc-macro2",
+      "version": "1.0.107",
+      "build_script": true
+    },
+    {
+      "name": "quote",
+      "version": "1.0.47",
+      "build_script": true
+    },
+    {
+      "name": "rcgen",
+      "version": "0.14.10",
+      "build_script": false
+    },
+    {
+      "name": "ring",
+      "version": "0.17.14",
+      "build_script": true
+    },
+    {
+      "name": "rusticata-macros",
+      "version": "4.1.0",
+      "build_script": false
+    },
+    {
+      "name": "rustls-pki-types",
+      "version": "1.15.1",
+      "build_script": false
+    },
+    {
+      "name": "ryu",
+      "version": "1.0.23",
+      "build_script": false
+    },
+    {
+      "name": "schemars",
+      "version": "0.8.22",
+      "build_script": true
+    },
+    {
+      "name": "schemars_derive",
+      "version": "0.8.22",
+      "build_script": false
+    },
+    {
+      "name": "scopeguard",
+      "version": "1.2.0",
+      "build_script": false
+    },
+    {
+      "name": "serde",
+      "version": "1.0.228",
+      "build_script": true
+    },
+    {
+      "name": "serde_core",
+      "version": "1.0.228",
+      "build_script": true
+    },
+    {
+      "name": "serde_derive",
+      "version": "1.0.228",
+      "build_script": false
+    },
+    {
+      "name": "serde_derive_internals",
+      "version": "0.29.1",
+      "build_script": false
+    },
+    {
+      "name": "serde_json",
+      "version": "1.0.145",
+      "build_script": true
+    },
+    {
+      "name": "shlex",
+      "version": "2.0.1",
+      "build_script": false
+    },
+    {
+      "name": "socket-pktinfo",
+      "version": "0.4.1",
+      "build_script": false
+    },
+    {
+      "name": "socket2",
+      "version": "0.6.5",
+      "build_script": false
+    },
+    {
+      "name": "spin",
+      "version": "0.9.9",
+      "build_script": false
+    },
+    {
+      "name": "syn",
+      "version": "2.0.119",
+      "build_script": false
+    },
+    {
+      "name": "syn",
+      "version": "3.0.6",
+      "build_script": false
+    },
+    {
+      "name": "synstructure",
+      "version": "0.13.2",
+      "build_script": false
+    },
+    {
+      "name": "thiserror-impl",
+      "version": "2.0.21",
+      "build_script": false
+    },
+    {
+      "name": "thiserror",
+      "version": "2.0.21",
+      "build_script": true
+    },
+    {
+      "name": "time-core",
+      "version": "0.1.9",
+      "build_script": false
+    },
+    {
+      "name": "time-macros",
+      "version": "0.2.32",
+      "build_script": false
+    },
+    {
+      "name": "time",
+      "version": "0.3.55",
+      "build_script": false
+    },
+    {
+      "name": "unicode-ident",
+      "version": "1.0.26",
+      "build_script": false
+    },
+    {
+      "name": "untrusted",
+      "version": "0.9.0",
+      "build_script": false
+    },
+    {
+      "name": "windows-collections",
+      "version": "0.3.2",
+      "build_script": false
+    },
+    {
+      "name": "windows-core",
+      "version": "0.62.2",
+      "build_script": false
+    },
+    {
+      "name": "windows-future",
+      "version": "0.3.2",
+      "build_script": false
+    },
+    {
+      "name": "windows-implement",
+      "version": "0.60.2",
+      "build_script": false
+    },
+    {
+      "name": "windows-interface",
+      "version": "0.59.3",
+      "build_script": false
+    },
+    {
+      "name": "windows-link",
+      "version": "0.2.1",
+      "build_script": false
+    },
+    {
+      "name": "windows-numerics",
+      "version": "0.3.1",
+      "build_script": false
+    },
+    {
+      "name": "windows-result",
+      "version": "0.4.1",
+      "build_script": false
+    },
+    {
+      "name": "windows-strings",
+      "version": "0.5.1",
+      "build_script": false
+    },
+    {
+      "name": "windows-sys",
+      "version": "0.61.2",
+      "build_script": false
+    },
+    {
+      "name": "windows-threading",
+      "version": "0.2.1",
+      "build_script": false
+    },
+    {
+      "name": "windows",
+      "version": "0.62.2",
+      "build_script": false
+    },
+    {
+      "name": "x509-parser",
+      "version": "0.18.1",
+      "build_script": false
+    },
+    {
+      "name": "yasna",
+      "version": "0.6.0",
+      "build_script": false
+    },
+    {
+      "name": "zeroize",
+      "version": "1.9.0",
+      "build_script": false
+    }
+  ],
+  "scripts_executed": false
+}

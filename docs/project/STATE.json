@@ -8,26 +8,33 @@
   "active_tasks": [
     {
       "task_id": "T016",
-      "agent_instance_id": "/root",
+      "agent_instance_id": "/root/backend",
       "allowed_paths": [
-        "Cargo.toml",
-        "Cargo.lock",
-        "crates/transport/Cargo.toml"
+        "crates/transport/src/",
+        "crates/transport/tests/",
+        "crates/transport/examples/",
+        "crates/transport/README.md",
+        "crates/platform/src/identity.rs",
+        "crates/platform/src/lib.rs",
+        "crates/platform/tests/identity.rs",
+        "crates/platform/README.md",
+        "tests/security/"
       ],
       "resource_leases": [
-        "code-writer:leader-dependency-setup"
+        "code-writer:backend-identity-discovery"
       ],
       "depends_on": [
         "T003",
         "T006"
       ],
-      "contract": "SPEC04/06 + existing ExportIdentity/ImportPeerIdentity/RevokePeer",
+      "contract": "T016-assignment.md + SPEC04/06",
       "acceptance_commands": [
-        "cargo fetch for exact audited versions; no build scripts until reviewed",
-        "backend actual identity/discovery tests after dependency setup"
+        "cargo test --locked -p witvoice-transport -p witvoice-platform",
+        "cargo fmt --package witvoice-transport --package witvoice-platform --check",
+        "cargo clippy --locked -p witvoice-transport -p witvoice-platform --all-targets -- -D warnings"
       ],
       "reviewer": "/root/reviewer_t001",
-      "execution_note": "leader prepares pinned manifests/lock before backend writer; no network listener/firewall/GPU/audio; actual source implementation delegated after setup"
+      "execution_note": "leader dependency writer released before actual dispatch; no hardware/network listener/firewall; audited new deps not yet built"
     }
   ],
   "milestones": {

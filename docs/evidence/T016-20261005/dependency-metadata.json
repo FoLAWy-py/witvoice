@@ -1,0 +1,122 @@
+{
+  "kind": "OFFICIAL_REGISTRY_INITIAL_VERSION_SELECTION",
+  "owner": "/root",
+  "captured_at": "2026-10-04T19:57:45.3493855Z",
+  "new_dependencies": [
+    {
+      "name": "rcgen",
+      "version": "0.14.10",
+      "license": "MIT OR Apache-2.0",
+      "checksum": "8774e05a7d0de114588e6a28fe7e71694b82614ed569d86d8b389dfbc98b8ad8",
+      "rust_version": "1.88",
+      "published_at": "2026-08-28T21:30:01.600392Z",
+      "repository": "https://github.com/rustls/rcgen",
+      "features": {
+        "aws_lc_rs": [
+          "crypto",
+          "dep:aws-lc-rs",
+          "aws-lc-rs/aws-lc-sys",
+          "x509-parser?/verify-aws"
+        ],
+        "aws_lc_rs_unstable": [
+          "aws_lc_rs"
+        ],
+        "crypto": [],
+        "default": [
+          "crypto",
+          "pem",
+          "ring"
+        ],
+        "fips": [
+          "crypto",
+          "dep:aws-lc-rs",
+          "aws-lc-rs/fips"
+        ],
+        "ring": [
+          "crypto",
+          "dep:ring",
+          "x509-parser?/verify"
+        ]
+      },
+      "source": "https://crates.io/api/v1/crates/rcgen/0.14.10"
+    },
+    {
+      "name": "ring",
+      "version": "0.17.14",
+      "license": "Apache-2.0 AND ISC",
+      "checksum": "a4689e6c2294d81e88dc6261c768b63bc4fcdb852be6d1352498b114f61383b7",
+      "rust_version": "1.66.0",
+      "published_at": "2025-03-11T19:42:03.889273Z",
+      "repository": "https://github.com/briansmith/ring",
+      "features": {
+        "alloc": [],
+        "default": [
+          "alloc",
+          "dev_urandom_fallback"
+        ],
+        "dev_urandom_fallback": [],
+        "less-safe-getrandom-custom-or-rdrand": [],
+        "less-safe-getrandom-espidf": [],
+        "slow_tests": [],
+        "std": [
+          "alloc"
+        ],
+        "test_logging": [],
+        "unstable-testing-arm-no-hw": [],
+        "unstable-testing-arm-no-neon": [],
+        "wasm32_unknown_unknown_js": [
+          "getrandom/js"
+        ]
+      },
+      "source": "https://crates.io/api/v1/crates/ring/0.17.14"
+    },
+    {
+      "name": "x509-parser",
+      "version": "0.18.1",
+      "license": "MIT OR Apache-2.0",
+      "checksum": "d43b0f71ce057da06bc0851b23ee24f3f86190b07203dd8f567d0b706a185202",
+      "rust_version": "1.67.1",
+      "published_at": "2026-02-05T09:30:31.546618Z",
+      "repository": "https://github.com/rusticata/x509-parser.git",
+      "features": {
+        "default": [],
+        "validate": [],
+        "verify": [
+          "ring"
+        ],
+        "verify-aws": [
+          "aws-lc-rs"
+        ]
+      },
+      "source": "https://crates.io/api/v1/crates/x509-parser/0.18.1"
+    },
+    {
+      "name": "mdns-sd",
+      "version": "0.21.4",
+      "license": "Apache-2.0 OR MIT",
+      "checksum": "1067efe2aadc6967f84c95977dca910e98f3edfd6403efc8fa8508d289ce012d",
+      "rust_version": "1.71.0",
+      "published_at": "2026-09-21T04:21:19.974907Z",
+      "repository": "https://github.com/keepsimple1/mdns-sd",
+      "features": {
+        "async": [
+          "flume/async"
+        ],
+        "default": [
+          "async",
+          "logging"
+        ],
+        "logging": [
+          "log"
+        ],
+        "serde": [
+          "dep:serde"
+        ],
+        "unstable-fuzz-api": []
+      },
+      "source": "https://crates.io/api/v1/crates/mdns-sd/0.21.4"
+    }
+  ],
+  "existing_dependencies_upgraded": false,
+  "download_or_execution": "metadata only; package source not yet built"
+}

@@ -1,0 +1,15 @@
+{
+  "build_scripts_executed": false,
+  "end": "2026-10-04T20:12:11.5752935Z",
+  "argv": [
+    "cargo",
+    "metadata",
+    "--locked",
+    "--format-version",
+    "1",
+    "--filter-platform",
+    "x86_64-pc-windows-msvc"
+  ],
+  "start": "2026-10-04T20:12:11.2449721Z",
+  "exit": 0
+}

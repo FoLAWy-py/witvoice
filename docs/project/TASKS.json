@@ -484,15 +484,23 @@
         "tests/security/"
       ],
       "acceptance": "默认监听关闭；mDNS不建立信任；双端身份字符串导入、pin验证与撤销；陌生端无音频权限。",
-      "agent_instance_id": "/root",
+      "agent_instance_id": "/root/backend",
       "resource_leases": [
-        "code-writer:leader-dependency-setup"
+        "code-writer:backend-identity-discovery"
       ],
-      "evidence": [],
+      "evidence": [
+        "docs/evidence/T016-20261005/dependency-metadata.json",
+        "docs/evidence/T016-20261005/fetch-command.json",
+        "docs/evidence/T016-20261005/lock-additions.json",
+        "docs/evidence/T016-20261005/archive-source-audit.json",
+        "docs/evidence/T016-20261005/script-audit.md",
+        "docs/evidence/T016-20261005/metadata-command.json",
+        "docs/evidence/T016-20261005/selected-windows-packages.json"
+      ],
       "review": null,
       "attempts": 0,
       "blocked_reason": null,
-      "execution_note": "leader pinned dependency setup first; actual backend implementation not yet dispatched; default listener off and no firewall changes"
+      "execution_note": "Root pinned+downloaded+audited deps; backend source assignment ready; no functionality or build PASS yet"
     },
     {
       "id": "T017",
