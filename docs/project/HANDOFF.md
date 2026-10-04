@@ -19,3 +19,5 @@ T002实际模型：MeanVC2上游13acf84c1bf135ea5edad9c245b345289b06b33e、HF模
 真实角色ID及兼容方式见T005-agent-runtime.md。自定义类型派发/职责注入已验证，磁盘完整schema加载和sandbox强制UNVERIFIED。默认shell/node在创建进程前ACL失败；leader限定命令、明确授权的backend/audio固定路径中继可经auto-review执行，reviewer不提权，独立审查不冒称复跑。ml旧角色重新派发曾thread-limit失败，没有新执行，采用现有角色中继。最多4子agent/2写入者/1GPU测试，未第二leader/递归spawn。
 
 用户已批准工具补齐、核查后模型下载尽量D盘、私人音频本机转换及网络参考；没有录音、驱动、防火墙、上传许可。GPU lease已释放；当前子任务只读中继/审查，不运行硬件或下载。下一阶段先实现独立Node，再到明确硬件门时提出最小操作。会话中断不承诺后台继续。
+
+T007下一切片准备：leader添加官方windows0.62.2与audio crate manifest，Cargo缓存下载在D盘，lock仅新增11项Windows依赖，既有15项未升级。当前lib仅scaffold，未宣称音频实现或测试PASS；实际writer需在T005中继结束后由leader派发，禁止自动采集/播放。STATE/TASKS已登记窄audio路径资源锁；当前尚无音频硬件lease。

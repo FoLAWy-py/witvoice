@@ -198,7 +198,7 @@
       "milestone": "M1",
       "title": "Windows原生输入输出与格式协商",
       "owner_role": "audio_runtime",
-      "status": "TODO",
+      "status": "IN_PROGRESS",
       "requirements": [
         "REQ-06",
         "REQ-08"
@@ -211,8 +211,10 @@
         "crates/platform/"
       ],
       "acceptance": "WASAPI真实设备枚举、稳定ID、输入/输出协商、通道映射和设备移除；录音仅由显式测试启动。",
-      "agent_instance_id": null,
-      "resource_leases": [],
+      "agent_instance_id": "/root/audio_runtime",
+      "resource_leases": [
+        "write:crates/audio/:audio_runtime"
+      ],
       "evidence": [],
       "review": null,
       "attempts": 0,

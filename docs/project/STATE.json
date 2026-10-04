@@ -46,6 +46,30 @@
       "reviewer": "/root/reviewer_t001",
       "contract": "docs/AGENT_WORKFLOW.md",
       "execution_note": "native dispatch verified, disk schema and sandbox enforcement unverified; no configuration changes"
+    },
+    {
+      "task_id": "T007",
+      "agent_instance_id": "/root/audio_runtime",
+      "allowed_paths": [
+        "crates/audio/src/",
+        "crates/audio/tests/",
+        "crates/audio/examples/",
+        "crates/audio/README.md"
+      ],
+      "resource_leases": [
+        "write:crates/audio/:audio_runtime"
+      ],
+      "depends_on": [
+        "T003"
+      ],
+      "acceptance_commands": [
+        "cargo test -p witvoice-audio --locked",
+        "cargo clippy -p witvoice-audio --locked --all-targets -- -D warnings",
+        "native metadata-only endpoint enumeration; capture/render NOT_RUN pending explicit approval"
+      ],
+      "reviewer": "/root/reviewer_t001",
+      "contract": "docs/spec/02-audio-engine.md + 07-tests-acceptance.md",
+      "execution_note": "independent dependency permits first native slice before M0 gate; no M1 completion claim"
     }
   ],
   "milestones": {
