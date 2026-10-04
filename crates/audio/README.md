@@ -47,6 +47,39 @@ cargo clippy -p witvoice-audio --locked --all-targets -- -D warnings
 cargo fmt --package witvoice-audio --check
 ```
 
+`notifications::NotificationWatch` adds an explicit, thread-bound native
+IMMNotificationClient registration owned by a normal STA control thread. All
+five callbacks ignore endpoint pointers and publish only atomic reason bits plus
+sticky invalidation: no allocation, lock/wait, COM device query, log, register,
+unregister or final-reference release. Any endpoint event conservatively invalidates
+the selection; reason bits coalesce repeated events and are not event/frame counts.
+The single consumer atomically takes a batch before checking the saved exact UID
+and expected flow on the control thread. Events arriving during that check stay
+pending in the next batch. No default-device or same-name replacement is selected.
+The check returns metadata, never Ready, an epoch acknowledgement or permission
+to resume audio; T008 must implement actual output governance and a fresh Prepare.
+
+The owner keeps the callback, enumerator and COM apartment alive until normal
+teardown. Windows registration does not AddRef the client. Explicit `close` reports
+unregister errors to the control thread, retires polling and cannot clear sticky
+invalidation or permit that signal owner to register again. Successful unregister
+releases the COM objects before the apartment guard. If unregister still fails in
+Drop, registration state is unknown: the one fixed-size callback/enumerator pair
+and COM initialization are deliberately retained for process life to avoid a
+dangling callback. This is **not** successful cleanup; the error HRESULT stays in
+the shared signal. At most one registration can be claimed per signal owner,
+there is no retry loop or automatic replacement/recovery, and this exceptional
+retention must be reported. The library does not promise every teardown succeeds.
+These lifetime rules follow Microsoft's [notification callback guidance](https://learn.microsoft.com/en-us/windows/win32/api/mmdeviceapi/nn-mmdeviceapi-immnotificationclient)
+and [registration ownership requirements](https://learn.microsoft.com/en-us/windows/win32/api/mmdeviceapi/nf-mmdeviceapi-immdeviceenumerator-registerendpointnotificationcallback).
+
+Notification tests invoke a locally constructed COM callback through all five
+native methods and test atomic batching/retained references using injected
+unregister results. They do **not** call Register/Unregister against the Windows
+service, inspect devices, initialize/start audio or physically remove endpoints.
+The callback allocation counter excludes object construction/teardown and counts
+only actual native callback method invocation on the test thread.
+
 Authorized metadata-only diagnostic, run separately by leader and retain IDs
 only under the Git-ignored `.local` directory:
 
@@ -55,7 +88,7 @@ cargo run -p witvoice-audio --locked --example list_endpoints > .local/audio-end
 ```
 
 No native device test was executed by this implementation task. Initialize/Start,
-real capture/render, endpoint removal, notifications, SPSC/epoch/deadline output
+real capture/render, physical endpoint removal/notification delivery, SPSC/epoch/deadline output
 governance, MMCSS, boundary resampling/ASRC, independent monitor clocks and
 long-running hardware acceptance remain **NOT_RUN / not implemented** in this
 slice. Their measurements (p95/p99, RTF, misses, memory) are UNKNOWN. The 8h

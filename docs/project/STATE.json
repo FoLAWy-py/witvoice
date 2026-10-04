@@ -61,9 +61,7 @@
         "crates/audio/tests/",
         "crates/audio/README.md"
       ],
-      "resource_leases": [
-        "code-writer:audio-notifications"
-      ],
+      "resource_leases": [],
       "depends_on": [
         "T003"
       ],
@@ -74,7 +72,7 @@
       ],
       "reviewer": "/root/reviewer_t001",
       "contract": "docs/spec/02-audio-engine.md + 07-tests-acceptance.md",
-      "execution_note": "audio通知源码写入中；leader完成既有windows-core0.62.2直接宏依赖，lock仅本地audio依赖边新增，26外部版本未变"
+      "execution_note": "actual audio通知5file作者停止；21纯测/fmt/clippy0已交；leader整合与独立r2待，无hardware lease"
     }
   ],
   "milestones": {

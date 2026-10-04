@@ -1,0 +1,27 @@
+[
+  {
+    "path": "crates/audio/src/lib.rs",
+    "sha256_lf_utf8": "6fc13d4c1679ead50216a1f4c8eabf211cc6c98a4f2a9d6d0a3c17bff0f5dc66",
+    "matches_author": true
+  },
+  {
+    "path": "crates/audio/src/wasapi.rs",
+    "sha256_lf_utf8": "55057909ba889bde74acc4ef921bbb3023ecdece12dd248ab4eb6aff97fe2f0c",
+    "matches_author": true
+  },
+  {
+    "path": "crates/audio/src/notifications.rs",
+    "sha256_lf_utf8": "7d8ae43af26085755edccc528ee170d731ca6f7966e763e982684725a733dca1",
+    "matches_author": true
+  },
+  {
+    "path": "crates/audio/src/notifications/native.rs",
+    "sha256_lf_utf8": "b0a5d970928ca00e4fcd02612a14ce51dbe71ebec0687dee6abe4a1432496ad5",
+    "matches_author": true
+  },
+  {
+    "path": "crates/audio/README.md",
+    "sha256_lf_utf8": "13e5636f7be51a187aecbdd60cf89e989ff6bca71be13340d62a88e38717552a",
+    "matches_author": true
+  }
+]

@@ -39,3 +39,5 @@ T006 leader 补齐现有需求中的本地 ExitNode 契约（ADR0002），PeerMe
 T006 supervision派发保存T006-supervision-assignment.md，backend尚未开始写入；leader开启既有Windows0.62.2 JobObjects feature，cargo check platform/node locked exit0，仅编译不代表进程监督通过。T007实际audio_runtime继续通知切片，已在派发前登记独立audio路径/代码租约，禁止采集/播放/GPU；backend/reviewer仍只读T002r2。
 
 T007通知COM implement宏需要直接windows-core0.62.2路径，audio实际核缓存宏源码后报告，leader已统一root/audio manifests，offline锁生成0；26外部package版本未变，lock仅audio deps增加windows-core。通知纯测试尚在作者执行中。只读CIM设备调查有MIXLINE系列，VB-Audio/CABLE/BlackHole名称匹配0；这不是路由可用或设备绝对缺失证据，没有安装驱动/改变默认设备/采集播放。
+
+T007 notification实际audio交5files并停止，21纯tests/fmt/clippy0，5000本地COM callback calls allocator0；leader核5LF摘要全匹配，source-hash-check.json。服务Register/Unregister/拔出/Initialize/Start均NOT_RUN，注销失败有界存储保留风险如实README，r2审查待。整合冻结后workspace回归待。

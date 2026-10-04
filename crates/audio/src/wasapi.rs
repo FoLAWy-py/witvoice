@@ -1,5 +1,5 @@
 //! Metadata-only WASAPI operations on an ordinary COM thread. No Initialize,
-//! Start, capture buffer, render buffer, default selection, or notification API.
+//! Start, capture buffer, render buffer or default selection API.
 
 use crate::format::{AudioFormat, Encoding, FormatError};
 use serde::Serialize;
@@ -56,9 +56,9 @@ fn format_error(error: FormatError) -> MetadataError {
     }
 }
 
-struct Apartment(PhantomData<Rc<()>>);
+pub(crate) struct Apartment(PhantomData<Rc<()>>);
 impl Apartment {
-    fn enter() -> Result<Self, MetadataError> {
+    pub(crate) fn enter() -> Result<Self, MetadataError> {
         // S_OK and S_FALSE both require balancing CoUninitialize. A changed
         // apartment failure returns before constructing this thread-bound guard.
         // Use an ordinary STA thread for IAudioClient's documented first-use
@@ -219,7 +219,7 @@ fn snapshot(device: &IMMDevice) -> Result<Endpoint, MetadataError> {
     })
 }
 
-fn enumerator() -> Result<IMMDeviceEnumerator, MetadataError> {
+pub(crate) fn enumerator() -> Result<IMMDeviceEnumerator, MetadataError> {
     unsafe { CoCreateInstance(&MMDeviceEnumerator, None, CLSCTX_INPROC_SERVER) }
         .map_err(|e| com("CoCreateInstance", e))
 }
