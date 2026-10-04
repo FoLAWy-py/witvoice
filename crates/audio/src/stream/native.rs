@@ -2,23 +2,29 @@
 use super::{CapturePacket, PacketError, decode_packet};
 use crate::{
     format::AudioFormat,
+    notifications::{ChangeSignal, NotificationWatch, WatchError},
     wasapi::{
         Apartment, Flow, MetadataError, MixFormat, NativeDescriptor, TaskMem, client, enumerator,
         read_format, selected,
     },
 };
-use std::{ptr, time::Duration};
+use std::{ptr, sync::Arc, time::Duration};
 use windows::{
     Win32::{
-        Foundation::{CloseHandle, GetLastError, HANDLE, WAIT_OBJECT_0, WAIT_TIMEOUT},
+        Foundation::{CloseHandle, HANDLE, RPC_S_CALLPENDING},
         Media::Audio::{
             AUDCLNT_BUFFERFLAGS_SILENT, AUDCLNT_SHAREMODE_SHARED,
             AUDCLNT_STREAMFLAGS_EVENTCALLBACK, IAudioCaptureClient, IAudioClient,
             IAudioRenderClient,
         },
-        System::Threading::{CreateEventW, WaitForSingleObject},
+        System::{
+            Com::{
+                COWAIT_DISPATCH_CALLS, COWAIT_DISPATCH_WINDOW_MESSAGES, CoWaitForMultipleHandles,
+            },
+            Threading::CreateEventW,
+        },
     },
-    core::PCWSTR,
+    core::{HRESULT, Interface, PCWSTR},
 };
 
 #[derive(Debug)]
@@ -36,12 +42,31 @@ pub enum StreamError {
     State,
     WrongFlow,
     Packet(PacketError),
+    Watch(WatchError),
+    DeviceChanged,
 }
 fn failure(operation: &'static str, error: windows::core::Error) -> StreamError {
     StreamError::Com {
         operation,
         hresult: error.code().0,
     }
+}
+// Packet paths must not construct windows::core::Error: HRESULT::ok()/map()
+// can query thread ErrorInfo and release COM references on a failure.
+fn packet_status(operation: &'static str, status: HRESULT) -> Result<(), StreamError> {
+    if status.0 < 0 {
+        Err(StreamError::Com {
+            operation,
+            hresult: status.0,
+        })
+    } else {
+        Ok(())
+    }
+}
+fn padding_with(call: impl FnOnce(*mut u32) -> HRESULT) -> Result<u32, StreamError> {
+    let mut padding = 0;
+    packet_status("GetCurrentPadding", call(&mut padding))?;
+    Ok(padding)
 }
 impl From<MetadataError> for StreamError {
     fn from(error: MetadataError) -> Self {
@@ -74,6 +99,46 @@ enum State {
     Retired,
 }
 
+// Shared by actual owner methods and injected branch tests. Never drains a
+// notification or resets sticky state; no device query, wait or allocation.
+fn guard_change(signal: &ChangeSignal, state: &mut State) -> Result<(), StreamError> {
+    if signal.has_changed() {
+        *state = State::Retired;
+        return Err(StreamError::DeviceChanged);
+    }
+    if *state == State::Retired {
+        Err(StreamError::State)
+    } else {
+        Ok(())
+    }
+}
+fn finish_operation<T>(
+    signal: &ChangeSignal,
+    state: &mut State,
+    result: Result<T, StreamError>,
+) -> Result<T, StreamError> {
+    guard_change(signal, state)?;
+    if result.is_err() {
+        *state = State::Retired;
+    }
+    result
+}
+fn watched_packet(
+    signal: &ChangeSignal,
+    state: &mut State,
+    output: &mut [f32],
+    read: impl FnOnce(&mut [f32]) -> Result<Option<CapturePacket>, StreamError>,
+) -> Result<Option<CapturePacket>, StreamError> {
+    output.fill(0.0);
+    guard_change(signal, state)?;
+    let result = read(output);
+    let result = finish_operation(signal, state, result);
+    if result.is_err() {
+        output.fill(0.0);
+    }
+    result
+}
+
 /// !Send/!Sync via Apartment. Fields release services before client, event and
 /// COM apartment, including constructor failures. There is no default-device API.
 pub struct SharedStream {
@@ -85,6 +150,8 @@ pub struct SharedStream {
     state: State,
     closed: bool,
     close_error: Option<(&'static str, i32)>,
+    watch: NotificationWatch,
+    signal: Arc<ChangeSignal>,
     _apartment: Apartment,
 }
 impl SharedStream {
@@ -101,6 +168,12 @@ impl SharedStream {
             return Err(StreamError::Capacity);
         }
         let apartment = Apartment::enter()?;
+        let signal = Arc::new(ChangeSignal::new());
+        let watch = NotificationWatch::register(uid.to_owned(), flow, Arc::clone(&signal))
+            .map_err(StreamError::Watch)?;
+        if !signal.accept_initial_baseline() {
+            return Err(StreamError::DeviceChanged);
+        }
         let event = Event(
             unsafe { CreateEventW(None, false, false, PCWSTR::null()) }
                 .map_err(|e| failure("CreateEventW", e))?,
@@ -127,6 +200,9 @@ impl SharedStream {
                     None
                 },
             });
+        }
+        if signal.has_changed() {
+            return Err(StreamError::DeviceChanged);
         }
         unsafe {
             client.Initialize(
@@ -162,11 +238,15 @@ impl SharedStream {
             state: State::Prepared,
             closed: false,
             close_error: None,
+            watch,
+            signal,
             _apartment: apartment,
         };
+        guard_change(&stream.signal, &mut stream.state)?;
         if flow == Flow::Render {
             stream.submit_silence()?;
         }
+        guard_change(&stream.signal, &mut stream.state)?;
         Ok(stream)
     }
     pub fn format(&self) -> AudioFormat {
@@ -176,15 +256,13 @@ impl SharedStream {
         self.capacity
     }
     pub fn is_retired(&self) -> bool {
-        self.state == State::Retired
+        self.state == State::Retired || self.signal.has_changed()
     }
     fn retire<T>(&mut self, result: Result<T, StreamError>) -> Result<T, StreamError> {
-        if result.is_err() {
-            self.state = State::Retired;
-        }
-        result
+        finish_operation(&self.signal, &mut self.state, result)
     }
     pub fn start(&mut self, _authorization: ExplicitStart) -> Result<(), StreamError> {
+        guard_change(&self.signal, &mut self.state)?;
         if self.state != State::Prepared {
             self.state = State::Retired;
             return Err(StreamError::State);
@@ -196,18 +274,24 @@ impl SharedStream {
     }
     /// Ordinary owner-thread scheduler only; no wait is hidden in packet methods.
     pub fn wait_event(&mut self, timeout: Duration) -> Result<bool, StreamError> {
+        guard_change(&self.signal, &mut self.state)?;
         if self.state != State::Running || timeout > Duration::from_millis(100) {
             self.state = State::Retired;
             return Err(StreamError::State);
         }
-        let status = unsafe { WaitForSingleObject(self.event.0, timeout.as_millis() as u32) };
-        self.retire(match status {
-            WAIT_OBJECT_0 => Ok(true),
-            WAIT_TIMEOUT => Ok(false),
-            _ => Err(StreamError::Com {
-                operation: "WaitForSingleObject",
-                hresult: windows::core::HRESULT::from_win32(unsafe { GetLastError() }.0).0,
-            }),
+        // Ordinary STA scheduler dispatches notification COM calls while waiting.
+        // Packet operations remain non-waiting. Even timeout checks sticky change.
+        let result = unsafe {
+            CoWaitForMultipleHandles(
+                (COWAIT_DISPATCH_CALLS.0 | COWAIT_DISPATCH_WINDOW_MESSAGES.0) as u32,
+                timeout.as_millis() as u32,
+                &[self.event.0],
+            )
+        };
+        self.retire(match result {
+            Ok(_) => Ok(true),
+            Err(error) if error.code() == RPC_S_CALLPENDING => Ok(false),
+            Err(error) => Err(failure("CoWaitForMultipleHandles", error)),
         })
     }
     /// One packet per invocation, no drain-until-empty loop or allocation.
@@ -216,32 +300,38 @@ impl SharedStream {
         output: &mut [f32],
     ) -> Result<Option<CapturePacket>, StreamError> {
         output.fill(0.0);
+        guard_change(&self.signal, &mut self.state)?;
         if self.state != State::Running {
             self.state = State::Retired;
             return Err(StreamError::State);
         }
-        let result = match &self.service {
-            Service::Capture(capture) => read_packet(capture, self.format, self.capacity, output),
-            Service::Silence(_) => Err(StreamError::WrongFlow),
-        };
-        match self.retire(result) {
-            Ok(packet) => Ok(packet),
-            Err(error) => {
-                output.fill(0.0);
-                Err(error)
-            }
-        }
+        watched_packet(
+            &self.signal,
+            &mut self.state,
+            output,
+            |output| match &self.service {
+                Service::Capture(capture) => {
+                    read_packet(capture, self.format, self.capacity, output)
+                }
+                Service::Silence(_) => Err(StreamError::WrongFlow),
+            },
+        )
     }
     /// No data parameter: this slice has no original/converted PCM output path.
     pub fn submit_silence(&mut self) -> Result<u32, StreamError> {
+        guard_change(&self.signal, &mut self.state)?;
         if self.state == State::Retired {
             return Err(StreamError::State);
         }
         let result = match &self.service {
             Service::Capture(_) => Err(StreamError::WrongFlow),
             Service::Silence(render) => (|| {
-                let padding = unsafe { self.client.GetCurrentPadding() }
-                    .map_err(|e| failure("GetCurrentPadding", e))?;
+                let padding = padding_with(|padding| unsafe {
+                    (Interface::vtable(&self.client).GetCurrentPadding)(
+                        Interface::as_raw(&self.client),
+                        padding,
+                    )
+                })?;
                 let frames = self
                     .capacity
                     .checked_sub(padding)
@@ -268,7 +358,14 @@ impl SharedStream {
         self.state = State::Retired;
         let stopped = unsafe { self.client.Stop() }.map_err(|e| failure("Stop", e));
         let reset = unsafe { self.client.Reset() }.map_err(|e| failure("Reset", e));
-        let result = stopped.and(reset);
+        let unregistered = self.watch.close().map_err(|error| match error {
+            WatchError::UnregisterFailed(hresult) => StreamError::Com {
+                operation: "UnregisterEndpointNotificationCallback",
+                hresult,
+            },
+            other => StreamError::Watch(other),
+        });
+        let result = stopped.and(reset).and(unregistered);
         if let Err(StreamError::Com { operation, hresult }) = &result {
             self.close_error = Some((*operation, *hresult));
         }
@@ -289,8 +386,9 @@ impl CaptureLease<'_> {
     fn release(&mut self, frames: u32) -> Result<(), StreamError> {
         // A failed release is not retried (the OS state is unknown).
         self.released = true;
-        unsafe { self.capture.ReleaseBuffer(frames) }
-            .map_err(|e| failure("CaptureReleaseBuffer", e))
+        packet_status("CaptureReleaseBuffer", unsafe {
+            (Interface::vtable(self.capture).ReleaseBuffer)(Interface::as_raw(self.capture), frames)
+        })
     }
 }
 impl Drop for CaptureLease<'_> {
@@ -309,16 +407,16 @@ fn read_packet(
     output.fill(0.0);
     let (mut pointer, mut frames, mut flags, mut device_position, mut qpc_100ns) =
         (ptr::null_mut(), 0, 0, 0, 0);
-    unsafe {
-        capture.GetBuffer(
+    packet_status("CaptureGetBuffer", unsafe {
+        (Interface::vtable(capture).GetBuffer)(
+            Interface::as_raw(capture),
             &mut pointer,
             &mut frames,
             &mut flags,
-            Some(&mut device_position),
-            Some(&mut qpc_100ns),
+            &mut device_position,
+            &mut qpc_100ns,
         )
-    }
-    .map_err(|e| failure("CaptureGetBuffer", e))?;
+    })?;
     if frames == 0 {
         return Ok(None);
     }
@@ -363,11 +461,23 @@ fn read_packet(
 }
 
 fn render_silence(render: &IAudioRenderClient, frames: u32) -> Result<(), StreamError> {
-    unsafe { render.GetBuffer(frames) }.map_err(|e| failure("RenderGetBuffer", e))?;
+    let mut pointer = ptr::null_mut();
+    packet_status("RenderGetBuffer", unsafe {
+        (Interface::vtable(render).GetBuffer)(Interface::as_raw(render), frames, &mut pointer)
+    })?;
     // No pointer dereference; SILENT covers every requested frame on release.
-    unsafe { render.ReleaseBuffer(frames, AUDCLNT_BUFFERFLAGS_SILENT.0 as u32) }
-        .map_err(|e| failure("RenderReleaseBuffer", e))
+    packet_status("RenderReleaseBuffer", unsafe {
+        (Interface::vtable(render).ReleaseBuffer)(
+            Interface::as_raw(render),
+            frames,
+            AUDCLNT_BUFFERFLAGS_SILENT.0 as u32,
+        )
+    })
 }
+
+#[cfg(test)]
+#[path = "raw_tests.rs"]
+mod raw_tests;
 
 #[cfg(test)]
 mod tests {
@@ -391,6 +501,8 @@ mod tests {
         release_error: bool,
         releases: Arc<AtomicU32>,
         released_frames: Arc<AtomicU32>,
+        acquire_change: Option<Arc<ChangeSignal>>,
+        release_change: Option<Arc<ChangeSignal>>,
     }
     impl IAudioCaptureClient_Impl for Capture_Impl {
         fn GetBuffer(
@@ -401,6 +513,9 @@ mod tests {
             device: *mut u64,
             qpc: *mut u64,
         ) -> windows::core::Result<()> {
+            if let Some(signal) = &self.acquire_change {
+                signal.publish(crate::notifications::ChangeKind::Removed);
+            }
             unsafe {
                 *data = if self.null {
                     ptr::null_mut()
@@ -415,6 +530,9 @@ mod tests {
             Ok(())
         }
         fn ReleaseBuffer(&self, frames: u32) -> windows::core::Result<()> {
+            if let Some(signal) = &self.release_change {
+                signal.publish(crate::notifications::ChangeKind::Property);
+            }
             self.releases.fetch_add(1, Ordering::Relaxed);
             self.released_frames.store(frames, Ordering::Relaxed);
             if self.release_error {
@@ -447,6 +565,8 @@ mod tests {
                 data: [0, 64, 0, 64, 0, 0, 0, 0],
                 releases: Arc::clone(&releases),
                 released_frames: Arc::clone(&released_frames),
+                acquire_change: None,
+                release_change: None,
             }
             .into();
             let mut output = [0.75; 4];
@@ -467,6 +587,83 @@ mod tests {
                 assert_eq!(packet.qpc_100ns, 456);
             }
         }
+    }
+    #[test]
+    fn changes_during_acquire_or_release_erase_entire_packet_and_forbid_retry() {
+        use crate::notifications::ChangeKind;
+        for during_acquire in [true, false] {
+            let signal = Arc::new(ChangeSignal::new());
+            signal.publish(ChangeKind::InitialValidation);
+            assert!(signal.accept_initial_baseline());
+            let releases = Arc::new(AtomicU32::new(0));
+            let capture: IAudioCaptureClient = Capture {
+                frames: 2,
+                flags: 0,
+                data: [0, 64, 0, 64, 0, 0, 0, 0],
+                null: false,
+                release_error: false,
+                releases: Arc::clone(&releases),
+                released_frames: Arc::new(AtomicU32::new(0)),
+                acquire_change: during_acquire.then(|| Arc::clone(&signal)),
+                release_change: (!during_acquire).then(|| Arc::clone(&signal)),
+            }
+            .into();
+            let mut state = State::Running;
+            let mut output = [0.75; 4];
+            let result = watched_packet(&signal, &mut state, &mut output, |out| {
+                read_packet(
+                    &capture,
+                    AudioFormat::new(16_000, 1, Encoding::Pcm16).unwrap(),
+                    2,
+                    out,
+                )
+            });
+            assert!(matches!(result, Err(StreamError::DeviceChanged)));
+            assert!(state == State::Retired);
+            assert_eq!(output, [0.0; 4]);
+            assert_eq!(releases.load(Ordering::Relaxed), 1);
+            signal.take_batch();
+            output.fill(0.75);
+            assert!(
+                watched_packet(&signal, &mut state, &mut output, |_| {
+                    panic!("retired stream must not reacquire")
+                })
+                .is_err()
+            );
+            assert_eq!(output, [0.0; 4]);
+        }
+    }
+    #[test]
+    fn timeout_and_successful_operations_cannot_restore_changed_owner() {
+        use crate::notifications::ChangeKind;
+        for kind in [
+            ChangeKind::Default,
+            ChangeKind::State,
+            ChangeKind::Removed,
+            ChangeKind::Added,
+            ChangeKind::Property,
+            ChangeKind::Closed,
+        ] {
+            let signal = ChangeSignal::new();
+            signal.publish(ChangeKind::InitialValidation);
+            assert!(signal.accept_initial_baseline());
+            let mut state = State::Running;
+            signal.publish(kind);
+            // Identical post-wait branch used for a real silent wait timeout.
+            assert!(matches!(
+                finish_operation(&signal, &mut state, Ok(false)),
+                Err(StreamError::DeviceChanged)
+            ));
+            assert!(state == State::Retired);
+            signal.take_batch();
+            assert!(finish_operation(&signal, &mut state, Ok(())).is_err());
+            assert!(guard_change(&signal, &mut state).is_err());
+            assert!(signal.is_invalidated());
+        }
+        let fresh = ChangeSignal::new();
+        fresh.publish(ChangeKind::InitialValidation);
+        assert!(fresh.accept_initial_baseline());
+        assert!(!finish_operation(&fresh, &mut State::Running, Ok(false)).unwrap());
     }
     #[implement(IAudioRenderClient)]
     struct Render {

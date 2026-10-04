@@ -268,6 +268,7 @@ pub fn inspect_endpoint(uid: &str, flow: Flow) -> Result<Endpoint, MetadataError
 #[derive(Debug, Serialize)]
 pub struct FormatProbe {
     pub requested: AudioFormat,
+    pub hresult: i32,
     pub exact_supported: bool,
     pub closest: Option<MixFormat>,
 }
@@ -345,11 +346,13 @@ pub fn probe_format(
     match status.0 {
         0 => Ok(FormatProbe {
             requested,
+            hresult: status.0,
             exact_supported: true,
             closest: None,
         }),
         1 if !memory.0.is_null() => Ok(FormatProbe {
             requested,
+            hresult: status.0,
             exact_supported: false,
             closest: Some(unsafe { read_format(memory.0) }?),
         }),

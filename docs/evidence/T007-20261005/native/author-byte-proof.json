@@ -1,0 +1,62 @@
+{
+  "archive_commit": "2b3f9c14a1fcfc1fb9fca95ddb2b32691d297f20",
+  "events": [
+    {
+      "path": "docs/evidence/T007-20261005/native/author-events/01.txt",
+      "raw_sha256": "371264d0c9a3e1d58629364b7c2e60c0489569045cbeb3739a49e6d2bb71795e",
+      "git_blob_sha256": "b79f281be75df6ffaeedc61950975e43228bb9632e607336ba8976d325445b34",
+      "raw_equals_original_event_digest": true,
+      "only_line_endings_differ": true,
+      "normalized_bytes_equal": true
+    },
+    {
+      "path": "docs/evidence/T007-20261005/native/author-events/02.txt",
+      "raw_sha256": "1eda358614933a6163b52bbd2951753f30d3eb9ef7c62702e201155859f3af22",
+      "git_blob_sha256": "db92f82107be3df8cd97b871f2ef48b75bb05c50486863e659be9f1dc9279b07",
+      "raw_equals_original_event_digest": true,
+      "only_line_endings_differ": true,
+      "normalized_bytes_equal": true
+    },
+    {
+      "path": "docs/evidence/T007-20261005/native/author-events/03.txt",
+      "raw_sha256": "fce671be0dabe4acd960aaa5d7569c315b0b6f35f29efb5e70b0e7c9fa40e935",
+      "git_blob_sha256": "98c28b63c34076d8f4f5d61f1e65cb9f7207d11f1d5c2a308dd38b38520b5ae7",
+      "raw_equals_original_event_digest": true,
+      "only_line_endings_differ": true,
+      "normalized_bytes_equal": true
+    },
+    {
+      "path": "docs/evidence/T007-20261005/native/author-events/04.txt",
+      "raw_sha256": "90b228037e06b4772719e4677791fba5f612b88b4d79e7eaa2525a0fd28e1934",
+      "git_blob_sha256": "993eb10cd8a98107eb876cb2b064043f9feaa57f32a6416afa21783c51278929",
+      "raw_equals_original_event_digest": true,
+      "only_line_endings_differ": true,
+      "normalized_bytes_equal": true
+    },
+    {
+      "path": "docs/evidence/T007-20261005/native/author-events/05.txt",
+      "raw_sha256": "d2938d5d16e39d6d79407f56e26a7d562dc4c99a34c084fe1bcfbb31ab93e6cf",
+      "git_blob_sha256": "63d30fca0409eda2811515fa75cd8f2e0a26ee9f03aabf0cc2c6a4026aac25f8",
+      "raw_equals_original_event_digest": true,
+      "only_line_endings_differ": true,
+      "normalized_bytes_equal": true
+    },
+    {
+      "path": "docs/evidence/T007-20261005/native/author-events/06.txt",
+      "raw_sha256": "f163587a8c4128a145f26d32aadcba8aa3390ca7ce48edfbda9951fec3232b85",
+      "git_blob_sha256": "c58da099d01243e20e082963580362a59561accd0eb7587efdbfe7ab1d4bf59e",
+      "raw_equals_original_event_digest": true,
+      "only_line_endings_differ": true,
+      "normalized_bytes_equal": true
+    },
+    {
+      "path": "docs/evidence/T007-20261005/native/author-events/07.txt",
+      "raw_sha256": "23624e8ee929ab872e210b04da24f4abe863a8025de70cfc3bb4adf9a5d270f2",
+      "git_blob_sha256": "65bac3043654a05d3e0f95651d34b6c00295f32d388774c65fbbbf8dfc306552",
+      "raw_equals_original_event_digest": true,
+      "only_line_endings_differ": true,
+      "normalized_bytes_equal": true
+    }
+  ],
+  "claim": "7 event output blobs exact or CRLF/LF-only equivalent; no trimming/rerun"
+}

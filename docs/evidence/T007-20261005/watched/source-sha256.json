@@ -1,0 +1,12 @@
+{
+  "src/notifications.rs": "d2b01ec17543ab4291eb9b13cf76293f08b9501a77444027ccd69b61ce173b14",
+  "src/notifications/native.rs": "2126b4602f9188861038c2e6f15a77c70d116a11799d5e00371b4c077de23e64",
+  "src/stream/native.rs": "32ef56f8dd58acb86db4907975d751926a97ff493aa7fd073651e61c599c58a6",
+  "src/stream/raw_tests.rs": "d1cc36afec37490416b1158781aa73ea4109b872baa20ca14b2230594b3a4fe5",
+  "src/wasapi.rs": "80bd3c5b26fd6589f24650f3b1a0bd3b143912a0bfc64ce460f4dfeeee1e8c20",
+  "examples/stream_smoke.rs": "32d96e2be6843cc8caaf24c67a9f23ea499fbbd0042dd2593394860531c1846c",
+  "examples/removal_probe.rs": "3f79293103daf44372577c81bfa008b895964c74bb1d821a101f9fe5c846ce2c",
+  "examples/format_support_probe.rs": "642dd87273231593cb03fc2a617bb2082a847f2fdefd5d837ae3b388ba838ccb",
+  "examples/support/mod.rs": "cecf33cb705b319895f37e62f707ad1b9717893af417ef4a1ed37335af0287b9",
+  "README.md": "05cdc32124c6cde6ccbfbab78f0de7d93a55450983a1cd757128dede40aa38d6"
+}

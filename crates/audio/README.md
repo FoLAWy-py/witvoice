@@ -107,24 +107,78 @@ discontinuity and QPC in 100ns remain native metadata, not a manufactured source
 timeline. Packet calls do not wait, allocate, log or invoke another thread.
 Event waiting is a separate bounded owner-thread scheduling method.
 
+Packet GetBuffer/ReleaseBuffer/GetCurrentPadding invoke the cached native vtable
+ABI directly and compare signed HRESULTs into a static operation/i32 error.
+They do not call HRESULT::ok/map, construct windows::core::Error or query/release
+thread ErrorInfo on failures. Normal Prepare/Start/Close retain the convenient
+control-thread wrappers. Stack-owned literal-HRESULT mocks count zero Rust heap
+allocations for capture acquisition/release failures, render acquisition/release
+failures and the padding failure handler. This does not prove allocation or
+blocking behavior inside the actual Windows audio service.
+
 Render exposes only `submit_silence`: no PCM argument or capture-to-render link.
 It primes silence before Start and releases every acquired frame with SILENT.
 Stop/reset permanently retire the owner; a new explicit prepare is required.
 Explicit close reports and retains the first Stop/reset error for repeat calls,
 without claiming successful cleanup; Drop best-effort closes and releases the
-same-thread references. There is no automatic restart/default fallback. Notification
-invalidation must be applied by the future Node/T008 output governor; this slice
-does not wire a production session, output epoch, deadline or ASRC into a stream.
+same-thread references. There is no automatic restart/default fallback.
+
+Every SharedStream now owns a NotificationWatch for that exact UID/flow; there
+is no public unwatched constructor. Registration's InitialValidation marker may
+be consumed once, only with no concurrent real change. The original sticky
+invalidation is never cleared. A separate sticky atomic real-change flag is set
+before callback batching, so consuming a batch cannot hide a prepare race or
+restore authority. Prepare, Start, packet/silence operations before and after the
+native call, and every scheduler wake/timeout check this flag and permanently
+retire on any endpoint/default/property event. Capture output is fully erased
+when a change occurs during acquisition or release. Callbacks only publish
+bounded atomics; they do not Stop, query COM devices or release owner references.
+Retirement forbids further delivery; successful cleanup is a separate result.
+Stop/reset/unregistration remain normal same-STA close/Drop operations, retaining
+the first failure. Unregister failure retains the callback under the previously
+documented process-life quarantine; it does not mean resources were released.
+
+The separate ordinary STA scheduler uses a bounded
+[CoWaitForMultipleHandles](https://learn.microsoft.com/en-us/windows/win32/api/combaseapi/nf-combaseapi-cowaitformultiplehandles)
+modal wait to dispatch notification calls/window messages; packet methods never
+pump or wait. This slice does not wire a production session, output epoch,
+deadline or ASRC into a stream (T008).
 
 `cargo run -p witvoice-audio --locked --example stream_smoke -- capture UID 16000
-1 pcm16 5 --approve-start` is an **unexecuted** hardware harness. The operator
+1 pcm16 5 --approve-start` is an explicit hardware harness. The operator
 must first obtain specific capture permission and an exclusive audio lease.
 `silence-render` is the separate render mode. UID/flow/rate/channels/encoding and
 1–5 seconds are mandatory, no default device is picked, no PCM file is saved or
 uploaded, and stdout reports only counters and wall time. Do not run it as a
 routine test. If the exact format is unsupported, it fails rather than substituting.
+The request duration bounds scheduling; each wait is capped by the remaining
+duration and expiry is checked again before another packet. OS wake/Stop/close
+time can exceed it; active wall time and wall time including close are reported
+separately. Leader's two historical 5s runs bind to 2355099; they do not validate
+the subsequently added watched owner.
+
+`removal_probe PRIVATE_SELECTION_JSON seconds(1..120) --approve-metadata` reads
+the explicit existing Endpoint selection (absolute file, <=8192 bytes), registers
+a watcher and prints/flushed `MONITORING_READY` before the operator's authorized
+action. It never constructs a stream or calls Initialize/Start. Normal STA waits
+are <=50ms, diagnostics are capped at 32 batches, and the finite timeout cannot
+auto-restart. Output omits UID/private path and retains actual reason bits,
+saved-UID revalidation errors, sticky state and close HRESULT. Timeout is
+NOT_OBSERVED (exit2), not PASS. OBSERVED_SELECTED_UNAVAILABLE requires a real
+change and failed saved-UID revalidation; physical unplug still requires operator
+attestation. This metadata proof cannot establish a running stream stopped.
+
+`format_support_probe PRIVATE_SELECTION_JSON RATE:CHANNELS:ENCODING [...]`
+validates at most three explicit candidates before COM calls, records real
+IsFormatSupported HRESULT/closest/error, and never Initialize/Start or adopts a
+closest match. If all candidates are exact-supported, rejection remains NOT_RUN.
+These new probes are only built by the author; actual registration, physical
+unplug and format rejection are for leader after specific permission/lease.
 
 Pure tests use local injected COM capture/render objects, not the Windows service.
+Injected acquisition/release changes and a silent wait timeout exercise the same
+pre/post guards used by the owner, including full-buffer zero and no retry even
+after batches are drained. They do not constitute physical removal evidence.
 No Initialize/Start, actual capture/render or physical removal test was executed
 by this implementation task. SPSC/epoch/deadline governance, MMCSS, resampling/ASRC,
 independent monitor clocks and long-running hardware acceptance remain

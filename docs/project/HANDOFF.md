@@ -13,6 +13,8 @@ T016依赖/manifest/lock统一leader完成，62新增registry归档与2942源码
 
 T007固定验收尚缺通知→流失效连接、实际设备移除事件和格式拒绝证据；audio watched-stream增补lease先登记，backend独立T016，两代码作者，零硬件lease。USB Wireless Mic Rx是实际已测input；Steam Streaming Microphone只软件静音output。新增harness仅创建不运行。
 
+T007 watched增补10文件交付并停止，33纯tests/fmt/clippy/examples编译0；raw HRESULT去除额外COM ErrorInfo，通知永久changed门连接prepare/start/packet前后/wait超时。root先冻结并登记metadata-only probe独占lease，无新的Start授权/执行；物理拔插需用户后续具体操作，整个T007仍IN_PROGRESS/attempts2。
+
 以下保留历史过程；当前状态以本段、STATE/TASKS及最新正式review为准。
 T001已DONE：源码0f283ffe460be3382aae89f481be62a73ab4d60f，13负向测试、C/Rust原生编译运行通过，独立/root/reviewer_t001第2轮批准。目录初始无Git，安全建立本地历史，无push/reset/clean，保留原有文件。
 

@@ -2,13 +2,19 @@
 
 use super::{ChangeBatch, ChangeKind, ChangeSignal};
 use crate::wasapi::{Apartment, Endpoint, Flow, MetadataError, enumerator, inspect_endpoint};
-use std::sync::Arc;
+use std::{sync::Arc, time::Duration};
 use windows::{
     Win32::{
-        Foundation::PROPERTYKEY,
+        Foundation::{CloseHandle, HANDLE, PROPERTYKEY, RPC_S_CALLPENDING},
         Media::Audio::{
             DEVICE_STATE, EDataFlow, ERole, IMMDeviceEnumerator, IMMNotificationClient,
             IMMNotificationClient_Impl,
+        },
+        System::{
+            Com::{
+                COWAIT_DISPATCH_CALLS, COWAIT_DISPATCH_WINDOW_MESSAGES, CoWaitForMultipleHandles,
+            },
+            Threading::CreateEventW,
         },
     },
     core::{PCWSTR, implement},
@@ -59,6 +65,7 @@ impl IMMNotificationClient_Impl for NotificationClient_Impl {
 #[derive(Debug)]
 pub enum WatchError {
     RegistrationAlreadyClaimed,
+    ControlState,
     Metadata(MetadataError),
     UnregisterFailed(i32),
 }
@@ -75,6 +82,14 @@ struct Registration {
     enumerator: IMMDeviceEnumerator,
     callback: IMMNotificationClient,
 }
+struct DispatchEvent(HANDLE);
+impl Drop for DispatchEvent {
+    fn drop(&mut self) {
+        unsafe {
+            let _ = CloseHandle(self.0);
+        }
+    }
+}
 
 /// Thread-bound owner. Construct/close/drop only on a normal STA control thread.
 /// Keep this owner alive for the full registration: Windows does not AddRef it.
@@ -83,6 +98,7 @@ pub struct NotificationWatch {
     uid: String,
     flow: Flow,
     signal: Arc<ChangeSignal>,
+    dispatch_event: DispatchEvent,
     apartment: Option<Apartment>,
     closed: bool,
 }
@@ -122,6 +138,14 @@ impl NotificationWatch {
         // external Prepare workflow; this API has no permission-restoring step.
         signal.publish(ChangeKind::InitialValidation);
         let apartment = Apartment::enter().map_err(WatchError::Metadata)?;
+        let dispatch_event = DispatchEvent(
+            unsafe { CreateEventW(None, false, false, PCWSTR::null()) }.map_err(|e| {
+                WatchError::Metadata(MetadataError::Com {
+                    operation: "CreateNotificationDispatchEvent",
+                    hresult: e.code().0,
+                })
+            })?,
+        );
         inspect_endpoint(&uid, flow).map_err(WatchError::Metadata)?;
         let enumerator = enumerator().map_err(WatchError::Metadata)?;
         let callback: IMMNotificationClient = NotificationClient {
@@ -142,9 +166,32 @@ impl NotificationWatch {
             uid,
             flow,
             signal,
+            dispatch_event,
             apartment: Some(apartment),
             closed: false,
         })
+    }
+
+    /// Normal STA control scheduler only. No audio Initialize/Start; dispatch
+    /// service callbacks for at most 100ms. Call poll_revalidation separately.
+    pub fn dispatch(&mut self, timeout: Duration) -> Result<(), WatchError> {
+        if self.closed || timeout > Duration::from_millis(100) {
+            return Err(WatchError::ControlState);
+        }
+        match unsafe {
+            CoWaitForMultipleHandles(
+                (COWAIT_DISPATCH_CALLS.0 | COWAIT_DISPATCH_WINDOW_MESSAGES.0) as u32,
+                timeout.as_millis() as u32,
+                &[self.dispatch_event.0],
+            )
+        } {
+            Ok(_) => Ok(()),
+            Err(error) if error.code() == RPC_S_CALLPENDING => Ok(()),
+            Err(error) => Err(WatchError::Metadata(MetadataError::Com {
+                operation: "CoWaitNotificationDispatch",
+                hresult: error.code().0,
+            })),
+        }
     }
 
     /// Re-read the saved exact UID/expected flow, never the changed default.
@@ -198,7 +245,7 @@ impl Drop for NotificationWatch {
 }
 
 #[cfg(test)]
-mod tests {
+pub(crate) mod tests {
     use super::*;
     use std::sync::atomic::{AtomicUsize, Ordering};
     use std::{
@@ -231,6 +278,14 @@ mod tests {
     }
     #[global_allocator]
     static ALLOCATOR: CountingAllocator = CountingAllocator;
+
+    pub(crate) fn count_allocations<T>(operation: impl FnOnce() -> T) -> (T, usize) {
+        ALLOCATIONS.with(|count| count.set(0));
+        COUNTING.with(|enabled| enabled.set(true));
+        let result = operation();
+        COUNTING.with(|enabled| enabled.set(false));
+        (result, ALLOCATIONS.with(Cell::get))
+    }
 
     #[test]
     fn all_native_callback_methods_publish_without_uid_reads_or_allocations() {

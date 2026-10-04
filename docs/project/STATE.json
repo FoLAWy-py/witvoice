@@ -8,27 +8,24 @@
   "active_tasks": [
     {
       "task_id": "T007",
-      "agent_instance_id": "/root/audio_runtime",
+      "agent_instance_id": "/root",
       "allowed_paths": [
-        "crates/audio/src/",
-        "crates/audio/tests/",
-        "crates/audio/examples/",
-        "crates/audio/README.md"
+        "docs/evidence/T007-20261005/watched/"
       ],
       "resource_leases": [
-        "code-writer:audio-watched-stream"
+        "audio-hardware:leader-metadata-probes"
       ],
       "depends_on": [
         "T003"
       ],
-      "contract": "T007 acceptance + T007-native-stream-assignment + watched-stream addendum",
+      "contract": "watched frozen-source metadata-only format+removal probes",
       "acceptance_commands": [
-        "cargo test -p witvoice-audio --locked",
-        "cargo fmt --package witvoice-audio --check",
-        "cargo clippy -p witvoice-audio --locked --all-targets -- -D warnings"
+        "cargo test/fmt/clippy/build examples frozen audio",
+        "format_support_probe noInitialize/Start",
+        "removal_probe only after user physical action approval"
       ],
       "reviewer": "/root/reviewer_t001",
-      "execution_note": "callback-to-owner invalidation wiring + metadata-only removal/format probe creation only; no new Initialize/Start/hardware, no final formal review yet; author T007 attempts2/3 unchanged"
+      "execution_note": "audio author stopped,33 puretests0; root metadata lease only, no new capture/output Start authorization or execution"
     },
     {
       "task_id": "T016",

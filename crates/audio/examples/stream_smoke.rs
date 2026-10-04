@@ -41,11 +41,18 @@ fn main() -> Result<(), String> {
     owner
         .start(ExplicitStart::UserApproved)
         .map_err(|e| format!("{e:?}"))?;
-    while started.elapsed() < Duration::from_secs(seconds) {
-        if !owner
-            .wait_event(Duration::from_millis(50))
-            .map_err(|e| format!("{e:?}"))?
-        {
+    let requested = Duration::from_secs(seconds);
+    while let Some(remaining) = requested.checked_sub(started.elapsed()) {
+        if remaining.is_zero() {
+            break;
+        }
+        let ready = owner
+            .wait_event(remaining.min(Duration::from_millis(50)))
+            .map_err(|e| format!("{e:?}"))?;
+        if started.elapsed() >= requested {
+            break;
+        }
+        if !ready {
             continue;
         }
         if flow == Flow::Capture {
@@ -61,9 +68,11 @@ fn main() -> Result<(), String> {
             frames += u64::from(owner.submit_silence().map_err(|e| format!("{e:?}"))?);
         }
     }
+    let active_wall = started.elapsed();
     owner.close().map_err(|e| format!("{e:?}"))?;
     println!(
-        "native-rate only; packets={packets} frames={frames} wall_seconds={:.6}; no PCM saved; not full T007 acceptance",
+        "native-rate only; packets={packets} frames={frames} request_seconds={seconds} active_wall_seconds={:.6} wall_including_close_seconds={:.6}; no PCM saved; not full T007 acceptance",
+        active_wall.as_secs_f64(),
         started.elapsed().as_secs_f64()
     );
     Ok(())
