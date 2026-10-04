@@ -8,6 +8,7 @@ import ctypes
 from ctypes import wintypes
 from datetime import datetime, timezone
 import importlib.util
+import inspect
 import json
 import math
 from pathlib import Path
@@ -75,6 +76,18 @@ def load_runner(device):
         return original_load(path, *args, **kwargs)
 
     def checked_state_load(model, state, *args, **kwargs):
+        # Compatibility repair 2: the published speaker training state includes
+        # one supervised classification head not used by the embedding model.
+        # Require the exact fixed extra key/shape and all active keys, then load
+        # strictly; no arbitrary unexpected/missing parameters are accepted.
+        if type(model).__module__ == "src.speaker" and type(model).__name__ == "ECAPA_TDNN":
+            expected = set(model.state_dict())
+            if set(state) - expected != {"loss_calculator.projection.weight"} or expected - set(state):
+                raise RuntimeError("speaker state differs beyond fixed training-only head")
+            if tuple(state["loss_calculator.projection.weight"].shape) != (5994, 256):
+                raise RuntimeError("unexpected speaker training head shape")
+            state = {key: value for key, value in state.items() if key != "loss_calculator.projection.weight"}
+            kwargs["strict"] = True
         result = original_state_load(model, state, *args, **kwargs)
         if result.missing_keys or result.unexpected_keys:
             raise RuntimeError("incomplete checkpoint: missing=" + str(result.missing_keys) + " unexpected=" + str(result.unexpected_keys))
@@ -104,13 +117,37 @@ def load_runner(device):
 
     def complete_vc_loader(config_path, ckpt_path, device="cpu"):
         from safetensors.torch import load_file
+        if sha256(Path(config_path)) != "1f62b9441f55d8a0622ff87ac94987d8780d09af72f51b88a858b310d5e0835b":
+            raise RuntimeError("VC configuration digest mismatch")
         with open(config_path, encoding="utf-8") as handle:
             configuration = json.load(handle)
         model = module.DiT(**configuration["model"])
-        model.cache_embed = ForbiddenLegacyCache()
         weights = load_file(ckpt_path)
+        if set(model.state_dict()) - set(weights) != {"cache_embed.weight", "cache_embed.bias"} or set(weights) - set(model.state_dict()):
+            raise RuntimeError("VC state differs beyond unused legacy cache")
+        model.cache_embed = ForbiddenLegacyCache()
         model.load_state_dict(weights, strict=True)
-        return model.to(device).float().eval()
+        model.to(device).float().eval()
+        original_forward = model.forward
+        signature = inspect.signature(original_forward)
+        model.streaming_guard_calls = 0
+        def guarded_forward(*args, **kwargs):
+            bound = signature.bind(*args, **kwargs)
+            bound.apply_defaults()
+            if bound.arguments["cache"] is not None or bound.arguments["is_inference"] is not True or model.training:
+                raise RuntimeError("only eval streaming inference with no legacy cache is allowed")
+            model.streaming_guard_calls += 1
+            return original_forward(*args, **kwargs)
+        model.forward = guarded_forward
+        # Negative guard checks fail before tensor computation; no CUDA kernels.
+        for bad in ((None, None, None, object()), (None, None, None)):
+            try:
+                model.forward(*bad, is_inference=True if len(bad) == 4 else False)
+            except RuntimeError:
+                pass
+            else:
+                raise RuntimeError("legacy/training guard did not fail closed")
+        return model
 
     module._load_vc_model = complete_vc_loader
     runner = module.VCRunner(str(REFERENCE), device=device, model="40ms")
@@ -129,6 +166,7 @@ def run(args):
               "not_tested": ["physical_mic", "virtual_cable", "LAN", "Mac", "human_voice_signoff"],
               "measurement_boundary": "fixed file PCM submitted to upstream process_chunk; no audio endpoint/production Node",
               "command": sys.argv}
+    report["compatibility_repair_count"] = 2
     started = time.perf_counter()
     try:
         if sha256(SOURCE) != "7a4172d80ae660e173c3b059c4ae855fc088deab4bed20b4437624f3fdee3436" or sha256(REFERENCE) != "8954b7c5a7758b06fc305904596ad36633696235b6fc31a8bf3a636250b48921":
@@ -153,7 +191,7 @@ def run(args):
         report["asr_backend_actual"] = "cpu"
         report["private_bytes_after_init"] = private_bytes()
         report["runtime_input_chunk_samples"] = runner.CHUNK
-        report["compatibility_repairs"] = ["1: reject unused untrained legacy mel-cache module; active checkpoint strict=True"]
+        report["compatibility_repairs"] = ["1: reject unused untrained legacy mel-cache module; active checkpoint strict=True", "2: discard exact published speaker training-only classification head; strict active state"]
         report["native_input_rate"] = rate
         # Upstream runtime writes 16k and uses 160-sample vocoder hop per 10ms.
         report["native_output_rate"] = 16000
@@ -203,6 +241,7 @@ def run(args):
         if converted.ndim != 1 or not len(converted) or not np.isfinite(converted).all() or np.max(np.abs(converted)) == 0:
             raise RuntimeError("invalid or blank output")
         report["output"] = {"path": str(output_path.relative_to(ROOT)), "sha256": sha256(output_path), "samples": len(converted), "sample_rate": output_rate, "duration_seconds": len(converted) / output_rate, "peak": float(np.max(np.abs(converted))), "rms": float(np.sqrt(np.mean(converted.astype(np.float64) ** 2))), "finite": True}
+        report["streaming_guard_calls"] = runner.vc.streaming_guard_calls
         report["result"] = "PASS_EXPERIMENT_ONLY"
         report["windows"] = "EXPERIMENT_EXECUTED_NOT_PRODUCT_VERIFIED"
     except Exception as exc:
