@@ -5,6 +5,14 @@ edition.workspace = true
 rust-version.workspace = true
 publish.workspace = true
 
+[features]
+process-tests = []
+
+[[bin]]
+name = "process-probe"
+path = "src/bin/process-probe.rs"
+required-features = ["process-tests"]
+
 [dependencies]
 witvoice-contracts = { path = "../../crates/contracts" }
 witvoice-session = { path = "../../crates/session" }

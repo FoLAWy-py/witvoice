@@ -4,7 +4,7 @@
 
 | Task | 状态 | 独立review | 主要边界 |
 |---|---|---|---|
-| T001 | DONE | reviews/T001-r2.md | 工具链及13负向/4原生编译运行，非Mac构建。 |
+| T001 | DONE | reviews/T001-r2.md | 工具链及13测试（含负向）/4原生编译运行，非Mac构建。 |
 | T002 | DONE | reviews/T002-r2.md | 单MeanVC2安全版文件源/60秒C实验；首次FAIL保留，候选预算2/2；不含完整质量/依赖/许可发行闭合。 |
 | T003 | DONE | reviews/T003-T004-r2.md | 权威Rust契约、绑定/黄金向量及状态effect；不等于音频治理/IPC实现完成。 |
 | T004 | DONE | reviews/T003-T004-r2.md | 获授权fixture清单与测量计划；完整24/3素材及人工有效语音未就绪，validator BLOCKED保留。 |
