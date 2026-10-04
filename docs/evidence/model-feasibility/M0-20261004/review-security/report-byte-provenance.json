@@ -1,0 +1,31 @@
+{
+  "frozen_evidence_commit": "c2709518a926acab0ae5e44a02bffdf8512cd66c",
+  "executed_harness_commit": "4fd6be043b9c5a627df36328ff00e3ef03d61ace",
+  "explanation": "Original Windows JSON bytes preserved locally; Git .json text eol=lf. offline-210.json json_sha256 refers to raw bytes, not Git LF.",
+  "records": [
+    {
+      "report": "file-210.json",
+      "raw_sha256": "c3211c82e9d9fb3657c4bbbe57b2304bab3e146da6fcab1faf00d739c40adaee",
+      "git_lf_sha256": "2c1055efebec88802c6e7f1b6a70058f1f36ec03acdee3e82d57115e6fb2b18b",
+      "raw_copy": ".local/evidence-raw/safe210/file-210.json",
+      "only_crlf_normalization": true,
+      "json_values_equal": true
+    },
+    {
+      "report": "paced-210.json",
+      "raw_sha256": "f5433169148bcda1b88039c900bade2c6d1226827a16718a969b1fe3b500c1a2",
+      "git_lf_sha256": "42a109d569dc2488941a3b4855f0bedebde227f21fc99ca30147e0431abd3290",
+      "raw_copy": ".local/evidence-raw/safe210/paced-210.json",
+      "only_crlf_normalization": true,
+      "json_values_equal": true
+    },
+    {
+      "report": "paced-210-isolated.json",
+      "raw_sha256": "2f2729fff276568e1ada66ee348cacb303ee71f3b6f0c40da9c292fde1f552d4",
+      "git_lf_sha256": "c7a581e6861b3d2f37b830c6cfdc438a02cc898af6611ca9293cd86be25fe3fb",
+      "raw_copy": ".local/evidence-raw/safe210/paced-210-isolated.json",
+      "only_crlf_normalization": true,
+      "json_values_equal": true
+    }
+  ]
+}
