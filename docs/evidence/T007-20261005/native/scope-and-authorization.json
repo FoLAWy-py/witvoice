@@ -1,0 +1,40 @@
+{
+  "captured_at": "2026-10-04T20:19:59.181145+00:00",
+  "kind": "NATIVE_SHORT_SMOKE_SCOPE_AND_AUTHORIZATION",
+  "user_authorization": {
+    "question_item": "call_6HUCHiccpeu21ewmxExmAalm/0",
+    "answer": "允许这两项本机 5 秒测试",
+    "scope": "one selected local capture and one selected silence-render; PCM memory only then cleared, no audio file/upload/original playback/default changes/driver installation",
+    "reply_timestamp": "NOT_CAPTURED_IN_THIS_SIDECAR"
+  },
+  "selected_endpoints": {
+    "capture": {
+      "friendly_property": "Wireless Mic Rx",
+      "bus": "USB",
+      "property_source": "read-only HKLM MMDevices selected exactUID; manufacturer-friendly property {b3f8fa53-0004-438e-9003-51a46e139bfc},6 and connection property a45...24",
+      "original_selection": "private .local only; no UID in public evidence"
+    },
+    "render": {
+      "friendly_property": "Steam Streaming Microphone",
+      "bus": "ROOT/software",
+      "property_source": "same read-only MMDevices properties; SteamStreamingMicrophone.NT driver metadata",
+      "boundary": "software render endpoint, not physical speaker or production CABLE virtual-input route proof"
+    }
+  },
+  "loop_wall_seconds": {
+    "capture": 5.001821,
+    "silence_render": 5.001916
+  },
+  "duration_note": "5-second requested loop has ordinary scheduler overhead (~2ms); full process lifetime includes prepare/close (~5.08s/5.15s). No exact maximum5.000s claim. No further Start tests in this slice authorization.",
+  "binary_sha256": "0050940b6109dade5b4f136bd4d6dd8c9c856a8c3461fc5f99c3db963cc49f51",
+  "source_binding": "audio8files frozen2355099 with matching normalized sourceSHA; root manifest/lock had audited additive T016 setup then not yet committed, frozen879c701 later. Do not claim entire workspace clean at smoke time.",
+  "author_vs_leader": "README source author correctly said no hardware execution by author; leader subsequently ran explicitly approved two short native smoke commands and recorded actual0. Full T007 still IN_PROGRESS.",
+  "limits": [
+    "counts do not measure p95/e2e latency/underflows/ASRC",
+    "COM allocation-free actual service NOT_VERIFIED; allocator tests format/decode_packet Rust paths only",
+    "exact-image process count0 is observation only, not global OS resource/recording absence proof",
+    "physical removal/service notification delivery NOT_RUN",
+    "render submission SILENT only; no transformed voice/virtualmic closed loop",
+    "Windows short smoke does not prove Mac or LAN"
+  ]
+}

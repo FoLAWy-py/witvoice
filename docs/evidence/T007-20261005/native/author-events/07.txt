@@ -1,0 +1,37 @@
+[
+  {
+    "path": "crates/audio/src/lib.rs",
+    "sha256_lf_utf8": "75e521475bb5daa6c3eaf31382cb02150c240eacdfdb3da48cb6f0a25857a6b8"
+  },
+  {
+    "path": "crates/audio/src/wasapi.rs",
+    "sha256_lf_utf8": "3af957ac241c6b70d97110c4e0a78f5e8ddb1faef670f5554a7a6c185e22e364"
+  },
+  {
+    "path": "crates/audio/src/stream.rs",
+    "sha256_lf_utf8": "6b4902eb727e9aa063e15204877e40493cf541979b3236209f0a30b76d7f2674"
+  },
+  {
+    "path": "crates/audio/src/stream/native.rs",
+    "sha256_lf_utf8": "ebbcde61aadd41a72cdabd5c7efa6df83dde4a394e1f704530718da8f9687de8"
+  },
+  {
+    "path": "crates/audio/tests/stream_packets.rs",
+    "sha256_lf_utf8": "343d9d02853ccc3a7b118d5c445e2ad8bb165e19e03e9e284c8ac295a03fd6d1"
+  },
+  {
+    "path": "crates/audio/tests/allocation.rs",
+    "sha256_lf_utf8": "148898a922a367a75d53b308ceb119771504997534222b0612189dabfc9f356b"
+  },
+  {
+    "path": "crates/audio/examples/stream_smoke.rs",
+    "sha256_lf_utf8": "98f9be79f064f4ca2689e3e07f17e1546ba5d458228f06be57d9ed5c88028f6b"
+  },
+  {
+    "path": "crates/audio/README.md",
+    "sha256_lf_utf8": "6664cebc009dee3070e43fcc4e93035f33d1431fe0e6e9a9e3af25338ef2639c"
+  }
+]
+{
+  "diff_check_exit": 0
+}

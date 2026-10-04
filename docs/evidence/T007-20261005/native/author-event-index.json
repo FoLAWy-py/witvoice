@@ -1,0 +1,148 @@
+{
+  "owner": "/root/audio_runtime",
+  "thread_id": "01a10767-80de-7e02-b3b0-73d1273a70bd",
+  "source": "own assigned audio session CommandExecution completed events; source log not copied",
+  "window_utc": [
+    "2026-10-04T19:54:00",
+    "2026-10-04T20:00:00"
+  ],
+  "kind": "NATIVE_AUTHOR_HISTORY_BEFORE_WATCHED_ADDENDUM",
+  "events": [
+    {
+      "line": 1777,
+      "event_timestamp": "2026-10-04T19:54:35.151Z",
+      "event_id": "exec-45f0e38a-5862-4d8e-8c58-521b6420ef8a",
+      "command": [
+        "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+        "-Command",
+        "Get-Content -LiteralPath 'crates/audio/README.md'; . tools/dev/toolchain-env.ps1; rustfmt --edition 2024 crates/audio/src/stream.rs crates/audio/src/stream/native.rs crates/audio/src/lib.rs crates/audio/src/wasapi.rs crates/audio/tests/stream_packets.rs crates/audio/tests/allocation.rs crates/audio/examples/stream_smoke.rs; $streamStart=[DateTime]::UtcNow.ToString('o'); cargo test -p witvoice-audio --locked; $streamExit=$LASTEXITCODE; $streamEnd=[DateTime]::UtcNow.ToString('o'); [pscustomobject]@{command='cargo test -p witvoice-audio --locked';start=$streamStart;end=$streamEnd;exit=$streamExit} | ConvertTo-Json; exit $streamExit"
+      ],
+      "cwd": "file:///D:/Project/witvoice",
+      "exit": 101,
+      "duration": {
+        "secs": 9,
+        "nanos": 691331900
+      },
+      "output": "docs/evidence/T007-20261005/native/author-events/01.txt",
+      "raw_output_sha256": "371264d0c9a3e1d58629364b7c2e60c0489569045cbeb3739a49e6d2bb71795e",
+      "extracted_not_rerun": true
+    },
+    {
+      "line": 1785,
+      "event_timestamp": "2026-10-04T19:55:43.560Z",
+      "event_id": "exec-68f02a8c-aba9-4697-976d-8dbfe6b12dd9",
+      "command": [
+        "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+        "-Command",
+        ". tools/dev/toolchain-env.ps1; rustfmt --edition 2024 crates/audio/src/stream/native.rs; $streamStart=[DateTime]::UtcNow.ToString('o'); cargo test -p witvoice-audio --locked; $streamExit=$LASTEXITCODE; $streamEnd=[DateTime]::UtcNow.ToString('o'); [pscustomobject]@{command='cargo test -p witvoice-audio --locked';start=$streamStart;end=$streamEnd;exit=$streamExit} | ConvertTo-Json; exit $streamExit"
+      ],
+      "cwd": "file:///D:/Project/witvoice",
+      "exit": 0,
+      "duration": {
+        "secs": 2,
+        "nanos": 138759800
+      },
+      "output": "docs/evidence/T007-20261005/native/author-events/02.txt",
+      "raw_output_sha256": "1eda358614933a6163b52bbd2951753f30d3eb9ef7c62702e201155859f3af22",
+      "extracted_not_rerun": true
+    },
+    {
+      "line": 1796,
+      "event_timestamp": "2026-10-04T19:56:31.592Z",
+      "event_id": "exec-087eef98-667b-4f83-a107-6cd726300b0e",
+      "command": [
+        "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+        "-Command",
+        ". tools/dev/toolchain-env.ps1; $streamFmtStart=[DateTime]::UtcNow.ToString('o'); cargo fmt --package witvoice-audio --check; $streamFmtExit=$LASTEXITCODE; $streamFmtEnd=[DateTime]::UtcNow.ToString('o'); [pscustomobject]@{command='cargo fmt --package witvoice-audio --check';start=$streamFmtStart;end=$streamFmtEnd;exit=$streamFmtExit} | ConvertTo-Json; $streamClippyStart=[DateTime]::UtcNow.ToString('o'); cargo clippy -p witvoice-audio --locked --all-targets -- -D warnings; $streamClippyExit=$LASTEXITCODE; $streamClippyEnd=[DateTime]::UtcNow.ToString('o'); [pscustomobject]@{command='cargo clippy -p witvoice-audio --locked --all-targets -- -D warnings';start=$streamClippyStart;end=$streamClippyEnd;exit=$streamClippyExit} | ConvertTo-Json; if($streamFmtExit -ne 0){exit $streamFmtExit}; exit $streamClippyExit"
+      ],
+      "cwd": "file:///D:/Project/witvoice",
+      "exit": 0,
+      "duration": {
+        "secs": 1,
+        "nanos": 302206000
+      },
+      "output": "docs/evidence/T007-20261005/native/author-events/03.txt",
+      "raw_output_sha256": "fce671be0dabe4acd960aaa5d7569c315b0b6f35f29efb5e70b0e7c9fa40e935",
+      "extracted_not_rerun": true
+    },
+    {
+      "line": 1805,
+      "event_timestamp": "2026-10-04T19:57:27.735Z",
+      "event_id": "exec-c23892ef-ca26-4581-b30d-411a5cc67201",
+      "command": [
+        "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+        "-Command",
+        "$streamPaths=@('crates/audio/src/lib.rs','crates/audio/src/wasapi.rs','crates/audio/src/stream.rs','crates/audio/src/stream/native.rs','crates/audio/tests/stream_packets.rs','crates/audio/tests/allocation.rs','crates/audio/examples/stream_smoke.rs','crates/audio/README.md'); $streamRows=@(foreach($streamPath in $streamPaths){$streamRaw=[System.IO.File]::ReadAllText((Join-Path (Get-Location) $streamPath)); $streamLf=$streamRaw.Replace(\"`r`n\",\"`n\"); $streamSha=[System.Security.Cryptography.SHA256]::HashData([System.Text.UTF8Encoding]::new($false).GetBytes($streamLf)); [pscustomobject]@{path=$streamPath;sha256_lf_utf8=[Convert]::ToHexString($streamSha).ToLowerInvariant();lines=($streamLf.Split(\"`n\").Length-1)}}); ConvertTo-Json -InputObject $streamRows; & 'C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\git\\cmd\\git.exe' diff --check -- crates/audio/src crates/audio/tests crates/audio/examples crates/audio/README.md; $streamDiffExit=$LASTEXITCODE; & 'C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\git\\cmd\\git.exe' diff --stat -- crates/audio/src crates/audio/tests crates/audio/examples crates/audio/README.md; [pscustomobject]@{diff_check_exit=$streamDiffExit} | ConvertTo-Json; exit $streamDiffExit"
+      ],
+      "cwd": "file:///D:/Project/witvoice",
+      "exit": 0,
+      "duration": {
+        "secs": 0,
+        "nanos": 400975100
+      },
+      "output": "docs/evidence/T007-20261005/native/author-events/04.txt",
+      "raw_output_sha256": "90b228037e06b4772719e4677791fba5f612b88b4d79e7eaa2525a0fd28e1934",
+      "extracted_not_rerun": true
+    },
+    {
+      "line": 1813,
+      "event_timestamp": "2026-10-04T19:58:13.635Z",
+      "event_id": "exec-d505121c-d00f-4d16-8786-9f563d0878c1",
+      "command": [
+        "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+        "-Command",
+        ". tools/dev/toolchain-env.ps1; $streamTestStart=[DateTime]::UtcNow.ToString('o'); cargo test -p witvoice-audio --locked; $streamTestExit=$LASTEXITCODE; $streamTestEnd=[DateTime]::UtcNow.ToString('o'); [pscustomobject]@{command='cargo test -p witvoice-audio --locked';start=$streamTestStart;end=$streamTestEnd;exit=$streamTestExit} | ConvertTo-Json; $streamFmtStart=[DateTime]::UtcNow.ToString('o'); cargo fmt --package witvoice-audio --check; $streamFmtExit=$LASTEXITCODE; $streamFmtEnd=[DateTime]::UtcNow.ToString('o'); [pscustomobject]@{command='cargo fmt --package witvoice-audio --check';start=$streamFmtStart;end=$streamFmtEnd;exit=$streamFmtExit} | ConvertTo-Json; $streamClippyStart=[DateTime]::UtcNow.ToString('o'); cargo clippy -p witvoice-audio --locked --all-targets -- -D warnings; $streamClippyExit=$LASTEXITCODE; $streamClippyEnd=[DateTime]::UtcNow.ToString('o'); [pscustomobject]@{command='cargo clippy -p witvoice-audio --locked --all-targets -- -D warnings';start=$streamClippyStart;end=$streamClippyEnd;exit=$streamClippyExit} | ConvertTo-Json; if($streamTestExit -ne 0){exit $streamTestExit}; if($streamFmtExit -ne 0){exit $streamFmtExit}; exit $streamClippyExit"
+      ],
+      "cwd": "file:///D:/Project/witvoice",
+      "exit": 0,
+      "duration": {
+        "secs": 2,
+        "nanos": 978104000
+      },
+      "output": "docs/evidence/T007-20261005/native/author-events/05.txt",
+      "raw_output_sha256": "d2938d5d16e39d6d79407f56e26a7d562dc4c99a34c084fe1bcfbb31ab93e6cf",
+      "extracted_not_rerun": true
+    },
+    {
+      "line": 1821,
+      "event_timestamp": "2026-10-04T19:59:05.416Z",
+      "event_id": "exec-974ac22c-9567-4959-959f-89f564274523",
+      "command": [
+        "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+        "-Command",
+        ". tools/dev/toolchain-env.ps1; $streamTestStart=[DateTime]::UtcNow.ToString('o'); cargo test -p witvoice-audio --locked; $streamTestExit=$LASTEXITCODE; $streamTestEnd=[DateTime]::UtcNow.ToString('o'); [pscustomobject]@{command='cargo test -p witvoice-audio --locked';start=$streamTestStart;end=$streamTestEnd;exit=$streamTestExit} | ConvertTo-Json; $streamFmtStart=[DateTime]::UtcNow.ToString('o'); cargo fmt --package witvoice-audio --check; $streamFmtExit=$LASTEXITCODE; $streamFmtEnd=[DateTime]::UtcNow.ToString('o'); [pscustomobject]@{command='cargo fmt --package witvoice-audio --check';start=$streamFmtStart;end=$streamFmtEnd;exit=$streamFmtExit} | ConvertTo-Json; $streamClippyStart=[DateTime]::UtcNow.ToString('o'); cargo clippy -p witvoice-audio --locked --all-targets -- -D warnings; $streamClippyExit=$LASTEXITCODE; $streamClippyEnd=[DateTime]::UtcNow.ToString('o'); [pscustomobject]@{command='cargo clippy -p witvoice-audio --locked --all-targets -- -D warnings';start=$streamClippyStart;end=$streamClippyEnd;exit=$streamClippyExit} | ConvertTo-Json; if($streamTestExit -ne 0){exit $streamTestExit}; if($streamFmtExit -ne 0){exit $streamFmtExit}; exit $streamClippyExit"
+      ],
+      "cwd": "file:///D:/Project/witvoice",
+      "exit": 0,
+      "duration": {
+        "secs": 2,
+        "nanos": 974837500
+      },
+      "output": "docs/evidence/T007-20261005/native/author-events/06.txt",
+      "raw_output_sha256": "f163587a8c4128a145f26d32aadcba8aa3390ca7ce48edfbda9951fec3232b85",
+      "extracted_not_rerun": true
+    },
+    {
+      "line": 1828,
+      "event_timestamp": "2026-10-04T19:59:38.719Z",
+      "event_id": "exec-76504bab-570f-4567-9a88-f92d4f4865d2",
+      "command": [
+        "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+        "-Command",
+        "$streamPaths=@('crates/audio/src/lib.rs','crates/audio/src/wasapi.rs','crates/audio/src/stream.rs','crates/audio/src/stream/native.rs','crates/audio/tests/stream_packets.rs','crates/audio/tests/allocation.rs','crates/audio/examples/stream_smoke.rs','crates/audio/README.md'); $streamRows=@(foreach($streamPath in $streamPaths){$streamRaw=[System.IO.File]::ReadAllText((Join-Path (Get-Location) $streamPath)); $streamLf=$streamRaw.Replace(\"`r`n\",\"`n\"); [pscustomobject]@{path=$streamPath;sha256_lf_utf8=[Convert]::ToHexString([System.Security.Cryptography.SHA256]::HashData([System.Text.UTF8Encoding]::new($false).GetBytes($streamLf))).ToLowerInvariant()}}); ConvertTo-Json -InputObject $streamRows; & 'C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\git\\cmd\\git.exe' diff --check -- crates/audio/src crates/audio/tests crates/audio/examples crates/audio/README.md; $streamExit=$LASTEXITCODE; [pscustomobject]@{diff_check_exit=$streamExit} | ConvertTo-Json; exit $streamExit"
+      ],
+      "cwd": "file:///D:/Project/witvoice",
+      "exit": 0,
+      "duration": {
+        "secs": 0,
+        "nanos": 334423400
+      },
+      "output": "docs/evidence/T007-20261005/native/author-events/07.txt",
+      "raw_output_sha256": "23624e8ee929ab872e210b04da24f4abe863a8025de70cfc3bb4adf9a5d270f2",
+      "extracted_not_rerun": true
+    }
+  ],
+  "failures": [
+    1777
+  ]
+}
