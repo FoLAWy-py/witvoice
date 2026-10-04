@@ -4,7 +4,7 @@
   "spec_baseline": "VC-SPEC-2026-10-04",
   "project_status": "IN_PROGRESS",
   "authorized_target": "WINDOWS_DELIVERED",
-  "active_milestone": "M0",
+  "active_milestone": "M1",
   "active_tasks": [
     {
       "task_id": "T006",
@@ -60,12 +60,19 @@
   ],
   "milestones": {
     "M0": {
-      "status": "IN_PROGRESS",
-      "evidence": [],
-      "review": null
+      "status": "DONE",
+      "evidence": [
+        "docs/project/M0-closure-audit.md",
+        "docs/project/M0-validator-final.json",
+        "docs/project/reviews/T001-r2.md",
+        "docs/project/reviews/T002-r2.md",
+        "docs/project/reviews/T003-T004-r2.md",
+        "docs/project/reviews/T005-r1.md"
+      ],
+      "review": "docs/project/reviews/M0-closure.md"
     },
     "M1": {
-      "status": "TODO",
+      "status": "IN_PROGRESS",
       "evidence": [],
       "review": null
     },

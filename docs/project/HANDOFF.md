@@ -1,6 +1,6 @@
 # 当前交接
 
-当前IN_PROGRESS，授权终点WINDOWS_DELIVERED（M5）；M6必需且仍UNTESTED，不允许COMPLETE。下一Task ID为T006。T001–T005均已DONE（T002正式r2刚批准限定文件源C实验）；M0合计关闭核对待，不凭T002一项替整个里程碑签收。T006实际backend开始进程监督；T007通知源码已冻结，41整合Rust tests/fmt/clippy0，stream/removal与独立r2待。下面旧实验与先前状态保留作历史，当前安全版结论以T002-r2为准，旧2.5.1成绩不用于当前认证。
+当前IN_PROGRESS / M1，授权终点WINDOWS_DELIVERED（M5）；M6必需且仍UNTESTED，不允许COMPLETE。下一Task ID为T006。T001–T005及M0均已DONE：T002正式r2仅批准文件源C实验，M0另经完整合计独立核对批准（reviews/M0-closure.md）。T006实际backend开始进程监督；T007通知源码已冻结，41整合Rust tests/fmt/clippy0，stream/removal与独立r2待。下面旧实验与先前状态保留作历史，当前安全版结论以T002-r2为准，旧2.5.1成绩不用于当前认证。
 
 T001已DONE：源码0f283ffe460be3382aae89f481be62a73ab4d60f，13负向测试、C/Rust原生编译运行通过，独立/root/reviewer_t001第2轮批准。目录初始无Git，安全建立本地历史，无push/reset/clean，保留原有文件。
 

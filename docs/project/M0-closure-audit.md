@@ -1,4 +1,4 @@
-# M0 合计关闭核对（待独立核对）
+# M0 合计关闭核对（独立批准）
 
 这里只核 M0 基线，不替代 M1–M6 应用/硬件门。固定5任务已分别获得真实独立批准：
 
@@ -14,4 +14,4 @@
 
 继续保留B001许可链发行阻塞、s3prl生产pipcheck3缺项、进程私有内存7.17GiB非模型独占的预算解释、Windows音频/质量/2h和Mac/LAN未过。全REQ总状态不因M0关闭改PASS；最终目标仍M5/WINDOWS_DELIVERED，完整项目M6真实硬件必需。
 
-leader准备合计证据，独立核对待。未开始任何录音/播放/驱动/防火墙/上传；当前仅backend进程代码租约。会话中断以STATE next_task=T006恢复，不保证后台继续。
+leader准备合计证据，实际独立reviewer已核并批准，见reviews/M0-closure.md。未开始任何录音/播放/驱动/防火墙/上传；当前仅backend进程代码租约。会话中断以STATE next_task=T006恢复，不保证后台继续。
