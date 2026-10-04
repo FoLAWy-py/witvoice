@@ -1,0 +1,6 @@
+Using Python 3.12.14 environment at: .local\venvs\meanvc2-m0
+Checked 33 packages in 11ms
+Found 3 incompatibilities
+The package `s3prl` requires `omegaconf>=2.1.1`, but it's not installed
+The package `s3prl` requires `transformers`, but it's not installed
+The package `s3prl` requires `protobuf>=4.21.1`, but it's not installed

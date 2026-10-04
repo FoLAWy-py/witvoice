@@ -9,7 +9,7 @@ use windows::{
         Media::Audio::{
             AUDCLNT_SHAREMODE_SHARED, DEVICE_STATE, DEVICE_STATE_ACTIVE, IAudioClient, IMMDevice,
             IMMDeviceEnumerator, IMMEndpoint, MMDeviceEnumerator, WAVEFORMATEX,
-            WAVEFORMATEXTENSIBLE, eAll, eCapture, eRender,
+            WAVEFORMATEXTENSIBLE, WAVEFORMATEXTENSIBLE_0, eAll, eCapture, eRender,
         },
         Media::KernelStreaming::KSDATAFORMAT_SUBTYPE_PCM,
         System::Com::{
@@ -272,6 +272,56 @@ pub struct FormatProbe {
     pub closest: Option<MixFormat>,
 }
 
+// Own the complete native descriptor through the synchronous WASAPI call.
+// PCM precision above 16 bits requires the extension rather than tag 1.
+enum NativeDescriptor {
+    Basic(WAVEFORMATEX),
+    Extensible(WAVEFORMATEXTENSIBLE),
+}
+
+impl NativeDescriptor {
+    fn new(format: AudioFormat) -> Self {
+        let extended = matches!(format.encoding(), Encoding::Pcm24 | Encoding::Pcm32);
+        let bits = (format.encoding().bytes() * 8) as u16;
+        let base = WAVEFORMATEX {
+            wFormatTag: if extended {
+                0xfffe
+            } else if format.encoding() == Encoding::Float32 {
+                3
+            } else {
+                1
+            },
+            nChannels: format.channels(),
+            nSamplesPerSec: format.sample_rate(),
+            nAvgBytesPerSec: format.sample_rate() * format.frame_bytes() as u32,
+            nBlockAlign: format.frame_bytes() as u16,
+            wBitsPerSample: bits,
+            cbSize: if extended { 22 } else { 0 },
+        };
+        if extended {
+            Self::Extensible(WAVEFORMATEXTENSIBLE {
+                Format: base,
+                Samples: WAVEFORMATEXTENSIBLE_0 {
+                    wValidBitsPerSample: bits,
+                },
+                dwChannelMask: if format.channels() == 1 { 4 } else { 3 },
+                SubFormat: KSDATAFORMAT_SUBTYPE_PCM,
+            })
+        } else {
+            Self::Basic(base)
+        }
+    }
+
+    // The pointer is borrowed from self's storage, not a temporary descriptor.
+    // Native callers must retain self without moving it until the call returns.
+    fn as_wave_ptr(&self) -> *const WAVEFORMATEX {
+        match self {
+            Self::Basic(base) => ptr::from_ref(base),
+            Self::Extensible(extension) => ptr::addr_of!(extension.Format),
+        }
+    }
+}
+
 /// Shared-mode format probe on the explicit active UID. A closest match is
 /// reported, never treated as exact success or silently used to start a stream.
 pub fn probe_format(
@@ -282,22 +332,15 @@ pub fn probe_format(
     let _apartment = Apartment::enter()?;
     let device = selected(&enumerator()?, uid, flow)?;
     let client = client(&device)?;
-    let native = WAVEFORMATEX {
-        wFormatTag: if requested.encoding() == Encoding::Float32 {
-            3
-        } else {
-            1
-        },
-        nChannels: requested.channels(),
-        nSamplesPerSec: requested.sample_rate(),
-        nAvgBytesPerSec: requested.sample_rate() * requested.frame_bytes() as u32,
-        nBlockAlign: requested.frame_bytes() as u16,
-        wBitsPerSample: (requested.encoding().bytes() * 8) as u16,
-        cbSize: 0,
-    };
+    let native = NativeDescriptor::new(requested);
     let mut closest = ptr::null_mut();
-    let status =
-        unsafe { client.IsFormatSupported(AUDCLNT_SHAREMODE_SHARED, &native, Some(&mut closest)) };
+    let status = unsafe {
+        client.IsFormatSupported(
+            AUDCLNT_SHAREMODE_SHARED,
+            native.as_wave_ptr(),
+            Some(&mut closest),
+        )
+    };
     let memory = TaskMem(closest);
     match status.0 {
         0 => Ok(FormatProbe {
@@ -321,6 +364,66 @@ pub fn probe_format(
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn high_precision_pcm_descriptors_own_complete_extension_and_roundtrip() {
+        for encoding in [Encoding::Pcm24, Encoding::Pcm32] {
+            for channels in 1..=2 {
+                let expected = AudioFormat::new(48_000, channels, encoding).unwrap();
+                let native = NativeDescriptor::new(expected);
+                let NativeDescriptor::Extensible(extension) = &native else {
+                    panic!("high-precision PCM must use WAVEFORMATEXTENSIBLE");
+                };
+                // Copy packed fields before comparisons; never borrow them.
+                let raw = extension.Format;
+                let valid_bits = unsafe { extension.Samples.wValidBitsPerSample };
+                let channel_mask = extension.dwChannelMask;
+                let subformat = extension.SubFormat;
+                let tag = raw.wFormatTag;
+                let extra_bytes = raw.cbSize;
+                let bits = raw.wBitsPerSample;
+                let align = raw.nBlockAlign;
+                let byte_rate = raw.nAvgBytesPerSec;
+                assert_eq!(tag, 0xfffe);
+                assert_eq!(extra_bytes, 22);
+                assert_eq!(bits, (encoding.bytes() * 8) as u16);
+                assert_eq!(valid_bits, bits);
+                assert_eq!(channel_mask, if channels == 1 { 4 } else { 3 });
+                assert_eq!(subformat, KSDATAFORMAT_SUBTYPE_PCM);
+                assert_eq!(align as usize, expected.frame_bytes());
+                assert_eq!(byte_rate, 48_000 * expected.frame_bytes() as u32);
+                let parsed = unsafe { read_format(native.as_wave_ptr()) }.unwrap();
+                assert_eq!(parsed.adapter_format, Some(expected));
+                assert!(parsed.adapter_error.is_none());
+                assert_eq!(parsed.extra_bytes, 22);
+                assert_eq!(parsed.valid_bits, bits);
+                assert_eq!(parsed.channel_mask, Some(channel_mask));
+            }
+        }
+    }
+
+    #[test]
+    fn basic_pcm_and_float_descriptors_keep_documented_tags_and_roundtrip() {
+        for encoding in [Encoding::Pcm8, Encoding::Pcm16, Encoding::Float32] {
+            for channels in 1..=2 {
+                let expected = AudioFormat::new(44_100, channels, encoding).unwrap();
+                let native = NativeDescriptor::new(expected);
+                let NativeDescriptor::Basic(base) = &native else {
+                    panic!("simple formats should keep their basic descriptor");
+                };
+                let tag = base.wFormatTag;
+                let extra_bytes = base.cbSize;
+                assert_eq!(tag, if encoding == Encoding::Float32 { 3 } else { 1 });
+                assert_eq!(extra_bytes, 0);
+                let parsed = unsafe { read_format(native.as_wave_ptr()) }.unwrap();
+                assert_eq!(parsed.adapter_format, Some(expected));
+                assert!(parsed.adapter_error.is_none());
+                assert!(parsed.channel_mask.is_none());
+                assert!(parsed.subformat.is_none());
+            }
+        }
+    }
+
     #[test]
     fn validates_native_layout_and_rejects_short_extension() {
         let mut native = WAVEFORMATEX {

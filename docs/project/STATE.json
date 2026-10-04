@@ -13,9 +13,7 @@
         "workers/vc_worker/",
         "docs/evidence/model-feasibility/"
       ],
-      "resource_leases": [
-        "write:workers/vc_worker/:leader"
-      ],
+      "resource_leases": [],
       "depends_on": [
         "T001"
       ],
@@ -25,7 +23,7 @@
       ],
       "reviewer": "/root/reviewer_t001",
       "contract": "docs/spec/03-model-runtime.md + 07-tests-acceptance.md",
-      "execution_note": "r1 changes required: root safety/report repairs; current Torch2.5.1 historical only; official2.10+cu126 download; no new GPU claim",
+      "execution_note": "harness4fd: safe2.10 file PASS; firstpacedFAIL retained; only isolatedretestPASS; r2 pending; no leases",
       "historical_advisor_instance_id": "/root/ml_engine"
     },
     {
@@ -43,11 +41,7 @@
         "crates/platform/tests/",
         "crates/platform/README.md"
       ],
-      "resource_leases": [
-        "write:apps/voice-node/src+tests+examples:backend",
-        "write:crates/session/src+tests:backend",
-        "write:crates/platform/src+tests:backend"
-      ],
+      "resource_leases": [],
       "depends_on": [
         "T003",
         "T005"
@@ -59,7 +53,7 @@
       ],
       "contract": "docs/spec/01-architecture.md +04-lan-protocol.md +06-security-distribution.md",
       "reviewer": "/root/reviewer_t001",
-      "execution_note": "actual backend writer; manifests/lockfiles/contracts/ledger leader only; no hardware lease"
+      "execution_note": "code frozen awaiting independent review; all writer/GPU/audio leases released"
     },
     {
       "task_id": "T007",
@@ -81,7 +75,7 @@
       ],
       "reviewer": "/root/reviewer_t001",
       "contract": "docs/spec/02-audio-engine.md + 07-tests-acceptance.md",
-      "execution_note": "first slice authored and integrated, 13 audio tests plus11 contracts passed; actual metadata only33 endpoints; no capture/render/removal; no writer/hardware lease"
+      "execution_note": "code frozen awaiting independent review; all writer/GPU/audio leases released"
     }
   ],
   "milestones": {
@@ -134,9 +128,9 @@
     {
       "id": "B003",
       "scope": "T002 current safe runtime",
-      "status": "REMEDIATION_IN_PROGRESS",
+      "status": "REVIEW_PENDING",
       "evidence": "docs/project/reviews/T002-r1.md",
-      "note": "two official loader advisories: installed2.5.1 historical only; refuse<2.10.0; patched download and new experiment required"
+      "note": "2.10 guarded file and isolatedpaced actual pass, firstpacedFAIL preserved; no production/windowshardware claim"
     }
   ],
   "distribution_status": "BLOCKED_LICENSE_CHAIN_NOT_BUILT",

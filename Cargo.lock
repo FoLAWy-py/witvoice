@@ -266,3 +266,29 @@ dependencies = [
  "serde",
  "serde_json",
 ]
+
+[[package]]
+name = "witvoice-node"
+version = "0.1.0"
+dependencies = [
+ "serde_json",
+ "witvoice-contracts",
+ "witvoice-platform",
+ "witvoice-session",
+]
+
+[[package]]
+name = "witvoice-platform"
+version = "0.1.0"
+dependencies = [
+ "windows",
+ "witvoice-contracts",
+]
+
+[[package]]
+name = "witvoice-session"
+version = "0.1.0"
+dependencies = [
+ "serde_json",
+ "witvoice-contracts",
+]

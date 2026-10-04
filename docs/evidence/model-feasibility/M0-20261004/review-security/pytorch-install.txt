@@ -1,0 +1,13 @@
+Using Python 3.12.14 environment at: .local\venvs\meanvc2-m0
+Resolved 2 packages in 797ms
+Downloading torch (2.4GiB)
+Downloading torchaudio (1.7MiB)
+ Downloaded torchaudio
+ Downloaded torch
+Prepared 2 packages in 10m 30s
+Uninstalled 2 packages in 1.55s
+Installed 2 packages in 6.17s
+ - torch==2.5.1+cu121
+ + torch==2.10.0+cu126
+ - torchaudio==2.5.1+cu121
+ + torchaudio==2.10.0+cu126

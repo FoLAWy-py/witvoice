@@ -1,0 +1,58 @@
+[
+  {
+    "argv": [
+      "cargo",
+      "fmt",
+      "-p",
+      "witvoice-session",
+      "-p",
+      "witvoice-platform",
+      "-p",
+      "witvoice-node",
+      "--check"
+    ],
+    "started_at": "2026-10-04T17:54:48.4284678Z",
+    "finished_at": "2026-10-04T17:54:48.5943294Z",
+    "exit_code": 0
+  },
+  {
+    "argv": [
+      "cargo",
+      "test",
+      "--locked",
+      "-p",
+      "witvoice-contracts",
+      "-p",
+      "witvoice-session",
+      "-p",
+      "witvoice-platform",
+      "-p",
+      "witvoice-node",
+      "--",
+      "--test-threads=1"
+    ],
+    "started_at": "2026-10-04T17:54:48.5950793Z",
+    "finished_at": "2026-10-04T17:54:52.5719181Z",
+    "exit_code": 0
+  },
+  {
+    "argv": [
+      "cargo",
+      "clippy",
+      "--locked",
+      "-p",
+      "witvoice-session",
+      "-p",
+      "witvoice-platform",
+      "-p",
+      "witvoice-node",
+      "--all-targets",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "started_at": "2026-10-04T17:54:52.5719470Z",
+    "finished_at": "2026-10-04T17:54:52.7864961Z",
+    "exit_code": 0
+  }
+]

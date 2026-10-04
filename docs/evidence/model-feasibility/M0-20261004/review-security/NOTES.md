@@ -37,9 +37,9 @@ advisory; it was interrupted (exec session38673, exit1) before installation and
 no uv process remained. Partial cache retained on D. An authorized replacement
 download targets exactly torch/torchaudio2.10.0+cu126 from the official index,
 as documented in [official versions](https://pytorch.org/get-started/previous-versions/).
-No new patched-runtime inference/compatibility/performance PASS is claimed until
-actually executed. Current safe runtime capability BLOCKED_SAFE_RUNTIME pending
-that experiment. These are safety/report repairs; model compatibility budget
+  At that point no new patched-runtime capability was claimed. The subsequently
+executed file and controlled isolated experiment are recorded below; current
+selection awaits independent r2. These are safety/report repairs; compatibility budget
 remains 2/2 and candidate replacements 0/1.
 
 Full acquisition references (not publisher signatures):
@@ -54,4 +54,38 @@ Full acquisition references (not publisher signatures):
 HF three digests are official LFS values. Microsoft two acquisition hashes are
 local only. lawlict-derived code and separate speaker binary terms remain
 BLOCKED_LICENSE_CHAIN for packaging; network permission does not grant those
-licenses. Full production s3prl dependencies and pip check remain NOT_RUN.
+licenses. Full production s3prl dependencies remain NOT_VERIFIED; the actual
+patched pip check result is recorded below.
+
+## Actual patched combination
+
+Torch/torchaudio2.10.0+cu126 installation exit0 (10m30s preparation, uv0.9.28);
+SymPy1.13.3 satisfies actual Torch metadata >=1.13.3.33 installed distributions
+archived in dependencies-210.json. Actual pip check exit1 reports3 absent declared
+s3prl dependencies: omegaconf,transformers,protobuf. Complete production install
+is NOT_VERIFIED; only the executed inference import closure is evidenced.
+
+Frozen harness4fd6be043b9c5a627df36328ff00e3ef03d61ace:
+
+- file-210.json exit0:7.510s finite nonblank16k output; actual parameter+buffer
+  device sets VC/speaker cuda:0,ASR cpu.
+- paced-210.json exit2:375steps60s,averageRTF0.580077,p99259.537ms and
+  maxlag986.025ms FAIL. Output was written before performance gate failed, so
+  output field is null; offline-210.json separately checks its existing WAV
+  without changing FAILED. This sample is retained, never replaced by a pass.
+- One predetermined environment-isolation retest, same model/code/input/gates,
+  all owned compile/tests paused; no power/driver changes. Baseline CPU8%,
+  balanced power; GPU query initially56% graphics-inclusive utilization/P8,
+  after5%/P5. This is not proof of globally idle GPU or causal blame for failure.
+  Earlier backend test timing was not captured, final17:46:21 test occurred
+  after failed run ended17:45:26; cannot attribute failure to it.
+- paced-210-isolated.json exit0:375steps60s,averageRTF0.59434065,
+  p99149.3883ms (ratio0.933677<=1),maxlag13.7232ms; output59.94s finite,
+  no clipping. Only this single controlled C experiment passed, not robustness
+  under concurrent application/game load or2h Windows acceptance.
+
+Independent standard-library decode/hash/all375-step-statistics check exit0
+offline-210.json. First checker attempt exit1 was a return-contract KeyError
+(status versus decode_status), fixed without changing decoder/results. Guards,
+raw experiments and real command exits remain distinct. GPU lease released;
+no microphone,playback,network media or Mac operation occurred.

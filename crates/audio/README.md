@@ -20,6 +20,11 @@ validation remains required before any future stream starts.
 
 `probe_format` distinguishes exact S_OK from closest S_FALSE; a closest format is
 metadata only and does not automatically become an approved stream format.
+Outgoing PCM24/32 probes own a complete WAVEFORMATEXTENSIBLE descriptor with
+container-sized valid bits, mono-center/stereo-left-right mask and PCM subformat
+GUID (cbSize 22). PCM8/16 and float32 keep their documented basic descriptor.
+See Microsoft's [WAVEFORMATEX rules](https://learn.microsoft.com/en-us/windows/win32/api/mmreg/ns-mmreg-waveformatex)
+and [extensible descriptors](https://learn.microsoft.com/en-us/windows-hardware/drivers/audio/extensible-wave-format-descriptors).
 The adapter validates mono/stereo, 8–192 kHz, PCM8/16/24/32 or float32, block
 alignment, byte rate and defined channel masks. Reduced valid bits (e.g. 24 in
 32), compressed/multichannel/float64 formats fail adapter validation. Raw native

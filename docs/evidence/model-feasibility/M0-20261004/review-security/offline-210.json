@@ -1,0 +1,68 @@
+{
+  "started_at": "2026-10-04T17:57:40.305518+00:00",
+  "model_inference": "NOT_RUN",
+  "hardware": "NOT_USED",
+  "tested_harness_commit": "4fd6be043b9c5a627df36328ff00e3ef03d61ace",
+  "checks": [
+    {
+      "report": "file-210.json",
+      "original_result": "PASS_EXPERIMENT_ONLY",
+      "json_sha256": "c3211c82e9d9fb3657c4bbbe57b2304bab3e146da6fcab1faf00d739c40adaee",
+      "output_sha256": "06b9ff506d20a1e48203720bada56b1fc6012f2a10c7d7068f8e7ae4226911b8",
+      "output_analysis": {
+        "format": "WAV",
+        "decode_status": "VERIFIED",
+        "frames": 120160,
+        "sample_rate_hz": 16000,
+        "channels": 1,
+        "duration_seconds": 7.51,
+        "peak": 0.6458740234375,
+        "rms": 0.06037370977377828,
+        "clipped_sample_count": 0,
+        "sample_count": 120160
+      }
+    },
+    {
+      "report": "paced-210.json",
+      "original_result": "FAILED",
+      "json_sha256": "f5433169148bcda1b88039c900bade2c6d1226827a16718a969b1fe3b500c1a2",
+      "performance_gates_passed": false,
+      "output_sha256": "8cd7ea95bee211508fc35fe863c05ff7851964e9577f3ea7949ae95a6a86c52d",
+      "output_analysis": {
+        "format": "WAV",
+        "decode_status": "VERIFIED",
+        "frames": 959040,
+        "sample_rate_hz": 16000,
+        "channels": 1,
+        "duration_seconds": 59.94,
+        "peak": 0.8126725554466248,
+        "rms": 0.07123547742653757,
+        "clipped_sample_count": 0,
+        "sample_count": 959040
+      },
+      "failure_output_available": true,
+      "note": "harness wrote output before rejecting performance; this does NOT change FAILED"
+    },
+    {
+      "report": "paced-210-isolated.json",
+      "original_result": "PASS_EXPERIMENT_ONLY",
+      "json_sha256": "2f2729fff276568e1ada66ee348cacb303ee71f3b6f0c40da9c292fde1f552d4",
+      "performance_gates_passed": true,
+      "output_sha256": "6bf80647d38a6ae312becdf9c7b3beb2f003206d66840a6eda44149149cfc904",
+      "output_analysis": {
+        "format": "WAV",
+        "decode_status": "VERIFIED",
+        "frames": 959040,
+        "sample_rate_hz": 16000,
+        "channels": 1,
+        "duration_seconds": 59.94,
+        "peak": 0.8126725554466248,
+        "rms": 0.07123547742653757,
+        "clipped_sample_count": 0,
+        "sample_count": 959040
+      }
+    }
+  ],
+  "finished_at": "2026-10-04T17:57:40.736486+00:00",
+  "result": "PASS_REPORT_CONSISTENCY_ONLY"
+}

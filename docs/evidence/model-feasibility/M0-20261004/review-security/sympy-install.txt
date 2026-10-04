@@ -1,0 +1,9 @@
+Using Python 3.12.14 environment at: .local\venvs\meanvc2-m0
+Resolved 1 package in 708ms
+Downloading sympy (5.9MiB)
+ Downloaded sympy
+Prepared 1 package in 2.01s
+Uninstalled 1 package in 736ms
+Installed 1 package in 1.28s
+ - sympy==1.13.1
+ + sympy==1.13.3

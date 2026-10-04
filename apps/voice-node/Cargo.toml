@@ -1,0 +1,12 @@
+[package]
+name = "witvoice-node"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+
+[dependencies]
+witvoice-contracts = { path = "../../crates/contracts" }
+witvoice-session = { path = "../../crates/session" }
+witvoice-platform = { path = "../../crates/platform" }
+serde_json.workspace = true

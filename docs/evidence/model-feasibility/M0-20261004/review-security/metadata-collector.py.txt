@@ -1,0 +1,23 @@
+import importlib.metadata as metadata
+import json
+from datetime import datetime,timezone
+from pathlib import Path
+
+root=Path(__file__).resolve().parent.parent
+items=[]
+for distribution in metadata.distributions(path=[str(root/'.local/venvs/meanvc2-m0/Lib/site-packages')]):
+    data=distribution.metadata
+    items.append(dict(name=data['Name'],version=distribution.version,license=data.get('License'),
+                      license_expression=data.get('License-Expression'),
+                      license_classifiers=[value for value in data.get_all('Classifier',[]) if value.startswith('License')],
+                      requires_dist=distribution.requires or []))
+report=dict(status='METADATA_ONLY_NOT_LICENSE_CLEARANCE',utc=datetime.now(timezone.utc).isoformat(),
+            method='host importlib.metadata; no package imports',
+            updated_dependencies=['torch2.10.0+cu126','torchaudio2.10.0+cu126','sympy1.13.3'],
+            source_indices=['https://download.pytorch.org/whl/cu126','https://pypi.org/simple'],
+            installer='uv0.9.28',pytorch_install_exit_code=0,sympy_install_exit_code=0,
+            production_dependency_closure=False,pip_check_ref='pip-check-210-command.json',
+            distributions=sorted(items,key=lambda value:value['name'].lower()))
+out=root/'docs/evidence/model-feasibility/M0-20261004/review-security/dependencies-210.json'
+out.write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8')
+print(json.dumps({'count':len(items),'updates':report['updated_dependencies'],'production_dependency_closure':False}))

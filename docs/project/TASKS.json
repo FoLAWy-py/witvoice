@@ -36,7 +36,7 @@
       "milestone": "M0",
       "title": "验证并选定单一真实zero-shot引擎",
       "owner_role": "ml_engine",
-      "status": "IN_PROGRESS",
+      "status": "REVIEW",
       "requirements": [
         "REQ-05",
         "REQ-19",
@@ -51,9 +51,7 @@
       ],
       "acceptance": "锁定上游commit/权重摘要/许可清单；真实文件转换和流式试跑；Windows实测，Mac状态明确；主候选最多两次针对性修复、最多一次候选替换。",
       "agent_instance_id": "/root",
-      "resource_leases": [
-        "write:workers/vc_worker/:leader"
-      ],
+      "resource_leases": [],
       "evidence": [
         "docs/evidence/model-feasibility/M0-20261004/RESULTS.md",
         "docs/evidence/model-feasibility/M0-20261004/assets-audit.json",
@@ -74,7 +72,7 @@
       "compatibility_repairs_used": 2,
       "candidate_replacements_used": 0,
       "historical_advisor_instance_id": "/root/ml_engine",
-      "safe_runtime_capability": "BLOCKED_SAFE_RUNTIME_PENDING_PATCHED_EXPERIMENT"
+      "safe_runtime_capability": "EXPERIMENTS_PASSED_REVIEW_PENDING"
     },
     {
       "id": "T003",
@@ -194,12 +192,11 @@
       ],
       "acceptance": "普通用户启动、连接/断开、受限IPC、worker生命周期；杀UI不会通过父Job误杀Node；显式退出清理所有会话。",
       "agent_instance_id": "/root/backend",
-      "resource_leases": [
-        "write:apps/voice-node/src+tests+examples:backend",
-        "write:crates/session/src+tests:backend",
-        "write:crates/platform/src+tests:backend"
+      "resource_leases": [],
+      "evidence": [
+        "docs/evidence/T006-20261005/leader-checks.json",
+        "docs/evidence/T006-20261005/PROVENANCE.md"
       ],
-      "evidence": [],
       "review": null,
       "attempts": 0,
       "blocked_reason": null
@@ -228,8 +225,8 @@
         "docs/evidence/T007-20261005/metadata-command.json",
         "docs/evidence/T007-20261005/integration-checks.json"
       ],
-      "review": null,
-      "attempts": 0,
+      "review": "docs/project/reviews/T007-slice-r1.md",
+      "attempts": 1,
       "blocked_reason": null
     },
     {

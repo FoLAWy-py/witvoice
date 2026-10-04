@@ -1,0 +1,6 @@
+{
+  "command": "uv pip check --python .local/venvs/meanvc2-m0/Scripts/python.exe",
+  "exit_code": 1,
+  "utc": "2026-10-04T17:41:46.5849868Z",
+  "full_dependency_closure": false
+}

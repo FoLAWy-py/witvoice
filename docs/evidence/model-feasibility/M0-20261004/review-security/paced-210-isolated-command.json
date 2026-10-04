@@ -1,0 +1,27 @@
+{
+  "argv": [
+    ".local/venvs/meanvc2-m0/Scripts/python.exe",
+    "workers/vc_worker/feasibility.py",
+    "--mode",
+    "paced",
+    "--device",
+    "cuda",
+    "--seconds",
+    "60",
+    "--run-id",
+    "safe210-isolated",
+    "--output",
+    "docs/evidence/model-feasibility/M0-20261004/review-security/paced-210-isolated.json"
+  ],
+  "source_commit": "4fd6be043b9c5a627df36328ff00e3ef03d61ace",
+  "started_at": "2026-10-04T17:50:56.4945146Z",
+  "finished_at": "2026-10-04T17:52:10.5216192Z",
+  "exit_code": 0,
+  "gpu_lease": "leader only",
+  "microphone": false,
+  "playback": false,
+  "other_project_tests_paused": true,
+  "one_retest_only": true,
+  "baseline_ref": "isolated-baseline-before.json",
+  "stdout": ".local/paced-safe210-isolated-stdout.txt"
+}

@@ -1,0 +1,49 @@
+import hashlib
+import importlib.util
+import json
+from pathlib import Path
+import sys
+from datetime import datetime,timezone
+
+root=Path(__file__).resolve().parent.parent
+sys.path.insert(0,str(root/'workers/vc_worker'))
+from evidence_checks import paced_statistics
+spec=importlib.util.spec_from_file_location('offline_fixture_check',root/'tests/fixtures/validate_fixtures.py')
+fixture=importlib.util.module_from_spec(spec)
+spec.loader.exec_module(fixture)
+directory=root/'docs/evidence/model-feasibility/M0-20261004/review-security'
+report={'started_at':datetime.now(timezone.utc).isoformat(),'model_inference':'NOT_RUN','hardware':'NOT_USED',
+        'tested_harness_commit':'4fd6be043b9c5a627df36328ff00e3ef03d61ace','checks':[]}
+for name in ['file-210','paced-210','paced-210-isolated']:
+    source=directory/(name+'.json')
+    data=json.loads(source.read_text(encoding='utf-8'))
+    assert data['commit']==report['tested_harness_commit'] and data['torch']=='2.10.0+cu126'
+    for module,device in [('vc','cuda:0'),('speaker','cuda:0'),('asr','cpu')]:
+        assert data[module+'_device_probe']=={'devices':[device],'actual':device}
+    record={'report':source.name,'original_result':data['result'],
+            'json_sha256':hashlib.sha256(source.read_bytes()).hexdigest()}
+    if 'statistics' in data:
+        stats=paced_statistics(data['steps'],data['native_input_rate'])
+        assert stats==data['statistics']
+        gates=stats['average_rtf']<=.7 and stats['p99_step_rtf']<=1 and stats['max_lag_chunk_ratio']<=1
+        assert gates==(data['result']=='PASS_EXPERIMENT_ONLY')
+        record['performance_gates_passed']=gates
+    path=root/data['output']['path'] if data.get('output') else root/'.local/fixtures/converted-safe210-paced.wav'
+    raw=path.read_bytes()
+    analysis=fixture.inspect_wav(raw)
+    if analysis['decode_status']!='VERIFIED' or analysis['peak']<=0 or analysis['clipped_sample_count']!=0:
+        raise RuntimeError(str(analysis))
+    record['output_sha256']=hashlib.sha256(raw).hexdigest()
+    record['output_analysis']=analysis
+    if data.get('output'):
+        assert record['output_sha256']==data['output']['sha256']
+        assert analysis['frames']==data['output']['samples']
+        assert analysis['sample_rate_hz']==data['output']['sample_rate']
+    else:
+        record['failure_output_available']=True
+        record['note']='harness wrote output before rejecting performance; this does NOT change FAILED'
+    report['checks'].append(record)
+report['finished_at']=datetime.now(timezone.utc).isoformat()
+report['result']='PASS_REPORT_CONSISTENCY_ONLY'
+(directory/'offline-210.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8')
+print(json.dumps({'result':report['result'],'checks':[{'report':item['report'],'original_result':item['original_result']} for item in report['checks']]}))

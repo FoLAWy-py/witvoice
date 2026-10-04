@@ -1,0 +1,22 @@
+{
+  "argv": [
+    ".local/venvs/meanvc2-m0/Scripts/python.exe",
+    "workers/vc_worker/feasibility.py",
+    "--mode",
+    "file",
+    "--device",
+    "cuda",
+    "--run-id",
+    "safe210",
+    "--output",
+    "docs/evidence/model-feasibility/M0-20261004/review-security/file-210.json"
+  ],
+  "source_commit": "4fd6be043b9c5a627df36328ff00e3ef03d61ace",
+  "started_at": "2026-10-04T17:42:36.7594496Z",
+  "finished_at": "2026-10-04T17:43:00.2524967Z",
+  "exit_code": 0,
+  "gpu_lease": "leader only",
+  "microphone": false,
+  "playback": false,
+  "stdout": ".local/file-safe210-stdout.txt"
+}

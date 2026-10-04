@@ -1,0 +1,13 @@
+{
+  "utc": "2026-10-04T17:49:54.2921785Z",
+  "hypothesis": "earlier unrecorded compilation/test or power contention may have affected isolated model step tail; NOT established causally",
+  "one_retest_only": true,
+  "model_or_threshold_changes": false,
+  "own_build_tests_paused": true,
+  "compile_process_count": 0,
+  "total_cpu_percent": 8,
+  "active_power_scheme": "电源方案 GUID: 381b4222-f694-41f0-9685-ff5bb260df2e  (平衡)",
+  "gpu_query": "596.49, NVIDIA GeForce RTX 4060 Laptop GPU, P8, 50, 6.07, [N/A], 56, 2495",
+  "gpu_query_exit_code": 0,
+  "no_power_or_driver_changes": true
+}

@@ -1,0 +1,41 @@
+[
+  {
+    "argv": [
+      "cargo",
+      "fmt",
+      "--all",
+      "--check"
+    ],
+    "started_at": "2026-10-04T18:00:20.7735708Z",
+    "finished_at": "2026-10-04T18:00:20.9572928Z",
+    "exit_code": 0
+  },
+  {
+    "argv": [
+      "cargo",
+      "test",
+      "--workspace",
+      "--locked",
+      "--",
+      "--test-threads=1"
+    ],
+    "started_at": "2026-10-04T18:00:20.9581169Z",
+    "finished_at": "2026-10-04T18:00:34.7833180Z",
+    "exit_code": 0
+  },
+  {
+    "argv": [
+      "cargo",
+      "clippy",
+      "--workspace",
+      "--locked",
+      "--all-targets",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "started_at": "2026-10-04T18:00:34.7833455Z",
+    "finished_at": "2026-10-04T18:00:42.6048708Z",
+    "exit_code": 0
+  }
+]

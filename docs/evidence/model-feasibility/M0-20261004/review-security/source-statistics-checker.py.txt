@@ -1,0 +1,43 @@
+import hashlib
+import json
+from pathlib import Path
+import py_compile
+import sys
+import tempfile
+from datetime import datetime, timezone
+
+root = Path(__file__).resolve().parent.parent
+sys.path.insert(0,str(root/'workers/vc_worker'))
+from source_guard import snapshot_runtime
+from audit_assets import UPSTREAM_COMMIT
+from evidence_checks import paced_statistics
+
+report = {'started_at':datetime.now(timezone.utc).isoformat(), 'gpu_used':False,'audio_hardware_used':False,
+          'model_inference':'NOT_RUN','historical_model_commit':'429b7c27713c4549ba6072d25dda18f48ddd4ee9'}
+with tempfile.TemporaryDirectory(dir=root/'.local/temp',prefix='actual-fixed-source-') as name:
+    destination=Path(name)
+    report['source_snapshot']=snapshot_runtime(root/'.local/upstream/MeanVC2',UPSTREAM_COMMIT,destination)
+    cfg=destination/'src/config/config_40ms_40ms.json'
+    digest=hashlib.sha256(cfg.read_bytes()).hexdigest()
+    assert digest=='1207e631961b8b0a983f248b77dee0d9b8441c521c8955ffbec89d251064ba43'
+    working=(root/'.local/upstream/MeanVC2/src/config/config_40ms_40ms.json').read_bytes()
+    assert hashlib.sha256(working).hexdigest()=='1f62b9441f55d8a0622ff87ac94987d8780d09af72f51b88a858b310d5e0835b'
+    assert working.replace(b'\r\n', b'\n')==cfg.read_bytes()
+    report['config_checkout_crlf_only']=True
+    report['vc_configuration_sha256']=digest
+    assert not list(destination.rglob('*.pyc'))
+for source in (root/'workers/vc_worker').glob('*.py'):
+    py_compile.compile(str(source),cfile=str(root/'.local/temp'/('verified-'+source.stem+'.pyc')),doraise=True)
+paced_path=root/'docs/evidence/model-feasibility/M0-20261004/paced-60s.json'
+original=json.loads(paced_path.read_text(encoding='utf-8'))
+stats=paced_statistics(original['steps'],original['native_input_rate'])
+for key,value in original['statistics'].items():
+    assert stats[key]==value,(key,stats[key],value)
+assert stats['p99_step_rtf']<=1 and stats['average_rtf']<=.70 and stats['max_lag_chunk_ratio']<=1
+report['historical_statistics_recomputed_only']=stats
+report['historical_paced_json_sha256']=hashlib.sha256(paced_path.read_bytes()).hexdigest()
+report['finished_at']=datetime.now(timezone.utc).isoformat()
+report['result']='PASS_SOURCE_STATISTICS_CHECK_ONLY'
+output=root/'docs/evidence/model-feasibility/M0-20261004/review-security/source-statistics.json'
+output.write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8')
+print(json.dumps(report,indent=2))

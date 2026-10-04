@@ -24,6 +24,12 @@ T007首切片已实际由/root/audio_runtime写7文件并停止写入：WASAPI�
 
 T002正式r1 changes-required归档docs/project/reviews/T002-r1.md：2S1（工作树来源门、Torch已知加载漏洞）、2S2（硬编码ASR、尾块门槛）。root已修源码/报告/版本guard，14标准库回归0，实际8Git blob快照/固定配置/375历史步复核0。原ASR cpu字段降为SOURCE_INFERRED（旧JSON保留），不视为实测。快照Git LF配置摘要与原CRLF checkout不同，已证明仅换行且JSON完全相同，详review-security/NOTES.md。compat预算仍2/2。
 
-安全依赖：原Torch2.5.1+cu121仅历史C实验；2025和2026官方weights_only漏洞意味着当前加载能力BLOCKED_SAFE_RUNTIME。入口拒<2.10.0/未知/预发布，两个真实入口mock保证checkpoint load0。2.6下载发现较新公告后已中断exit1、无遗留UV；2.10.0+cu126两依赖官方D盘下载进行中（实际exec session34002，仅当前活动会话可继续轮询；中断不假设后台继续）。尚未新模型实测，不能PASS。原weights/WAV不要重下载或改写。
+安全依赖：原Torch2.5.1+cu121仅历史C实验；两官方weights_only漏洞已用>=2.10.0/拒未知预发布guard阻断，两个入口mock保证load0。2.6下载已中断exit1，无遗留UV；2.10.0+cu126官方D盘安装exit0，SymPy1.13.3满足真实约束。实际pip check exit1：缺omegaconf/transformers/protobuf，33推理依赖元数据归档，不宣完整生产依赖闭合。五权重不改/不再下载。
 
-T006实际/root/backend已派发执行：首个普通用户受限named pipe/独立Node。写白名单仅三模块src/tests/examples/README，root创建manifest/Windowsfeatures并统一锁文件；writer仅root+backend，audio已停止。契约真实路径04-lan-protocol.md、06-security-distribution.md，此前派发文字错名已纠正。没有GPU/采集lease。reviewer自身规则拒绝提权只读（不是auto-review拒绝），正式审查采用冻结全文中继，不冒称独立复跑。
+新真实模型均绑定4fd6be043b9c5a627df36328ff00e3ef03d61ace：file-210 exit0；首次paced-210 exit2（p99259.537ms，lag986.025ms）完整保留FAILED。唯一预登记环境隔离复测暂停所有own编译测试，同模型/代码/阈值，375steps60s，RTF0.594341、p99149.388ms、maxlag13.723ms exit0。CPU8%、平衡电源、背景GPU56%→5%记录，不能证明全球空闲或归因backend。VC/speaker cuda:0、ASR cpu来自完整参数+缓冲探测。输出59.94s有限无削波，std库decode/hash/statistics复核0。仍只C级短实验，2h/并发负载/真实应用/Mac/质量都未过。新private init7.430GB、end7.701GB（整个Python进程，不伪装满足内存预算），GPUpeak allocated1.786GB；未来T026需归因和验门槛。T002 r2待独立审查，不标DONE。
+
+T006实际/root/backend首切片完成并停止：11文件，普通用户受限named pipe/独立Node，DACL/SID/PID/私有stdin token/长度64KiB/期限3s/取消；真实3进程+5会话测试通过。root仅新增3localpackage lock项，无外部依赖升级，scoped19tests含11contracts/fmt/clippy0。未做worker Job/Tauri launcher UI Job隔离/完整shutdown/sleep，整个T006仍IN_PROGRESS，独立review待。根manifest/lock统一leader。真实契约路径04-lan-protocol.md和06-security-distribution.md。
+
+T007 independent首切片r1发现1S2（PCM24/32应使用完整WAVEFORMATEXTENSIBLE）；实际audio已修仅2files，新2描述符字段/往返测试。leader修复后全workspace34tests（15audio+11contracts+8Node）/fmt/clippy0，证据T007-20261005/final-*，source起点hash未采集明确NOT_CAPTURED。r2只签slice，整个T007stream/removal/hardware仍未完成。
+
+当前所有作者停止写入，GPU/audio/代码租约全部释放；原sessionIDs34002/27717/77859/20224/84074均已完成，不继续轮询。reviewer自身规则拒绝提权只读（不是auto-review拒绝），继续冻结全文中继；不冒称独立复跑。下一Task T002 r2，随后T006/T007剩余实际实现。会话中断不会保证后台继续。
