@@ -13,11 +13,7 @@
         "workers/vc_worker/",
         "docs/evidence/model-feasibility/"
       ],
-      "resource_leases": [
-        "write:workers/vc_worker/:leader",
-        "write:docs/evidence/model-feasibility/:leader",
-        "gpu:none"
-      ],
+      "resource_leases": [],
       "depends_on": [
         "T001"
       ],
@@ -27,50 +23,28 @@
       ],
       "reviewer": "/root/reviewer_t001",
       "contract": "docs/spec/03-model-runtime.md + 07-tests-acceptance.md",
-      "execution_note": "ml_engine source audit read-only; leader executes downloads and implementation; no model/hardware lease yet"
+      "execution_note": "Leader executes sole GPU experiment; two recorded compatibility repairs used; no microphone/playback/network"
     },
     {
-      "task_id": "T003",
+      "task_id": "T005",
       "agent_instance_id": "/root",
       "allowed_paths": [
-        "crates/contracts/",
-        "docs/adr/"
+        ".codex/",
+        "docs/project/",
+        "docs/roles/"
       ],
-      "resource_leases": [
-        "write:crates/contracts/:leader",
-        "write:docs/adr/:leader"
-      ],
+      "resource_leases": [],
       "depends_on": [
-        "T001"
+        "T001",
+        "T003"
       ],
       "acceptance_commands": [
-        "cargo fmt --all -- --check",
-        "cargo test --workspace --locked",
-        "cargo clippy --workspace --locked --all-targets -- -D warnings"
+        "bundled Python tools/project/validate_spec.py",
+        "collaboration actual role dispatch/probe and full text independent review"
       ],
       "reviewer": "/root/reviewer_t001",
-      "contract": "docs/spec/01-architecture.md + 02-audio-engine.md + 04-lan-protocol.md",
-      "execution_note": "shared contracts/root manifests/lockfile leader only"
-    },
-    {
-      "task_id": "T004",
-      "agent_instance_id": "/root/audio_runtime",
-      "allowed_paths": [
-        "tests/fixtures/",
-        "tests/hardware/",
-        "docs/evidence/"
-      ],
-      "resource_leases": [
-        "write:tests/fixtures/:audio_runtime",
-        "write:tests/hardware/:audio_runtime"
-      ],
-      "depends_on": [
-        "T001"
-      ],
-      "acceptance_commands": "python tests/fixtures/validate_fixtures.py --manifest tests/fixtures/manifest.json",
-      "reviewer": "/root/reviewer_t001",
-      "contract": "docs/spec/03-model-runtime.md + 07-tests-acceptance.md",
-      "execution_note": "audio_runtime writes only tests/fixtures and tests/hardware; leader owns docs/evidence"
+      "contract": "docs/AGENT_WORKFLOW.md",
+      "execution_note": "native dispatch verified, disk schema and sandbox enforcement unverified; no configuration changes"
     }
   ],
   "milestones": {
@@ -110,10 +84,18 @@
       "review": null
     }
   },
-  "last_verified_commit": "0f283ffe460be3382aae89f481be62a73ab4d60f",
+  "last_verified_commit": "1e9b9d4298183c47c862febaf177ad46ced85c8d",
   "next_task": "T002",
-  "blockers": [],
-  "distribution_status": "INTERNAL_ONLY_NOT_BUILT",
+  "blockers": [
+    {
+      "id": "B001",
+      "scope": "model/asset redistribution and T025/T028",
+      "status": "BLOCKED_LICENSE_CHAIN",
+      "evidence": "docs/evidence/model-feasibility/M0-20261004/RESULTS.md",
+      "note": "lawlict-derived code and separate speaker checkpoint terms not closed; local experimental result does not authorize bundling"
+    }
+  ],
+  "distribution_status": "BLOCKED_LICENSE_CHAIN_NOT_BUILT",
   "hardware": {
     "windows": "UNVERIFIED",
     "macos": "UNVERIFIED",
@@ -122,7 +104,7 @@
   "agent_runtime": {
     "codex_version": "codex-cli 0.153.4",
     "custom_roles_verified": false,
-    "mode": "native_custom_role_dispatch_with_leader_provided_review_source",
+    "mode": "native_custom_role_dispatch_disk_schema_unverified",
     "custom_role_dispatch_verified": true,
     "role_instruction_injection_verified": true,
     "project_file_schema_verified": false,
@@ -137,7 +119,15 @@
       "reviewer_t001": "/root/reviewer_t001"
     },
     "id_format": "canonical collaboration task ID; UUID not exposed",
-    "execution_limit": "Default shell/node sandbox fails before process creation: apply deny-read ACLs. Leader scoped commands work after auto-review; children remain read-only and do not escalate. Exact disk-config loading and reviewer sandbox enforcement are not independently verified."
+    "execution_limit": "Default shell/node fails before process creation: apply deny-read ACLs. Leader scoped commands and explicitly assigned backend/audio fixed-path relays work after auto-review require_escalated; audio authored T004 in disjoint whitelist. Reviewer never escalates or edits; no independent reviewer rerun. Exact disk config loading and sandbox enforcement remain unverified. No ACL/global settings modified.",
+    "review_source": "leader_or_explicitly_authorized_agent_full_text_relay",
+    "sandbox_enforcement_verified": false,
+    "failed_redispatch": {
+      "agent": "/root/ml_engine",
+      "result": "FAILED_BEFORE_DISPATCH",
+      "error": "agent thread limit reached",
+      "new_execution": false
+    }
   },
   "completion_claim_allowed": false
 }

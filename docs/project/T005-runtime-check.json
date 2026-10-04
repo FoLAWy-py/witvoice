@@ -1,0 +1,485 @@
+{
+  "utc": "2026-10-04T16:33:42.959618+00:00",
+  "task_id": "T005",
+  "evidence_level": "A",
+  "executor": "/root",
+  "tasks": 35,
+  "unique_task_ids": 35,
+  "requirements": 32,
+  "milestones": [
+    "M0",
+    "M1",
+    "M2",
+    "M3",
+    "M4",
+    "M5",
+    "M6"
+  ],
+  "owner_path_map": [
+    {
+      "id": "T001",
+      "role": "leader",
+      "depends_on": [],
+      "allowed_paths": [
+        "tools/dev/",
+        "docs/evidence/"
+      ]
+    },
+    {
+      "id": "T002",
+      "role": "ml_engine",
+      "depends_on": [
+        "T001"
+      ],
+      "allowed_paths": [
+        "workers/vc_worker/",
+        "docs/evidence/model-feasibility/"
+      ]
+    },
+    {
+      "id": "T003",
+      "role": "leader",
+      "depends_on": [
+        "T001"
+      ],
+      "allowed_paths": [
+        "crates/contracts/",
+        "docs/adr/"
+      ]
+    },
+    {
+      "id": "T004",
+      "role": "audio_runtime",
+      "depends_on": [
+        "T001"
+      ],
+      "allowed_paths": [
+        "tests/fixtures/",
+        "tests/hardware/",
+        "docs/evidence/"
+      ]
+    },
+    {
+      "id": "T005",
+      "role": "leader",
+      "depends_on": [
+        "T001",
+        "T003"
+      ],
+      "allowed_paths": [
+        ".codex/",
+        "docs/project/",
+        "docs/roles/"
+      ]
+    },
+    {
+      "id": "T006",
+      "role": "backend",
+      "depends_on": [
+        "T003",
+        "T005"
+      ],
+      "allowed_paths": [
+        "apps/voice-node/",
+        "crates/session/",
+        "crates/platform/"
+      ]
+    },
+    {
+      "id": "T007",
+      "role": "audio_runtime",
+      "depends_on": [
+        "T003"
+      ],
+      "allowed_paths": [
+        "crates/audio/",
+        "crates/platform/"
+      ]
+    },
+    {
+      "id": "T008",
+      "role": "audio_runtime",
+      "depends_on": [
+        "T007"
+      ],
+      "allowed_paths": [
+        "crates/audio/",
+        "tests/integration/"
+      ]
+    },
+    {
+      "id": "T009",
+      "role": "audio_runtime",
+      "depends_on": [
+        "T007",
+        "T008"
+      ],
+      "allowed_paths": [
+        "crates/audio/",
+        "tests/hardware/"
+      ]
+    },
+    {
+      "id": "T010",
+      "role": "backend",
+      "depends_on": [
+        "T006",
+        "T008"
+      ],
+      "allowed_paths": [
+        "tests/contract/",
+        "tests/integration/",
+        "crates/session/"
+      ]
+    },
+    {
+      "id": "T011",
+      "role": "ml_engine",
+      "depends_on": [
+        "T002",
+        "T006",
+        "T010"
+      ],
+      "allowed_paths": [
+        "workers/vc_worker/",
+        "crates/engines/"
+      ]
+    },
+    {
+      "id": "T012",
+      "role": "ml_engine",
+      "depends_on": [
+        "T011",
+        "T008"
+      ],
+      "allowed_paths": [
+        "workers/vc_worker/adapters/",
+        "crates/engines/"
+      ]
+    },
+    {
+      "id": "T013",
+      "role": "ml_engine",
+      "depends_on": [
+        "T012"
+      ],
+      "allowed_paths": [
+        "crates/engines/",
+        "workers/vc_worker/",
+        "tests/integration/"
+      ]
+    },
+    {
+      "id": "T014",
+      "role": "backend",
+      "depends_on": [
+        "T009",
+        "T012",
+        "T013"
+      ],
+      "allowed_paths": [
+        "crates/session/",
+        "apps/voice-node/"
+      ]
+    },
+    {
+      "id": "T015",
+      "role": "audio_runtime",
+      "depends_on": [
+        "T014",
+        "T004"
+      ],
+      "allowed_paths": [
+        "tests/hardware/",
+        "docs/evidence/"
+      ]
+    },
+    {
+      "id": "T016",
+      "role": "backend",
+      "depends_on": [
+        "T003",
+        "T006"
+      ],
+      "allowed_paths": [
+        "crates/transport/",
+        "crates/platform/",
+        "tests/security/"
+      ]
+    },
+    {
+      "id": "T017",
+      "role": "backend",
+      "depends_on": [
+        "T016"
+      ],
+      "allowed_paths": [
+        "crates/transport/",
+        "tests/contract/",
+        "tests/network/"
+      ]
+    },
+    {
+      "id": "T018",
+      "role": "backend",
+      "depends_on": [
+        "T017",
+        "T014"
+      ],
+      "allowed_paths": [
+        "crates/engines/src/remote/",
+        "crates/session/",
+        "apps/voice-node/"
+      ]
+    },
+    {
+      "id": "T019",
+      "role": "backend",
+      "depends_on": [
+        "T018"
+      ],
+      "allowed_paths": [
+        "tests/network/",
+        "tests/security/"
+      ]
+    },
+    {
+      "id": "T020",
+      "role": "audio_runtime",
+      "depends_on": [
+        "T018",
+        "T019",
+        "T015"
+      ],
+      "allowed_paths": [
+        "tests/integration/",
+        "docs/evidence/"
+      ]
+    },
+    {
+      "id": "T021",
+      "role": "hci",
+      "depends_on": [
+        "T003"
+      ],
+      "allowed_paths": [
+        "docs/design/",
+        "packages/ui-tokens/"
+      ]
+    },
+    {
+      "id": "T022",
+      "role": "frontend",
+      "depends_on": [
+        "T021",
+        "T014"
+      ],
+      "allowed_paths": [
+        "apps/desktop/src/"
+      ]
+    },
+    {
+      "id": "T023",
+      "role": "frontend",
+      "depends_on": [
+        "T022",
+        "T018"
+      ],
+      "allowed_paths": [
+        "apps/desktop/src/"
+      ]
+    },
+    {
+      "id": "T024",
+      "role": "backend",
+      "depends_on": [
+        "T013",
+        "T018"
+      ],
+      "allowed_paths": [
+        "crates/storage/",
+        "crates/observability/",
+        "assets/manifests/"
+      ]
+    },
+    {
+      "id": "T025",
+      "role": "frontend",
+      "depends_on": [
+        "T022",
+        "T023",
+        "T024"
+      ],
+      "allowed_paths": [
+        "apps/desktop/",
+        "tools/packaging/",
+        "tests/desktop/"
+      ]
+    },
+    {
+      "id": "T026",
+      "role": "audio_runtime",
+      "depends_on": [
+        "T020",
+        "T025"
+      ],
+      "allowed_paths": [
+        "tests/hardware/",
+        "tools/qa/",
+        "docs/evidence/"
+      ]
+    },
+    {
+      "id": "T027",
+      "role": "backend",
+      "depends_on": [
+        "T026"
+      ],
+      "allowed_paths": [
+        "tests/security/",
+        "tests/integration/",
+        "docs/evidence/"
+      ]
+    },
+    {
+      "id": "T028",
+      "role": "reviewer",
+      "depends_on": [
+        "T027"
+      ],
+      "allowed_paths": [
+        "docs/project/reviews/"
+      ]
+    },
+    {
+      "id": "T029",
+      "role": "hci",
+      "depends_on": [
+        "T025",
+        "T026"
+      ],
+      "allowed_paths": [
+        "docs/design/",
+        "docs/evidence/"
+      ]
+    },
+    {
+      "id": "T030",
+      "role": "leader",
+      "depends_on": [
+        "T028",
+        "T029"
+      ],
+      "allowed_paths": [
+        "tools/packaging/",
+        "docs/project/",
+        "docs/evidence/"
+      ]
+    },
+    {
+      "id": "T031",
+      "role": "leader",
+      "depends_on": [
+        "T030"
+      ],
+      "allowed_paths": [
+        "tools/dev/",
+        "tools/packaging/",
+        "docs/evidence/"
+      ]
+    },
+    {
+      "id": "T032",
+      "role": "audio_runtime",
+      "depends_on": [
+        "T031"
+      ],
+      "allowed_paths": [
+        "crates/platform/",
+        "crates/audio/",
+        "tests/hardware/"
+      ]
+    },
+    {
+      "id": "T033",
+      "role": "ml_engine",
+      "depends_on": [
+        "T031",
+        "T012"
+      ],
+      "allowed_paths": [
+        "workers/vc_worker/",
+        "crates/engines/",
+        "docs/evidence/"
+      ]
+    },
+    {
+      "id": "T034",
+      "role": "audio_runtime",
+      "depends_on": [
+        "T032",
+        "T033",
+        "T020"
+      ],
+      "allowed_paths": [
+        "tests/hardware/",
+        "tools/qa/",
+        "docs/evidence/"
+      ]
+    },
+    {
+      "id": "T035",
+      "role": "leader",
+      "depends_on": [
+        "T034"
+      ],
+      "allowed_paths": [
+        "docs/project/",
+        "tools/packaging/",
+        "docs/evidence/"
+      ]
+    }
+  ],
+  "role_files": {
+    "audio_runtime": {
+      "sha256": "c9245d9af4bfdcbc8ac7a9dd1dd185b2e73620ea03b5c88133ea4a90fdd613d2",
+      "name": "audio_runtime"
+    },
+    "backend": {
+      "sha256": "a9ee37026ed517782acb17a9b660fc06dc4ea0b51a1071161066ad5c3f604674",
+      "name": "backend"
+    },
+    "frontend": {
+      "sha256": "36bfd27e8d8539eccf66781ffdf773cbaafa21753fc414ede51ed5dd061418bf",
+      "name": "frontend"
+    },
+    "hci": {
+      "sha256": "c727e35b5e9e04feb757adcea1eb824d8aabeefb21b22c94be103d91062ee402",
+      "name": "hci"
+    },
+    "leader": {
+      "sha256": "12bab471b73f719c402e476e7676c801452106d91a60de997234a9197f9dd9a6",
+      "name": "leader"
+    },
+    "ml_engine": {
+      "sha256": "0b8c220b75fa83d87b4d5ccd97d4dd67cb8e3dfee578feed7715fc18ad52bf38",
+      "name": "ml_engine"
+    },
+    "reviewer": {
+      "sha256": "c64703743860ec2576b2b9f5f6c1d039bd9d96bad45d67de225e119b9fb08740",
+      "name": "reviewer"
+    }
+  },
+  "actual_runtime_ids_evidence": "docs/project/T005-agent-runtime.md",
+  "ledger_validator": {
+    "argv": [
+      "bundled Python 3.12.14",
+      "tools/project/validate_spec.py"
+    ],
+    "stdout": "SPEC/ledger consistency: PASS\n7 milestones | 35 tasks | 32 traced requirements | 7 agent roles\nTOML syntax checked; installed Codex configuration compatibility is NOT tested.\nApplication code, Windows/Mac builds, audio, models and LAN performance are NOT tested.\n",
+    "exit_code": 0
+  },
+  "disk_schema_loading": "UNVERIFIED",
+  "runtime_sandbox_enforcement": "UNVERIFIED",
+  "result": "DOCS_AND_RUNTIME_RECORD_CHECKED_NOT_APPLICATION_PASS"
+}

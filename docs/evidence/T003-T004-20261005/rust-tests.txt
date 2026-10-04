@@ -1,0 +1,34 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.13s
+     Running unittests src\lib.rs (.local\cargo-target\debug\deps\witvoice_contracts-7839f13b582dcfb1.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src\bin\export_schema.rs (.local\cargo-target\debug\deps\export_schema-bb9ecec5c7fdf65a.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\wire.rs (.local\cargo-target\debug\deps\wire-2ba54ca6dee33896.exe)
+
+running 9 tests
+test wrap_and_deadline_are_explicit ... ok
+test golden_header_and_pcm_endianness ... ok
+test negotiated_frames_and_unknown_source ... ok
+test queue_limits_cannot_be_unbounded ... ok
+test local_and_peer_start_are_distinct ... ok
+test safe_state_guards_and_failure_effects ... ok
+test u64_json_precision_and_digest_validation ... ok
+test malformed_and_unbound_media_rejected ... ok
+test controls_reject_unknown_fields_versions_and_oversize ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests witvoice_contracts
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

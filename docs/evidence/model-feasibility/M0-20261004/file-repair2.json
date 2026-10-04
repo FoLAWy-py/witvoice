@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "task_id": "T002",
+  "requirements": [
+    "REQ-05",
+    "REQ-19",
+    "REQ-32"
+  ],
+  "kind": "MEANVC2_M0_FILE",
+  "evidence_level": "C",
+  "started_at": "2026-10-04T16:04:53.337933+00:00",
+  "commit": "429b7c27713c4549ba6072d25dda18f48ddd4ee9",
+  "backend_requested": "cuda",
+  "result": "PASS_EXPERIMENT_ONLY",
+  "windows": "EXPERIMENT_EXECUTED_NOT_PRODUCT_VERIFIED",
+  "macos": "UNTESTED",
+  "quality_review": "QUALITY_REVIEW_PENDING",
+  "distribution": "BLOCKED_LICENSE_CHAIN",
+  "not_tested": [
+    "physical_mic",
+    "virtual_cable",
+    "LAN",
+    "Mac",
+    "human_voice_signoff"
+  ],
+  "measurement_boundary": "fixed file PCM submitted to upstream process_chunk; no audio endpoint/production Node",
+  "command": [
+    "workers/vc_worker/feasibility.py",
+    "--mode",
+    "file",
+    "--device",
+    "cuda",
+    "--output",
+    "docs/evidence/model-feasibility/M0-20261004/file-repair2.json"
+  ],
+  "compatibility_repair_count": 2,
+  "torch": "2.5.1+cu121",
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+  "initialization_seconds": 7.760318099986762,
+  "assets": {
+    "upstream_commit": "13acf84c1bf135ea5edad9c245b345289b06b33e",
+    "hf_revision": "39cdd19522fe896c227da691314d9a0e3b995486",
+    "status": "VERIFIED_BYTES_NOT_LOADED",
+    "assets": [
+      {
+        "path": ".local/models/MeanVC2/39cdd19522fe896c227da691314d9a0e3b995486/fastu2pp_80ms.pt",
+        "expected_bytes": 246292087,
+        "sha256": "4338739bd13e0f7718276373e9547ce1f9aa02ec0867452860df9e837f90e4d2",
+        "source": "ASLP-lab/MeanVC2 official LFS SHA256",
+        "license_note": "Apache-2.0 model card",
+        "format": "torchscript",
+        "status": "VERIFIED",
+        "actual_bytes": 246292087,
+        "actual_sha256": "4338739bd13e0f7718276373e9547ce1f9aa02ec0867452860df9e837f90e4d2",
+        "archive_member_count": 2015,
+        "is_torchscript": true
+      },
+      {
+        "path": ".local/models/MeanVC2/39cdd19522fe896c227da691314d9a0e3b995486/meanvc2_40ms_40ms.safetensors",
+        "expected_bytes": 70839448,
+        "sha256": "01caafec9a3991a5514df9412952d24ae3370406358a01e20e03df41f2f5d515",
+        "source": "ASLP-lab/MeanVC2 official LFS SHA256",
+        "license_note": "Apache-2.0 model card",
+        "format": "safetensors",
+        "status": "VERIFIED",
+        "actual_bytes": 70839448,
+        "actual_sha256": "01caafec9a3991a5514df9412952d24ae3370406358a01e20e03df41f2f5d515"
+      },
+      {
+        "path": ".local/models/MeanVC2/39cdd19522fe896c227da691314d9a0e3b995486/vocos.pt",
+        "expected_bytes": 33223674,
+        "sha256": "df1f2ba9f7ac35c96832579421ee1ed913a68c3a1d2f8a6536739f902f194a93",
+        "source": "ASLP-lab/MeanVC2 official LFS SHA256",
+        "license_note": "Apache-2.0 model card",
+        "format": "torchscript",
+        "status": "VERIFIED",
+        "actual_bytes": 33223674,
+        "actual_sha256": "df1f2ba9f7ac35c96832579421ee1ed913a68c3a1d2f8a6536739f902f194a93",
+        "archive_member_count": 114,
+        "is_torchscript": true
+      },
+      {
+        "path": ".local/models/WavLM-official/WavLM-Large-drive.pt.partial",
+        "expected_bytes": 1261965425,
+        "sha256": "6fb4b3c3e6aa567f0a997b30855859cb81528ee8078802af439f7b2da0bf100f",
+        "source": "Microsoft WavLM README Drive ID12-cB34qCTvByWT-QtOcZaqwwO21FLSqU; local acquisition hash, NOT publisher digest",
+        "license_note": "Microsoft unilm project MIT; original checkpoint config source",
+        "format": "restricted_state",
+        "status": "VERIFIED",
+        "actual_bytes": 1261965425,
+        "actual_sha256": "6fb4b3c3e6aa567f0a997b30855859cb81528ee8078802af439f7b2da0bf100f",
+        "archive_member_count": 490,
+        "is_torchscript": false
+      },
+      {
+        "path": ".local/models/WavLM-official/wavlm_large_finetune.pth.partial",
+        "expected_bytes": 1301926579,
+        "sha256": "51f07e3b94d9e0262a6a675ef5a087be3dd09e8c62e9d886827f44f82fe7f94b",
+        "source": "Microsoft UniSpeech official Drive ID1-aE1NfzpRCLxA4GUxX9ITI3F9LlbtEGP; local acquisition hash, NOT publisher digest",
+        "license_note": "UniSpeech project CC-BY-SA-3.0; separate binary terms UNKNOWN; local official experiment only",
+        "format": "restricted_state",
+        "status": "VERIFIED",
+        "actual_bytes": 1301926579,
+        "actual_sha256": "51f07e3b94d9e0262a6a675ef5a087be3dd09e8c62e9d886827f44f82fe7f94b",
+        "archive_member_count": 713,
+        "is_torchscript": false
+      }
+    ],
+    "distribution": "BLOCKED_LICENSE_CHAIN",
+    "windows_model": "NOT_RUN",
+    "macos_model": "UNTESTED"
+  },
+  "backend_actual": "cuda:0",
+  "speaker_backend_actual": "cuda:0",
+  "asr_backend_actual": "cpu",
+  "private_bytes_after_init": 8257961984,
+  "runtime_input_chunk_samples": 2560,
+  "compatibility_repairs": [
+    "1: reject unused untrained legacy mel-cache module; active checkpoint strict=True",
+    "2: discard exact published speaker training-only classification head; strict active state"
+  ],
+  "native_input_rate": 16000,
+  "native_output_rate": 16000,
+  "output": {
+    "path": ".local\\fixtures\\converted-file.wav",
+    "sha256": "ca3d3112a9a4c341599fd56c858d7d2b4af260cf468cd708bccf995dc69b7798",
+    "samples": 120160,
+    "sample_rate": 16000,
+    "duration_seconds": 7.51,
+    "peak": 0.6458740234375,
+    "rms": 0.06037359603133145,
+    "finite": true
+  },
+  "streaming_guard_calls": 376,
+  "elapsed_seconds": 11.96776990001672,
+  "finished_at": "2026-10-04T16:05:05.330391+00:00",
+  "private_bytes_end": 4616196096,
+  "gpu_peak_allocated_bytes": 1786326528,
+  "gpu_peak_reserved_bytes": 1851785216
+}

@@ -1,0 +1,168 @@
+{
+  "commit": "1e9b9d4298183c47c862febaf177ad46ced85c8d",
+  "executor": "/root",
+  "reviewer_independent_execution": false,
+  "rust_started_at": "2026-10-04T16:18:45.3157219Z",
+  "python_started_at": "2026-10-04T16:18:47.3075492Z",
+  "finished_at_of_test_batches": "NOT_CAPTURED_EXACTLY; command tool wall times 3.7436943s and 0.717086s",
+  "archived_at": "2026-10-04T16:29:38.271248+00:00",
+  "command_provenance": "exact arrays from leader executed PowerShell commands, not a fresh rerun",
+  "toolchain_environment": "dot-source tools/dev/toolchain-env.ps1; Rust/Cargo1.99.0; Python3.12.14; Windows baseline doctor-final.json",
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "output": "r2/fmt.txt"
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--locked"
+      ],
+      "exit_code": 0,
+      "output": "r2/rust-tests.txt"
+    },
+    {
+      "argv": [
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--locked",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "output": "r2/clippy.txt"
+    },
+    {
+      "argv": [
+        "cargo",
+        "run",
+        "-p",
+        "witvoice-contracts",
+        "--bin",
+        "export_schema",
+        "--locked"
+      ],
+      "exit_code": 0,
+      "output": "r2/schema-export.txt; stdout .local/schema-r2.json"
+    },
+    {
+      "argv": [
+        "bundled Python 3.12.14",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/fixtures",
+        "-p",
+        "test_validate_fixtures.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "output": "r2-python/fixture-tests.txt"
+    },
+    {
+      "argv": [
+        "bundled Python 3.12.14",
+        "tests/fixtures/validate_fixtures.py",
+        "--manifest",
+        "tests/fixtures/manifest.json"
+      ],
+      "exit_code": 2,
+      "output": "r2-python/fixture-readiness.json"
+    },
+    {
+      "argv": [
+        "bundled Python 3.12.14",
+        "crates/contracts/bindings/generate.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "output": "r2-python/binding-check.txt"
+    },
+    {
+      "argv": [
+        "bundled Python 3.12.14",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "crates/contracts/bindings",
+        "-p",
+        "test_golden.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "output": "r2-python/python-golden.txt"
+    }
+  ],
+  "schema_hashes": {
+    ".local/schema-r2.json": "0129859a0e37b62cc063450d57086bc3e5dbd45d30fb37a4335d8c319a839115",
+    "crates/contracts/bindings/schema.json": "0129859a0e37b62cc063450d57086bc3e5dbd45d30fb37a4335d8c319a839115"
+  },
+  "current_readonly_checks": [
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--exit-code",
+        "47b9ce5467f97c520fbbebaac1137afe3ddfc632",
+        "HEAD",
+        "--",
+        "tests/fixtures",
+        "tests/hardware"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--exit-code",
+        "HEAD",
+        "--",
+        "crates/contracts",
+        "tests/fixtures",
+        "tests/hardware",
+        "Cargo.toml",
+        "Cargo.lock",
+        "rust-toolchain.toml"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--cached",
+        "--exit-code",
+        "HEAD",
+        "--",
+        "crates/contracts",
+        "tests/fixtures",
+        "tests/hardware",
+        "Cargo.toml",
+        "Cargo.lock",
+        "rust-toolchain.toml"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "status": "BLOCKED",
+  "errors": [],
+  "blocked": [
+    "librispeech-6930-75918-0001: effective authorized speech duration not reviewed",
+    "quality corpus zh: 0/12 valid unique sources",
+    "quality corpus en: 0/12 valid unique sources",
+    "quality corpus: missing categories fast,laughter,long_pause,low_level,normal,plosive,short_pause,soft",
+    "quality corpus: 0/3 valid unique target references"
+  ],
+  "fixtures": [
+    {
+      "id": "authorized-local-smoke-source",
+      "sha256": "7a4172d80ae660e173c3b059c4ae855fc088deab4bed20b4437624f3fdee3436",
+      "format": "WAV",
+      "decode_status": "VERIFIED",
+      "frames": 120469,
+      "sample_rate_hz": 16000,
+      "channels": 1,
+      "duration_seconds": 7.5293125,
+      "peak": 0.18328857421875,
+      "rms": 0.023379137039018224,
+      "clipped_sample_count": 0,
+      "sample_count": 120469
+    },
+    {
+      "id": "librispeech-6930-75918-0001",
+      "sha256": "8954b7c5a7758b06fc305904596ad36633696235b6fc31a8bf3a636250b48921",
+      "format": "WAV",
+      "decode_status": "VERIFIED",
+      "frames": 227600,
+      "sample_rate_hz": 16000,
+      "channels": 1,
+      "duration_seconds": 14.225,
+      "peak": 0.49371337890625,
+      "rms": 0.03852103555391607,
+      "clipped_sample_count": 0,
+      "sample_count": 227600
+    }
+  ],
+  "measurement_scope": "offline fixture readiness only; no model, hardware, or human quality acceptance"
+}

@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "task_id": "T002",
+  "requirements": [
+    "REQ-05",
+    "REQ-19",
+    "REQ-32"
+  ],
+  "kind": "MEANVC2_M0_FILE",
+  "evidence_level": "C",
+  "started_at": "2026-10-04T15:59:34.832219+00:00",
+  "commit": "a95b2fe27e46b64c171caa4eabfb752e33cab177",
+  "backend_requested": "cuda",
+  "result": "FAILED",
+  "windows": "NOT_VERIFIED",
+  "macos": "UNTESTED",
+  "quality_review": "QUALITY_REVIEW_PENDING",
+  "distribution": "BLOCKED_LICENSE_CHAIN",
+  "not_tested": [
+    "physical_mic",
+    "virtual_cable",
+    "LAN",
+    "Mac",
+    "human_voice_signoff"
+  ],
+  "measurement_boundary": "fixed file PCM submitted to upstream process_chunk; no audio endpoint/production Node",
+  "command": [
+    "workers/vc_worker/feasibility.py",
+    "--mode",
+    "file",
+    "--device",
+    "cuda",
+    "--output",
+    "docs/evidence/model-feasibility/M0-20261004/file-repair1.json"
+  ],
+  "torch": "2.5.1+cu121",
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+  "error": "incomplete checkpoint: missing=[] unexpected=['loss_calculator.projection.weight']",
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\Project\\witvoice\\workers\\vc_worker\\feasibility.py\", line 148, in run\n    runner, assets = load_runner(args.device)\n                     ^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\Project\\witvoice\\workers\\vc_worker\\feasibility.py\", line 116, in load_runner\n    runner = module.VCRunner(str(REFERENCE), device=device, model=\"40ms\")\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\Project\\witvoice\\.local\\upstream\\MeanVC2\\runtime\\run_rt.py\", line 116, in __init__\n    self.spk_model = init_speaker_model(SPEAKER_MODEL_PATH, device,\n                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\Project\\witvoice\\.local\\upstream\\MeanVC2\\runtime\\src\\speaker.py\", line 337, in init_speaker_model\n    model.load_state_dict(state_dict, strict=False)\n  File \"D:\\Project\\witvoice\\workers\\vc_worker\\feasibility.py\", line 80, in checked_state_load\n    raise RuntimeError(\"incomplete checkpoint: missing=\" + str(result.missing_keys) + \" unexpected=\" + str(result.unexpected_keys))\nRuntimeError: incomplete checkpoint: missing=[] unexpected=['loss_calculator.projection.weight']\n",
+  "elapsed_seconds": 7.303967899992131,
+  "finished_at": "2026-10-04T15:59:42.161690+00:00",
+  "private_bytes_end": 5995237376,
+  "gpu_peak_allocated_bytes": 104909824,
+  "gpu_peak_reserved_bytes": 117440512
+}

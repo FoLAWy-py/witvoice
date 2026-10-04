@@ -1,0 +1,10 @@
+    Checking memchr v2.8.3
+    Checking ryu v1.0.23
+    Checking itoa v1.0.18
+    Checking dyn-clone v1.0.20
+    Checking serde_core v1.0.228
+    Checking serde v1.0.228
+    Checking serde_json v1.0.145
+    Checking schemars v0.8.22
+    Checking witvoice-contracts v0.1.0 (D:\Project\witvoice\crates\contracts)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 2.20s

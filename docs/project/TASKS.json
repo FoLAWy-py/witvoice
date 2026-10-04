@@ -36,7 +36,7 @@
       "milestone": "M0",
       "title": "验证并选定单一真实zero-shot引擎",
       "owner_role": "ml_engine",
-      "status": "IN_PROGRESS",
+      "status": "REVIEW",
       "requirements": [
         "REQ-05",
         "REQ-19",
@@ -51,22 +51,31 @@
       ],
       "acceptance": "锁定上游commit/权重摘要/许可清单；真实文件转换和流式试跑；Windows实测，Mac状态明确；主候选最多两次针对性修复、最多一次候选替换。",
       "agent_instance_id": "/root/ml_engine",
-      "resource_leases": [
-        "write:workers/vc_worker/:leader",
-        "write:docs/evidence/model-feasibility/:leader",
-        "gpu:none"
+      "resource_leases": [],
+      "evidence": [
+        "docs/evidence/model-feasibility/M0-20261004/RESULTS.md",
+        "docs/evidence/model-feasibility/M0-20261004/assets-audit.json",
+        "docs/evidence/model-feasibility/M0-20261004/dependencies.json",
+        "docs/evidence/model-feasibility/M0-20261004/file-first.json",
+        "docs/evidence/model-feasibility/M0-20261004/file-repair1.json",
+        "docs/evidence/model-feasibility/M0-20261004/file-repair2.json",
+        "docs/evidence/model-feasibility/M0-20261004/paced-60s.json",
+        "docs/evidence/model-feasibility/M0-20261004/offline-report-check.json",
+        "docs/evidence/model-feasibility/M0-20261004/compatibility-1.md",
+        "docs/evidence/model-feasibility/M0-20261004/compatibility-2.md"
       ],
-      "evidence": [],
       "review": null,
       "attempts": 0,
-      "blocked_reason": null
+      "blocked_reason": null,
+      "compatibility_repairs_used": 2,
+      "candidate_replacements_used": 0
     },
     {
       "id": "T003",
       "milestone": "M0",
       "title": "冻结契约、状态机和核心ADR",
       "owner_role": "leader",
-      "status": "IN_PROGRESS",
+      "status": "DONE",
       "requirements": [
         "REQ-07",
         "REQ-11",
@@ -81,13 +90,16 @@
       ],
       "acceptance": "共享类型、错误码、消息版本、状态转换和目录依赖获得backend/audio/ml建议及reviewer审查；没有三套漂移schema。",
       "agent_instance_id": "/root",
-      "resource_leases": [
-        "write:crates/contracts/:leader",
-        "write:docs/adr/:leader"
+      "resource_leases": [],
+      "evidence": [
+        "docs/evidence/T003-T004-20261005/r2/rust-checks.json",
+        "docs/evidence/T003-T004-20261005/r2/rust-tests.txt",
+        "docs/evidence/T003-T004-20261005/r2/clippy.txt",
+        "docs/evidence/T003-T004-20261005/r2-python/checks.json",
+        "docs/evidence/T003-T004-20261005/r2-python/python-golden.txt"
       ],
-      "evidence": [],
-      "review": null,
-      "attempts": 0,
+      "review": "docs/project/reviews/T003-T004-r2.md",
+      "attempts": 2,
       "blocked_reason": null
     },
     {
@@ -95,7 +107,7 @@
       "milestone": "M0",
       "title": "建立验收数据、性能边界与测试资源计划",
       "owner_role": "audio_runtime",
-      "status": "IN_PROGRESS",
+      "status": "DONE",
       "requirements": [
         "REQ-09",
         "REQ-22",
@@ -111,13 +123,15 @@
       ],
       "acceptance": "创建获授权fixture清单和硬件采集步骤；锁定测量边界、基准条件及资源锁；没有预填性能结果。",
       "agent_instance_id": "/root/audio_runtime",
-      "resource_leases": [
-        "write:tests/fixtures/:audio_runtime",
-        "write:tests/hardware/:audio_runtime"
+      "resource_leases": [],
+      "evidence": [
+        "tests/fixtures/manifest.json",
+        "tests/hardware/measurement-plan.json",
+        "docs/evidence/T003-T004-20261005/r2-python/fixture-tests.txt",
+        "docs/evidence/T003-T004-20261005/r2-python/fixture-readiness.json"
       ],
-      "evidence": [],
-      "review": null,
-      "attempts": 0,
+      "review": "docs/project/reviews/T003-T004-r2.md",
+      "attempts": 2,
       "blocked_reason": null
     },
     {
@@ -125,7 +139,7 @@
       "milestone": "M0",
       "title": "验证agent加载与35任务执行账本",
       "owner_role": "leader",
-      "status": "TODO",
+      "status": "REVIEW",
       "requirements": [
         "REQ-30",
         "REQ-31"
@@ -140,11 +154,14 @@
         "docs/roles/"
       ],
       "acceptance": "记录实际Codex版本、能否spawn自定义角色、真实agentID或兼容模式；检查任务/需求映射与角色路径所有权。",
-      "agent_instance_id": null,
+      "agent_instance_id": "/root",
       "resource_leases": [],
-      "evidence": [],
+      "evidence": [
+        "docs/project/T005-agent-runtime.md",
+        "docs/project/T005-runtime-check.json"
+      ],
       "review": null,
-      "attempts": 0,
+      "attempts": 1,
       "blocked_reason": null
     },
     {

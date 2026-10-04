@@ -1,0 +1,17 @@
+test_decodes_actual_frames_and_rms (test_validate_fixtures.FixtureTests.test_decodes_actual_frames_and_rms) ... ok
+test_empty_corpus_is_blocked_not_pass (test_validate_fixtures.FixtureTests.test_empty_corpus_is_blocked_not_pass) ... ok
+test_flac_metadata_never_attests_decode (test_validate_fixtures.FixtureTests.test_flac_metadata_never_attests_decode) ... ok
+test_full_synthetic_corpus_checks_distinct_targets (test_validate_fixtures.FixtureTests.test_full_synthetic_corpus_checks_distinct_targets) ... ok
+test_hash_mismatch_fails (test_validate_fixtures.FixtureTests.test_hash_mismatch_fails) ... ok
+test_malformed_roles_fail_without_exception (test_validate_fixtures.FixtureTests.test_malformed_roles_fail_without_exception) ... ok
+test_rejects_all_zero_fake_speech (test_validate_fixtures.FixtureTests.test_rejects_all_zero_fake_speech) ... ok
+test_rejects_nonfinite_float (test_validate_fixtures.FixtureTests.test_rejects_nonfinite_float) ... ok
+test_rejects_over_60_seconds (test_validate_fixtures.FixtureTests.test_rejects_over_60_seconds) ... ok
+test_rejects_path_escape_and_unaccepted_extensions (test_validate_fixtures.FixtureTests.test_rejects_path_escape_and_unaccepted_extensions) ... ok
+test_rejects_truncated_media (test_validate_fixtures.FixtureTests.test_rejects_truncated_media) ... ok
+test_short_source_is_not_valid_reference (test_validate_fixtures.FixtureTests.test_short_source_is_not_valid_reference) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 0.086s
+
+OK

@@ -1,6 +1,6 @@
 # ADR 0001 · 单一 Rust 契约和静音语义
 
-状态：实现中，T003；独立审查未完成。依据 SPEC 01/02/04，backend /root/backend、ml_engine /root/ml_engine 的实际建议。
+状态：T003契约基线已接受，独立/root/reviewer_t001第2轮批准，冻结1e9b9d4298183c47c862febaf177ad46ced85c8d；详见docs/project/reviews/T003-T004-r2.md。依据SPEC01/02/04和实际角色建议，不代表运行时已实现。
 
 Rust contracts 为权威类型与显式二进制解析；JSON schema 从 Rust 导出，TypeScript 由该 schema 生成，Python 复用同一媒体黄金向量。UI 不接收 PCM。local commands 与 PeerMessage 独立，LAN Start 无本地开麦语义。control length 4-byte BE，最大 65536 bytes，在分配 payload 前校验。
 
@@ -10,6 +10,6 @@ Rust contracts 为权威类型与显式二进制解析；JSON schema 从 Rust �
 
 纯transition表描述状态和所需guards/effects，不拥有运行时设备或模型。Mute/Stop/Fail/Reset先令输出无效并清队列；Mute/Unmute也递增epoch以拒绝迟到包。Unmute仅同有效会话明确用户操作且资源Ready；FailedMuted不能Unmute。epoch溢出失败，不能wrap复用旧代际。Node将guards与effects实际落实后才能宣称行为通过。
 
-Capabilities只由实际测试组合创建，含真实原生采样率/模型摘要/条件schema/run ID。MeanVC2源代码目前标16k输出，尚未运行验证，禁止猜24k或承诺CUDA/MPS。契约不提供生产测试引擎。
+Capabilities只由实际测试组合创建，含真实原生采样率/模型摘要/条件schema/run ID。MeanVC2 M0文件/paced实验输入输出已实测16k，VC/speaker CUDA、ASR CPU；不能据此承诺应用性能或MPS。Prepared必填实际loaded profile摘要，与requested model/profile比较通过后才能准备Ready；session_tag须非零。建session之前Error可无context，但不因此允许无context Start/媒体。契约不提供生产测试引擎。
 
 依赖精确固定 serde1.0.228、serde_json1.0.145、schemars0.8.22，Rust1.99.0；根lockfile由leader生成。组件文档已核版本，crates.io REST在本机返回403，Cargo实际下载结果另存证据。

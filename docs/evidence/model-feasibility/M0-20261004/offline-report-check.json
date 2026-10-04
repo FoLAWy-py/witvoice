@@ -1,0 +1,160 @@
+{
+  "schema_version": 1,
+  "run_id": "M0-20261004-offline-report-check",
+  "task_id": "T002",
+  "requirements": [
+    "REQ-05",
+    "REQ-19",
+    "REQ-32"
+  ],
+  "commit": "429b7c27713c4549ba6072d25dda18f48ddd4ee9",
+  "evidence_level": "C",
+  "kind": "OFFLINE_CHECK_OF_ACTUAL_EXPERIMENT",
+  "environment": {
+    "powershell": "7.6.5",
+    "platform": "Win32NT",
+    "os": {
+      "Caption": "Microsoft Windows 11 \u4e13\u4e1a\u7248",
+      "Version": "10.0.26200",
+      "BuildNumber": "26200",
+      "OSArchitecture": "64 \u4f4d"
+    },
+    "cpu": [
+      {
+        "Name": "Intel(R) Core(TM) i9-14900HX"
+      }
+    ],
+    "gpu": [
+      {
+        "Name": "Parsec Virtual Display Adapter",
+        "DriverVersion": "0.45.0.0"
+      },
+      {
+        "Name": "NVIDIA GeForce RTX 4060 Laptop GPU",
+        "DriverVersion": "32.0.15.9649"
+      }
+    ],
+    "memory_bytes": 34141495296,
+    "errors": [],
+    "commands": {
+      "git.exe": "D:\\Software\\Git\\cmd\\git.exe",
+      "rustc.exe": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\rustc.exe",
+      "cargo.exe": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\cargo.exe",
+      "rustup.exe": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\rustup.exe",
+      "node.exe": "D:\\Software\\nodejs\\node.exe",
+      "pnpm.cmd": "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\bin\\fallback\\pnpm.cmd",
+      "python.exe": "C:\\Users\\22198\\AppData\\Local\\Microsoft\\WindowsApps\\python.exe",
+      "codex.cmd": "D:\\Software\\nodejs\\codex.cmd",
+      "cl.exe": null
+    },
+    "sdk": {
+      "root": "C:\\Program Files (x86)\\Windows Kits\\10\\",
+      "versions": [
+        "10.0.26100.0"
+      ],
+      "status": "DISCOVERED_NOT_COMPILED"
+    }
+  },
+  "utc": "2026-10-04T16:26:40.448605+00:00",
+  "model": {
+    "engine_id": "MeanVC2",
+    "commit": "13acf84c1bf135ea5edad9c245b345289b06b33e",
+    "backend": "VC/speaker cuda:0; ASR cpu"
+  },
+  "commands": [
+    {
+      "command": [
+        "workers/vc_worker/feasibility.py",
+        "--mode",
+        "file",
+        "--device",
+        "cuda",
+        "--output",
+        "docs/evidence/model-feasibility/M0-20261004/file-repair2.json"
+      ],
+      "exit_code": 0,
+      "executor": "/root",
+      "evidence": "file-repair2.json"
+    },
+    {
+      "command": [
+        "workers/vc_worker/feasibility.py",
+        "--mode",
+        "paced",
+        "--seconds",
+        "60",
+        "--device",
+        "cuda",
+        "--output",
+        "docs/evidence/model-feasibility/M0-20261004/paced-60s.json"
+      ],
+      "exit_code": 0,
+      "executor": "/root",
+      "evidence": "paced-60s.json"
+    },
+    {
+      "command": "bundled Python .local/verify_m0_reports.py",
+      "exit_code": 0,
+      "scope": "offline parse/hash/statistics only"
+    }
+  ],
+  "statistics_recomputed": {
+    "sample_count": 375,
+    "new_input_seconds": 60.0,
+    "average_rtf": 0.6452629000030963,
+    "p50_step_ms": 103.72640000423416,
+    "p95_step_ms": 126.92479998804629,
+    "p99_step_ms": 135.5283999873791,
+    "max_lag_ms": 1.3043999788351357
+  },
+  "outputs_checked": [
+    {
+      "path": ".local\\fixtures\\converted-file.wav",
+      "sha256": "ca3d3112a9a4c341599fd56c858d7d2b4af260cf468cd708bccf995dc69b7798",
+      "format": "WAV",
+      "decode_status": "VERIFIED",
+      "frames": 120160,
+      "sample_rate_hz": 16000,
+      "channels": 1,
+      "duration_seconds": 7.51,
+      "peak": 0.6458740234375,
+      "rms": 0.06037359603133392,
+      "clipped_sample_count": 0,
+      "sample_count": 120160
+    },
+    {
+      "path": ".local\\fixtures\\converted-paced.wav",
+      "sha256": "4f7db44eb61d82433b7da0a05e4215403292654966ca3219cb8ca2cc8395062b",
+      "format": "WAV",
+      "decode_status": "VERIFIED",
+      "frames": 959040,
+      "sample_rate_hz": 16000,
+      "channels": 1,
+      "duration_seconds": 59.94,
+      "peak": 0.812671422958374,
+      "rms": 0.07123550794241976,
+      "clipped_sample_count": 0,
+      "sample_count": 959040
+    }
+  ],
+  "measurement_boundary": "offline report validation; source PCM to process_chunk in earlier experiment; no endpoints/Node/application latency",
+  "fixture_sha256": [
+    "7a4172d80ae660e173c3b059c4ae855fc088deab4bed20b4437624f3fdee3436",
+    "8954b7c5a7758b06fc305904596ad36633696235b6fc31a8bf3a636250b48921"
+  ],
+  "started_at": "2026-10-04T16:06:14.747571+00:00",
+  "finished_at": "2026-10-04T16:07:27.253335+00:00",
+  "result": "VERIFIED_REPORT_BYTES_AND_STATISTICS_ONLY",
+  "source_diff_exit": 0,
+  "windows_experiment": "VERIFIED_M0_FILE_AND_PACED_ONLY",
+  "macos": "UNTESTED",
+  "quality": "QUALITY_REVIEW_PENDING",
+  "distribution": "BLOCKED_LICENSE_CHAIN",
+  "power_mode": "UNKNOWN",
+  "concurrent_gpu_load": "UNKNOWN",
+  "cpu_core_equivalents": "NOT_MEASURED",
+  "report_check_prior_failure": {
+    "exit_code": 1,
+    "error": "host default GBK could not decode UTF-8 doctor JSON; fixed explicit UTF-8; no model invoked"
+  }
+}

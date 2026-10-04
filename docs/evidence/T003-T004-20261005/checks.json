@@ -1,0 +1,9 @@
+{
+  "commit": "429b7c27713c4549ba6072d25dda18f48ddd4ee9",
+  "fixture_tests": 0,
+  "fixture_readiness": 2,
+  "bindings_check": 0,
+  "python_golden": 0,
+  "source_frozen": "47b9ce5467f97c520fbbebaac1137afe3ddfc632",
+  "note": "T003/T004 source unchanged; model-only subsequent commits"
+}

@@ -1,0 +1,37 @@
+   Compiling witvoice-contracts v0.1.0 (D:\Project\witvoice\crates\contracts)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.65s
+     Running unittests src\lib.rs (target\debug\deps\witvoice_contracts-7839f13b582dcfb1.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src\bin\export_schema.rs (target\debug\deps\export_schema-bb9ecec5c7fdf65a.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\wire.rs (target\debug\deps\wire-2ba54ca6dee33896.exe)
+
+running 11 tests
+test queue_limits_cannot_be_unbounded ... ok
+test negotiated_frames_and_unknown_source ... ok
+test golden_header_and_pcm_endianness ... ok
+test pre_session_error_can_reject_handshake_without_media_permission ... ok
+test safe_state_guards_and_failure_effects ... ok
+test wrap_and_deadline_are_explicit ... ok
+test local_and_peer_start_are_distinct ... ok
+test malformed_and_unbound_media_rejected ... ok
+test controls_reject_unknown_fields_versions_and_oversize ... ok
+test u64_json_precision_and_digest_validation ... ok
+test prepared_requires_actual_matching_model_and_profile ... ok
+
+test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests witvoice_contracts
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
