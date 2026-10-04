@@ -1,0 +1,51 @@
+{
+  "completed": [
+    {
+      "close": "SUCCESS",
+      "exact_uid_flow": true,
+      "flow": "Capture",
+      "iteration": 0,
+      "register": "SUCCESS"
+    },
+    {
+      "close": "SUCCESS",
+      "exact_uid_flow": true,
+      "flow": "Capture",
+      "iteration": 1,
+      "register": "SUCCESS"
+    },
+    {
+      "close": "SUCCESS",
+      "exact_uid_flow": true,
+      "flow": "Capture",
+      "iteration": 2,
+      "register": "SUCCESS"
+    },
+    {
+      "close": "SUCCESS",
+      "exact_uid_flow": true,
+      "flow": "Render",
+      "iteration": 0,
+      "register": "SUCCESS"
+    },
+    {
+      "close": "SUCCESS",
+      "exact_uid_flow": true,
+      "flow": "Render",
+      "iteration": 1,
+      "register": "SUCCESS"
+    },
+    {
+      "close": "SUCCESS",
+      "exact_uid_flow": true,
+      "flow": "Render",
+      "iteration": 2,
+      "register": "SUCCESS"
+    }
+  ],
+  "initialize_start_capture_render": "NOT_RUN",
+  "physical_removal": "NOT_RUN",
+  "result": "PASS_REGISTRATION_LIFECYCLE_ONLY",
+  "service_notification_delivery": "NOT_RUN",
+  "wall_seconds": 0.062917
+}

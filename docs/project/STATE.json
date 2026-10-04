@@ -40,10 +40,11 @@
       "allowed_paths": [
         "crates/audio/src/",
         "crates/audio/tests/",
+        "crates/audio/examples/",
         "crates/audio/README.md"
       ],
       "resource_leases": [
-        "audio-hardware:leader-metadata-registration"
+        "code-writer:audio-native-stream"
       ],
       "depends_on": [
         "T003"
@@ -55,30 +56,7 @@
       ],
       "reviewer": "/root/reviewer_t001",
       "contract": "docs/spec/02-audio-engine.md + 07-tests-acceptance.md",
-      "execution_note": "leader probe compiled/check/clippy0，source即冻结；明确现有私有metadata两个UID，只实际Register/Revalidate/Unregister，不Initialize/Start/采集/播放；hardware lease独占",
-      "integration_author": "/root",
-      "integration_allowed_paths": [
-        "crates/audio/examples/notification_probe.rs"
-      ]
-    },
-    {
-      "task_id": "T021",
-      "agent_instance_id": "/root",
-      "allowed_paths": [
-        "docs/design/",
-        "packages/ui-tokens/"
-      ],
-      "resource_leases": [],
-      "depends_on": [
-        "T003"
-      ],
-      "contract": "docs/spec/05-ui-hci.md + contracts state/ADR0002",
-      "acceptance_commands": [
-        "bundled Python packages/ui-tokens/validate.py",
-        "manual fixed5page/state/keyboard/zoom coverage + independent readonly review"
-      ],
-      "reviewer": "/root/reviewer_t001",
-      "execution_note": "source4eff冻结后50静态色对/生成CSS/十枚举检查0；独立r1待；真实桌面NOT_RUN"
+      "execution_note": "leader metadata-only6registration/revalidate/close0，hardware lease已释放；audio在T006全文中继完成后才开始native shared stream，禁止实际Start/采集/播放，无hardware/GPU lease"
     }
   ],
   "milestones": {

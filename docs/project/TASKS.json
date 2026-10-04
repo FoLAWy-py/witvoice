@@ -231,13 +231,15 @@
       "acceptance": "WASAPI真实设备枚举、稳定ID、输入/输出协商、通道映射和设备移除；录音仅由显式测试启动。",
       "agent_instance_id": "/root/audio_runtime",
       "resource_leases": [
-        "audio-hardware:leader-metadata-registration"
+        "code-writer:audio-native-stream"
       ],
       "evidence": [
         "docs/evidence/T007-20261005/metadata-command.json",
         "docs/evidence/T007-20261005/integration-checks.json",
         "docs/evidence/T007-20261005/notifications/leader-checks.json",
-        "docs/evidence/T007-20261005/notifications/PROVENANCE.md"
+        "docs/evidence/T007-20261005/notifications/PROVENANCE.md",
+        "docs/evidence/T007-20261005/registration/command.json",
+        "docs/evidence/T007-20261005/registration/result.json"
       ],
       "review": "docs/project/reviews/T007-slice-r2.md",
       "attempts": 2,
@@ -601,7 +603,7 @@
       "milestone": "M4",
       "title": "冻结交互映射、tokens及状态覆盖",
       "owner_role": "hci",
-      "status": "IN_PROGRESS",
+      "status": "DONE",
       "requirements": [
         "REQ-25",
         "REQ-10",
@@ -626,8 +628,8 @@
         "docs/evidence/T021-20261005/command-final.json",
         "docs/evidence/T021-20261005/static-final.json"
       ],
-      "review": null,
-      "attempts": 0,
+      "review": "docs/project/reviews/T021-r1.md",
+      "attempts": 1,
       "blocked_reason": null,
       "execution_mode": "leader_hci_scope_with_actual_frontend_readonly_advice",
       "execution_note": "historical native /root/hci not retained in current4child inventory; no new hci dispatch claim; leader authors fixedT021, frontend actual advisory only"

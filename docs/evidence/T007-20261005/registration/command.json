@@ -1,0 +1,17 @@
+{
+  "owner": "/root",
+  "commit": "3cf13933a25cde0b691166a68ebd401e64623da3",
+  "command": "cargo run --locked -p witvoice-audio --example notification_probe -- D:\\Project\\witvoice\\.local\\notification-probe-selection.json",
+  "started_at": "2026-10-04T19:34:08.2525433Z",
+  "finished_at": "2026-10-04T19:34:09.0120651Z",
+  "exit_code": 0,
+  "selection_sha256": "6e8329ad4b523859989b40e19c62ab51d5baf4e5ae129239a166aec37b6f1a67",
+  "selection_source": "existing .local/wasapi-endpoints.json; first active exact UID per flow retained privately; no dynamic fallback",
+  "selection_source_sha256": "9a563b1f28cabffa6884300fe99e5e7636e6fb058bf11464df3660892d3559da",
+  "metadata_only": true,
+  "initialize_start_capture_render": "NOT_RUN",
+  "notification_delivery_removal": "NOT_RUN",
+  "environment_reference": "T001 doctor-final/native-final historical baseline; no new full snapshot",
+  "stdout_local": ".local/notification-probe-result.json",
+  "stderr_local": ".local/notification-probe-stderr.txt"
+}
