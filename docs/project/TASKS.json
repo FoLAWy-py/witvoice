@@ -7,7 +7,7 @@
       "milestone": "M0",
       "title": "建立安全仓库与Windows工具链基线",
       "owner_role": "leader",
-      "status": "IN_PROGRESS",
+      "status": "DONE",
       "requirements": [
         "REQ-01",
         "REQ-31"
@@ -19,10 +19,16 @@
       ],
       "acceptance": "doctor记录OS、PowerShell、Git、MSVC/SDK、Rust、Node/pnpm、Python和Codex实际版本；缺失项给精确阻塞，不臆测已安装。",
       "agent_instance_id": "/root",
-      "resource_leases": ["write:tools/dev/:leader", "write:docs/evidence/:leader"],
-      "evidence": ["docs/evidence/T001-session.md", "docs/evidence/T001-20261004/doctor-r2.json"],
-      "review": null,
-      "attempts": 0,
+      "resource_leases": [],
+      "evidence": [
+        "docs/evidence/T001-session.md",
+        "docs/evidence/T001-20261004/doctor-final.json",
+        "docs/evidence/T001-20261004/native-final.json",
+        "docs/evidence/T001-20261004/tests-final.txt",
+        "docs/evidence/T001-20261004/checks-final.json"
+      ],
+      "review": "docs/project/reviews/T001-r2.md",
+      "attempts": 2,
       "blocked_reason": null
     },
     {
@@ -30,7 +36,7 @@
       "milestone": "M0",
       "title": "验证并选定单一真实zero-shot引擎",
       "owner_role": "ml_engine",
-      "status": "TODO",
+      "status": "IN_PROGRESS",
       "requirements": [
         "REQ-05",
         "REQ-19",
@@ -44,8 +50,12 @@
         "docs/evidence/model-feasibility/"
       ],
       "acceptance": "锁定上游commit/权重摘要/许可清单；真实文件转换和流式试跑；Windows实测，Mac状态明确；主候选最多两次针对性修复、最多一次候选替换。",
-      "agent_instance_id": null,
-      "resource_leases": [],
+      "agent_instance_id": "/root/ml_engine",
+      "resource_leases": [
+        "write:workers/vc_worker/:leader",
+        "write:docs/evidence/model-feasibility/:leader",
+        "gpu:none"
+      ],
       "evidence": [],
       "review": null,
       "attempts": 0,
@@ -56,7 +66,7 @@
       "milestone": "M0",
       "title": "冻结契约、状态机和核心ADR",
       "owner_role": "leader",
-      "status": "TODO",
+      "status": "IN_PROGRESS",
       "requirements": [
         "REQ-07",
         "REQ-11",
@@ -70,8 +80,11 @@
         "docs/adr/"
       ],
       "acceptance": "共享类型、错误码、消息版本、状态转换和目录依赖获得backend/audio/ml建议及reviewer审查；没有三套漂移schema。",
-      "agent_instance_id": null,
-      "resource_leases": [],
+      "agent_instance_id": "/root",
+      "resource_leases": [
+        "write:crates/contracts/:leader",
+        "write:docs/adr/:leader"
+      ],
       "evidence": [],
       "review": null,
       "attempts": 0,
@@ -82,7 +95,7 @@
       "milestone": "M0",
       "title": "建立验收数据、性能边界与测试资源计划",
       "owner_role": "audio_runtime",
-      "status": "TODO",
+      "status": "IN_PROGRESS",
       "requirements": [
         "REQ-09",
         "REQ-22",
@@ -97,8 +110,11 @@
         "docs/evidence/"
       ],
       "acceptance": "创建获授权fixture清单和硬件采集步骤；锁定测量边界、基准条件及资源锁；没有预填性能结果。",
-      "agent_instance_id": null,
-      "resource_leases": [],
+      "agent_instance_id": "/root/audio_runtime",
+      "resource_leases": [
+        "write:tests/fixtures/:audio_runtime",
+        "write:tests/hardware/:audio_runtime"
+      ],
       "evidence": [],
       "review": null,
       "attempts": 0,

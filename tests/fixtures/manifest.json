@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "purpose": "T004 fixture readiness; private media remains outside Git",
+  "fixtures": [
+    {
+      "id": "authorized-local-smoke-source",
+      "role": "smoke_source",
+      "local_path": ".local/fixtures/source-authorized.wav",
+      "sha256": "7a4172d80ae660e173c3b059c4ae855fc088deab4bed20b4437624f3fdee3436",
+      "authorization": "CONFIRMED_LOCAL_ONLY",
+      "consent_id": "user-authorized-existing-source-local-wav-conversion"
+    },
+    {
+      "id": "librispeech-6930-75918-0001",
+      "role": "reference",
+      "target_id": "librispeech-speaker-6930",
+      "local_path": ".local/fixtures/reference-librispeech.wav",
+      "sha256": "8954b7c5a7758b06fc305904596ad36633696235b6fc31a8bf3a636250b48921",
+      "authorization": "CONFIRMED_LOCAL_ONLY",
+      "consent_id": "user-authorized-cc-by-network-reference-local-use",
+      "effective_reference_seconds": null,
+      "provenance": {
+        "dataset": "OpenSLR LibriSpeech clean/test row 1",
+        "revision": "71cacbfb7e2354c4226d01e70d77d5fca3d04ba1",
+        "urls": ["https://huggingface.co/datasets/openslr/librispeech_asr", "https://www.openslr.org/12"],
+        "license": "CC-BY-4.0",
+        "authors": ["Vassil Panayotov", "Guoguo Chen", "Daniel Povey", "Sanjeev Khudanpur"],
+        "original_flac_sha256": "3dfad7eb0793eddd5040d04f1f2f3046ceeee39e0ec461794856a350e1bd728e",
+        "original_flac_bytes": 287636,
+        "conversion": "leader converted locally to mono 16kHz PCM16 WAV; no audio processing executed by validator"
+      }
+    }
+  ],
+  "quality_review": {
+    "status": "QUALITY_REVIEW_PENDING",
+    "owner_signoff": null,
+    "listener_scores": []
+  }
+}

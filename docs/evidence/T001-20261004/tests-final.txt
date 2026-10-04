@@ -1,0 +1,18 @@
+test_collect_invalid_inventory_shape_is_blocked (test_doctor.DoctorTests.test_collect_invalid_inventory_shape_is_blocked) ... ok
+test_inventory_invalid_json_unknown (test_doctor.DoctorTests.test_inventory_invalid_json_unknown) ... ok
+test_inventory_wrong_json_shapes_unknown (test_doctor.DoctorTests.test_inventory_wrong_json_shapes_unknown) ... ok
+test_missing_and_wrong_host_block (test_doctor.DoctorTests.test_missing_and_wrong_host_block) ... ok
+test_nonexistent_executable_unknown (test_doctor.DoctorTests.test_nonexistent_executable_unknown) ... ok
+test_nonzero_is_not_pass (test_doctor.DoctorTests.test_nonzero_is_not_pass) ... ok
+test_output_bounded (test_doctor.DoctorTests.test_output_bounded) ... ok
+test_report_preserves_existing_file_and_restricts_destination (test_doctor.DoctorTests.test_report_preserves_existing_file_and_restricts_destination) ... ok
+test_shallow_node_cli_paths (test_doctor.DoctorTests.test_shallow_node_cli_paths) ... ok
+test_timeout_not_pass (test_doctor.DoctorTests.test_timeout_not_pass) ... ok
+test_unicode_output_preserved (test_doctor.DoctorTests.test_unicode_output_preserved) ... ok
+test_vswhere_wrong_json_shapes_unknown (test_doctor.DoctorTests.test_vswhere_wrong_json_shapes_unknown) ... ok
+test_windows_timeout_kills_descendant (test_doctor.DoctorTests.test_windows_timeout_kills_descendant) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 3.789s
+
+OK

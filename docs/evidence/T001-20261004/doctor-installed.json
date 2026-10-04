@@ -1,0 +1,317 @@
+{
+  "schema_version": 1,
+  "run_id": "T001-20261004T150943Z",
+  "task_id": "T001",
+  "requirements": [
+    "REQ-01",
+    "REQ-31"
+  ],
+  "commit": null,
+  "evidence_level": "C",
+  "kind": "WINDOWS_TOOLCHAIN_DISCOVERY",
+  "environment": {
+    "powershell": "7.6.5",
+    "platform": "Win32NT",
+    "os": {
+      "Caption": "Microsoft Windows 11 专业版",
+      "Version": "10.0.26200",
+      "BuildNumber": "26200",
+      "OSArchitecture": "64 位"
+    },
+    "cpu": [
+      {
+        "Name": "Intel(R) Core(TM) i9-14900HX"
+      }
+    ],
+    "gpu": [
+      {
+        "Name": "Parsec Virtual Display Adapter",
+        "DriverVersion": "0.45.0.0"
+      },
+      {
+        "Name": "NVIDIA GeForce RTX 4060 Laptop GPU",
+        "DriverVersion": "32.0.15.9649"
+      }
+    ],
+    "memory_bytes": 34141495296,
+    "errors": [],
+    "commands": {
+      "git.exe": "D:\\Software\\Git\\cmd\\git.exe",
+      "rustc.exe": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\rustc.exe",
+      "cargo.exe": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\cargo.exe",
+      "rustup.exe": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\rustup.exe",
+      "node.exe": "D:\\Software\\nodejs\\node.exe",
+      "pnpm.cmd": "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\bin\\fallback\\pnpm.cmd",
+      "python.exe": "C:\\Users\\22198\\AppData\\Local\\Microsoft\\WindowsApps\\python.exe",
+      "codex.cmd": "D:\\Software\\nodejs\\codex.cmd",
+      "cl.exe": null
+    },
+    "sdk": {
+      "root": "C:\\Program Files (x86)\\Windows Kits\\10\\",
+      "versions": [
+        "10.0.26100.0"
+      ],
+      "status": "DISCOVERED_NOT_COMPILED"
+    }
+  },
+  "started_at": "2026-10-04T15:09:39.206563+00:00",
+  "finished_at": "2026-10-04T15:09:43.107768+00:00",
+  "checks": {
+    "windows_powershell": {
+      "argv": [
+        "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+        "-NoLogo",
+        "-NoProfile",
+        "-NonInteractive",
+        "-File",
+        "D:\\Project\\witvoice\\tools\\dev\\windows_inventory.ps1"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"powershell\":\"7.6.5\",\"platform\":\"Win32NT\",\"os\":{\"Caption\":\"Microsoft Windows 11 专业版\",\"Version\":\"10.0.26200\",\"BuildNumber\":\"26200\",\"OSArchitecture\":\"64 位\"},\"cpu\":[{\"Name\":\"Intel(R) Core(TM) i9-14900HX\"}],\"gpu\":[{\"Name\":\"Parsec Virtual Display Adapter\",\"DriverVersion\":\"0.45.0.0\"},{\"Name\":\"NVIDIA GeForce RTX 4060 Laptop GPU\",\"DriverVersion\":\"32.0.15.9649\"}],\"memory_bytes\":34141495296,\"errors\":[],\"commands\":{\"git.exe\":\"D:\\\\Software\\\\Git\\\\cmd\\\\git.exe\",\"rustc.exe\":\"D:\\\\Software\\\\WitvoiceToolchain\\\\Rust\\\\cargo\\\\bin\\\\rustc.exe\",\"cargo.exe\":\"D:\\\\Software\\\\WitvoiceToolchain\\\\Rust\\\\cargo\\\\bin\\\\cargo.exe\",\"rustup.exe\":\"D:\\\\Software\\\\WitvoiceToolchain\\\\Rust\\\\cargo\\\\bin\\\\rustup.exe\",\"node.exe\":\"D:\\\\Software\\\\nodejs\\\\node.exe\",\"pnpm.cmd\":\"C:\\\\Users\\\\22198\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\bin\\\\fallback\\\\pnpm.cmd\",\"python.exe\":\"C:\\\\Users\\\\22198\\\\AppData\\\\Local\\\\Microsoft\\\\WindowsApps\\\\python.exe\",\"codex.cmd\":\"D:\\\\Software\\\\nodejs\\\\codex.cmd\",\"cl.exe\":null},\"sdk\":{\"root\":\"C:\\\\Program Files (x86)\\\\Windows Kits\\\\10\\\\\",\"versions\":[\"10.0.26100.0\"],\"status\":\"DISCOVERED_NOT_COMPILED\"}}",
+      "stderr": "",
+      "status": "PASS",
+      "stdout_truncated": false,
+      "stderr_truncated": false,
+      "elapsed_seconds": 2.984,
+      "data": {
+        "powershell": "7.6.5",
+        "platform": "Win32NT",
+        "os": {
+          "Caption": "Microsoft Windows 11 专业版",
+          "Version": "10.0.26200",
+          "BuildNumber": "26200",
+          "OSArchitecture": "64 位"
+        },
+        "cpu": [
+          {
+            "Name": "Intel(R) Core(TM) i9-14900HX"
+          }
+        ],
+        "gpu": [
+          {
+            "Name": "Parsec Virtual Display Adapter",
+            "DriverVersion": "0.45.0.0"
+          },
+          {
+            "Name": "NVIDIA GeForce RTX 4060 Laptop GPU",
+            "DriverVersion": "32.0.15.9649"
+          }
+        ],
+        "memory_bytes": 34141495296,
+        "errors": [],
+        "commands": {
+          "git.exe": "D:\\Software\\Git\\cmd\\git.exe",
+          "rustc.exe": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\rustc.exe",
+          "cargo.exe": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\cargo.exe",
+          "rustup.exe": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\rustup.exe",
+          "node.exe": "D:\\Software\\nodejs\\node.exe",
+          "pnpm.cmd": "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\bin\\fallback\\pnpm.cmd",
+          "python.exe": "C:\\Users\\22198\\AppData\\Local\\Microsoft\\WindowsApps\\python.exe",
+          "codex.cmd": "D:\\Software\\nodejs\\codex.cmd",
+          "cl.exe": null
+        },
+        "sdk": {
+          "root": "C:\\Program Files (x86)\\Windows Kits\\10\\",
+          "versions": [
+            "10.0.26100.0"
+          ],
+          "status": "DISCOVERED_NOT_COMPILED"
+        }
+      }
+    },
+    "git": {
+      "argv": [
+        "D:\\Software\\Git\\cmd\\git.exe",
+        "--version"
+      ],
+      "exit_code": 0,
+      "stdout": "git version 2.52.0.windows.1",
+      "stderr": "",
+      "status": "PASS",
+      "stdout_truncated": false,
+      "stderr_truncated": false,
+      "elapsed_seconds": 0.031
+    },
+    "rustc": {
+      "argv": [
+        "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\rustc.exe",
+        "-Vv"
+      ],
+      "exit_code": 0,
+      "stdout": "rustc 1.99.0 (b940084d7 2026-09-28)\nbinary: rustc\ncommit-hash: b940084d7eb6a299eb4bfeb8e34901bc051e7ac4\ncommit-date: 2026-09-28\nhost: x86_64-pc-windows-msvc\nrelease: 1.99.0\nLLVM version: 23.1.1",
+      "stderr": "",
+      "status": "PASS",
+      "stdout_truncated": false,
+      "stderr_truncated": false,
+      "elapsed_seconds": 0.062
+    },
+    "cargo": {
+      "argv": [
+        "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\cargo.exe",
+        "--version"
+      ],
+      "exit_code": 0,
+      "stdout": "cargo 1.99.0 (5f94df478 2026-08-27)",
+      "stderr": "",
+      "status": "PASS",
+      "stdout_truncated": false,
+      "stderr_truncated": false,
+      "elapsed_seconds": 0.047
+    },
+    "rustup": {
+      "argv": [
+        "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\rustup.exe",
+        "--version"
+      ],
+      "exit_code": 0,
+      "stdout": "rustup 1.29.1 (d95a37b6a 2026-08-13)",
+      "stderr": "info: This is the version for the rustup toolchain manager, not the rustc compiler.\ninfo: the currently active `rustc` version is `rustc 1.99.0 (b940084d7 2026-09-28)`",
+      "status": "PASS",
+      "stdout_truncated": false,
+      "stderr_truncated": false,
+      "elapsed_seconds": 0.047
+    },
+    "node": {
+      "argv": [
+        "D:\\Software\\nodejs\\node.exe",
+        "--version"
+      ],
+      "exit_code": 0,
+      "stdout": "v24.13.0",
+      "stderr": "",
+      "status": "PASS",
+      "stdout_truncated": false,
+      "stderr_truncated": false,
+      "elapsed_seconds": 0.047
+    },
+    "pnpm": {
+      "argv": [
+        "D:\\Software\\nodejs\\node.exe",
+        "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\node_modules\\pnpm\\bin\\pnpm.cjs",
+        "--version"
+      ],
+      "exit_code": 0,
+      "stdout": "11.19.0",
+      "stderr": "",
+      "status": "PASS",
+      "stdout_truncated": false,
+      "stderr_truncated": false,
+      "elapsed_seconds": 0.313,
+      "wrapper": "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\bin\\fallback\\pnpm.cmd"
+    },
+    "codex": {
+      "argv": [
+        "D:\\Software\\nodejs\\node.exe",
+        "D:\\Software\\nodejs\\node_modules\\@openai\\codex\\bin\\codex.js",
+        "--version"
+      ],
+      "exit_code": 0,
+      "stdout": "codex-cli 0.153.4",
+      "stderr": "",
+      "status": "PASS",
+      "stdout_truncated": false,
+      "stderr_truncated": false,
+      "elapsed_seconds": 0.079,
+      "wrapper": "D:\\Software\\nodejs\\codex.cmd"
+    },
+    "python": {
+      "argv": [
+        "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-c",
+        "import sys; print(sys.version); print(sys.executable)"
+      ],
+      "exit_code": 0,
+      "stdout": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]\r\nC:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "stderr": "",
+      "status": "PASS",
+      "stdout_truncated": false,
+      "stderr_truncated": false,
+      "elapsed_seconds": 0.046
+    },
+    "msvc": {
+      "status": "DISCOVERED_NOT_COMPILED",
+      "discovery": {
+        "argv": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Installer\\vswhere.exe",
+          "-products",
+          "*",
+          "-requires",
+          "Microsoft.VisualStudio.Component.VC.Tools.x86.x64",
+          "-format",
+          "json",
+          "-utf8"
+        ],
+        "exit_code": 0,
+        "stdout": "[\r\n  {\r\n    \"instanceId\": \"3524e67e\",\r\n    \"installDate\": \"2026-10-04T15:04:23Z\",\r\n    \"installationName\": \"VisualStudio/17.14.41+37710.0.-september.2026-\",\r\n    \"installationPath\": \"D:\\\\Software\\\\WitvoiceToolchain\\\\VS2022BuildTools\",\r\n    \"installationVersion\": \"17.14.37710.0\",\r\n    \"productId\": \"Microsoft.VisualStudio.Product.BuildTools\",\r\n    \"productPath\": \"D:\\\\Software\\\\WitvoiceToolchain\\\\VS2022BuildTools\\\\Common7\\\\Tools\\\\LaunchDevCmd.bat\",\r\n    \"state\": 4294967295,\r\n    \"isComplete\": true,\r\n    \"isLaunchable\": true,\r\n    \"isPrerelease\": false,\r\n    \"isRebootRequired\": false,\r\n    \"displayName\": \"Visual Studio 生成工具 2022\",\r\n    \"description\": \"Visual Studio 生成工具允许生成本机和基于 MSBuild 的托管 .NET 应用程序，而不需要 Visual Studio IDE。还可以选择安装 Visual C++ 编译器和库、MFC、ALT 和 C++/CLI 支持。\",\r\n    \"channelId\": \"VisualStudio.17.Release\",\r\n    \"channelUri\": \"https://aka.ms/vs/17/release/channel\",\r\n    \"enginePath\": \"C:\\\\Program Files (x86)\\\\Microsoft Visual Studio\\\\Installer\\\\resources\\\\app\\\\ServiceHub\\\\Services\\\\Microsoft.VisualStudio.Setup.Service\",\r\n    \"installedChannelId\": \"VisualStudio.17.Release\",\r\n    \"installedChannelUri\": \"https://aka.ms/vs/17/release/channel\",\r\n    \"releaseNotes\": \"https://docs.microsoft.com/en-us/visualstudio/releases/2022/release-notes-v17.14#17.14.41\",\r\n    \"resolvedInstallationPath\": \"D:\\\\Software\\\\WitvoiceToolchain\\\\VS2022BuildTools\",\r\n    \"thirdPartyNotices\": \"https://go.microsoft.com/fwlink/?LinkId=661288\",\r\n    \"updateDate\": \"2026-10-04T15:04:23.9667052Z\",\r\n    \"catalog\": {\r\n      \"buildBranch\": \"d17.14\",\r\n      \"buildVersion\": \"17.14.37710.0\",\r\n      \"id\": \"VisualStudio/17.14.41+37710.0.-september.2026-\",\r\n      \"localBuild\": \"build-lab\",\r\n      \"manifestName\": \"VisualStudio\",\r\n      \"manifestType\": \"installer\",\r\n      \"productDisplayVersion\": \"17.14.41 (September 2026)\",\r\n      \"productLine\": \"Dev17\",\r\n      \"productLineVersion\": \"2022\",\r\n      \"productMilestone\": \"RTW\",\r\n      \"productMilestoneIsPreRelease\": \"False\",\r\n      \"productName\": \"Visual Studio\",\r\n      \"productPatchVersion\": \"41\",\r\n      \"productPreReleaseMilestoneSuffix\": \"1.0\",\r\n      \"productReleaseNameSuffix\": \"(September 2026)\",\r\n      \"productSemanticVersion\": \"17.14.41+37710.0.-september.2026-\",\r\n      \"requiredEngineVersion\": \"3.14.2094.42856\"\r\n    },\r\n    \"properties\": {\r\n      \"campaignId\": \"\",\r\n      \"channelManifestId\": \"VisualStudio.17.Release/17.14.41+37710.0.-september.2026-\",\r\n      \"includeRecommended\": \"0\",\r\n      \"nickname\": \"\",\r\n      \"setupEngineFilePath\": \"C:\\\\Program Files (x86)\\\\Microsoft Visual Studio\\\\Installer\\\\setup.exe\"\r\n    }\r\n  }\r\n]",
+        "stderr": "",
+        "status": "PASS",
+        "stdout_truncated": false,
+        "stderr_truncated": false,
+        "elapsed_seconds": 0.047
+      },
+      "compilers": [
+        {
+          "argv": [
+            "D:\\Software\\WitvoiceToolchain\\VS2022BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+            "/Bv"
+          ],
+          "exit_code": 2,
+          "stdout": "",
+          "stderr": "���� x64 �� Microsoft (R) C/C++ �Ż������� 19.44.35229 ��\r\n��Ȩ����(C) Microsoft Corporation����������Ȩ����\r\n\r\n������ɨ�����:\r\n D:\\Software\\WitvoiceToolchain\\VS2022BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe:        �汾 19.44.35229.0\r\n D:\\Software\\WitvoiceToolchain\\VS2022BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\c1.dll:        �汾 19.44.35229.0\r\n D:\\Software\\WitvoiceToolchain\\VS2022BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\c1xx.dll:      �汾 19.44.35229.0\r\n D:\\Software\\WitvoiceToolchain\\VS2022BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\c2.dll:        �汾 19.44.35229.0\r\n D:\\Software\\WitvoiceToolchain\\VS2022BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\c1xx.dll:      �汾 19.44.35229.0\r\n D:\\Software\\WitvoiceToolchain\\VS2022BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\link.exe:      �汾 14.44.35229.0\r\n D:\\Software\\WitvoiceToolchain\\VS2022BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\mspdb140.dll:  �汾 14.44.35229.0\r\n D:\\Software\\WitvoiceToolchain\\VS2022BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\2052\\clui.dll: �汾 19.44.35229.0\r\n\r\ncl: ������ error D8003 :ȱ��Դ�ļ���",
+          "status": "VERSION_EXECUTED_NOT_COMPILED",
+          "stdout_truncated": false,
+          "stderr_truncated": false,
+          "elapsed_seconds": 0.032,
+          "installation_version": "17.14.37710.0"
+        }
+      ]
+    },
+    "windows_sdk": {
+      "root": "C:\\Program Files (x86)\\Windows Kits\\10\\",
+      "versions": [
+        "10.0.26100.0"
+      ],
+      "status": "DISCOVERED_NOT_COMPILED"
+    }
+  },
+  "result": "VERSION_BASELINE_ONLY",
+  "blockers": [],
+  "path_python": {
+    "path": "C:\\Users\\22198\\AppData\\Local\\Microsoft\\WindowsApps\\python.exe",
+    "status": "ALIAS_NOT_EXECUTED"
+  },
+  "python_source": "CURRENT_INTERPRETER (may be bundled; see absolute path)",
+  "git_repository": {
+    "argv": [
+      "D:\\Software\\Git\\cmd\\git.exe",
+      "-C",
+      "D:\\Project\\witvoice",
+      "rev-parse",
+      "--is-inside-work-tree"
+    ],
+    "exit_code": 0,
+    "stdout": "true",
+    "stderr": "",
+    "status": "PASS",
+    "stdout_truncated": false,
+    "stderr_truncated": false,
+    "elapsed_seconds": 0.062
+  },
+  "source_sha256": {
+    "tools/dev/doctor.py": "aee882fc143d13de97d2149511c3c01ae15b26e3333b5dbbb0a41cbbd6f6263b",
+    "tools/dev/windows_inventory.ps1": "71c21dc7125a5fd414ec17191cd1be8dc684ff032670018acf576a0933fa187d"
+  },
+  "measurement_boundary": "Version/discovery subprocesses only; elapsed_seconds is probe wall time, never audio latency",
+  "not_tested": [
+    "native_compilation",
+    "WASAPI",
+    "virtual_cable",
+    "microphone_permissions",
+    "real_model",
+    "CUDA",
+    "macOS",
+    "LAN",
+    "desktop",
+    "installation"
+  ]
+}

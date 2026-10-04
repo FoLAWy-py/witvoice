@@ -1,0 +1,1521 @@
+{
+  "PeerRequest": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionalProperties": false,
+    "definitions": {
+      "DecimalU64": {
+        "description": "JSON integer precision is preserved across Rust, Python and JavaScript.",
+        "type": "string"
+      },
+      "ErrorCode": {
+        "enum": [
+          "INVALID_ARGUMENT",
+          "UNSUPPORTED_VERSION",
+          "INVALID_STATE",
+          "REQUEST_ID_CONFLICT",
+          "BUSY",
+          "UNTRUSTED_PEER",
+          "CERTIFICATE_MISMATCH",
+          "PERMISSION_DENIED",
+          "DEVICE_MISSING",
+          "ENGINE_NOT_READY",
+          "ENGINE_FAILED",
+          "INVALID_PROFILE",
+          "SIZE_LIMIT",
+          "SESSION_MISMATCH",
+          "EPOCH_MISMATCH",
+          "INVALID_MEDIA",
+          "EXPIRED",
+          "BACKPRESSURE",
+          "EPOCH_EXHAUSTED"
+        ],
+        "type": "string"
+      },
+      "Id": {
+        "description": "Canonical lower-case UUID text. Distinct field meanings remain in typed messages.",
+        "type": "string"
+      },
+      "PeerMessage": {
+        "oneOf": [
+          {
+            "additionalProperties": false,
+            "properties": {
+              "args": {
+                "additionalProperties": false,
+                "properties": {
+                  "node_id": {
+                    "$ref": "#/definitions/Id"
+                  }
+                },
+                "required": [
+                  "node_id"
+                ],
+                "type": "object"
+              },
+              "kind": {
+                "enum": [
+                  "Hello"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "args",
+              "kind"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "kind": {
+                "enum": [
+                  "Capabilities"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "kind"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "args": {
+                "additionalProperties": false,
+                "properties": {
+                  "model_sha256": {
+                    "$ref": "#/definitions/Sha256"
+                  },
+                  "profile_sha256": {
+                    "$ref": "#/definitions/Sha256"
+                  }
+                },
+                "required": [
+                  "model_sha256",
+                  "profile_sha256"
+                ],
+                "type": "object"
+              },
+              "kind": {
+                "enum": [
+                  "PrepareSession"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "args",
+              "kind"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "args": {
+                "additionalProperties": false,
+                "properties": {
+                  "capabilities": {
+                    "$ref": "#/definitions/PreparedCapabilities"
+                  },
+                  "session_tag": {
+                    "$ref": "#/definitions/DecimalU64"
+                  }
+                },
+                "required": [
+                  "capabilities",
+                  "session_tag"
+                ],
+                "type": "object"
+              },
+              "kind": {
+                "enum": [
+                  "Prepared"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "args",
+              "kind"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "kind": {
+                "enum": [
+                  "RejectBusy"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "kind"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "args": {
+                "additionalProperties": false,
+                "properties": {
+                  "profile_sha256": {
+                    "$ref": "#/definitions/Sha256"
+                  },
+                  "total_bytes": {
+                    "format": "uint32",
+                    "minimum": 0.0,
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "profile_sha256",
+                  "total_bytes"
+                ],
+                "type": "object"
+              },
+              "kind": {
+                "enum": [
+                  "AuthorizeProfileTransfer"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "args",
+              "kind"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "args": {
+                "additionalProperties": false,
+                "properties": {
+                  "data_base64": {
+                    "type": "string"
+                  },
+                  "offset": {
+                    "format": "uint32",
+                    "minimum": 0.0,
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "data_base64",
+                  "offset"
+                ],
+                "type": "object"
+              },
+              "kind": {
+                "enum": [
+                  "ProfileChunk"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "args",
+              "kind"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "args": {
+                "additionalProperties": false,
+                "properties": {
+                  "profile_sha256": {
+                    "$ref": "#/definitions/Sha256"
+                  }
+                },
+                "required": [
+                  "profile_sha256"
+                ],
+                "type": "object"
+              },
+              "kind": {
+                "enum": [
+                  "ProfileReady"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "args",
+              "kind"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "kind": {
+                "enum": [
+                  "Start"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "kind"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "kind": {
+                "enum": [
+                  "Started"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "kind"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "kind": {
+                "enum": [
+                  "Mute"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "kind"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "kind": {
+                "enum": [
+                  "Muted"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "kind"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "args": {
+                "additionalProperties": false,
+                "properties": {
+                  "new_epoch": {
+                    "format": "uint32",
+                    "minimum": 0.0,
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "new_epoch"
+                ],
+                "type": "object"
+              },
+              "kind": {
+                "enum": [
+                  "Reset"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "args",
+              "kind"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "kind": {
+                "enum": [
+                  "ResetReady"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "kind"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "kind": {
+                "enum": [
+                  "Stop"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "kind"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "kind": {
+                "enum": [
+                  "Stopped"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "kind"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "kind": {
+                "enum": [
+                  "Ping"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "kind"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "kind": {
+                "enum": [
+                  "Pong"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "kind"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "kind": {
+                "enum": [
+                  "Metrics"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "kind"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "args": {
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "$ref": "#/definitions/ErrorCode"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "kind": {
+                "enum": [
+                  "Error"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "args",
+              "kind"
+            ],
+            "type": "object"
+          }
+        ]
+      },
+      "PreparedCapabilities": {
+        "additionalProperties": false,
+        "properties": {
+          "backend": {
+            "type": "string"
+          },
+          "capability_test_run_id": {
+            "type": "string"
+          },
+          "chunk_samples": {
+            "format": "uint32",
+            "minimum": 0.0,
+            "type": "integer"
+          },
+          "conditioning_schema": {
+            "type": "string"
+          },
+          "device_memory_budget_bytes": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/DecimalU64"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "duration_preserving": {
+            "type": "boolean"
+          },
+          "engine_id": {
+            "type": "string"
+          },
+          "lookahead_samples": {
+            "format": "uint32",
+            "minimum": 0.0,
+            "type": "integer"
+          },
+          "model_memory_budget_bytes": {
+            "$ref": "#/definitions/DecimalU64"
+          },
+          "model_sha256": {
+            "$ref": "#/definitions/Sha256"
+          },
+          "native_input_rate": {
+            "format": "uint32",
+            "minimum": 0.0,
+            "type": "integer"
+          },
+          "native_output_rate": {
+            "format": "uint32",
+            "minimum": 0.0,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "backend",
+          "capability_test_run_id",
+          "chunk_samples",
+          "conditioning_schema",
+          "duration_preserving",
+          "engine_id",
+          "lookahead_samples",
+          "model_memory_budget_bytes",
+          "model_sha256",
+          "native_input_rate",
+          "native_output_rate"
+        ],
+        "type": "object"
+      },
+      "SessionContext": {
+        "additionalProperties": false,
+        "properties": {
+          "epoch": {
+            "format": "uint32",
+            "minimum": 0.0,
+            "type": "integer"
+          },
+          "session_id": {
+            "$ref": "#/definitions/Id"
+          }
+        },
+        "required": [
+          "epoch",
+          "session_id"
+        ],
+        "type": "object"
+      },
+      "Sha256": {
+        "type": "string"
+      }
+    },
+    "description": "LAN messages cannot deserialize as local commands that open capture devices.",
+    "properties": {
+      "context": {
+        "anyOf": [
+          {
+            "$ref": "#/definitions/SessionContext"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "message": {
+        "$ref": "#/definitions/PeerMessage"
+      },
+      "protocol_version": {
+        "format": "uint16",
+        "minimum": 0.0,
+        "type": "integer"
+      },
+      "request_id": {
+        "$ref": "#/definitions/Id"
+      }
+    },
+    "required": [
+      "message",
+      "protocol_version",
+      "request_id"
+    ],
+    "title": "PeerRequest",
+    "type": "object"
+  },
+  "PreparedCapabilities": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionalProperties": false,
+    "definitions": {
+      "DecimalU64": {
+        "description": "JSON integer precision is preserved across Rust, Python and JavaScript.",
+        "type": "string"
+      },
+      "Sha256": {
+        "type": "string"
+      }
+    },
+    "properties": {
+      "backend": {
+        "type": "string"
+      },
+      "capability_test_run_id": {
+        "type": "string"
+      },
+      "chunk_samples": {
+        "format": "uint32",
+        "minimum": 0.0,
+        "type": "integer"
+      },
+      "conditioning_schema": {
+        "type": "string"
+      },
+      "device_memory_budget_bytes": {
+        "anyOf": [
+          {
+            "$ref": "#/definitions/DecimalU64"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "duration_preserving": {
+        "type": "boolean"
+      },
+      "engine_id": {
+        "type": "string"
+      },
+      "lookahead_samples": {
+        "format": "uint32",
+        "minimum": 0.0,
+        "type": "integer"
+      },
+      "model_memory_budget_bytes": {
+        "$ref": "#/definitions/DecimalU64"
+      },
+      "model_sha256": {
+        "$ref": "#/definitions/Sha256"
+      },
+      "native_input_rate": {
+        "format": "uint32",
+        "minimum": 0.0,
+        "type": "integer"
+      },
+      "native_output_rate": {
+        "format": "uint32",
+        "minimum": 0.0,
+        "type": "integer"
+      }
+    },
+    "required": [
+      "backend",
+      "capability_test_run_id",
+      "chunk_samples",
+      "conditioning_schema",
+      "duration_preserving",
+      "engine_id",
+      "lookahead_samples",
+      "model_memory_budget_bytes",
+      "model_sha256",
+      "native_input_rate",
+      "native_output_rate"
+    ],
+    "title": "PreparedCapabilities",
+    "type": "object"
+  },
+  "QueueBudget": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionalProperties": false,
+    "definitions": {
+      "OverflowPolicy": {
+        "enum": [
+          "RejectNewest",
+          "DropExpiredOldest"
+        ],
+        "type": "string"
+      }
+    },
+    "properties": {
+      "capacity_frames": {
+        "format": "uint32",
+        "minimum": 0.0,
+        "type": "integer"
+      },
+      "maximum_age_ms": {
+        "format": "uint32",
+        "minimum": 0.0,
+        "type": "integer"
+      },
+      "overflow_policy": {
+        "$ref": "#/definitions/OverflowPolicy"
+      },
+      "target_frames": {
+        "format": "uint32",
+        "minimum": 0.0,
+        "type": "integer"
+      }
+    },
+    "required": [
+      "capacity_frames",
+      "maximum_age_ms",
+      "overflow_policy",
+      "target_frames"
+    ],
+    "title": "QueueBudget",
+    "type": "object"
+  },
+  "Request": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionalProperties": false,
+    "definitions": {
+      "Command": {
+        "oneOf": [
+          {
+            "additionalProperties": false,
+            "properties": {
+              "kind": {
+                "enum": [
+                  "ListDevices"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "kind"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "kind": {
+                "enum": [
+                  "GetCapabilities"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "kind"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "kind": {
+                "enum": [
+                  "GetState"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "kind"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "args": {
+                "additionalProperties": false,
+                "properties": {
+                  "consent_confirmed": {
+                    "type": "boolean"
+                  },
+                  "display_name": {
+                    "type": "string"
+                  },
+                  "reference_handle": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "consent_confirmed",
+                  "display_name",
+                  "reference_handle"
+                ],
+                "type": "object"
+              },
+              "kind": {
+                "enum": [
+                  "CreateVoice"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "args",
+              "kind"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "args": {
+                "additionalProperties": false,
+                "properties": {
+                  "voice_id": {
+                    "$ref": "#/definitions/Id"
+                  }
+                },
+                "required": [
+                  "voice_id"
+                ],
+                "type": "object"
+              },
+              "kind": {
+                "enum": [
+                  "DeleteVoice"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "args",
+              "kind"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "args": {
+                "additionalProperties": false,
+                "properties": {
+                  "source_handle": {
+                    "type": "string"
+                  },
+                  "voice_id": {
+                    "$ref": "#/definitions/Id"
+                  }
+                },
+                "required": [
+                  "source_handle",
+                  "voice_id"
+                ],
+                "type": "object"
+              },
+              "kind": {
+                "enum": [
+                  "PreviewVoice"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "args",
+              "kind"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "args": {
+                "additionalProperties": false,
+                "properties": {
+                  "input_device_id": {
+                    "type": "string"
+                  },
+                  "output_device_id": {
+                    "type": "string"
+                  },
+                  "route": {
+                    "$ref": "#/definitions/Route"
+                  },
+                  "voice_id": {
+                    "$ref": "#/definitions/Id"
+                  }
+                },
+                "required": [
+                  "input_device_id",
+                  "output_device_id",
+                  "route",
+                  "voice_id"
+                ],
+                "type": "object"
+              },
+              "kind": {
+                "enum": [
+                  "PrepareSession"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "args",
+              "kind"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "args": {
+                "additionalProperties": false,
+                "properties": {
+                  "epoch": {
+                    "format": "uint32",
+                    "minimum": 0.0,
+                    "type": "integer"
+                  },
+                  "session_id": {
+                    "$ref": "#/definitions/Id"
+                  }
+                },
+                "required": [
+                  "epoch",
+                  "session_id"
+                ],
+                "type": "object"
+              },
+              "kind": {
+                "enum": [
+                  "StartSession"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "args",
+              "kind"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "args": {
+                "additionalProperties": false,
+                "properties": {
+                  "session_id": {
+                    "$ref": "#/definitions/Id"
+                  }
+                },
+                "required": [
+                  "session_id"
+                ],
+                "type": "object"
+              },
+              "kind": {
+                "enum": [
+                  "StopSession"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "args",
+              "kind"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "args": {
+                "additionalProperties": false,
+                "properties": {
+                  "epoch": {
+                    "format": "uint32",
+                    "minimum": 0.0,
+                    "type": "integer"
+                  },
+                  "muted": {
+                    "type": "boolean"
+                  },
+                  "session_id": {
+                    "$ref": "#/definitions/Id"
+                  }
+                },
+                "required": [
+                  "epoch",
+                  "muted",
+                  "session_id"
+                ],
+                "type": "object"
+              },
+              "kind": {
+                "enum": [
+                  "SetMute"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "args",
+              "kind"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "args": {
+                "additionalProperties": false,
+                "properties": {
+                  "route": {
+                    "$ref": "#/definitions/Route"
+                  }
+                },
+                "required": [
+                  "route"
+                ],
+                "type": "object"
+              },
+              "kind": {
+                "enum": [
+                  "SelectRoute"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "args",
+              "kind"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "args": {
+                "additionalProperties": false,
+                "properties": {
+                  "device_id": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "enabled": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "enabled"
+                ],
+                "type": "object"
+              },
+              "kind": {
+                "enum": [
+                  "SetMonitor"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "args",
+              "kind"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "args": {
+                "additionalProperties": false,
+                "properties": {
+                  "db": {
+                    "format": "float",
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "db"
+                ],
+                "type": "object"
+              },
+              "kind": {
+                "enum": [
+                  "SetGain"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "args",
+              "kind"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "kind": {
+                "enum": [
+                  "ListPeers"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "kind"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "kind": {
+                "enum": [
+                  "ExportIdentity"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "kind"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "args": {
+                "additionalProperties": false,
+                "properties": {
+                  "allow_compute": {
+                    "type": "boolean"
+                  },
+                  "allow_profile_transfer": {
+                    "type": "boolean"
+                  },
+                  "identity": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "allow_compute",
+                  "allow_profile_transfer",
+                  "identity"
+                ],
+                "type": "object"
+              },
+              "kind": {
+                "enum": [
+                  "ImportPeerIdentity"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "args",
+              "kind"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "args": {
+                "additionalProperties": false,
+                "properties": {
+                  "node_id": {
+                    "$ref": "#/definitions/Id"
+                  }
+                },
+                "required": [
+                  "node_id"
+                ],
+                "type": "object"
+              },
+              "kind": {
+                "enum": [
+                  "RevokePeer"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "args",
+              "kind"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "args": {
+                "additionalProperties": false,
+                "properties": {
+                  "download_approved": {
+                    "type": "boolean"
+                  },
+                  "manifest_id": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "download_approved",
+                  "manifest_id"
+                ],
+                "type": "object"
+              },
+              "kind": {
+                "enum": [
+                  "InstallEngineAssets"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "args",
+              "kind"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "kind": {
+                "enum": [
+                  "GetMetrics"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "kind"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "args": {
+                "additionalProperties": false,
+                "properties": {
+                  "destination_handle": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "destination_handle"
+                ],
+                "type": "object"
+              },
+              "kind": {
+                "enum": [
+                  "ExportDiagnostics"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "args",
+              "kind"
+            ],
+            "type": "object"
+          }
+        ]
+      },
+      "Id": {
+        "description": "Canonical lower-case UUID text. Distinct field meanings remain in typed messages.",
+        "type": "string"
+      },
+      "Route": {
+        "oneOf": [
+          {
+            "additionalProperties": false,
+            "properties": {
+              "kind": {
+                "enum": [
+                  "Local"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "kind"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "args": {
+                "additionalProperties": false,
+                "properties": {
+                  "node_id": {
+                    "$ref": "#/definitions/Id"
+                  }
+                },
+                "required": [
+                  "node_id"
+                ],
+                "type": "object"
+              },
+              "kind": {
+                "enum": [
+                  "Remote"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "args",
+              "kind"
+            ],
+            "type": "object"
+          }
+        ]
+      }
+    },
+    "properties": {
+      "command": {
+        "$ref": "#/definitions/Command"
+      },
+      "protocol_version": {
+        "format": "uint16",
+        "minimum": 0.0,
+        "type": "integer"
+      },
+      "request_id": {
+        "$ref": "#/definitions/Id"
+      }
+    },
+    "required": [
+      "command",
+      "protocol_version",
+      "request_id"
+    ],
+    "title": "Request",
+    "type": "object"
+  },
+  "Response": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionalProperties": false,
+    "definitions": {
+      "DecimalU64": {
+        "description": "JSON integer precision is preserved across Rust, Python and JavaScript.",
+        "type": "string"
+      },
+      "ErrorCode": {
+        "enum": [
+          "INVALID_ARGUMENT",
+          "UNSUPPORTED_VERSION",
+          "INVALID_STATE",
+          "REQUEST_ID_CONFLICT",
+          "BUSY",
+          "UNTRUSTED_PEER",
+          "CERTIFICATE_MISMATCH",
+          "PERMISSION_DENIED",
+          "DEVICE_MISSING",
+          "ENGINE_NOT_READY",
+          "ENGINE_FAILED",
+          "INVALID_PROFILE",
+          "SIZE_LIMIT",
+          "SESSION_MISMATCH",
+          "EPOCH_MISMATCH",
+          "INVALID_MEDIA",
+          "EXPIRED",
+          "BACKPRESSURE",
+          "EPOCH_EXHAUSTED"
+        ],
+        "type": "string"
+      },
+      "Id": {
+        "description": "Canonical lower-case UUID text. Distinct field meanings remain in typed messages.",
+        "type": "string"
+      },
+      "Outcome": {
+        "oneOf": [
+          {
+            "additionalProperties": false,
+            "properties": {
+              "kind": {
+                "enum": [
+                  "Ack"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "kind"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "args": {
+                "additionalProperties": false,
+                "properties": {
+                  "state": {
+                    "$ref": "#/definitions/SessionState"
+                  }
+                },
+                "required": [
+                  "state"
+                ],
+                "type": "object"
+              },
+              "kind": {
+                "enum": [
+                  "State"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "args",
+              "kind"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "args": {
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "$ref": "#/definitions/ErrorCode"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "kind": {
+                "enum": [
+                  "Error"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "args",
+              "kind"
+            ],
+            "type": "object"
+          }
+        ]
+      },
+      "SessionState": {
+        "enum": [
+          "Idle",
+          "Preparing",
+          "Ready",
+          "Running",
+          "Stopping",
+          "Error",
+          "Blocked",
+          "Degraded",
+          "FailedMuted",
+          "Muted"
+        ],
+        "type": "string"
+      }
+    },
+    "properties": {
+      "outcome": {
+        "$ref": "#/definitions/Outcome"
+      },
+      "request_id": {
+        "$ref": "#/definitions/Id"
+      },
+      "state_version": {
+        "$ref": "#/definitions/DecimalU64"
+      }
+    },
+    "required": [
+      "outcome",
+      "request_id",
+      "state_version"
+    ],
+    "title": "Response",
+    "type": "object"
+  },
+  "SessionState": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "enum": [
+      "Idle",
+      "Preparing",
+      "Ready",
+      "Running",
+      "Stopping",
+      "Error",
+      "Blocked",
+      "Degraded",
+      "FailedMuted",
+      "Muted"
+    ],
+    "title": "SessionState",
+    "type": "string"
+  },
+  "control_max_bytes": 65536,
+  "golden_media": {
+    "epoch": 9,
+    "header_hex": "01010000010203040506070800000009fffffffe00000000000001e000000000000001e001e00000",
+    "kind": 1,
+    "media_sample_index": "480",
+    "pcm_sample_hex": "0080ff7f",
+    "sample_count": 480,
+    "sequence": 4294967294,
+    "session_tag": "72623859790382856",
+    "source_sample_index": "480"
+  },
+  "profile_max_bytes": 52428800,
+  "protocol_version": 1
+}

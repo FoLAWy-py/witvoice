@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "task_id": "T001",
+  "requirements": [
+    "REQ-01",
+    "REQ-31"
+  ],
+  "evidence_level": "C",
+  "kind": "WINDOWS_NATIVE_COMPILE_AND_EXECUTE",
+  "started_at": "2026-10-04T15:09:42.644391+00:00",
+  "finished_at": "2026-10-04T15:09:43.260178+00:00",
+  "checks": {
+    "msvc_compile": {
+      "argv": [
+        "C:\\WINDOWS\\system32\\cmd.exe",
+        "/d",
+        "/c",
+        "D:\\Project\\witvoice\\.local\\native-smoke\\run-1ni9sgkt\\compile.cmd"
+      ],
+      "exit_code": 2,
+      "stdout": "[ERROR:vcvarsall.bat] Invalid argument found : -no_logo\r\n[ERROR:vcvarsall.bat] Error in script usage. The correct usage is:\r\nSyntax:\r\n    vcvarsall.bat [arch] [platform_type] [winsdk_version] [-vcvars_ver=vc_version] [-vcvars_spectre_libs=spectre_mode]\r\nwhere :\r\n    [arch]: x86 | amd64 | x86_amd64 | x86_arm | x86_arm64 | amd64_x86 | amd64_arm | amd64_arm64\r\n    [platform_type]: {empty} | store | uwp\r\n    [winsdk_version] : full Windows 10 SDK number (e.g. 10.0.10240.0) or \"8.1\" to use the Windows 8.1 SDK.\r\n    [vc_version] : {none} for latest installed VC++ compiler toolset |\r\n                   \"14.0\" for VC++ 2015 Compiler Toolset |\r\n                   \"14.xx\" for the latest 14.xx.yyyyy toolset installed (e.g. \"14.11\") |\r\n                   \"14.xx.yyyyy\" for a specific full version number (e.g. \"14.11.25503\")\r\n    [spectre_mode] : {none} for libraries without spectre mitigations |\r\n                     \"spectre\" for libraries with spectre mitigations\r\n\r\nThe store parameter sets environment variables to support Universal Windows Platform application\r\ndevelopment and is an alias for 'uwp'.\r\n\r\nFor example:\r\n    vcvarsall.bat x86_amd64\r\n    vcvarsall.bat x86_amd64 10.0.10240.0\r\n    vcvarsall.bat x86_arm uwp 10.0.10240.0\r\n    vcvarsall.bat x86_arm onecore 10.0.10240.0 -vcvars_ver=14.0\r\n    vcvarsall.bat x64 8.1\r\n    vcvarsall.bat x64 store 8.1\r\n\r\nPlease make sure either Visual Studio or C++ Build SKU is installed.\r\nhello.c\r\nD:\\Project\\witvoice\\.local\\native-smoke\\run-1ni9sgkt\\hello.c(1): fatal error C1034: windows.h: ������·����",
+      "stderr": "",
+      "status": "FAILED",
+      "stdout_truncated": false,
+      "stderr_truncated": false,
+      "elapsed_seconds": 0.297
+    },
+    "msvc_execute": {
+      "status": "SKIPPED",
+      "reason": "C compile did not produce a runnable binary"
+    },
+    "rust_compile": {
+      "argv": [
+        "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\rustc.exe",
+        "--edition=2024",
+        "--target",
+        "x86_64-pc-windows-msvc",
+        "D:\\Project\\witvoice\\.local\\native-smoke\\run-1ni9sgkt\\hello.rs",
+        "-o",
+        "D:\\Project\\witvoice\\.local\\native-smoke\\run-1ni9sgkt\\hello-rust.exe"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "status": "PASS",
+      "stdout_truncated": false,
+      "stderr_truncated": false,
+      "elapsed_seconds": 0.188
+    },
+    "rust_execute": {
+      "argv": [
+        "D:\\Project\\witvoice\\.local\\native-smoke\\run-1ni9sgkt\\hello-rust.exe"
+      ],
+      "exit_code": 0,
+      "stdout": "witvoice-native-rust-ok",
+      "stderr": "",
+      "status": "PASS",
+      "stdout_truncated": false,
+      "stderr_truncated": false,
+      "elapsed_seconds": 0.031
+    }
+  },
+  "result": "BLOCKED",
+  "artifacts": {
+    "D:\\Project\\witvoice\\.local\\native-smoke\\run-1ni9sgkt\\compile.cmd": "1b66b272d60e4687b109b2aa2754846065d9d847d11f1ab706091da718eefc50",
+    "D:\\Project\\witvoice\\.local\\native-smoke\\run-1ni9sgkt\\hello-rust.exe": "2afe574c6b732b614a3c742fa58d1db4c4d68219dd44c23f914f671b1577435b",
+    "D:\\Project\\witvoice\\.local\\native-smoke\\run-1ni9sgkt\\hello-rust.pdb": "15f45d92ef2efe048188d524174b617a46a0abab8ffab6be8823367b29079f25",
+    "D:\\Project\\witvoice\\.local\\native-smoke\\run-1ni9sgkt\\hello.c": "fb112e20f3698aa1b8c50d440190af14066a0da6a4cad67fa832a0516f083e04",
+    "D:\\Project\\witvoice\\.local\\native-smoke\\run-1ni9sgkt\\hello.rs": "12378ebf43905f1e72da8eebd8697ecba5a5c8cb91bd7cd7c4f728062a2197a3"
+  },
+  "measurement_boundary": "Compiler/linker and fixed executable execution, no product runtime",
+  "not_tested": [
+    "WASAPI",
+    "virtual_cable",
+    "real_model",
+    "macOS",
+    "LAN",
+    "Tauri"
+  ]
+}

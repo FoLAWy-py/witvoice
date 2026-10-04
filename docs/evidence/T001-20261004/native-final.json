@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "task_id": "T001",
+  "requirements": [
+    "REQ-01",
+    "REQ-31"
+  ],
+  "commit": "0f283ffe460be3382aae89f481be62a73ab4d60f",
+  "dirty": true,
+  "evidence_level": "C",
+  "kind": "WINDOWS_NATIVE_COMPILE_AND_EXECUTE",
+  "started_at": "2026-10-04T15:30:15.403223+00:00",
+  "finished_at": "2026-10-04T15:30:17.409967+00:00",
+  "checks": {
+    "msvc_compile": {
+      "argv": [
+        "C:\\WINDOWS\\system32\\cmd.exe",
+        "/d",
+        "/c",
+        "D:\\Project\\witvoice\\.local\\native-smoke\\run-frxyn48o\\compile.cmd"
+      ],
+      "exit_code": 0,
+      "stdout": "**********************************************************************\r\n** Visual Studio 2022 Developer Command Prompt v17.14.41\r\n** Copyright (c) 2025 Microsoft Corporation\r\n**********************************************************************\r\n[vcvarsall.bat] Environment initialized for: 'x64'\r\nhello.c",
+      "stderr": "",
+      "status": "PASS",
+      "stdout_truncated": false,
+      "stderr_truncated": false,
+      "elapsed_seconds": 1.516
+    },
+    "msvc_execute": {
+      "argv": [
+        "D:\\Project\\witvoice\\.local\\native-smoke\\run-frxyn48o\\hello-c.exe"
+      ],
+      "exit_code": 0,
+      "stdout": "witvoice-native-msvc-ok",
+      "stderr": "",
+      "status": "PASS",
+      "stdout_truncated": false,
+      "stderr_truncated": false,
+      "elapsed_seconds": 0.015
+    },
+    "rust_compile": {
+      "argv": [
+        "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\rustc.exe",
+        "--edition=2024",
+        "--target",
+        "x86_64-pc-windows-msvc",
+        "D:\\Project\\witvoice\\.local\\native-smoke\\run-frxyn48o\\hello.rs",
+        "-o",
+        "D:\\Project\\witvoice\\.local\\native-smoke\\run-frxyn48o\\hello-rust.exe"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "status": "PASS",
+      "stdout_truncated": false,
+      "stderr_truncated": false,
+      "elapsed_seconds": 0.157
+    },
+    "rust_execute": {
+      "argv": [
+        "D:\\Project\\witvoice\\.local\\native-smoke\\run-frxyn48o\\hello-rust.exe"
+      ],
+      "exit_code": 0,
+      "stdout": "witvoice-native-rust-ok",
+      "stderr": "",
+      "status": "PASS",
+      "stdout_truncated": false,
+      "stderr_truncated": false,
+      "elapsed_seconds": 0.015
+    }
+  },
+  "result": "PASS",
+  "artifacts": {
+    "D:\\Project\\witvoice\\.local\\native-smoke\\run-frxyn48o\\compile.cmd": "9b2d5f9cc344678da190acb5ebcb6fbe898b349fd8b9588b3668667c1ac83352",
+    "D:\\Project\\witvoice\\.local\\native-smoke\\run-frxyn48o\\hello-c.exe": "4d2af61500c0ea90f7b0889481d390ad1c80a5ef3d2efa1e2a3896ac1d461b90",
+    "D:\\Project\\witvoice\\.local\\native-smoke\\run-frxyn48o\\hello-rust.exe": "3924996c3a5d7fabc76dd9b14646da4fe6594c2b84985efc9c7104d6602dd3bb",
+    "D:\\Project\\witvoice\\.local\\native-smoke\\run-frxyn48o\\hello-rust.pdb": "a7328540099d02ab696acdafe7ab179cf9e0ab7d192555243eba37b211d9c17d",
+    "D:\\Project\\witvoice\\.local\\native-smoke\\run-frxyn48o\\hello.c": "fb112e20f3698aa1b8c50d440190af14066a0da6a4cad67fa832a0516f083e04",
+    "D:\\Project\\witvoice\\.local\\native-smoke\\run-frxyn48o\\hello.obj": "d9ac6dff02379895467cd5cdc0c8e11033db5e8369cab182d64fb0d581525896",
+    "D:\\Project\\witvoice\\.local\\native-smoke\\run-frxyn48o\\hello.rs": "12378ebf43905f1e72da8eebd8697ecba5a5c8cb91bd7cd7c4f728062a2197a3"
+  },
+  "measurement_boundary": "Compiler/linker and fixed executable execution, no product runtime",
+  "not_tested": [
+    "WASAPI",
+    "virtual_cable",
+    "real_model",
+    "macOS",
+    "LAN",
+    "Tauri"
+  ]
+}
