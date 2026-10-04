@@ -1,8 +1,10 @@
 """Negative-path checks for doctor evidence, no third-party dependencies."""
 import json
+import os
 from pathlib import Path
 import sys
 import tempfile
+import time
 import unittest
 from unittest.mock import patch
 
@@ -49,6 +51,57 @@ class DoctorTests(unittest.TestCase):
             doctor, "probe", return_value={"status": "PASS", "stdout": "not JSON"}
         ):
             self.assertEqual(doctor.inventory()["status"], "UNKNOWN")
+
+    def test_inventory_wrong_json_shapes_unknown(self):
+        for value in (None, [], 42, "text"):
+            with self.subTest(value=value), patch.object(doctor, "find_exe", return_value="pwsh.exe"), patch.object(
+                doctor, "probe", return_value={"status": "PASS", "stdout": json.dumps(value)}
+            ):
+                self.assertEqual(doctor.inventory()["status"], "UNKNOWN")
+
+    def test_vswhere_wrong_json_shapes_unknown(self):
+        for value in (None, {}, [None], [{}], [{"installationPath": 1}]):
+            with self.subTest(value=value), patch.object(Path, "is_file", return_value=True), patch.object(
+                doctor, "probe", return_value={"status": "PASS", "stdout": json.dumps(value)}
+            ):
+                self.assertEqual(doctor.msvc()["status"], "UNKNOWN")
+
+    def test_collect_invalid_inventory_shape_is_blocked(self):
+        with patch.object(doctor, "inventory", return_value={"status": "UNKNOWN", "data": []}), patch.object(
+            doctor, "git_snapshot", return_value={"commit": None, "dirty": None}
+        ), patch.object(doctor, "find_exe", return_value=None), patch.object(
+            doctor, "version", return_value=doctor.missing("test missing")
+        ), patch.object(doctor, "node_cli", return_value=doctor.missing("test missing")), patch.object(
+            doctor, "msvc", return_value=doctor.missing("test missing")
+        ):
+            result = doctor.collect()
+        self.assertEqual(result["result"], "BLOCKED")
+        self.assertEqual(result["environment"], {})
+        self.assertIn("windows_powershell", result["blockers"])
+
+    def test_shallow_node_cli_paths(self):
+        for wrapper in ("C:/pnpm.cmd", "C:/nodejs/pnpm.cmd", "D:/Software/nodejs/pnpm.cmd"):
+            with self.subTest(wrapper=wrapper), patch.object(doctor, "find_exe", return_value=wrapper), patch.object(
+                Path, "is_file", return_value=True
+            ), patch.object(doctor, "probe", return_value={"status": "PASS", "stdout": "11.19.0"}):
+                self.assertEqual(doctor.node_cli("pnpm", "node.exe")["status"], "PASS")
+            with self.subTest(missing=wrapper), patch.object(doctor, "find_exe", return_value=wrapper), patch.object(
+                Path, "is_file", return_value=False
+            ):
+                self.assertEqual(doctor.node_cli("pnpm", "node.exe")["status"], "UNKNOWN")
+
+    @unittest.skipUnless(os.name == "nt", "Windows descendant cleanup requires Windows")
+    def test_windows_timeout_kills_descendant(self):
+        with tempfile.TemporaryDirectory() as directory:
+            marker = Path(directory) / "descendant-wrote.txt"
+            child = "import time; from pathlib import Path; time.sleep(1.5); Path(" + repr(str(marker)) + ").write_text('orphan')"
+            parent = "import subprocess,sys,time; child=subprocess.Popen([sys.executable,'-c'," + repr(child) + "]); print(child.pid,flush=True); time.sleep(10)"
+            result = doctor.probe([sys.executable, "-c", parent], timeout=0.5)
+            self.assertEqual(result["status"], "TIMEOUT")
+            self.assertTrue(result["stdout"].isdigit())
+            self.assertEqual(result["tree_cleanup_exit_code"], 0)
+            time.sleep(1.7)
+            self.assertFalse(marker.exists(), "Timed-out descendant continued writing")
 
     def test_report_preserves_existing_file_and_restricts_destination(self):
         with tempfile.TemporaryDirectory() as directory:

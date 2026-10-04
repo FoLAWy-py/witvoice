@@ -46,7 +46,22 @@ def probe(argv: list[str], *, timeout: float = TIMEOUT) -> dict:
                     result["exit_code"] = proc.wait(timeout=timeout)
                     result["status"] = "PASS" if proc.returncode == 0 else "FAILED"
                 except subprocess.TimeoutExpired:
-                    proc.kill()
+                    # Kill the still-live owned PID and descendants before its parent
+                    # disappears; wrapper children must not continue compiling/writing.
+                    tree_kill = Path(os.environ.get("SystemRoot", "C:/Windows")) / "System32/taskkill.exe"
+                    if os.name == "nt" and tree_kill.is_file() and proc.poll() is None:
+                        try:
+                            cleanup = subprocess.run(
+                                [str(tree_kill), "/PID", str(proc.pid), "/T", "/F"],
+                                stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL,
+                                stderr=subprocess.DEVNULL, timeout=5,
+                                creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
+                            )
+                            result["tree_cleanup_exit_code"] = cleanup.returncode
+                        except (OSError, subprocess.TimeoutExpired) as exc:
+                            result["tree_cleanup_error"] = str(exc)
+                    if proc.poll() is None:
+                        proc.kill()
                     proc.wait()
                     result["status"] = "TIMEOUT"
         except OSError as exc:
@@ -86,6 +101,8 @@ def inventory() -> dict:
     if run["status"] == "PASS":
         try:
             run["data"] = json.loads(run["stdout"])
+            if not isinstance(run["data"], dict):
+                raise ValueError("Inventory must be a JSON object")
             if run["data"].get("errors") or run["data"].get("platform") != "Win32NT":
                 run["status"] = "UNKNOWN"
         except (ValueError, TypeError) as exc:
@@ -103,8 +120,9 @@ def node_cli(name: str, node: str | None) -> dict:
         return missing(f"{name} found at {wrapper}, but node.exe is missing")
     base = Path(wrapper).parent
     entries = ([base / "node_modules/@openai/codex/bin/codex.js"] if name == "codex"
-               else [base / "node_modules/pnpm/bin/pnpm.cjs",
-                     base.parents[1] / "node/node_modules/pnpm/bin/pnpm.cjs"])
+               else [base / "node_modules/pnpm/bin/pnpm.cjs"])
+    if name == "pnpm" and len(base.parents) > 1:
+        entries.append(base.parents[1] / "node/node_modules/pnpm/bin/pnpm.cjs")
     for entry in entries:
         if entry.is_file():
             run = probe([node, str(entry), "--version"])
@@ -126,8 +144,14 @@ def msvc() -> dict:
         return discovery
     try:
         instances = json.loads(discovery["stdout"])
-    except ValueError:
+        if not isinstance(instances, list) or any(
+            not isinstance(item, dict) or not isinstance(item.get("installationPath"), str)
+            or not item["installationPath"] for item in instances
+        ):
+            raise ValueError("vswhere must return an array of objects with installationPath")
+    except (ValueError, TypeError) as exc:
         discovery["status"] = "UNKNOWN"
+        discovery["error"] = str(exc)
         return discovery
     compilers = []
     for item in instances:
@@ -172,6 +196,8 @@ def collect() -> dict:
     snapshot = git_snapshot()
     native = inventory()
     data = native.get("data", {})
+    if not isinstance(data, dict):
+        data = {}
     cargo_bin = Path(os.environ.get("CARGO_HOME", str(Path.home() / ".cargo"))) / "bin"
     node = find_exe("node.exe")
     checks = {
