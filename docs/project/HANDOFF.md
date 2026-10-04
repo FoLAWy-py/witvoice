@@ -1,13 +1,14 @@
 # 当前交接
 
-当前IN_PROGRESS / M1，授权终点M5/WINDOWS_DELIVERED；M6仍必需且无真机证据，不允许COMPLETE。next_task=T006。M0与T001–T005均已独立批准DONE，安全模型结论只限T002-r2的文件源C实验。许可B001仍阻止捆绑。
+当前IN_PROGRESS / M1，授权终点M5/WINDOWS_DELIVERED；M6无真机证据仍必需，不允许COMPLETE。next_task=T006。M0及T001–T005独立批准DONE；T002-r2只批准文件源C实验，许可B001仍阻止捆绑。
 
-T006 backend真实监督切片11文件已停止写入，默认11/feature18项测试、fmt/两Clippy exit0；失败及精确残留清理完整归档supervision/author-events，最终测试进程count0。leader冻结/整合复验和独立r1待；Tauri、真实worker协议及全部音频资源/sleep/异用户未验，不关闭T006。
+T006真实Windows IPC/监督源码冻结4eff1ae，证据6e9e7c：51workspace tests/fmt/Clippy0；默认11与feature18作者日志、失败历史和精确清理记录全部保留。独立r1仍读取完整材料，未批准。判定固定T006基础acceptance，不把后续依赖它的T011 Python协议/T025 Tauri/完整故障硬件验收倒置为前置；probe只是C级真实进程监督，无VC/Ready能力。
 
-T007正式slice r2已批准（reviews/T007-slice-r2.md），PCM24/32已修、通知回调纯原子发布，21音频/41整合tests和fmt/clippy0。服务通知/removal/stream/resampling/ASRC/governor与硬件仍未实现/验收；注销失败的进程生命周期引用保留不是清理PASS，整个T007 IN_PROGRESS。
+T007 formal slice r2已批准（源码2e9366a，证据a027），整体IN_PROGRESS。leader另在3cf1393冻结notification_probe，实际Windows服务6次注册/明确UID重查/注销成功，证据registration/command+result.json；无事件递送/物理拔出/Initialize/Start/采集播放，metadata硬件lease已释放。原生audio实际角色先完成T006源码中继，再按T007-native-stream-assignment实现shared stream；独立audio路径code lease已登记，无hardware/GPU lease。未知注销状态的引用保留仍不是清理PASS。
 
-T021依赖T003的独立设计任务已写五页交互、十状态、键盘/缩放规则及深浅主题token/CSS，静态首验0；实际leader作者+真实frontend只读建议，当前未新派发hci，不假称真实UI或HCI验收。冻结复验/独立r1待。所有作者停止写入，资源lease已释放，無GPU/audio/录音/播放。恢复从T006监督独立审查，再继续最小可验收原生音频切片。会话中断不承诺后台继续。
+T021正式r1独立批准DONE/attempts1：五页/十状态/键盘缩放规则和深浅tokens、50静态色对/CSS/schema覆盖0。source4eff、final evidence6e9e，review T021-r1.md。实际leader作者、frontend建议/只读中继，没有新hci派发或实际UI/HCI签收；T022/T025/T029仍须真实验证。
 
+实际线程UUID新证据T005-thread-id-provenance.json；历史七角色不等于当前同时保留，当前4子agent以内，作者最多2、硬件最多1。共享契约/manifest/lock/账本仍leader统一。不运行真实麦克风/输出/装驱动/开防火墙/外传。会话中断前停止作者并保存next_task，不承诺后台继续。
 以下保留历史过程；当前状态以本段、STATE/TASKS及最新正式review为准。
 T001已DONE：源码0f283ffe460be3382aae89f481be62a73ab4d60f，13负向测试、C/Rust原生编译运行通过，独立/root/reviewer_t001第2轮批准。目录初始无Git，安全建立本地历史，无push/reset/clean，保留原有文件。
 
