@@ -1,29 +1,22 @@
 # 当前交接
 
-当前IN_PROGRESS / M1，授权终点M5/WINDOWS_DELIVERED；M6无真机证据仍必需，不允许COMPLETE。next_task=T007。M0及T001–T005独立批准DONE；T002-r2只批准文件源C实验，许可B001仍阻止捆绑。
+项目 IN_PROGRESS，授权终点 M5/WINDOWS_DELIVERED；M6 真实 Mac 与双向 LAN 仍必需，completion_claim_allowed=false。当前 next_task=T007，M1/M3/M4 IN_PROGRESS；M0、T001–T006、T021 已有独立批准 DONE。
 
-T006已DONE：真实Windows IPC/监督源码冻结4eff1ae，证据6e9e7c：51workspace tests/fmt/Clippy0；默认11与feature18作者日志、失败历史和精确清理记录全部保留。独立r1已批准固定基础验收DONE/attempts1，review T006-r1.md。判定固定T006基础acceptance，不把后续依赖它的T011 Python协议/T025 Tauri/完整故障硬件验收倒置为前置；probe只是C级真实进程监督，无VC/Ready能力。
+T007 第三且最后一轮正式审查正在进行，attempts=3，实际 reviewer /root/reviewer_t001（UUID01a1077c-556d-7152-892c-d9f92346ec0f），结果尚未批准，不能标 DONE。当前流/通知/探针源码冻结3af8a6f；独立 reviewer 在只读角色内接收 frontend/audio 的固定全文中继，无独立测试复跑。新增20个作者日志逐字节来源证明与当前普通用户 Windows 环境冻结126ac24；旧失败历史完整保留。78项工作区测试、fmt、Clippy在ab89088冻结整合后实际退出0（证据56f4168），其中33项audio测试；随后381eb41仅切换T016依赖/feature，不能把之前78项说成当前新依赖的复跑。
 
-T007 native 8文件作者已停止，26纯tests/fmt/clippy0；用户明确批准两项本地<=5秒capture/silence-render，两项实际exit0（capture501packets/240480frames，render241536silenceframes；各循环约5.002秒含调度越界），硬件lease已释放；无PCM落盘/上传/原声回放/默认设备变更，整个T007仍未完成。T007 formal slice r2已批准（源码2e9366a，证据a027），整体IN_PROGRESS。leader另在3cf1393冻结notification_probe，实际Windows服务6次注册/明确UID重查/注销成功，证据registration/command+result.json；无事件递送/物理拔出/Initialize/Start/采集播放，metadata硬件lease已释放。原生audio实际角色先完成T006源码中继，再按T007-native-stream-assignment实现shared stream；独立audio路径code lease已登记，无hardware/GPU lease。未知注销状态的引用保留仍不是清理PASS。
+T007 用户明确批准的两项短测试在2355099源码执行一次：Wireless Mic Rx USB捕获501packets/240480frames，Steam Streaming Microphone软件端点静音render241536frames，各循环约5.002秒含调度越界，exit0。PCM仅内存，无落盘、上传或原声播放；软件render不代表物理扬声器/虚拟电缆闭环。后续3af修改Start门/截止处理未新运行capture/render，不移用旧硬件成绩。
 
-T021正式r1独立批准DONE/attempts1：五页/十状态/键盘缩放规则和深浅tokens、50静态色对/CSS/schema覆盖0。source4eff、final evidence6e9e，review T021-r1.md。实际leader作者、frontend建议/只读中继，没有新hci派发或实际UI/HCI签收；T022/T025/T029仍须真实验证。
+T007 3af metadata-only格式探针实际48000/stereo/float32为S_OK，另外两请求为S_FALSE且仅报告closest、不自动采用。用户同意并亲自拔USB后，原生监测获得reason25(State/Default/Property)、原UID Inactive、永久changed及注销0，exit0。用户随后明确“确认刚才已拔出”，physical-action.json关联授权与结果；没有运行中音频拔出验证，没有Initialize/Start。监测已结束并提示可插回，所有GPU/音频硬件租约已释放。
 
-实际线程UUID新证据T005-thread-id-provenance.json；历史七角色不等于当前同时保留，当前4子agent以内，作者最多2、硬件最多1。共享契约/manifest/lock/账本仍leader统一。不运行真实麦克风/输出/装驱动/开防火墙/外传。会话中断前停止作者并保存next_task，不承诺后台继续。
-T016依赖/manifest/lock统一leader完成，62新增registry归档与2942源码文件逐字节核对；4新Windows构建脚本全文实际frontend只读审计，未运行构建。root代码lease释放，T016-assignment已登记backend独立路径代码lease，源码功能尚未实现/不标PASS。mDNS内部cache无已证明容量，是需明确处理的事实。
+T016 身份/DPAPI/寻址/信任11文件冻结ab89088，15项实际测试退出0；包含两次编译101失败的作者完整日志归档56f4168。只是身份切片，尚无TLS双端握手或Node撤销绑定，不关闭T016。发现旧mdns-sd自身缓存无已证明容量后，leader接受ADR0003，保留mDNS需求，使用标准Windows原生DNS-SD；不新增云服务、驱动或模型。
 
-T007固定验收尚缺通知→流失效连接、实际设备移除事件和格式拒绝证据；audio watched-stream增补lease先登记，backend独立T016，两代码作者，零硬件lease。USB Wireless Mic Rx是实际已测input；Steam Streaming Microphone只软件静音output。新增harness仅创建不运行。
+T016 root manifest/lock单点准备完成于381eb4131dc7798d3e7ea09291958541a9a705c6：离线94→82包，仅删除12项未用依赖，保留包版本/源/checksum不变；windows0.62.2只增加Dns feature，platform+transport cargo check退出0，未调用网络API。root代码锁已释放。backend /root/backend（UUID01a10767-4ff5-7f21-881a-146d094fbc55）已通过真实followup恢复执行原生addendum，持有backend-native-dns写入锁，白名单见STATE/T016-assignment。仅平台/transport原生适配及纯注入测试，有限LAN探针只创建/编译、不得实际运行；无LAN、防火墙、麦克风/GPU授权。缺额外feature先交leader，不自行修改根文件。
 
-T007 watched增补10文件交付并停止，33纯tests/fmt/clippy/examples编译0；raw HRESULT去除额外COM ErrorInfo，通知永久changed门连接prepare/start/packet前后/wait超时。root先冻结并登记metadata-only probe独占lease，无新的Start授权/执行；物理拔插需用户后续具体操作，整个T007仍IN_PROGRESS/attempts2。
+当前4个保留子agent：backend实现、reviewer正式T007审查、frontend/audio只读证据中继；最多1代码写入者，0硬件/GPU租约，无第二leader/递归spawn。历史hci/ml等实际线程证据仍保留，不能说它们当前运行。自定义角色派发与职责注入实证通过；磁盘完整配置schema与sandbox强制仍UNVERIFIED。默认命令在创建进程前ACL故障，限定范围require_escalated兼容执行，未改ACL/全局配置；reviewer不提权、不声称复跑。
 
-当前所有代码作者已停/硬件lease释放。T007source3af8a6f frozen33tests/fmt/clippy/examplebuild0；3格式probe真实S_OK一次/S_FALSE两次closest仅报告，无Initialize。用户同意并确认拔USB，真实OS reason25(State/Default/Property)原UIDInactive/stickychanged/注销0/exit0，运行中removal仍NOT_RUN，不用metadata替代完整链路。T016身份11文件作者15tests0，尚无native mDNS/TLS/Node集成，仍IN_PROGRESS；原生DNS-SD下一窄依赖准备候选，默认networkoff。
+当前文档validator实际退出0，仅检查7/35/32需求/7角色一致性，非应用测试。B001派生代码/独立speaker权重许可仍阻止捆绑再分发；Windows整机2h、24源/3音色质量签收、真实虚拟电缆、Mac与有线双向LAN仍未执行，不标PASS。现有下载/本机音频转换授权持续；短5秒硬件授权不扩大成任意录音许可，驱动/防火墙/数据外传仍需具体批准。
 
-冻结ab89088整合78有意义workspace tests/fmt/clippy0（33audio+12contracts+8session+10IPC监督+15身份保护），不计空harness。两作者原始CommandExecution全部归档（audio9个0；backend11个含两101失败），不是复跑。T007最后正式r3准备，身份只是T016 partial，不关闭T016/M1/M3/REQ全产品。
-
-T007第三/最后正式review已登记attempts3 IN_PROGRESS，实际reviewer_t001，source3af/evidence56f fulltext兼容中继，不独立复跑、不提前DONE；review r3结果待。
-
-T007 r3补证126ac24普通用户实际Win11环境+20日志byteproof，冻结源码不变。T016 root登记nativeDNS依赖lease，backend已停，准备ADR0003标准WindowsDNS-SD替代未提供cache上限的mdnsdaemon；不减mDNS需求/无新模型、服务或驱动，无网络调用。
-
-T016 ADR0003root标准nativeDNS准备已完成：离线94→82packages仅移除12未用依赖、retained版本/源/checksum不变，existingWindows0.62.2Dns featurecheck0只编译。rootcodelease已release，backend新窄平台/transport nativeDNS白名单lease登记，纯注入测试/有限probe创建，禁止实际network calls/firewall；T007r3只读中继仍进行。
+恢复顺序：先读STATE/TASKS和T007正式r3结论；若批准，按固定依赖登记T008再实际派发audio。并行接收backend T016原生实现后冻结、整合复跑及独立审查。会话边界必须停止作者并释放锁、保存准确next_task；不宣称后台继续。
 
 以下保留历史过程；当前状态以本段、STATE/TASKS及最新正式review为准。
 T001已DONE：源码0f283ffe460be3382aae89f481be62a73ab4d60f，13负向测试、C/Rust原生编译运行通过，独立/root/reviewer_t001第2轮批准。目录初始无Git，安全建立本地历史，无push/reset/clean，保留原有文件。
