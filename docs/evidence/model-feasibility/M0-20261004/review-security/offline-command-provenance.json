@@ -1,0 +1,44 @@
+{
+  "provenance": "read-only extraction from calling root session CommandExecution completed events",
+  "root_thread_id": "01a10764-d851-7d02-ac79-365d2576a226",
+  "runs": [
+    {
+      "log_timestamp": "2026-10-04T17:57:05.582Z",
+      "execution_id": "exec-609f7892-903c-483d-9975-5118f81e96dc",
+      "process_id": "74263",
+      "command": [
+        "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+        "-Command",
+        "& 'C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe' .local/verify_safe210_reports.py\nexit $LASTEXITCODE"
+      ],
+      "cwd": "file:///D:/Project/witvoice",
+      "status": "failed",
+      "exit_code": 1,
+      "started_at_ms": 1791136625416,
+      "completed_at_ms": 1791136625582,
+      "stdout": "Traceback (most recent call last):\r\n  File \"D:\\Project\\witvoice\\.local\\verify_safe210_reports.py\", line 34, in <module>\r\n    if analysis['status']!='PASS':\r\n       ~~~~~~~~^^^^^^^^^^\r\nKeyError: 'status'\r\n",
+      "stderr": "",
+      "source": "unified_exec_startup"
+    },
+    {
+      "log_timestamp": "2026-10-04T17:57:40.795Z",
+      "execution_id": "exec-b7f8010b-841c-4b60-b6f6-623778d9af70",
+      "process_id": "19480",
+      "command": [
+        "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+        "-Command",
+        "& 'C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe' .local/verify_safe210_reports.py\nexit $LASTEXITCODE"
+      ],
+      "cwd": "file:///D:/Project/witvoice",
+      "status": "completed",
+      "exit_code": 0,
+      "started_at_ms": 1791136660262,
+      "completed_at_ms": 1791136660795,
+      "stdout": "{\"result\": \"PASS_REPORT_CONSISTENCY_ONLY\", \"checks\": [{\"report\": \"file-210.json\", \"original_result\": \"PASS_EXPERIMENT_ONLY\"}, {\"report\": \"paced-210.json\", \"original_result\": \"FAILED\"}, {\"report\": \"paced-210-isolated.json\", \"original_result\": \"PASS_EXPERIMENT_ONLY\"}]}\r\n",
+      "stderr": "",
+      "source": "unified_exec_startup"
+    }
+  ],
+  "model_inference": "NOT_RUN",
+  "reexecuted": false
+}

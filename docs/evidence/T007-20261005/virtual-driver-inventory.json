@@ -1,0 +1,79 @@
+{
+  "task": "T007/T009 prerequisite inventory",
+  "started_utc": "2026-10-04T18:33:48.0642148Z",
+  "ended_utc": "2026-10-04T18:33:53.6090542Z",
+  "command": "Get-CimInstance Win32_SoundDevice; filtered Win32_PnPSignedDriver DeviceName VB-Audio|CABLE|BlackHole",
+  "sound_devices": [
+    {
+      "Name": "Nahimic mirroring device",
+      "Status": "OK",
+      "Manufacturer": "Nahimic"
+    },
+    {
+      "Name": "USB 音频 2.0",
+      "Status": "OK",
+      "Manufacturer": "Microsoft"
+    },
+    {
+      "Name": "Steam Streaming Microphone",
+      "Status": "OK",
+      "Manufacturer": "Valve Corporation Audio DDK"
+    },
+    {
+      "Name": "Realtek High Definition Audio(SST)",
+      "Status": "OK",
+      "Manufacturer": "Realtek"
+    },
+    {
+      "Name": "Steam Streaming Speakers",
+      "Status": "OK",
+      "Manufacturer": "Valve Corporation Audio DDK"
+    },
+    {
+      "Name": "NVIDIA Virtual Audio Device (Wave Extensible) (WDM)",
+      "Status": "OK",
+      "Manufacturer": "NVIDIA"
+    },
+    {
+      "Name": "USB 音频 2.0",
+      "Status": "OK",
+      "Manufacturer": "Microsoft"
+    },
+    {
+      "Name": "Nahimic VAD",
+      "Status": "OK",
+      "Manufacturer": "Nahimic"
+    },
+    {
+      "Name": "NVIDIA High Definition Audio",
+      "Status": "OK",
+      "Manufacturer": "NVIDIA"
+    },
+    {
+      "Name": "Nahimic Easy Surround device",
+      "Status": "OK",
+      "Manufacturer": "Nahimic"
+    },
+    {
+      "Name": "MIXLINE",
+      "Status": "OK",
+      "Manufacturer": "Logitech"
+    },
+    {
+      "Name": "MIXLINE Record",
+      "Status": "OK",
+      "Manufacturer": "Logitech"
+    },
+    {
+      "Name": "MIXLINE Stream",
+      "Status": "OK",
+      "Manufacturer": "Logitech"
+    }
+  ],
+  "matching_signed_driver_records": [],
+  "matching_record_count": 0,
+  "route_verified": false,
+  "note": "Name-filtered OS inventory only. MIXLINE-related devices exist; no VB-CABLE matching record returned. Neither proves render-to-capture routing. No driver installation, capture, playback or default-device change.",
+  "result": "INVENTORY_ONLY",
+  "exit_code": 0
+}

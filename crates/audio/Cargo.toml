@@ -10,6 +10,7 @@ serde.workspace = true
 serde_json.workspace = true
 
 [target.'cfg(windows)'.dependencies]
+windows-core.workspace = true
 windows = { workspace = true, features = [
     "Win32_Foundation",
     "Win32_Media_Audio",

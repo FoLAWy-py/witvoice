@@ -37,3 +37,5 @@ T007 independent首切片r1发现1S2（PCM24/32应使用完整WAVEFORMATEXTENSIB
 T006 leader 补齐现有需求中的本地 ExitNode 契约（ADR0002），PeerMessage不增加远端退出权限。Rust schema/TS重新生成；12契约+1Python黄金向量测试、fmt/clippy/generator全部exit0，证据T006-20261005/exit-contract。测试基线20442af，源码当时未提交已明确记录；仅契约，尚无实际退出资源清理实现/独立审查。初次patch后才登记租约，后续派发先登记再开工；当前leader停止此切片写入，租约释放，backend继续T002冻结只读中继。
 
 T006 supervision派发保存T006-supervision-assignment.md，backend尚未开始写入；leader开启既有Windows0.62.2 JobObjects feature，cargo check platform/node locked exit0，仅编译不代表进程监督通过。T007实际audio_runtime继续通知切片，已在派发前登记独立audio路径/代码租约，禁止采集/播放/GPU；backend/reviewer仍只读T002r2。
+
+T007通知COM implement宏需要直接windows-core0.62.2路径，audio实际核缓存宏源码后报告，leader已统一root/audio manifests，offline锁生成0；26外部package版本未变，lock仅audio deps增加windows-core。通知纯测试尚在作者执行中。只读CIM设备调查有MIXLINE系列，VB-Audio/CABLE/BlackHole名称匹配0；这不是路由可用或设备绝对缺失证据，没有安装驱动/改变默认设备/采集播放。

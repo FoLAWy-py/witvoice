@@ -12,3 +12,4 @@ serde = { version = "=1.0.228", features = ["derive"] }
 serde_json = "=1.0.145"
 schemars = "=0.8.22"
 windows = { version = "=0.62.2", default-features = false }
+windows-core = "=0.62.2"

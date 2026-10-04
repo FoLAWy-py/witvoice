@@ -74,7 +74,7 @@
       ],
       "reviewer": "/root/reviewer_t001",
       "contract": "docs/spec/02-audio-engine.md + 07-tests-acceptance.md",
-      "execution_note": "actual audio_runtime T007 native notification切片；仅控制通知/纯单测，禁止Initialize/Start/record/play/GPU；leader统一manifest"
+      "execution_note": "audio通知源码写入中；leader完成既有windows-core0.62.2直接宏依赖，lock仅本地audio依赖边新增，26外部版本未变"
     }
   ],
   "milestones": {
