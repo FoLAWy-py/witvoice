@@ -1,0 +1,38 @@
+{
+  "commit": "5af485aa7421d4843c85b8c685c42bb4d245380a",
+  "executor": "/root",
+  "started_utc": "2026-10-04T18:55:00.8766973Z",
+  "ended_utc": "2026-10-04T18:55:00.9826333Z",
+  "command": "bundled Python3.12.14 tools/project/validate_spec.py",
+  "exit_code": 0,
+  "input_hashes": [
+    {
+      "path": "tools/project/validate_spec.py",
+      "working_file_sha256": "3d9700dd791f7ceed94bea4df6b8b3ccff91f79270401d0f43960d4231a4e09d"
+    },
+    {
+      "path": "docs/project/STATE.json",
+      "working_file_sha256": "20a883810d16465922a123640803036116013423ee85c00b61ad664c2352f597"
+    },
+    {
+      "path": "docs/project/TASKS.json",
+      "working_file_sha256": "c99de5228c7708c7d956798424585c77de4aacb397922f4468cfce2bac1b63e7"
+    },
+    {
+      "path": "docs/project/REQUIREMENTS.json",
+      "working_file_sha256": "1d97c4f064c576738ebd6252f060b7b36c8fd079700c6b8b9ad272f7c104d209"
+    },
+    {
+      "path": "docs/PROJECT_PLAN.md",
+      "working_file_sha256": "62ca6643fe08438ba03c4b1f9352ea7b6de2a4cbe4af82770f34a71a17b415ff"
+    }
+  ],
+  "scope": "SPEC/ledger only; not application/audio/GPU/Mac tests",
+  "plan_requirements_diff": {
+    "from": "7a42be562787b8cbfd4d3073faa8c82529545c4e",
+    "exit_code": 0,
+    "to": "a027ac495e7e1cae4d6ec740d87dfcf1c8e60eb7",
+    "stdout": "",
+    "command": "git diff --exit-code 7a42be562787b8cbfd4d3073faa8c82529545c4e a027ac495e7e1cae4d6ec740d87dfcf1c8e60eb7 -- docs/project/REQUIREMENTS.json docs/PROJECT_PLAN.md"
+  }
+}
