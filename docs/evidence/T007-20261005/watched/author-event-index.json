@@ -1,0 +1,182 @@
+{
+  "owner": "/root/audio_runtime",
+  "thread_id": "01a10767-80de-7e02-b3b0-73d1273a70bd",
+  "window": [
+    "2026-10-04T20:19:00",
+    "2026-10-04T20:33:30"
+  ],
+  "events": [
+    {
+      "line": 1903,
+      "timestamp": "2026-10-04T20:20:06.077Z",
+      "event_id": "exec-9ac8b41a-c211-4248-a3c6-f0474e371487",
+      "command": [
+        "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+        "-Command",
+        "Get-Content AGENTS.md; Get-Content docs/roles/audio_runtime.md; Get-Content docs/project/T007-native-stream-assignment.md; Get-Content crates/audio/AGENTS.md; Get-Content docs/spec/02-audio-engine.md; Get-Content docs/spec/07-tests-acceptance.md"
+      ],
+      "cwd": "file:///D:/Project/witvoice",
+      "exit": 0,
+      "duration": {
+        "secs": 0,
+        "nanos": 412073800
+      },
+      "output": "docs/evidence/T007-20261005/watched/author-events/01.txt",
+      "raw_output_sha256": "5e9d7532ead406d30c1dbcaa4ece48134c5ff8c16f1ceb6fb335950c9f58b621",
+      "extracted_not_rerun": true
+    },
+    {
+      "line": 1908,
+      "timestamp": "2026-10-04T20:20:16.664Z",
+      "event_id": "exec-6b5fab63-2f3e-4ecc-b1e4-bf0c8ab14db1",
+      "command": [
+        "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+        "-Command",
+        "Get-Content crates/audio/src/notifications.rs; Get-Content crates/audio/src/notifications/native.rs; Get-Content crates/audio/src/stream/native.rs; Get-Content crates/audio/examples/notification_probe.rs; Get-Content crates/audio/examples/stream_smoke.rs; Get-Content crates/audio/src/wasapi.rs"
+      ],
+      "cwd": "file:///D:/Project/witvoice",
+      "exit": 0,
+      "duration": {
+        "secs": 0,
+        "nanos": 311470500
+      },
+      "output": "docs/evidence/T007-20261005/watched/author-events/02.txt",
+      "raw_output_sha256": "b8da1f2fdb76a47ed19d6af1cd962d239a7e2dfb33e0dacda236e0f4b577bcd5",
+      "extracted_not_rerun": true
+    },
+    {
+      "line": 1917,
+      "timestamp": "2026-10-04T20:20:31.263Z",
+      "event_id": "exec-104818bf-298f-414e-8037-9044a23e94ea",
+      "command": [
+        "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+        "-Command",
+        "Get-Content crates/audio/src/stream/native.rs | Select-Object -First 330; Get-Content crates/audio/examples/notification_probe.rs; Get-Content crates/audio/examples/stream_smoke.rs; Get-Content crates/audio/Cargo.toml"
+      ],
+      "cwd": "file:///D:/Project/witvoice",
+      "exit": 0,
+      "duration": {
+        "secs": 0,
+        "nanos": 218215000
+      },
+      "output": "docs/evidence/T007-20261005/watched/author-events/03.txt",
+      "raw_output_sha256": "9a4891d25d3ee381bb18bc8801cb7e54c5e1e6bed3c9753c41d5cf6a0f21a8c7",
+      "extracted_not_rerun": true
+    },
+    {
+      "line": 1924,
+      "timestamp": "2026-10-04T20:21:03.628Z",
+      "event_id": "exec-18d78851-4fb8-4bef-a0cc-a2c57b0bd5d5",
+      "command": [
+        "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+        "-Command",
+        "rg -n 'CoWaitForMultipleHandles|COWAIT_DISPATCH_CALLS|COWAIT_DISPATCH_WINDOW_MESSAGES|RPC_S_CALLPENDING' D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\windows-0.62.2\\src\\Windows\\Win32\\System\\Com\\mod.rs D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\windows-0.62.2\\src\\Windows\\Win32\\Foundation\\mod.rs; Get-Content crates/audio/src/stream/native.rs | Select-Object -Skip 350; Get-Content crates/audio/src/stream.rs; Get-Content crates/audio/README.md | Select-Object -Last 70; rg -n 'SharedStream|FormatProbe' crates/audio"
+      ],
+      "cwd": "file:///D:/Project/witvoice",
+      "exit": 0,
+      "duration": {
+        "secs": 0,
+        "nanos": 258142600
+      },
+      "output": "docs/evidence/T007-20261005/watched/author-events/04.txt",
+      "raw_output_sha256": "a8f40bbfa259da13e334816050575191a6a09105149d2d5a45ec45aea648b149",
+      "extracted_not_rerun": true
+    },
+    {
+      "line": 1982,
+      "timestamp": "2026-10-04T20:28:24.784Z",
+      "event_id": "exec-5ccd300b-484f-478a-a166-4a5d95fad539",
+      "command": [
+        "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+        "-Command",
+        ". tools/dev/toolchain-env.ps1\n$startedAt=[DateTime]::UtcNow.ToString('o')\ncargo fmt --package witvoice-audio\n$fmtExit=$LASTEXITCODE\n$finishedAt=[DateTime]::UtcNow.ToString('o')\n[pscustomobject]@{command='cargo fmt --package witvoice-audio';startedAt=$startedAt;finishedAt=$finishedAt;exit=$fmtExit}|ConvertTo-Json -Compress\n$startedAt=[DateTime]::UtcNow.ToString('o')\ncargo test -p witvoice-audio --locked\n$testExit=$LASTEXITCODE\n$finishedAt=[DateTime]::UtcNow.ToString('o')\n[pscustomobject]@{command='cargo test -p witvoice-audio --locked';startedAt=$startedAt;finishedAt=$finishedAt;exit=$testExit}|ConvertTo-Json -Compress\nexit $testExit"
+      ],
+      "cwd": "file:///D:/Project/witvoice",
+      "exit": 0,
+      "duration": {
+        "secs": 2,
+        "nanos": 956429400
+      },
+      "output": "docs/evidence/T007-20261005/watched/author-events/05.txt",
+      "raw_output_sha256": "fd9db55709f87de586b450f89ecd555c022153542a1bc75e43efc02040b901ec",
+      "extracted_not_rerun": true
+    },
+    {
+      "line": 1991,
+      "timestamp": "2026-10-04T20:28:47.987Z",
+      "event_id": "exec-77a319ee-9b5e-4cbf-b32f-90233ae394fa",
+      "command": [
+        "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+        "-Command",
+        "$api='D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\windows-0.62.2\\src\\Windows\\Win32\\Media\\Audio\\mod.rs'\nGet-Content $api | Select-Object -Skip 2415 -First 65\nGet-Content $api | Select-Object -Skip 2530 -First 60\nGet-Content $api | Select-Object -Skip 2735 -First 55\nGet-Content $api | Select-Object -Skip 3530 -First 70\nGet-Content crates/audio/src/stream/native.rs | Select-Object -Skip 320 -First 105"
+      ],
+      "cwd": "file:///D:/Project/witvoice",
+      "exit": 0,
+      "duration": {
+        "secs": 0,
+        "nanos": 257944300
+      },
+      "output": "docs/evidence/T007-20261005/watched/author-events/06.txt",
+      "raw_output_sha256": "721e484346e18d46bb2ad1dfe7de2c98d8c795a6e7280ffc4a0c660074670f3d",
+      "extracted_not_rerun": true
+    },
+    {
+      "line": 2025,
+      "timestamp": "2026-10-04T20:32:05.904Z",
+      "event_id": "exec-18c587a7-fc1a-428f-bc76-91aa9509e303",
+      "command": [
+        "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+        "-Command",
+        "rg -n -A 3 -B 3 'Packet calls|Event waiting|State::Running, Ok' crates/audio/README.md crates/audio/src/stream/native.rs"
+      ],
+      "cwd": "file:///D:/Project/witvoice",
+      "exit": 0,
+      "duration": {
+        "secs": 0,
+        "nanos": 174336600
+      },
+      "output": "docs/evidence/T007-20261005/watched/author-events/07.txt",
+      "raw_output_sha256": "5f33e774d5e7f02243c8f7b96aa414535b3cedde7d6f073926c25933515f6479",
+      "extracted_not_rerun": true
+    },
+    {
+      "line": 2031,
+      "timestamp": "2026-10-04T20:32:34.195Z",
+      "event_id": "exec-64d2b478-7879-42a2-b2af-9e39d456f3d2",
+      "command": [
+        "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+        "-Command",
+        ". tools/dev/toolchain-env.ps1\n$startedAt=[DateTime]::UtcNow.ToString('o')\ncargo fmt --package witvoice-audio\n$fmtExit=$LASTEXITCODE\n$finishedAt=[DateTime]::UtcNow.ToString('o')\n[pscustomobject]@{command='cargo fmt --package witvoice-audio';startedAt=$startedAt;finishedAt=$finishedAt;exit=$fmtExit}|ConvertTo-Json -Compress\n$startedAt=[DateTime]::UtcNow.ToString('o')\ncargo test -p witvoice-audio --locked\n$testExit=$LASTEXITCODE\n$finishedAt=[DateTime]::UtcNow.ToString('o')\n[pscustomobject]@{command='cargo test -p witvoice-audio --locked';startedAt=$startedAt;finishedAt=$finishedAt;exit=$testExit}|ConvertTo-Json -Compress\nexit $testExit"
+      ],
+      "cwd": "file:///D:/Project/witvoice",
+      "exit": 0,
+      "duration": {
+        "secs": 2,
+        "nanos": 653729300
+      },
+      "output": "docs/evidence/T007-20261005/watched/author-events/08.txt",
+      "raw_output_sha256": "3fa127bdb7cb9faba0efc06145cb5516141389036c8fa6a34360c7d6cee5967a",
+      "extracted_not_rerun": true
+    },
+    {
+      "line": 2038,
+      "timestamp": "2026-10-04T20:32:55.585Z",
+      "event_id": "exec-3db15683-8643-4553-ad47-b35266c35dfd",
+      "command": [
+        "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+        "-Command",
+        ". tools/dev/toolchain-env.ps1\n$startedAt=[DateTime]::UtcNow.ToString('o')\ncargo fmt --package witvoice-audio --check\n$fmtExit=$LASTEXITCODE\n$finishedAt=[DateTime]::UtcNow.ToString('o')\n[pscustomobject]@{command='cargo fmt --package witvoice-audio --check';startedAt=$startedAt;finishedAt=$finishedAt;exit=$fmtExit}|ConvertTo-Json -Compress\n$startedAt=[DateTime]::UtcNow.ToString('o')\ncargo clippy -p witvoice-audio --locked --all-targets -- -D warnings\n$clippyExit=$LASTEXITCODE\n$finishedAt=[DateTime]::UtcNow.ToString('o')\n[pscustomobject]@{command='cargo clippy -p witvoice-audio --locked --all-targets -- -D warnings';startedAt=$startedAt;finishedAt=$finishedAt;exit=$clippyExit}|ConvertTo-Json -Compress\n$startedAt=[DateTime]::UtcNow.ToString('o')\ncargo build -p witvoice-audio --locked --examples\n$buildExit=$LASTEXITCODE\n$finishedAt=[DateTime]::UtcNow.ToString('o')\n[pscustomobject]@{command='cargo build -p witvoice-audio --locked --examples';startedAt=$startedAt;finishedAt=$finishedAt;exit=$buildExit}|ConvertTo-Json -Compress\nif($fmtExit -ne 0 -or $clippyExit -ne 0 -or $buildExit -ne 0){exit 1}"
+      ],
+      "cwd": "file:///D:/Project/witvoice",
+      "exit": 0,
+      "duration": {
+        "secs": 1,
+        "nanos": 261172600
+      },
+      "output": "docs/evidence/T007-20261005/watched/author-events/09.txt",
+      "raw_output_sha256": "5795241808fb20b5d7db9fc114ac7a845def3a091648743bc5aef531b8069873",
+      "extracted_not_rerun": true
+    }
+  ],
+  "source_log_not_copied": true
+}

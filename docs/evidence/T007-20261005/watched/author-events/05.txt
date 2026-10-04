@@ -1,0 +1,65 @@
+{"command":"cargo fmt --package witvoice-audio","startedAt":"2026-10-04T20:28:21.9421723Z","finishedAt":"2026-10-04T20:28:22.1242116Z","exit":0}
+    Blocking waiting for file lock on build directory
+   Compiling witvoice-audio v0.1.0 (D:\Project\witvoice\crates\audio)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.35s
+     Running unittests src\lib.rs (target\debug\deps\witvoice_audio-6e41e3ddadb9154d.exe)
+
+running 16 tests
+test notifications::native::tests::teardown_failure_keeps_reference_then_success_releases_once ... ok
+test notifications::tests::baseline_does_not_clear_sticky_or_hide_a_real_change ... ok
+test wasapi::tests::basic_pcm_and_float_descriptors_keep_documented_tags_and_roundtrip ... ok
+test notifications::tests::change_during_or_after_baseline_cannot_be_acknowledged_away ... ok
+test notifications::tests::multiple_notifications_coalesce_without_clearing_invalidation ... ok
+test notifications::tests::notification_arriving_during_control_check_remains_pending ... ok
+test notifications::native::tests::all_native_callback_methods_publish_without_uid_reads_or_allocations ... ok
+test stream::native::tests::changes_during_acquire_or_release_erase_entire_packet_and_forbid_retry ... ok
+test stream::native::tests::capture_pairs_every_nonempty_acquisition_and_retains_metadata ... ok
+test stream::native::tests::render_never_dereferences_data_and_releases_all_frames_silent ... ok
+test stream::native::tests::timeout_and_successful_operations_cannot_restore_changed_owner ... ok
+test notifications::native::tests::registration_owner_cannot_be_reused_even_after_failure ... ok
+test wasapi::tests::high_precision_pcm_descriptors_own_complete_extension_and_roundtrip ... ok
+test wasapi::tests::refuses_reduced_valid_bits_and_unexpected_channel_mask ... ok
+test notifications::tests::concurrent_producers_cannot_overwrite_other_reasons ... ok
+test wasapi::tests::validates_native_layout_and_rejects_short_extension ... ok
+
+test result: ok. 16 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\allocation.rs (target\debug\deps\allocation-25d0549fcfb7ad16.exe)
+
+running 1 test
+test conversion_success_and_failure_paths_allocate_zero ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\conversion.rs (target\debug\deps\conversion-b89bb7ed56b75841.exe)
+
+running 10 tests
+test float_downmix_large_finite_values_is_bounded ... ok
+test late_nonfinite_frame_silences_entire_destination ... ok
+test malformed_buffers_and_gain_are_silent ... ok
+test pcm8_midpoint_is_silence ... ok
+test gain_zero_and_empty_buffers_are_safe ... ok
+test pcm24_sign_extension_and_endpoints ... ok
+test rejects_unimplemented_channels_and_rates ... ok
+test pcm16_downmix_does_not_overflow ... ok
+test render_limits_then_duplicates_channels ... ok
+test signed_encodings_roundtrip_and_clamp_edges ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\stream_packets.rs (target\debug\deps\stream_packets-ef1561f4aeef5391.exe)
+
+running 3 tests
+test silent_null_and_native_metadata_are_explicit ... ok
+test every_invalid_packet_erases_the_entire_destination ... ok
+test valid_capture_leaves_unused_tail_zero ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests witvoice_audio
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+{"command":"cargo test -p witvoice-audio --locked","startedAt":"2026-10-04T20:28:22.1452490Z","finishedAt":"2026-10-04T20:28:24.7151930Z","exit":0}

@@ -1,0 +1,524 @@
+//! Native owners must be constructed, used and closed on one ordinary STA thread.
+use super::{CapturePacket, PacketError, decode_packet};
+use crate::{
+    format::AudioFormat,
+    wasapi::{
+        Apartment, Flow, MetadataError, MixFormat, NativeDescriptor, TaskMem, client, enumerator,
+        read_format, selected,
+    },
+};
+use std::{ptr, time::Duration};
+use windows::{
+    Win32::{
+        Foundation::{CloseHandle, GetLastError, HANDLE, WAIT_OBJECT_0, WAIT_TIMEOUT},
+        Media::Audio::{
+            AUDCLNT_BUFFERFLAGS_SILENT, AUDCLNT_SHAREMODE_SHARED,
+            AUDCLNT_STREAMFLAGS_EVENTCALLBACK, IAudioCaptureClient, IAudioClient,
+            IAudioRenderClient,
+        },
+        System::Threading::{CreateEventW, WaitForSingleObject},
+    },
+    core::PCWSTR,
+};
+
+#[derive(Debug)]
+pub enum StreamError {
+    Metadata(MetadataError),
+    Com {
+        operation: &'static str,
+        hresult: i32,
+    },
+    ExactFormatRequired {
+        hresult: i32,
+        closest: Option<Box<MixFormat>>,
+    },
+    Capacity,
+    State,
+    WrongFlow,
+    Packet(PacketError),
+}
+fn failure(operation: &'static str, error: windows::core::Error) -> StreamError {
+    StreamError::Com {
+        operation,
+        hresult: error.code().0,
+    }
+}
+impl From<MetadataError> for StreamError {
+    fn from(error: MetadataError) -> Self {
+        Self::Metadata(error)
+    }
+}
+
+/// The trusted Node must supply this only for a current, explicitly authorized
+/// source Start. It is a declaration, not a substitute for a user/hardware lease.
+pub enum ExplicitStart {
+    UserApproved,
+}
+
+struct Event(HANDLE);
+impl Drop for Event {
+    fn drop(&mut self) {
+        unsafe {
+            let _ = CloseHandle(self.0);
+        }
+    }
+}
+enum Service {
+    Capture(IAudioCaptureClient),
+    Silence(IAudioRenderClient),
+}
+#[derive(Clone, Copy, PartialEq, Eq)]
+enum State {
+    Prepared,
+    Running,
+    Retired,
+}
+
+/// !Send/!Sync via Apartment. Fields release services before client, event and
+/// COM apartment, including constructor failures. There is no default-device API.
+pub struct SharedStream {
+    service: Service,
+    client: IAudioClient,
+    event: Event,
+    format: AudioFormat,
+    capacity: u32,
+    state: State,
+    closed: bool,
+    close_error: Option<(&'static str, i32)>,
+    _apartment: Apartment,
+}
+impl SharedStream {
+    /// Initializes the selected native-rate stream, without Start or capture.
+    /// This is an explicit device operation: never call in library tests or UI.
+    /// The negotiated OS buffer must fit the caller's bound (at most 200ms).
+    pub fn prepare(
+        uid: &str,
+        flow: Flow,
+        format: AudioFormat,
+        maximum_frames: u32,
+    ) -> Result<Self, StreamError> {
+        if maximum_frames == 0 || maximum_frames > format.sample_rate() / 5 {
+            return Err(StreamError::Capacity);
+        }
+        let apartment = Apartment::enter()?;
+        let event = Event(
+            unsafe { CreateEventW(None, false, false, PCWSTR::null()) }
+                .map_err(|e| failure("CreateEventW", e))?,
+        );
+        let device = selected(&enumerator()?, uid, flow)?;
+        let client = client(&device)?;
+        let descriptor = NativeDescriptor::new(format);
+        // S_FALSE is deliberately not success; no implicit closest/resampler.
+        let mut closest = ptr::null_mut();
+        let status = unsafe {
+            client.IsFormatSupported(
+                AUDCLNT_SHAREMODE_SHARED,
+                descriptor.as_wave_ptr(),
+                Some(&mut closest),
+            )
+        };
+        let closest = TaskMem(closest);
+        if status.0 != 0 {
+            return Err(StreamError::ExactFormatRequired {
+                hresult: status.0,
+                closest: if status.0 == 1 && !closest.0.is_null() {
+                    Some(Box::new(unsafe { read_format(closest.0) }?))
+                } else {
+                    None
+                },
+            });
+        }
+        unsafe {
+            client.Initialize(
+                AUDCLNT_SHAREMODE_SHARED,
+                AUDCLNT_STREAMFLAGS_EVENTCALLBACK,
+                0,
+                0,
+                descriptor.as_wave_ptr(),
+                None,
+            )
+        }
+        .map_err(|e| failure("Initialize", e))?;
+        unsafe { client.SetEventHandle(event.0) }.map_err(|e| failure("SetEventHandle", e))?;
+        let capacity =
+            unsafe { client.GetBufferSize() }.map_err(|e| failure("GetBufferSize", e))?;
+        if capacity == 0 || capacity > maximum_frames {
+            return Err(StreamError::Capacity);
+        }
+        let service = match flow {
+            Flow::Capture => Service::Capture(
+                unsafe { client.GetService() }.map_err(|e| failure("GetCaptureService", e))?,
+            ),
+            Flow::Render => Service::Silence(
+                unsafe { client.GetService() }.map_err(|e| failure("GetRenderService", e))?,
+            ),
+        };
+        let mut stream = Self {
+            service,
+            client,
+            event,
+            format,
+            capacity,
+            state: State::Prepared,
+            closed: false,
+            close_error: None,
+            _apartment: apartment,
+        };
+        if flow == Flow::Render {
+            stream.submit_silence()?;
+        }
+        Ok(stream)
+    }
+    pub fn format(&self) -> AudioFormat {
+        self.format
+    }
+    pub fn capacity_frames(&self) -> u32 {
+        self.capacity
+    }
+    pub fn is_retired(&self) -> bool {
+        self.state == State::Retired
+    }
+    fn retire<T>(&mut self, result: Result<T, StreamError>) -> Result<T, StreamError> {
+        if result.is_err() {
+            self.state = State::Retired;
+        }
+        result
+    }
+    pub fn start(&mut self, _authorization: ExplicitStart) -> Result<(), StreamError> {
+        if self.state != State::Prepared {
+            self.state = State::Retired;
+            return Err(StreamError::State);
+        }
+        let result = unsafe { self.client.Start() }.map_err(|e| failure("Start", e));
+        self.retire(result)?;
+        self.state = State::Running;
+        Ok(())
+    }
+    /// Ordinary owner-thread scheduler only; no wait is hidden in packet methods.
+    pub fn wait_event(&mut self, timeout: Duration) -> Result<bool, StreamError> {
+        if self.state != State::Running || timeout > Duration::from_millis(100) {
+            self.state = State::Retired;
+            return Err(StreamError::State);
+        }
+        let status = unsafe { WaitForSingleObject(self.event.0, timeout.as_millis() as u32) };
+        self.retire(match status {
+            WAIT_OBJECT_0 => Ok(true),
+            WAIT_TIMEOUT => Ok(false),
+            _ => Err(StreamError::Com {
+                operation: "WaitForSingleObject",
+                hresult: windows::core::HRESULT::from_win32(unsafe { GetLastError() }.0).0,
+            }),
+        })
+    }
+    /// One packet per invocation, no drain-until-empty loop or allocation.
+    pub fn capture_packet(
+        &mut self,
+        output: &mut [f32],
+    ) -> Result<Option<CapturePacket>, StreamError> {
+        output.fill(0.0);
+        if self.state != State::Running {
+            self.state = State::Retired;
+            return Err(StreamError::State);
+        }
+        let result = match &self.service {
+            Service::Capture(capture) => read_packet(capture, self.format, self.capacity, output),
+            Service::Silence(_) => Err(StreamError::WrongFlow),
+        };
+        match self.retire(result) {
+            Ok(packet) => Ok(packet),
+            Err(error) => {
+                output.fill(0.0);
+                Err(error)
+            }
+        }
+    }
+    /// No data parameter: this slice has no original/converted PCM output path.
+    pub fn submit_silence(&mut self) -> Result<u32, StreamError> {
+        if self.state == State::Retired {
+            return Err(StreamError::State);
+        }
+        let result = match &self.service {
+            Service::Capture(_) => Err(StreamError::WrongFlow),
+            Service::Silence(render) => (|| {
+                let padding = unsafe { self.client.GetCurrentPadding() }
+                    .map_err(|e| failure("GetCurrentPadding", e))?;
+                let frames = self
+                    .capacity
+                    .checked_sub(padding)
+                    .ok_or(StreamError::Capacity)?;
+                if frames == 0 {
+                    return Ok(0);
+                }
+                // SILENT allows ignoring the returned pointer, including null.
+                render_silence(render, frames)?;
+                Ok(frames)
+            })(),
+        };
+        self.retire(result)
+    }
+    /// Irreversible stop/reset. A new explicit prepare is needed for any restart.
+    pub fn close(&mut self) -> Result<(), StreamError> {
+        if self.closed {
+            return match self.close_error {
+                Some((operation, hresult)) => Err(StreamError::Com { operation, hresult }),
+                None => Ok(()),
+            };
+        }
+        self.closed = true;
+        self.state = State::Retired;
+        let stopped = unsafe { self.client.Stop() }.map_err(|e| failure("Stop", e));
+        let reset = unsafe { self.client.Reset() }.map_err(|e| failure("Reset", e));
+        let result = stopped.and(reset);
+        if let Err(StreamError::Com { operation, hresult }) = &result {
+            self.close_error = Some((*operation, *hresult));
+        }
+        result
+    }
+}
+impl Drop for SharedStream {
+    fn drop(&mut self) {
+        let _ = self.close();
+    }
+}
+
+struct CaptureLease<'a> {
+    capture: &'a IAudioCaptureClient,
+    released: bool,
+}
+impl CaptureLease<'_> {
+    fn release(&mut self, frames: u32) -> Result<(), StreamError> {
+        // A failed release is not retried (the OS state is unknown).
+        self.released = true;
+        unsafe { self.capture.ReleaseBuffer(frames) }
+            .map_err(|e| failure("CaptureReleaseBuffer", e))
+    }
+}
+impl Drop for CaptureLease<'_> {
+    fn drop(&mut self) {
+        if !self.released {
+            let _ = self.release(0);
+        }
+    }
+}
+fn read_packet(
+    capture: &IAudioCaptureClient,
+    format: AudioFormat,
+    capacity: u32,
+    output: &mut [f32],
+) -> Result<Option<CapturePacket>, StreamError> {
+    output.fill(0.0);
+    let (mut pointer, mut frames, mut flags, mut device_position, mut qpc_100ns) =
+        (ptr::null_mut(), 0, 0, 0, 0);
+    unsafe {
+        capture.GetBuffer(
+            &mut pointer,
+            &mut frames,
+            &mut flags,
+            Some(&mut device_position),
+            Some(&mut qpc_100ns),
+        )
+    }
+    .map_err(|e| failure("CaptureGetBuffer", e))?;
+    if frames == 0 {
+        return Ok(None);
+    }
+    let mut lease = CaptureLease {
+        capture,
+        released: false,
+    };
+    let result = (|| {
+        if frames > capacity || frames as usize > output.len() {
+//! Explicit private UID selection; registers notifications but never starts audio.
+//! Full output may contain endpoint metadata and must stay under .local.
+#[cfg(windows)]
+fn main() -> Result<(), String> {
+    use serde::Deserialize;
+    use std::{io::Read, path::PathBuf, sync::Arc, time::Instant};
+    use witvoice_audio::{
+        notifications::{ChangeSignal, NotificationWatch},
+        wasapi::Flow,
+    };
+
+    #[derive(Deserialize)]
+    #[serde(deny_unknown_fields)]
+    struct Selection {
+        uid: String,
+        flow: String,
+    }
+    let args: Vec<_> = std::env::args_os().skip(1).collect();
+    if args.len() != 1 {
+        return Err("usage: notification_probe ABSOLUTE_PRIVATE_SELECTION_JSON".into());
+    }
+    let path = PathBuf::from(&args[0]);
+    if !path.is_absolute() {
+        return Err("selection must be an absolute file <=8192 bytes".into());
+    }
+    let mut bytes = Vec::with_capacity(8193);
+    std::fs::File::open(path)
+        .map_err(|e| e.to_string())?
+        .take(8193)
+        .read_to_end(&mut bytes)
+        .map_err(|e| e.to_string())?;
+    if bytes.len() > 8192 {
+        return Err("selection file exceeds 8192 bytes".into());
+    }
+    let selections: Vec<Selection> = serde_json::from_slice(&bytes).map_err(|e| e.to_string())?;
+    if selections.is_empty() || selections.len() > 2 {
+        return Err("select one or two exact endpoints; no default fallback".into());
+    }
+    // Reject the whole manifest before performing any COM operation.
+    let flows: Vec<Flow> = selections
+        .iter()
+        .map(|s| {
+            if s.uid.is_empty() || s.uid.len() > 1024 || s.uid.contains('\0') {
+                return Err("invalid explicit UID".to_string());
+            }
+            match s.flow.as_str() {
+                "Capture" => Ok(Flow::Capture),
+                "Render" => Ok(Flow::Render),
+                _ => Err("flow must be Capture or Render".to_string()),
+            }
+        })
+        .collect::<Result<_, _>>()?;
+    let started = Instant::now();
+    let mut completed = Vec::new();
+    for (selection, flow) in selections.iter().zip(flows) {
+        for iteration in 0..3 {
+            let signal = Arc::new(ChangeSignal::new());
+            let mut watch = NotificationWatch::register(selection.uid.clone(), flow, signal)
+                .map_err(|e| format!("registration failed: {e:?}"))?;
+            let revalidation = watch
+                .poll_revalidation()
+                .ok_or("initial revalidation was missing")?;
+            let endpoint = revalidation.endpoint.map_err(|e| format!("{e:?}"))?;
+            if endpoint.uid != selection.uid || endpoint.flow != flow {
+                return Err("exact UID/flow revalidation mismatch".into());
+            }
+            watch.close().map_err(|e| format!("close failed: {e:?}"))?;
+            if watch.poll_revalidation().is_some() {
+                return Err("closed registration still permitted revalidation".into());
+            }
+            completed.push(serde_json::json!({
+                "flow": selection.flow, "iteration": iteration,
+                "register": "SUCCESS", "exact_uid_flow": true, "close": "SUCCESS"
+            }));
+        }
+    }
+    println!(
+        "{}",
+        serde_json::to_string_pretty(&serde_json::json!({
+            "result": "PASS_REGISTRATION_LIFECYCLE_ONLY",
+            "completed": completed, "wall_seconds": started.elapsed().as_secs_f64(),
+            "service_notification_delivery": "NOT_RUN",
+            "physical_removal": "NOT_RUN", "initialize_start_capture_render": "NOT_RUN"
+        }))
+        .map_err(|e| e.to_string())?
+    );
+    Ok(())
+}
+
+#[cfg(not(windows))]
+fn main() {
+    eprintln!("Windows notification service probe unavailable on this platform.");
+    std::process::exit(2);
+}
+//! Requires explicit operator permission and an exclusive audio hardware lease.
+//! Never run as a cargo test. No PCM files, upstream upload, or default selection.
+#[cfg(windows)]
+fn main() -> Result<(), String> {
+    use std::time::{Duration, Instant};
+    use witvoice_audio::{
+        format::{AudioFormat, Encoding},
+        stream::{ExplicitStart, SharedStream},
+        wasapi::Flow,
+    };
+    let args: Vec<_> = std::env::args().skip(1).collect();
+    if args.len() != 7 || args[6] != "--approve-start" {
+        return Err(
+            "capture|silence-render UID rate channels pcm16|float32 seconds(1..5) --approve-start"
+                .into(),
+        );
+    }
+    let flow = match args[0].as_str() {
+        "capture" => Flow::Capture,
+        "silence-render" => Flow::Render,
+        _ => return Err("explicit flow required".into()),
+    };
+    let rate: u32 = args[2].parse().map_err(|_| "invalid rate")?;
+    let channels = args[3].parse().map_err(|_| "invalid channels")?;
+    let encoding = match args[4].as_str() {
+        "pcm16" => Encoding::Pcm16,
+        "float32" => Encoding::Float32,
+        _ => return Err("explicit encoding required".into()),
+    };
+    let seconds: u64 = args[5].parse().map_err(|_| "invalid duration")?;
+    if !(1..=5).contains(&seconds) {
+        return Err("maximum five seconds".into());
+    }
+    let format = AudioFormat::new(rate, channels, encoding).map_err(|e| format!("{e:?}"))?;
+    let mut owner =
+        SharedStream::prepare(&args[1], flow, format, rate / 5).map_err(|e| format!("{e:?}"))?;
+    let mut output = vec![0.0; owner.capacity_frames() as usize];
+    let mut packets = 0u64;
+    let mut frames = 0u64;
+    let started = Instant::now();
+    owner
+        .start(ExplicitStart::UserApproved)
+        .map_err(|e| format!("{e:?}"))?;
+    while started.elapsed() < Duration::from_secs(seconds) {
+        if !owner
+            .wait_event(Duration::from_millis(50))
+            .map_err(|e| format!("{e:?}"))?
+        {
+            continue;
+        }
+        if flow == Flow::Capture {
+            if let Some(packet) = owner
+                .capture_packet(&mut output)
+                .map_err(|e| format!("{e:?}"))?
+            {
+                packets += 1;
+                frames += u64::from(packet.frames);
+            }
+            output.fill(0.0);
+        } else {
+            frames += u64::from(owner.submit_silence().map_err(|e| format!("{e:?}"))?);
+        }
+    }
+    owner.close().map_err(|e| format!("{e:?}"))?;
+    println!(
+        "native-rate only; packets={packets} frames={frames} wall_seconds={:.6}; no PCM saved; not full T007 acceptance",
+        started.elapsed().as_secs_f64()
+    );
+    Ok(())
+}
+#[cfg(not(windows))]
+fn main() {
+    eprintln!("Windows only; Mac NOT_RUN");
+    std::process::exit(1);
+}
+[package]
+name = "witvoice-audio"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+
+[dependencies]
+serde.workspace = true
+serde_json.workspace = true
+
+[target.'cfg(windows)'.dependencies]
+windows-core.workspace = true
+windows = { workspace = true, features = [
+    "Win32_Foundation",
+    "Win32_Media_Audio",
+    "Win32_Media_KernelStreaming",
+    "Win32_Security",
+    "Win32_System_Com",
+    "Win32_System_Com_StructuredStorage",
+    "Win32_System_Variant",
+    "Win32_System_Threading",
+    "Win32_UI_Shell_PropertiesSystem",
+    "Win32_Devices_FunctionDiscovery",
+] }

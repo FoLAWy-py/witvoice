@@ -1,0 +1,16 @@
+crates/audio/README.md-104-packets (release0), while nonempty successful packets release their full size.
+crates/audio/README.md-105-Release failure erases output and is not blindly retried. Device position,
+crates/audio/README.md-106-discontinuity and QPC in 100ns remain native metadata, not a manufactured source
+crates/audio/README.md:107:timeline. Packet calls do not wait, allocate, log or invoke another thread.
+crates/audio/README.md:108:Event waiting is a separate bounded owner-thread scheduling method.
+crates/audio/README.md-109-
+crates/audio/README.md-110-Render exposes only `submit_silence`: no PCM argument or capture-to-render link.
+crates/audio/README.md-111-It primes silence before Start and releases every acquired frame with SILENT.
+--
+crates/audio/src/stream/native.rs-652-        let fresh = ChangeSignal::new();
+crates/audio/src/stream/native.rs-653-        fresh.publish(ChangeKind::InitialValidation);
+crates/audio/src/stream/native.rs-654-        assert!(fresh.accept_initial_baseline());
+crates/audio/src/stream/native.rs:655:        assert!(finish_operation(&fresh, &mut State::Running, Ok(false)).unwrap() == false);
+crates/audio/src/stream/native.rs-656-    }
+crates/audio/src/stream/native.rs-657-    #[implement(IAudioRenderClient)]
+crates/audio/src/stream/native.rs-658-    struct Render {

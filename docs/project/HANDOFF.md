@@ -17,6 +17,8 @@ T007 watched增补10文件交付并停止，33纯tests/fmt/clippy/examples编译
 
 当前所有代码作者已停/硬件lease释放。T007source3af8a6f frozen33tests/fmt/clippy/examplebuild0；3格式probe真实S_OK一次/S_FALSE两次closest仅报告，无Initialize。用户同意并确认拔USB，真实OS reason25(State/Default/Property)原UIDInactive/stickychanged/注销0/exit0，运行中removal仍NOT_RUN，不用metadata替代完整链路。T016身份11文件作者15tests0，尚无native mDNS/TLS/Node集成，仍IN_PROGRESS；原生DNS-SD下一窄依赖准备候选，默认networkoff。
 
+冻结ab89088整合78有意义workspace tests/fmt/clippy0（33audio+12contracts+8session+10IPC监督+15身份保护），不计空harness。两作者原始CommandExecution全部归档（audio9个0；backend11个含两101失败），不是复跑。T007最后正式r3准备，身份只是T016 partial，不关闭T016/M1/M3/REQ全产品。
+
 以下保留历史过程；当前状态以本段、STATE/TASKS及最新正式review为准。
 T001已DONE：源码0f283ffe460be3382aae89f481be62a73ab4d60f，13负向测试、C/Rust原生编译运行通过，独立/root/reviewer_t001第2轮批准。目录初始无Git，安全建立本地历史，无push/reset/clean，保留原有文件。
 

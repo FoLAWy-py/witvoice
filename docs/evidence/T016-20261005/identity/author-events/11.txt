@@ -1,0 +1,50 @@
+ M crates/audio/README.md
+ M crates/audio/examples/stream_smoke.rs
+ M crates/audio/src/notifications.rs
+ M crates/audio/src/notifications/native.rs
+ M crates/audio/src/stream/native.rs
+ M crates/audio/src/wasapi.rs
+ M crates/platform/README.md
+ M crates/platform/src/lib.rs
+ M crates/transport/README.md
+?? crates/audio/examples/format_support_probe.rs
+?? crates/audio/examples/removal_probe.rs
+?? crates/audio/examples/support/
+?? crates/audio/src/stream/raw_tests.rs
+?? crates/platform/src/identity.rs
+?? crates/platform/tests/
+?? crates/transport/src/
+?? crates/transport/tests/
+?? docs/evidence/T007-20261005/native/author-byte-proof.json
+?? docs/evidence/T007-20261005/native/windows-wrapper-prereview.md
+ crates/audio/README.md                   |  62 ++++++-
+ crates/audio/examples/stream_smoke.rs    |  21 ++-
+ crates/audio/src/notifications.rs        |  53 +++++-
+ crates/audio/src/notifications/native.rs |  61 ++++++-
+ crates/audio/src/stream/native.rs        | 281 ++++++++++++++++++++++++++-----
+ crates/audio/src/wasapi.rs               |   3 +
+ crates/platform/README.md                |   2 +
+ crates/platform/src/lib.rs               |   1 +
+ crates/transport/README.md               |  10 +-
+ 9 files changed, 437 insertions(+), 57 deletions(-)
+diff --git a/crates/platform/src/lib.rs b/crates/platform/src/lib.rs
+index d994c54..887e4bc 100644
+--- a/crates/platform/src/lib.rs
++++ b/crates/platform/src/lib.rs
+@@ -1,4 +1,5 @@
+ //! Windows user-process controls. No audio, model, network or UI ownership.
++pub mod identity;
+ #[cfg(windows)]
+ mod windows;
+ #[cfg(windows)]
+6cbbb73e2a397ff76b9ccfb30072297d88bceb9281581e6a22b5791e52acf1e4 crates/transport/src/lib.rs
+396801e4317818e20927e20f55266499020ca77cb64b1db5efaaf677eaee35d8 crates/transport/src/discovery.rs
+1958190143d61b3bbfd0f2f0ac04c883b7ec070f9e22756a5befc301e0347be8 crates/transport/src/identity.rs
+2bf186b57952f1b8b908ab1254a360934dff590c3e5e6c612f8b0fa85973ada4 crates/transport/src/trust.rs
+c67ff9f6f680b42c86a4fd05d4cd664a5816cd857e2f229fbf0fa3cade1512a6 crates/transport/tests/discovery.rs
+ac626c74d9fed4cb3c3e6cf99164211b93c27a770d4645e7082db3eea438c751 crates/transport/tests/identity.rs
+400ca3757ce40f0b471ae586f6dcfce9d2183a465f5fe6b844c12d1dc6bfe9cf crates/transport/README.md
+4c09076bb43bc70638829bd5fc94d935897e2bc35d1466948538bc4d671fecb0 crates/platform/src/lib.rs
+c27fc97e24f832e4e07b5c52299704d864731dbf77ea3ca97d399ad2248472eb crates/platform/src/identity.rs
+38c97aeaa65a8589836b31f6eec5898b4398de2de2da2ba3cac627d9d9ab5fc1 crates/platform/tests/identity.rs
+fdfa6735be6ed263879740805da91c701f6cfa5a81ab8e694f57810d7d737e24 crates/platform/README.md

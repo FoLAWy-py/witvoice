@@ -1,0 +1,1607 @@
+//! Fixed-size notification invalidation, with exactly one control consumer.
+//! This state never grants playback authority or acknowledges an audio epoch.
+
+use std::sync::atomic::{AtomicBool, AtomicI32, AtomicU32, Ordering};
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[repr(u32)]
+pub enum ChangeKind {
+    State = 1,
+    Added = 2,
+    Removed = 4,
+    Default = 8,
+    Property = 16,
+    InitialValidation = 32,
+    Closed = 64,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct ChangeBatch(u32);
+impl ChangeBatch {
+    pub const fn contains(self, kind: ChangeKind) -> bool {
+        self.0 & kind as u32 != 0
+    }
+    pub const fn bits(self) -> u32 {
+        self.0
+    }
+}
+
+/// The bitset coalesces events; it is not a count, queue or media deadline.
+/// Invalidation is sticky and cannot be cleared by taking a notification batch.
+/// One owner can claim registration once; close/failure never enables reuse.
+#[derive(Debug, Default)]
+pub struct ChangeSignal {
+    pending: AtomicU32,
+    invalidated: AtomicBool,
+    #[cfg(windows)]
+    registration_claimed: AtomicBool,
+    unregister_hresult: AtomicI32,
+}
+
+impl ChangeSignal {
+    pub fn new() -> Self {
+        Self::default()
+    }
+
+    /// Callback path: two bounded atomic operations, no pointer reads or panic.
+    pub fn publish(&self, kind: ChangeKind) {
+        self.invalidated.store(true, Ordering::Release);
+        self.pending.fetch_or(kind as u32, Ordering::Release);
+    }
+
+    /// Control-thread only, single consumer. Events linearized after the swap
+    /// remain pending, including another event of the same kind during a check.
+    pub fn take_batch(&self) -> Option<ChangeBatch> {
+        let bits = self.pending.swap(0, Ordering::AcqRel);
+        (bits != 0).then_some(ChangeBatch(bits))
+    }
+
+    pub fn is_invalidated(&self) -> bool {
+        self.invalidated.load(Ordering::Acquire)
+    }
+    pub fn has_pending(&self) -> bool {
+        self.pending.load(Ordering::Acquire) != 0
+    }
+    pub fn unregister_hresult(&self) -> i32 {
+        self.unregister_hresult.load(Ordering::Acquire)
+    }
+
+    #[cfg(windows)]
+    fn claim_registration(&self) -> bool {
+        self.registration_claimed
+            .compare_exchange(false, true, Ordering::AcqRel, Ordering::Acquire)
+            .is_ok()
+    }
+
+    #[cfg(windows)]
+    fn record_unregister_error(&self, hresult: i32) {
+        self.unregister_hresult.store(hresult, Ordering::Release);
+        self.publish(ChangeKind::Closed);
+    }
+}
+
+#[cfg(windows)]
+mod native;
+#[cfg(windows)]
+pub use native::{NotificationWatch, SelectionRevalidation, WatchError};
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn multiple_notifications_coalesce_without_clearing_invalidation() {
+        let signal = ChangeSignal::new();
+        assert!(!signal.is_invalidated());
+        signal.publish(ChangeKind::Removed);
+        signal.publish(ChangeKind::Removed);
+        signal.publish(ChangeKind::State);
+        let batch = signal.take_batch().unwrap();
+        assert_eq!(
+            batch.bits(),
+            ChangeKind::Removed as u32 | ChangeKind::State as u32
+        );
+        assert!(signal.is_invalidated());
+        assert!(!signal.has_pending());
+        assert!(signal.take_batch().is_none());
+    }
+
+    #[test]
+    fn notification_arriving_during_control_check_remains_pending() {
+        let signal = ChangeSignal::new();
+        signal.publish(ChangeKind::Property);
+        let checking = signal.take_batch().unwrap();
+        assert!(checking.contains(ChangeKind::Property));
+        // Control is processing that batch; a callback repeats the same event.
+        signal.publish(ChangeKind::Property);
+        signal.publish(ChangeKind::Removed);
+        assert!(signal.is_invalidated());
+        let later = signal.take_batch().unwrap();
+        assert!(later.contains(ChangeKind::Property));
+        assert!(later.contains(ChangeKind::Removed));
+        assert!(!signal.has_pending());
+    }
+
+    #[test]
+    fn concurrent_producers_cannot_overwrite_other_reasons() {
+        use std::sync::Arc;
+        let signal = Arc::new(ChangeSignal::new());
+        std::thread::scope(|scope| {
+            for kind in [
+                ChangeKind::Added,
+                ChangeKind::Removed,
+                ChangeKind::Default,
+                ChangeKind::Property,
+                ChangeKind::State,
+            ] {
+                let shared = Arc::clone(&signal);
+                scope.spawn(move || {
+                    for _ in 0..1000 {
+                        shared.publish(kind);
+                    }
+                });
+            }
+        });
+        assert_eq!(signal.take_batch().unwrap().bits(), 31);
+        assert!(signal.is_invalidated());
+    }
+}
+//! Native callback lifetime and control-thread UID validation. Never starts audio.
+
+use super::{ChangeBatch, ChangeKind, ChangeSignal};
+use crate::wasapi::{Apartment, Endpoint, Flow, MetadataError, enumerator, inspect_endpoint};
+use std::sync::Arc;
+use windows::{
+    Win32::{
+        Foundation::PROPERTYKEY,
+        Media::Audio::{
+            DEVICE_STATE, EDataFlow, ERole, IMMDeviceEnumerator, IMMNotificationClient,
+            IMMNotificationClient_Impl,
+        },
+    },
+    core::{PCWSTR, implement},
+};
+
+#[implement(IMMNotificationClient)]
+struct NotificationClient {
+    signal: Arc<ChangeSignal>,
+}
+
+#[allow(non_snake_case)]
+impl IMMNotificationClient_Impl for NotificationClient_Impl {
+    fn OnDeviceStateChanged(
+        &self,
+        _uid: &PCWSTR,
+        _state: DEVICE_STATE,
+    ) -> windows::core::Result<()> {
+        self.signal.publish(ChangeKind::State);
+        Ok(())
+    }
+    fn OnDeviceAdded(&self, _uid: &PCWSTR) -> windows::core::Result<()> {
+        self.signal.publish(ChangeKind::Added);
+        Ok(())
+    }
+    fn OnDeviceRemoved(&self, _uid: &PCWSTR) -> windows::core::Result<()> {
+        self.signal.publish(ChangeKind::Removed);
+        Ok(())
+    }
+    fn OnDefaultDeviceChanged(
+        &self,
+        _flow: EDataFlow,
+        _role: ERole,
+        _uid: &PCWSTR,
+    ) -> windows::core::Result<()> {
+        self.signal.publish(ChangeKind::Default);
+        Ok(())
+    }
+    fn OnPropertyValueChanged(
+        &self,
+        _uid: &PCWSTR,
+        _key: &PROPERTYKEY,
+    ) -> windows::core::Result<()> {
+        self.signal.publish(ChangeKind::Property);
+        Ok(())
+    }
+}
+
+#[derive(Debug)]
+pub enum WatchError {
+    RegistrationAlreadyClaimed,
+    Metadata(MetadataError),
+    UnregisterFailed(i32),
+}
+
+/// A check result is metadata only, never Ready, Start or an epoch acknowledgement.
+#[derive(Debug)]
+pub struct SelectionRevalidation {
+    pub changes: ChangeBatch,
+    pub endpoint: Result<Endpoint, MetadataError>,
+    pub more_changes_pending: bool,
+}
+
+struct Registration {
+    enumerator: IMMDeviceEnumerator,
+    callback: IMMNotificationClient,
+}
+
+/// Thread-bound owner. Construct/close/drop only on a normal STA control thread.
+/// Keep this owner alive for the full registration: Windows does not AddRef it.
+pub struct NotificationWatch {
+    registration: Option<Registration>,
+    uid: String,
+    flow: Flow,
+    signal: Arc<ChangeSignal>,
+    apartment: Option<Apartment>,
+    closed: bool,
+}
+
+fn unregister_slot<T>(
+    slot: &mut Option<T>,
+    signal: &ChangeSignal,
+    unregister: impl FnOnce(&T) -> Result<(), i32>,
+) -> Result<(), i32> {
+    if let Some(registration) = slot.as_ref() {
+        match unregister(registration) {
+            Ok(()) => {
+                *slot = None;
+            }
+            Err(code) => {
+                signal.record_unregister_error(code);
+                return Err(code);
+            }
+        }
+    }
+    Ok(())
+}
+
+impl NotificationWatch {
+    pub fn register(
+        uid: String,
+        flow: Flow,
+        signal: Arc<ChangeSignal>,
+    ) -> Result<Self, WatchError> {
+        if uid.is_empty() || uid.contains('\0') {
+            return Err(WatchError::Metadata(MetadataError::InvalidUid));
+        }
+        if !signal.claim_registration() {
+            return Err(WatchError::RegistrationAlreadyClaimed);
+        }
+        // Keep failed or newly registered owners invalidated until an explicit
+        // external Prepare workflow; this API has no permission-restoring step.
+        signal.publish(ChangeKind::InitialValidation);
+        let apartment = Apartment::enter().map_err(WatchError::Metadata)?;
+        inspect_endpoint(&uid, flow).map_err(WatchError::Metadata)?;
+        let enumerator = enumerator().map_err(WatchError::Metadata)?;
+        let callback: IMMNotificationClient = NotificationClient {
+            signal: Arc::clone(&signal),
+        }
+        .into();
+        unsafe { enumerator.RegisterEndpointNotificationCallback(&callback) }.map_err(|e| {
+            WatchError::Metadata(MetadataError::Com {
+                operation: "RegisterEndpointNotificationCallback",
+                hresult: e.code().0,
+            })
+        })?;
+        Ok(Self {
+            registration: Some(Registration {
+                enumerator,
+                callback,
+            }),
+            uid,
+            flow,
+            signal,
+            apartment: Some(apartment),
+            closed: false,
+        })
+    }
+
+    /// Re-read the saved exact UID/expected flow, never the changed default.
+    /// Events during inspect stay in the next batch; sticky invalidation stays set.
+    pub fn poll_revalidation(&mut self) -> Option<SelectionRevalidation> {
+        if self.closed {
+            return None;
+        }
+        self.registration.as_ref()?;
+        let changes = self.signal.take_batch()?;
+        let endpoint = inspect_endpoint(&self.uid, self.flow);
+        Some(SelectionRevalidation {
+            changes,
+            endpoint,
+            more_changes_pending: self.signal.has_pending(),
+        })
+    }
+
+    /// Normal-thread explicit teardown. Failure retains callback/enumerator and
+    /// its apartment; the same signal can never register again or clear invalidation.
+    pub fn close(&mut self) -> Result<(), WatchError> {
+        self.closed = true;
+        self.signal.publish(ChangeKind::Closed);
+        unregister_slot(&mut self.registration, &self.signal, |r| {
+            unsafe {
+                r.enumerator
+                    .UnregisterEndpointNotificationCallback(&r.callback)
+            }
+            .map_err(|e| e.code().0)
+        })
+        .map_err(WatchError::UnregisterFailed)
+    }
+}
+
+impl Drop for NotificationWatch {
+    fn drop(&mut self) {
+        if self.close().is_err() {
+            // Unknown registration state: releasing the final client would leave
+            // Windows with a dangling callback. Quarantine one fixed-size pair
+            // per claimed owner, plus its COM initialization, for process life.
+            // No retry loop, allocation, log, fallback or recovery permission.
+            if let Some(registration) = self.registration.take() {
+                std::mem::forget(registration);
+            }
+            if let Some(apartment) = self.apartment.take() {
+                std::mem::forget(apartment);
+            }
+        }
+        // Success: registration is gone before the apartment guard drops.
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::sync::atomic::{AtomicUsize, Ordering};
+    use std::{
+        alloc::{GlobalAlloc, Layout, System},
+        cell::Cell,
+    };
+    use windows::Win32::Media::Audio::{eCapture, eConsole};
+
+    thread_local! {
+        static COUNTING: Cell<bool> = const { Cell::new(false) };
+        static ALLOCATIONS: Cell<usize> = const { Cell::new(0) };
+    }
+    struct CountingAllocator;
+    unsafe impl GlobalAlloc for CountingAllocator {
+        unsafe fn alloc(&self, layout: Layout) -> *mut u8 {
+            if COUNTING.try_with(Cell::get).unwrap_or(false) {
+                let _ = ALLOCATIONS.try_with(|count| count.set(count.get() + 1));
+            }
+            unsafe { System.alloc(layout) }
+        }
+        unsafe fn dealloc(&self, pointer: *mut u8, layout: Layout) {
+            unsafe { System.dealloc(pointer, layout) }
+        }
+        unsafe fn realloc(&self, pointer: *mut u8, layout: Layout, size: usize) -> *mut u8 {
+            if COUNTING.try_with(Cell::get).unwrap_or(false) {
+                let _ = ALLOCATIONS.try_with(|count| count.set(count.get() + 1));
+            }
+            unsafe { System.realloc(pointer, layout, size) }
+        }
+    }
+    #[global_allocator]
+    static ALLOCATOR: CountingAllocator = CountingAllocator;
+
+    #[test]
+    fn all_native_callback_methods_publish_without_uid_reads_or_allocations() {
+        let signal = Arc::new(ChangeSignal::new());
+        let callback: IMMNotificationClient = NotificationClient {
+            signal: Arc::clone(&signal),
+        }
+        .into();
+        // Local COM implementation only; not registered with any Windows service.
+        ALLOCATIONS.with(|count| count.set(0));
+        COUNTING.with(|enabled| enabled.set(true));
+        unsafe {
+            for _ in 0..1000 {
+                callback
+                    .OnDeviceStateChanged(PCWSTR::null(), DEVICE_STATE(0))
+                    .unwrap();
+                callback.OnDeviceAdded(PCWSTR::null()).unwrap();
+                callback.OnDeviceRemoved(PCWSTR::null()).unwrap();
+                callback
+                    .OnDefaultDeviceChanged(eCapture, eConsole, PCWSTR::null())
+                    .unwrap();
+                callback
+                    .OnPropertyValueChanged(PCWSTR::null(), PROPERTYKEY::default())
+                    .unwrap();
+            }
+        }
+        COUNTING.with(|enabled| enabled.set(false));
+        assert_eq!(ALLOCATIONS.with(Cell::get), 0);
+        assert_eq!(signal.take_batch().unwrap().bits(), 31);
+        assert!(signal.is_invalidated());
+    }
+
+    #[test]
+    fn registration_owner_cannot_be_reused_even_after_failure() {
+        let signal = ChangeSignal::new();
+        assert!(signal.claim_registration());
+        signal.record_unregister_error(-1);
+        assert!(!signal.claim_registration());
+        assert_eq!(signal.unregister_hresult(), -1);
+        assert!(signal.is_invalidated());
+    }
+
+    #[test]
+    fn teardown_failure_keeps_reference_then_success_releases_once() {
+        struct Reference(Arc<AtomicUsize>);
+        impl Drop for Reference {
+            fn drop(&mut self) {
+                self.0.fetch_add(1, Ordering::Relaxed);
+            }
+        }
+        let dropped = Arc::new(AtomicUsize::new(0));
+        let mut slot = Some(Reference(Arc::clone(&dropped)));
+        let signal = ChangeSignal::new();
+        assert_eq!(unregister_slot(&mut slot, &signal, |_| Err(-1)), Err(-1));
+        assert!(slot.is_some());
+        assert_eq!(dropped.load(Ordering::Relaxed), 0);
+        assert_eq!(signal.unregister_hresult(), -1);
+        unregister_slot(&mut slot, &signal, |_| Ok(())).unwrap();
+        assert!(slot.is_none());
+        assert_eq!(dropped.load(Ordering::Relaxed), 1);
+        unregister_slot(&mut slot, &signal, |_| panic!("already unregistered")).unwrap();
+        assert_eq!(dropped.load(Ordering::Relaxed), 1);
+        assert!(signal.is_invalidated());
+    }
+}
+//! Native owners must be constructed, used and closed on one ordinary STA thread.
+use super::{CapturePacket, PacketError, decode_packet};
+use crate::{
+    format::AudioFormat,
+    wasapi::{
+        Apartment, Flow, MetadataError, MixFormat, NativeDescriptor, TaskMem, client, enumerator,
+        read_format, selected,
+    },
+};
+use std::{ptr, time::Duration};
+use windows::{
+    Win32::{
+        Foundation::{CloseHandle, GetLastError, HANDLE, WAIT_OBJECT_0, WAIT_TIMEOUT},
+        Media::Audio::{
+            AUDCLNT_BUFFERFLAGS_SILENT, AUDCLNT_SHAREMODE_SHARED,
+            AUDCLNT_STREAMFLAGS_EVENTCALLBACK, IAudioCaptureClient, IAudioClient,
+            IAudioRenderClient,
+        },
+        System::Threading::{CreateEventW, WaitForSingleObject},
+    },
+    core::PCWSTR,
+};
+
+#[derive(Debug)]
+pub enum StreamError {
+    Metadata(MetadataError),
+    Com {
+        operation: &'static str,
+        hresult: i32,
+    },
+    ExactFormatRequired {
+        hresult: i32,
+        closest: Option<Box<MixFormat>>,
+    },
+    Capacity,
+    State,
+    WrongFlow,
+    Packet(PacketError),
+}
+fn failure(operation: &'static str, error: windows::core::Error) -> StreamError {
+    StreamError::Com {
+        operation,
+        hresult: error.code().0,
+    }
+}
+impl From<MetadataError> for StreamError {
+    fn from(error: MetadataError) -> Self {
+        Self::Metadata(error)
+    }
+}
+
+/// The trusted Node must supply this only for a current, explicitly authorized
+/// source Start. It is a declaration, not a substitute for a user/hardware lease.
+pub enum ExplicitStart {
+    UserApproved,
+}
+
+struct Event(HANDLE);
+impl Drop for Event {
+    fn drop(&mut self) {
+        unsafe {
+            let _ = CloseHandle(self.0);
+        }
+    }
+}
+enum Service {
+    Capture(IAudioCaptureClient),
+    Silence(IAudioRenderClient),
+}
+#[derive(Clone, Copy, PartialEq, Eq)]
+enum State {
+    Prepared,
+    Running,
+    Retired,
+}
+
+/// !Send/!Sync via Apartment. Fields release services before client, event and
+/// COM apartment, including constructor failures. There is no default-device API.
+pub struct SharedStream {
+    service: Service,
+    client: IAudioClient,
+    event: Event,
+    format: AudioFormat,
+    capacity: u32,
+    state: State,
+    closed: bool,
+    close_error: Option<(&'static str, i32)>,
+    _apartment: Apartment,
+}
+impl SharedStream {
+    /// Initializes the selected native-rate stream, without Start or capture.
+    /// This is an explicit device operation: never call in library tests or UI.
+    /// The negotiated OS buffer must fit the caller's bound (at most 200ms).
+    pub fn prepare(
+        uid: &str,
+        flow: Flow,
+        format: AudioFormat,
+        maximum_frames: u32,
+    ) -> Result<Self, StreamError> {
+        if maximum_frames == 0 || maximum_frames > format.sample_rate() / 5 {
+            return Err(StreamError::Capacity);
+        }
+        let apartment = Apartment::enter()?;
+        let event = Event(
+            unsafe { CreateEventW(None, false, false, PCWSTR::null()) }
+                .map_err(|e| failure("CreateEventW", e))?,
+        );
+        let device = selected(&enumerator()?, uid, flow)?;
+        let client = client(&device)?;
+        let descriptor = NativeDescriptor::new(format);
+        // S_FALSE is deliberately not success; no implicit closest/resampler.
+        let mut closest = ptr::null_mut();
+        let status = unsafe {
+            client.IsFormatSupported(
+                AUDCLNT_SHAREMODE_SHARED,
+                descriptor.as_wave_ptr(),
+                Some(&mut closest),
+            )
+        };
+        let closest = TaskMem(closest);
+        if status.0 != 0 {
+            return Err(StreamError::ExactFormatRequired {
+                hresult: status.0,
+                closest: if status.0 == 1 && !closest.0.is_null() {
+                    Some(Box::new(unsafe { read_format(closest.0) }?))
+                } else {
+                    None
+                },
+            });
+        }
+        unsafe {
+            client.Initialize(
+                AUDCLNT_SHAREMODE_SHARED,
+                AUDCLNT_STREAMFLAGS_EVENTCALLBACK,
+                0,
+                0,
+                descriptor.as_wave_ptr(),
+                None,
+            )
+        }
+        .map_err(|e| failure("Initialize", e))?;
+        unsafe { client.SetEventHandle(event.0) }.map_err(|e| failure("SetEventHandle", e))?;
+        let capacity =
+            unsafe { client.GetBufferSize() }.map_err(|e| failure("GetBufferSize", e))?;
+        if capacity == 0 || capacity > maximum_frames {
+            return Err(StreamError::Capacity);
+        }
+        let service = match flow {
+            Flow::Capture => Service::Capture(
+                unsafe { client.GetService() }.map_err(|e| failure("GetCaptureService", e))?,
+            ),
+            Flow::Render => Service::Silence(
+                unsafe { client.GetService() }.map_err(|e| failure("GetRenderService", e))?,
+            ),
+        };
+        let mut stream = Self {
+            service,
+            client,
+            event,
+            format,
+            capacity,
+            state: State::Prepared,
+            closed: false,
+            close_error: None,
+            _apartment: apartment,
+        };
+        if flow == Flow::Render {
+            stream.submit_silence()?;
+        }
+        Ok(stream)
+    }
+    pub fn format(&self) -> AudioFormat {
+        self.format
+    }
+    pub fn capacity_frames(&self) -> u32 {
+        self.capacity
+    }
+    pub fn is_retired(&self) -> bool {
+        self.state == State::Retired
+    }
+    fn retire<T>(&mut self, result: Result<T, StreamError>) -> Result<T, StreamError> {
+        if result.is_err() {
+            self.state = State::Retired;
+        }
+        result
+    }
+    pub fn start(&mut self, _authorization: ExplicitStart) -> Result<(), StreamError> {
+        if self.state != State::Prepared {
+            self.state = State::Retired;
+            return Err(StreamError::State);
+        }
+        let result = unsafe { self.client.Start() }.map_err(|e| failure("Start", e));
+        self.retire(result)?;
+        self.state = State::Running;
+        Ok(())
+    }
+    /// Ordinary owner-thread scheduler only; no wait is hidden in packet methods.
+    pub fn wait_event(&mut self, timeout: Duration) -> Result<bool, StreamError> {
+        if self.state != State::Running || timeout > Duration::from_millis(100) {
+            self.state = State::Retired;
+            return Err(StreamError::State);
+        }
+        let status = unsafe { WaitForSingleObject(self.event.0, timeout.as_millis() as u32) };
+        self.retire(match status {
+            WAIT_OBJECT_0 => Ok(true),
+            WAIT_TIMEOUT => Ok(false),
+            _ => Err(StreamError::Com {
+                operation: "WaitForSingleObject",
+                hresult: windows::core::HRESULT::from_win32(unsafe { GetLastError() }.0).0,
+            }),
+        })
+    }
+    /// One packet per invocation, no drain-until-empty loop or allocation.
+    pub fn capture_packet(
+        &mut self,
+        output: &mut [f32],
+    ) -> Result<Option<CapturePacket>, StreamError> {
+        output.fill(0.0);
+        if self.state != State::Running {
+            self.state = State::Retired;
+            return Err(StreamError::State);
+        }
+        let result = match &self.service {
+            Service::Capture(capture) => read_packet(capture, self.format, self.capacity, output),
+            Service::Silence(_) => Err(StreamError::WrongFlow),
+        };
+        match self.retire(result) {
+            Ok(packet) => Ok(packet),
+            Err(error) => {
+                output.fill(0.0);
+                Err(error)
+            }
+        }
+    }
+    /// No data parameter: this slice has no original/converted PCM output path.
+    pub fn submit_silence(&mut self) -> Result<u32, StreamError> {
+        if self.state == State::Retired {
+            return Err(StreamError::State);
+        }
+        let result = match &self.service {
+            Service::Capture(_) => Err(StreamError::WrongFlow),
+            Service::Silence(render) => (|| {
+                let padding = unsafe { self.client.GetCurrentPadding() }
+                    .map_err(|e| failure("GetCurrentPadding", e))?;
+                let frames = self
+                    .capacity
+                    .checked_sub(padding)
+                    .ok_or(StreamError::Capacity)?;
+                if frames == 0 {
+                    return Ok(0);
+                }
+                // SILENT allows ignoring the returned pointer, including null.
+                render_silence(render, frames)?;
+                Ok(frames)
+            })(),
+        };
+        self.retire(result)
+    }
+    /// Irreversible stop/reset. A new explicit prepare is needed for any restart.
+    pub fn close(&mut self) -> Result<(), StreamError> {
+        if self.closed {
+            return match self.close_error {
+                Some((operation, hresult)) => Err(StreamError::Com { operation, hresult }),
+                None => Ok(()),
+            };
+        }
+        self.closed = true;
+        self.state = State::Retired;
+        let stopped = unsafe { self.client.Stop() }.map_err(|e| failure("Stop", e));
+        let reset = unsafe { self.client.Reset() }.map_err(|e| failure("Reset", e));
+        let result = stopped.and(reset);
+        if let Err(StreamError::Com { operation, hresult }) = &result {
+            self.close_error = Some((*operation, *hresult));
+        }
+        result
+    }
+}
+impl Drop for SharedStream {
+    fn drop(&mut self) {
+        let _ = self.close();
+    }
+}
+
+struct CaptureLease<'a> {
+    capture: &'a IAudioCaptureClient,
+    released: bool,
+}
+impl CaptureLease<'_> {
+    fn release(&mut self, frames: u32) -> Result<(), StreamError> {
+        // A failed release is not retried (the OS state is unknown).
+        self.released = true;
+        unsafe { self.capture.ReleaseBuffer(frames) }
+            .map_err(|e| failure("CaptureReleaseBuffer", e))
+    }
+}
+impl Drop for CaptureLease<'_> {
+    fn drop(&mut self) {
+        if !self.released {
+            let _ = self.release(0);
+        }
+    }
+}
+fn read_packet(
+    capture: &IAudioCaptureClient,
+    format: AudioFormat,
+    capacity: u32,
+    output: &mut [f32],
+) -> Result<Option<CapturePacket>, StreamError> {
+    output.fill(0.0);
+    let (mut pointer, mut frames, mut flags, mut device_position, mut qpc_100ns) =
+        (ptr::null_mut(), 0, 0, 0, 0);
+    unsafe {
+        capture.GetBuffer(
+            &mut pointer,
+            &mut frames,
+            &mut flags,
+            Some(&mut device_position),
+            Some(&mut qpc_100ns),
+        )
+    }
+    .map_err(|e| failure("CaptureGetBuffer", e))?;
+    if frames == 0 {
+        return Ok(None);
+    }
+    let mut lease = CaptureLease {
+        capture,
+        released: false,
+    };
+    let result = (|| {
+        if frames > capacity || frames as usize > output.len() {
+            return Err(StreamError::Capacity);
+        }
+        if flags & !(super::SILENT | super::DISCONTINUITY | super::TIMESTAMP_ERROR) != 0 {
+            return Err(StreamError::Packet(PacketError::Flags));
+        }
+        let length = (frames as usize)
+            .checked_mul(format.frame_bytes())
+            .ok_or(StreamError::Capacity)?;
+        let input = if flags & super::SILENT != 0 {
+            None
+        } else {
+            if pointer.is_null() {
+                return Err(StreamError::Packet(PacketError::NullData));
+            }
+            // WASAPI owns the full negotiated packet; bounds checked before slice.
+            Some(unsafe { std::slice::from_raw_parts(pointer, length) })
+        };
+        decode_packet(format, frames as usize, flags, input, output).map_err(StreamError::Packet)
+    })();
+    // Do not consume a rejected packet. No subsequent read is permitted after
+    // failure; this owner must retire. Release failure overrides validation.
+    if let Err(error) = lease.release(if result.is_ok() { frames } else { 0 }) {
+        output.fill(0.0);
+        return Err(error);
+    }
+    result?;
+    Ok(Some(CapturePacket {
+        frames,
+        flags,
+        device_position,
+        qpc_100ns,
+    }))
+}
+
+fn render_silence(render: &IAudioRenderClient, frames: u32) -> Result<(), StreamError> {
+    unsafe { render.GetBuffer(frames) }.map_err(|e| failure("RenderGetBuffer", e))?;
+    // No pointer dereference; SILENT covers every requested frame on release.
+    unsafe { render.ReleaseBuffer(frames, AUDCLNT_BUFFERFLAGS_SILENT.0 as u32) }
+        .map_err(|e| failure("RenderReleaseBuffer", e))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::format::Encoding;
+    use std::sync::{
+        Arc,
+        atomic::{AtomicU32, Ordering},
+    };
+    use windows::{
+        Win32::Media::Audio::{IAudioCaptureClient_Impl, IAudioRenderClient_Impl},
+        core::{HRESULT, implement},
+    };
+
+    #[implement(IAudioCaptureClient)]
+    struct Capture {
+        frames: u32,
+        flags: u32,
+        data: [u8; 8],
+        null: bool,
+        release_error: bool,
+        releases: Arc<AtomicU32>,
+        released_frames: Arc<AtomicU32>,
+    }
+    impl IAudioCaptureClient_Impl for Capture_Impl {
+        fn GetBuffer(
+            &self,
+            data: *mut *mut u8,
+            frames: *mut u32,
+            flags: *mut u32,
+            device: *mut u64,
+            qpc: *mut u64,
+        ) -> windows::core::Result<()> {
+            unsafe {
+                *data = if self.null {
+                    ptr::null_mut()
+                } else {
+                    self.data.as_ptr().cast_mut()
+                };
+                *frames = self.frames;
+                *flags = self.flags;
+                *device = 123;
+                *qpc = 456;
+            }
+            Ok(())
+        }
+        fn ReleaseBuffer(&self, frames: u32) -> windows::core::Result<()> {
+            self.releases.fetch_add(1, Ordering::Relaxed);
+            self.released_frames.store(frames, Ordering::Relaxed);
+            if self.release_error {
+                Err(HRESULT(0x80004005u32 as i32).into())
+            } else {
+                Ok(())
+            }
+        }
+        fn GetNextPacketSize(&self) -> windows::core::Result<u32> {
+            Ok(self.frames)
+        }
+    }
+    #[test]
+    fn capture_pairs_every_nonempty_acquisition_and_retains_metadata() {
+        for (frames, flags, null, release_error, capacity, success, consumed) in [
+            (2, super::super::SILENT, true, false, 2, true, 2),
+            (2, 0, true, false, 2, false, 0),
+            (3, 0, false, false, 2, false, 0),
+            (2, 8, false, false, 2, false, 0),
+            (2, 0, false, true, 2, false, 2),
+            (0, 0, true, false, 2, true, 0),
+        ] {
+            let releases = Arc::new(AtomicU32::new(0));
+            let released_frames = Arc::new(AtomicU32::new(99));
+            let capture: IAudioCaptureClient = Capture {
+                frames,
+                flags,
+                null,
+                release_error,
+                data: [0, 64, 0, 64, 0, 0, 0, 0],
+                releases: Arc::clone(&releases),
+                released_frames: Arc::clone(&released_frames),
+            }
+            .into();
+            let mut output = [0.75; 4];
+            let result = read_packet(
+                &capture,
+                AudioFormat::new(16_000, 1, Encoding::Pcm16).unwrap(),
+                capacity,
+                &mut output,
+            );
+            assert_eq!(result.is_ok(), success);
+            assert_eq!(output, [0.0; 4]);
+            assert_eq!(releases.load(Ordering::Relaxed), u32::from(frames != 0));
+            if frames != 0 {
+                assert_eq!(released_frames.load(Ordering::Relaxed), consumed);
+            }
+            if let Ok(Some(packet)) = result {
+                assert_eq!(packet.device_position, 123);
+                assert_eq!(packet.qpc_100ns, 456);
+            }
+        }
+    }
+    #[implement(IAudioRenderClient)]
+    struct Render {
+        acquired: Arc<AtomicU32>,
+        released: Arc<AtomicU32>,
+        flags: Arc<AtomicU32>,
+    }
+    impl IAudioRenderClient_Impl for Render_Impl {
+        fn GetBuffer(&self, frames: u32) -> windows::core::Result<*mut u8> {
+            self.acquired.store(frames, Ordering::Relaxed);
+            Ok(ptr::null_mut())
+        }
+        fn ReleaseBuffer(&self, frames: u32, flags: u32) -> windows::core::Result<()> {
+            self.released.store(frames, Ordering::Relaxed);
+            self.flags.store(flags, Ordering::Relaxed);
+            Ok(())
+        }
+    }
+    #[test]
+    fn render_never_dereferences_data_and_releases_all_frames_silent() {
+        let acquired = Arc::new(AtomicU32::new(0));
+        let released = Arc::new(AtomicU32::new(0));
+        let flags = Arc::new(AtomicU32::new(0));
+        let render: IAudioRenderClient = Render {
+            acquired: Arc::clone(&acquired),
+            released: Arc::clone(&released),
+            flags: Arc::clone(&flags),
+        }
+        .into();
+        render_silence(&render, 480).unwrap();
+        assert_eq!(acquired.load(Ordering::Relaxed), 480);
+        assert_eq!(released.load(Ordering::Relaxed), 480);
+        assert_eq!(flags.load(Ordering::Relaxed), 2);
+    }
+}
+//! Explicit private UID selection; registers notifications but never starts audio.
+//! Full output may contain endpoint metadata and must stay under .local.
+#[cfg(windows)]
+fn main() -> Result<(), String> {
+    use serde::Deserialize;
+    use std::{io::Read, path::PathBuf, sync::Arc, time::Instant};
+    use witvoice_audio::{
+        notifications::{ChangeSignal, NotificationWatch},
+        wasapi::Flow,
+    };
+
+    #[derive(Deserialize)]
+    #[serde(deny_unknown_fields)]
+    struct Selection {
+        uid: String,
+        flow: String,
+    }
+    let args: Vec<_> = std::env::args_os().skip(1).collect();
+    if args.len() != 1 {
+        return Err("usage: notification_probe ABSOLUTE_PRIVATE_SELECTION_JSON".into());
+    }
+    let path = PathBuf::from(&args[0]);
+    if !path.is_absolute() {
+        return Err("selection must be an absolute file <=8192 bytes".into());
+    }
+    let mut bytes = Vec::with_capacity(8193);
+    std::fs::File::open(path)
+        .map_err(|e| e.to_string())?
+        .take(8193)
+        .read_to_end(&mut bytes)
+        .map_err(|e| e.to_string())?;
+    if bytes.len() > 8192 {
+        return Err("selection file exceeds 8192 bytes".into());
+    }
+    let selections: Vec<Selection> = serde_json::from_slice(&bytes).map_err(|e| e.to_string())?;
+    if selections.is_empty() || selections.len() > 2 {
+        return Err("select one or two exact endpoints; no default fallback".into());
+    }
+    // Reject the whole manifest before performing any COM operation.
+    let flows: Vec<Flow> = selections
+        .iter()
+        .map(|s| {
+            if s.uid.is_empty() || s.uid.len() > 1024 || s.uid.contains('\0') {
+                return Err("invalid explicit UID".to_string());
+            }
+            match s.flow.as_str() {
+                "Capture" => Ok(Flow::Capture),
+                "Render" => Ok(Flow::Render),
+                _ => Err("flow must be Capture or Render".to_string()),
+            }
+        })
+        .collect::<Result<_, _>>()?;
+    let started = Instant::now();
+    let mut completed = Vec::new();
+    for (selection, flow) in selections.iter().zip(flows) {
+        for iteration in 0..3 {
+            let signal = Arc::new(ChangeSignal::new());
+            let mut watch = NotificationWatch::register(selection.uid.clone(), flow, signal)
+                .map_err(|e| format!("registration failed: {e:?}"))?;
+            let revalidation = watch
+                .poll_revalidation()
+                .ok_or("initial revalidation was missing")?;
+            let endpoint = revalidation.endpoint.map_err(|e| format!("{e:?}"))?;
+            if endpoint.uid != selection.uid || endpoint.flow != flow {
+                return Err("exact UID/flow revalidation mismatch".into());
+            }
+            watch.close().map_err(|e| format!("close failed: {e:?}"))?;
+            if watch.poll_revalidation().is_some() {
+                return Err("closed registration still permitted revalidation".into());
+            }
+            completed.push(serde_json::json!({
+                "flow": selection.flow, "iteration": iteration,
+                "register": "SUCCESS", "exact_uid_flow": true, "close": "SUCCESS"
+            }));
+        }
+    }
+    println!(
+        "{}",
+        serde_json::to_string_pretty(&serde_json::json!({
+            "result": "PASS_REGISTRATION_LIFECYCLE_ONLY",
+            "completed": completed, "wall_seconds": started.elapsed().as_secs_f64(),
+            "service_notification_delivery": "NOT_RUN",
+            "physical_removal": "NOT_RUN", "initialize_start_capture_render": "NOT_RUN"
+        }))
+        .map_err(|e| e.to_string())?
+    );
+    Ok(())
+}
+
+#[cfg(not(windows))]
+fn main() {
+    eprintln!("Windows notification service probe unavailable on this platform.");
+    std::process::exit(2);
+}
+//! Requires explicit operator permission and an exclusive audio hardware lease.
+//! Never run as a cargo test. No PCM files, upstream upload, or default selection.
+#[cfg(windows)]
+fn main() -> Result<(), String> {
+    use std::time::{Duration, Instant};
+    use witvoice_audio::{
+        format::{AudioFormat, Encoding},
+        stream::{ExplicitStart, SharedStream},
+        wasapi::Flow,
+    };
+    let args: Vec<_> = std::env::args().skip(1).collect();
+    if args.len() != 7 || args[6] != "--approve-start" {
+        return Err(
+            "capture|silence-render UID rate channels pcm16|float32 seconds(1..5) --approve-start"
+                .into(),
+        );
+    }
+    let flow = match args[0].as_str() {
+        "capture" => Flow::Capture,
+        "silence-render" => Flow::Render,
+        _ => return Err("explicit flow required".into()),
+    };
+    let rate: u32 = args[2].parse().map_err(|_| "invalid rate")?;
+    let channels = args[3].parse().map_err(|_| "invalid channels")?;
+    let encoding = match args[4].as_str() {
+        "pcm16" => Encoding::Pcm16,
+        "float32" => Encoding::Float32,
+        _ => return Err("explicit encoding required".into()),
+    };
+    let seconds: u64 = args[5].parse().map_err(|_| "invalid duration")?;
+    if !(1..=5).contains(&seconds) {
+        return Err("maximum five seconds".into());
+    }
+    let format = AudioFormat::new(rate, channels, encoding).map_err(|e| format!("{e:?}"))?;
+    let mut owner =
+        SharedStream::prepare(&args[1], flow, format, rate / 5).map_err(|e| format!("{e:?}"))?;
+    let mut output = vec![0.0; owner.capacity_frames() as usize];
+    let mut packets = 0u64;
+    let mut frames = 0u64;
+    let started = Instant::now();
+    owner
+        .start(ExplicitStart::UserApproved)
+        .map_err(|e| format!("{e:?}"))?;
+    while started.elapsed() < Duration::from_secs(seconds) {
+        if !owner
+            .wait_event(Duration::from_millis(50))
+            .map_err(|e| format!("{e:?}"))?
+        {
+            continue;
+        }
+        if flow == Flow::Capture {
+            if let Some(packet) = owner
+                .capture_packet(&mut output)
+                .map_err(|e| format!("{e:?}"))?
+            {
+                packets += 1;
+                frames += u64::from(packet.frames);
+            }
+            output.fill(0.0);
+        } else {
+            frames += u64::from(owner.submit_silence().map_err(|e| format!("{e:?}"))?);
+        }
+    }
+    owner.close().map_err(|e| format!("{e:?}"))?;
+    println!(
+        "native-rate only; packets={packets} frames={frames} wall_seconds={:.6}; no PCM saved; not full T007 acceptance",
+        started.elapsed().as_secs_f64()
+    );
+    Ok(())
+}
+#[cfg(not(windows))]
+fn main() {
+    eprintln!("Windows only; Mac NOT_RUN");
+    std::process::exit(1);
+}
+//! Metadata-only WASAPI operations on an ordinary COM thread. No Initialize,
+//! Start, capture buffer, render buffer or default selection API.
+
+use crate::format::{AudioFormat, Encoding, FormatError};
+use serde::Serialize;
+use std::{ffi::c_void, marker::PhantomData, ptr, rc::Rc};
+use windows::{
+    Win32::{
+        Media::Audio::{
+            AUDCLNT_SHAREMODE_SHARED, DEVICE_STATE, DEVICE_STATE_ACTIVE, IAudioClient, IMMDevice,
+            IMMDeviceEnumerator, IMMEndpoint, MMDeviceEnumerator, WAVEFORMATEX,
+            WAVEFORMATEXTENSIBLE, WAVEFORMATEXTENSIBLE_0, eAll, eCapture, eRender,
+        },
+        Media::KernelStreaming::KSDATAFORMAT_SUBTYPE_PCM,
+        System::Com::{
+            CLSCTX_INPROC_SERVER, COINIT_APARTMENTTHREADED, CoCreateInstance, CoInitializeEx,
+            CoTaskMemFree, CoUninitialize,
+        },
+    },
+    core::{GUID, Interface, PCWSTR},
+};
+
+const IEEE_FLOAT: GUID = GUID::from_u128(0x00000003_0000_0010_8000_00aa00389b71);
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize)]
+pub enum Flow {
+    Capture,
+    Render,
+}
+
+#[derive(Debug, Serialize)]
+pub enum MetadataError {
+    Com {
+        operation: &'static str,
+        hresult: i32,
+    },
+    InvalidUid,
+    Inactive,
+    WrongFlow,
+    Format {
+        reason: String,
+    },
+    UnexpectedFormatStatus(i32),
+}
+
+pub(crate) fn com(operation: &'static str, error: windows::core::Error) -> MetadataError {
+    MetadataError::Com {
+        operation,
+        hresult: error.code().0,
+    }
+}
+
+fn format_error(error: FormatError) -> MetadataError {
+    MetadataError::Format {
+        reason: format!("{error:?}"),
+    }
+}
+
+pub(crate) struct Apartment(PhantomData<Rc<()>>);
+impl Apartment {
+    pub(crate) fn enter() -> Result<Self, MetadataError> {
+        // S_OK and S_FALSE both require balancing CoUninitialize. A changed
+        // apartment failure returns before constructing this thread-bound guard.
+        // Use an ordinary STA thread for IAudioClient's documented first-use
+        // requirement. An existing MTA is rejected; no silent mode fallback.
+        unsafe { CoInitializeEx(None, COINIT_APARTMENTTHREADED).ok() }
+            .map_err(|e| com("CoInitializeEx", e))?;
+        Ok(Self(PhantomData))
+    }
+}
+impl Drop for Apartment {
+    fn drop(&mut self) {
+        unsafe { CoUninitialize() };
+    }
+}
+
+pub(crate) struct TaskMem<T>(pub(crate) *mut T);
+impl<T> Drop for TaskMem<T> {
+    fn drop(&mut self) {
+        unsafe { CoTaskMemFree(Some(self.0.cast::<c_void>())) };
+    }
+}
+
+/// Raw fields are retained even when the conversion adapter rejects the format.
+#[derive(Debug, Clone, Serialize)]
+pub struct MixFormat {
+    pub format_tag: u16,
+    pub sample_rate: u32,
+    pub channels: u16,
+    pub container_bits: u16,
+    pub valid_bits: u16,
+    pub block_align: u16,
+    pub average_bytes_per_second: u32,
+    pub extra_bytes: u16,
+    pub channel_mask: Option<u32>,
+    pub subformat: Option<String>,
+    pub adapter_format: Option<AudioFormat>,
+    pub adapter_error: Option<String>,
+}
+
+// Only called on pointers returned by WASAPI or owned WAVEFORMATEX values.
+// cbSize must be checked before reading the extension. Packed native structs
+// are copied with read_unaligned; no reference is taken to a packed field.
+pub(crate) unsafe fn read_format(pointer: *const WAVEFORMATEX) -> Result<MixFormat, MetadataError> {
+    if pointer.is_null() {
+        return Err(format_error(FormatError::Layout));
+    }
+    let raw = unsafe { ptr::read_unaligned(pointer) };
+    let mut valid_bits = raw.wBitsPerSample;
+    let mut mask = None;
+    let mut subtype = None;
+    if raw.wFormatTag == 0xfffe {
+        if raw.cbSize < 22 {
+            return Err(format_error(FormatError::Layout));
+        }
+        let extension = unsafe { ptr::read_unaligned(pointer.cast::<WAVEFORMATEXTENSIBLE>()) };
+        valid_bits = unsafe { extension.Samples.wValidBitsPerSample };
+        mask = Some(extension.dwChannelMask);
+        subtype = Some(extension.SubFormat);
+    }
+    let result = (|| {
+        let float =
+            raw.wFormatTag == 3 || (raw.wFormatTag == 0xfffe && subtype == Some(IEEE_FLOAT));
+        let pcm = raw.wFormatTag == 1
+            || (raw.wFormatTag == 0xfffe && subtype == Some(KSDATAFORMAT_SUBTYPE_PCM));
+        let encoding = match (pcm, float, raw.wBitsPerSample) {
+            (true, false, 8) => Encoding::Pcm8,
+            (true, false, 16) => Encoding::Pcm16,
+            (true, false, 24) => Encoding::Pcm24,
+            (true, false, 32) => Encoding::Pcm32,
+            (false, true, 32) => Encoding::Float32,
+            _ => return Err(FormatError::UnsupportedEncoding),
+        };
+        // Reduced valid bits require a separate, verified left-aligned adapter.
+        // Do not incorrectly treat e.g. 24-in-32 as ordinary signed PCM32.
+        if valid_bits != raw.wBitsPerSample {
+            return Err(FormatError::Layout);
+        }
+        let checked = AudioFormat::new(raw.nSamplesPerSec, raw.nChannels, encoding)?;
+        if raw.nBlockAlign as usize != checked.frame_bytes()
+            || raw.nAvgBytesPerSec != raw.nSamplesPerSec * raw.nBlockAlign as u32
+        {
+            return Err(FormatError::Layout);
+        }
+        if let Some(mask) = mask {
+            // Defined mono center / stereo left-right, or unspecified ordering.
+            if mask != 0 && mask != if raw.nChannels == 1 { 4 } else { 3 } {
+                return Err(FormatError::Layout);
+            }
+        }
+        Ok(checked)
+    })();
+    Ok(MixFormat {
+        format_tag: raw.wFormatTag,
+        sample_rate: raw.nSamplesPerSec,
+        channels: raw.nChannels,
+        container_bits: raw.wBitsPerSample,
+        valid_bits,
+        block_align: raw.nBlockAlign,
+        average_bytes_per_second: raw.nAvgBytesPerSec,
+        extra_bytes: raw.cbSize,
+        channel_mask: mask,
+        subformat: subtype.map(|id| format!("{id:?}")),
+        adapter_format: result.as_ref().ok().copied(),
+        adapter_error: result.err().map(|e| format!("{e:?}")),
+    })
+}
+
+#[derive(Debug, Serialize)]
+pub struct Endpoint {
+    pub uid: String,
+    pub flow: Flow,
+    pub state_bits: u32,
+    pub mix_format: Option<MixFormat>,
+    pub mix_error: Option<MetadataError>,
+}
+
+fn device_flow(device: &IMMDevice) -> Result<Flow, MetadataError> {
+    let endpoint: IMMEndpoint = device
+        .cast()
+        .map_err(|e| com("IMMEndpoint::QueryInterface", e))?;
+    match unsafe { endpoint.GetDataFlow() }.map_err(|e| com("GetDataFlow", e))? {
+        f if f == eCapture => Ok(Flow::Capture),
+        f if f == eRender => Ok(Flow::Render),
+        _ => Err(MetadataError::WrongFlow),
+    }
+}
+
+pub(crate) fn client(device: &IMMDevice) -> Result<IAudioClient, MetadataError> {
+    unsafe { device.Activate(CLSCTX_INPROC_SERVER, None) }
+        .map_err(|e| com("ActivateIAudioClient", e))
+}
+
+fn mix(client: &IAudioClient) -> Result<MixFormat, MetadataError> {
+    let memory = TaskMem(unsafe { client.GetMixFormat() }.map_err(|e| com("GetMixFormat", e))?);
+    unsafe { read_format(memory.0) }
+}
+
+fn snapshot(device: &IMMDevice) -> Result<Endpoint, MetadataError> {
+    let id = unsafe { device.GetId() }.map_err(|e| com("GetId", e))?;
+    let memory = TaskMem(id.0);
+    if memory.0.is_null() {
+        return Err(MetadataError::InvalidUid);
+    }
+    let uid = unsafe { id.to_string() }.map_err(|_| MetadataError::InvalidUid)?;
+    let flow = device_flow(device)?;
+    let state = unsafe { device.GetState() }.map_err(|e| com("GetState", e))?;
+    let result = if state == DEVICE_STATE_ACTIVE {
+        client(device).and_then(|c| mix(&c))
+    } else {
+        Err(MetadataError::Inactive)
+    };
+    Ok(Endpoint {
+        uid,
+        flow,
+        state_bits: state.0,
+        mix_format: result.as_ref().ok().cloned(),
+        mix_error: result.err(),
+    })
+}
+
+pub(crate) fn enumerator() -> Result<IMMDeviceEnumerator, MetadataError> {
+    unsafe { CoCreateInstance(&MMDeviceEnumerator, None, CLSCTX_INPROC_SERVER) }
+        .map_err(|e| com("CoCreateInstance", e))
+}
+
+/// Reads all endpoint metadata, including inactive entries. No friendly name
+/// inference: neither virtual-line trust nor a fallback device is selected.
+pub fn enumerate_endpoints() -> Result<Vec<Endpoint>, MetadataError> {
+    let _apartment = Apartment::enter()?;
+    let enumerator = enumerator()?;
+    let collection = unsafe { enumerator.EnumAudioEndpoints(eAll, DEVICE_STATE(15)) }
+        .map_err(|e| com("EnumAudioEndpoints", e))?;
+    let count = unsafe { collection.GetCount() }.map_err(|e| com("GetCount", e))?;
+    let mut endpoints = Vec::new();
+    for index in 0..count {
+        let device = unsafe { collection.Item(index) }.map_err(|e| com("Item", e))?;
+        endpoints.push(snapshot(&device)?);
+    }
+    Ok(endpoints)
+}
+
+pub(crate) fn selected(
+    enumerator: &IMMDeviceEnumerator,
+    uid: &str,
+    flow: Flow,
+) -> Result<IMMDevice, MetadataError> {
+    if uid.is_empty() || uid.contains('\0') {
+        return Err(MetadataError::InvalidUid);
+    }
+    let wide: Vec<u16> = uid.encode_utf16().chain(Some(0)).collect();
+    let device = unsafe { enumerator.GetDevice(PCWSTR(wide.as_ptr())) }
+        .map_err(|e| com("GetDeviceByUid", e))?;
+    if device_flow(&device)? != flow {
+        return Err(MetadataError::WrongFlow);
+    }
+    if unsafe { device.GetState() }.map_err(|e| com("GetState", e))? != DEVICE_STATE_ACTIVE {
+        return Err(MetadataError::Inactive);
+    }
+    Ok(device)
+}
+
+pub fn inspect_endpoint(uid: &str, flow: Flow) -> Result<Endpoint, MetadataError> {
+    let _apartment = Apartment::enter()?;
+    snapshot(&selected(&enumerator()?, uid, flow)?)
+}
+
+#[derive(Debug, Serialize)]
+pub struct FormatProbe {
+    pub requested: AudioFormat,
+    pub exact_supported: bool,
+    pub closest: Option<MixFormat>,
+}
+
+// Own the complete native descriptor through the synchronous WASAPI call.
+// PCM precision above 16 bits requires the extension rather than tag 1.
+pub(crate) enum NativeDescriptor {
+    Basic(WAVEFORMATEX),
+    Extensible(WAVEFORMATEXTENSIBLE),
+}
+
+impl NativeDescriptor {
+    pub(crate) fn new(format: AudioFormat) -> Self {
+        let extended = matches!(format.encoding(), Encoding::Pcm24 | Encoding::Pcm32);
+        let bits = (format.encoding().bytes() * 8) as u16;
+        let base = WAVEFORMATEX {
+            wFormatTag: if extended {
+                0xfffe
+            } else if format.encoding() == Encoding::Float32 {
+                3
+            } else {
+                1
+            },
+            nChannels: format.channels(),
+            nSamplesPerSec: format.sample_rate(),
+            nAvgBytesPerSec: format.sample_rate() * format.frame_bytes() as u32,
+            nBlockAlign: format.frame_bytes() as u16,
+            wBitsPerSample: bits,
+            cbSize: if extended { 22 } else { 0 },
+        };
+        if extended {
+            Self::Extensible(WAVEFORMATEXTENSIBLE {
+                Format: base,
+                Samples: WAVEFORMATEXTENSIBLE_0 {
+                    wValidBitsPerSample: bits,
+                },
+                dwChannelMask: if format.channels() == 1 { 4 } else { 3 },
+                SubFormat: KSDATAFORMAT_SUBTYPE_PCM,
+            })
+        } else {
+            Self::Basic(base)
+        }
+    }
+
+    // The pointer is borrowed from self's storage, not a temporary descriptor.
+    // Native callers must retain self without moving it until the call returns.
+    pub(crate) fn as_wave_ptr(&self) -> *const WAVEFORMATEX {
+        match self {
+            Self::Basic(base) => ptr::from_ref(base),
+            Self::Extensible(extension) => ptr::addr_of!(extension.Format),
+        }
+    }
+}
+
+/// Shared-mode format probe on the explicit active UID. A closest match is
+/// reported, never treated as exact success or silently used to start a stream.
+pub fn probe_format(
+    uid: &str,
+    flow: Flow,
+    requested: AudioFormat,
+) -> Result<FormatProbe, MetadataError> {
+    let _apartment = Apartment::enter()?;
+    let device = selected(&enumerator()?, uid, flow)?;
+    let client = client(&device)?;
+    let native = NativeDescriptor::new(requested);
+    let mut closest = ptr::null_mut();
+    let status = unsafe {
+        client.IsFormatSupported(
+            AUDCLNT_SHAREMODE_SHARED,
+            native.as_wave_ptr(),
+            Some(&mut closest),
+        )
+    };
+    let memory = TaskMem(closest);
+    match status.0 {
+        0 => Ok(FormatProbe {
+            requested,
+            exact_supported: true,
+            closest: None,
+        }),
+        1 if !memory.0.is_null() => Ok(FormatProbe {
+            requested,
+            exact_supported: false,
+            closest: Some(unsafe { read_format(memory.0) }?),
+        }),
+        code if code < 0 => Err(MetadataError::Com {
+            operation: "IsFormatSupported",
+            hresult: code,
+        }),
+        code => Err(MetadataError::UnexpectedFormatStatus(code)),
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn high_precision_pcm_descriptors_own_complete_extension_and_roundtrip() {
+        for encoding in [Encoding::Pcm24, Encoding::Pcm32] {
+            for channels in 1..=2 {
+                let expected = AudioFormat::new(48_000, channels, encoding).unwrap();
+                let native = NativeDescriptor::new(expected);
+                let NativeDescriptor::Extensible(extension) = &native else {
+                    panic!("high-precision PCM must use WAVEFORMATEXTENSIBLE");
+                };
+                // Copy packed fields before comparisons; never borrow them.
+                let raw = extension.Format;
+                let valid_bits = unsafe { extension.Samples.wValidBitsPerSample };
+                let channel_mask = extension.dwChannelMask;
+                let subformat = extension.SubFormat;
+                let tag = raw.wFormatTag;
+                let extra_bytes = raw.cbSize;
+                let bits = raw.wBitsPerSample;
+                let align = raw.nBlockAlign;
+                let byte_rate = raw.nAvgBytesPerSec;
+                assert_eq!(tag, 0xfffe);
+                assert_eq!(extra_bytes, 22);
+                assert_eq!(bits, (encoding.bytes() * 8) as u16);
+                assert_eq!(valid_bits, bits);
+                assert_eq!(channel_mask, if channels == 1 { 4 } else { 3 });
+                assert_eq!(subformat, KSDATAFORMAT_SUBTYPE_PCM);
+                assert_eq!(align as usize, expected.frame_bytes());
+                assert_eq!(byte_rate, 48_000 * expected.frame_bytes() as u32);
+                let parsed = unsafe { read_format(native.as_wave_ptr()) }.unwrap();
+                assert_eq!(parsed.adapter_format, Some(expected));
+                assert!(parsed.adapter_error.is_none());
+                assert_eq!(parsed.extra_bytes, 22);
+                assert_eq!(parsed.valid_bits, bits);
+                assert_eq!(parsed.channel_mask, Some(channel_mask));
+            }
+        }
+    }
+
+    #[test]
+    fn basic_pcm_and_float_descriptors_keep_documented_tags_and_roundtrip() {
+        for encoding in [Encoding::Pcm8, Encoding::Pcm16, Encoding::Float32] {
+            for channels in 1..=2 {
+                let expected = AudioFormat::new(44_100, channels, encoding).unwrap();
+                let native = NativeDescriptor::new(expected);
+                let NativeDescriptor::Basic(base) = &native else {
+                    panic!("simple formats should keep their basic descriptor");
+                };
+                let tag = base.wFormatTag;
+                let extra_bytes = base.cbSize;
+                assert_eq!(tag, if encoding == Encoding::Float32 { 3 } else { 1 });
+                assert_eq!(extra_bytes, 0);
+                let parsed = unsafe { read_format(native.as_wave_ptr()) }.unwrap();
+                assert_eq!(parsed.adapter_format, Some(expected));
+                assert!(parsed.adapter_error.is_none());
+                assert!(parsed.channel_mask.is_none());
+                assert!(parsed.subformat.is_none());
+            }
+        }
+    }
+
+    #[test]
+    fn validates_native_layout_and_rejects_short_extension() {
+        let mut native = WAVEFORMATEX {
+            wFormatTag: 1,
+            nChannels: 2,
+            nSamplesPerSec: 44_100,
+            nAvgBytesPerSec: 176_400,
+            nBlockAlign: 4,
+            wBitsPerSample: 16,
+            cbSize: 0,
+        };
+        let parsed = unsafe { read_format(&native) }.unwrap();
+        assert!(parsed.adapter_format.unwrap().needs_bus_resampling());
+        native.nBlockAlign = 3;
+        assert!(
+            unsafe { read_format(&native) }
+                .unwrap()
+                .adapter_format
+                .is_none()
+        );
+        native.wFormatTag = 0xfffe;
+        assert!(unsafe { read_format(&native) }.is_err());
+    }
+    #[test]
+    fn refuses_reduced_valid_bits_and_unexpected_channel_mask() {
+        let mut native = WAVEFORMATEXTENSIBLE {
+            Format: WAVEFORMATEX {
+                wFormatTag: 0xfffe,
+                nChannels: 2,
+                nSamplesPerSec: 48_000,
+                nAvgBytesPerSec: 384_000,
+                nBlockAlign: 8,
+                wBitsPerSample: 32,
+                cbSize: 22,
+            },
+            SubFormat: KSDATAFORMAT_SUBTYPE_PCM,
+            ..Default::default()
+        };
+        native.Samples.wValidBitsPerSample = 24;
+        assert!(
+            unsafe { read_format(ptr::addr_of!(native.Format)) }
+                .unwrap()
+                .adapter_format
+                .is_none()
+        );
+        native.Samples.wValidBitsPerSample = 32;
+        native.dwChannelMask = 3;
+        assert!(
+            unsafe { read_format(ptr::addr_of!(native.Format)) }
+                .unwrap()
+                .adapter_format
+                .is_some()
+        );
+        native.dwChannelMask = 12;
+        assert!(
+            unsafe { read_format(ptr::addr_of!(native.Format)) }
+                .unwrap()
+                .adapter_format
+                .is_none()
+        );
+    }
+}

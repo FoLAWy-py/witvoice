@@ -1,0 +1,56 @@
+START_UTC=2026-10-04T20:29:25.9962737Z
+   Compiling witvoice-transport v0.1.0 (D:\Project\witvoice\crates\transport)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.14s
+     Running unittests src\lib.rs (target\debug\deps\witvoice_platform-93ed9e8d5e815843.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\identity.rs (target\debug\deps\identity-beb20cc300e432b5.exe)
+
+running 3 tests
+test reject_traversal_unc_device_and_non_directory_roots ... ok
+test corrupt_oversized_and_hard_link_files_rejected ... ok
+test dpapi_real_roundtrip_fixed_file_no_overwrite_and_bounds ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running unittests src\lib.rs (target\debug\deps\witvoice_transport-37b6f872caedfc7b.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\discovery.rs (target\debug\deps\discovery-2cddb9a0e8c2f204.exe)
+
+running 3 tests
+test manual_addresses_are_numeric_private_and_scoped_without_dns ... ok
+test invalid_advertisements_and_upstream_daemon_are_fail_closed ... ok
+test bounded_records_monotonic_expiry_and_overflow_rejection ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\identity.rs (target\debug\deps\identity-234899ca6f7e544a.exe)
+
+running 4 tests
+test altered_certificate_with_recomputed_fingerprint_still_fails_standard_signature ... ok
+test public_roundtrip_strict_schema_versions_lengths_and_tampering ... ok
+test no_discovery_or_same_name_trust_and_revocation_invalidates_old_permits ... ok
+test restart_load_preserves_real_public_identity_and_private_key_matching ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+   Doc-tests witvoice_platform
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests witvoice_transport
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+END_UTC=2026-10-04T20:29:27.5612115Z EXIT=0

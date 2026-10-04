@@ -251,7 +251,10 @@
         "docs/evidence/T007-20261005/watched/format-probe.json",
         "docs/evidence/T007-20261005/watched/removal-command.json",
         "docs/evidence/T007-20261005/watched/removal-result.json",
-        "docs/evidence/T007-20261005/watched/physical-action.json"
+        "docs/evidence/T007-20261005/watched/physical-action.json",
+        "docs/evidence/T007-20261005/watched/author-event-index.json",
+        "docs/evidence/T016-20261005/identity/leader-checks.json",
+        "docs/evidence/T016-20261005/identity/workspace-count.json"
       ],
       "review": "docs/project/reviews/T007-slice-r2.md",
       "attempts": 2,
@@ -503,7 +506,11 @@
         "docs/evidence/T016-20261005/archive-source-audit.json",
         "docs/evidence/T016-20261005/script-audit.md",
         "docs/evidence/T016-20261005/metadata-command.json",
-        "docs/evidence/T016-20261005/selected-windows-packages.json"
+        "docs/evidence/T016-20261005/selected-windows-packages.json",
+        "docs/evidence/T016-20261005/identity/source-sha256.json",
+        "docs/evidence/T016-20261005/identity/author-event-index.json",
+        "docs/evidence/T016-20261005/identity/leader-checks.json",
+        "docs/evidence/T016-20261005/identity/workspace-count.json"
       ],
       "review": null,
       "attempts": 0,

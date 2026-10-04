@@ -1,0 +1,46 @@
+[
+  {
+    "end": "2026-10-04T20:42:12.6115586Z",
+    "start": "2026-10-04T20:41:51.7758985Z",
+    "argv": [
+      "cargo",
+      "test",
+      "--workspace",
+      "--locked",
+      "--features",
+      "witvoice-node/process-tests"
+    ],
+    "exit": 0,
+    "source_commit": "ab890880f3fcfd3750eb30da4c7abae504471c86"
+  },
+  {
+    "end": "2026-10-04T20:42:12.8789791Z",
+    "start": "2026-10-04T20:42:12.6271283Z",
+    "argv": [
+      "cargo",
+      "fmt",
+      "--all",
+      "--check"
+    ],
+    "exit": 0,
+    "source_commit": "ab890880f3fcfd3750eb30da4c7abae504471c86"
+  },
+  {
+    "end": "2026-10-04T20:42:22.6761565Z",
+    "start": "2026-10-04T20:42:12.8803845Z",
+    "argv": [
+      "cargo",
+      "clippy",
+      "--workspace",
+      "--locked",
+      "--all-targets",
+      "--features",
+      "witvoice-node/process-tests",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "exit": 0,
+    "source_commit": "ab890880f3fcfd3750eb30da4c7abae504471c86"
+  }
+]

@@ -1,0 +1,6 @@
+{"command":"cargo fmt --package witvoice-audio --check","startedAt":"2026-10-04T20:32:54.4561691Z","finishedAt":"2026-10-04T20:32:54.6428977Z","exit":0}
+    Checking witvoice-audio v0.1.0 (D:\Project\witvoice\crates\audio)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.55s
+{"command":"cargo clippy -p witvoice-audio --locked --all-targets -- -D warnings","startedAt":"2026-10-04T20:32:54.6608429Z","finishedAt":"2026-10-04T20:32:55.3408004Z","exit":0}
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.11s
+{"command":"cargo build -p witvoice-audio --locked --examples","startedAt":"2026-10-04T20:32:55.3421815Z","finishedAt":"2026-10-04T20:32:55.5178287Z","exit":0}
