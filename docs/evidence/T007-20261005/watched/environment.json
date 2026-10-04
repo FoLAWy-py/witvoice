@@ -1,0 +1,23 @@
+{
+  "owner": "/root",
+  "root_thread_id": "01a10764-d851-7d02-ac79-365d2576a226",
+  "os": {
+    "Caption": "Microsoft Windows 11 专业版",
+    "Version": "10.0.26200",
+    "OSArchitecture": "64 位"
+  },
+  "cargo": "cargo 1.99.0 (5f94df478 2026-08-27)",
+  "captured_at": "2026-10-04T20:47:07.0834502Z",
+  "rustc": "rustc 1.99.0 (b940084d7 2026-09-28)",
+  "current_process_elevated": false,
+  "not_remeasured": [
+    "GPU",
+    "MSVC/SDKdoctor",
+    "driver lifecycle",
+    "Mac"
+  ],
+  "powershell": "7.6.5",
+  "kind": "CURRENT_LOCAL_NATIVE_ENVIRONMENT_READ_ONLY",
+  "device_software_or_hardware": "USB capture / software render as native scope sidecar",
+  "target": "x86_64-pc-windows-msvc"
+}
