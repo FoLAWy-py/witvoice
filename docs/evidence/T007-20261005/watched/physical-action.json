@@ -1,0 +1,18 @@
+{
+  "captured_at": "2026-10-04T20:40:52.594217+00:00",
+  "authorization_question_item": "call_ZpL8EQrpF0iOJk6MCS8RMDYT/0",
+  "authorization_answer": "可以，等监测启动提示后拔出",
+  "action_prompt": "MONITORING_READY obtained before telling user unplug; process exit0 then user told may reinsert",
+  "attestation_question_item": "call_W9pcc1yk4TDmQ3gHV0xCTIxS/0",
+  "attestation_answer": "确认刚才已拔出",
+  "endpoint": "Wireless Mic Rx USB capture; originalUID private only",
+  "observed_reason_bits": 25,
+  "reason_meaning": [
+    "State",
+    "Default",
+    "Property"
+  ],
+  "Removed_callback_observed": false,
+  "raw_stdout_sha256": "b2a3df739bd0452f793e519b3e10f47bd07ed1dbdcca9fd5966842fea20e214a",
+  "boundary": "native OS notification+original UID unavailable+sticky changed+unregister0; no running audio stream removal, no transformed voice/route latency claim"
+}

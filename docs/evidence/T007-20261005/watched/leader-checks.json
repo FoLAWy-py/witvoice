@@ -1,0 +1,59 @@
+[
+  {
+    "exit": 0,
+    "end": "2026-10-04T20:37:11.6235573Z",
+    "argv": [
+      "cargo",
+      "test",
+      "-p",
+      "witvoice-audio",
+      "--locked"
+    ],
+    "start": "2026-10-04T20:37:11.3221595Z",
+    "audio_source_commit": "3af8a6f1ecc87e643413c1d6539dd1be16c3c6fc"
+  },
+  {
+    "exit": 0,
+    "end": "2026-10-04T20:37:11.7885971Z",
+    "argv": [
+      "cargo",
+      "fmt",
+      "--package",
+      "witvoice-audio",
+      "--check"
+    ],
+    "start": "2026-10-04T20:37:11.6358952Z",
+    "audio_source_commit": "3af8a6f1ecc87e643413c1d6539dd1be16c3c6fc"
+  },
+  {
+    "exit": 0,
+    "end": "2026-10-04T20:37:12.0038671Z",
+    "argv": [
+      "cargo",
+      "clippy",
+      "-p",
+      "witvoice-audio",
+      "--locked",
+      "--all-targets",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "start": "2026-10-04T20:37:11.7900116Z",
+    "audio_source_commit": "3af8a6f1ecc87e643413c1d6539dd1be16c3c6fc"
+  },
+  {
+    "exit": 0,
+    "end": "2026-10-04T20:37:12.1839148Z",
+    "argv": [
+      "cargo",
+      "build",
+      "-p",
+      "witvoice-audio",
+      "--locked",
+      "--examples"
+    ],
+    "start": "2026-10-04T20:37:12.0050469Z",
+    "audio_source_commit": "3af8a6f1ecc87e643413c1d6539dd1be16c3c6fc"
+  }
+]

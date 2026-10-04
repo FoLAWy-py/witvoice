@@ -1,0 +1,22 @@
+{
+  "close_hresult": 0,
+  "dispatch_error": null,
+  "has_changed_before_close": true,
+  "initialize_start_capture_render": "NOT_RUN",
+  "is_invalidated_before_close": true,
+  "observations": [
+    {
+      "more_pending": false,
+      "reason_bits": 25,
+      "selected": {
+        "available": false,
+        "error": "Inactive"
+      }
+    }
+  ],
+  "physical_action_attestation": "OPERATOR_REQUIRED",
+  "reason_bits": 25,
+  "result": "OBSERVED_SELECTED_UNAVAILABLE",
+  "running_stream_removal": "NOT_RUN",
+  "wall_including_close_seconds": 22.5211452
+}

@@ -5,59 +5,7 @@
   "project_status": "IN_PROGRESS",
   "authorized_target": "WINDOWS_DELIVERED",
   "active_milestone": "M1",
-  "active_tasks": [
-    {
-      "task_id": "T007",
-      "agent_instance_id": "/root",
-      "allowed_paths": [
-        "docs/evidence/T007-20261005/watched/"
-      ],
-      "resource_leases": [
-        "audio-hardware:leader-metadata-probes"
-      ],
-      "depends_on": [
-        "T003"
-      ],
-      "contract": "watched frozen-source metadata-only format+removal probes",
-      "acceptance_commands": [
-        "cargo test/fmt/clippy/build examples frozen audio",
-        "format_support_probe noInitialize/Start",
-        "removal_probe only after user physical action approval"
-      ],
-      "reviewer": "/root/reviewer_t001",
-      "execution_note": "audio author stopped,33 puretests0; root metadata lease only, no new capture/output Start authorization or execution"
-    },
-    {
-      "task_id": "T016",
-      "agent_instance_id": "/root/backend",
-      "allowed_paths": [
-        "crates/transport/src/",
-        "crates/transport/tests/",
-        "crates/transport/examples/",
-        "crates/transport/README.md",
-        "crates/platform/src/identity.rs",
-        "crates/platform/src/lib.rs",
-        "crates/platform/tests/identity.rs",
-        "crates/platform/README.md",
-        "tests/security/"
-      ],
-      "resource_leases": [
-        "code-writer:backend-identity-discovery"
-      ],
-      "depends_on": [
-        "T003",
-        "T006"
-      ],
-      "contract": "T016-assignment.md + SPEC04/06",
-      "acceptance_commands": [
-        "cargo test --locked -p witvoice-transport -p witvoice-platform",
-        "cargo fmt --package witvoice-transport --package witvoice-platform --check",
-        "cargo clippy --locked -p witvoice-transport -p witvoice-platform --all-targets -- -D warnings"
-      ],
-      "reviewer": "/root/reviewer_t001",
-      "execution_note": "leader dependency writer released before actual dispatch; no hardware/network listener/firewall; audited new deps not yet built"
-    }
-  ],
+  "active_tasks": [],
   "milestones": {
     "M0": {
       "status": "DONE",

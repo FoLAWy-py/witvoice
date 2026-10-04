@@ -1,0 +1,16 @@
+{
+  "source_commit": "3af8a6f1ecc87e643413c1d6539dd1be16c3c6fc",
+  "owner": "/root",
+  "argv_redacted": [
+    "removal_probe.exe",
+    "PRIVATE_EXPLICIT_CAPTURE_SELECTION",
+    "120",
+    "--approve-metadata"
+  ],
+  "initialize_start_capture_render": "NOT_RUN",
+  "lease": "audio-hardware:leader-metadata-probes",
+  "start": "2026-10-04T20:38:24.0209198Z",
+  "exit": 0,
+  "user_action_authorized": "call_ZpL8EQrpF0iOJk6MCS8RMDYT/0:可以，等监测启动提示后拔出",
+  "end": "2026-10-04T20:38:46.6602471Z"
+}

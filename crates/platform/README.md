@@ -1,5 +1,7 @@
 # crates/platform
 
+T016 `identity::IdentityStore` 使用可信启动器给定的已存在绝对本地目录，固定文件 `identity.v1.dpapi`；不接受IPC任意路径。Windows current-user DPAPI，显式UI_FORBIDDEN，固定应用域entropy，不使用LOCAL_MACHINE。根目录及文件只赋当前用户SID protected DACL，handle不继承；目录及每级祖先持有不共享删除的handle，拒绝UNC/device/parent路径、reparse目录和文件、hardlink及超64KiB密文。首次CREATE_NEW独占写入并sync；失败或损坏不自动换钥/覆盖，用户应显式重新配对。明文上限32KiB，无Debug/Clone；临时缓冲best-effort清零，不声称锁页或抵御已控制同用户桌面。普通Windows API测试使用仓库.local独立owned临时目录，不使用真实用户AppData或私钥。生产目录定位与Node接线留后续；非Windows明确Unsupported，Mac Keychain未实现/未测。单测包括实际DPAPI、ACL和junction拒绝，测试记录需以真实运行结果为准。
+
 T006 首个 Windows IPC/凭据切片，音频 API 仍属 audio_runtime。仅依赖已锁定 Windows API crate 与权威 contracts，无 Node 网络端口、驱动或系统服务。
 
 `PipeServer` 使用 exact current-user SID 的 protected DACL、non-inheritable handle、FILE_FLAG_FIRST_PIPE_INSTANCE、PIPE_REJECT_REMOTE_CLIENTS、单实例/单连接。双方通过 Windows 获取对端实际 PID 并查询进程 token SID，客户端另外比对其可信启动器记录的 Node PID；服务端再核对启动器通过私有 stdin 交付的 32 字节 BCrypt 系统随机令牌。客户端用 identification-only SQOS，不让管道服务端冒用客户端身份。

@@ -1,0 +1,93 @@
+{
+  "end": "2026-10-04T20:38:03.7070489Z",
+  "stderr": null,
+  "lease": "audio-hardware:leader-metadata-probes",
+  "exit": 0,
+  "argv_redacted": [
+    "format_support_probe.exe",
+    "PRIVATE_EXPLICIT_CAPTURE_SELECTION",
+    "48000:2:float32",
+    "44100:1:pcm8",
+    "192000:1:pcm32"
+  ],
+  "initialize_start": "NOT_RUN",
+  "owner": "/root",
+  "source_commit": "3af8a6f1ecc87e643413c1d6539dd1be16c3c6fc",
+  "start": "2026-10-04T20:38:03.5780228Z",
+  "result": {
+    "exact_rejection": "OBSERVED",
+    "initialize_start": "NOT_RUN",
+    "results": [
+      {
+        "probe": {
+          "closest": null,
+          "exact_supported": true,
+          "hresult": 0,
+          "requested": {
+            "channels": 2,
+            "encoding": "Float32",
+            "sample_rate": 48000
+          }
+        }
+      },
+      {
+        "probe": {
+          "closest": {
+            "adapter_error": null,
+            "adapter_format": {
+              "channels": 2,
+              "encoding": "Float32",
+              "sample_rate": 48000
+            },
+            "average_bytes_per_second": 384000,
+            "block_align": 8,
+            "channel_mask": 3,
+            "channels": 2,
+            "container_bits": 32,
+            "extra_bytes": 22,
+            "format_tag": 65534,
+            "sample_rate": 48000,
+            "subformat": "00000003-0000-0010-8000-00AA00389B71",
+            "valid_bits": 32
+          },
+          "exact_supported": false,
+          "hresult": 1,
+          "requested": {
+            "channels": 1,
+            "encoding": "Pcm8",
+            "sample_rate": 44100
+          }
+        }
+      },
+      {
+        "probe": {
+          "closest": {
+            "adapter_error": null,
+            "adapter_format": {
+              "channels": 2,
+              "encoding": "Float32",
+              "sample_rate": 48000
+            },
+            "average_bytes_per_second": 384000,
+            "block_align": 8,
+            "channel_mask": 3,
+            "channels": 2,
+            "container_bits": 32,
+            "extra_bytes": 22,
+            "format_tag": 65534,
+            "sample_rate": 48000,
+            "subformat": "00000003-0000-0010-8000-00AA00389B71",
+            "valid_bits": 32
+          },
+          "exact_supported": false,
+          "hresult": 1,
+          "requested": {
+            "channels": 1,
+            "encoding": "Pcm32",
+            "sample_rate": 192000
+          }
+        }
+      }
+    ]
+  }
+}

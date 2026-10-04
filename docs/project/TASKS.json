@@ -230,9 +230,7 @@
       ],
       "acceptance": "WASAPI真实设备枚举、稳定ID、输入/输出协商、通道映射和设备移除；录音仅由显式测试启动。",
       "agent_instance_id": "/root/audio_runtime",
-      "resource_leases": [
-        "audio-hardware:leader-metadata-probes"
-      ],
+      "resource_leases": [],
       "evidence": [
         "docs/evidence/T007-20261005/metadata-command.json",
         "docs/evidence/T007-20261005/integration-checks.json",
@@ -248,7 +246,12 @@
         "docs/evidence/T007-20261005/native/author-event-index.json",
         "docs/evidence/T007-20261005/watched/source-sha256.json",
         "docs/evidence/T007-20261005/native/windows-wrapper-prereview.md",
-        "docs/evidence/T007-20261005/native/author-byte-proof.json"
+        "docs/evidence/T007-20261005/native/author-byte-proof.json",
+        "docs/evidence/T007-20261005/watched/leader-checks.json",
+        "docs/evidence/T007-20261005/watched/format-probe.json",
+        "docs/evidence/T007-20261005/watched/removal-command.json",
+        "docs/evidence/T007-20261005/watched/removal-result.json",
+        "docs/evidence/T007-20261005/watched/physical-action.json"
       ],
       "review": "docs/project/reviews/T007-slice-r2.md",
       "attempts": 2,
@@ -492,9 +495,7 @@
       ],
       "acceptance": "默认监听关闭；mDNS不建立信任；双端身份字符串导入、pin验证与撤销；陌生端无音频权限。",
       "agent_instance_id": "/root/backend",
-      "resource_leases": [
-        "code-writer:backend-identity-discovery"
-      ],
+      "resource_leases": [],
       "evidence": [
         "docs/evidence/T016-20261005/dependency-metadata.json",
         "docs/evidence/T016-20261005/fetch-command.json",
@@ -507,7 +508,7 @@
       "review": null,
       "attempts": 0,
       "blocked_reason": null,
-      "execution_note": "Root pinned+downloaded+audited deps; backend source assignment ready; no functionality or build PASS yet"
+      "execution_note": "Actual backend15tests/fmt/clippy0, identity/manualaddress/boundedrecord partial; mDNS/TLS/Node adapters not done; author stopped for freeze"
     },
     {
       "id": "T017",

@@ -15,6 +15,8 @@ T007固定验收尚缺通知→流失效连接、实际设备移除事件和格�
 
 T007 watched增补10文件交付并停止，33纯tests/fmt/clippy/examples编译0；raw HRESULT去除额外COM ErrorInfo，通知永久changed门连接prepare/start/packet前后/wait超时。root先冻结并登记metadata-only probe独占lease，无新的Start授权/执行；物理拔插需用户后续具体操作，整个T007仍IN_PROGRESS/attempts2。
 
+当前所有代码作者已停/硬件lease释放。T007source3af8a6f frozen33tests/fmt/clippy/examplebuild0；3格式probe真实S_OK一次/S_FALSE两次closest仅报告，无Initialize。用户同意并确认拔USB，真实OS reason25(State/Default/Property)原UIDInactive/stickychanged/注销0/exit0，运行中removal仍NOT_RUN，不用metadata替代完整链路。T016身份11文件作者15tests0，尚无native mDNS/TLS/Node集成，仍IN_PROGRESS；原生DNS-SD下一窄依赖准备候选，默认networkoff。
+
 以下保留历史过程；当前状态以本段、STATE/TASKS及最新正式review为准。
 T001已DONE：源码0f283ffe460be3382aae89f481be62a73ab4d60f，13负向测试、C/Rust原生编译运行通过，独立/root/reviewer_t001第2轮批准。目录初始无Git，安全建立本地历史，无push/reset/clean，保留原有文件。
 
