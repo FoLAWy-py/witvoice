@@ -1,0 +1,71 @@
+{
+  "kind": "ACTUAL_ASSIGNED_CHILD_THREAD_METADATA",
+  "archived_at": "2026-10-04T19:25:56.5888667Z",
+  "owner": "/root",
+  "note": "metadata read only; historical agents are not all simultaneously retained or newly dispatched",
+  "records": [
+    {
+      "thread_id": "01a1077c-556d-7152-892c-d9f92346ec0f",
+      "agent_path": "/root/reviewer_t001",
+      "role": "reviewer",
+      "parent_thread_id": "01a10764-d851-7d02-ac79-365d2576a226",
+      "depth": 1,
+      "source": "actual session_meta first line",
+      "source_filename": "rollout-2026-10-04T23-15-51-01a1077c-556d-7152-892c-d9f92346ec0f.jsonl"
+    },
+    {
+      "thread_id": "01a10769-0995-7d83-9b70-3bc06dc562ee",
+      "agent_path": "/root/hci",
+      "role": "hci",
+      "parent_thread_id": "01a10764-d851-7d02-ac79-365d2576a226",
+      "depth": 1,
+      "source": "actual session_meta first line",
+      "source_filename": "rollout-2026-10-04T22-54-46-01a10769-0995-7d83-9b70-3bc06dc562ee.jsonl"
+    },
+    {
+      "thread_id": "01a10768-e2d1-75f3-8131-5a1bfeb73deb",
+      "agent_path": "/root/frontend",
+      "role": "frontend",
+      "parent_thread_id": "01a10764-d851-7d02-ac79-365d2576a226",
+      "depth": 1,
+      "source": "actual session_meta first line",
+      "source_filename": "rollout-2026-10-04T22-54-36-01a10768-e2d1-75f3-8131-5a1bfeb73deb.jsonl"
+    },
+    {
+      "thread_id": "01a10767-b38a-72d3-ac9c-5efc0ea3a600",
+      "agent_path": "/root/ml_engine",
+      "role": "ml_engine",
+      "parent_thread_id": "01a10764-d851-7d02-ac79-365d2576a226",
+      "depth": 1,
+      "source": "actual session_meta first line",
+      "source_filename": "rollout-2026-10-04T22-53-19-01a10767-b38a-72d3-ac9c-5efc0ea3a600.jsonl"
+    },
+    {
+      "thread_id": "01a10767-80de-7e02-b3b0-73d1273a70bd",
+      "agent_path": "/root/audio_runtime",
+      "role": "audio_runtime",
+      "parent_thread_id": "01a10764-d851-7d02-ac79-365d2576a226",
+      "depth": 1,
+      "source": "actual session_meta first line",
+      "source_filename": "rollout-2026-10-04T22-53-06-01a10767-80de-7e02-b3b0-73d1273a70bd.jsonl"
+    },
+    {
+      "thread_id": "01a10767-4ff5-7f21-881a-146d094fbc55",
+      "agent_path": "/root/backend",
+      "role": "backend",
+      "parent_thread_id": "01a10764-d851-7d02-ac79-365d2576a226",
+      "depth": 1,
+      "source": "actual session_meta first line",
+      "source_filename": "rollout-2026-10-04T22-52-53-01a10767-4ff5-7f21-881a-146d094fbc55.jsonl"
+    },
+    {
+      "thread_id": "01a10767-2000-7371-b1db-0c918066e6f9",
+      "agent_path": "/root/reviewer",
+      "role": "reviewer",
+      "parent_thread_id": "01a10764-d851-7d02-ac79-365d2576a226",
+      "depth": 1,
+      "source": "actual session_meta first line",
+      "source_filename": "rollout-2026-10-04T22-52-41-01a10767-2000-7371-b1db-0c918066e6f9.jsonl"
+    }
+  ]
+}

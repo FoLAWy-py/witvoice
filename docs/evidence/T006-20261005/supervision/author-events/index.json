@@ -21,7 +21,10 @@
       "started_at_ms": 1791140144775,
       "completed_at_ms": 1791140145359,
       "stdout_file": "docs/evidence/T006-20261005/supervision/author-events/event-01.txt",
-      "stdout_sha256": "7abb3589cfc7e80b1271f6cec21e694b421542747535d81bf4f0d84cc2d35ed1"
+      "stdout_sha256": "7abb3589cfc7e80b1271f6cec21e694b421542747535d81bf4f0d84cc2d35ed1",
+      "git_blob_sha256": "9d33bfc1527e4145a7a48d2088a26004fff4dfea749099c83cba10e44d1ecbe3",
+      "archive_sha256_matches_original": true,
+      "git_only_line_endings_differ": true
     },
     {
       "timestamp": "2026-10-04T18:56:09.232Z",
@@ -40,7 +43,10 @@
       "started_at_ms": 1791140169036,
       "completed_at_ms": 1791140169232,
       "stdout_file": "docs/evidence/T006-20261005/supervision/author-events/event-02.txt",
-      "stdout_sha256": "5edbd5924be5fe52631557fd278bb43ffad075047d05349395951dff3b496603"
+      "stdout_sha256": "5edbd5924be5fe52631557fd278bb43ffad075047d05349395951dff3b496603",
+      "git_blob_sha256": "3fb7719c09d4171bfb4a8bc6fc3ddc8ecd61380344e65282c5bdf684c5e6a6a3",
+      "archive_sha256_matches_original": true,
+      "git_only_line_endings_differ": true
     },
     {
       "timestamp": "2026-10-04T18:58:10.331Z",
@@ -59,7 +65,10 @@
       "started_at_ms": 1791140289757,
       "completed_at_ms": 1791140290331,
       "stdout_file": "docs/evidence/T006-20261005/supervision/author-events/event-03.txt",
-      "stdout_sha256": "119cd6b15c919cf9bd48ce2b8c497b62bb47580991ac5f1f3c92b96cdff4e731"
+      "stdout_sha256": "119cd6b15c919cf9bd48ce2b8c497b62bb47580991ac5f1f3c92b96cdff4e731",
+      "git_blob_sha256": "8e6b768f0326c549a9dc4107ef97470f943c231a68465650cf8ef6b074198513",
+      "archive_sha256_matches_original": true,
+      "git_only_line_endings_differ": true
     },
     {
       "timestamp": "2026-10-04T18:59:34.800Z",
@@ -78,7 +87,10 @@
       "started_at_ms": 1791140362604,
       "completed_at_ms": 1791140374800,
       "stdout_file": "docs/evidence/T006-20261005/supervision/author-events/event-04.txt",
-      "stdout_sha256": "95065c50aa527d7b2796f61daef4e5e01d1c7126d60a489e2f6706ca7d1d79f6"
+      "stdout_sha256": "95065c50aa527d7b2796f61daef4e5e01d1c7126d60a489e2f6706ca7d1d79f6",
+      "git_blob_sha256": "141f59c8a25ae0bbc3de422d38c7ac688485b9fa7a7178b109396621759f83fa",
+      "archive_sha256_matches_original": true,
+      "git_only_line_endings_differ": true
     },
     {
       "timestamp": "2026-10-04T19:01:47.054Z",
@@ -97,7 +109,10 @@
       "started_at_ms": 1791140506857,
       "completed_at_ms": 1791140507054,
       "stdout_file": "docs/evidence/T006-20261005/supervision/author-events/event-05.txt",
-      "stdout_sha256": "9edda1050bb9cd81694a747bf3a89b7fd0a367ef22d5e60c2d403248b1a9c116"
+      "stdout_sha256": "9edda1050bb9cd81694a747bf3a89b7fd0a367ef22d5e60c2d403248b1a9c116",
+      "git_blob_sha256": "9c8ec292ed2f15d50641c2df6a6ddcf20d18bb811c362eb5fef79cbe6777c6b5",
+      "archive_sha256_matches_original": true,
+      "git_only_line_endings_differ": true
     },
     {
       "timestamp": "2026-10-04T19:02:35.563Z",
@@ -116,7 +131,10 @@
       "started_at_ms": 1791140555354,
       "completed_at_ms": 1791140555563,
       "stdout_file": "docs/evidence/T006-20261005/supervision/author-events/event-06.txt",
-      "stdout_sha256": "90e6dedd5980db32a38fb5e58cdcc949b3305de7136f72333f64d79e31b9599b"
+      "stdout_sha256": "90e6dedd5980db32a38fb5e58cdcc949b3305de7136f72333f64d79e31b9599b",
+      "git_blob_sha256": "e5233fbc6918d13d3c3152343547da6811dda88e98e3d95c88123fba740328d8",
+      "archive_sha256_matches_original": true,
+      "git_only_line_endings_differ": true
     },
     {
       "timestamp": "2026-10-04T19:03:20.747Z",
@@ -135,7 +153,10 @@
       "started_at_ms": 1791140600152,
       "completed_at_ms": 1791140600747,
       "stdout_file": "docs/evidence/T006-20261005/supervision/author-events/event-07.txt",
-      "stdout_sha256": "171302a135d364b12da5d8f1520bd4d842726fb8e6e6cfe915598dc5b535d925"
+      "stdout_sha256": "171302a135d364b12da5d8f1520bd4d842726fb8e6e6cfe915598dc5b535d925",
+      "git_blob_sha256": "a272f5b3e49b0b2bda9d811c1af75dadebc7c77f407d638422c8a55c2f15aa74",
+      "archive_sha256_matches_original": true,
+      "git_only_line_endings_differ": true
     },
     {
       "timestamp": "2026-10-04T19:03:39.420Z",
@@ -154,7 +175,10 @@
       "started_at_ms": 1791140619205,
       "completed_at_ms": 1791140619420,
       "stdout_file": "docs/evidence/T006-20261005/supervision/author-events/event-08.txt",
-      "stdout_sha256": "c0a5f54efe8fb60abdd61a40dfc563f1f2686172ffc05ddeade5718516fec5a4"
+      "stdout_sha256": "c0a5f54efe8fb60abdd61a40dfc563f1f2686172ffc05ddeade5718516fec5a4",
+      "git_blob_sha256": "ff27d0c595bd003f4e7aae4ca3533469149f66e4ebd4b14ed966772c8c351513",
+      "archive_sha256_matches_original": true,
+      "git_only_line_endings_differ": true
     },
     {
       "timestamp": "2026-10-04T19:05:59.008Z",
@@ -173,7 +197,10 @@
       "started_at_ms": 1791140746537,
       "completed_at_ms": 1791140759008,
       "stdout_file": "docs/evidence/T006-20261005/supervision/author-events/event-09.txt",
-      "stdout_sha256": "78b21989026bb6a0cf72b57a373380b8b81bee38df080cc35e09ad9fc929a612"
+      "stdout_sha256": "78b21989026bb6a0cf72b57a373380b8b81bee38df080cc35e09ad9fc929a612",
+      "git_blob_sha256": "822f03fe031af9390c89e039215ddb02fd54d803c158fd23e074305f47079dd0",
+      "archive_sha256_matches_original": true,
+      "git_only_line_endings_differ": true
     },
     {
       "timestamp": "2026-10-04T19:06:32.540Z",
@@ -192,7 +219,10 @@
       "started_at_ms": 1791140792293,
       "completed_at_ms": 1791140792540,
       "stdout_file": "docs/evidence/T006-20261005/supervision/author-events/event-10.txt",
-      "stdout_sha256": "2ca86bad97cb24077cd49b6280e95c6b348b5474463d66c35a8be69a15a173d1"
+      "stdout_sha256": "2ca86bad97cb24077cd49b6280e95c6b348b5474463d66c35a8be69a15a173d1",
+      "git_blob_sha256": "c98c210cd13b985ec744c9500097ca265d764f82c53d9ee9c3f76ddc576e1587",
+      "archive_sha256_matches_original": true,
+      "git_only_line_endings_differ": true
     },
     {
       "timestamp": "2026-10-04T19:07:13.938Z",
@@ -211,7 +241,10 @@
       "started_at_ms": 1791140833740,
       "completed_at_ms": 1791140833937,
       "stdout_file": "docs/evidence/T006-20261005/supervision/author-events/event-11.txt",
-      "stdout_sha256": "12ddb52e02d15bccb81b4a892626fdb84f94c2bbaf8f90bc8f203adcdbae3ff5"
+      "stdout_sha256": "12ddb52e02d15bccb81b4a892626fdb84f94c2bbaf8f90bc8f203adcdbae3ff5",
+      "git_blob_sha256": "fb8fb1bd3fa3559c35d66fea4f5c2b52975206b42187368ff4e4ec84b4f28ee6",
+      "archive_sha256_matches_original": true,
+      "git_only_line_endings_differ": true
     },
     {
       "timestamp": "2026-10-04T19:07:26.268Z",
@@ -230,7 +263,10 @@
       "started_at_ms": 1791140844100,
       "completed_at_ms": 1791140846268,
       "stdout_file": "docs/evidence/T006-20261005/supervision/author-events/event-12.txt",
-      "stdout_sha256": "9518a0af0bb6b842a214704a06b50debbcde336190454932d4920de3c5913acb"
+      "stdout_sha256": "9518a0af0bb6b842a214704a06b50debbcde336190454932d4920de3c5913acb",
+      "git_blob_sha256": "47b2c04cfa8b58c9f6873d114939f2a4ea166deac29b38d1e3f0f38e073b9fcb",
+      "archive_sha256_matches_original": true,
+      "git_only_line_endings_differ": true
     },
     {
       "timestamp": "2026-10-04T19:07:43.600Z",
@@ -249,7 +285,10 @@
       "started_at_ms": 1791140863446,
       "completed_at_ms": 1791140863600,
       "stdout_file": "docs/evidence/T006-20261005/supervision/author-events/event-13.txt",
-      "stdout_sha256": "1c267b9ce82c4d42b6de524d4b92397e4f8bdffbb4c097960c9233b203423285"
+      "stdout_sha256": "1c267b9ce82c4d42b6de524d4b92397e4f8bdffbb4c097960c9233b203423285",
+      "git_blob_sha256": "e7f4c8a4ab19b7be798129222755b0c776d4c74b82fb0cf8e4ce26e28b6f602f",
+      "archive_sha256_matches_original": true,
+      "git_only_line_endings_differ": true
     },
     {
       "timestamp": "2026-10-04T19:08:03.374Z",
@@ -268,7 +307,10 @@
       "started_at_ms": 1791140871868,
       "completed_at_ms": 1791140883374,
       "stdout_file": "docs/evidence/T006-20261005/supervision/author-events/event-14.txt",
-      "stdout_sha256": "8f3c087ec473dd52400ae09427d8dd4576750437a4f3a2f227125bf196c79daa"
+      "stdout_sha256": "8f3c087ec473dd52400ae09427d8dd4576750437a4f3a2f227125bf196c79daa",
+      "git_blob_sha256": "a25fc9ce9f2b55c0436f7e1055bb2528c2c658ba2f79a67c7b7e5f1b382c4933",
+      "archive_sha256_matches_original": true,
+      "git_only_line_endings_differ": true
     },
     {
       "timestamp": "2026-10-04T19:08:40.467Z",
@@ -287,7 +329,10 @@
       "started_at_ms": 1791140920240,
       "completed_at_ms": 1791140920467,
       "stdout_file": "docs/evidence/T006-20261005/supervision/author-events/event-15.txt",
-      "stdout_sha256": "da236f6b9ced0d2e6d88b741e1df67d93d8b4be233d6c9a3d49a9d58fec6a081"
+      "stdout_sha256": "da236f6b9ced0d2e6d88b741e1df67d93d8b4be233d6c9a3d49a9d58fec6a081",
+      "git_blob_sha256": "cd4391a0828e672c94b339cd5ea60f2b2ef884fcb21ce00a17986cb84e3f7920",
+      "archive_sha256_matches_original": true,
+      "git_only_line_endings_differ": true
     },
     {
       "timestamp": "2026-10-04T19:11:01.116Z",
@@ -306,7 +351,10 @@
       "started_at_ms": 1791141056463,
       "completed_at_ms": 1791141061116,
       "stdout_file": "docs/evidence/T006-20261005/supervision/author-events/event-16.txt",
-      "stdout_sha256": "0a7478437535006c15a0b533b17a28ae908a9f5119bf01e5562771f520c2e5f3"
+      "stdout_sha256": "0a7478437535006c15a0b533b17a28ae908a9f5119bf01e5562771f520c2e5f3",
+      "git_blob_sha256": "80cc68921291d496fd9abdf6041a9e3953eb7a69d3bbf43531a9b1d87970c05b",
+      "archive_sha256_matches_original": true,
+      "git_only_line_endings_differ": true
     },
     {
       "timestamp": "2026-10-04T19:11:39.911Z",
@@ -325,7 +373,10 @@
       "started_at_ms": 1791141099544,
       "completed_at_ms": 1791141099911,
       "stdout_file": "docs/evidence/T006-20261005/supervision/author-events/event-17.txt",
-      "stdout_sha256": "4af84f80a8e1dabe89e86a16dd34725da83cd8a3d509d7cc5530efc83b0b4c46"
+      "stdout_sha256": "4af84f80a8e1dabe89e86a16dd34725da83cd8a3d509d7cc5530efc83b0b4c46",
+      "git_blob_sha256": "3915f048a2449f862455f0b9180d7249e005bc7ca2eb237d98855f605b8e4909",
+      "archive_sha256_matches_original": true,
+      "git_only_line_endings_differ": true
     },
     {
       "timestamp": "2026-10-04T19:11:48.973Z",
@@ -344,7 +395,10 @@
       "started_at_ms": 1791141103854,
       "completed_at_ms": 1791141108973,
       "stdout_file": "docs/evidence/T006-20261005/supervision/author-events/event-18.txt",
-      "stdout_sha256": "bda00721cf2276d903b6a58c80aac7a8200a4a8f0b3b91454bc9cc296b0773ac"
+      "stdout_sha256": "bda00721cf2276d903b6a58c80aac7a8200a4a8f0b3b91454bc9cc296b0773ac",
+      "git_blob_sha256": "e69e878eb32af825008780ecbf84ab70fc198dac8dafe36dc09e13b8e4e4c815",
+      "archive_sha256_matches_original": true,
+      "git_only_line_endings_differ": true
     },
     {
       "timestamp": "2026-10-04T19:12:25.088Z",
@@ -363,7 +417,10 @@
       "started_at_ms": 1791141132774,
       "completed_at_ms": 1791141145088,
       "stdout_file": "docs/evidence/T006-20261005/supervision/author-events/event-19.txt",
-      "stdout_sha256": "c76445c8789736ba657f3b2d59be50a04abcd29d8653af817143ac84738c6685"
+      "stdout_sha256": "c76445c8789736ba657f3b2d59be50a04abcd29d8653af817143ac84738c6685",
+      "git_blob_sha256": "329b90cb298a8ac1add9154c0942764bdeff250e99263e6085c9d9f600efd934",
+      "archive_sha256_matches_original": true,
+      "git_only_line_endings_differ": true
     },
     {
       "timestamp": "2026-10-04T19:12:29.875Z",
@@ -382,7 +439,10 @@
       "started_at_ms": 1791141149227,
       "completed_at_ms": 1791141149875,
       "stdout_file": "docs/evidence/T006-20261005/supervision/author-events/event-20.txt",
-      "stdout_sha256": "98d4ef363f7d5714d9bbfb8f4badf94e9f7ddb9bfb53af00b1a7a3c77e284fdc"
+      "stdout_sha256": "98d4ef363f7d5714d9bbfb8f4badf94e9f7ddb9bfb53af00b1a7a3c77e284fdc",
+      "git_blob_sha256": "603d2e4d2057108bc16598d4b43f54e8282c05acecac8bb7c6b924dbc0ec9f8a",
+      "archive_sha256_matches_original": true,
+      "git_only_line_endings_differ": true
     },
     {
       "timestamp": "2026-10-04T19:13:02.909Z",
@@ -401,7 +461,11 @@
       "started_at_ms": 1791141182613,
       "completed_at_ms": 1791141182909,
       "stdout_file": "docs/evidence/T006-20261005/supervision/author-events/event-21.txt",
-      "stdout_sha256": "0f208515c4b0b0f2ee3ea0c336c6de53e5023b6fdfdbc2ed9c908ffe6954b14f"
+      "stdout_sha256": "0f208515c4b0b0f2ee3ea0c336c6de53e5023b6fdfdbc2ed9c908ffe6954b14f",
+      "git_blob_sha256": "53fdd260fd165f435ff1e93916193a4377efe3de17c3d2b014fb5529b8e104af",
+      "archive_sha256_matches_original": true,
+      "git_only_line_endings_differ": true
     }
-  ]
+  ],
+  "git_byte_proof_commit": "4eff1ae5e33ca2bfa6eefffee7b5ec5b543bed1a"
 }

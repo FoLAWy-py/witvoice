@@ -32,7 +32,7 @@
       ],
       "contract": "docs/spec/01-architecture.md +04-lan-protocol.md +06-security-distribution.md",
       "reviewer": "/root/reviewer_t001",
-      "execution_note": "backend已停止11文件写入；默认11/feature18真实tests+fmt/两clippy0，所有失败/清理历史归档，leader冻结及独立r1待"
+      "execution_note": "source4eff冻结后workspace51真实tests/fmt/featureclippy全部0；独立r1审查中；完整任务未验"
     },
     {
       "task_id": "T007",
@@ -72,7 +72,7 @@
         "manual fixed5page/state/keyboard/zoom coverage + independent readonly review"
       ],
       "reviewer": "/root/reviewer_t001",
-      "execution_note": "leader已完成设计/tokens停止写入，frontend实际只读建议；静态首验0，冻结复验/独立r1待"
+      "execution_note": "source4eff冻结后50静态色对/生成CSS/十枚举检查0；独立r1待；真实桌面NOT_RUN"
     }
   ],
   "milestones": {
@@ -153,7 +153,7 @@
       "reviewer": "/root/reviewer",
       "reviewer_t001": "/root/reviewer_t001"
     },
-    "id_format": "canonical collaboration task ID; UUID not exposed",
+    "id_format": "canonical collaboration IDs plus actual UUID session metadata; see T005-thread-id-provenance.json; historical roles not all active",
     "execution_limit": "Default shell/node fails before process creation: apply deny-read ACLs. Leader scoped commands and explicitly assigned backend/audio fixed-path relays work after auto-review require_escalated; audio authored T004 in disjoint whitelist. Reviewer never escalates or edits; no independent reviewer rerun. Exact disk config loading and sandbox enforcement remain unverified. No ACL/global settings modified.",
     "review_source": "leader_or_explicitly_authorized_agent_full_text_relay",
     "sandbox_enforcement_verified": false,
@@ -165,7 +165,16 @@
     },
     "executor_session_cli_version": "0.160.0",
     "root_thread_id": "01a10764-d851-7d02-ac79-365d2576a226",
-    "spawn_provenance": "docs/project/T005-spawn-provenance.json"
+    "spawn_provenance": "docs/project/T005-spawn-provenance.json",
+    "agent_thread_ids": {
+      "/root/reviewer_t001": "01a1077c-556d-7152-892c-d9f92346ec0f",
+      "/root/hci": "01a10769-0995-7d83-9b70-3bc06dc562ee",
+      "/root/frontend": "01a10768-e2d1-75f3-8131-5a1bfeb73deb",
+      "/root/ml_engine": "01a10767-b38a-72d3-ac9c-5efc0ea3a600",
+      "/root/audio_runtime": "01a10767-80de-7e02-b3b0-73d1273a70bd",
+      "/root/backend": "01a10767-4ff5-7f21-881a-146d094fbc55",
+      "/root/reviewer": "01a10767-2000-7371-b1db-0c918066e6f9"
+    }
   },
   "completion_claim_allowed": false
 }

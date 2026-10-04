@@ -204,7 +204,8 @@
         "docs/adr/0002-local-node-exit.md",
         "docs/evidence/T006-20261005/exit-contract/checks.json",
         "docs/evidence/T006-20261005/supervision/PROVENANCE.md",
-        "docs/evidence/T006-20261005/supervision/author-events/index.json"
+        "docs/evidence/T006-20261005/supervision/author-events/index.json",
+        "docs/evidence/T006-20261005/supervision/leader-checks.json"
       ],
       "review": null,
       "attempts": 0,
@@ -619,7 +620,9 @@
         "docs/design/states.md",
         "docs/design/tokens.md",
         "docs/evidence/T021-20261005/static-first.json",
-        "docs/project/T021-assignment.md"
+        "docs/project/T021-assignment.md",
+        "docs/evidence/T021-20261005/command-final.json",
+        "docs/evidence/T021-20261005/static-final.json"
       ],
       "review": null,
       "attempts": 0,

@@ -50,3 +50,5 @@ T007通知COM implement宏需要直接windows-core0.62.2路径，audio实际核�
 T007 notification实际audio交5files并停止，21纯tests/fmt/clippy0，5000本地COM callback calls allocator0；leader核5LF摘要全匹配，source-hash-check.json。服务Register/Unregister/拔出/Initialize/Start均NOT_RUN，注销失败有界存储保留风险如实README，r2审查待。整合冻结后workspace回归待。
 
 T002-r2已归档并DONE/attempts2，B003仅实验范围RESOLVED，保留原FAIL/两兼容预算/许可B001/productiondeps缺项。M0-closure-audit待独立合计核对，不把单项批准扩为M0全批准。T007通知source2e9366a整合41tests/fmt/clippy全0，完整stdout/UTC在notifications/leader-*。当前backend T006代码lease已先登记后派发，audio作者已停；无GPU/audio硬件活动。
+
+当前补充整合：冻结4eff1ae后51workspace真实tests/fmt/featureClippy全部0；T021 final静态50色对/生成CSS/十状态0，账本自检0仅文档。完整stdout/UTC归档，T006/T021独立r1材料中继已派发；无运行测试/GPU/audio。T005增加实际子线程UUID元数据，不把历史7角色称同时存活。
