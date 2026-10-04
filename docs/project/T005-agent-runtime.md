@@ -1,6 +1,6 @@
 # T005 · 实际多角色与兼容执行记录
 
-主会话实际ID /root，直接负责leader。外部安装CLI codex-cli 0.153.4，来源T001 doctor探测；当前会话执行器session_meta.cli_version实际0.160.0，root thread ID为01a10764-d851-7d02-ac79-365d2576a226；desktop客户端构建版本UNKNOWN。版本不能相互替代。六种角色曾由真实collaboration工具派发，未另建leader、未递归spawn。子agent canonical ID由工具返回，子thread UUID未暴露。
+主会话实际ID /root，直接负责leader。外部安装CLI codex-cli 0.153.4，来源T001 doctor探测；当前会话执行器session_meta.cli_version实际0.160.0，root thread ID为01a10764-d851-7d02-ac79-365d2576a226；desktop客户端构建版本UNKNOWN。版本不能相互替代。六种角色曾由真实collaboration工具派发，未另建leader、未递归spawn。工具最初只返回canonical ID；后续实际session_meta读取核得子线程UUID，见T005-thread-id-provenance.json。后续核对不是新派发，历史七个子角色不等于同时保留。
 
 | 角色 | 实际ID | 本轮实际工作 | 尚未证明 |
 |---|---|---|---|

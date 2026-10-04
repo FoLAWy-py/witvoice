@@ -32,4 +32,4 @@ cargo clippy --locked -p witvoice-session -p witvoice-platform -p witvoice-node 
 
 `process-probe` 有 required-features，默认构建不含该 bin。其固定模式启动 UI-like 父进程、Node 控制所有者和 worker 子树；所有参数均由开发测试内部构造。`tests/supervision.rs` 实测 UI Job 关闭/父被杀后 Node 存活可查询、拒绝 breakaway 后无端点、挂起归属失败回收、worker 子孙在 Job 关闭/显式 Stop/Exit/owner 被杀后回收、满历史及丢 ACK 退出、bootstrap 不完整/超时/端点抢占不启动 worker。它不进入能力列表，不加载模型或音频。测试记录实际 PID/镜像基名及结束观察，不记录令牌/用户路径。
 
-NOT_RUN / T006 完整任务仍未完成：T011 真实 Python worker warmup/心跳/PCM/重启、Tauri 启动器组合验收、实际音频资源/lease/睡眠故障与停止后不录音、不同 Windows 用户实际连接拒绝、Mac 真机。SID、ACL、PID 与启动令牌不能保证抵抗已完全控制同用户进程/管理员的攻击者；令牌及 idempotency 历史仅驻留本次 Node 内存。
+T006固定基础验收已获独立r1批准，见docs/project/reviews/T006-r1.md；这不等于完整产品/REQ-07/23验收。后续NOT_RUN：T011 真实 Python worker warmup/心跳/PCM/重启、T025 Tauri 启动器组合、实际音频资源/lease/睡眠故障与停止后不录音、不同 Windows 用户实际连接拒绝、Mac 真机。SID、ACL、PID 与启动令牌不能保证抵抗已完全控制同用户进程/管理员的攻击者；令牌及 idempotency 历史仅驻留本次 Node 内存。

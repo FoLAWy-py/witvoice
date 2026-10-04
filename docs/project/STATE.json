@@ -7,34 +7,6 @@
   "active_milestone": "M1",
   "active_tasks": [
     {
-      "task_id": "T006",
-      "agent_instance_id": "/root/backend",
-      "allowed_paths": [
-        "apps/voice-node/src/",
-        "apps/voice-node/tests/",
-        "apps/voice-node/README.md",
-        "crates/session/src/",
-        "crates/session/tests/",
-        "crates/session/README.md",
-        "crates/platform/src/",
-        "crates/platform/tests/",
-        "crates/platform/README.md"
-      ],
-      "resource_leases": [],
-      "depends_on": [
-        "T003",
-        "T005"
-      ],
-      "acceptance_commands": [
-        "cargo test --workspace --locked",
-        "cargo clippy --workspace --locked --all-targets -- -D warnings",
-        "ordinary-user IPC/process lifecycle integration; no capture/GPU"
-      ],
-      "contract": "docs/spec/01-architecture.md +04-lan-protocol.md +06-security-distribution.md",
-      "reviewer": "/root/reviewer_t001",
-      "execution_note": "source4eff冻结后workspace51真实tests/fmt/featureclippy全部0；独立r1审查中；完整任务未验"
-    },
-    {
       "task_id": "T007",
       "agent_instance_id": "/root/audio_runtime",
       "allowed_paths": [
@@ -57,6 +29,29 @@
       "reviewer": "/root/reviewer_t001",
       "contract": "docs/spec/02-audio-engine.md + 07-tests-acceptance.md",
       "execution_note": "leader metadata-only6registration/revalidate/close0，hardware lease已释放；audio在T006全文中继完成后才开始native shared stream，禁止实际Start/采集/播放，无hardware/GPU lease"
+    },
+    {
+      "task_id": "T016",
+      "agent_instance_id": "/root",
+      "allowed_paths": [
+        "Cargo.toml",
+        "Cargo.lock",
+        "crates/transport/Cargo.toml"
+      ],
+      "resource_leases": [
+        "code-writer:leader-dependency-setup"
+      ],
+      "depends_on": [
+        "T003",
+        "T006"
+      ],
+      "contract": "SPEC04/06 + existing ExportIdentity/ImportPeerIdentity/RevokePeer",
+      "acceptance_commands": [
+        "cargo fetch for exact audited versions; no build scripts until reviewed",
+        "backend actual identity/discovery tests after dependency setup"
+      ],
+      "reviewer": "/root/reviewer_t001",
+      "execution_note": "leader prepares pinned manifests/lock before backend writer; no network listener/firewall/GPU/audio; actual source implementation delegated after setup"
     }
   ],
   "milestones": {
@@ -83,7 +78,7 @@
       "review": null
     },
     "M3": {
-      "status": "TODO",
+      "status": "IN_PROGRESS",
       "evidence": [],
       "review": null
     },
@@ -103,8 +98,8 @@
       "review": null
     }
   },
-  "last_verified_commit": "7a42be562787b8cbfd4d3073faa8c82529545c4e",
-  "next_task": "T006",
+  "last_verified_commit": "6e9e7c5588a8ee07a3f04e46427f27d58f5e117b",
+  "next_task": "T007",
   "blockers": [
     {
       "id": "B001",
@@ -160,5 +155,6 @@
       "/root/reviewer": "01a10767-2000-7371-b1db-0c918066e6f9"
     }
   },
-  "completion_claim_allowed": false
+  "completion_claim_allowed": false,
+  "last_verified_scope": "M0 + T006 foundation + reviewed T007 metadata/conversion/notifications + T021 design; not hardware/UI/real production VC/whole product"
 }

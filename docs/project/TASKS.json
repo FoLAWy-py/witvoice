@@ -181,7 +181,7 @@
       "milestone": "M1",
       "title": "实现独立Node、本地IPC与进程监督",
       "owner_role": "backend",
-      "status": "IN_PROGRESS",
+      "status": "DONE",
       "requirements": [
         "REQ-07",
         "REQ-23"
@@ -207,8 +207,8 @@
         "docs/evidence/T006-20261005/supervision/author-events/index.json",
         "docs/evidence/T006-20261005/supervision/leader-checks.json"
       ],
-      "review": null,
-      "attempts": 0,
+      "review": "docs/project/reviews/T006-r1.md",
+      "attempts": 1,
       "blocked_reason": null
     },
     {
@@ -467,7 +467,7 @@
       "milestone": "M3",
       "title": "LAN发现、手动寻址与双向身份信任",
       "owner_role": "backend",
-      "status": "TODO",
+      "status": "IN_PROGRESS",
       "requirements": [
         "REQ-13",
         "REQ-14"
@@ -482,12 +482,15 @@
         "tests/security/"
       ],
       "acceptance": "默认监听关闭；mDNS不建立信任；双端身份字符串导入、pin验证与撤销；陌生端无音频权限。",
-      "agent_instance_id": null,
-      "resource_leases": [],
+      "agent_instance_id": "/root",
+      "resource_leases": [
+        "code-writer:leader-dependency-setup"
+      ],
       "evidence": [],
       "review": null,
       "attempts": 0,
-      "blocked_reason": null
+      "blocked_reason": null,
+      "execution_note": "leader pinned dependency setup first; actual backend implementation not yet dispatched; default listener off and no firewall changes"
     },
     {
       "id": "T017",
