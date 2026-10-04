@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "run_id": null,
+  "task_id": null,
+  "requirements": [],
+  "commit": null,
+  "evidence_level": null,
+  "kind": null,
+  "environment": {
+    "os": null,
+    "cpu": null,
+    "gpu": null,
+    "memory": null,
+    "audio_devices": [],
+    "network": null,
+    "toolchain": {}
+  },
+  "model": {
+    "engine_id": null,
+    "commit": null,
+    "weights_sha256": null,
+    "backend": null
+  },
+  "fixture_sha256": [],
+  "started_at": null,
+  "finished_at": null,
+  "commands": [],
+  "metrics": {},
+  "measurement_boundary": null,
+  "artifacts": [],
+  "result": "NOT_RUN",
+  "skip_or_block_reason": null,
+  "manual_operator": null,
+  "review_id": null
+}

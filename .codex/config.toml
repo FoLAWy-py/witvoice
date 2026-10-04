@@ -1,0 +1,6 @@
+# Project-scoped settings. Verified against official docs on 2026-10-04.
+# Verify the installed client schema in M0 before relying on this configuration.
+# Keep the user's chosen model, sandbox and approvals; do not override them here.
+[agents]
+enabled = true
+max_concurrent_threads_per_session = 4

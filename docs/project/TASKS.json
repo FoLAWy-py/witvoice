@@ -1,0 +1,959 @@
+{
+  "schema_version": 1,
+  "top_level_task_limit": 35,
+  "tasks": [
+    {
+      "id": "T001",
+      "milestone": "M0",
+      "title": "建立安全仓库与Windows工具链基线",
+      "owner_role": "leader",
+      "status": "IN_PROGRESS",
+      "requirements": [
+        "REQ-01",
+        "REQ-31"
+      ],
+      "depends_on": [],
+      "allowed_paths": [
+        "tools/dev/",
+        "docs/evidence/"
+      ],
+      "acceptance": "doctor记录OS、PowerShell、Git、MSVC/SDK、Rust、Node/pnpm、Python和Codex实际版本；缺失项给精确阻塞，不臆测已安装。",
+      "agent_instance_id": "/root",
+      "resource_leases": ["write:tools/dev/:leader", "write:docs/evidence/:leader"],
+      "evidence": ["docs/evidence/T001-session.md", "docs/evidence/T001-20261004/doctor-r2.json"],
+      "review": null,
+      "attempts": 0,
+      "blocked_reason": null
+    },
+    {
+      "id": "T002",
+      "milestone": "M0",
+      "title": "验证并选定单一真实zero-shot引擎",
+      "owner_role": "ml_engine",
+      "status": "TODO",
+      "requirements": [
+        "REQ-05",
+        "REQ-19",
+        "REQ-32"
+      ],
+      "depends_on": [
+        "T001"
+      ],
+      "allowed_paths": [
+        "workers/vc_worker/",
+        "docs/evidence/model-feasibility/"
+      ],
+      "acceptance": "锁定上游commit/权重摘要/许可清单；真实文件转换和流式试跑；Windows实测，Mac状态明确；主候选最多两次针对性修复、最多一次候选替换。",
+      "agent_instance_id": null,
+      "resource_leases": [],
+      "evidence": [],
+      "review": null,
+      "attempts": 0,
+      "blocked_reason": null
+    },
+    {
+      "id": "T003",
+      "milestone": "M0",
+      "title": "冻结契约、状态机和核心ADR",
+      "owner_role": "leader",
+      "status": "TODO",
+      "requirements": [
+        "REQ-07",
+        "REQ-11",
+        "REQ-16"
+      ],
+      "depends_on": [
+        "T001"
+      ],
+      "allowed_paths": [
+        "crates/contracts/",
+        "docs/adr/"
+      ],
+      "acceptance": "共享类型、错误码、消息版本、状态转换和目录依赖获得backend/audio/ml建议及reviewer审查；没有三套漂移schema。",
+      "agent_instance_id": null,
+      "resource_leases": [],
+      "evidence": [],
+      "review": null,
+      "attempts": 0,
+      "blocked_reason": null
+    },
+    {
+      "id": "T004",
+      "milestone": "M0",
+      "title": "建立验收数据、性能边界与测试资源计划",
+      "owner_role": "audio_runtime",
+      "status": "TODO",
+      "requirements": [
+        "REQ-09",
+        "REQ-22",
+        "REQ-29"
+      ],
+      "depends_on": [
+        "T001"
+      ],
+      "allowed_paths": [
+        "tests/fixtures/",
+        "tests/hardware/",
+        "docs/evidence/"
+      ],
+      "acceptance": "创建获授权fixture清单和硬件采集步骤；锁定测量边界、基准条件及资源锁；没有预填性能结果。",
+      "agent_instance_id": null,
+      "resource_leases": [],
+      "evidence": [],
+      "review": null,
+      "attempts": 0,
+      "blocked_reason": null
+    },
+    {
+      "id": "T005",
+      "milestone": "M0",
+      "title": "验证agent加载与35任务执行账本",
+      "owner_role": "leader",
+      "status": "TODO",
+      "requirements": [
+        "REQ-30",
+        "REQ-31"
+      ],
+      "depends_on": [
+        "T001",
+        "T003"
+      ],
+      "allowed_paths": [
+        ".codex/",
+        "docs/project/",
+        "docs/roles/"
+      ],
+      "acceptance": "记录实际Codex版本、能否spawn自定义角色、真实agentID或兼容模式；检查任务/需求映射与角色路径所有权。",
+      "agent_instance_id": null,
+      "resource_leases": [],
+      "evidence": [],
+      "review": null,
+      "attempts": 0,
+      "blocked_reason": null
+    },
+    {
+      "id": "T006",
+      "milestone": "M1",
+      "title": "实现独立Node、本地IPC与进程监督",
+      "owner_role": "backend",
+      "status": "TODO",
+      "requirements": [
+        "REQ-07",
+        "REQ-23"
+      ],
+      "depends_on": [
+        "T003",
+        "T005"
+      ],
+      "allowed_paths": [
+        "apps/voice-node/",
+        "crates/session/",
+        "crates/platform/"
+      ],
+      "acceptance": "普通用户启动、连接/断开、受限IPC、worker生命周期；杀UI不会通过父Job误杀Node；显式退出清理所有会话。",
+      "agent_instance_id": null,
+      "resource_leases": [],
+      "evidence": [],
+      "review": null,
+      "attempts": 0,
+      "blocked_reason": null
+    },
+    {
+      "id": "T007",
+      "milestone": "M1",
+      "title": "Windows原生输入输出与格式协商",
+      "owner_role": "audio_runtime",
+      "status": "TODO",
+      "requirements": [
+        "REQ-06",
+        "REQ-08"
+      ],
+      "depends_on": [
+        "T003"
+      ],
+      "allowed_paths": [
+        "crates/audio/",
+        "crates/platform/"
+      ],
+      "acceptance": "WASAPI真实设备枚举、稳定ID、输入/输出协商、通道映射和设备移除；录音仅由显式测试启动。",
+      "agent_instance_id": null,
+      "resource_leases": [],
+      "evidence": [],
+      "review": null,
+      "attempts": 0,
+      "blocked_reason": null
+    },
+    {
+      "id": "T008",
+      "milestone": "M1",
+      "title": "有界缓冲、时钟、静音与回调安全",
+      "owner_role": "audio_runtime",
+      "status": "TODO",
+      "requirements": [
+        "REQ-08",
+        "REQ-09",
+        "REQ-10"
+      ],
+      "depends_on": [
+        "T007"
+      ],
+      "allowed_paths": [
+        "crates/audio/",
+        "tests/integration/"
+      ],
+      "acceptance": "无常规callback分配/阻塞；队列最大年龄可验证；mute先于慢停机；故障填零与underflow计数分开。",
+      "agent_instance_id": null,
+      "resource_leases": [],
+      "evidence": [],
+      "review": null,
+      "attempts": 0,
+      "blocked_reason": null
+    },
+    {
+      "id": "T009",
+      "milestone": "M1",
+      "title": "虚拟电缆路由与原声隔离",
+      "owner_role": "audio_runtime",
+      "status": "TODO",
+      "requirements": [
+        "REQ-06",
+        "REQ-10"
+      ],
+      "depends_on": [
+        "T007",
+        "T008"
+      ],
+      "allowed_paths": [
+        "crates/audio/",
+        "tests/hardware/"
+      ],
+      "acceptance": "真实render→virtual capture验证；清楚区分CABLE Input与Output；设备缺失阻塞且不降级至物理原声。",
+      "agent_instance_id": null,
+      "resource_leases": [],
+      "evidence": [],
+      "review": null,
+      "attempts": 0,
+      "blocked_reason": null
+    },
+    {
+      "id": "T010",
+      "milestone": "M1",
+      "title": "测试引擎、状态契约与崩溃基础测试",
+      "owner_role": "backend",
+      "status": "TODO",
+      "requirements": [
+        "REQ-07",
+        "REQ-23",
+        "REQ-29"
+      ],
+      "depends_on": [
+        "T006",
+        "T008"
+      ],
+      "allowed_paths": [
+        "tests/contract/",
+        "tests/integration/",
+        "crates/session/"
+      ],
+      "acceptance": "测试构建IdentityEngine贯通；UI被杀、损坏IPC、非法消息、退出均正确；发行配置不暴露FakeEngine。",
+      "agent_instance_id": null,
+      "resource_leases": [],
+      "evidence": [],
+      "review": null,
+      "attempts": 0,
+      "blocked_reason": null
+    },
+    {
+      "id": "T011",
+      "milestone": "M2",
+      "title": "实现Python worker协议与warmup生命周期",
+      "owner_role": "ml_engine",
+      "status": "TODO",
+      "requirements": [
+        "REQ-07",
+        "REQ-19",
+        "REQ-23"
+      ],
+      "depends_on": [
+        "T002",
+        "T006",
+        "T010"
+      ],
+      "allowed_paths": [
+        "workers/vc_worker/",
+        "crates/engines/"
+      ],
+      "acceptance": "真实worker仅推理；独立控制/PCM通道、鉴权、长度限制、预热/ready、超时和最多两次重启。",
+      "agent_instance_id": null,
+      "resource_leases": [],
+      "evidence": [],
+      "review": null,
+      "attempts": 0,
+      "blocked_reason": null
+    },
+    {
+      "id": "T012",
+      "milestone": "M2",
+      "title": "接入选定引擎真实流式推理",
+      "owner_role": "ml_engine",
+      "status": "TODO",
+      "requirements": [
+        "REQ-02",
+        "REQ-05",
+        "REQ-19"
+      ],
+      "depends_on": [
+        "T011",
+        "T008"
+      ],
+      "allowed_paths": [
+        "workers/vc_worker/adapters/",
+        "crates/engines/"
+      ],
+      "acceptance": "同一选定checkpoint产出真实转换语音；明确native in/out rate及source映射；持续流无积压。",
+      "agent_instance_id": null,
+      "resource_leases": [],
+      "evidence": [],
+      "review": null,
+      "attempts": 0,
+      "blocked_reason": null
+    },
+    {
+      "id": "T013",
+      "milestone": "M2",
+      "title": "VoiceProfile创建、预览与兼容性",
+      "owner_role": "ml_engine",
+      "status": "TODO",
+      "requirements": [
+        "REQ-05",
+        "REQ-18",
+        "REQ-21"
+      ],
+      "depends_on": [
+        "T012"
+      ],
+      "allowed_paths": [
+        "crates/engines/",
+        "workers/vc_worker/",
+        "tests/integration/"
+      ],
+      "acceptance": "10–30秒授权参考创建；完整条件包绑定engine/model/schema；安全删除/保留策略；拒绝checkpoint伪装参考音频。",
+      "agent_instance_id": null,
+      "resource_leases": [],
+      "evidence": [],
+      "review": null,
+      "attempts": 0,
+      "blocked_reason": null
+    },
+    {
+      "id": "T014",
+      "milestone": "M2",
+      "title": "完整本地会话控制与安全切换",
+      "owner_role": "backend",
+      "status": "TODO",
+      "requirements": [
+        "REQ-10",
+        "REQ-11",
+        "REQ-12"
+      ],
+      "depends_on": [
+        "T009",
+        "T012",
+        "T013"
+      ],
+      "allowed_paths": [
+        "crates/session/",
+        "apps/voice-node/"
+      ],
+      "acceptance": "Prepare不采集，Start需Ready；Mute不传新语音；切换递增epoch并清旧包；busy/错误状态权威。",
+      "agent_instance_id": null,
+      "resource_leases": [],
+      "evidence": [],
+      "review": null,
+      "attempts": 0,
+      "blocked_reason": null
+    },
+    {
+      "id": "T015",
+      "milestone": "M2",
+      "title": "Windows真实VC闭环与初次质量证据",
+      "owner_role": "audio_runtime",
+      "status": "TODO",
+      "requirements": [
+        "REQ-02",
+        "REQ-22",
+        "REQ-29"
+      ],
+      "depends_on": [
+        "T014",
+        "T004"
+      ],
+      "allowed_paths": [
+        "tests/hardware/",
+        "docs/evidence/"
+      ],
+      "acceptance": "物理mic→真实模型→虚拟capture真实应用录制；短基准无假输出，音色试听材料与用户签收状态清楚。",
+      "agent_instance_id": null,
+      "resource_leases": [],
+      "evidence": [],
+      "review": null,
+      "attempts": 0,
+      "blocked_reason": null
+    },
+    {
+      "id": "T016",
+      "milestone": "M3",
+      "title": "LAN发现、手动寻址与双向身份信任",
+      "owner_role": "backend",
+      "status": "TODO",
+      "requirements": [
+        "REQ-13",
+        "REQ-14"
+      ],
+      "depends_on": [
+        "T003",
+        "T006"
+      ],
+      "allowed_paths": [
+        "crates/transport/",
+        "crates/platform/",
+        "tests/security/"
+      ],
+      "acceptance": "默认监听关闭；mDNS不建立信任；双端身份字符串导入、pin验证与撤销；陌生端无音频权限。",
+      "agent_instance_id": null,
+      "resource_leases": [],
+      "evidence": [],
+      "review": null,
+      "attempts": 0,
+      "blocked_reason": null
+    },
+    {
+      "id": "T017",
+      "milestone": "M3",
+      "title": "实现QUIC媒体与可靠控制协议",
+      "owner_role": "backend",
+      "status": "TODO",
+      "requirements": [
+        "REQ-15",
+        "REQ-16",
+        "REQ-17"
+      ],
+      "depends_on": [
+        "T016"
+      ],
+      "allowed_paths": [
+        "crates/transport/",
+        "tests/contract/",
+        "tests/network/"
+      ],
+      "acceptance": "40字节header黄金向量；10ms/5ms协商、max_datagram_size校验、deadline、seq wrap/epoch拒绝、幂等ACK。",
+      "agent_instance_id": null,
+      "resource_leases": [],
+      "evidence": [],
+      "review": null,
+      "attempts": 0,
+      "blocked_reason": null
+    },
+    {
+      "id": "T018",
+      "milestone": "M3",
+      "title": "RemoteProcessor与计算节点租约",
+      "owner_role": "backend",
+      "status": "TODO",
+      "requirements": [
+        "REQ-12",
+        "REQ-18",
+        "REQ-19"
+      ],
+      "depends_on": [
+        "T017",
+        "T014"
+      ],
+      "allowed_paths": [
+        "crates/engines/src/remote/",
+        "crates/session/",
+        "apps/voice-node/"
+      ],
+      "acceptance": "真实model/profile capability匹配；profile显式批准传输；一session租约；计算端不开麦；无三跳转发。",
+      "agent_instance_id": null,
+      "resource_leases": [],
+      "evidence": [],
+      "review": null,
+      "attempts": 0,
+      "blocked_reason": null
+    },
+    {
+      "id": "T019",
+      "milestone": "M3",
+      "title": "网络损失、安全与积压故障注入",
+      "owner_role": "backend",
+      "status": "TODO",
+      "requirements": [
+        "REQ-14",
+        "REQ-16",
+        "REQ-17"
+      ],
+      "depends_on": [
+        "T018"
+      ],
+      "allowed_paths": [
+        "tests/network/",
+        "tests/security/"
+      ],
+      "acceptance": "丢包/重排/拥塞/错指纹/过期epoch/损坏长度可复现；有界队列；所有失败都不泄露源PCM。",
+      "agent_instance_id": null,
+      "resource_leases": [],
+      "evidence": [],
+      "review": null,
+      "attempts": 0,
+      "blocked_reason": null
+    },
+    {
+      "id": "T020",
+      "milestone": "M3",
+      "title": "Windows双进程真实协议闭环验证",
+      "owner_role": "audio_runtime",
+      "status": "TODO",
+      "requirements": [
+        "REQ-15",
+        "REQ-17",
+        "REQ-29"
+      ],
+      "depends_on": [
+        "T018",
+        "T019",
+        "T015"
+      ],
+      "allowed_paths": [
+        "tests/integration/",
+        "docs/evidence/"
+      ],
+      "acceptance": "Windows上两个真实Node经QUIC及真实worker闭环，报告明确是loopback进程证据，不冒充Mac/LAN真机。",
+      "agent_instance_id": null,
+      "resource_leases": [],
+      "evidence": [],
+      "review": null,
+      "attempts": 0,
+      "blocked_reason": null
+    },
+    {
+      "id": "T021",
+      "milestone": "M4",
+      "title": "冻结交互映射、tokens及状态覆盖",
+      "owner_role": "hci",
+      "status": "TODO",
+      "requirements": [
+        "REQ-25",
+        "REQ-10",
+        "REQ-12"
+      ],
+      "depends_on": [
+        "T003"
+      ],
+      "allowed_paths": [
+        "docs/design/",
+        "packages/ui-tokens/"
+      ],
+      "acceptance": "五主页面、空/忙/错/准备/运行状态、键盘与缩放规则；不新增商城等范围；frontend有可执行验收依据。",
+      "agent_instance_id": null,
+      "resource_leases": [],
+      "evidence": [],
+      "review": null,
+      "attempts": 0,
+      "blocked_reason": null
+    },
+    {
+      "id": "T022",
+      "milestone": "M4",
+      "title": "实现控制台、设备和音色界面",
+      "owner_role": "frontend",
+      "status": "TODO",
+      "requirements": [
+        "REQ-02",
+        "REQ-05",
+        "REQ-06",
+        "REQ-11",
+        "REQ-25"
+      ],
+      "depends_on": [
+        "T021",
+        "T014"
+      ],
+      "allowed_paths": [
+        "apps/desktop/src/"
+      ],
+      "acceptance": "组件化、真实Node状态驱动；Start/Stop/Mute、设备/音色向导、深浅主题；生产无mock fallback。",
+      "agent_instance_id": null,
+      "resource_leases": [],
+      "evidence": [],
+      "review": null,
+      "attempts": 0,
+      "blocked_reason": null
+    },
+    {
+      "id": "T023",
+      "milestone": "M4",
+      "title": "实现远端连接、信任与路由交互",
+      "owner_role": "frontend",
+      "status": "TODO",
+      "requirements": [
+        "REQ-12",
+        "REQ-13",
+        "REQ-14",
+        "REQ-18"
+      ],
+      "depends_on": [
+        "T022",
+        "T018"
+      ],
+      "allowed_paths": [
+        "apps/desktop/src/"
+      ],
+      "acceptance": "用户看到实际远端与传输权限；双向身份导入、撤销、busy与失败静音清楚；只显示验证能力。",
+      "agent_instance_id": null,
+      "resource_leases": [],
+      "evidence": [],
+      "review": null,
+      "attempts": 0,
+      "blocked_reason": null
+    },
+    {
+      "id": "T024",
+      "milestone": "M4",
+      "title": "持久化、诊断和受控模型资产安装",
+      "owner_role": "backend",
+      "status": "TODO",
+      "requirements": [
+        "REQ-20",
+        "REQ-22",
+        "REQ-24",
+        "REQ-26"
+      ],
+      "depends_on": [
+        "T013",
+        "T018"
+      ],
+      "allowed_paths": [
+        "crates/storage/",
+        "crates/observability/",
+        "assets/manifests/"
+      ],
+      "acceptance": "SQLite迁移恢复、真实metrics、诊断脱敏；可信manifest+摘要+原子安装；用户批准下载；无自动App更新。",
+      "agent_instance_id": null,
+      "resource_leases": [],
+      "evidence": [],
+      "review": null,
+      "attempts": 0,
+      "blocked_reason": null
+    },
+    {
+      "id": "T025",
+      "milestone": "M4",
+      "title": "桌面壳、诊断设置与Windows包初次集成",
+      "owner_role": "frontend",
+      "status": "TODO",
+      "requirements": [
+        "REQ-07",
+        "REQ-25",
+        "REQ-27"
+      ],
+      "depends_on": [
+        "T022",
+        "T023",
+        "T024"
+      ],
+      "allowed_paths": [
+        "apps/desktop/",
+        "tools/packaging/",
+        "tests/desktop/"
+      ],
+      "acceptance": "窄Tauri权限、托盘/退出语义、诊断/设置真实联动；可构建内部包；测试驱动不混入发行构建。",
+      "agent_instance_id": null,
+      "resource_leases": [],
+      "evidence": [],
+      "review": null,
+      "attempts": 0,
+      "blocked_reason": null
+    },
+    {
+      "id": "T026",
+      "milestone": "M5",
+      "title": "Windows性能与长稳验收",
+      "owner_role": "audio_runtime",
+      "status": "TODO",
+      "requirements": [
+        "REQ-09",
+        "REQ-22",
+        "REQ-29"
+      ],
+      "depends_on": [
+        "T020",
+        "T025"
+      ],
+      "allowed_paths": [
+        "tests/hardware/",
+        "tools/qa/",
+        "docs/evidence/"
+      ],
+      "acceptance": "真实2h、8h模拟漂移、RTF与延迟硬门槛、内存趋势和资源锁证据齐全；故障填零未掩盖欠载。",
+      "agent_instance_id": null,
+      "resource_leases": [],
+      "evidence": [],
+      "review": null,
+      "attempts": 0,
+      "blocked_reason": null
+    },
+    {
+      "id": "T027",
+      "milestone": "M5",
+      "title": "完整故障矩阵与隐私负向验收",
+      "owner_role": "backend",
+      "status": "TODO",
+      "requirements": [
+        "REQ-10",
+        "REQ-17",
+        "REQ-23",
+        "REQ-29"
+      ],
+      "depends_on": [
+        "T026"
+      ],
+      "allowed_paths": [
+        "tests/security/",
+        "tests/integration/",
+        "docs/evidence/"
+      ],
+      "acceptance": "worker/Node/UI故障、端点移除、sleep、网络异常、撤销、下载/迁移异常；无原声路径与旧epoch播放。",
+      "agent_instance_id": null,
+      "resource_leases": [],
+      "evidence": [],
+      "review": null,
+      "attempts": 0,
+      "blocked_reason": null
+    },
+    {
+      "id": "T028",
+      "milestone": "M5",
+      "title": "独立安全和供应链复核",
+      "owner_role": "reviewer",
+      "status": "TODO",
+      "requirements": [
+        "REQ-18",
+        "REQ-19",
+        "REQ-24",
+        "REQ-26",
+        "REQ-32"
+      ],
+      "depends_on": [
+        "T027"
+      ],
+      "allowed_paths": [
+        "docs/project/reviews/"
+      ],
+      "acceptance": "基于冻结commit检查授权、模型/资产清单、秘密/诊断、反序列化、IPC；S0/S1清零；reviewer只读，由leader归档。",
+      "agent_instance_id": null,
+      "resource_leases": [],
+      "evidence": [],
+      "review": null,
+      "attempts": 0,
+      "blocked_reason": null
+    },
+    {
+      "id": "T029",
+      "milestone": "M5",
+      "title": "真实桌面视觉、键盘和音质签收",
+      "owner_role": "hci",
+      "status": "TODO",
+      "requirements": [
+        "REQ-25",
+        "REQ-29"
+      ],
+      "depends_on": [
+        "T025",
+        "T026"
+      ],
+      "allowed_paths": [
+        "docs/design/",
+        "docs/evidence/"
+      ],
+      "acceptance": "真实截图覆盖要求状态；缩放和键盘通过；owner音色签收已完成或明确BLOCKED，不替用户打分。",
+      "agent_instance_id": null,
+      "resource_leases": [],
+      "evidence": [],
+      "review": null,
+      "attempts": 0,
+      "blocked_reason": null
+    },
+    {
+      "id": "T030",
+      "milestone": "M5",
+      "title": "干净环境Windows交付与停止门",
+      "owner_role": "leader",
+      "status": "TODO",
+      "requirements": [
+        "REQ-27",
+        "REQ-30",
+        "REQ-31",
+        "REQ-32"
+      ],
+      "depends_on": [
+        "T028",
+        "T029"
+      ],
+      "allowed_paths": [
+        "tools/packaging/",
+        "docs/project/",
+        "docs/evidence/"
+      ],
+      "acceptance": "内部包安装/卸载验证，无dev环境依赖；需求与证据映射完整；M0–M5通过后只标WINDOWS_DELIVERED，默认停止。",
+      "agent_instance_id": null,
+      "resource_leases": [],
+      "evidence": [],
+      "review": null,
+      "attempts": 0,
+      "blocked_reason": null
+    },
+    {
+      "id": "T031",
+      "milestone": "M6",
+      "title": "Mac原生工具链、构建与权限基线",
+      "owner_role": "leader",
+      "status": "TODO",
+      "requirements": [
+        "REQ-28",
+        "REQ-31"
+      ],
+      "depends_on": [
+        "T030"
+      ],
+      "allowed_paths": [
+        "tools/dev/",
+        "tools/packaging/",
+        "docs/evidence/"
+      ],
+      "acceptance": "在真实授权Mac执行原生构建，记录arm64与OS版本、麦克风/局域网权限；没有Mac即BLOCKED_EXTERNAL，不伪造。",
+      "agent_instance_id": null,
+      "resource_leases": [],
+      "evidence": [],
+      "review": null,
+      "attempts": 0,
+      "blocked_reason": null
+    },
+    {
+      "id": "T032",
+      "milestone": "M6",
+      "title": "Mac音频与BlackHole真实路由",
+      "owner_role": "audio_runtime",
+      "status": "TODO",
+      "requirements": [
+        "REQ-06",
+        "REQ-09",
+        "REQ-28"
+      ],
+      "depends_on": [
+        "T031"
+      ],
+      "allowed_paths": [
+        "crates/platform/",
+        "crates/audio/",
+        "tests/hardware/"
+      ],
+      "acceptance": "CoreAudio/设备UID/格式/权限/漂移/失败静音；Mac第三方应用能选择并收到虚拟输入。",
+      "agent_instance_id": null,
+      "resource_leases": [],
+      "evidence": [],
+      "review": null,
+      "attempts": 0,
+      "blocked_reason": null
+    },
+    {
+      "id": "T033",
+      "milestone": "M6",
+      "title": "Mac选定模型真实计算能力验证",
+      "owner_role": "ml_engine",
+      "status": "TODO",
+      "requirements": [
+        "REQ-05",
+        "REQ-19",
+        "REQ-21",
+        "REQ-28"
+      ],
+      "depends_on": [
+        "T031",
+        "T012"
+      ],
+      "allowed_paths": [
+        "workers/vc_worker/",
+        "crates/engines/",
+        "docs/evidence/"
+      ],
+      "acceptance": "同一锁定模型与profile在CPU或实际验证加速后端运行、达实时门槛；不以import成功当流式通过。",
+      "agent_instance_id": null,
+      "resource_leases": [],
+      "evidence": [],
+      "review": null,
+      "attempts": 0,
+      "blocked_reason": null
+    },
+    {
+      "id": "T034",
+      "milestone": "M6",
+      "title": "两台实机两个方向LAN闭环",
+      "owner_role": "audio_runtime",
+      "status": "TODO",
+      "requirements": [
+        "REQ-03",
+        "REQ-04",
+        "REQ-14",
+        "REQ-17",
+        "REQ-22"
+      ],
+      "depends_on": [
+        "T032",
+        "T033",
+        "T020"
+      ],
+      "allowed_paths": [
+        "tests/hardware/",
+        "tools/qa/",
+        "docs/evidence/"
+      ],
+      "acceptance": "Win→Mac→Win和Mac→Win→Mac各60min；真实mic/模型/虚拟capture；有线门槛、故障静音、compute不采集本机。",
+      "agent_instance_id": null,
+      "resource_leases": [],
+      "evidence": [],
+      "review": null,
+      "attempts": 0,
+      "blocked_reason": null
+    },
+    {
+      "id": "T035",
+      "milestone": "M6",
+      "title": "跨平台独立终审与COMPLETE门",
+      "owner_role": "leader",
+      "status": "TODO",
+      "requirements": [
+        "REQ-28",
+        "REQ-29",
+        "REQ-30",
+        "REQ-31",
+        "REQ-32"
+      ],
+      "depends_on": [
+        "T034"
+      ],
+      "allowed_paths": [
+        "docs/project/",
+        "tools/packaging/",
+        "docs/evidence/"
+      ],
+      "acceptance": "reviewer独立终审、Mac HCI与安装证据，所有32需求闭合、无S0/S1；满足才COMPLETE并停止，签名/公证状态另报。",
+      "agent_instance_id": null,
+      "resource_leases": [],
+      "evidence": [],
+      "review": null,
+      "attempts": 0,
+      "blocked_reason": null
+    }
+  ]
+}

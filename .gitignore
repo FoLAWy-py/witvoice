@@ -1,0 +1,28 @@
+# Generated build artifacts and environment state
+node_modules/
+target/
+dist/
+build/
+.venv/
+__pycache__/
+*.pyc
+.env
+.env.*
+!.env.example
+# User/private/runtime assets (never commit raw voices, weights or keys)
+.runtime/
+.local/
+.worktrees/
+models-cache/
+recordings/
+voice-assets/
+*.key
+*.p12
+*.pfx
+*.pem
+# Evidence binaries must be reviewed and explicitly selected before versioning.
+docs/evidence/**/*.wav
+docs/evidence/**/*.flac
+docs/evidence/**/*.pt
+docs/evidence/**/*.pth
+docs/evidence/**/*.safetensors

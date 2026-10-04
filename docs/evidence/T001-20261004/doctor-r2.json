@@ -1,0 +1,263 @@
+{
+  "schema_version": 1,
+  "run_id": "T001-20261004T145952Z",
+  "task_id": "T001",
+  "requirements": [
+    "REQ-01",
+    "REQ-31"
+  ],
+  "commit": null,
+  "evidence_level": "C",
+  "kind": "WINDOWS_TOOLCHAIN_DISCOVERY",
+  "environment": {
+    "powershell": "7.6.5",
+    "platform": "Win32NT",
+    "os": {
+      "Caption": "Microsoft Windows 11 专业版",
+      "Version": "10.0.26200",
+      "BuildNumber": "26200",
+      "OSArchitecture": "64 位"
+    },
+    "cpu": [
+      {
+        "Name": "Intel(R) Core(TM) i9-14900HX"
+      }
+    ],
+    "gpu": [
+      {
+        "Name": "Parsec Virtual Display Adapter",
+        "DriverVersion": "0.45.0.0"
+      },
+      {
+        "Name": "NVIDIA GeForce RTX 4060 Laptop GPU",
+        "DriverVersion": "32.0.15.9649"
+      }
+    ],
+    "memory_bytes": 34141495296,
+    "errors": [],
+    "commands": {
+      "git.exe": "D:\\Software\\Git\\cmd\\git.exe",
+      "rustc.exe": null,
+      "cargo.exe": null,
+      "rustup.exe": null,
+      "node.exe": "D:\\Software\\nodejs\\node.exe",
+      "pnpm.cmd": "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\bin\\fallback\\pnpm.cmd",
+      "python.exe": "C:\\Users\\22198\\AppData\\Local\\Microsoft\\WindowsApps\\python.exe",
+      "codex.cmd": "D:\\Software\\nodejs\\codex.cmd",
+      "cl.exe": null
+    },
+    "sdk": {
+      "root": null,
+      "versions": [],
+      "status": "MISSING",
+      "error": "Cannot find path 'HKLM:\\SOFTWARE\\Microsoft\\Windows Kits\\Installed Roots' because it does not exist."
+    }
+  },
+  "started_at": "2026-10-04T14:59:48.972412+00:00",
+  "finished_at": "2026-10-04T14:59:52.682028+00:00",
+  "checks": {
+    "windows_powershell": {
+      "argv": [
+        "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+        "-NoLogo",
+        "-NoProfile",
+        "-NonInteractive",
+        "-File",
+        "D:\\Project\\witvoice\\tools\\dev\\windows_inventory.ps1"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"powershell\":\"7.6.5\",\"platform\":\"Win32NT\",\"os\":{\"Caption\":\"Microsoft Windows 11 专业版\",\"Version\":\"10.0.26200\",\"BuildNumber\":\"26200\",\"OSArchitecture\":\"64 位\"},\"cpu\":[{\"Name\":\"Intel(R) Core(TM) i9-14900HX\"}],\"gpu\":[{\"Name\":\"Parsec Virtual Display Adapter\",\"DriverVersion\":\"0.45.0.0\"},{\"Name\":\"NVIDIA GeForce RTX 4060 Laptop GPU\",\"DriverVersion\":\"32.0.15.9649\"}],\"memory_bytes\":34141495296,\"errors\":[],\"commands\":{\"git.exe\":\"D:\\\\Software\\\\Git\\\\cmd\\\\git.exe\",\"rustc.exe\":null,\"cargo.exe\":null,\"rustup.exe\":null,\"node.exe\":\"D:\\\\Software\\\\nodejs\\\\node.exe\",\"pnpm.cmd\":\"C:\\\\Users\\\\22198\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\bin\\\\fallback\\\\pnpm.cmd\",\"python.exe\":\"C:\\\\Users\\\\22198\\\\AppData\\\\Local\\\\Microsoft\\\\WindowsApps\\\\python.exe\",\"codex.cmd\":\"D:\\\\Software\\\\nodejs\\\\codex.cmd\",\"cl.exe\":null},\"sdk\":{\"root\":null,\"versions\":[],\"status\":\"MISSING\",\"error\":\"Cannot find path 'HKLM:\\\\SOFTWARE\\\\Microsoft\\\\Windows Kits\\\\Installed Roots' because it does not exist.\"}}",
+      "stderr": "",
+      "status": "PASS",
+      "stdout_truncated": false,
+      "stderr_truncated": false,
+      "elapsed_seconds": 3.078,
+      "data": {
+        "powershell": "7.6.5",
+        "platform": "Win32NT",
+        "os": {
+          "Caption": "Microsoft Windows 11 专业版",
+          "Version": "10.0.26200",
+          "BuildNumber": "26200",
+          "OSArchitecture": "64 位"
+        },
+        "cpu": [
+          {
+            "Name": "Intel(R) Core(TM) i9-14900HX"
+          }
+        ],
+        "gpu": [
+          {
+            "Name": "Parsec Virtual Display Adapter",
+            "DriverVersion": "0.45.0.0"
+          },
+          {
+            "Name": "NVIDIA GeForce RTX 4060 Laptop GPU",
+            "DriverVersion": "32.0.15.9649"
+          }
+        ],
+        "memory_bytes": 34141495296,
+        "errors": [],
+        "commands": {
+          "git.exe": "D:\\Software\\Git\\cmd\\git.exe",
+          "rustc.exe": null,
+          "cargo.exe": null,
+          "rustup.exe": null,
+          "node.exe": "D:\\Software\\nodejs\\node.exe",
+          "pnpm.cmd": "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\bin\\fallback\\pnpm.cmd",
+          "python.exe": "C:\\Users\\22198\\AppData\\Local\\Microsoft\\WindowsApps\\python.exe",
+          "codex.cmd": "D:\\Software\\nodejs\\codex.cmd",
+          "cl.exe": null
+        },
+        "sdk": {
+          "root": null,
+          "versions": [],
+          "status": "MISSING",
+          "error": "Cannot find path 'HKLM:\\SOFTWARE\\Microsoft\\Windows Kits\\Installed Roots' because it does not exist."
+        }
+      }
+    },
+    "git": {
+      "argv": [
+        "D:\\Software\\Git\\cmd\\git.exe",
+        "--version"
+      ],
+      "exit_code": 0,
+      "stdout": "git version 2.52.0.windows.1",
+      "stderr": "",
+      "status": "PASS",
+      "stdout_truncated": false,
+      "stderr_truncated": false,
+      "elapsed_seconds": 0.047
+    },
+    "rustc": {
+      "status": "MISSING",
+      "exit_code": null,
+      "reason": "rustc.exe absent from PATH and checked fallback"
+    },
+    "cargo": {
+      "status": "MISSING",
+      "exit_code": null,
+      "reason": "cargo.exe absent from PATH and checked fallback"
+    },
+    "rustup": {
+      "status": "MISSING",
+      "exit_code": null,
+      "reason": "rustup.exe absent from PATH and checked fallback"
+    },
+    "node": {
+      "argv": [
+        "D:\\Software\\nodejs\\node.exe",
+        "--version"
+      ],
+      "exit_code": 0,
+      "stdout": "v24.13.0",
+      "stderr": "",
+      "status": "PASS",
+      "stdout_truncated": false,
+      "stderr_truncated": false,
+      "elapsed_seconds": 0.031
+    },
+    "pnpm": {
+      "argv": [
+        "D:\\Software\\nodejs\\node.exe",
+        "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\node_modules\\pnpm\\bin\\pnpm.cjs",
+        "--version"
+      ],
+      "exit_code": 0,
+      "stdout": "11.19.0",
+      "stderr": "",
+      "status": "PASS",
+      "stdout_truncated": false,
+      "stderr_truncated": false,
+      "elapsed_seconds": 0.297,
+      "wrapper": "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\bin\\fallback\\pnpm.cmd"
+    },
+    "codex": {
+      "argv": [
+        "D:\\Software\\nodejs\\node.exe",
+        "D:\\Software\\nodejs\\node_modules\\@openai\\codex\\bin\\codex.js",
+        "--version"
+      ],
+      "exit_code": 0,
+      "stdout": "codex-cli 0.153.4",
+      "stderr": "",
+      "status": "PASS",
+      "stdout_truncated": false,
+      "stderr_truncated": false,
+      "elapsed_seconds": 0.078,
+      "wrapper": "D:\\Software\\nodejs\\codex.cmd"
+    },
+    "python": {
+      "argv": [
+        "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-c",
+        "import sys; print(sys.version); print(sys.executable)"
+      ],
+      "exit_code": 0,
+      "stdout": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]\r\nC:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "stderr": "",
+      "status": "PASS",
+      "stdout_truncated": false,
+      "stderr_truncated": false,
+      "elapsed_seconds": 0.031
+    },
+    "msvc": {
+      "status": "MISSING",
+      "exit_code": null,
+      "reason": "Visual Studio discovery tool absent: C:\\Program Files (x86)\\Microsoft Visual Studio\\Installer\\vswhere.exe; MSVC installation UNKNOWN"
+    },
+    "windows_sdk": {
+      "root": null,
+      "versions": [],
+      "status": "MISSING",
+      "error": "Cannot find path 'HKLM:\\SOFTWARE\\Microsoft\\Windows Kits\\Installed Roots' because it does not exist."
+    }
+  },
+  "result": "BLOCKED",
+  "blockers": [
+    "rustc",
+    "cargo",
+    "rustup",
+    "msvc",
+    "windows_sdk"
+  ],
+  "path_python": {
+    "path": "C:\\Users\\22198\\AppData\\Local\\Microsoft\\WindowsApps\\python.exe",
+    "status": "ALIAS_NOT_EXECUTED"
+  },
+  "python_source": "CURRENT_INTERPRETER (may be bundled; see absolute path)",
+  "git_repository": {
+    "argv": [
+      "D:\\Software\\Git\\cmd\\git.exe",
+      "-C",
+      "D:\\Project\\witvoice",
+      "rev-parse",
+      "--is-inside-work-tree"
+    ],
+    "exit_code": 0,
+    "stdout": "true",
+    "stderr": "",
+    "status": "PASS",
+    "stdout_truncated": false,
+    "stderr_truncated": false,
+    "elapsed_seconds": 0.031
+  },
+  "source_sha256": {
+    "tools/dev/doctor.py": "1a4354aee8336a9f31835fb413143a754cdd485368f494c3f32a036da84383df",
+    "tools/dev/windows_inventory.ps1": "0df75c65573552fcb630342cbf3665131a1861a7a8e20f9246f764f1ae576fa7"
+  },
+  "measurement_boundary": "Version/discovery subprocesses only; elapsed_seconds is probe wall time, never audio latency",
+  "not_tested": [
+    "native_compilation",
+    "WASAPI",
+    "virtual_cable",
+    "microphone_permissions",
+    "real_model",
+    "CUDA",
+    "macOS",
+    "LAN",
+    "desktop",
+    "installation"
+  ]
+}

@@ -1,0 +1,403 @@
+{
+  "schema_version": 1,
+  "requirements": [
+    {
+      "id": "REQ-01",
+      "requirement": "独立项目，范围固定，无其他项目的 API/账号/业务耦合",
+      "milestone_scope": "M0",
+      "task_ids": [
+        "T001"
+      ],
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "REQ-02",
+      "requirement": "Windows 本地物理输入 → 真实 VC → 可被第三方应用选择的虚拟输入",
+      "milestone_scope": "M2",
+      "task_ids": [
+        "T012",
+        "T015",
+        "T022"
+      ],
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "REQ-03",
+      "requirement": "Windows → Mac 计算 → Windows 虚拟输入实机闭环",
+      "milestone_scope": "M6",
+      "task_ids": [
+        "T034"
+      ],
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "REQ-04",
+      "requirement": "Mac → Windows 计算 → Mac 虚拟输入实机闭环",
+      "milestone_scope": "M6",
+      "task_ids": [
+        "T034"
+      ],
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "REQ-05",
+      "requirement": "导入 10–30 秒获授权参考音频创建可用 zero-shot 音色，不要求训练",
+      "milestone_scope": "M2",
+      "task_ids": [
+        "T002",
+        "T012",
+        "T013",
+        "T022",
+        "T033"
+      ],
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "REQ-06",
+      "requirement": "虚拟设备检测、路由向导、缺失/移除/格式变化处理",
+      "milestone_scope": "M1/M6",
+      "task_ids": [
+        "T007",
+        "T009",
+        "T022",
+        "T032"
+      ],
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "REQ-07",
+      "requirement": "UI、Node、ML Worker 分进程；UI 卡死不阻塞音频；worker 可隔离失败",
+      "milestone_scope": "M1",
+      "task_ids": [
+        "T003",
+        "T006",
+        "T010",
+        "T011",
+        "T025"
+      ],
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "REQ-08",
+      "requirement": "音频回调无阻塞等待、文件/网络/模型/日志工作与常规分配",
+      "milestone_scope": "M1",
+      "task_ids": [
+        "T007",
+        "T008"
+      ],
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "REQ-09",
+      "requirement": "全链路有界缓冲；采样率协商；长期时钟漂移纠正",
+      "milestone_scope": "M1/M5",
+      "task_ids": [
+        "T004",
+        "T008",
+        "T026",
+        "T032"
+      ],
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "REQ-10",
+      "requirement": "Stop/Mute/断线/推理失败默认静音，绝不自动直通原声",
+      "milestone_scope": "M1/M5",
+      "task_ids": [
+        "T008",
+        "T009",
+        "T014",
+        "T021",
+        "T027"
+      ],
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "REQ-11",
+      "requirement": "真实会话状态机、Start/Stop、热加载预检及明确恢复行为",
+      "milestone_scope": "M2",
+      "task_ids": [
+        "T003",
+        "T014",
+        "T022"
+      ],
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "REQ-12",
+      "requirement": "用户明确选择本机/远端；不在运行中偷偷更换模型、音色、后端或节点",
+      "milestone_scope": "M2/M3",
+      "task_ids": [
+        "T014",
+        "T018",
+        "T021",
+        "T023"
+      ],
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "REQ-13",
+      "requirement": "局域网发现、手动连接、设备信任管理",
+      "milestone_scope": "M3",
+      "task_ids": [
+        "T016",
+        "T023"
+      ],
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "REQ-14",
+      "requirement": "双向身份校验、首次配对显式批准、撤销后连接失效",
+      "milestone_scope": "M3",
+      "task_ids": [
+        "T016",
+        "T019",
+        "T023",
+        "T034"
+      ],
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "REQ-15",
+      "requirement": "PCM16 mono 48kHz / 默认 10ms 帧；媒体不可靠传输、控制可靠",
+      "milestone_scope": "M3",
+      "task_ids": [
+        "T017",
+        "T020"
+      ],
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "REQ-16",
+      "requirement": "session/epoch/sequence/source timeline、重复/过期包丢弃、幂等控制",
+      "milestone_scope": "M3",
+      "task_ids": [
+        "T003",
+        "T017",
+        "T019"
+      ],
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "REQ-17",
+      "requirement": "抖动、短丢包、断连、拥塞时保持有界延迟和安全静音",
+      "milestone_scope": "M3/M5",
+      "task_ids": [
+        "T017",
+        "T019",
+        "T020",
+        "T027",
+        "T034"
+      ],
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "REQ-18",
+      "requirement": "原始录音默认不保留；远端音色传输必须告知并授权",
+      "milestone_scope": "M2/M3",
+      "task_ids": [
+        "T013",
+        "T018",
+        "T023",
+        "T028"
+      ],
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "REQ-19",
+      "requirement": "真实模型/权重/依赖/设备验证矩阵与许可记录",
+      "milestone_scope": "M0/M6",
+      "task_ids": [
+        "T002",
+        "T011",
+        "T012",
+        "T018",
+        "T028",
+        "T033"
+      ],
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "REQ-20",
+      "requirement": "设置与音色 metadata 持久化；迁移失败可恢复且不毁数据",
+      "milestone_scope": "M4",
+      "task_ids": [
+        "T024"
+      ],
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "REQ-21",
+      "requirement": "引擎专属 VoiceProfile，绑定版本、权重摘要和完整所需条件数据",
+      "milestone_scope": "M2",
+      "task_ids": [
+        "T013",
+        "T033"
+      ],
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "REQ-22",
+      "requirement": "延迟/RTF/内存/显存/丢帧是真实指标，未知值显示未知",
+      "milestone_scope": "M5",
+      "task_ids": [
+        "T004",
+        "T015",
+        "T024",
+        "T026",
+        "T034"
+      ],
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "REQ-23",
+      "requirement": "本地 IPC 访问控制、会话鉴权、最小权限与安全退出",
+      "milestone_scope": "M1/M5",
+      "task_ids": [
+        "T006",
+        "T010",
+        "T011",
+        "T027"
+      ],
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "REQ-24",
+      "requirement": "引擎资源安装需用户批准、校验、原子切换；无暗中下载",
+      "milestone_scope": "M4",
+      "task_ids": [
+        "T024",
+        "T028"
+      ],
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "REQ-25",
+      "requirement": "组件化、可键盘操作、缩放可用、完整错误/空/忙状态与 HCI 验收",
+      "milestone_scope": "M4/M5",
+      "task_ids": [
+        "T021",
+        "T022",
+        "T025",
+        "T029"
+      ],
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "REQ-26",
+      "requirement": "脱敏诊断导出；不记录 PCM、token、私钥或完整音色文件",
+      "milestone_scope": "M4",
+      "task_ids": [
+        "T024",
+        "T028"
+      ],
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "REQ-27",
+      "requirement": "Windows 干净环境安装/卸载、Node/worker 清理、内部包交付",
+      "milestone_scope": "M5",
+      "task_ids": [
+        "T025",
+        "T030"
+      ],
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "REQ-28",
+      "requirement": "Mac 原生构建、权限、Core Audio/虚拟设备与真实模型证据",
+      "milestone_scope": "M6",
+      "task_ids": [
+        "T031",
+        "T032",
+        "T033",
+        "T035"
+      ],
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "REQ-29",
+      "requirement": "可复现自动测试 + 真实硬件报告；SKIP 不算 PASS",
+      "milestone_scope": "M5/M6",
+      "task_ids": [
+        "T004",
+        "T010",
+        "T015",
+        "T020",
+        "T026",
+        "T027",
+        "T029",
+        "T035"
+      ],
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "REQ-30",
+      "requirement": "有限任务、角色隔离、独立评审、工作交接和清晰终止状态",
+      "milestone_scope": "全程",
+      "task_ids": [
+        "T005",
+        "T030",
+        "T035"
+      ],
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "REQ-31",
+      "requirement": "缺失硬件/许可/密钥/能力必须标为 BLOCKED，不造假完成",
+      "milestone_scope": "全程",
+      "task_ids": [
+        "T001",
+        "T005",
+        "T030",
+        "T031",
+        "T035"
+      ],
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "REQ-32",
+      "requirement": "内部交付与公开发行/第三方再分发审查分离",
+      "milestone_scope": "M0/M5/M6",
+      "task_ids": [
+        "T002",
+        "T028",
+        "T030",
+        "T035"
+      ],
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    }
+  ]
+}

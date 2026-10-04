@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "project": "voice-changer",
+  "spec_baseline": "VC-SPEC-2026-10-04",
+  "project_status": "IN_PROGRESS",
+  "authorized_target": "WINDOWS_DELIVERED",
+  "active_milestone": "M0",
+  "active_tasks": [
+    {
+      "task_id": "T001",
+      "agent_instance_id": "/root",
+      "allowed_paths": ["tools/dev/", "docs/evidence/"],
+      "resource_leases": ["write:tools/dev/:leader", "write:docs/evidence/:leader"],
+      "depends_on": [],
+      "acceptance_commands": ["python tools/project/validate_spec.py", "python -m unittest discover -s tools/dev -p test_doctor.py -v", "python tools/dev/doctor.py --output docs/evidence/<new-run>/doctor.json"],
+      "reviewer": "/root/reviewer"
+    }
+  ],
+  "milestones": {
+    "M0": {
+      "status": "IN_PROGRESS",
+      "evidence": [],
+      "review": null
+    },
+    "M1": {
+      "status": "TODO",
+      "evidence": [],
+      "review": null
+    },
+    "M2": {
+      "status": "TODO",
+      "evidence": [],
+      "review": null
+    },
+    "M3": {
+      "status": "TODO",
+      "evidence": [],
+      "review": null
+    },
+    "M4": {
+      "status": "TODO",
+      "evidence": [],
+      "review": null
+    },
+    "M5": {
+      "status": "TODO",
+      "evidence": [],
+      "review": null
+    },
+    "M6": {
+      "status": "TODO",
+      "evidence": [],
+      "review": null
+    }
+  },
+  "last_verified_commit": null,
+  "next_task": "T001",
+  "blockers": [],
+  "distribution_status": "INTERNAL_ONLY_NOT_BUILT",
+  "hardware": {
+    "windows": "UNVERIFIED",
+    "macos": "UNVERIFIED",
+    "lan_pair": "UNVERIFIED"
+  },
+  "agent_runtime": {
+    "codex_version": "codex-cli 0.153.4",
+    "custom_roles_verified": false,
+    "mode": "native_custom_role_dispatch_with_leader_provided_review_source",
+    "custom_role_dispatch_verified": true,
+    "role_instruction_injection_verified": true,
+    "project_file_schema_verified": false,
+    "agent_ids": {"leader": "/root", "frontend": "/root/frontend", "backend": "/root/backend", "audio_runtime": "/root/audio_runtime", "ml_engine": "/root/ml_engine", "hci": "/root/hci", "reviewer": "/root/reviewer"},
+    "id_format": "canonical collaboration task ID; UUID not exposed",
+    "execution_limit": "Default shell/node sandbox fails before process creation: apply deny-read ACLs. Leader scoped commands work after auto-review; children remain read-only and do not escalate. Exact disk-config loading and reviewer sandbox enforcement are not independently verified."
+  },
+  "completion_claim_allowed": false
+}
