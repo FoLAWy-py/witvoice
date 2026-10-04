@@ -1,0 +1,56 @@
+[
+  {
+    "exit": 0,
+    "end": "2026-10-04T20:08:36.2669668Z",
+    "start": "2026-10-04T20:08:35.8923904Z",
+    "argv": [
+      "cargo",
+      "test",
+      "-p",
+      "witvoice-audio",
+      "--locked"
+    ]
+  },
+  {
+    "exit": 0,
+    "end": "2026-10-04T20:08:36.5134389Z",
+    "start": "2026-10-04T20:08:36.2843637Z",
+    "argv": [
+      "cargo",
+      "fmt",
+      "--package",
+      "witvoice-audio",
+      "--check"
+    ]
+  },
+  {
+    "exit": 0,
+    "end": "2026-10-04T20:08:37.1540638Z",
+    "start": "2026-10-04T20:08:36.5155986Z",
+    "argv": [
+      "cargo",
+      "clippy",
+      "-p",
+      "witvoice-audio",
+      "--locked",
+      "--all-targets",
+      "--",
+      "-D",
+      "warnings"
+    ]
+  },
+  {
+    "exit": 0,
+    "end": "2026-10-04T20:08:37.3935894Z",
+    "start": "2026-10-04T20:08:37.1561158Z",
+    "argv": [
+      "cargo",
+      "build",
+      "-p",
+      "witvoice-audio",
+      "--locked",
+      "--example",
+      "stream_smoke"
+    ]
+  }
+]

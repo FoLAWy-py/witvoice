@@ -1,0 +1,19 @@
+{
+  "end": "2026-10-04T20:09:45.0569538Z",
+  "selection": "explicit first active compatible UID from existing authorized local metadata; no default fallback",
+  "channels": 2,
+  "exit": 0,
+  "uploaded": false,
+  "start": "2026-10-04T20:09:39.9109655Z",
+  "source_commit": "2355099a3bdc347727ea492f830f602485cb6088",
+  "owner": "/root",
+  "pcm_saved": false,
+  "stderr": null,
+  "seconds_limit": 5,
+  "kind": "silence-render",
+  "rate": 48000,
+  "encoding": "float32",
+  "lease": "audio-hardware:leader-native-smoke",
+  "default_device_changed": false,
+  "stdout": "native-rate only; packets=0 frames=241536 wall_seconds=5.001916; no PCM saved; not full T007 acceptance\n"
+}

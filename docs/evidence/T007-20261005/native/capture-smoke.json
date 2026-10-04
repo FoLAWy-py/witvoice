@@ -1,0 +1,19 @@
+{
+  "source_commit": "2355099a3bdc347727ea492f830f602485cb6088",
+  "exit": 0,
+  "kind": "capture",
+  "default_device_changed": false,
+  "stdout": "native-rate only; packets=501 frames=240480 wall_seconds=5.001821; no PCM saved; not full T007 acceptance\n",
+  "lease": "audio-hardware:leader-native-smoke",
+  "channels": 2,
+  "encoding": "float32",
+  "seconds_limit": 5,
+  "stderr": null,
+  "uploaded": false,
+  "pcm_saved": false,
+  "start": "2026-10-04T20:09:09.3954270Z",
+  "owner": "/root",
+  "selection": "explicit first active compatible UID from existing authorized local metadata; no default fallback",
+  "end": "2026-10-04T20:09:14.4741771Z",
+  "rate": 48000
+}

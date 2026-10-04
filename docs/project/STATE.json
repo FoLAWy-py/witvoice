@@ -7,26 +7,6 @@
   "active_milestone": "M1",
   "active_tasks": [
     {
-      "task_id": "T007",
-      "agent_instance_id": "/root",
-      "allowed_paths": [
-        "docs/evidence/T007-20261005/native/"
-      ],
-      "resource_leases": [
-        "audio-hardware:leader-native-smoke"
-      ],
-      "depends_on": [
-        "T003"
-      ],
-      "contract": "T007-native-stream-assignment + user explicit two local 5s tests",
-      "acceptance_commands": [
-        "frozen cargo test/clippy/example build",
-        "stream_smoke explicitUID capture max5s; silence-render max5s sequential"
-      ],
-      "reviewer": "/root/reviewer_t001",
-      "execution_note": "audio author stopped; user explicitly approved <=5s capture and <=5s silence output, memory only no files/route changes; source frozen before hardware"
-    },
-    {
       "task_id": "T016",
       "agent_instance_id": "/root",
       "allowed_paths": [
