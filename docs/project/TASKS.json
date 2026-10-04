@@ -50,7 +50,7 @@
         "docs/evidence/model-feasibility/"
       ],
       "acceptance": "锁定上游commit/权重摘要/许可清单；真实文件转换和流式试跑；Windows实测，Mac状态明确；主候选最多两次针对性修复、最多一次候选替换。",
-      "agent_instance_id": "/root/ml_engine",
+      "agent_instance_id": "/root",
       "resource_leases": [],
       "evidence": [
         "docs/evidence/model-feasibility/M0-20261004/RESULTS.md",
@@ -68,7 +68,8 @@
       "attempts": 0,
       "blocked_reason": null,
       "compatibility_repairs_used": 2,
-      "candidate_replacements_used": 0
+      "candidate_replacements_used": 0,
+      "historical_advisor_instance_id": "/root/ml_engine"
     },
     {
       "id": "T003",

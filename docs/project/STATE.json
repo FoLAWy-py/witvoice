@@ -8,7 +8,7 @@
   "active_tasks": [
     {
       "task_id": "T002",
-      "agent_instance_id": "/root/ml_engine",
+      "agent_instance_id": "/root",
       "allowed_paths": [
         "workers/vc_worker/",
         "docs/evidence/model-feasibility/"
@@ -23,7 +23,8 @@
       ],
       "reviewer": "/root/reviewer_t001",
       "contract": "docs/spec/03-model-runtime.md + 07-tests-acceptance.md",
-      "execution_note": "Leader executes sole GPU experiment; two recorded compatibility repairs used; no microphone/playback/network"
+      "execution_note": "Leader /root authored and executed experiments; historical ml_engine source advice; no active ml redispatch; GPU released; reviewer pending",
+      "historical_advisor_instance_id": "/root/ml_engine"
     },
     {
       "task_id": "T005",
