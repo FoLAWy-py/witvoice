@@ -21,8 +21,7 @@
         "crates/platform/README.md"
       ],
       "resource_leases": [
-        "code-writer:backend-supervision",
-        "leader-root-dependencies"
+        "code-writer:backend-supervision"
       ],
       "depends_on": [
         "T003",
@@ -35,7 +34,7 @@
       ],
       "contract": "docs/spec/01-architecture.md +04-lan-protocol.md +06-security-distribution.md",
       "reviewer": "/root/reviewer_t001",
-      "execution_note": "backend仅既定源码白名单写入；leader单独整合apps/voice-node/Cargo.toml process-tests feature+required-feature开发bin；不共享同文件"
+      "execution_note": "backend监督源码写入；leader已冻结process-tests/required-feature bin manifest4b539c9，无新依赖；其源码测试结果待"
     },
     {
       "task_id": "T007",
