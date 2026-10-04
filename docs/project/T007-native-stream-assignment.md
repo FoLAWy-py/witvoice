@@ -13,3 +13,11 @@ Render本切片只提交明确silence；Start前prime零、失败/停止默认�
 最多五个检查：原生owner/精确格式/有限buffer；capture固定目标与acquire/release；silence render及stop/reset/drop；纯布局/标志/失败静音/零分配相关测试；显式hardware smoke harness只创建，暂不运行。harness应显式选择UID/flow、Start授权参数、最大5秒、不落地PCM/不上传/不默认设备，不因缺权限绕过。真实capture/silence output/拔出需后续最小用户授权和独占硬件lease；不得预填PASS。
 
 命令 cargo fmt --package witvoice-audio --check；cargo test -p witvoice-audio --locked；cargo clippy -p witvoice-audio --locked --all-targets -- -D warnings。实际stdout/UTC/exit/source摘要交leader，写完即停止。T007已有正式r1/r2，最多3轮总预算不重置；本新增native源码待最后独立评审，未执行硬件不关闭T007。
+
+## Watched-stream addendum after 2355099 / c59ae9f
+
+Actual code author/root/audio_runtime; backend writes disjoint transport/platform, exactly2codewriters; root manifests/ledger only. Wire NotificationWatch to every production SharedStream owner: exact UID/flow, only InitialValidation baseline acceptable, any other event during prepare or before/after packet or timeout retires owner and erases target without automatic recovery/default substitution. Never clear sticky invalidation or perform Stop/COM query/release in notification callback. Stop/reset stays normal owner control/Drop; retirement must forbid further capture delivery/start/render API restoration. Test events during acquisition/release, silent wait timeout, initial baseline with event race, repeated invalidation/new owner requirement. Capture packet methods must preserve no allocation/blocking/COM metadata query/format logs.
+
+Create metadata-only removal evidence harness (NotificationWatch+saved exact UID, bounded finite timeout, no Initialize/Start/capture/render; process STA callback dispatch appropriately). User known selected capture Wireless Mic Rx USB from read-only registry, original private selection .local/native-smoke-capture-selection.json. Do not run it: user physical unplug must be specifically requested after harness review/compile; root sole hardware lease then. Public output no UID/private paths. Include format support-only probe with max3 explicit candidate formats, retain actual nonzero HRESULT/closest and noInitialize; if all supported, report rejection NOT_RUN. No new hardware execution by author, existing two5s smoke authorization not an unlimited capture lease.
+
+Keep task attempts2/3. Root freezes full source and actual evidence before final formal r3; no unsupported T007 DONE claim.

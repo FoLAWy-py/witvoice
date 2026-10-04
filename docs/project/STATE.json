@@ -7,6 +7,30 @@
   "active_milestone": "M1",
   "active_tasks": [
     {
+      "task_id": "T007",
+      "agent_instance_id": "/root/audio_runtime",
+      "allowed_paths": [
+        "crates/audio/src/",
+        "crates/audio/tests/",
+        "crates/audio/examples/",
+        "crates/audio/README.md"
+      ],
+      "resource_leases": [
+        "code-writer:audio-watched-stream"
+      ],
+      "depends_on": [
+        "T003"
+      ],
+      "contract": "T007 acceptance + T007-native-stream-assignment + watched-stream addendum",
+      "acceptance_commands": [
+        "cargo test -p witvoice-audio --locked",
+        "cargo fmt --package witvoice-audio --check",
+        "cargo clippy -p witvoice-audio --locked --all-targets -- -D warnings"
+      ],
+      "reviewer": "/root/reviewer_t001",
+      "execution_note": "callback-to-owner invalidation wiring + metadata-only removal/format probe creation only; no new Initialize/Start/hardware, no final formal review yet; author T007 attempts2/3 unchanged"
+    },
+    {
       "task_id": "T016",
       "agent_instance_id": "/root/backend",
       "allowed_paths": [
