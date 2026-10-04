@@ -1,0 +1,4 @@
+    Checking witvoice-platform v0.1.0 (D:\Project\witvoice\crates\platform)
+    Checking witvoice-node v0.1.0 (D:\Project\witvoice\apps\voice-node)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.32s
+WV_CHECK_START=2026-10-04T18:58:09.8709041Z WV_CHECK_END=2026-10-04T18:58:10.2496509Z WV_EXIT=0

@@ -1,0 +1,23 @@
+   Compiling witvoice-platform v0.1.0 (D:\Project\witvoice\crates\platform)
+error[E0425]: cannot find value `JOB_OBJECT_QUERY` in this scope
+   --> crates\platform\src\process.rs:205:28
+    |
+205 |             OpenJobObjectW(JOB_OBJECT_QUERY, false, PCWSTR(name.as_ptr())).map_err(fail)?
+    |                            ^^^^^^^^^^^^^^^^
+    |
+   ::: D:\Software\WitvoiceToolchain\Rust\cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-0.62.2\src\Windows\Win32\System\JobObjects\mod.rs:543:1
+    |
+543 | pub struct JOB_OBJECT_LIMIT(pub u32);
+    | --------------------------- similarly named tuple struct `JOB_OBJECT_LIMIT` defined here
+    |
+help: a tuple struct with a similar name exists
+    |
+205 -             OpenJobObjectW(JOB_OBJECT_QUERY, false, PCWSTR(name.as_ptr())).map_err(fail)?
+205 +             OpenJobObjectW(JOB_OBJECT_LIMIT, false, PCWSTR(name.as_ptr())).map_err(fail)?
+    |
+
+For more information about this error, try `rustc --explain E0425`.
+error: could not compile `witvoice-platform` (lib test) due to 1 previous error
+warning: build failed, waiting for other jobs to finish...
+error: could not compile `witvoice-platform` (lib) due to 1 previous error
+WV_TEST_START=2026-10-04T19:03:20.4083223Z WV_TEST_END=2026-10-04T19:03:20.6688889Z WV_EXIT=101

@@ -1,0 +1,407 @@
+{
+  "kind": "EXTRACTED_ACTUAL_BACKEND_COMMAND_EVENTS",
+  "archived_at": "2026-10-04T19:21:24.1745078Z",
+  "archive_owner": "/root",
+  "source": "actual assigned backend session; command events only; not new test execution",
+  "events": [
+    {
+      "timestamp": "2026-10-04T18:55:45.359Z",
+      "source_log_line": 1299,
+      "agent": "/root/backend",
+      "thread_id": "01a10767-4ff5-7f21-881a-146d094fbc55",
+      "execution_id": "exec-4a358c08-2f1c-447a-a5c1-1ce80ae7ea44",
+      "process_id": "3191",
+      "command": [
+        "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+        "-Command",
+        ". tools/dev/toolchain-env.ps1; $wvStart=[DateTime]::UtcNow.ToString('o'); cargo check --locked -p witvoice-node --features witvoice-node/process-tests; $wvExit=$LASTEXITCODE; Write-Output \"WV_CHECK_START=$wvStart WV_CHECK_END=$([DateTime]::UtcNow.ToString('o')) WV_EXIT=$wvExit\"; exit $wvExit"
+      ],
+      "cwd": "file:///D:/Project/witvoice",
+      "exit_code": 101,
+      "started_at_ms": 1791140144775,
+      "completed_at_ms": 1791140145359,
+      "stdout_file": "docs/evidence/T006-20261005/supervision/author-events/event-01.txt",
+      "stdout_sha256": "7abb3589cfc7e80b1271f6cec21e694b421542747535d81bf4f0d84cc2d35ed1"
+    },
+    {
+      "timestamp": "2026-10-04T18:56:09.232Z",
+      "source_log_line": 1306,
+      "agent": "/root/backend",
+      "thread_id": "01a10767-4ff5-7f21-881a-146d094fbc55",
+      "execution_id": "exec-3698a9ff-f801-44f4-bf73-74529aecec27",
+      "process_id": "43254",
+      "command": [
+        "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+        "-Command",
+        "rg -n 'pub const .*SYNCHRONIZE' 'D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\windows-0.62.2\\src\\Windows\\Win32\\System\\Threading\\mod.rs'; Get-Content -LiteralPath 'docs/project/T006-supervision-assignment.md','docs/roles/backend.md','AGENTS.md'"
+      ],
+      "cwd": "file:///D:/Project/witvoice",
+      "exit_code": 0,
+      "started_at_ms": 1791140169036,
+      "completed_at_ms": 1791140169232,
+      "stdout_file": "docs/evidence/T006-20261005/supervision/author-events/event-02.txt",
+      "stdout_sha256": "5edbd5924be5fe52631557fd278bb43ffad075047d05349395951dff3b496603"
+    },
+    {
+      "timestamp": "2026-10-04T18:58:10.331Z",
+      "source_log_line": 1314,
+      "agent": "/root/backend",
+      "thread_id": "01a10767-4ff5-7f21-881a-146d094fbc55",
+      "execution_id": "exec-e5848655-f7a5-4ad3-b832-a9b842d177db",
+      "process_id": "30672",
+      "command": [
+        "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+        "-Command",
+        ". tools/dev/toolchain-env.ps1; $wvStart=[DateTime]::UtcNow.ToString('o'); cargo check --locked -p witvoice-node --features witvoice-node/process-tests; $wvExit=$LASTEXITCODE; Write-Output \"WV_CHECK_START=$wvStart WV_CHECK_END=$([DateTime]::UtcNow.ToString('o')) WV_EXIT=$wvExit\"; exit $wvExit"
+      ],
+      "cwd": "file:///D:/Project/witvoice",
+      "exit_code": 0,
+      "started_at_ms": 1791140289757,
+      "completed_at_ms": 1791140290331,
+      "stdout_file": "docs/evidence/T006-20261005/supervision/author-events/event-03.txt",
+      "stdout_sha256": "119cd6b15c919cf9bd48ce2b8c497b62bb47580991ac5f1f3c92b96cdff4e731"
+    },
+    {
+      "timestamp": "2026-10-04T18:59:34.800Z",
+      "source_log_line": 1327,
+      "agent": "/root/backend",
+      "thread_id": "01a10767-4ff5-7f21-881a-146d094fbc55",
+      "execution_id": "exec-d66a9acb-4cf9-4d2e-93c7-66bac3a367fe",
+      "process_id": "20776",
+      "command": [
+        "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+        "-Command",
+        ". tools/dev/toolchain-env.ps1; cargo fmt -p witvoice-session -p witvoice-platform -p witvoice-node; $wvStart=[DateTime]::UtcNow.ToString('o'); cargo test --locked -p witvoice-session -p witvoice-platform -p witvoice-node --features witvoice-node/process-tests -- --test-threads=1 --nocapture; $wvExit=$LASTEXITCODE; Write-Output \"WV_TEST_START=$wvStart WV_TEST_END=$([DateTime]::UtcNow.ToString('o')) WV_EXIT=$wvExit\"; exit $wvExit"
+      ],
+      "cwd": "file:///D:/Project/witvoice",
+      "exit_code": 101,
+      "started_at_ms": 1791140362604,
+      "completed_at_ms": 1791140374800,
+      "stdout_file": "docs/evidence/T006-20261005/supervision/author-events/event-04.txt",
+      "stdout_sha256": "95065c50aa527d7b2796f61daef4e5e01d1c7126d60a489e2f6706ca7d1d79f6"
+    },
+    {
+      "timestamp": "2026-10-04T19:01:47.054Z",
+      "source_log_line": 1352,
+      "agent": "/root/backend",
+      "thread_id": "01a10767-4ff5-7f21-881a-146d094fbc55",
+      "execution_id": "exec-ea17a692-3b1d-4833-b295-d3e619e421a8",
+      "process_id": "52985",
+      "command": [
+        "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+        "-Command",
+        "Get-Content -LiteralPath 'crates/platform/src/process.rs','apps/voice-node/src/bin/process-probe.rs'"
+      ],
+      "cwd": "file:///D:/Project/witvoice",
+      "exit_code": 0,
+      "started_at_ms": 1791140506857,
+      "completed_at_ms": 1791140507054,
+      "stdout_file": "docs/evidence/T006-20261005/supervision/author-events/event-05.txt",
+      "stdout_sha256": "9edda1050bb9cd81694a747bf3a89b7fd0a367ef22d5e60c2d403248b1a9c116"
+    },
+    {
+      "timestamp": "2026-10-04T19:02:35.563Z",
+      "source_log_line": 1360,
+      "agent": "/root/backend",
+      "thread_id": "01a10767-4ff5-7f21-881a-146d094fbc55",
+      "execution_id": "exec-58cccba8-16c1-4df1-b00f-8d25ecc6eacc",
+      "process_id": "61515",
+      "command": [
+        "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+        "-Command",
+        "Get-Content -LiteralPath 'apps/voice-node/tests/supervision.rs' -TotalCount 200"
+      ],
+      "cwd": "file:///D:/Project/witvoice",
+      "exit_code": 0,
+      "started_at_ms": 1791140555354,
+      "completed_at_ms": 1791140555563,
+      "stdout_file": "docs/evidence/T006-20261005/supervision/author-events/event-06.txt",
+      "stdout_sha256": "90e6dedd5980db32a38fb5e58cdcc949b3305de7136f72333f64d79e31b9599b"
+    },
+    {
+      "timestamp": "2026-10-04T19:03:20.747Z",
+      "source_log_line": 1370,
+      "agent": "/root/backend",
+      "thread_id": "01a10767-4ff5-7f21-881a-146d094fbc55",
+      "execution_id": "exec-a24b1391-174e-4fc8-a744-2d81ed729fef",
+      "process_id": "18516",
+      "command": [
+        "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+        "-Command",
+        ". tools/dev/toolchain-env.ps1; cargo fmt -p witvoice-session -p witvoice-platform -p witvoice-node; $wvStart=[DateTime]::UtcNow.ToString('o'); cargo test --locked -p witvoice-session -p witvoice-platform -p witvoice-node --features witvoice-node/process-tests -- --test-threads=1 --nocapture; $wvExit=$LASTEXITCODE; Write-Output \"WV_TEST_START=$wvStart WV_TEST_END=$([DateTime]::UtcNow.ToString('o')) WV_EXIT=$wvExit\"; exit $wvExit"
+      ],
+      "cwd": "file:///D:/Project/witvoice",
+      "exit_code": 101,
+      "started_at_ms": 1791140600152,
+      "completed_at_ms": 1791140600747,
+      "stdout_file": "docs/evidence/T006-20261005/supervision/author-events/event-07.txt",
+      "stdout_sha256": "171302a135d364b12da5d8f1520bd4d842726fb8e6e6cfe915598dc5b535d925"
+    },
+    {
+      "timestamp": "2026-10-04T19:03:39.420Z",
+      "source_log_line": 1377,
+      "agent": "/root/backend",
+      "thread_id": "01a10767-4ff5-7f21-881a-146d094fbc55",
+      "execution_id": "exec-b1c90b2f-4842-43e7-9ab4-1cd64c3658e1",
+      "process_id": "27487",
+      "command": [
+        "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+        "-Command",
+        "$wvBindings='D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\windows-0.62.2\\src\\Windows\\Win32'; rg -n 'pub const JOB_OBJECT_QUERY|pub struct JOBOBJECT_BASIC_PROCESS_ID_LIST|pub unsafe fn QueryFullProcessImageNameW|pub const PROCESS_NAME_WIN32' $wvBindings\\System\\SystemServices\\mod.rs $wvBindings\\System\\JobObjects\\mod.rs $wvBindings\\System\\Threading\\mod.rs; Get-Content -LiteralPath 'crates/session/src/lib.rs' -TotalCount 90"
+      ],
+      "cwd": "file:///D:/Project/witvoice",
+      "exit_code": 0,
+      "started_at_ms": 1791140619205,
+      "completed_at_ms": 1791140619420,
+      "stdout_file": "docs/evidence/T006-20261005/supervision/author-events/event-08.txt",
+      "stdout_sha256": "c0a5f54efe8fb60abdd61a40dfc563f1f2686172ffc05ddeade5718516fec5a4"
+    },
+    {
+      "timestamp": "2026-10-04T19:05:59.008Z",
+      "source_log_line": 1404,
+      "agent": "/root/backend",
+      "thread_id": "01a10767-4ff5-7f21-881a-146d094fbc55",
+      "execution_id": "exec-5b681c02-c831-422e-be81-ce48c2ad1a9c",
+      "process_id": "64499",
+      "command": [
+        "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+        "-Command",
+        ". tools/dev/toolchain-env.ps1; cargo fmt -p witvoice-session -p witvoice-platform -p witvoice-node; $wvStart=[DateTime]::UtcNow.ToString('o'); cargo test --locked -p witvoice-session -p witvoice-platform -p witvoice-node --features witvoice-node/process-tests -- --test-threads=1 --nocapture; $wvExit=$LASTEXITCODE; Write-Output \"WV_TEST_START=$wvStart WV_TEST_END=$([DateTime]::UtcNow.ToString('o')) WV_EXIT=$wvExit\"; exit $wvExit"
+      ],
+      "cwd": "file:///D:/Project/witvoice",
+      "exit_code": 101,
+      "started_at_ms": 1791140746537,
+      "completed_at_ms": 1791140759008,
+      "stdout_file": "docs/evidence/T006-20261005/supervision/author-events/event-09.txt",
+      "stdout_sha256": "78b21989026bb6a0cf72b57a373380b8b81bee38df080cc35e09ad9fc929a612"
+    },
+    {
+      "timestamp": "2026-10-04T19:06:32.540Z",
+      "source_log_line": 1409,
+      "agent": "/root/backend",
+      "thread_id": "01a10767-4ff5-7f21-881a-146d094fbc55",
+      "execution_id": "exec-7be0b95a-9e1b-472f-8aa7-8efd76f67ef8",
+      "process_id": "83396",
+      "command": [
+        "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+        "-Command",
+        "Get-Process -Name witvoice-node,process-probe -ErrorAction SilentlyContinue | Select-Object Id,ProcessName,StartTime,Path"
+      ],
+      "cwd": "file:///D:/Project/witvoice",
+      "exit_code": 1,
+      "started_at_ms": 1791140792293,
+      "completed_at_ms": 1791140792540,
+      "stdout_file": "docs/evidence/T006-20261005/supervision/author-events/event-10.txt",
+      "stdout_sha256": "2ca86bad97cb24077cd49b6280e95c6b348b5474463d66c35a8be69a15a173d1"
+    },
+    {
+      "timestamp": "2026-10-04T19:07:13.938Z",
+      "source_log_line": 1421,
+      "agent": "/root/backend",
+      "thread_id": "01a10767-4ff5-7f21-881a-146d094fbc55",
+      "execution_id": "exec-a6e86bdf-85c5-41a9-ad76-cb7fcfdb1cca",
+      "process_id": "3149",
+      "command": [
+        "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+        "-Command",
+        "$wvTestNode=Get-Process -Id 82084 -ErrorAction Stop; if($wvTestNode.Path -ne 'D:\\Project\\witvoice\\target\\debug\\witvoice-node.exe'){throw 'Unexpected test process image'}; Stop-Process -Id 82084 -ErrorAction Stop; Wait-Process -Id 82084 -Timeout 3 -ErrorAction SilentlyContinue; Write-Output 'Cleaned failed-test Node PID 82084 after exact image verification.'"
+      ],
+      "cwd": "file:///D:/Project/witvoice",
+      "exit_code": 0,
+      "started_at_ms": 1791140833740,
+      "completed_at_ms": 1791140833937,
+      "stdout_file": "docs/evidence/T006-20261005/supervision/author-events/event-11.txt",
+      "stdout_sha256": "12ddb52e02d15bccb81b4a892626fdb84f94c2bbaf8f90bc8f203adcdbae3ff5"
+    },
+    {
+      "timestamp": "2026-10-04T19:07:26.268Z",
+      "source_log_line": 1423,
+      "agent": "/root/backend",
+      "thread_id": "01a10767-4ff5-7f21-881a-146d094fbc55",
+      "execution_id": "exec-e4cc1032-b817-4d1e-ae38-e2e845a0163a",
+      "process_id": "85451",
+      "command": [
+        "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+        "-Command",
+        ". tools/dev/toolchain-env.ps1; cargo fmt -p witvoice-session -p witvoice-platform -p witvoice-node; $wvStart=[DateTime]::UtcNow.ToString('o'); cargo test --locked -p witvoice-session -p witvoice-platform -p witvoice-node --features witvoice-node/process-tests -- --test-threads=1 --nocapture; $wvExit=$LASTEXITCODE; Write-Output \"WV_TEST_START=$wvStart WV_TEST_END=$([DateTime]::UtcNow.ToString('o')) WV_EXIT=$wvExit\"; exit $wvExit"
+      ],
+      "cwd": "file:///D:/Project/witvoice",
+      "exit_code": 101,
+      "started_at_ms": 1791140844100,
+      "completed_at_ms": 1791140846268,
+      "stdout_file": "docs/evidence/T006-20261005/supervision/author-events/event-12.txt",
+      "stdout_sha256": "9518a0af0bb6b842a214704a06b50debbcde336190454932d4920de3c5913acb"
+    },
+    {
+      "timestamp": "2026-10-04T19:07:43.600Z",
+      "source_log_line": 1430,
+      "agent": "/root/backend",
+      "thread_id": "01a10767-4ff5-7f21-881a-146d094fbc55",
+      "execution_id": "exec-91d7fbde-8c5a-49a9-9e28-b03b596bdf3e",
+      "process_id": "84228",
+      "command": [
+        "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+        "-Command",
+        "Get-Content -LiteralPath 'apps/voice-node/src/main.rs'"
+      ],
+      "cwd": "file:///D:/Project/witvoice",
+      "exit_code": 0,
+      "started_at_ms": 1791140863446,
+      "completed_at_ms": 1791140863600,
+      "stdout_file": "docs/evidence/T006-20261005/supervision/author-events/event-13.txt",
+      "stdout_sha256": "1c267b9ce82c4d42b6de524d4b92397e4f8bdffbb4c097960c9233b203423285"
+    },
+    {
+      "timestamp": "2026-10-04T19:08:03.374Z",
+      "source_log_line": 1434,
+      "agent": "/root/backend",
+      "thread_id": "01a10767-4ff5-7f21-881a-146d094fbc55",
+      "execution_id": "exec-20c4b1b9-139f-401f-be68-656a7811bf2b",
+      "process_id": "91201",
+      "command": [
+        "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+        "-Command",
+        ". tools/dev/toolchain-env.ps1; cargo fmt -p witvoice-session -p witvoice-platform -p witvoice-node; $wvStart=[DateTime]::UtcNow.ToString('o'); cargo test --locked -p witvoice-session -p witvoice-platform -p witvoice-node --features witvoice-node/process-tests -- --test-threads=1 --nocapture; $wvExit=$LASTEXITCODE; Write-Output \"WV_TEST_START=$wvStart WV_TEST_END=$([DateTime]::UtcNow.ToString('o')) WV_EXIT=$wvExit\"; exit $wvExit"
+      ],
+      "cwd": "file:///D:/Project/witvoice",
+      "exit_code": 0,
+      "started_at_ms": 1791140871868,
+      "completed_at_ms": 1791140883374,
+      "stdout_file": "docs/evidence/T006-20261005/supervision/author-events/event-14.txt",
+      "stdout_sha256": "8f3c087ec473dd52400ae09427d8dd4576750437a4f3a2f227125bf196c79daa"
+    },
+    {
+      "timestamp": "2026-10-04T19:08:40.467Z",
+      "source_log_line": 1439,
+      "agent": "/root/backend",
+      "thread_id": "01a10767-4ff5-7f21-881a-146d094fbc55",
+      "execution_id": "exec-e606afab-1ebd-43cf-b052-16f015c8d2de",
+      "process_id": "82395",
+      "command": [
+        "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+        "-Command",
+        "Get-Content -LiteralPath 'apps/voice-node/README.md','crates/platform/README.md','crates/session/README.md'; git diff --stat -- apps/voice-node/src apps/voice-node/tests crates/session/src crates/session/tests crates/platform/src"
+      ],
+      "cwd": "file:///D:/Project/witvoice",
+      "exit_code": 0,
+      "started_at_ms": 1791140920240,
+      "completed_at_ms": 1791140920467,
+      "stdout_file": "docs/evidence/T006-20261005/supervision/author-events/event-15.txt",
+      "stdout_sha256": "da236f6b9ced0d2e6d88b741e1df67d93d8b4be233d6c9a3d49a9d58fec6a081"
+    },
+    {
+      "timestamp": "2026-10-04T19:11:01.116Z",
+      "source_log_line": 1460,
+      "agent": "/root/backend",
+      "thread_id": "01a10767-4ff5-7f21-881a-146d094fbc55",
+      "execution_id": "exec-3a8727dc-74b1-4ff4-9a5b-4c63132fda88",
+      "process_id": "63453",
+      "command": [
+        "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+        "-Command",
+        ". tools/dev/toolchain-env.ps1; cargo fmt -p witvoice-session -p witvoice-platform -p witvoice-node; $wvStart=[DateTime]::UtcNow.ToString('o'); cargo clippy --locked -p witvoice-session -p witvoice-platform -p witvoice-node --features witvoice-node/process-tests --all-targets -- -D warnings; $wvExit=$LASTEXITCODE; Write-Output \"WV_CLIPPY_START=$wvStart WV_CLIPPY_END=$([DateTime]::UtcNow.ToString('o')) WV_EXIT=$wvExit\"; exit $wvExit"
+      ],
+      "cwd": "file:///D:/Project/witvoice",
+      "exit_code": 0,
+      "started_at_ms": 1791141056463,
+      "completed_at_ms": 1791141061116,
+      "stdout_file": "docs/evidence/T006-20261005/supervision/author-events/event-16.txt",
+      "stdout_sha256": "0a7478437535006c15a0b533b17a28ae908a9f5119bf01e5562771f520c2e5f3"
+    },
+    {
+      "timestamp": "2026-10-04T19:11:39.911Z",
+      "source_log_line": 1470,
+      "agent": "/root/backend",
+      "thread_id": "01a10767-4ff5-7f21-881a-146d094fbc55",
+      "execution_id": "exec-7201edcc-26f4-4da4-8e88-1d3712a42564",
+      "process_id": "40576",
+      "command": [
+        "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+        "-Command",
+        ". tools/dev/toolchain-env.ps1; $wvStart=[DateTime]::UtcNow.ToString('o'); cargo fmt --all --check; $wvExit=$LASTEXITCODE; Write-Output \"WV_FMT_START=$wvStart WV_FMT_END=$([DateTime]::UtcNow.ToString('o')) WV_EXIT=$wvExit\"; exit $wvExit"
+      ],
+      "cwd": "file:///D:/Project/witvoice",
+      "exit_code": 0,
+      "started_at_ms": 1791141099544,
+      "completed_at_ms": 1791141099911,
+      "stdout_file": "docs/evidence/T006-20261005/supervision/author-events/event-17.txt",
+      "stdout_sha256": "4af84f80a8e1dabe89e86a16dd34725da83cd8a3d509d7cc5530efc83b0b4c46"
+    },
+    {
+      "timestamp": "2026-10-04T19:11:48.973Z",
+      "source_log_line": 1471,
+      "agent": "/root/backend",
+      "thread_id": "01a10767-4ff5-7f21-881a-146d094fbc55",
+      "execution_id": "exec-82aa9ace-aed5-483b-86ed-5a17e17bcc17",
+      "process_id": "81342",
+      "command": [
+        "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+        "-Command",
+        ". tools/dev/toolchain-env.ps1; $wvStart=[DateTime]::UtcNow.ToString('o'); cargo test --locked -p witvoice-session -p witvoice-platform -p witvoice-node -- --test-threads=1; $wvExit=$LASTEXITCODE; Write-Output \"WV_DEFAULT_TEST_START=$wvStart WV_DEFAULT_TEST_END=$([DateTime]::UtcNow.ToString('o')) WV_EXIT=$wvExit\"; exit $wvExit"
+      ],
+      "cwd": "file:///D:/Project/witvoice",
+      "exit_code": 0,
+      "started_at_ms": 1791141103854,
+      "completed_at_ms": 1791141108973,
+      "stdout_file": "docs/evidence/T006-20261005/supervision/author-events/event-18.txt",
+      "stdout_sha256": "bda00721cf2276d903b6a58c80aac7a8200a4a8f0b3b91454bc9cc296b0773ac"
+    },
+    {
+      "timestamp": "2026-10-04T19:12:25.088Z",
+      "source_log_line": 1478,
+      "agent": "/root/backend",
+      "thread_id": "01a10767-4ff5-7f21-881a-146d094fbc55",
+      "execution_id": "exec-1b2edb10-4826-4470-be7e-cf8011f16d22",
+      "process_id": "53085",
+      "command": [
+        "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+        "-Command",
+        ". tools/dev/toolchain-env.ps1; $wvStart=[DateTime]::UtcNow.ToString('o'); cargo test --locked -p witvoice-session -p witvoice-platform -p witvoice-node --features witvoice-node/process-tests -- --test-threads=1 --nocapture; $wvExit=$LASTEXITCODE; Write-Output \"WV_FEATURE_TEST_START=$wvStart WV_FEATURE_TEST_END=$([DateTime]::UtcNow.ToString('o')) WV_EXIT=$wvExit\"; exit $wvExit"
+      ],
+      "cwd": "file:///D:/Project/witvoice",
+      "exit_code": 0,
+      "started_at_ms": 1791141132774,
+      "completed_at_ms": 1791141145088,
+      "stdout_file": "docs/evidence/T006-20261005/supervision/author-events/event-19.txt",
+      "stdout_sha256": "c76445c8789736ba657f3b2d59be50a04abcd29d8653af817143ac84738c6685"
+    },
+    {
+      "timestamp": "2026-10-04T19:12:29.875Z",
+      "source_log_line": 1479,
+      "agent": "/root/backend",
+      "thread_id": "01a10767-4ff5-7f21-881a-146d094fbc55",
+      "execution_id": "exec-37be32a1-8452-4951-a257-74e21daa3100",
+      "process_id": "13845",
+      "command": [
+        "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+        "-Command",
+        ". tools/dev/toolchain-env.ps1; $wvStart=[DateTime]::UtcNow.ToString('o'); cargo clippy --locked -p witvoice-session -p witvoice-platform -p witvoice-node --all-targets -- -D warnings; $wvExit=$LASTEXITCODE; Write-Output \"WV_DEFAULT_CLIPPY_START=$wvStart WV_DEFAULT_CLIPPY_END=$([DateTime]::UtcNow.ToString('o')) WV_EXIT=$wvExit\"; exit $wvExit"
+      ],
+      "cwd": "file:///D:/Project/witvoice",
+      "exit_code": 0,
+      "started_at_ms": 1791141149227,
+      "completed_at_ms": 1791141149875,
+      "stdout_file": "docs/evidence/T006-20261005/supervision/author-events/event-20.txt",
+      "stdout_sha256": "98d4ef363f7d5714d9bbfb8f4badf94e9f7ddb9bfb53af00b1a7a3c77e284fdc"
+    },
+    {
+      "timestamp": "2026-10-04T19:13:02.909Z",
+      "source_log_line": 1486,
+      "agent": "/root/backend",
+      "thread_id": "01a10767-4ff5-7f21-881a-146d094fbc55",
+      "execution_id": "exec-ed0977a3-ed01-49f0-93f2-7c56d25d2d9c",
+      "process_id": "43072",
+      "command": [
+        "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+        "-Command",
+        "git diff --check -- apps/voice-node/src apps/voice-node/tests apps/voice-node/README.md crates/session/src crates/session/tests crates/session/README.md crates/platform/src crates/platform/tests crates/platform/README.md; if($LASTEXITCODE -ne 0){exit $LASTEXITCODE}; git status --short -- apps/voice-node crates/session crates/platform; git rev-parse HEAD; $wvProcesses=@(Get-Process -Name witvoice-node,process-probe,ipc-probe -ErrorAction SilentlyContinue); Write-Output \"WV_FINAL_PROCESS_CHECK_UTC=$([DateTime]::UtcNow.ToString('o')) COUNT=$($wvProcesses.Count)\"; $wvProcesses | Select-Object Id,ProcessName; exit 0"
+      ],
+      "cwd": "file:///D:/Project/witvoice",
+      "exit_code": 0,
+      "started_at_ms": 1791141182613,
+      "completed_at_ms": 1791141182909,
+      "stdout_file": "docs/evidence/T006-20261005/supervision/author-events/event-21.txt",
+      "stdout_sha256": "0f208515c4b0b0f2ee3ea0c336c6de53e5023b6fdfdbc2ed9c908ffe6954b14f"
+    }
+  ]
+}

@@ -1,5 +1,3 @@
-#![cfg_attr(windows, windows_subsystem = "windows")]
-
 #[cfg(windows)]
 fn main() {
     if witvoice_node::run(std::env::args().skip(1)).is_err() {
@@ -14,3 +12,4 @@ fn main() {
     eprintln!("This Node slice requires Windows; Mac runtime is untested");
     std::process::exit(1);
 }
+#![cfg_attr(windows, windows_subsystem = "windows")]

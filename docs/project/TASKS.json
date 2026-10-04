@@ -197,14 +197,14 @@
       ],
       "acceptance": "普通用户启动、连接/断开、受限IPC、worker生命周期；杀UI不会通过父Job误杀Node；显式退出清理所有会话。",
       "agent_instance_id": "/root/backend",
-      "resource_leases": [
-        "code-writer:backend-supervision"
-      ],
+      "resource_leases": [],
       "evidence": [
         "docs/evidence/T006-20261005/leader-checks.json",
         "docs/evidence/T006-20261005/PROVENANCE.md",
         "docs/adr/0002-local-node-exit.md",
-        "docs/evidence/T006-20261005/exit-contract/checks.json"
+        "docs/evidence/T006-20261005/exit-contract/checks.json",
+        "docs/evidence/T006-20261005/supervision/PROVENANCE.md",
+        "docs/evidence/T006-20261005/supervision/author-events/index.json"
       ],
       "review": null,
       "attempts": 0,
@@ -236,8 +236,8 @@
         "docs/evidence/T007-20261005/notifications/leader-checks.json",
         "docs/evidence/T007-20261005/notifications/PROVENANCE.md"
       ],
-      "review": "docs/project/reviews/T007-slice-r1.md",
-      "attempts": 1,
+      "review": "docs/project/reviews/T007-slice-r2.md",
+      "attempts": 2,
       "blocked_reason": null
     },
     {
@@ -598,7 +598,7 @@
       "milestone": "M4",
       "title": "冻结交互映射、tokens及状态覆盖",
       "owner_role": "hci",
-      "status": "TODO",
+      "status": "IN_PROGRESS",
       "requirements": [
         "REQ-25",
         "REQ-10",
@@ -612,12 +612,20 @@
         "packages/ui-tokens/"
       ],
       "acceptance": "五主页面、空/忙/错/准备/运行状态、键盘与缩放规则；不新增商城等范围；frontend有可执行验收依据。",
-      "agent_instance_id": null,
+      "agent_instance_id": "/root",
       "resource_leases": [],
-      "evidence": [],
+      "evidence": [
+        "docs/design/interaction-map.md",
+        "docs/design/states.md",
+        "docs/design/tokens.md",
+        "docs/evidence/T021-20261005/static-first.json",
+        "docs/project/T021-assignment.md"
+      ],
       "review": null,
       "attempts": 0,
-      "blocked_reason": null
+      "blocked_reason": null,
+      "execution_mode": "leader_hci_scope_with_actual_frontend_readonly_advice",
+      "execution_note": "historical native /root/hci not retained in current4child inventory; no new hci dispatch claim; leader authors fixedT021, frontend actual advisory only"
     },
     {
       "id": "T022",

@@ -1,0 +1,6 @@
+    Checking windows v0.62.2
+    Checking witvoice-session v0.1.0 (D:\Project\witvoice\crates\session)
+    Checking witvoice-platform v0.1.0 (D:\Project\witvoice\crates\platform)
+    Checking witvoice-node v0.1.0 (D:\Project\witvoice\apps\voice-node)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 4.18s
+WV_CLIPPY_START=2026-10-04T19:10:56.7200633Z WV_CLIPPY_END=2026-10-04T19:11:01.0330107Z WV_EXIT=0

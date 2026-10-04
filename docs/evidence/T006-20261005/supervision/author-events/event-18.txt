@@ -1,0 +1,81 @@
+   Compiling witvoice-platform v0.1.0 (D:\Project\witvoice\crates\platform)
+   Compiling witvoice-node v0.1.0 (D:\Project\witvoice\apps\voice-node)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.21s
+     Running unittests src\lib.rs (target\debug\deps\witvoice_node-3a80d06abe296f39.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src\bin\ipc-probe.rs (target\debug\deps\ipc_probe-1e01cc5186da571f.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src\main.rs (target\debug\deps\witvoice_node-5a14c1280216cee6.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\supervision.rs (target\debug\deps\supervision-fa6e84b4f7a7c792.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\windows_process.rs (target\debug\deps\windows_process-94c9b16fae567635.exe)
+
+running 3 tests
+test client_death_and_partial_deadline_do_not_kill_node ... ok
+test first_instance_rejects_endpoint_takeover ... ok
+test real_node_authentication_frames_and_fail_closed_lifecycle ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 3.37s
+
+     Running unittests src\lib.rs (target\debug\deps\witvoice_platform-0b1aaf16748d31cd.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src\lib.rs (target\debug\deps\witvoice_session-c2fdf07541f1930a.exe)
+
+running 1 test
+test tests::exhausted_counters_cannot_prevent_retirement_or_resource_cleanup ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\lifecycle.rs (target\debug\deps\lifecycle-94e1c2071f07d8ca.exe)
+
+running 7 tests
+test bounded_history_never_evicts_mutations_and_stop_remains_fail_closed ... ok
+test duplicate_exit_replays_response_without_advancing_epoch ... ok
+test duplicate_mutation_is_idempotent_and_conflicting_id_is_rejected ... ok
+test exit_is_authoritative_after_validation_and_conflicts_even_when_history_is_full ... ok
+test invalid_wire_does_not_change_owner_state ... ok
+test missing_resources_cannot_advertise_ready_or_start_audio ... ok
+test read_only_polling_does_not_exhaust_mutation_budget ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+   Doc-tests witvoice_node
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests witvoice_platform
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests witvoice_session
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+WV_DEFAULT_TEST_START=2026-10-04T19:11:43.9517722Z WV_DEFAULT_TEST_END=2026-10-04T19:11:48.8888232Z WV_EXIT=0

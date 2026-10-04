@@ -1,0 +1,51 @@
+/* Generated from tokens.json by validate.py --write-css. */
+:root {
+  --vc-text-size-px: 14px;
+  --vc-text-line-height: 1.5;
+  --vc-control-min-px: 36px;
+  --vc-focus-width-px: 2px;
+  --vc-focus-offset-px: 3px;
+  --vc-radius-px: 8px;
+  --vc-space-unit-px: 4px;
+  --vc-window-min-width-px: 1024px;
+  --vc-window-min-height-px: 680px;
+  --vc-motion-fast-ms: 100ms;
+  --vc-motion-normal-ms: 150ms;
+  --vc-font-ui: "Segoe UI", "Microsoft YaHei UI", system-ui, sans-serif;
+}
+:root, [data-vc-theme="dark"] {
+  color-scheme: dark;
+  --vc-canvas: #111418;
+  --vc-surface: #1a2029;
+  --vc-elevated: #232c38;
+  --vc-text: #f2f5f9;
+  --vc-secondary: #b2bdcc;
+  --vc-border: #8493a6;
+  --vc-accent: #93c5fd;
+  --vc-accent-text: #12213b;
+  --vc-focus: #93c5fd;
+  --vc-success: #86efac;
+  --vc-warning: #fde047;
+  --vc-danger: #fda4af;
+}
+[data-vc-theme="light"] {
+  color-scheme: light;
+  --vc-canvas: #f3f5f8;
+  --vc-surface: #ffffff;
+  --vc-elevated: #e7ecf2;
+  --vc-text: #17212f;
+  --vc-secondary: #475569;
+  --vc-border: #64748b;
+  --vc-accent: #1e40af;
+  --vc-accent-text: #ffffff;
+  --vc-focus: #1e40af;
+  --vc-success: #166534;
+  --vc-warning: #854d0e;
+  --vc-danger: #9f1239;
+}
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --vc-motion-fast-ms: 0ms;
+    --vc-motion-normal-ms: 0ms;
+  }
+}

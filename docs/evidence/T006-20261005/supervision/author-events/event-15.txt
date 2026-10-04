@@ -1,0 +1,46 @@
+# apps/voice-node
+
+T006 首个控制切片：真实 Rust 普通用户进程，拥有 `witvoice-session::Runtime`，UI 控制连接退出不会销毁该所有者。Node 拒绝 elevated token。本切片不打开输入/输出设备、LAN、worker 或模型，不公布 Ready/Running 能力。
+
+启动契约：`witvoice-node --endpoint <1..32 ASCII 字母/数字/连字符 tag> --bootstrap-stdin`。可信启动器用 `Secret::generate()` 生成 32 字节系统随机令牌，经私有继承 stdin 传给 Node，关闭 stdin；启动器持有 Child PID 和令牌，再交给获批准控制客户端。禁止把令牌放在命令行、环境变量、日志或仓库文件。没有完整令牌，Node 在 3 秒内失败退出。尚未实现 Tauri 启动器和 Job breakaway；不能将此 CLI 当作完成的桌面产品启动流程。
+
+客户端使用 `PipeClient::connect(tag, launched_child_pid, timeout)` 校验服务端 PID/SID，再 `authenticate(secret)`。私有命名管道在 Windows 对象命名空间中，exact-user DACL 代替文件目录权限；其名字、用户名和秘密不输出到 Node 日志。每个连接只承载一个控制请求：32 字节令牌、4 字节大端长度、UTF-8 contracts JSON；响应同样长度前缀，客户端读取完整响应后回传单字节 `0xa5` ACK。无媒体通道。单实例/单连接、64 KiB 帧上限、客户端连接与服务端连接总期限各最多 3 秒，超长/空帧在分配 payload 前拒绝。响应 ACK 防止关闭管道时丢弃未读响应；不用阻塞的 FlushFileBuffers。
+
+`GetState` 可实际读取状态；`PrepareSession` 因资源未接入转为 Blocked 并报 ENGINE_NOT_READY；Start/Unmute 不能启用音频。其他尚未接入的命令同样拒绝，不返回虚假能力。Stop 将控制所有者恢复 Idle。控制命令的幂等和有界历史见 session README。
+
+真实验收命令（Windows 普通用户，无采集/GPU/LAN）：
+
+```powershell
+. tools/dev/toolchain-env.ps1
+cargo fmt --all --check
+cargo test --locked -p witvoice-session -p witvoice-platform -p witvoice-node -- --test-threads=1
+cargo clippy --locked -p witvoice-session -p witvoice-platform -p witvoice-node --all-targets -- -D warnings
+```
+
+`tests/windows_process.rs` 启动真实 Node 和独立 `ipc-probe` 客户端进程，测试身份/令牌/长度/碎片帧、重复请求、单实例抢占、单连接上限、部分帧期限及客户端死亡后 Node 仍活；不以 stub/mock Node 代替。测试退出时回收它启动的 Child。`ipc-probe` 是开发验收程序，无音频和模型能力。
+
+NOT_RUN / T006 未完成：worker 的 Node-owned Job 监督、worker 崩溃/重启、Tauri 用户启动器与 UI Job 隔离、实际音频资源/lease/睡眠故障与停止后不录音、不同 Windows 用户实际连接拒绝、Mac 真机。SID、ACL、PID 与启动令牌不能保证抵抗已完全控制同用户进程/管理员的攻击者；令牌及 idempotency 历史仅驻留本次 Node 内存。
+# crates/platform
+
+T006 首个 Windows IPC/凭据切片，音频 API 仍属 audio_runtime。仅依赖已锁定 Windows API crate 与权威 contracts，无 Node 网络端口、驱动或系统服务。
+
+`PipeServer` 使用 exact current-user SID 的 protected DACL、non-inheritable handle、FILE_FLAG_FIRST_PIPE_INSTANCE、PIPE_REJECT_REMOTE_CLIENTS、单实例/单连接。双方通过 Windows 获取对端实际 PID 并查询进程 token SID，客户端另外比对其可信启动器记录的 Node PID；服务端再核对启动器通过私有 stdin 交付的 32 字节 BCrypt 系统随机令牌。客户端用 identification-only SQOS，不让管道服务端冒用客户端身份。
+
+所有控制读写是 OVERLAPPED + 连接总期限。超时取消特定 I/O，并在释放 OVERLAPPED/event/buffer 前观察取消完成；空闲服务器仅等待连接，不保留媒体/请求队列。每帧大端长度限制复用 contracts 64 KiB，分配前检查；响应完成 ACK 和断连均受期限约束。没有音频 callback 或媒体路径。管道是内核对象，ACL 是它的私有访问边界，不创建共享磁盘 socket/token 文件。
+
+原生行为由 voice-node/tests/windows_process.rs 真实跨进程检验。NOT_RUN：实际不同用户拒绝、管理员/已完全控制同用户进程防护、worker Job 监督、Mac IPC。不要把 same SID 校验描述为针对所有同用户恶意进程的完整隔离；不输出 SID、令牌、payload 或用户路径到 Node 错误日志。
+# crates/session
+
+Node 单一拥有的控制生命周期，直接调用 `witvoice-contracts::state::transition`；UI 不持有第二状态机。本切片无音频、engine 或 worker，因此 `output_is_muted` 表示无资源可授权输出，不能当作物理静音测试证据。
+
+真实支持 GetState、无资源准备的 Preparing→Blocked 和 Stop→Stopping→Idle。准备时推进 epoch，错误准备不能成为 Ready。Start/SetMute 与尚未实现命令返回 ENGINE_NOT_READY；不会自动打开原声旁路。尚未创建实际 session/lease，不假装做了 live session_id/epoch 媒体验证。
+
+同一变更 request_id + 规范化请求返回原响应，已记录 id 冲突返回 REQUEST_ID_CONFLICT。最多记录 128 个完整变更请求（单条不超过 contracts 64 KiB）及响应，不驱逐旧记录以避免重新执行已见变更。只读查询不占变更历史，GetState 总是读当前快照。达到容量后新变更报 BACKPRESSURE；Stop 仍先执行 fail-closed 控制清理再报 BACKPRESSURE，Idle 重复 Stop 不推进 epoch。满历史需显式重启 Node，本切片不实施无界历史或隐式轮换。历史不跨 Node 重启持久化，调用者不得重用变更请求 ID。
+
+`cargo test --locked -p witvoice-session` 验证无资源不能 Ready/Start、epoch/状态版本、幂等与冲突、历史上限和恶意 wire。不将这些纯控制测试算作音频/硬件或完整 T006 验收。
+ apps/voice-node/src/lib.rs        | 52 ++++++++++++++++++++++++++++
+ apps/voice-node/src/main.rs       |  2 ++
+ crates/platform/src/lib.rs        |  4 +++
+ crates/session/src/lib.rs         | 72 +++++++++++++++++++++++++++++++++++++++
+ crates/session/tests/lifecycle.rs | 63 ++++++++++++++++++++++++++++++++++
+ 5 files changed, 193 insertions(+)

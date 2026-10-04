@@ -145,3 +145,66 @@ fn invalid_wire_does_not_change_owner_state() {
     assert_eq!(runtime.state_version(), 0);
     assert_eq!(runtime.state(), SessionState::Idle);
 }
+
+#[test]
+fn exit_is_authoritative_after_validation_and_conflicts_even_when_history_is_full() {
+    let mut runtime = Runtime::default();
+    runtime.handle(&prepare(1)).unwrap();
+    let exit = request(1, serde_json::json!({"kind":"ExitNode"}));
+    assert_eq!(
+        code(&runtime.handle(&exit).unwrap()),
+        ErrorCode::RequestIdConflict
+    );
+    assert!(!runtime.shutdown_requested());
+    let malformed = request(
+        2,
+        serde_json::json!({"kind":"ExitNode","args":{"shell":"bad"}}),
+    );
+    assert!(runtime.handle(&malformed).is_err());
+    assert!(!runtime.shutdown_requested());
+    for id in 2..=REQUEST_HISTORY_CAPACITY {
+        runtime
+            .handle(&request(
+                id,
+                serde_json::json!({"kind":"SetGain","args":{"db":0.0}}),
+            ))
+            .unwrap();
+    }
+    let exit = request(1000, serde_json::json!({"kind":"ExitNode"}));
+    assert!(matches!(
+        runtime.handle(&exit).unwrap().outcome,
+        Outcome::Ack
+    ));
+    assert!(runtime.shutdown_requested());
+    assert!(runtime.take_resource_cleanup());
+    assert!(runtime.output_is_muted());
+    assert_eq!(runtime.state(), SessionState::Idle);
+    assert_eq!(runtime.epoch(), 2);
+    let epoch = runtime.epoch();
+    assert!(matches!(
+        runtime.handle(&exit).unwrap().outcome,
+        Outcome::Ack
+    ));
+    assert_eq!(runtime.epoch(), epoch);
+    assert_eq!(
+        code(&runtime.handle(&prepare(1001)).unwrap()),
+        ErrorCode::Busy
+    );
+}
+
+#[test]
+fn duplicate_exit_replays_response_without_advancing_epoch() {
+    let mut runtime = Runtime::default();
+    let exit = request(1, serde_json::json!({"kind":"ExitNode"}));
+    let first = runtime.handle(&exit).unwrap();
+    assert_eq!(runtime.epoch(), 1);
+    assert_eq!(
+        serde_json::to_vec(&first).unwrap(),
+        serde_json::to_vec(&runtime.handle(&exit).unwrap()).unwrap()
+    );
+    assert_eq!(runtime.epoch(), 1);
+    assert_eq!(
+        code(&runtime.handle(&stop(1)).unwrap()),
+        ErrorCode::RequestIdConflict
+    );
+}

@@ -1,0 +1,94 @@
+D:\Software\WitvoiceToolchain\Rust\cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-0.62.2\src\Windows\Win32\System\JobObjects\mod.rs:140:pub struct JOBOBJECT_BASIC_PROCESS_ID_LIST {
+D:\Software\WitvoiceToolchain\Rust\cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-0.62.2\src\Windows\Win32\System\SystemServices\mod.rs:2580:pub const JOB_OBJECT_QUERY: u32 = 4u32;
+D:\Software\WitvoiceToolchain\Rust\cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-0.62.2\src\Windows\Win32\System\Threading\mod.rs:1258:pub unsafe fn QueryFullProcessImageNameW(hprocess: super::super::Foundation::HANDLE, dwflags: PROCESS_NAME_FORMAT, lpexename: windows_core::PWSTR, lpdwsize: *mut u32) -> windows_core::Result<()> {
+D:\Software\WitvoiceToolchain\Rust\cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-0.62.2\src\Windows\Win32\System\Threading\mod.rs:2798:pub const PROCESS_NAME_WIN32: PROCESS_NAME_FORMAT = PROCESS_NAME_FORMAT(0u32);
+//! Owning control lifecycle. Resource preparation is intentionally unavailable.
+#![forbid(unsafe_code)]
+
+use std::collections::BTreeMap;
+use witvoice_contracts::{
+    ErrorCode,
+    control::{Command, Outcome, Request, Response, decode_request},
+    state::{Event, SessionState, next_epoch, transition},
+    values::DecimalU64,
+};
+
+pub const REQUEST_HISTORY_CAPACITY: usize = 128;
+
+struct Recorded {
+    canonical: Vec<u8>,
+    response: Response,
+}
+
+/// Single Node owner; UI connections do not own or destroy this object.
+/// No engine/device capability is fabricated by this control-only slice.
+pub struct Runtime {
+    state: SessionState,
+    state_version: u64,
+    epoch: u32,
+    history: BTreeMap<String, Recorded>,
+    shutdown_requested: bool,
+    resource_cleanup_requested: bool,
+}
+
+impl Default for Runtime {
+    fn default() -> Self {
+        Self {
+            state: SessionState::Idle,
+            state_version: 0,
+            epoch: 0,
+            history: BTreeMap::new(),
+            shutdown_requested: false,
+            resource_cleanup_requested: false,
+        }
+    }
+}
+
+impl Runtime {
+    /// Set only after wire validation and request-id conflict checks.
+    pub fn shutdown_requested(&self) -> bool {
+        self.shutdown_requested
+    }
+
+    pub fn take_resource_cleanup(&mut self) -> bool {
+        std::mem::take(&mut self.resource_cleanup_requested)
+    }
+
+    fn request_shutdown(&mut self) -> Outcome {
+        // Irreversible owner cleanup does not depend on counter availability.
+        // This slice never owns playable output; a retiring epoch is never reused.
+        let already_retired = self.shutdown_requested;
+        self.shutdown_requested = true;
+        self.resource_cleanup_requested = true;
+        if already_retired {
+            return Outcome::Ack;
+        }
+        match self
+            .apply(Event::Stop)
+            .and_then(|()| self.apply(Event::Stopped))
+        {
+            Ok(()) => Outcome::Ack,
+            Err(code) => error(code),
+        }
+    }
+    pub fn state(&self) -> SessionState {
+        self.state
+    }
+
+    pub fn epoch(&self) -> u32 {
+        self.epoch
+    }
+
+    pub fn state_version(&self) -> u64 {
+        self.state_version
+    }
+
+    /// No audio resources exist in this slice. It cannot authorize audio output.
+    pub fn output_is_muted(&self) -> bool {
+        true
+    }
+
+    fn apply(&mut self, event: Event) -> Result<(), ErrorCode> {
+        let change = transition(self.state, event)?;
+        if change.requires_ready_resources {
+            return Err(ErrorCode::EngineNotReady);

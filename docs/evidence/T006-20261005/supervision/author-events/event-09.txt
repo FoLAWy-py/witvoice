@@ -1,0 +1,77 @@
+   Compiling windows v0.62.2
+   Compiling witvoice-platform v0.1.0 (D:\Project\witvoice\crates\platform)
+   Compiling witvoice-node v0.1.0 (D:\Project\witvoice\apps\voice-node)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 5.29s
+     Running unittests src\lib.rs (target\debug\deps\witvoice_node-c7fdd0dccf5d9821.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src\bin\ipc-probe.rs (target\debug\deps\ipc_probe-6c6c5402389126d4.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src\bin\process-probe.rs (target\debug\deps\process_probe-d87b464ebde100d0.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src\main.rs (target\debug\deps\witvoice_node-d502ba1ce10f9e3c.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\supervision.rs (target\debug\deps\supervision-572e8434ebf5783e.exe)
+
+running 7 tests
+test actual_ui_job_close_and_parent_death_leave_node_independent ... actual job members [(110056, "process-probe.exe"), (90080, "conhost.exe")]
+
+thread 'actual_ui_job_close_and_parent_death_leave_node_independent' (108860) panicked at apps\voice-node\tests\supervision.rs:127:9:
+assertion `left == right` failed
+  left: 2
+ right: 1
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+FAILED
+test closing_or_stopping_job_reclaims_real_worker_descendants ... 
+thread 'closing_or_stopping_job_reclaims_real_worker_descendants' (98876) panicked at apps\voice-node\tests\supervision.rs:204:9:
+assertion failed: rows.iter().all(|(_, name)| name == "process-probe.exe")
+actual job members [(104412, "process-probe.exe"), (111300, "conhost.exe"), (111584, "process-probe.exe")]
+FAILED
+test denying_ui_job_breakaway_fails_without_children_or_endpoint ... denied breakaway; UI PID 105616, active job processes 0
+ok
+test exit_conflict_full_history_and_lost_ack_use_runtime_authority ... reclaimed owner PID 110720
+reclaimed PID 109268
+reclaimed PID 110196
+ok
+test malformed_bootstrap_timeout_and_endpoint_failure_start_no_worker ... reclaimed owner PID 108964
+reclaimed owner PID 97880
+reclaimed owner PID 97880
+reclaimed owner PID 103972
+ok
+test node_owned_job_is_reclaimed_on_stop_exit_and_owner_kill ... reclaimed PID 96712
+reclaimed PID 108428
+reclaimed PID 94564
+reclaimed PID 109268
+reclaimed owner PID 110972
+reclaimed PID 102688
+reclaimed PID 101524
+reclaimed owner PID 108176
+ok
+test trusted_argv_roundtrips_and_failed_job_assignment_never_resumes_child ... failed query-only assignment cleaned suspended child; trusted argv roundtripped
+ok
+
+failures:
+
+failures:
+    actual_ui_job_close_and_parent_death_leave_node_independent
+    closing_or_stopping_job_reclaims_real_worker_descendants
+
+test result: FAILED. 5 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 6.69s
+
+error: test failed, to rerun pass `-p witvoice-node --test supervision`
+WV_TEST_START=2026-10-04T19:05:46.8210838Z WV_TEST_END=2026-10-04T19:05:58.9610617Z WV_EXIT=101

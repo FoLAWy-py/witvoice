@@ -1,0 +1,124 @@
+   Compiling witvoice-node v0.1.0 (D:\Project\witvoice\apps\voice-node)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.68s
+     Running unittests src\lib.rs (target\debug\deps\witvoice_node-c7fdd0dccf5d9821.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src\bin\ipc-probe.rs (target\debug\deps\ipc_probe-6c6c5402389126d4.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src\bin\process-probe.rs (target\debug\deps\process_probe-d87b464ebde100d0.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src\main.rs (target\debug\deps\witvoice_node-d502ba1ce10f9e3c.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\supervision.rs (target\debug\deps\supervision-572e8434ebf5783e.exe)
+
+running 7 tests
+test actual_ui_job_close_and_parent_death_leave_node_independent ... independent Node PID 106444
+actual job members [(110348, "process-probe.exe")]
+reclaimed PID 110348
+reclaimed PID 106444
+independent Node PID 110532
+actual job members [(109984, "process-probe.exe")]
+reclaimed PID 109984
+reclaimed PID 110532
+ok
+test closing_or_stopping_job_reclaims_real_worker_descendants ... actual job members [(97444, "process-probe.exe"), (102852, "process-probe.exe")]
+reclaimed PID 97444
+reclaimed PID 102852
+actual job members [(111644, "process-probe.exe"), (112264, "process-probe.exe")]
+reclaimed PID 111644
+reclaimed PID 112264
+ok
+test denying_ui_job_breakaway_fails_without_children_or_endpoint ... denied breakaway; UI PID 96752, active job processes 0
+ok
+test exit_conflict_full_history_and_lost_ack_use_runtime_authority ... reclaimed owner PID 106536
+reclaimed PID 112352
+reclaimed PID 72944
+ok
+test malformed_bootstrap_timeout_and_endpoint_failure_start_no_worker ... reclaimed owner PID 96660
+reclaimed owner PID 107976
+reclaimed owner PID 107976
+reclaimed owner PID 112512
+ok
+test node_owned_job_is_reclaimed_on_stop_exit_and_owner_kill ... reclaimed PID 111920
+reclaimed PID 107968
+reclaimed PID 112508
+reclaimed PID 105688
+reclaimed owner PID 98296
+reclaimed PID 73528
+reclaimed PID 112280
+reclaimed owner PID 111632
+ok
+test trusted_argv_roundtrips_and_failed_job_assignment_never_resumes_child ... failed query-only assignment cleaned suspended child; trusted argv roundtripped
+ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 6.75s
+
+     Running tests\windows_process.rs (target\debug\deps\windows_process-2f7380434b0374c1.exe)
+
+running 3 tests
+test client_death_and_partial_deadline_do_not_kill_node ... ok
+test first_instance_rejects_endpoint_takeover ... ok
+test real_node_authentication_frames_and_fail_closed_lifecycle ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 3.38s
+
+     Running unittests src\lib.rs (target\debug\deps\witvoice_platform-0b1aaf16748d31cd.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src\lib.rs (target\debug\deps\witvoice_session-c2fdf07541f1930a.exe)
+
+running 1 test
+test tests::exhausted_counters_cannot_prevent_retirement_or_resource_cleanup ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\lifecycle.rs (target\debug\deps\lifecycle-94e1c2071f07d8ca.exe)
+
+running 7 tests
+test bounded_history_never_evicts_mutations_and_stop_remains_fail_closed ... ok
+test duplicate_exit_replays_response_without_advancing_epoch ... ok
+test duplicate_mutation_is_idempotent_and_conflicting_id_is_rejected ... ok
+test exit_is_authoritative_after_validation_and_conflicts_even_when_history_is_full ... ok
+test invalid_wire_does_not_change_owner_state ... ok
+test missing_resources_cannot_advertise_ready_or_start_audio ... ok
+test read_only_polling_does_not_exhaust_mutation_budget ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+   Doc-tests witvoice_node
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests witvoice_platform
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests witvoice_session
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+WV_FEATURE_TEST_START=2026-10-04T19:12:12.8694664Z WV_FEATURE_TEST_END=2026-10-04T19:12:25.0547588Z WV_EXIT=0

@@ -20,9 +20,7 @@
         "crates/platform/tests/",
         "crates/platform/README.md"
       ],
-      "resource_leases": [
-        "code-writer:backend-supervision"
-      ],
+      "resource_leases": [],
       "depends_on": [
         "T003",
         "T005"
@@ -34,7 +32,7 @@
       ],
       "contract": "docs/spec/01-architecture.md +04-lan-protocol.md +06-security-distribution.md",
       "reviewer": "/root/reviewer_t001",
-      "execution_note": "backend监督源码写入；leader已冻结process-tests/required-feature bin manifest4b539c9，无新依赖；其源码测试结果待"
+      "execution_note": "backend已停止11文件写入；默认11/feature18真实tests+fmt/两clippy0，所有失败/清理历史归档，leader冻结及独立r1待"
     },
     {
       "task_id": "T007",
@@ -55,7 +53,26 @@
       ],
       "reviewer": "/root/reviewer_t001",
       "contract": "docs/spec/02-audio-engine.md + 07-tests-acceptance.md",
-      "execution_note": "通知冻结2e9366a；整合41Rusttests/fmt/clippy0；r2审查与实际stream/removal待"
+      "execution_note": "正式slice r2批准，21audio/41workspace0；整个T007保留stream/removal/hardware与注销失败引用保留限制"
+    },
+    {
+      "task_id": "T021",
+      "agent_instance_id": "/root",
+      "allowed_paths": [
+        "docs/design/",
+        "packages/ui-tokens/"
+      ],
+      "resource_leases": [],
+      "depends_on": [
+        "T003"
+      ],
+      "contract": "docs/spec/05-ui-hci.md + contracts state/ADR0002",
+      "acceptance_commands": [
+        "bundled Python packages/ui-tokens/validate.py",
+        "manual fixed5page/state/keyboard/zoom coverage + independent readonly review"
+      ],
+      "reviewer": "/root/reviewer_t001",
+      "execution_note": "leader已完成设计/tokens停止写入，frontend实际只读建议；静态首验0，冻结复验/独立r1待"
     }
   ],
   "milestones": {
@@ -87,7 +104,7 @@
       "review": null
     },
     "M4": {
-      "status": "TODO",
+      "status": "IN_PROGRESS",
       "evidence": [],
       "review": null
     },

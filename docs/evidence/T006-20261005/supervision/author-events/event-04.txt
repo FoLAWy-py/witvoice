@@ -1,0 +1,79 @@
+   Compiling windows v0.62.2
+   Compiling witvoice-session v0.1.0 (D:\Project\witvoice\crates\session)
+   Compiling witvoice-platform v0.1.0 (D:\Project\witvoice\crates\platform)
+   Compiling witvoice-node v0.1.0 (D:\Project\witvoice\apps\voice-node)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 5.13s
+     Running unittests src\lib.rs (target\debug\deps\witvoice_node-deba4a51c194511c.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src\bin\ipc-probe.rs (target\debug\deps\ipc_probe-91321c5ab974257b.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src\bin\process-probe.rs (target\debug\deps\process_probe-0bc2c07400daac85.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src\main.rs (target\debug\deps\witvoice_node-b74af9b714da045c.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\supervision.rs (target\debug\deps\supervision-65c468f441409a94.exe)
+
+running 6 tests
+test actual_ui_job_close_and_parent_death_leave_node_independent ... 
+thread 'actual_ui_job_close_and_parent_death_leave_node_independent' (102392) panicked at apps\voice-node\tests\supervision.rs:109:51:
+denied:PermissionDenied
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+FAILED
+test closing_or_stopping_job_reclaims_real_worker_descendants ... 
+thread 'closing_or_stopping_job_reclaims_real_worker_descendants' (82924) panicked at apps\voice-node\tests\supervision.rs:177:9:
+assertion `left == right` failed
+  left: 3
+ right: 2
+FAILED
+test denying_ui_job_breakaway_fails_without_children_or_endpoint ... 
+thread 'denying_ui_job_breakaway_fails_without_children_or_endpoint' (106084) panicked at apps\voice-node\tests\supervision.rs:155:5:
+assertion `left == right` failed
+  left: 1
+ right: 0
+FAILED
+test exit_conflict_full_history_and_lost_ack_use_runtime_authority ... reclaimed owner PID 105540
+reclaimed PID 94516
+reclaimed PID 109360
+ok
+test malformed_bootstrap_timeout_and_endpoint_failure_start_no_worker ... reclaimed owner PID 106864
+reclaimed owner PID 98876
+reclaimed owner PID 98876
+reclaimed owner PID 108592
+ok
+test node_owned_job_is_reclaimed_on_stop_exit_and_owner_kill ... reclaimed PID 75660
+reclaimed PID 85044
+reclaimed PID 109220
+reclaimed PID 77400
+reclaimed owner PID 83264
+reclaimed PID 108352
+reclaimed PID 104324
+reclaimed owner PID 110972
+ok
+
+failures:
+
+failures:
+    actual_ui_job_close_and_parent_death_leave_node_independent
+    closing_or_stopping_job_reclaims_real_worker_descendants
+    denying_ui_job_breakaway_fails_without_children_or_endpoint
+
+test result: FAILED. 3 passed; 3 failed; 0 ignored; 0 measured; 0 filtered out; finished in 6.59s
+
+error: test failed, to rerun pass `-p witvoice-node --test supervision`
+WV_TEST_START=2026-10-04T18:59:22.8924515Z WV_TEST_END=2026-10-04T18:59:34.7613131Z WV_EXIT=101

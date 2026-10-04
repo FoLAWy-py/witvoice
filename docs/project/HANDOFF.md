@@ -1,7 +1,14 @@
 # 当前交接
 
-当前IN_PROGRESS / M1，授权终点WINDOWS_DELIVERED（M5）；M6必需且仍UNTESTED，不允许COMPLETE。下一Task ID为T006。T001–T005及M0均已DONE：T002正式r2仅批准文件源C实验，M0另经完整合计独立核对批准（reviews/M0-closure.md）。T006实际backend开始进程监督；T007通知源码已冻结，41整合Rust tests/fmt/clippy0，stream/removal与独立r2待。下面旧实验与先前状态保留作历史，当前安全版结论以T002-r2为准，旧2.5.1成绩不用于当前认证。
+当前IN_PROGRESS / M1，授权终点M5/WINDOWS_DELIVERED；M6仍必需且无真机证据，不允许COMPLETE。next_task=T006。M0与T001–T005均已独立批准DONE，安全模型结论只限T002-r2的文件源C实验。许可B001仍阻止捆绑。
 
+T006 backend真实监督切片11文件已停止写入，默认11/feature18项测试、fmt/两Clippy exit0；失败及精确残留清理完整归档supervision/author-events，最终测试进程count0。leader冻结/整合复验和独立r1待；Tauri、真实worker协议及全部音频资源/sleep/异用户未验，不关闭T006。
+
+T007正式slice r2已批准（reviews/T007-slice-r2.md），PCM24/32已修、通知回调纯原子发布，21音频/41整合tests和fmt/clippy0。服务通知/removal/stream/resampling/ASRC/governor与硬件仍未实现/验收；注销失败的进程生命周期引用保留不是清理PASS，整个T007 IN_PROGRESS。
+
+T021依赖T003的独立设计任务已写五页交互、十状态、键盘/缩放规则及深浅主题token/CSS，静态首验0；实际leader作者+真实frontend只读建议，当前未新派发hci，不假称真实UI或HCI验收。冻结复验/独立r1待。所有作者停止写入，资源lease已释放，無GPU/audio/录音/播放。恢复从T006监督独立审查，再继续最小可验收原生音频切片。会话中断不承诺后台继续。
+
+以下保留历史过程；当前状态以本段、STATE/TASKS及最新正式review为准。
 T001已DONE：源码0f283ffe460be3382aae89f481be62a73ab4d60f，13负向测试、C/Rust原生编译运行通过，独立/root/reviewer_t001第2轮批准。目录初始无Git，安全建立本地历史，无push/reset/clean，保留原有文件。
 
 T003契约实际实现：Rust权威schema、TypeScript/Python绑定、40byte媒体黄金向量、u64字符串、状态转换/静音effects。r1两S2（loaded profile、pre-session Error）已修复，冻结1e9b9d4298183c47c862febaf177ad46ced85c8d。冻结回归11Rust+1Python通过；fmt/clippy/generator均0；当前导出schema双SHA一致。完整证据docs/evidence/T003-T004-20261005/r2*；r2-command-provenance.json保存真实argv、exit、hash和正确git diff空输出。独立/root/reviewer_t001第2轮已批准；不代表运行时IPC/音频安全已实现。

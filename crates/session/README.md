@@ -6,4 +6,6 @@ Node 单一拥有的控制生命周期，直接调用 `witvoice-contracts::state
 
 同一变更 request_id + 规范化请求返回原响应，已记录 id 冲突返回 REQUEST_ID_CONFLICT。最多记录 128 个完整变更请求（单条不超过 contracts 64 KiB）及响应，不驱逐旧记录以避免重新执行已见变更。只读查询不占变更历史，GetState 总是读当前快照。达到容量后新变更报 BACKPRESSURE；Stop 仍先执行 fail-closed 控制清理再报 BACKPRESSURE，Idle 重复 Stop 不推进 epoch。满历史需显式重启 Node，本切片不实施无界历史或隐式轮换。历史不跨 Node 重启持久化，调用者不得重用变更请求 ID。
 
-`cargo test --locked -p witvoice-session` 验证无资源不能 Ready/Start、epoch/状态版本、幂等与冲突、历史上限和恶意 wire。不将这些纯控制测试算作音频/硬件或完整 T006 验收。
+本地 ExitNode 通过 contracts 解码/版本/参数检查及已见 request_id 冲突后，置权威 `shutdown_requested` 并请求 owner 清理。首次退出以权威 Stop/Stopped 迁移失效 epoch，重复请求不重复推进；历史满仍接受安全退出，无空间时不宣称追加历史。epoch/version 溢出如实 Error，但不可逆退休标记与清理请求仍生效，旧输出无法再被授权，Node 不复用该退休对象。Stop 也发出 owner 资源清理请求；已见冲突不会清理合法运行资源。标记不是第二状态机，也不是新的生产能力。
+
+`cargo test --locked -p witvoice-session` 验证无资源不能 Ready/Start、epoch/状态版本、幂等与冲突、历史上限、非法退出参数、满历史退出及计数溢出仍退休清理。不将这些纯控制测试算作音频/硬件或完整 T006 验收。

@@ -1,0 +1,200 @@
+#![cfg(all(windows, feature = "process-tests"))]
+use std::{
+    io::{BufRead, BufReader, Read, Write},
+    path::Path,
+    process::{Child, Command, Stdio},
+    sync::{
+        atomic::{AtomicU64, Ordering},
+        mpsc,
+    },
+    time::{Duration, Instant},
+};
+use witvoice_contracts::{
+    ErrorCode,
+    control::{Outcome, Response},
+};
+use witvoice_platform::{PipeClient, Process, ProcessJob, Secret, current_process_is_elevated};
+const LIMIT: Duration = Duration::from_secs(3);
+static NEXT: AtomicU64 = AtomicU64::new(1);
+fn tag() -> String {
+    assert!(
+        !current_process_is_elevated().unwrap(),
+        "requires ordinary non-elevated user"
+    );
+    format!(
+        "sup-{}-{}",
+        std::process::id(),
+        NEXT.fetch_add(1, Ordering::Relaxed)
+    )
+}
+fn line(output: impl Read + Send + 'static) -> String {
+    let (sender, receiver) = mpsc::sync_channel(1);
+    std::thread::spawn(move || {
+        let mut text = String::new();
+        let result = BufReader::new(output.take(128))
+            .read_line(&mut text)
+            .map(|_| text);
+        let _ = sender.send(result);
+    });
+    receiver
+        .recv_timeout(LIMIT)
+        .unwrap()
+        .unwrap()
+        .trim()
+        .to_owned()
+}
+fn request(
+    tag: &str,
+    pid: u32,
+    secret: &Secret,
+    number: usize,
+    command: serde_json::Value,
+) -> Response {
+    let mut client = PipeClient::connect(tag, pid, LIMIT).unwrap();
+    client.authenticate(secret).unwrap();
+    let bytes = serde_json::to_vec(&serde_json::json!({"protocol_version":1,"request_id":format!("00000000-0000-0000-0000-{number:012x}"),"command":command})).unwrap();
+    serde_json::from_slice(&client.request(&bytes).unwrap()).unwrap()
+}
+fn state(tag: &str, pid: u32, secret: &Secret) {
+    assert!(matches!(
+        request(tag, pid, secret, 1, serde_json::json!({"kind":"GetState"})).outcome,
+        Outcome::State { .. }
+    ));
+}
+struct ChildGuard(Child);
+impl Drop for ChildGuard {
+    fn drop(&mut self) {
+        let _ = self.0.kill();
+        let _ = self.0.wait();
+    }
+}
+struct DetachedGuard(Process);
+impl Drop for DetachedGuard {
+    fn drop(&mut self) {
+        let _ = self.0.terminate();
+    }
+}
+fn exited(process: &Process) {
+    assert!(
+        process.wait(LIMIT).unwrap().is_some(),
+        "PID {} survived cleanup",
+        process.id()
+    );
+    println!("reclaimed PID {}", process.id());
+}
+fn child_exited(child: &mut Child) {
+    let deadline = Instant::now() + LIMIT + Duration::from_millis(500);
+    while child.try_wait().unwrap().is_none() {
+        assert!(Instant::now() < deadline, "PID {} did not exit", child.id());
+        std::thread::sleep(Duration::from_millis(5));
+    }
+    println!("reclaimed owner PID {}", child.id());
+}
+
+#[test]
+fn actual_ui_job_close_and_parent_death_leave_node_independent() {
+    for close_job in [true, false] {
+        let endpoint = tag();
+        let secret = Secret::generate().unwrap();
+        let job = ProcessJob::new(true).unwrap();
+        let mut ui = job
+            .spawn_bootstrapped(
+                Path::new(env!("CARGO_BIN_EXE_process-probe")),
+                &["ui-parent".into(), endpoint.clone().into()],
+                true,
+                &secret,
+            )
+            .unwrap();
+        let text = line(ui.take_output().unwrap());
+        let pid: u32 = text.strip_prefix("node:").expect(&text).parse().unwrap();
+        let node = DetachedGuard(Process::observe(pid).unwrap());
+        assert_eq!(
+            job.active_processes().unwrap(),
+            1,
+            "Node must not belong to UI job"
+        );
+        state(&endpoint, pid, &secret);
+        if close_job {
+            drop(job);
+        } else {
+            ui.terminate().unwrap();
+            drop(job);
+        }
+        exited(&ui);
+        assert!(node.0.wait(Duration::ZERO).unwrap().is_none());
+        state(&endpoint, pid, &secret);
+        let response = request(
+            &endpoint,
+            pid,
+            &secret,
+            2,
+            serde_json::json!({"kind":"ExitNode"}),
+        );
+        assert!(matches!(response.outcome, Outcome::Ack));
+        exited(&node.0);
+        assert!(PipeClient::connect(&endpoint, pid, Duration::from_millis(50)).is_err());
+    }
+}
+
+#[test]
+fn denying_ui_job_breakaway_fails_without_children_or_endpoint() {
+    let endpoint = tag();
+    let secret = Secret::generate().unwrap();
+    let job = ProcessJob::new(false).unwrap();
+    let mut ui = job
+        .spawn_bootstrapped(
+            Path::new(env!("CARGO_BIN_EXE_process-probe")),
+            &["ui-parent".into(), endpoint.clone().into()],
+            true,
+            &secret,
+        )
+        .unwrap();
+    let text = line(ui.take_output().unwrap());
+    assert!(text.starts_with("denied:"), "{text}");
+    assert_ne!(ui.wait(LIMIT).unwrap().unwrap(), 0);
+    assert_eq!(job.active_processes().unwrap(), 0);
+    assert!(PipeClient::connect(&endpoint, ui.id(), Duration::from_millis(50)).is_err());
+    println!(
+        "denied breakaway; UI PID {}, active job processes 0",
+        ui.id()
+    );
+}
+
+#[test]
+fn closing_or_stopping_job_reclaims_real_worker_descendants() {
+    for explicit_stop in [false, true] {
+        let _ = tag();
+        let job = ProcessJob::new(false).unwrap();
+        let mut worker = job
+            .spawn(
+                Path::new(env!("CARGO_BIN_EXE_process-probe")),
+                &["worker-tree".into()],
+                true,
+            )
+            .unwrap();
+        let child_pid: u32 = line(worker.take_output().unwrap()).parse().unwrap();
+        let descendant = Process::observe(child_pid).unwrap();
+        assert_eq!(job.active_processes().unwrap(), 2);
+        if explicit_stop {
+            job.terminate().unwrap();
+            assert_eq!(job.active_processes().unwrap(), 0);
+        }
+        drop(job);
+        exited(&worker);
+        exited(&descendant);
+    }
+}
+
+struct ProbeNode {
+    child: ChildGuard,
+    endpoint: String,
+    secret: Secret,
+    worker: Process,
+    descendant: Process,
+}
+impl ProbeNode {
+    fn new() -> Self {
+        let endpoint = tag();
+        let secret = Secret::generate().unwrap();
+        let mut child = Command::new(env!("CARGO_BIN_EXE_process-probe"))
+            .args(["--endpoint", &endpoint, "--bootstrap-stdin"])

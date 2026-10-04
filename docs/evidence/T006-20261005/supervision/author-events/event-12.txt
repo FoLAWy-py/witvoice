@@ -1,0 +1,24 @@
+error: an inner attribute is not permitted in this context
+  --> \\?\D:\Project\witvoice\apps\voice-node\src\main.rs:15:1
+   |
+15 | #![cfg_attr(windows, windows_subsystem = "windows")]
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: inner attributes, like `#![no_std]`, annotate the item enclosing them, and are usually found at the beginning of source files
+   = note: outer attributes, like `#[test]`, annotate the item following them
+
+   Compiling witvoice-platform v0.1.0 (D:\Project\witvoice\crates\platform)
+   Compiling witvoice-node v0.1.0 (D:\Project\witvoice\apps\voice-node)
+error: an inner attribute is not permitted in this context
+  --> apps\voice-node\src\main.rs:15:1
+   |
+15 | #![cfg_attr(windows, windows_subsystem = "windows")]
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: inner attributes, like `#![no_std]`, annotate the item enclosing them, and are usually found at the beginning of source files
+   = note: outer attributes, like `#[test]`, annotate the item following them
+
+error: could not compile `witvoice-node` (bin "witvoice-node" test) due to 1 previous error
+warning: build failed, waiting for other jobs to finish...
+error: could not compile `witvoice-node` (bin "witvoice-node") due to 1 previous error
+WV_TEST_START=2026-10-04T19:07:24.4136092Z WV_TEST_END=2026-10-04T19:07:26.1691735Z WV_EXIT=101

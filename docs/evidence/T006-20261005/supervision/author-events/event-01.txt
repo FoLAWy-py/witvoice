@@ -1,0 +1,11 @@
+    Checking witvoice-session v0.1.0 (D:\Project\witvoice\crates\session)
+    Checking witvoice-platform v0.1.0 (D:\Project\witvoice\crates\platform)
+error[E0425]: cannot find value `SYNCHRONIZE` in this scope
+  --> crates\platform\src\process.rs:96:79
+   |
+96 |         let handle = unsafe { OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION | SYNCHRONIZE, false, pid).map_err(fail)? };
+   |                                                                               ^^^^^^^^^^^ not found in this scope
+
+For more information about this error, try `rustc --explain E0425`.
+error: could not compile `witvoice-platform` (lib) due to 1 previous error
+WV_CHECK_START=2026-10-04T18:55:44.9032874Z WV_CHECK_END=2026-10-04T18:55:45.2617856Z WV_EXIT=101
