@@ -92,6 +92,27 @@ def load_runner(device):
     module.WAVLM_CONFIG_PATH = str(config)
     module.MODEL_PATHS["40ms"]["ckpt"] = str(model_root / "meanvc2_40ms_40ms.safetensors")
     module.MODEL_PATHS["40ms"]["asr_ckpt"] = str(model_root / "fastu2pp_80ms.pt")
+
+    # Compatibility repair 1: fixed upstream introduced a legacy mel-cache
+    # layer absent from this checkpoint. Its only use requires cache!=None;
+    # the fixed streaming runner always passes cache=None (KV cache is separate).
+    # Remove its parameters and reject that unused path, then strictly load
+    # every remaining/active parameter. Never fabricate missing trained weights.
+    class ForbiddenLegacyCache(torch.nn.Module):
+        def forward(self, *_args, **_kwargs):
+            raise RuntimeError("untrained legacy mel-cache path is forbidden")
+
+    def complete_vc_loader(config_path, ckpt_path, device="cpu"):
+        from safetensors.torch import load_file
+        with open(config_path, encoding="utf-8") as handle:
+            configuration = json.load(handle)
+        model = module.DiT(**configuration["model"])
+        model.cache_embed = ForbiddenLegacyCache()
+        weights = load_file(ckpt_path)
+        model.load_state_dict(weights, strict=True)
+        return model.to(device).float().eval()
+
+    module._load_vc_model = complete_vc_loader
     runner = module.VCRunner(str(REFERENCE), device=device, model="40ms")
     return runner, report
 
@@ -132,6 +153,7 @@ def run(args):
         report["asr_backend_actual"] = "cpu"
         report["private_bytes_after_init"] = private_bytes()
         report["runtime_input_chunk_samples"] = runner.CHUNK
+        report["compatibility_repairs"] = ["1: reject unused untrained legacy mel-cache module; active checkpoint strict=True"]
         report["native_input_rate"] = rate
         # Upstream runtime writes 16k and uses 160-sample vocoder hop per 10ms.
         report["native_output_rate"] = 16000
