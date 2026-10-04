@@ -186,6 +186,7 @@ pub enum PeerMessage {
     },
     Prepared {
         capabilities: PreparedCapabilities,
+        loaded_profile_sha256: Sha256,
         session_tag: DecimalU64,
     },
     RejectBusy,
@@ -229,6 +230,9 @@ impl PeerRequest {
                 | PeerMessage::Capabilities
                 | PeerMessage::PrepareSession { .. }
                 | PeerMessage::RejectBusy
+                // Errors may reject Hello/Prepare before a session exists.
+                // Transport must still correlate request_id and authenticate the peer.
+                | PeerMessage::Error { .. }
         );
         if !pre_session && self.context.is_none() {
             return Err(ErrorCode::SessionMismatch);
@@ -237,6 +241,33 @@ impl PeerRequest {
             && total_bytes as usize > crate::PROFILE_MAX_BYTES
         {
             return Err(ErrorCode::SizeLimit);
+        }
+        Ok(())
+    }
+}
+
+impl PeerMessage {
+    /// Ready requires the peer's actually loaded assets to match our preparation.
+    /// This contract check does not itself authenticate a remote claim.
+    pub fn validate_prepared(
+        &self,
+        expected_model: &Sha256,
+        expected_profile: &Sha256,
+    ) -> Result<(), ErrorCode> {
+        let Self::Prepared {
+            capabilities,
+            loaded_profile_sha256,
+            session_tag,
+        } = self
+        else {
+            return Err(ErrorCode::InvalidArgument);
+        };
+        capabilities.validate()?;
+        if &capabilities.model_sha256 != expected_model
+            || loaded_profile_sha256 != expected_profile
+            || session_tag.0 == 0
+        {
+            return Err(ErrorCode::EngineNotReady);
         }
         Ok(())
     }

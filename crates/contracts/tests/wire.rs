@@ -221,3 +221,58 @@ fn queue_limits_cannot_be_unbounded() {
     q.maximum_age_ms = 0;
     assert!(q.validate().is_err());
 }
+
+#[test]
+fn prepared_requires_actual_matching_model_and_profile() {
+    let model = Sha256::try_from("a".repeat(64)).unwrap();
+    let profile = Sha256::try_from("b".repeat(64)).unwrap();
+    let wrong = Sha256::try_from("c".repeat(64)).unwrap();
+    let mut value = serde_json::json!({"kind":"Prepared", "args": {
+        "capabilities": {
+            "engine_id":"MeanVC2", "model_sha256": "a".repeat(64),
+            "backend":"cuda", "native_input_rate":16000, "native_output_rate":16000,
+            "chunk_samples":2560, "lookahead_samples":640,
+            "conditioning_schema":"meanvc2-v1", "duration_preserving":false,
+            "capability_test_run_id":"M0-paced-60s", "model_memory_budget_bytes":"4294967296",
+            "device_memory_budget_bytes":null
+        },
+        "loaded_profile_sha256":"b".repeat(64), "session_tag":"42"
+    }});
+    let message: PeerMessage = serde_json::from_value(value.clone()).unwrap();
+    assert!(message.validate_prepared(&model, &profile).is_ok());
+    assert!(message.validate_prepared(&wrong, &profile).is_err());
+    assert!(message.validate_prepared(&model, &wrong).is_err());
+    value["args"]["session_tag"] = "0".into();
+    let zero: PeerMessage = serde_json::from_value(value.clone()).unwrap();
+    assert!(zero.validate_prepared(&model, &profile).is_err());
+    value["args"]["loaded_profile_sha256"] = "invalid".into();
+    assert!(serde_json::from_value::<PeerMessage>(value.clone()).is_err());
+    value["args"]
+        .as_object_mut()
+        .unwrap()
+        .remove("loaded_profile_sha256");
+    assert!(serde_json::from_value::<PeerMessage>(value).is_err());
+}
+
+#[test]
+fn pre_session_error_can_reject_handshake_without_media_permission() {
+    let mut request = PeerRequest {
+        protocol_version: 1,
+        request_id: Id::try_from("01234567-89ab-cdef-0123-456789abcdef".to_string()).unwrap(),
+        context: None,
+        message: PeerMessage::Error {
+            code: ErrorCode::PermissionDenied,
+            message: "Rejected".into(),
+        },
+    };
+    assert!(request.validate().is_ok());
+    for message in [
+        PeerMessage::Start,
+        PeerMessage::Started,
+        PeerMessage::Mute,
+        PeerMessage::ResetReady,
+    ] {
+        request.message = message;
+        assert_eq!(request.validate(), Err(ErrorCode::SessionMismatch));
+    }
+}

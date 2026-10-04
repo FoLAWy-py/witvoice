@@ -121,12 +121,16 @@
                   "capabilities": {
                     "$ref": "#/definitions/PreparedCapabilities"
                   },
+                  "loaded_profile_sha256": {
+                    "$ref": "#/definitions/Sha256"
+                  },
                   "session_tag": {
                     "$ref": "#/definitions/DecimalU64"
                   }
                 },
                 "required": [
                   "capabilities",
+                  "loaded_profile_sha256",
                   "session_tag"
                 ],
                 "type": "object"
