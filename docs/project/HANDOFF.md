@@ -59,3 +59,5 @@ T007在新写入前登记leader仅notification_probe example白名单/代码leas
 T007下一操作为leader notification_probe，既有私有metadata派生明确capture/render UID（不换default、不采集/播放）；源编译/clippy0，initial private native导入compile101已修public re-export，独占metadata hardware lease先登记。仅注册/初次重查/注销，无事件递送/拔出证明。
 
 最新：T021正式r1独立批准DONE/attempts1，设计规则/token范围，不是真实UI/HCI。3cf1393冻结notification_probe：6个实际Windows服务注册/明确UID重查/注销成功（0.062917秒操作窗口），仍无服务事件递送/物理removal/Initialize/Start/采集播放；metadata硬件lease已释放。T007下一native stream派发T007-native-stream-assignment，audio先结束T006全文中继后写；代码lease提前登记，无硬件lease，录音/播放仍未授权。next_task仍T006，M1与M4不能关闭。
+
+T007 audio实际请求event API feature；leader核缓存Windows0.62.2 CreateEventW被Win32_Security gating及WaitForSingleObject在Threading，统一audio manifest增加既有Security/Threading（无版本/lock升级），cargo check locked0仅编译。MMCSS留NOT_RUN，无采集播放/GPU。
