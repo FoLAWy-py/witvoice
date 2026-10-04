@@ -39,6 +39,7 @@ def probe(argv: list[str], *, timeout: float = TIMEOUT) -> dict:
         try:
             with subprocess.Popen(
                 argv, stdin=subprocess.DEVNULL, stdout=out, stderr=err,
+                env={**os.environ, "VSLANG": "1033"},
                 creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
             ) as proc:
                 try:
@@ -156,11 +157,22 @@ def assess(checks: dict) -> tuple[str, list[str]]:
     return ("BLOCKED" if blockers else "VERSION_BASELINE_ONLY"), blockers
 
 
+def git_snapshot() -> dict:
+    git = find_exe("git.exe")
+    if not git:
+        return {"commit": None, "dirty": None}
+    revision = probe([git, "-C", str(ROOT), "rev-parse", "HEAD"])
+    state = probe([git, "-C", str(ROOT), "status", "--porcelain"])
+    return {"commit": revision["stdout"] if revision["status"] == "PASS" else None,
+            "dirty": bool(state["stdout"]) if state["status"] == "PASS" else None}
+
+
 def collect() -> dict:
     started = now()
+    snapshot = git_snapshot()
     native = inventory()
     data = native.get("data", {})
-    cargo_bin = Path.home() / ".cargo/bin"
+    cargo_bin = Path(os.environ.get("CARGO_HOME", str(Path.home() / ".cargo"))) / "bin"
     node = find_exe("node.exe")
     checks = {
         "windows_powershell": native,
@@ -179,10 +191,10 @@ def collect() -> dict:
     path_python = find_exe("python.exe")
     path_status = "ALIAS_NOT_EXECUTED" if path_python and "windowsapps" in path_python.lower() else "DISCOVERED_NOT_EXECUTED"
     git_repo = probe([find_exe("git.exe"), "-C", str(ROOT), "rev-parse", "--is-inside-work-tree"]) if find_exe("git.exe") else missing("git.exe missing")
-    files = [Path(__file__), Path(__file__).with_name("windows_inventory.ps1")]
+    files = sorted(Path(__file__).parent.glob("*.py")) + sorted(Path(__file__).parent.glob("*.ps1"))
     return {
         "schema_version": 1, "run_id": "T001-" + datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ"),
-        "task_id": "T001", "requirements": ["REQ-01", "REQ-31"], "commit": None,
+        "task_id": "T001", "requirements": ["REQ-01", "REQ-31"], **snapshot,
         "evidence_level": "C", "kind": "WINDOWS_TOOLCHAIN_DISCOVERY",
         "environment": data, "started_at": started, "finished_at": now(),
         "checks": checks, "result": status, "blockers": blockers,

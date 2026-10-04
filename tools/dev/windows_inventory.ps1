@@ -26,7 +26,12 @@ foreach ($name in @('git.exe', 'rustc.exe', 'cargo.exe', 'rustup.exe', 'node.exe
     $result.commands[$name] = if ($found) { $found.Source } else { $null }
 }
 try {
-    $kits = (Get-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows Kits\Installed Roots' -ErrorAction Stop).KitsRoot10
+    $kits = $null
+    foreach ($sdkKey in @('HKLM:\SOFTWARE\Microsoft\Windows Kits\Installed Roots', 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows Kits\Installed Roots')) {
+        $sdkEntry = Get-ItemProperty -LiteralPath $sdkKey -ErrorAction SilentlyContinue
+        if ($sdkEntry -and $sdkEntry.KitsRoot10) { $kits = $sdkEntry.KitsRoot10; break }
+    }
+    if (-not $kits) { $result.sdk.status = 'MISSING'; throw 'Windows SDK KitsRoot10 not registered in either registry view' }
     $result.sdk.root = $kits
     $result.sdk.versions = @(Get-ChildItem -LiteralPath (Join-Path $kits 'Include') -Directory | Where-Object {
         (Test-Path -LiteralPath (Join-Path $_.FullName 'um\Windows.h')) -and
@@ -36,7 +41,7 @@ try {
     } | Select-Object -ExpandProperty Name)
     if ($result.sdk.versions.Count -gt 0) { $result.sdk.status = 'DISCOVERED_NOT_COMPILED' }
 } catch {
-    $result.sdk.status = if ($_.CategoryInfo.Category -eq 'ObjectNotFound') { 'MISSING' } else { 'UNKNOWN' }
+    if ($kits) { $result.sdk.status = 'UNKNOWN' }
     $result.sdk.error = $_.Exception.Message
 }
 $result | ConvertTo-Json -Depth 8 -Compress
