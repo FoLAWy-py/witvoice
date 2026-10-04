@@ -1,0 +1,14 @@
+{
+  "task_id": "T005",
+  "commit": "7a42be562787b8cbfd4d3073faa8c82529545c4e",
+  "started_at": "2026-10-04T16:50:28.0756389Z",
+  "finished_at": "2026-10-04T16:50:28.2384791Z",
+  "argv": [
+    "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "tools/project/validate_spec.py"
+  ],
+  "exit_code": 0,
+  "stdout": "docs/project/T005-validator-current.txt",
+  "executor": "/root",
+  "scope": "documentation ledger/TOML only; no runtime schema/application verification"
+}

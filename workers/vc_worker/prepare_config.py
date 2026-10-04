@@ -5,6 +5,7 @@ from pathlib import Path
 import torch
 
 from audit_assets import ROOT, audit
+from evidence_checks import require_safe_torch
 
 
 def primitive(value):
@@ -18,6 +19,7 @@ def primitive(value):
 
 
 def main():
+    require_safe_torch(torch.__version__)
     report = audit()
     if report["status"] != "VERIFIED_BYTES_NOT_LOADED":
         raise SystemExit("fixed assets not verified")

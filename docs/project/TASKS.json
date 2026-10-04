@@ -36,7 +36,7 @@
       "milestone": "M0",
       "title": "验证并选定单一真实zero-shot引擎",
       "owner_role": "ml_engine",
-      "status": "REVIEW",
+      "status": "IN_PROGRESS",
       "requirements": [
         "REQ-05",
         "REQ-19",
@@ -51,7 +51,9 @@
       ],
       "acceptance": "锁定上游commit/权重摘要/许可清单；真实文件转换和流式试跑；Windows实测，Mac状态明确；主候选最多两次针对性修复、最多一次候选替换。",
       "agent_instance_id": "/root",
-      "resource_leases": [],
+      "resource_leases": [
+        "write:workers/vc_worker/:leader"
+      ],
       "evidence": [
         "docs/evidence/model-feasibility/M0-20261004/RESULTS.md",
         "docs/evidence/model-feasibility/M0-20261004/assets-audit.json",
@@ -62,14 +64,17 @@
         "docs/evidence/model-feasibility/M0-20261004/paced-60s.json",
         "docs/evidence/model-feasibility/M0-20261004/offline-report-check.json",
         "docs/evidence/model-feasibility/M0-20261004/compatibility-1.md",
-        "docs/evidence/model-feasibility/M0-20261004/compatibility-2.md"
+        "docs/evidence/model-feasibility/M0-20261004/compatibility-2.md",
+        "docs/project/reviews/T002-r1.md",
+        "docs/evidence/model-feasibility/M0-20261004/review-security/NOTES.md"
       ],
-      "review": null,
-      "attempts": 0,
+      "review": "docs/project/reviews/T002-r1.md",
+      "attempts": 1,
       "blocked_reason": null,
       "compatibility_repairs_used": 2,
       "candidate_replacements_used": 0,
-      "historical_advisor_instance_id": "/root/ml_engine"
+      "historical_advisor_instance_id": "/root/ml_engine",
+      "safe_runtime_capability": "BLOCKED_SAFE_RUNTIME_PENDING_PATCHED_EXPERIMENT"
     },
     {
       "id": "T003",
@@ -140,7 +145,7 @@
       "milestone": "M0",
       "title": "验证agent加载与35任务执行账本",
       "owner_role": "leader",
-      "status": "REVIEW",
+      "status": "DONE",
       "requirements": [
         "REQ-30",
         "REQ-31"
@@ -160,9 +165,11 @@
       "evidence": [
         "docs/project/T005-agent-runtime.md",
         "docs/project/T005-runtime-check.json",
-        "docs/project/T005-spawn-provenance.json"
+        "docs/project/T005-spawn-provenance.json",
+        "docs/project/T005-validator-current.json",
+        "docs/project/T005-validator-current.txt"
       ],
-      "review": null,
+      "review": "docs/project/reviews/T005-r1.md",
       "attempts": 1,
       "blocked_reason": null
     },
@@ -171,7 +178,7 @@
       "milestone": "M1",
       "title": "实现独立Node、本地IPC与进程监督",
       "owner_role": "backend",
-      "status": "TODO",
+      "status": "IN_PROGRESS",
       "requirements": [
         "REQ-07",
         "REQ-23"
@@ -186,8 +193,12 @@
         "crates/platform/"
       ],
       "acceptance": "普通用户启动、连接/断开、受限IPC、worker生命周期；杀UI不会通过父Job误杀Node；显式退出清理所有会话。",
-      "agent_instance_id": null,
-      "resource_leases": [],
+      "agent_instance_id": "/root/backend",
+      "resource_leases": [
+        "write:apps/voice-node/src+tests+examples:backend",
+        "write:crates/session/src+tests:backend",
+        "write:crates/platform/src+tests:backend"
+      ],
       "evidence": [],
       "review": null,
       "attempts": 0,
@@ -212,10 +223,11 @@
       ],
       "acceptance": "WASAPI真实设备枚举、稳定ID、输入/输出协商、通道映射和设备移除；录音仅由显式测试启动。",
       "agent_instance_id": "/root/audio_runtime",
-      "resource_leases": [
-        "write:crates/audio/:audio_runtime"
+      "resource_leases": [],
+      "evidence": [
+        "docs/evidence/T007-20261005/metadata-command.json",
+        "docs/evidence/T007-20261005/integration-checks.json"
       ],
-      "evidence": [],
       "review": null,
       "attempts": 0,
       "blocked_reason": null

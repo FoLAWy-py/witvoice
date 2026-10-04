@@ -1,0 +1,17 @@
+test_devices_cover_buffers_and_unknown (test_evidence_checks.EvidenceChecks.test_devices_cover_buffers_and_unknown) ... ok
+test_invalid_steps_rejected (test_evidence_checks.EvidenceChecks.test_invalid_steps_rejected) ... ok
+test_old_and_unknown_torch_block_before_loading (test_evidence_checks.EvidenceChecks.test_old_and_unknown_torch_block_before_loading) ... ok
+test_short_tail_is_measured_against_its_new_input (test_evidence_checks.EvidenceChecks.test_short_tail_is_measured_against_its_new_input) ... ok
+test_clean_exact_blob (test_source_guard.SourceGuardTests.test_clean_exact_blob) ... ok
+test_ignored_rejected (test_source_guard.SourceGuardTests.test_ignored_rejected) ... ok
+test_old_bytecode_never_imported (test_source_guard.SourceGuardTests.test_old_bytecode_never_imported) ... ok
+test_staged_change_with_restored_worktree_rejected (test_source_guard.SourceGuardTests.test_staged_change_with_restored_worktree_rejected) ... ok
+test_staged_rejected (test_source_guard.SourceGuardTests.test_staged_rejected) ... ok
+test_unstaged_rejected (test_source_guard.SourceGuardTests.test_unstaged_rejected) ... ok
+test_untracked_rejected (test_source_guard.SourceGuardTests.test_untracked_rejected) ... ok
+test_wrong_commit_and_nonempty_destination_rejected (test_source_guard.SourceGuardTests.test_wrong_commit_and_nonempty_destination_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 5.113s
+
+OK

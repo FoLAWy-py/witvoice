@@ -8,3 +8,5 @@
 | B002 | 当前工具执行/审查 | T005-agent-runtime.md、T001-session.md | 默认shell/node在进程创建前ACL失败；reviewer无法直接读盘/复跑 | leader限定命令与明确授权backend/audio只读中继成功；reviewer收冻结全文与完整结果 | 继续既有兼容执行；若需独立复跑，在客户端支持的安全环境执行，不改ACL/全局安全 | MITIGATED_WITH_LIMITATIONS |
 
 后续实际前置门仍未执行：T009/T015虚拟设备与物理采集、T026真实2h、T029完整24/3质量与owner试听、T031–T035 Mac真机及有线LAN双向。状态NOT_RUN/UNTESTED，不能标成失败或PASS，也不能提前代用户授权录音/装驱动。当前缺少完整质量素材的validator结果为BLOCKED，这不阻止T004测量计划本身被独立验收。
+
+B003（T002安全运行时，REMEDIATION_IN_PROGRESS）：原Torch2.5.1落在官方GHSA-53q9-r3pm-6pq6与GHSA-63cw-57p8-fm3p加载漏洞范围；固定摘要不等于安全解析证明。新入口已阻断<2.10.0和未知版本；14纯回归通过，仅证明guards。最小解阻是已授权的官方固定2.10.0+cu126依赖下载与同输入重新实测，再独立r2；旧429成绩保留历史C实验。无需恶意checkpoint/PoC，无本机攻陷断言，无第三模型兼容修复。

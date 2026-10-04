@@ -11,14 +11,18 @@ import importlib.util
 import inspect
 import json
 import math
+import re
 from pathlib import Path
 import subprocess
 import sys
+import tempfile
 import time
 import traceback
 import zipfile
 
 from audit_assets import ROOT, HF_REVISION, UPSTREAM_COMMIT, audit, sha256
+from source_guard import snapshot_runtime
+from evidence_checks import module_devices, paced_statistics, require_safe_torch
 
 CONFIG_SHA = "ae048d63e63566d36c34d8b669df640f0b2617d1e0d9e6573b651eddf2db2423"
 SOURCE = ROOT / ".local/fixtures/source-authorized.wav"
@@ -51,14 +55,16 @@ def private_bytes():
 
 def load_runner(device):
     import torch
+    require_safe_torch(torch.__version__)
     report = audit()
     if report["status"] != "VERIFIED_BYTES_NOT_LOADED":
         raise RuntimeError("asset byte/type audit failed")
     upstream = ROOT / ".local/upstream/MeanVC2"
-    head = subprocess.run(["git", "-C", str(upstream), "rev-parse", "HEAD"], capture_output=True, text=True, timeout=10, check=True).stdout.strip()
-    dirty = subprocess.run(["git", "-C", str(upstream), "diff", "--exit-code"], capture_output=True, timeout=10)
-    if head != UPSTREAM_COMMIT or dirty.returncode:
-        raise RuntimeError("upstream source not frozen")
+    if any(name == "src" or name.startswith("src.") for name in sys.modules):
+        raise RuntimeError("upstream module namespace already populated")
+    source_snapshot = tempfile.TemporaryDirectory(prefix="meanvc2-source-", dir=ROOT / ".local/temp")
+    source_proof = snapshot_runtime(upstream, UPSTREAM_COMMIT, Path(source_snapshot.name))
+    runtime = Path(source_snapshot.name) / "runtime"
     config = ROOT / ".local/models/WavLM-official/wavlm_large_cfg.pt"
     if sha256(config) != CONFIG_SHA:
         raise RuntimeError("config digest mismatch")
@@ -95,8 +101,8 @@ def load_runner(device):
 
     torch.load = restricted_load
     torch.nn.Module.load_state_dict = checked_state_load
-    sys.path.insert(0, str(upstream / "runtime"))
-    spec = importlib.util.spec_from_file_location("meanvc2_fixed_runtime", upstream / "runtime/run_rt.py")
+    sys.path.insert(0, str(runtime))
+    spec = importlib.util.spec_from_file_location("meanvc2_fixed_runtime", runtime / "run_rt.py")
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     model_root = ROOT / f".local/models/MeanVC2/{HF_REVISION}"
@@ -117,7 +123,7 @@ def load_runner(device):
 
     def complete_vc_loader(config_path, ckpt_path, device="cpu"):
         from safetensors.torch import load_file
-        if sha256(Path(config_path)) != "1f62b9441f55d8a0622ff87ac94987d8780d09af72f51b88a858b310d5e0835b":
+        if sha256(Path(config_path)) != "1207e631961b8b0a983f248b77dee0d9b8441c521c8955ffbec89d251064ba43":
             raise RuntimeError("VC configuration digest mismatch")
         with open(config_path, encoding="utf-8") as handle:
             configuration = json.load(handle)
@@ -151,6 +157,8 @@ def load_runner(device):
 
     module._load_vc_model = complete_vc_loader
     runner = module.VCRunner(str(REFERENCE), device=device, model="40ms")
+    runner._source_snapshot = source_snapshot
+    report["source_proof"] = source_proof
     return runner, report
 
 
@@ -165,7 +173,7 @@ def run(args):
               "quality_review": "QUALITY_REVIEW_PENDING", "distribution": "BLOCKED_LICENSE_CHAIN",
               "not_tested": ["physical_mic", "virtual_cable", "LAN", "Mac", "human_voice_signoff"],
               "measurement_boundary": "fixed file PCM submitted to upstream process_chunk; no audio endpoint/production Node",
-              "command": sys.argv}
+              "command": sys.argv, "run_id": args.run_id}
     report["compatibility_repair_count"] = 2
     started = time.perf_counter()
     try:
@@ -186,16 +194,18 @@ def run(args):
         runner, assets = load_runner(args.device)
         report["initialization_seconds"] = time.perf_counter() - init_start
         report["assets"] = assets
-        report["backend_actual"] = str(next(runner.vc.parameters()).device)
-        report["speaker_backend_actual"] = str(next(runner.spk_model.parameters()).device)
-        report["asr_backend_actual"] = "cpu"
+        for label, model in (("vc", runner.vc), ("speaker", runner.spk_model), ("asr", runner.asr)):
+            report[label + "_device_probe"] = module_devices(model)
+        report["backend_actual"] = report["vc_device_probe"]["actual"]
+        report["speaker_backend_actual"] = report["speaker_device_probe"]["actual"]
+        report["asr_backend_actual"] = report["asr_device_probe"]["actual"]
         report["private_bytes_after_init"] = private_bytes()
         report["runtime_input_chunk_samples"] = runner.CHUNK
         report["compatibility_repairs"] = ["1: reject unused untrained legacy mel-cache module; active checkpoint strict=True", "2: discard exact published speaker training-only classification head; strict active state"]
         report["native_input_rate"] = rate
         # Upstream runtime writes 16k and uses 160-sample vocoder hop per 10ms.
         report["native_output_rate"] = 16000
-        output_path = ROOT / (".local/fixtures/converted-" + args.mode + ".wav")
+        output_path = ROOT / (".local/fixtures/converted-" + args.run_id + "-" + args.mode + ".wav")
         if output_path.exists():
             raise RuntimeError("output already exists; preserve prior run")
         if args.mode == "file":
@@ -230,12 +240,9 @@ def run(args):
             if not outputs: raise RuntimeError("stream produced no converted audio")
             sf.write(output_path, np.concatenate(outputs), 16000, subtype="FLOAT")
             durations = [step["processing_ms"] for step in steps]
-            new_seconds = sum(step["new_samples"] for step in steps) / rate
-            rtf = sum(durations) / (new_seconds * 1000)
-            p99 = quantile(durations, 0.99)
             report["steps"] = steps
-            report["statistics"] = {"sample_count": len(steps), "average_rtf": rtf, "p50_step_ms": quantile(durations, 0.5), "p95_step_ms": quantile(durations, 0.95), "p99_step_ms": p99, "new_input_seconds": new_seconds, "max_lag_ms": max(step["lag_ms"] for step in steps)}
-            if rtf > 0.70 or p99 > step_samples / rate * 1000 or report["statistics"]["max_lag_ms"] > step_samples / rate * 1000:
+            report["statistics"] = paced_statistics(steps, rate)
+            if report["statistics"]["average_rtf"] > 0.70 or report["statistics"]["p99_step_rtf"] > 1 or report["statistics"]["max_lag_chunk_ratio"] > 1:
                 raise RuntimeError("stream hard threshold failed; no reduced gate")
         converted, output_rate = sf.read(output_path, dtype="float32")
         if converted.ndim != 1 or not len(converted) or not np.isfinite(converted).all() or np.max(np.abs(converted)) == 0:
@@ -261,10 +268,11 @@ def main():
     parser.add_argument("--mode", choices=["file", "paced"], required=True)
     parser.add_argument("--device", choices=["cpu", "cuda"], required=True)
     parser.add_argument("--seconds", type=int, default=60)
+    parser.add_argument("--run-id", required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     output = args.output.resolve()
-    if not output.is_relative_to(ROOT / "docs/evidence/model-feasibility") or output.exists() or not 30 <= args.seconds <= 120:
+    if not output.is_relative_to(ROOT / "docs/evidence/model-feasibility") or output.exists() or not 30 <= args.seconds <= 120 or not re.fullmatch(r"[a-z0-9][a-z0-9-]{0,63}", args.run_id):
         raise SystemExit("invalid output or finite test duration")
     report = run(args)
     output.parent.mkdir(parents=True, exist_ok=True)

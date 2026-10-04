@@ -1,0 +1,18 @@
+{
+  "argv": [
+    "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "workers/vc_worker",
+    "-p",
+    "test_*.py",
+    "-v"
+  ],
+  "started_at": "2026-10-04T17:33:41.8178874Z",
+  "finished_at": "2026-10-04T17:33:48.1512599Z",
+  "exit_code": 0,
+  "gpu_used": false,
+  "audio_hardware_used": false
+}

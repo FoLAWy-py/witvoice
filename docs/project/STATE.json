@@ -13,7 +13,9 @@
         "workers/vc_worker/",
         "docs/evidence/model-feasibility/"
       ],
-      "resource_leases": [],
+      "resource_leases": [
+        "write:workers/vc_worker/:leader"
+      ],
       "depends_on": [
         "T001"
       ],
@@ -23,29 +25,41 @@
       ],
       "reviewer": "/root/reviewer_t001",
       "contract": "docs/spec/03-model-runtime.md + 07-tests-acceptance.md",
-      "execution_note": "Leader /root authored and executed experiments; historical ml_engine source advice; no active ml redispatch; GPU released; reviewer pending",
+      "execution_note": "r1 changes required: root safety/report repairs; current Torch2.5.1 historical only; official2.10+cu126 download; no new GPU claim",
       "historical_advisor_instance_id": "/root/ml_engine"
     },
     {
-      "task_id": "T005",
-      "agent_instance_id": "/root",
+      "task_id": "T006",
+      "agent_instance_id": "/root/backend",
       "allowed_paths": [
-        ".codex/",
-        "docs/project/",
-        "docs/roles/"
+        "apps/voice-node/src/",
+        "apps/voice-node/tests/",
+        "apps/voice-node/examples/",
+        "apps/voice-node/README.md",
+        "crates/session/src/",
+        "crates/session/tests/",
+        "crates/session/README.md",
+        "crates/platform/src/",
+        "crates/platform/tests/",
+        "crates/platform/README.md"
       ],
-      "resource_leases": [],
+      "resource_leases": [
+        "write:apps/voice-node/src+tests+examples:backend",
+        "write:crates/session/src+tests:backend",
+        "write:crates/platform/src+tests:backend"
+      ],
       "depends_on": [
-        "T001",
-        "T003"
+        "T003",
+        "T005"
       ],
       "acceptance_commands": [
-        "bundled Python tools/project/validate_spec.py",
-        "collaboration actual role dispatch/probe and full text independent review"
+        "cargo test --workspace --locked",
+        "cargo clippy --workspace --locked --all-targets -- -D warnings",
+        "ordinary-user IPC/process lifecycle integration; no capture/GPU"
       ],
+      "contract": "docs/spec/01-architecture.md +04-lan-protocol.md +06-security-distribution.md",
       "reviewer": "/root/reviewer_t001",
-      "contract": "docs/AGENT_WORKFLOW.md",
-      "execution_note": "native dispatch verified, disk schema and sandbox enforcement unverified; no configuration changes"
+      "execution_note": "actual backend writer; manifests/lockfiles/contracts/ledger leader only; no hardware lease"
     },
     {
       "task_id": "T007",
@@ -56,9 +70,7 @@
         "crates/audio/examples/",
         "crates/audio/README.md"
       ],
-      "resource_leases": [
-        "write:crates/audio/:audio_runtime"
-      ],
+      "resource_leases": [],
       "depends_on": [
         "T003"
       ],
@@ -69,7 +81,7 @@
       ],
       "reviewer": "/root/reviewer_t001",
       "contract": "docs/spec/02-audio-engine.md + 07-tests-acceptance.md",
-      "execution_note": "independent dependency permits first native slice before M0 gate; no M1 completion claim"
+      "execution_note": "first slice authored and integrated, 13 audio tests plus11 contracts passed; actual metadata only33 endpoints; no capture/render/removal; no writer/hardware lease"
     }
   ],
   "milestones": {
@@ -109,7 +121,7 @@
       "review": null
     }
   },
-  "last_verified_commit": "1e9b9d4298183c47c862febaf177ad46ced85c8d",
+  "last_verified_commit": "7a42be562787b8cbfd4d3073faa8c82529545c4e",
   "next_task": "T002",
   "blockers": [
     {
@@ -118,6 +130,13 @@
       "status": "BLOCKED_LICENSE_CHAIN",
       "evidence": "docs/evidence/model-feasibility/M0-20261004/RESULTS.md",
       "note": "lawlict-derived code and separate speaker checkpoint terms not closed; local experimental result does not authorize bundling"
+    },
+    {
+      "id": "B003",
+      "scope": "T002 current safe runtime",
+      "status": "REMEDIATION_IN_PROGRESS",
+      "evidence": "docs/project/reviews/T002-r1.md",
+      "note": "two official loader advisories: installed2.5.1 historical only; refuse<2.10.0; patched download and new experiment required"
     }
   ],
   "distribution_status": "BLOCKED_LICENSE_CHAIN_NOT_BUILT",

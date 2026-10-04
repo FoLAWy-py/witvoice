@@ -1,6 +1,6 @@
 # 当前交接
 
-状态IN_PROGRESS / M0，授权终点WINDOWS_DELIVERED（M5）；M6必需且仍UNTESTED，不允许COMPLETE。恢复先读STATE/TASKS，下一Task ID为T002（独立模型证据审查），T003/T004第2轮已批准并DONE，T005独立审查待。不要重新下载或重跑有效模型实验。
+状态IN_PROGRESS / M0，授权终点WINDOWS_DELIVERED（M5）；M6必需且仍UNTESTED，不允许COMPLETE。恢复先读STATE/TASKS，下一Task ID为T002（安全版本补证及r2），T003/T004第2轮已批准并DONE，T005第1轮独立审查已批准并DONE。保留旧模型实验；因官方已知加载漏洞，新补丁组合需重新实测，不能复用旧性能成绩。
 
 T001已DONE：源码0f283ffe460be3382aae89f481be62a73ab4d60f，13负向测试、C/Rust原生编译运行通过，独立/root/reviewer_t001第2轮批准。目录初始无Git，安全建立本地历史，无push/reset/clean，保留原有文件。
 
@@ -20,4 +20,10 @@ T002实际模型：MeanVC2上游13acf84c1bf135ea5edad9c245b345289b06b33e、HF模
 
 用户已批准工具补齐、核查后模型下载尽量D盘、私人音频本机转换及网络参考；没有录音、驱动、防火墙、上传许可。GPU lease已释放；当前子任务只读中继/审查，不运行硬件或下载。下一阶段先实现独立Node，再到明确硬件门时提出最小操作。会话中断不承诺后台继续。
 
-T007下一切片准备：leader添加官方windows0.62.2与audio crate manifest，Cargo缓存下载在D盘，lock仅新增11项Windows依赖，既有15项未升级。当前lib仅scaffold，未宣称音频实现或测试PASS；实际writer需在T005中继结束后由leader派发，禁止自动采集/播放。STATE/TASKS已登记窄audio路径资源锁；当前尚无音频硬件lease。
+T007首切片已实际由/root/audio_runtime写7文件并停止写入：WASAPI元数据/UID选择/精确格式探测及无分配转换。13音频测试通过；leader整合workspace包含11契约测试后test/fmt/clippy均0。leader实际metadata-only示例0：33端点，12capture/21render，8active；25inactive等mix错误保留。UID仅.local；没有Initialize/Start/采集播放/移除。证据docs/evidence/T007-20261005。整个T007仍IN_PROGRESS，stream/notify/resampling/ASRC/MMCSS及真实输入输出验收未实现/未执行，不能关闭。
+
+T002正式r1 changes-required归档docs/project/reviews/T002-r1.md：2S1（工作树来源门、Torch已知加载漏洞）、2S2（硬编码ASR、尾块门槛）。root已修源码/报告/版本guard，14标准库回归0，实际8Git blob快照/固定配置/375历史步复核0。原ASR cpu字段降为SOURCE_INFERRED（旧JSON保留），不视为实测。快照Git LF配置摘要与原CRLF checkout不同，已证明仅换行且JSON完全相同，详review-security/NOTES.md。compat预算仍2/2。
+
+安全依赖：原Torch2.5.1+cu121仅历史C实验；2025和2026官方weights_only漏洞意味着当前加载能力BLOCKED_SAFE_RUNTIME。入口拒<2.10.0/未知/预发布，两个真实入口mock保证checkpoint load0。2.6下载发现较新公告后已中断exit1、无遗留UV；2.10.0+cu126两依赖官方D盘下载进行中（实际exec session34002，仅当前活动会话可继续轮询；中断不假设后台继续）。尚未新模型实测，不能PASS。原weights/WAV不要重下载或改写。
+
+T006实际/root/backend已派发执行：首个普通用户受限named pipe/独立Node。写白名单仅三模块src/tests/examples/README，root创建manifest/Windowsfeatures并统一锁文件；writer仅root+backend，audio已停止。契约真实路径04-lan-protocol.md、06-security-distribution.md，此前派发文字错名已纠正。没有GPU/采集lease。reviewer自身规则拒绝提权只读（不是auto-review拒绝），正式审查采用冻结全文中继，不冒称独立复跑。

@@ -1,0 +1,30 @@
+{
+  "started_at": "2026-10-04T17:34:55.948234+00:00",
+  "gpu_used": false,
+  "audio_hardware_used": false,
+  "model_inference": "NOT_RUN",
+  "historical_model_commit": "429b7c27713c4549ba6072d25dda18f48ddd4ee9",
+  "source_snapshot": {
+    "commit": "13acf84c1bf135ea5edad9c245b345289b06b33e",
+    "blob_count": 8,
+    "bytes": 74612,
+    "import_source": "fixed_git_blobs",
+    "working_tree_bytecode_used": false
+  },
+  "config_checkout_crlf_only": true,
+  "vc_configuration_sha256": "1207e631961b8b0a983f248b77dee0d9b8441c521c8955ffbec89d251064ba43",
+  "historical_statistics_recomputed_only": {
+    "sample_count": 375,
+    "average_rtf": 0.6452629000030963,
+    "p50_step_ms": 103.72640000423416,
+    "p95_step_ms": 126.92479998804629,
+    "p99_step_ms": 135.5283999873791,
+    "p99_step_rtf": 0.8470524999211193,
+    "new_input_seconds": 60.0,
+    "max_lag_ms": 1.3043999788351357,
+    "max_lag_chunk_ratio": 0.008152499867719598
+  },
+  "historical_paced_json_sha256": "a4a994be3664638c4534e86a6665ab1e8473faa1f1e7076a4e936377f2d8cd62",
+  "finished_at": "2026-10-04T17:34:57.042257+00:00",
+  "result": "PASS_SOURCE_STATISTICS_CHECK_ONLY"
+}
