@@ -231,7 +231,7 @@
       "acceptance": "WASAPI真实设备枚举、稳定ID、输入/输出协商、通道映射和设备移除；录音仅由显式测试启动。",
       "agent_instance_id": "/root/audio_runtime",
       "resource_leases": [
-        "code-writer:audio-native-stream"
+        "audio-hardware:leader-native-smoke"
       ],
       "evidence": [
         "docs/evidence/T007-20261005/metadata-command.json",
@@ -239,7 +239,8 @@
         "docs/evidence/T007-20261005/notifications/leader-checks.json",
         "docs/evidence/T007-20261005/notifications/PROVENANCE.md",
         "docs/evidence/T007-20261005/registration/command.json",
-        "docs/evidence/T007-20261005/registration/result.json"
+        "docs/evidence/T007-20261005/registration/result.json",
+        "docs/evidence/T007-20261005/native/source-lf-sha256.json"
       ],
       "review": "docs/project/reviews/T007-slice-r2.md",
       "attempts": 2,

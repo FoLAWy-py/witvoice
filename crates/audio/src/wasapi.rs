@@ -43,7 +43,7 @@ pub enum MetadataError {
     UnexpectedFormatStatus(i32),
 }
 
-fn com(operation: &'static str, error: windows::core::Error) -> MetadataError {
+pub(crate) fn com(operation: &'static str, error: windows::core::Error) -> MetadataError {
     MetadataError::Com {
         operation,
         hresult: error.code().0,
@@ -74,7 +74,7 @@ impl Drop for Apartment {
     }
 }
 
-struct TaskMem<T>(*mut T);
+pub(crate) struct TaskMem<T>(pub(crate) *mut T);
 impl<T> Drop for TaskMem<T> {
     fn drop(&mut self) {
         unsafe { CoTaskMemFree(Some(self.0.cast::<c_void>())) };
@@ -101,7 +101,7 @@ pub struct MixFormat {
 // Only called on pointers returned by WASAPI or owned WAVEFORMATEX values.
 // cbSize must be checked before reading the extension. Packed native structs
 // are copied with read_unaligned; no reference is taken to a packed field.
-unsafe fn read_format(pointer: *const WAVEFORMATEX) -> Result<MixFormat, MetadataError> {
+pub(crate) unsafe fn read_format(pointer: *const WAVEFORMATEX) -> Result<MixFormat, MetadataError> {
     if pointer.is_null() {
         return Err(format_error(FormatError::Layout));
     }
@@ -186,7 +186,7 @@ fn device_flow(device: &IMMDevice) -> Result<Flow, MetadataError> {
     }
 }
 
-fn client(device: &IMMDevice) -> Result<IAudioClient, MetadataError> {
+pub(crate) fn client(device: &IMMDevice) -> Result<IAudioClient, MetadataError> {
     unsafe { device.Activate(CLSCTX_INPROC_SERVER, None) }
         .map_err(|e| com("ActivateIAudioClient", e))
 }
@@ -240,7 +240,7 @@ pub fn enumerate_endpoints() -> Result<Vec<Endpoint>, MetadataError> {
     Ok(endpoints)
 }
 
-fn selected(
+pub(crate) fn selected(
     enumerator: &IMMDeviceEnumerator,
     uid: &str,
     flow: Flow,
@@ -274,13 +274,13 @@ pub struct FormatProbe {
 
 // Own the complete native descriptor through the synchronous WASAPI call.
 // PCM precision above 16 bits requires the extension rather than tag 1.
-enum NativeDescriptor {
+pub(crate) enum NativeDescriptor {
     Basic(WAVEFORMATEX),
     Extensible(WAVEFORMATEXTENSIBLE),
 }
 
 impl NativeDescriptor {
-    fn new(format: AudioFormat) -> Self {
+    pub(crate) fn new(format: AudioFormat) -> Self {
         let extended = matches!(format.encoding(), Encoding::Pcm24 | Encoding::Pcm32);
         let bits = (format.encoding().bytes() * 8) as u16;
         let base = WAVEFORMATEX {
@@ -314,7 +314,7 @@ impl NativeDescriptor {
 
     // The pointer is borrowed from self's storage, not a temporary descriptor.
     // Native callers must retain self without moving it until the call returns.
-    fn as_wave_ptr(&self) -> *const WAVEFORMATEX {
+    pub(crate) fn as_wave_ptr(&self) -> *const WAVEFORMATEX {
         match self {
             Self::Basic(base) => ptr::from_ref(base),
             Self::Extensible(extension) => ptr::addr_of!(extension.Format),

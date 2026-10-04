@@ -4,6 +4,7 @@ use std::{
     cell::Cell,
 };
 use witvoice_audio::format::{AudioFormat, Encoding, capture_to_mono, mono_to_render};
+use witvoice_audio::stream::{SILENT, decode_packet};
 
 thread_local! {
     static COUNTING: Cell<bool> = const { Cell::new(false) };
@@ -53,6 +54,9 @@ fn conversion_success_and_failure_paths_allocate_zero() {
             assert!(capture_to_mono(format, output, &mut mono).is_ok());
             assert!(mono_to_render(format, &invalid, 1.0, output).is_err());
             assert!(capture_to_mono(format, &[], &mut mono).is_err());
+            assert!(decode_packet(format, 16, 0, Some(output), &mut mono).is_ok());
+            assert!(decode_packet(format, 16, SILENT, None, &mut mono).is_ok());
+            assert!(decode_packet(format, 17, 0, None, &mut mono).is_err());
         }
     }
     COUNTING.with(|enabled| enabled.set(false));

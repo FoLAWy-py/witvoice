@@ -4,7 +4,7 @@
 
 T006已DONE：真实Windows IPC/监督源码冻结4eff1ae，证据6e9e7c：51workspace tests/fmt/Clippy0；默认11与feature18作者日志、失败历史和精确清理记录全部保留。独立r1已批准固定基础验收DONE/attempts1，review T006-r1.md。判定固定T006基础acceptance，不把后续依赖它的T011 Python协议/T025 Tauri/完整故障硬件验收倒置为前置；probe只是C级真实进程监督，无VC/Ready能力。
 
-T007 formal slice r2已批准（源码2e9366a，证据a027），整体IN_PROGRESS。leader另在3cf1393冻结notification_probe，实际Windows服务6次注册/明确UID重查/注销成功，证据registration/command+result.json；无事件递送/物理拔出/Initialize/Start/采集播放，metadata硬件lease已释放。原生audio实际角色先完成T006源码中继，再按T007-native-stream-assignment实现shared stream；独立audio路径code lease已登记，无hardware/GPU lease。未知注销状态的引用保留仍不是清理PASS。
+T007 native 8文件作者已停止，26纯tests/fmt/clippy0；用户明确批准两项本地<=5秒capture/silence-render，独占硬件lease已登记，尚未执行。T007 formal slice r2已批准（源码2e9366a，证据a027），整体IN_PROGRESS。leader另在3cf1393冻结notification_probe，实际Windows服务6次注册/明确UID重查/注销成功，证据registration/command+result.json；无事件递送/物理拔出/Initialize/Start/采集播放，metadata硬件lease已释放。原生audio实际角色先完成T006源码中继，再按T007-native-stream-assignment实现shared stream；独立audio路径code lease已登记，无hardware/GPU lease。未知注销状态的引用保留仍不是清理PASS。
 
 T021正式r1独立批准DONE/attempts1：五页/十状态/键盘缩放规则和深浅tokens、50静态色对/CSS/schema覆盖0。source4eff、final evidence6e9e，review T021-r1.md。实际leader作者、frontend建议/只读中继，没有新hci派发或实际UI/HCI签收；T022/T025/T029仍须真实验证。
 

@@ -1,9 +1,9 @@
-# Windows audio: T007 first slice
+# Windows audio: T007 native slices
 
 `wasapi` exposes endpoint metadata and explicit UID format probes on normal
 STA COM threads. Calls enumerate render/capture and all state bits; active endpoints
 report their native shared-mode mix format. Inactive/probe failures stay explicit.
-No call initializes or starts a stream, reads microphone samples or submits audio.
+These metadata functions do not initialize/start streams or read/submit audio.
 COM initialization is balanced on the calling thread and returned task memory is
 freed on error paths too. Metadata/probe functions allocate and must never be
 called from real-time callbacks. Calling from an existing MTA fails with its COM
@@ -87,11 +87,48 @@ only under the Git-ignored `.local` directory:
 cargo run -p witvoice-audio --locked --example list_endpoints > .local/audio-endpoints.json
 ```
 
-No native device test was executed by this implementation task. Initialize/Start,
-real capture/render, physical endpoint removal/notification delivery, SPSC/epoch/deadline output
-governance, MMCSS, boundary resampling/ASRC, independent monitor clocks and
-long-running hardware acceptance remain **NOT_RUN / not implemented** in this
-slice. Their measurements (p95/p99, RTF, misses, memory) are UNKNOWN. The 8h
+`stream::SharedStream::prepare` is now an explicit native device operation on
+one ordinary STA owner thread. It selects the exact active UID/flow, accepts only
+exact shared-mode support, owns the full PCM24/32 descriptor and closest-match
+task memory, then initializes an event-driven stream. It never calls Start.
+The actual OS capacity must fit the configured bound (maximum 200ms); capacity
+is not a latency or occupancy target. The owner is !Send/!Sync and releases COM
+services before the client, event handle and apartment. `start(UserApproved)`
+requires the trusted Node's explicit authorization declaration; this enum does
+not itself acquire microphone consent, a hardware lease or session readiness.
+
+Each capture call handles at most one complete packet in caller-preallocated
+storage. Silent packets permit null data. Unknown flags, non-silent null,
+capacity/length errors and NaN/Inf erase the entire destination and retire the
+owner. GetBuffer/ReleaseBuffer are paired on the same thread, including rejected
+packets (release0), while nonempty successful packets release their full size.
+Release failure erases output and is not blindly retried. Device position,
+discontinuity and QPC in 100ns remain native metadata, not a manufactured source
+timeline. Packet calls do not wait, allocate, log or invoke another thread.
+Event waiting is a separate bounded owner-thread scheduling method.
+
+Render exposes only `submit_silence`: no PCM argument or capture-to-render link.
+It primes silence before Start and releases every acquired frame with SILENT.
+Stop/reset permanently retire the owner; a new explicit prepare is required.
+Explicit close reports and retains the first Stop/reset error for repeat calls,
+without claiming successful cleanup; Drop best-effort closes and releases the
+same-thread references. There is no automatic restart/default fallback. Notification
+invalidation must be applied by the future Node/T008 output governor; this slice
+does not wire a production session, output epoch, deadline or ASRC into a stream.
+
+`cargo run -p witvoice-audio --locked --example stream_smoke -- capture UID 16000
+1 pcm16 5 --approve-start` is an **unexecuted** hardware harness. The operator
+must first obtain specific capture permission and an exclusive audio lease.
+`silence-render` is the separate render mode. UID/flow/rate/channels/encoding and
+1–5 seconds are mandatory, no default device is picked, no PCM file is saved or
+uploaded, and stdout reports only counters and wall time. Do not run it as a
+routine test. If the exact format is unsupported, it fails rather than substituting.
+
+Pure tests use local injected COM capture/render objects, not the Windows service.
+No Initialize/Start, actual capture/render or physical removal test was executed
+by this implementation task. SPSC/epoch/deadline governance, MMCSS, resampling/ASRC,
+independent monitor clocks and long-running hardware acceptance remain
+**NOT_RUN / not implemented**. Measurements (p95/p99, RTF, misses, memory) are UNKNOWN. The 8h
 synthetic clock test and 2h Windows wall-clock audio gate remain distinct.
 No Mac backend or cross-machine result is claimed. T007 cannot be closed from
 metadata and unit tests alone; complete input/output/removal hardware evidence

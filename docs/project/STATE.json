@@ -8,27 +8,23 @@
   "active_tasks": [
     {
       "task_id": "T007",
-      "agent_instance_id": "/root/audio_runtime",
+      "agent_instance_id": "/root",
       "allowed_paths": [
-        "crates/audio/src/",
-        "crates/audio/tests/",
-        "crates/audio/examples/",
-        "crates/audio/README.md"
+        "docs/evidence/T007-20261005/native/"
       ],
       "resource_leases": [
-        "code-writer:audio-native-stream"
+        "audio-hardware:leader-native-smoke"
       ],
       "depends_on": [
         "T003"
       ],
+      "contract": "T007-native-stream-assignment + user explicit two local 5s tests",
       "acceptance_commands": [
-        "cargo test -p witvoice-audio --locked",
-        "cargo clippy -p witvoice-audio --locked --all-targets -- -D warnings",
-        "native metadata-only endpoint enumeration; capture/render NOT_RUN pending explicit approval"
+        "frozen cargo test/clippy/example build",
+        "stream_smoke explicitUID capture max5s; silence-render max5s sequential"
       ],
       "reviewer": "/root/reviewer_t001",
-      "contract": "docs/spec/02-audio-engine.md + 07-tests-acceptance.md",
-      "execution_note": "leader metadata-only6registration/revalidate/close0，hardware lease已释放；audio在T006全文中继完成后才开始native shared stream，禁止实际Start/采集/播放，无hardware/GPU lease"
+      "execution_note": "audio author stopped; user explicitly approved <=5s capture and <=5s silence output, memory only no files/route changes; source frozen before hardware"
     },
     {
       "task_id": "T016",
