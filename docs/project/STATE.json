@@ -7,39 +7,22 @@
   "active_milestone": "M0",
   "active_tasks": [
     {
-      "task_id": "T002",
-      "agent_instance_id": "/root",
-      "allowed_paths": [
-        "workers/vc_worker/",
-        "docs/evidence/model-feasibility/"
-      ],
-      "resource_leases": [],
-      "depends_on": [
-        "T001"
-      ],
-      "acceptance_commands": [
-        "python workers/vc_worker/feasibility.py --mode file",
-        "python workers/vc_worker/feasibility.py --mode paced"
-      ],
-      "reviewer": "/root/reviewer_t001",
-      "contract": "docs/spec/03-model-runtime.md + 07-tests-acceptance.md",
-      "execution_note": "harness4fd: safe2.10 file PASS; firstpacedFAIL retained; only isolatedretestPASS; r2 pending; no leases",
-      "historical_advisor_instance_id": "/root/ml_engine"
-    },
-    {
       "task_id": "T006",
-      "agent_instance_id": "/root",
+      "agent_instance_id": "/root/backend",
       "allowed_paths": [
-        "crates/contracts/src/control.rs",
-        "crates/contracts/tests/wire.rs",
-        "crates/contracts/bindings/",
-        "docs/adr/0002-local-node-exit.md",
-        "docs/project/DECISIONS.md",
-        "docs/evidence/T006-20261005/",
-        "crates/platform/Cargo.toml",
-        "docs/project/T006-supervision-assignment.md"
+        "apps/voice-node/src/",
+        "apps/voice-node/tests/",
+        "apps/voice-node/README.md",
+        "crates/session/src/",
+        "crates/session/tests/",
+        "crates/session/README.md",
+        "crates/platform/src/",
+        "crates/platform/tests/",
+        "crates/platform/README.md"
       ],
-      "resource_leases": [],
+      "resource_leases": [
+        "code-writer:backend-supervision"
+      ],
       "depends_on": [
         "T003",
         "T005"
@@ -51,7 +34,7 @@
       ],
       "contract": "docs/spec/01-architecture.md +04-lan-protocol.md +06-security-distribution.md",
       "reviewer": "/root/reviewer_t001",
-      "execution_note": "ExitNode契约冻结43f0459；既有windows0.62.2 JobObjects feature check0；监督派发已准备，backend完成T002中继后启动"
+      "execution_note": "actual backend已完成T002 readonly turn；T006监督实现派发，禁止audio/model/hardware；共享依赖leader"
     },
     {
       "task_id": "T007",
@@ -72,7 +55,7 @@
       ],
       "reviewer": "/root/reviewer_t001",
       "contract": "docs/spec/02-audio-engine.md + 07-tests-acceptance.md",
-      "execution_note": "actual audio通知5file作者停止；21纯测/fmt/clippy0已交；leader整合与独立r2待，无hardware lease"
+      "execution_note": "通知冻结2e9366a；整合41Rusttests/fmt/clippy0；r2审查与实际stream/removal待"
     }
   ],
   "milestones": {
@@ -113,7 +96,7 @@
     }
   },
   "last_verified_commit": "7a42be562787b8cbfd4d3073faa8c82529545c4e",
-  "next_task": "T002",
+  "next_task": "T006",
   "blockers": [
     {
       "id": "B001",
@@ -121,13 +104,6 @@
       "status": "BLOCKED_LICENSE_CHAIN",
       "evidence": "docs/evidence/model-feasibility/M0-20261004/RESULTS.md",
       "note": "lawlict-derived code and separate speaker checkpoint terms not closed; local experimental result does not authorize bundling"
-    },
-    {
-      "id": "B003",
-      "scope": "T002 current safe runtime",
-      "status": "REVIEW_PENDING",
-      "evidence": "docs/project/reviews/T002-r1.md",
-      "note": "2.10 guarded file and isolatedpaced actual pass, firstpacedFAIL preserved; no production/windowshardware claim"
     }
   ],
   "distribution_status": "BLOCKED_LICENSE_CHAIN_NOT_BUILT",

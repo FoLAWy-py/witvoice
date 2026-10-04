@@ -1,6 +1,6 @@
 # 当前交接
 
-状态IN_PROGRESS / M0，授权终点WINDOWS_DELIVERED（M5）；M6必需且仍UNTESTED，不允许COMPLETE。恢复先读STATE/TASKS，下一Task ID为T002（安全版本补证及r2），T003/T004第2轮已批准并DONE，T005第1轮独立审查已批准并DONE。保留旧模型实验；因官方已知加载漏洞，新补丁组合需重新实测，不能复用旧性能成绩。
+当前IN_PROGRESS，授权终点WINDOWS_DELIVERED（M5）；M6必需且仍UNTESTED，不允许COMPLETE。下一Task ID为T006。T001–T005均已DONE（T002正式r2刚批准限定文件源C实验）；M0合计关闭核对待，不凭T002一项替整个里程碑签收。T006实际backend开始进程监督；T007通知源码已冻结，41整合Rust tests/fmt/clippy0，stream/removal与独立r2待。下面旧实验与先前状态保留作历史，当前安全版结论以T002-r2为准，旧2.5.1成绩不用于当前认证。
 
 T001已DONE：源码0f283ffe460be3382aae89f481be62a73ab4d60f，13负向测试、C/Rust原生编译运行通过，独立/root/reviewer_t001第2轮批准。目录初始无Git，安全建立本地历史，无push/reset/clean，保留原有文件。
 
@@ -32,7 +32,7 @@ T006实际/root/backend首切片完成并停止：11文件，普通用户受限n
 
 T007 independent首切片r1发现1S2（PCM24/32应使用完整WAVEFORMATEXTENSIBLE）；实际audio已修仅2files，新2描述符字段/往返测试。leader修复后全workspace34tests（15audio+11contracts+8Node）/fmt/clippy0，证据T007-20261005/final-*，source起点hash未采集明确NOT_CAPTURED。r2只签slice，整个T007stream/removal/hardware仍未完成。
 
-当前所有作者停止写入，GPU/audio/代码租约全部释放；原sessionIDs34002/27717/77859/20224/84074均已完成，不继续轮询。reviewer自身规则拒绝提权只读（不是auto-review拒绝），继续冻结全文中继；不冒称独立复跑。下一Task T002 r2，随后T006/T007剩余实际实现。会话中断不会保证后台继续。
+历史整合点曾所有作者停止并释放租约；原sessionIDs34002/27717/77859/20224/84074均已完成，不继续轮询。当前租约以STATE为准（backend T006代码写入，无GPU/audio）。reviewer自身规则拒绝提权只读（不是auto-review拒绝），继续冻结全文中继；不冒称独立复跑。会话中断不会保证后台继续。
 
 T006 leader 补齐现有需求中的本地 ExitNode 契约（ADR0002），PeerMessage不增加远端退出权限。Rust schema/TS重新生成；12契约+1Python黄金向量测试、fmt/clippy/generator全部exit0，证据T006-20261005/exit-contract。测试基线20442af，源码当时未提交已明确记录；仅契约，尚无实际退出资源清理实现/独立审查。初次patch后才登记租约，后续派发先登记再开工；当前leader停止此切片写入，租约释放，backend继续T002冻结只读中继。
 
@@ -41,3 +41,5 @@ T006 supervision派发保存T006-supervision-assignment.md，backend尚未开始
 T007通知COM implement宏需要直接windows-core0.62.2路径，audio实际核缓存宏源码后报告，leader已统一root/audio manifests，offline锁生成0；26外部package版本未变，lock仅audio deps增加windows-core。通知纯测试尚在作者执行中。只读CIM设备调查有MIXLINE系列，VB-Audio/CABLE/BlackHole名称匹配0；这不是路由可用或设备绝对缺失证据，没有安装驱动/改变默认设备/采集播放。
 
 T007 notification实际audio交5files并停止，21纯tests/fmt/clippy0，5000本地COM callback calls allocator0；leader核5LF摘要全匹配，source-hash-check.json。服务Register/Unregister/拔出/Initialize/Start均NOT_RUN，注销失败有界存储保留风险如实README，r2审查待。整合冻结后workspace回归待。
+
+T002-r2已归档并DONE/attempts2，B003仅实验范围RESOLVED，保留原FAIL/两兼容预算/许可B001/productiondeps缺项。M0-closure-audit待独立合计核对，不把单项批准扩为M0全批准。T007通知source2e9366a整合41tests/fmt/clippy全0，完整stdout/UTC在notifications/leader-*。当前backend T006代码lease已先登记后派发，audio作者已停；无GPU/audio硬件活动。

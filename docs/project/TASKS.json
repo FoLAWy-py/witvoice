@@ -36,7 +36,7 @@
       "milestone": "M0",
       "title": "验证并选定单一真实zero-shot引擎",
       "owner_role": "ml_engine",
-      "status": "REVIEW",
+      "status": "DONE",
       "requirements": [
         "REQ-05",
         "REQ-19",
@@ -64,15 +64,20 @@
         "docs/evidence/model-feasibility/M0-20261004/compatibility-1.md",
         "docs/evidence/model-feasibility/M0-20261004/compatibility-2.md",
         "docs/project/reviews/T002-r1.md",
-        "docs/evidence/model-feasibility/M0-20261004/review-security/NOTES.md"
+        "docs/evidence/model-feasibility/M0-20261004/review-security/NOTES.md",
+        "docs/project/reviews/T002-r2.md",
+        "docs/evidence/model-feasibility/M0-20261004/review-security/file-210.json",
+        "docs/evidence/model-feasibility/M0-20261004/review-security/paced-210.json",
+        "docs/evidence/model-feasibility/M0-20261004/review-security/paced-210-isolated.json",
+        "docs/evidence/model-feasibility/M0-20261004/review-security/offline-command-provenance.json"
       ],
-      "review": "docs/project/reviews/T002-r1.md",
-      "attempts": 1,
+      "review": "docs/project/reviews/T002-r2.md",
+      "attempts": 2,
       "blocked_reason": null,
       "compatibility_repairs_used": 2,
       "candidate_replacements_used": 0,
       "historical_advisor_instance_id": "/root/ml_engine",
-      "safe_runtime_capability": "EXPERIMENTS_PASSED_REVIEW_PENDING"
+      "safe_runtime_capability": "WINDOWS_CUDA_FILE_AND_60S_EXPERIMENT_VERIFIED"
     },
     {
       "id": "T003",
@@ -192,7 +197,9 @@
       ],
       "acceptance": "普通用户启动、连接/断开、受限IPC、worker生命周期；杀UI不会通过父Job误杀Node；显式退出清理所有会话。",
       "agent_instance_id": "/root/backend",
-      "resource_leases": [],
+      "resource_leases": [
+        "code-writer:backend-supervision"
+      ],
       "evidence": [
         "docs/evidence/T006-20261005/leader-checks.json",
         "docs/evidence/T006-20261005/PROVENANCE.md",
@@ -225,7 +232,9 @@
       "resource_leases": [],
       "evidence": [
         "docs/evidence/T007-20261005/metadata-command.json",
-        "docs/evidence/T007-20261005/integration-checks.json"
+        "docs/evidence/T007-20261005/integration-checks.json",
+        "docs/evidence/T007-20261005/notifications/leader-checks.json",
+        "docs/evidence/T007-20261005/notifications/PROVENANCE.md"
       ],
       "review": "docs/project/reviews/T007-slice-r1.md",
       "attempts": 1,

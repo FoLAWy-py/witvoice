@@ -1,0 +1,17 @@
+{
+  "commit": "2e9366aa91a31386d6c62f2e19c1c44474f98faf",
+  "started_utc": "2026-10-04T18:43:10.9654509Z",
+  "ended_utc": "2026-10-04T18:43:36.7307438Z",
+  "executor": "/root",
+  "commands": [
+    "cargo test --workspace --locked -- --test-threads=1",
+    "cargo fmt --all --check",
+    "cargo clippy --workspace --locked --all-targets -- -D warnings"
+  ],
+  "test_exit": 0,
+  "fmt_exit": 0,
+  "clippy_exit": 0,
+  "hardware": "NOT_RUN",
+  "scope": "frozen integration: 21audio+12contracts+8Node/session native process tests; no audio service registration/capture/playback/GPU/Mac",
+  "review": "PENDING"
+}

@@ -1,0 +1,160 @@
+   Compiling windows-core v0.62.2
+   Compiling witvoice-contracts v0.1.0 (D:\Project\witvoice\crates\contracts)
+   Compiling windows-collections v0.3.2
+   Compiling windows-future v0.3.2
+   Compiling windows-numerics v0.3.1
+   Compiling windows v0.62.2
+   Compiling witvoice-session v0.1.0 (D:\Project\witvoice\crates\session)
+   Compiling witvoice-platform v0.1.0 (D:\Project\witvoice\crates\platform)
+   Compiling witvoice-audio v0.1.0 (D:\Project\witvoice\crates\audio)
+   Compiling witvoice-node v0.1.0 (D:\Project\witvoice\apps\voice-node)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 12.13s
+     Running unittests src\lib.rs (target\debug\deps\witvoice_audio-6c3c9630cb5ce8c3.exe)
+
+running 10 tests
+test notifications::native::tests::all_native_callback_methods_publish_without_uid_reads_or_allocations ... ok
+test notifications::native::tests::registration_owner_cannot_be_reused_even_after_failure ... ok
+test notifications::native::tests::teardown_failure_keeps_reference_then_success_releases_once ... ok
+test notifications::tests::concurrent_producers_cannot_overwrite_other_reasons ... ok
+test notifications::tests::multiple_notifications_coalesce_without_clearing_invalidation ... ok
+test notifications::tests::notification_arriving_during_control_check_remains_pending ... ok
+test wasapi::tests::basic_pcm_and_float_descriptors_keep_documented_tags_and_roundtrip ... ok
+test wasapi::tests::high_precision_pcm_descriptors_own_complete_extension_and_roundtrip ... ok
+test wasapi::tests::refuses_reduced_valid_bits_and_unexpected_channel_mask ... ok
+test wasapi::tests::validates_native_layout_and_rejects_short_extension ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\allocation.rs (target\debug\deps\allocation-01aeaebabb56027e.exe)
+
+running 1 test
+test conversion_success_and_failure_paths_allocate_zero ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\conversion.rs (target\debug\deps\conversion-d069b0a19d37901c.exe)
+
+running 10 tests
+test float_downmix_large_finite_values_is_bounded ... ok
+test gain_zero_and_empty_buffers_are_safe ... ok
+test late_nonfinite_frame_silences_entire_destination ... ok
+test malformed_buffers_and_gain_are_silent ... ok
+test pcm16_downmix_does_not_overflow ... ok
+test pcm24_sign_extension_and_endpoints ... ok
+test pcm8_midpoint_is_silence ... ok
+test rejects_unimplemented_channels_and_rates ... ok
+test render_limits_then_duplicates_channels ... ok
+test signed_encodings_roundtrip_and_clamp_edges ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src\lib.rs (target\debug\deps\witvoice_contracts-f25a1de3c8cf35b2.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src\bin\export_schema.rs (target\debug\deps\export_schema-4f5c39243da84cd0.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\wire.rs (target\debug\deps\wire-ba3e5ff0a6c74c44.exe)
+
+running 12 tests
+test controls_reject_unknown_fields_versions_and_oversize ... ok
+test golden_header_and_pcm_endianness ... ok
+test local_and_peer_start_are_distinct ... ok
+test malformed_and_unbound_media_rejected ... ok
+test negotiated_frames_and_unknown_source ... ok
+test node_exit_is_local_only_and_has_no_execution_arguments ... ok
+test pre_session_error_can_reject_handshake_without_media_permission ... ok
+test prepared_requires_actual_matching_model_and_profile ... ok
+test queue_limits_cannot_be_unbounded ... ok
+test safe_state_guards_and_failure_effects ... ok
+test u64_json_precision_and_digest_validation ... ok
+test wrap_and_deadline_are_explicit ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src\lib.rs (target\debug\deps\witvoice_node-755cbcdaae27bf98.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src\bin\ipc-probe.rs (target\debug\deps\ipc_probe-97f02f0d92a778c6.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src\main.rs (target\debug\deps\witvoice_node-d08f9828ae0af116.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\windows_process.rs (target\debug\deps\windows_process-fc817a4df4b161a5.exe)
+
+running 3 tests
+test client_death_and_partial_deadline_do_not_kill_node ... ok
+test first_instance_rejects_endpoint_takeover ... ok
+test real_node_authentication_frames_and_fail_closed_lifecycle ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 3.40s
+
+     Running unittests src\lib.rs (target\debug\deps\witvoice_platform-9cf23a2ac30f848c.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src\lib.rs (target\debug\deps\witvoice_session-c2fdf07541f1930a.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\lifecycle.rs (target\debug\deps\lifecycle-94e1c2071f07d8ca.exe)
+
+running 5 tests
+test bounded_history_never_evicts_mutations_and_stop_remains_fail_closed ... ok
+test duplicate_mutation_is_idempotent_and_conflicting_id_is_rejected ... ok
+test invalid_wire_does_not_change_owner_state ... ok
+test missing_resources_cannot_advertise_ready_or_start_audio ... ok
+test read_only_polling_does_not_exhaust_mutation_budget ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+   Doc-tests witvoice_audio
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests witvoice_contracts
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests witvoice_node
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests witvoice_platform
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests witvoice_session
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

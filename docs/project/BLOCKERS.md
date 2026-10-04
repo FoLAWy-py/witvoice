@@ -9,4 +9,4 @@
 
 后续实际前置门仍未执行：T009/T015虚拟设备与物理采集、T026真实2h、T029完整24/3质量与owner试听、T031–T035 Mac真机及有线LAN双向。状态NOT_RUN/UNTESTED，不能标成失败或PASS，也不能提前代用户授权录音/装驱动。当前缺少完整质量素材的validator结果为BLOCKED，这不阻止T004测量计划本身被独立验收。
 
-B003（T002安全运行时，REVIEW_PENDING）：原Torch2.5.1落在两官方weights_only漏洞范围；固定摘要不等于安全解析。新入口阻断<2.10.0/未知，14纯回归通过；实际已安装官方固定2.10.0+cu126并同输入file PASS，首次paced FAIL保留，唯一预登记隔离复测PASS（RTF0.594341/p99149.388ms）。最小剩余动作是独立r2复核源码与新完整证据，不能复用旧429性能。无需恶意checkpoint/PoC，无攻陷断言，无第三模型兼容修复。完整s3prl依赖pip check实测exit1缺3项，生产安装未闭合；本阶段只实际推理路径证据。
+B003（T002安全运行时，RESOLVED_EXPERIMENT_ONLY）：原Torch2.5.1落在两官方weights_only漏洞范围；固定摘要不等于安全解析。新入口阻断<2.10.0/未知，14纯回归通过；官方固定2.10.0+cu126同输入file PASS，首次paced FAIL保留，唯一隔离复测PASS（RTF0.594341/p99149.388ms）。独立/root/reviewer_t001正式r2已读完整修复/14tests/750steps/新33metadata/byte-provenance与真实离线命令，批准限定T002 C实验DONE，无新增S0/S1。仍非普遍安全认证；不复用旧429成绩，不运行恶意checkpoint/PoC。完整s3prl生产依赖pip check exit1缺3项，留固定T024安装闭合；许可B001及质量/硬件门继续生效。
