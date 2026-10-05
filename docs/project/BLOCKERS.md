@@ -1,3 +1,5 @@
+当前 B004（2026-10-05T14:59:29.633943+00:00）：对冻结ff754fd一次条件重链接的199软件tests/fmt/严格Clippy/examples通过，当前构建阻塞解除。原LNK1318、ICE/AV/PDB完整失败仍保存，原因UNKNOWN；仅对对应生成PDB作可逆归档，没有系统安全/依赖修改。B005 captureInitialize0x887c001a仍阻挡VB-CABLE路由，不扩称VC通过。
+
 当前14:07Z：B005 capture Initialize0x887c001a在basic与owned exactmix均实际失败。服务Audiosrv/AudioEndpointBuilder只读Running；这些状态不证明capture流能初始化。无PCM/Start/自动重试，清理UNKNOWN。最小解阻需查明当前CABLE capture端的独立原生初始化失败原因；不能根据未知HRESULT猜隐私/占用/重装，不获具体授权不改驱动或系统。T011独立软件继续。
 
 当前状态（2026-10-05 13:11Z 后）：B004 对当前冻结1a85软件验证已解除，163 tests/fmt/strictClippy/examples/defaultcheck均0，旧ICE/AV原因UNKNOWN。B005 当前为 capture Initialize 0x887c001a，非容量超限；来源未获官方精确符号确认。用户已授予同范围有限VB合成测试持续授权；先做basic/exactMix只读对照与单变量预检，不安装驱动/改安全设置，不盲重试。B006 仅真实native DNS正例缺失，当前软件整合0。下列旧状态为保留历史。

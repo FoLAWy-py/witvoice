@@ -1,0 +1,31 @@
+{
+  "source_commit": "ff754fd988c69c2a089f8de74bf36fa97a2aa3c3",
+  "effective_tests": 199,
+  "commands": {
+    "workspace-tests": {
+      "exit": 0,
+      "wall_seconds": 18.3172826,
+      "inputs": 101
+    },
+    "fmt": {
+      "exit": 0,
+      "wall_seconds": 0.3606506,
+      "inputs": 101
+    },
+    "clippy": {
+      "exit": 0,
+      "wall_seconds": 2.4904299,
+      "inputs": 101
+    },
+    "examples": {
+      "exit": 0,
+      "wall_seconds": 1.4288511,
+      "inputs": 101
+    }
+  },
+  "original_failure_preserved": "docs/evidence/T011-20261005/native-integration/first-link-failure",
+  "cause": "UNKNOWN",
+  "model": "NOT_RUN",
+  "audio": "NOT_RUN",
+  "Mac": "NOT_RUN"
+}

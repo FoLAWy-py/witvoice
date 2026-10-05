@@ -1,3 +1,9 @@
+当前整合（2026-10-05T14:59:29.633943+00:00）：ff754fd 固定 native Rust↔Python 双管道鉴权/内存帧交换及真实 Job 所有者清理已实际通过：0.1238215s/child0/2560合成样本/101源相等；独立 reviewer 有限签收，未独立复跑，未批准 T011 DONE。证据 native-interop 与 reviews/T011-native-limited.md。没有模型、音频、网络或 PCM 文件。
+
+原 MSVC LNK1318 与完整日志保留；只将对应生成 PDB 逐字节归档到私有.local，随后一次条件重链接实际199有效tests/fmt/strictClippy/examples全0，101源逐命令前后相等。原因UNKNOWN，不声称工具链普遍修复。证据 native-integration/relink。
+
+T009仍 BLOCKED_CAPTURE_INITIALIZE_0x887c001a；basic/exactownedmix都未Start/提交marker/read，不盲重试。T010 DONE。next_task=T011：root实现 Prepare-only Python runtime/warmup；backend仅 engines/examples/worker_warmup_probe.rs，两不重叠writer已登记 assignment。新 Python32纯tests/compile0；真实GPU预热尚未执行，必须冻结整合/独立预检/独占资源锁后一次运行。生产 Node/session 输出门、T012真实media、T015第三方闭环仍未过；M5/M6未过。以下历史保留，当前执行以STATE为准。
+
 当前整合（2026-10-05 14:07Z）：T009 exact-owned-mix独立有限preflight通过后实际once4b726af0消费，0.320018s/child1/noTimeout，render1056<=1440，capture Initialize仍0x887c001a beforeStart/marker/read，capturecapacity/cleanupUNKNOWN。完整证据exact-mix-once；不认为闭环/VC通过，不盲重复。音频/GPU/LAN锁已释放。当前用户同范围VB合成持续授权保留，不能扩张为物理录音/语音播放/系统更改。
 
 T010已独立DONE；T011部分冻结7ea5实际185workspace tests/fmt/strictClippy/examples/defaultcheck0，96源全等；Python4control/6PCM0，绑定错误路径exit2保留后正确generate --check0。其后修复独立review真实发现的孤立surrogate差异，Rust6/Python5/controlformat/strictcontractsclippy0；新版尚无wholeworkspace重跑，不继承旧整体PASS。两个writer仅root workers/control和backend platform persistentpipe，路径不重叠，无硬件/GPU/LAN。reviewer/frontend只读中继，audio已STOP。T011 NativePython/Job+gate/真实warmup尚未完成；next_task=T011；M5/M6未通过。以下历史保留，以STATE/TASKS最新状态为准。

@@ -1,0 +1,42 @@
+{
+    "uuid":  "01a10767-4ff5-7f21-881a-146d094fbc55",
+    "executable":  "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\cargo.exe",
+    "argv":  [
+                 "fmt",
+                 "--check",
+                 "-p",
+                 "witvoice-engines"
+             ],
+    "cwd":  "D:\\Project\\witvoice",
+    "execution_host":  {
+                           "version":  "5.1.26100.7462",
+                           "process":  "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+                       },
+    "start_utc":  "2026-10-05T15:05:55.4761773Z",
+    "end_utc":  "2026-10-05T15:05:55.7914221Z",
+    "exit_code":  0,
+    "env":  {
+                "RUSTUP_HOME":  "D:\\Software\\WitvoiceToolchain\\Rust\\rustup",
+                "CARGO_INCREMENTAL":  "0",
+                "CARGO_BUILD_JOBS":  "1",
+                "CARGO_HOME":  "D:\\Software\\WitvoiceToolchain\\Rust\\cargo",
+                "CARGO_TARGET_DIR":  "D:\\Project\\witvoice\\.local\\t016-diagnostics-author\\target"
+            },
+    "present_overrides":  [
+
+                          ],
+    "source_path":  "D:\\Project\\witvoice\\crates\\engines\\examples\\worker_warmup_probe.rs",
+    "source_before_sha256":  "f52d4154063461f60c5a5d564fcc8e85721a58651e763356b1ce03e457fd0ee1",
+    "source_after_sha256":  "f52d4154063461f60c5a5d564fcc8e85721a58651e763356b1ce03e457fd0ee1",
+    "lock_sha256":  "8778443a13f48052cd3725f10a541f88b1fe8bb8e6209f415b55fac4a69af12b",
+    "stdout":  {
+                   "bytes":  0,
+                   "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+               },
+    "stderr":  {
+                   "bytes":  0,
+                   "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+               },
+    "capture":  "Complete redirected stream text UTF8 without BOM",
+    "scope":  "Build/format/lint only. Warmup main/worker/model/GPU/audio/network NOT_RUN"
+}

@@ -1,0 +1,37 @@
+{
+    "source_commit":  "ff754fd988c69c2a089f8de74bf36fa97a2aa3c3",
+    "binary_sha256":  "775a1eddebcd68f7f8dab2b46df7eeedb61fe9542cf18500972158e67d131db0",
+    "config_sha256":  "54259ba8e123071372737c68c8978228fc5166090b6d105fef735e44dd9362d6",
+    "owner":  "/root",
+    "host":  "5.1.26100.7462",
+    "started_utc":  "2026-10-05T14:43:59.0029355Z",
+    "model":  "NOT_RUN",
+    "audio":  "NOT_RUN",
+    "network":  "NOT_RUN",
+    "pcm_saved":  false,
+    "status":  "PASS_NATIVE_TRANSPORT_ONLY",
+    "exit":  0,
+    "timed_out":  false,
+    "owned_job_cleanup":  "CONFIRMED_BY_REAL_OWNER",
+    "report":  {
+                   "status":  "NATIVE_PYTHON_TRANSPORT_ONLY_PASS",
+                   "control_and_media":  true,
+                   "source_samples":  2560,
+                   "owned_job_empty":  true,
+                   "wall_seconds":  0.0725857,
+                   "model":  "NOT_RUN",
+                   "audio":  "NOT_RUN",
+                   "pcm_saved":  false
+               },
+    "finished_utc":  "2026-10-05T14:43:59.1263522Z",
+    "wall_seconds":  0.1238215,
+    "stdout":  {
+                   "bytes":  196,
+                   "sha256":  "9a6ba60c39574ccdb48a37be75788c074b071bba4c61ce62f8574fd933ef4711"
+               },
+    "stderr":  {
+                   "bytes":  0,
+                   "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+               },
+    "source_after_all_equal":  true
+}

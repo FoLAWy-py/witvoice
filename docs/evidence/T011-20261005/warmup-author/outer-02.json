@@ -1,0 +1,8 @@
+{
+  "start_utc": "2026-10-05T15:05:54.7549561Z",
+  "end_utc": "2026-10-05T15:05:58.6315876Z",
+  "exit_code": 0,
+  "exe": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+  "arguments": "-NoLogo -NoProfile -NonInteractive -File D:\\Project\\witvoice\\.local\\t011-warmup-author\\runner-02.ps1",
+  "parent_host": "7.6.5"
+}

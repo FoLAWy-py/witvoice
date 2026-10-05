@@ -1,0 +1,41 @@
+{
+    "owner":  "/root",
+    "host":  "5.1.26100.7462",
+    "executable":  "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "argv":  [
+                 "-m",
+                 "py_compile",
+                 "workers/vc_worker/runtime.py",
+                 "workers/vc_worker/warmup.py",
+                 "workers/vc_worker/test_runtime.py"
+             ],
+    "started_utc":  "2026-10-05T15:01:28.0129907Z",
+    "finished_utc":  "2026-10-05T15:01:28.1912988Z",
+    "exit":  0,
+    "wall_seconds":  0.178316,
+    "source_before":  {
+                          "workers/vc_worker/runtime.py":  "d8c6542aceea1ed421ba70c7d798e2c65217816c46570399247d77f6336c08b5",
+                          "workers/vc_worker/warmup.py":  "bf718c4c0d7fd58505f28cf1c39e1529691d8b444e7b7b2bd86955691201c0be",
+                          "workers/vc_worker/test_runtime.py":  "9891b0f1e8bb5942eeb76c8b7161f23a1edd7ecfa49198636f34bdf2002e48e6",
+                          "crates/engines/Cargo.toml":  "7d61d17ae72189f61acbb632a67c70e047259a9bd87f10987b2a39a0abcd58c4",
+                          "Cargo.lock":  "8778443a13f48052cd3725f10a541f88b1fe8bb8e6209f415b55fac4a69af12b"
+                      },
+    "source_after":  {
+                         "workers/vc_worker/runtime.py":  "d8c6542aceea1ed421ba70c7d798e2c65217816c46570399247d77f6336c08b5",
+                         "workers/vc_worker/warmup.py":  "bf718c4c0d7fd58505f28cf1c39e1529691d8b444e7b7b2bd86955691201c0be",
+                         "workers/vc_worker/test_runtime.py":  "9891b0f1e8bb5942eeb76c8b7161f23a1edd7ecfa49198636f34bdf2002e48e6",
+                         "crates/engines/Cargo.toml":  "7d61d17ae72189f61acbb632a67c70e047259a9bd87f10987b2a39a0abcd58c4",
+                         "Cargo.lock":  "8778443a13f48052cd3725f10a541f88b1fe8bb8e6209f415b55fac4a69af12b"
+                     },
+    "model":  "NOT_RUN",
+    "GPU":  "NOT_RUN",
+    "audio":  "NOT_RUN",
+    "stdout":  {
+                   "bytes":  0,
+                   "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+               },
+    "stderr":  {
+                   "bytes":  0,
+                   "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+               }
+}

@@ -680,6 +680,11 @@ dependencies = [
 [[package]]
 name = "witvoice-engines"
 version = "0.1.0"
+dependencies = [
+ "serde_json",
+ "witvoice-contracts",
+ "witvoice-platform",
+]
 
 [[package]]
 name = "witvoice-node"

@@ -407,7 +407,8 @@
         "crates/engines/",
         "crates/platform/src/windows.rs",
         "crates/platform/tests/worker_pipe.rs",
-        "crates/platform/README.md"
+        "crates/platform/README.md",
+        "crates/engines/examples/"
       ],
       "acceptance": "真实worker仅推理；独立控制/PCM通道、鉴权、长度限制、预热/ready、超时和最多两次重启。",
       "agent_instance_id": "/root",
@@ -420,12 +421,16 @@
         "docs/evidence/T011-20261005/leader-software/jsonschema-install-report.json",
         "docs/evidence/T011-20261005/integration/31ba-first/root-final-clippy.json",
         "docs/evidence/T011-20261005/integration/fixed/result.json",
-        "docs/evidence/T011-20261005/control-parity/delivery-index.json"
+        "docs/evidence/T011-20261005/control-parity/delivery-index.json",
+        "docs/evidence/T011-20261005/native-author/final-delivery-index.json",
+        "docs/evidence/T011-20261005/native-interop/result.json",
+        "docs/evidence/T011-20261005/native-integration/relink/result.json",
+        "docs/project/reviews/T011-native-limited.md"
       ],
       "review": null,
       "attempts": 0,
       "blocked_reason": null,
-      "execution_note": "Frozen7ea5:185workspace/fmt/strictClippy/examples/default0;4control+6PCM0,96inputs equal. Native authenticatedpersistentpipe slice nowauthorized; remainingactualPython/modelwarmup/Nodeowner integration notdone."
+      "execution_note": "ff754fd199effectiveworkspace/fmt/strictClippy/examples0;101sourceguards equal; actualRust-Pythontransport+ownedJob PASS0.1238215s independentlyreviewedlimitedslice. Prepare-only realworker source underimplementation; actualwarmup/Nodeproduction/outputgate notyetverified."
     },
     {
       "id": "T012",

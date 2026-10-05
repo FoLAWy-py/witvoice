@@ -4,3 +4,8 @@ version = "0.1.0"
 edition.workspace = true
 rust-version.workspace = true
 publish.workspace = true
+
+[dev-dependencies]
+witvoice-contracts = { path = '../contracts' }
+witvoice-platform = { path = '../platform' }
+serde_json.workspace = true

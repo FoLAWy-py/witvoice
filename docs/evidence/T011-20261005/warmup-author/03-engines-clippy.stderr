@@ -1,0 +1,23 @@
+    Checking witvoice-engines v0.1.0 (D:\Project\witvoice\crates\engines)
+error: this `if` statement can be collapsed
+   --> crates\engines\examples\worker_warmup_probe.rs:368:13
+    |
+368 | /             if let Err(error) = &protocol {
+369 | |                 if lifecycle.binding().is_some() && !lifecycle.resources_released() {
+370 | |                     let _ = lifecycle.worker_fault(local, error.fault);
+371 | |                 }
+372 | |             }
+    | |_____________^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.99.0/index.html#collapsible_if
+    = note: `-D clippy::collapsible-if` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[allow(clippy::collapsible_if)]`
+help: collapse nested if block
+    |
+368 ~             if let Err(error) = &protocol
+369 ~                 && lifecycle.binding().is_some() && !lifecycle.resources_released() {
+370 |                     let _ = lifecycle.worker_fault(local, error.fault);
+371 ~                 }
+    |
+
+error: could not compile `witvoice-engines` (example "worker_warmup_probe") due to 1 previous error

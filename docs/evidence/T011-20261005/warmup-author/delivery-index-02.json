@@ -1,0 +1,38 @@
+{
+    "uuid":  "01a10767-4ff5-7f21-881a-146d094fbc55",
+    "utc":  "2026-10-05T15:05:58.6035313Z",
+    "runner_sha256":  "b8c1ab67a1fb11698ff7916bd7989c77541511ea98701f48fa0552ba3aa96adb",
+    "source_path":  "D:\\Project\\witvoice\\crates\\engines\\examples\\worker_warmup_probe.rs",
+    "source_sha256":  "f52d4154063461f60c5a5d564fcc8e85721a58651e763356b1ce03e457fd0ee1",
+    "events":  [
+                   {
+                       "path":  "D:\\Project\\witvoice\\.local\\t011-warmup-author\\05-probe-rustfmt.json",
+                       "sha256":  "0500f4767a7a3eb19ba00509900cc63822859f06b40f42c09cbe5d2b6673ff68",
+                       "exit_code":  0
+                   },
+                   {
+                       "path":  "D:\\Project\\witvoice\\.local\\t011-warmup-author\\06-engines-fmt-check.json",
+                       "sha256":  "19c9d9fb6e8a79749f1120ad4f1ba97b0ebbfc09284e8c20fd0af548558e6979",
+                       "exit_code":  0
+                   },
+                   {
+                       "path":  "D:\\Project\\witvoice\\.local\\t011-warmup-author\\07-engines-clippy.json",
+                       "sha256":  "ca147431f5967a3abc08d810932cf854671bc29e266b6df9986b9850fd001f7b",
+                       "exit_code":  0
+                   },
+                   {
+                       "path":  "D:\\Project\\witvoice\\.local\\t011-warmup-author\\08-warmup-probe-build.json",
+                       "sha256":  "3b657c538e9b27f6002f0fadaa0e5b53f7881ce4e80adf79072a66647ec66dc5",
+                       "exit_code":  0
+                   }
+               ],
+    "not_run":  [
+                    "probe main",
+                    "GPU/model/warmup",
+                    "native worker startup",
+                    "audio",
+                    "LAN",
+                    "Mac"
+                ],
+    "writes":  "STOP_AFTER_DELIVERY"
+}

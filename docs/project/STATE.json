@@ -7,76 +7,33 @@
   "active_milestone": "M1",
   "active_tasks": [
     {
-      "task_id": "T011",
-      "agent": "/root",
-      "thread_id": "01a10764-d851-7d02-ac79-365d2576a226",
-      "mode": "ROOT_NATIVE_INTEROP_BUILD_PREFLIGHT",
-      "path_whitelist": [
-        "crates/contracts/src/worker.rs",
-        "workers/vc_worker/control.py",
-        "workers/vc_worker/test_control.py",
-        ".local/t011-final",
-        ".local/t011-fixed-final",
-        "docs/evidence/T011-20261005/integration",
-        "docs/project",
-        ".local/t009-mix-metadata",
-        ".local/t009-exact-mix-once",
-        "docs/evidence/T009-20261005/mix-metadata",
-        "docs/evidence/T009-20261005/exact-mix-preflight",
-        "docs/evidence/T011-20261005/integration/fixed",
-        "workers/vc_worker/control.py",
-        "workers/vc_worker/test_control.py",
-        ".local/t011-control-parity",
-        "docs/evidence/T011-20261005/control-parity",
-        "crates/contracts/tests/worker_wire.rs",
-        "workers/vc_worker/windows_pipe.py",
-        "workers/vc_worker/native_interop_probe.py",
-        ".local/t011-native-client",
-        "docs/evidence/T011-20261005/native-client",
-        "docs/project/reviews/T011-software-limited.md",
-        "crates/platform/examples/worker_python_probe.rs",
-        ".local/t011-native-final",
-        "docs/evidence/T011-20261005/native-integration",
-        "workers/vc_worker/README.md",
-        "workers/vc_worker/test_windows_pipe.py"
-      ],
       "dependencies": [
         "T002",
         "T006",
         "T010"
       ],
-      "contract": "Root ownsPythonclient plus disjoint explicit debug-only nativeIPC/Job probe; backendowns windows.rs/worker_pipe.rs; max2writers, no audio/GPU/LAN",
-      "acceptance": "workspace all-target tests/fmt/strictClippy/examples/sourceguards; no taskDONE untilremainingnative/model evidence",
       "resources": [
-        "root validator only; no hardware/GPU/LAN"
-      ]
-    },
-    {
+        "all product sourcewriters STOP; sole software validation; no GPU/audio/LAN"
+      ],
       "task_id": "T011",
-      "agent": "/root/reviewer_t001",
-      "thread_id": "01a1077c-556d-7152-892c-d9f92346ec0f",
-      "mode": "READ_ONLY_NATIVE_CLIENT_PREFLIGHT",
+      "mode": "FROZEN_SOFTWARE_INTEGRATION",
+      "thread_id": "01a10764-d851-7d02-ac79-365d2576a226",
       "path_whitelist": [
-        "workers/vc_worker/windows_pipe.py",
-        "workers/vc_worker/native_interop_probe.py",
-        "crates/platform/examples/worker_python_probe.rs",
-        "docs/evidence/T011-20261005/native-client",
-        "crates/platform/src/windows.rs",
-        "crates/platform/tests/worker_pipe.rs",
-        "crates/platform/README.md",
-        "docs/evidence/T011-20261005/native-author",
-        "docs/evidence/T011-20261005/native-integration",
-        "workers/vc_worker/test_windows_pipe.py",
-        ".local/t011-native-client"
+        "workers/vc_worker/runtime.py",
+        "workers/vc_worker/warmup.py",
+        "workers/vc_worker/test_runtime.py",
+        "workers/vc_worker/README.md",
+        "crates/engines/Cargo.toml",
+        "Cargo.lock",
+        ".local/t011-warmup-root",
+        "docs/project",
+        "docs/evidence/T011-20261005",
+        ".local/t011-warmup-once",
+        ".local/t011-warmup-final"
       ],
-      "dependencies": [
-        "T002",
-        "T006",
-        "T010"
-      ],
-      "contract": "Read frozenPython947b source androotprobe delta; limited nativeprocess preflight only, nohardware/model/ownwrite/escalation",
-      "acceptance": "No mandatoryS0-S3 beforecontrolled nativeinterop; wholeT011notDONE",
-      "resources": []
+      "acceptance": "Python tests/compile; root frozen integration then limited preflight",
+      "agent": "/root",
+      "contract": "docs/project/T011-warmup-assignment.md"
     }
   ],
   "milestones": {
@@ -98,7 +55,7 @@
       "review": null
     },
     "M2": {
-      "status": "TODO",
+      "status": "IN_PROGRESS",
       "evidence": [],
       "review": null
     },
@@ -136,9 +93,9 @@
     {
       "id": "B004",
       "scope": "T010 application verification and toolchain reliability",
-      "status": "BLOCKED_CURRENT_INTEGRATION_LINK_PDB",
-      "evidence": "docs/evidence/T011-20261005/native-integration/first-link-failure/native-workspace-tests.json",
-      "note": "Newd730 cargo101 transportlibtest MSVC LNK1318 unexpectedPDB OK0 beforeapplicationtests;100inputs beforeafter equal. No fullworkspace retry, no AVcause/settingchange. Independentplatformprobe build/fmt/strictClippy0 is limitedscope."
+      "status": "MITIGATED_CURRENT_RUN_CAUSE_UNKNOWN",
+      "evidence": "docs/evidence/T011-20261005/native-integration/relink/result.json",
+      "note": "Original LNK1318 preserved. Only exact generated PDB reversibly archived, one conditional relink fourchecks0/199tests; causal diagnosis UNKNOWN, no system/security changes."
     },
     {
       "id": "B005",
@@ -203,10 +160,10 @@
   },
   "completion_claim_allowed": false,
   "last_verified_scope": "T010 independentformalr1 limitedfoundation APPROVED plus previoussoftware; T009adaptedlimitedpreflight only, hardware/VC/Macexcluded",
-  "execution_status": "ACTIVE_SOFTWARE_NO_HARDWARE_LEASE",
+  "execution_status": "ACTIVE_TWO_DISJOINT_SOFTWARE_WRITERS_NO_GPU_AUDIO_LAN",
   "interruption_evidence": "docs/project/interruption-20261005.json",
-  "last_tested_commit": "7ea5bd743d50c4a586cb0ab94b3b88866772ab59",
-  "last_tested_scope": "185effective workspace/fmt/strictClippy/examples/defaultcheck0;4Pythoncontrol+6PCM0+bindingdriftcorrected0;96 frozeninputs equal. T011partial only; native/modelnotimplemented. Original31ba Clippy101 retained.",
+  "last_tested_commit": "ff754fd988c69c2a089f8de74bf36fa97a2aa3c3",
+  "last_tested_scope": "199 effective workspace tests/fmt/strictClippy/examples exit0;101 source guards equal; native Rust/Python IPC+ownedJob PASS 0.1238215s, model/audio/network NOT_RUN.",
   "windows_virtual_route": {
     "selected": "VB-CABLE",
     "render": "CABLE Input",
@@ -226,8 +183,8 @@
     },
     "continuity": "FAIL_CAPTURE_INITIALIZE_0x887c001a_BEFORE_START"
   },
-  "last_attempted_commit": "d7306893e44230b947ad7ac842d731a7603bea1c",
-  "last_attempted_result": "Newd730 cargo101 transportlibtest MSVC LNK1318 unexpectedPDB OK0 beforeapplicationtests;100inputs beforeafter equal. No fullworkspace retry, no AVcause/settingchange. Independentplatformprobe build/fmt/strictClippy0 is limitedscope.",
+  "last_attempted_commit": "ff754fd988c69c2a089f8de74bf36fa97a2aa3c3",
+  "last_attempted_result": "Native transport only PASS;199softwaretests+fmt/strictClippy/examples0. OldLNK1318archived/causeUNKNOWN; newwarmupsource NOT_RUN.",
   "latest_vbcable_diagnostic": {
     "authorization_id": "T009-EXACT-MIX-4b726af0-03d9-4553-ab95-a4416fe45145",
     "status": "CONSUMED_FAILED_NO_RETRY",

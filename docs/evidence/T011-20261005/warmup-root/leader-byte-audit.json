@@ -1,0 +1,192 @@
+{
+  "files": [
+    {
+      "file": "check-confirmed-alias-failure.ps1",
+      "bytes": 2882,
+      "sha256": "065dc8bf821874ca2cdb76dac5c76b2e95a4f563207de869041e2ae94d92631c"
+    },
+    {
+      "file": "check-confirmed.ps1",
+      "bytes": 2910,
+      "sha256": "5f0238b14ac5e4613de7f2d70e2d9c31b8f3b686bcb4383c26cbeff819cec486"
+    },
+    {
+      "file": "check.ps1",
+      "bytes": 1222,
+      "sha256": "490da144ec2aa67dcb11fd2bc7c29620e9317a7c516c47d6265574f127dcc757"
+    },
+    {
+      "file": "compile-ownership-final.json",
+      "bytes": 2340,
+      "sha256": "14e5f34db74d09dce39e29452b6e733d9ff1ef663438c63ef6e314711d547726"
+    },
+    {
+      "file": "compile-ownership-final.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "compile-ownership-final.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "compile-ownership-fixed.json",
+      "bytes": 2329,
+      "sha256": "f6629ac233d16cecdca94ac64d05637f3c46b297d15e7c436536382af7a3f432"
+    },
+    {
+      "file": "compile-ownership-fixed.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "compile-ownership-fixed.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "compile-ready.json",
+      "bytes": 2330,
+      "sha256": "f69130e43f18d44535af6830276244bdb5177271e0a296d18b227928deb659f1"
+    },
+    {
+      "file": "compile-ready.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "compile-ready.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "compile.json",
+      "bytes": 2330,
+      "sha256": "131b56ca7c7087e1adfaad6b3d6572245dc271e8a1614019c225fed5b7e90f78"
+    },
+    {
+      "file": "compile.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "compile.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "lock-check-confirmed.json",
+      "bytes": 2261,
+      "sha256": "86ceb9dd2eaf0f66d383edc90c677d94304d31671a18dad782d1dc98fe118e6c"
+    },
+    {
+      "file": "lock-check-confirmed.stderr",
+      "bytes": 72,
+      "sha256": "736e2582f563605dd272e5fb977840b0c0767377d27b6940c440caf75eec7157"
+    },
+    {
+      "file": "lock-check-confirmed.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "lock-check.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "lock-check.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "ownership-final.ps1",
+      "bytes": 2804,
+      "sha256": "a9f06736e247a2ed7ab29b7132d3b3f0cd503514dedcbf6cf97bd68778fb9b57"
+    },
+    {
+      "file": "ownership-fixed.ps1",
+      "bytes": 2804,
+      "sha256": "1788c6b718845315dd85414e86ea970c57f54909a4641b7f52f2dbc14933579c"
+    },
+    {
+      "file": "python-ready.ps1",
+      "bytes": 2784,
+      "sha256": "053d9b64e199d0494a00773de267f7aef4babdf123d7f1855d451ccebd38a06c"
+    },
+    {
+      "file": "python-tests-ownership-final.json",
+      "bytes": 2349,
+      "sha256": "f9683cc9b2de5614deb2497f8ebbca92e9cd02399216c41f4e02d7150d1cccf3"
+    },
+    {
+      "file": "python-tests-ownership-final.stderr",
+      "bytes": 4269,
+      "sha256": "609a3399ff6aa36865be2d9bbcd81a327ba7dc81c71e746d754c764f33e2e904"
+    },
+    {
+      "file": "python-tests-ownership-final.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "python-tests-ownership-fixed.json",
+      "bytes": 2349,
+      "sha256": "fff9e90d02db261018e0b5f15332cdca72682b5aa208a36dab462cc477b383e5"
+    },
+    {
+      "file": "python-tests-ownership-fixed.stderr",
+      "bytes": 4269,
+      "sha256": "aaa2686866c2dbc970fc88843ade01bf29aa97a237a38a157bc044dd20dfb586"
+    },
+    {
+      "file": "python-tests-ownership-fixed.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "python-tests-ready.json",
+      "bytes": 2349,
+      "sha256": "cab64952038177eafa125b2a4d57c03d7303be6769ca42336166b0dbfc84cb13"
+    },
+    {
+      "file": "python-tests-ready.stderr",
+      "bytes": 4105,
+      "sha256": "fe3e7481dc05175b8a59806bb0295bed94f8ea421d1bb82ed8322f604671d2c6"
+    },
+    {
+      "file": "python-tests-ready.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "python-tests.json",
+      "bytes": 2349,
+      "sha256": "e5dc531758f9f067113b984f6976a6fb5bddf2294bc3f3e2226f9faa888e9a9c"
+    },
+    {
+      "file": "python-tests.stderr",
+      "bytes": 3967,
+      "sha256": "c2cbbac19e3cf55a6cf1ba374819f4ae3030b4304d320f7e0d9527227f6a9757"
+    },
+    {
+      "file": "python-tests.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "latest_python_tests": 33,
+  "compile_exit": 0,
+  "model_GPU_audio": "NOT_RUN",
+  "initial_script_errors": [
+    {
+      "tool": "05187b",
+      "cause": "PS5 NativeCommandError on redirected stderr; cargo exit not captured, no Python tests"
+    },
+    {
+      "tool": "0969b1",
+      "cause": "H conflicts with Get-History alias; before any process/tests"
+    }
+  ]
+}

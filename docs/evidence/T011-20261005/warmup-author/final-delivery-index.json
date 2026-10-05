@@ -1,0 +1,236 @@
+{
+  "task": "T011 real worker warmup probe build-only author slice",
+  "uuid": "01a10767-4ff5-7f21-881a-146d094fbc55",
+  "utc": "2026-10-05T15:06:52.2751362Z",
+  "source": {
+    "bytes": 18423,
+    "sha256": "f52d4154063461f60c5a5d564fcc8e85721a58651e763356b1ce03e457fd0ee1",
+    "path": "D:\\Project\\witvoice\\crates\\engines\\examples\\worker_warmup_probe.rs",
+    "lines": 441
+  },
+  "binary": {
+    "executed": false,
+    "bytes": 951296,
+    "sha256": "df8644080fc07f210e7c72204374f781e4af50dc7c7c1e8c903a6f8d83c11951",
+    "path": "D:\\Project\\witvoice\\.local\\t016-diagnostics-author\\target\\debug\\examples\\worker_warmup_probe.exe"
+  },
+  "lock_sha256": "8778443a13f48052cd3725f10a541f88b1fe8bb8e6209f415b55fac4a69af12b",
+  "events": [
+    {
+      "stdout": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "path": "D:\\Project\\witvoice\\.local\\t011-warmup-author\\01-probe-rustfmt.stdout"
+      },
+      "start_utc": "2026-10-05T15:04:39.0418359Z",
+      "name": "01-probe-rustfmt",
+      "exit_code": 0,
+      "metadata": {
+        "sha256": "34ccd9f2fbbb9bc2c8e1c29e1b32b9b8bfae14c8347ca34e022e95732e6af470",
+        "path": "D:\\Project\\witvoice\\.local\\t011-warmup-author\\01-probe-rustfmt.json"
+      },
+      "end_utc": "2026-10-05T15:04:39.1672277Z",
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "path": "D:\\Project\\witvoice\\.local\\t011-warmup-author\\01-probe-rustfmt.stderr"
+      }
+    },
+    {
+      "stdout": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "path": "D:\\Project\\witvoice\\.local\\t011-warmup-author\\02-engines-fmt-check.stdout"
+      },
+      "start_utc": "2026-10-05T15:04:39.2381141Z",
+      "name": "02-engines-fmt-check",
+      "exit_code": 0,
+      "metadata": {
+        "sha256": "b367d63eb2c9c63ded71ae9ef1161d72eed58b0611d52180d5231712f2b110a9",
+        "path": "D:\\Project\\witvoice\\.local\\t011-warmup-author\\02-engines-fmt-check.json"
+      },
+      "end_utc": "2026-10-05T15:04:39.62099Z",
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "path": "D:\\Project\\witvoice\\.local\\t011-warmup-author\\02-engines-fmt-check.stderr"
+      }
+    },
+    {
+      "stdout": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "path": "D:\\Project\\witvoice\\.local\\t011-warmup-author\\03-engines-clippy.stdout"
+      },
+      "start_utc": "2026-10-05T15:04:39.6306774Z",
+      "name": "03-engines-clippy",
+      "exit_code": 101,
+      "metadata": {
+        "sha256": "c95aeaef92679eedebd8df865712cb274e94d2c43e1f6f229e01d718f467eb2b",
+        "path": "D:\\Project\\witvoice\\.local\\t011-warmup-author\\03-engines-clippy.json"
+      },
+      "end_utc": "2026-10-05T15:04:40.7337595Z",
+      "stderr": {
+        "bytes": 1135,
+        "sha256": "70c7b0e9cfd47843b794454a9cbd5a93cdba15dd3c226621f6f665fea33ad6bb",
+        "path": "D:\\Project\\witvoice\\.local\\t011-warmup-author\\03-engines-clippy.stderr"
+      }
+    },
+    {
+      "stdout": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "path": "D:\\Project\\witvoice\\.local\\t011-warmup-author\\05-probe-rustfmt.stdout"
+      },
+      "start_utc": "2026-10-05T15:05:55.297094Z",
+      "name": "05-probe-rustfmt",
+      "exit_code": 0,
+      "metadata": {
+        "sha256": "0500f4767a7a3eb19ba00509900cc63822859f06b40f42c09cbe5d2b6673ff68",
+        "path": "D:\\Project\\witvoice\\.local\\t011-warmup-author\\05-probe-rustfmt.json"
+      },
+      "end_utc": "2026-10-05T15:05:55.4155784Z",
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "path": "D:\\Project\\witvoice\\.local\\t011-warmup-author\\05-probe-rustfmt.stderr"
+      }
+    },
+    {
+      "stdout": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "path": "D:\\Project\\witvoice\\.local\\t011-warmup-author\\06-engines-fmt-check.stdout"
+      },
+      "start_utc": "2026-10-05T15:05:55.4761773Z",
+      "name": "06-engines-fmt-check",
+      "exit_code": 0,
+      "metadata": {
+        "sha256": "19c9d9fb6e8a79749f1120ad4f1ba97b0ebbfc09284e8c20fd0af548558e6979",
+        "path": "D:\\Project\\witvoice\\.local\\t011-warmup-author\\06-engines-fmt-check.json"
+      },
+      "end_utc": "2026-10-05T15:05:55.7914221Z",
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "path": "D:\\Project\\witvoice\\.local\\t011-warmup-author\\06-engines-fmt-check.stderr"
+      }
+    },
+    {
+      "stdout": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "path": "D:\\Project\\witvoice\\.local\\t011-warmup-author\\07-engines-clippy.stdout"
+      },
+      "start_utc": "2026-10-05T15:05:55.7996594Z",
+      "name": "07-engines-clippy",
+      "exit_code": 0,
+      "metadata": {
+        "sha256": "ca147431f5967a3abc08d810932cf854671bc29e266b6df9986b9850fd001f7b",
+        "path": "D:\\Project\\witvoice\\.local\\t011-warmup-author\\07-engines-clippy.json"
+      },
+      "end_utc": "2026-10-05T15:05:56.6274663Z",
+      "stderr": {
+        "bytes": 146,
+        "sha256": "cb2c516ff6b90df2c5f9c6fa2bdc8f4caad5dd6bf0d0321fd923ac08383050a1",
+        "path": "D:\\Project\\witvoice\\.local\\t011-warmup-author\\07-engines-clippy.stderr"
+      }
+    },
+    {
+      "stdout": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "path": "D:\\Project\\witvoice\\.local\\t011-warmup-author\\08-warmup-probe-build.stdout"
+      },
+      "start_utc": "2026-10-05T15:05:56.6330295Z",
+      "name": "08-warmup-probe-build",
+      "exit_code": 0,
+      "metadata": {
+        "sha256": "3b657c538e9b27f6002f0fadaa0e5b53f7881ce4e80adf79072a66647ec66dc5",
+        "path": "D:\\Project\\witvoice\\.local\\t011-warmup-author\\08-warmup-probe-build.json"
+      },
+      "end_utc": "2026-10-05T15:05:58.598002Z",
+      "stderr": {
+        "bytes": 146,
+        "sha256": "df8c897b2f926357ccfe1eb3097172dc1739864f705f78a05a2255ed98593e1b",
+        "path": "D:\\Project\\witvoice\\.local\\t011-warmup-author\\08-warmup-probe-build.stderr"
+      }
+    }
+  ],
+  "auxiliary": [
+    {
+      "bytes": 4176,
+      "sha256": "9b352ba0aee9e7748961de07a3b13173d37b2f08e1140d547420c68364176006",
+      "path": "D:\\Project\\witvoice\\.local\\t011-warmup-author\\runner.ps1"
+    },
+    {
+      "bytes": 4185,
+      "sha256": "b8c1ab67a1fb11698ff7916bd7989c77541511ea98701f48fa0552ba3aa96adb",
+      "path": "D:\\Project\\witvoice\\.local\\t011-warmup-author\\runner-02.ps1"
+    },
+    {
+      "bytes": 1600,
+      "sha256": "770c4da7e7437f661663d3a2ab94c2727b09efa8e92c32150a776c5ef3599cb5",
+      "path": "D:\\Project\\witvoice\\.local\\t011-warmup-author\\delivery-index.json"
+    },
+    {
+      "bytes": 1900,
+      "sha256": "8fb444aa56804f460ea461c1039c6f9225f29301537b4926455adb21bec7c826",
+      "path": "D:\\Project\\witvoice\\.local\\t011-warmup-author\\delivery-index-02.json"
+    },
+    {
+      "bytes": 467,
+      "sha256": "9ad9a6d48702d0c86cc8bff71fe5fc05464c8c5ccf2dcb794e61da6d798439b2",
+      "path": "D:\\Project\\witvoice\\.local\\t011-warmup-author\\outer-01.json"
+    },
+    {
+      "bytes": 4425,
+      "sha256": "df44864b281c4b7da9a33f012f752c494f45777752113e5d9e4425692418a993",
+      "path": "D:\\Project\\witvoice\\.local\\t011-warmup-author\\outer-01.stdout"
+    },
+    {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "path": "D:\\Project\\witvoice\\.local\\t011-warmup-author\\outer-01.stderr"
+    },
+    {
+      "bytes": 344,
+      "sha256": "f26e8965b7b69141fad00708b0ce2f23ffc9896bb412bc3c3386687e31bcfd9f",
+      "path": "D:\\Project\\witvoice\\.local\\t011-warmup-author\\outer-02.json"
+    },
+    {
+      "bytes": 5869,
+      "sha256": "7839cb9e42a364d5af788d17469771eb0eb3ba0d8f18ba78e9b211a731ab3fe7",
+      "path": "D:\\Project\\witvoice\\.local\\t011-warmup-author\\outer-02.stdout"
+    },
+    {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "path": "D:\\Project\\witvoice\\.local\\t011-warmup-author\\outer-02.stderr"
+    }
+  ],
+  "repair": "03 cargo Clippy exit101 ordinary collapsible_if; only probe conditional folded; all original logs retained; outer0 is capture script success, not cargoPASS",
+  "final_checks": {
+    "clippy": 0,
+    "example_build": 0,
+    "fmt": 0
+  },
+  "not_run": [
+    "warmup probe main",
+    "native worker startup",
+    "real model load/warmup",
+    "GPU",
+    "audio/recording/playback",
+    "LAN",
+    "Mac",
+    "release probe build"
+  ],
+  "risks": [
+    "Build success does not establish Ready/heartbeat/Job cleanup runtime evidence",
+    "Stopped is not resource-release proof; code always terminate/query owned Job",
+    "Kernel cancellation safe drain has no universal wall-clock guarantee",
+    "No output sink exists; no media frames exchanged"
+  ],
+  "writer_state": "STOP_WRITES",
+  "self_approved": false
+}

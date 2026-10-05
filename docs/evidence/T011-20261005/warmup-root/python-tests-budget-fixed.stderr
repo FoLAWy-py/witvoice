@@ -1,0 +1,39 @@
+test_json_ambiguity_limits_and_nonfinite (test_control.ControlTests.test_json_ambiguity_limits_and_nonfinite) ... ok
+test_ready_semantics_match_rust_rejection (test_control.ControlTests.test_ready_semantics_match_rust_rejection) ... ok
+test_rust_shapes_and_stale_binding (test_control.ControlTests.test_rust_shapes_and_stale_binding) ... ok
+test_schema_and_rust_integer_semantics (test_control.ControlTests.test_schema_and_rust_integer_semantics) ... ok
+test_unicode_scalars_reject_isolated_surrogates_accept_utf8_and_pairs (test_control.ControlTests.test_unicode_scalars_reject_isolated_surrogates_accept_utf8_and_pairs) ... ok
+test_both_entrypoints_reject_before_any_checkpoint_load (test_evidence_checks.EvidenceChecks.test_both_entrypoints_reject_before_any_checkpoint_load) ... ok
+test_devices_cover_buffers_and_unknown (test_evidence_checks.EvidenceChecks.test_devices_cover_buffers_and_unknown) ... ok
+test_invalid_steps_rejected (test_evidence_checks.EvidenceChecks.test_invalid_steps_rejected) ... ok
+test_legal_30_seconds_tail_misses_p99_gate (test_evidence_checks.EvidenceChecks.test_legal_30_seconds_tail_misses_p99_gate) ... ok
+test_old_and_unknown_torch_block_before_loading (test_evidence_checks.EvidenceChecks.test_old_and_unknown_torch_block_before_loading) ... ok
+test_short_tail_is_measured_against_its_new_input (test_evidence_checks.EvidenceChecks.test_short_tail_is_measured_against_its_new_input) ... ok
+test_converted_bounds_and_source_chunk (test_protocol.ProtocolTests.test_converted_bounds_and_source_chunk) ... ok
+test_corruption_stale_nonfinite_length (test_protocol.ProtocolTests.test_corruption_stale_nonfinite_length) ... ok
+test_deadline_partial_eof_and_zero_write (test_protocol.ProtocolTests.test_deadline_partial_eof_and_zero_write) ... ok
+test_oversized_length_rejected_before_payload_read (test_protocol.ProtocolTests.test_oversized_length_rejected_before_payload_read) ... ok
+test_partial_io_uses_one_absolute_deadline (test_protocol.ProtocolTests.test_partial_io_uses_one_absolute_deadline) ... ok
+test_rust_golden_and_float_endian (test_protocol.ProtocolTests.test_rust_golden_and_float_endian) ... ok
+test_blocked_model_does_not_block_control_or_stop (test_runtime.RuntimeTests.test_blocked_model_does_not_block_control_or_stop) ... ok
+test_model_failure_is_fixed_scalar_and_never_ready (test_runtime.RuntimeTests.test_model_failure_is_fixed_scalar_and_never_ready) ... ok
+test_ready_only_after_completion_and_cannot_repeat (test_runtime.RuntimeTests.test_ready_only_after_completion_and_cannot_repeat) ... ok
+test_rejects_unapproved_reference_before_model_work (test_runtime.RuntimeTests.test_rejects_unapproved_reference_before_model_work) ... ok
+test_reset_allocations_exceeding_ready_budget_never_publish_ready (test_runtime.RuntimeTests.test_reset_allocations_exceeding_ready_budget_never_publish_ready) ... ok
+test_stop_never_destroys_ready_or_queued_model_on_control_owner (test_runtime.RuntimeTests.test_stop_never_destroys_ready_or_queued_model_on_control_owner) ... ok
+test_clean_exact_blob (test_source_guard.SourceGuardTests.test_clean_exact_blob) ... ok
+test_ignored_rejected (test_source_guard.SourceGuardTests.test_ignored_rejected) ... ok
+test_old_bytecode_never_imported (test_source_guard.SourceGuardTests.test_old_bytecode_never_imported) ... ok
+test_staged_change_with_restored_worktree_rejected (test_source_guard.SourceGuardTests.test_staged_change_with_restored_worktree_rejected) ... ok
+test_staged_rejected (test_source_guard.SourceGuardTests.test_staged_rejected) ... ok
+test_unstaged_rejected (test_source_guard.SourceGuardTests.test_unstaged_rejected) ... ok
+test_untracked_rejected (test_source_guard.SourceGuardTests.test_untracked_rejected) ... ok
+test_wrong_commit_and_nonempty_destination_rejected (test_source_guard.SourceGuardTests.test_wrong_commit_and_nonempty_destination_rejected) ... ok
+test_interrupt_after_submission_drains_before_buffers_released (test_windows_pipe.OwnershipTests.test_interrupt_after_submission_drains_before_buffers_released) ... ok
+test_invalid_deadline_retires_handle_without_submitting (test_windows_pipe.OwnershipTests.test_invalid_deadline_retires_handle_without_submitting) ... ok
+test_timeout_drains_before_close (test_windows_pipe.OwnershipTests.test_timeout_drains_before_close) ... ok
+
+----------------------------------------------------------------------
+Ran 34 tests in 5.994s
+
+OK
