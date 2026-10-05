@@ -1,5 +1,7 @@
 # 当前交接
 
+一次原生FAIL13的最小可证明问题是错误诊断合并，不能猜具体字段/OS故障。已先登记backend仅platform discovery/native/tests+probe诊断补充lease，契约T016-diagnostics-assignment：闭集stage/origin/reason/原status定长首错独立队列保存，保持所有校验/容量/生命周期/默认OFF，纯注入复核；新LAN完全NOT_RUN且旧once已消费。NativePeers吞Failed S2不在此诊断phase越界修复，正式T016待冻结review；T008r1继续，next_task=T008。
+
 T016用户一次网卡19 mDNS已执行（exec32240e，08:46:22–30Z，8.094s）；advertise真实Registered/cleanup成功exit0，browse命中本次UUID并resolveAttempted但收到Failed13，exit1/整体FAIL。两proc实测≤10s总≤15s、无timeout、cleanuptrue/pending0，原rawSHA已核/公网证据脱敏；once状态EXECUTED_NOT_REUSABLE，禁止自动重试。13来源未知（OS原status或adapter合成INVALID，旧探针未记录原callback/reason），不能归因防火墙/硬件或放宽校验；先做只读源/官方API诊断，再具体修复/编译/审查/必要新授权。独立NativePeers吞Failed状态S2未修。root代码/网络lease释放，仅T008已登记r1（正在完整读源，已观察publish/bind并发不变量缺口，正式最终尚待）。next_task=T008，M5/M6未过。
 
 最新冻结3a2574cb全workspace/alltargets/process-tests实际120非空tests/fmt/alltargetClippy/probe build全部0，所有源码/root manifest/lock before-after SHA一致；当前source未见新compiler崩溃但B004旧原因仍UNKNOWN。last_tested_commit单独保存，不把未审T008/T016提升last_verified。最终probe exeSHAa21e2e48…编译未运行；一次LAN授权仍NOT_RUN。root监督器source已归档native-smoke/supervise_once.py，可审查期限/no重试，尚无frozen-config。T008正式r1排队，T016静态预检收完整源中；next_task=T008。

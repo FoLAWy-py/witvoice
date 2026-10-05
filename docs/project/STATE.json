@@ -27,6 +27,33 @@
         "Read exact frozen source/test/negative/fault evidence; issue precise S0–S3 or approve fixed T008 only"
       ],
       "execution_note": "Readonly/no escalation/no sourcewrites; actual51tests/fmt/clippy/examples0 author+leader; hardware/Mac/Node binding NOT_RUN"
+    },
+    {
+      "task_id": "T016",
+      "agent_instance_id": "/root/backend",
+      "allowed_paths": [
+        "crates/platform/src/discovery.rs",
+        "crates/platform/src/discovery/native.rs",
+        "crates/platform/src/discovery/native/tests.rs",
+        "crates/platform/tests/discovery.rs",
+        "crates/transport/examples/native_discovery_probe.rs",
+        ".local/t016-diagnostics-author/"
+      ],
+      "resource_leases": [
+        "code-writer:backend-native-diagnosis"
+      ],
+      "depends_on": [
+        "T003",
+        "T006"
+      ],
+      "contract": "docs/project/T016-diagnostics-assignment.md: fixed atomic immutable firstfault phase/origin/rawstatus/reason; no guard relaxation or prodNativePeers fix yet",
+      "acceptance_commands": [
+        "cargo test --locked -p witvoice-platform -p witvoice-transport --all-targets",
+        "cargo fmt packages --check",
+        "cargo clippy --locked platform+transport --all-targets -- -D warnings",
+        "cargo build --locked transport native_discovery_probe"
+      ],
+      "execution_note": "Actual once-trialFAILED/consumed, prior13 sourceUNKNOWN. Newsource purediagnosis tests only; no actualnetwork/audio/GPU. Exact whitelist disjoint frozenT008."
     }
   ],
   "milestones": {
