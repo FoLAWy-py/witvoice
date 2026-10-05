@@ -1,5 +1,7 @@
 # 当前交接
 
+T008冻结2fa9115整合复跑51非空测试/fmt/alltargets Clippy/examples exit0；每次23audio源码before/afterSHA同作者最终，日志完整。已登记独立reviewer_t001正式r1（attempt1/3、只读中继/no复跑），尚无结论，不标DONE；root验证lease释放。backend继续T016仅探针证据修订/noLAN实际运行；next_task=T008。
+
 T008实际audio作者停止，最终11改变/23全部audio源码SHA及25命令完整raw日志已归档leader-audit全部MATCH。最终51tests/fmt/clippy/examples0，保留五ordinary失败；四组8h是SPSC metadata+真实clock phase模拟，非每样本PCM或硬件。root仅登记独立验证目录lease，接下来冻结整合复跑/独立r1；backend仅T016 probe另一路径writer，最多2，无audio/GPU/LAN运行。next_task=T008。
 
 T016冻结92d6a25整合30有效tests/fmt/alltargetClippy/examples全exit0，完整日志在native-dns/leader-integration，root验证lease释放。用户call_EgHe1WXg0JyX0Gc0ObFTgUGx/0已批准一次interface19有线双进程mDNS（每进程≤10s、总≤15s）；授权JSON已保存，尚未运行。现有探针exit0无法证明真实Registered/精确本次node观测，先只读核最小修订，再登记backend探针lease/编译/静态预检后仅运行一次。

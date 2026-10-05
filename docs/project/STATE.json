@@ -31,25 +31,25 @@
     },
     {
       "task_id": "T008",
-      "agent_instance_id": "/root",
+      "agent_instance_id": "/root/reviewer_t001",
       "allowed_paths": [
-        ".local/t008-leader-integration/",
-        "docs/evidence/T008-20261005/leader-integration/"
+        "crates/audio/",
+        "docs/spec/02-audio-engine.md",
+        "docs/spec/07-tests-acceptance.md",
+        "docs/project/T008-assignment.md",
+        "docs/evidence/T008-20261005/"
       ],
       "resource_leases": [
-        "verification-writer:t008-leader"
+        "readonly-review:t008-r1"
       ],
       "depends_on": [
         "T007"
       ],
-      "contract": "Frozen all23 audio sources exactly match final author51-test source; callback noalloc/failmute/epoch/deadline; no source changes",
+      "contract": "Independent formalr1 frozen2fa911521466433380d273da15c8e9396342026e source; 23 audio SHA identical in root integration01–04. Fulltext authorized relay, no independent rerun claim",
       "acceptance_commands": [
-        "cargo test --locked -p witvoice-audio -- --nocapture",
-        "cargo fmt --package witvoice-audio --check",
-        "cargo clippy --locked -p witvoice-audio --all-targets -- -D warnings",
-        "cargo build --locked -p witvoice-audio --examples"
+        "Read exact frozen source/test/negative/fault evidence; issue precise S0–S3 or approve fixed T008 only"
       ],
-      "execution_note": "D target process jobs1/inc0, no native Start/audio/GPU/LAN. Stop on ICE/AV."
+      "execution_note": "Readonly/no escalation/no sourcewrites; actual51tests/fmt/clippy/examples0 author+leader; hardware/Mac/Node binding NOT_RUN"
     }
   ],
   "milestones": {

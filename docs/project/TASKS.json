@@ -288,12 +288,13 @@
       "agent_instance_id": "/root/audio_runtime",
       "resource_leases": [],
       "evidence": [
-        "docs/evidence/T008-20261005/author/leader-audit.json"
+        "docs/evidence/T008-20261005/author/leader-audit.json",
+        "docs/evidence/T008-20261005/leader-integration/result.json"
       ],
-      "review": null,
-      "attempts": 0,
+      "review": "docs/project/reviews/T008-r1.md",
+      "attempts": 1,
       "blocked_reason": null,
-      "execution_note": "Author stopped; final51 tests/fmt/strictClippy/examples0, 25 raw command records including5 failures archived and SHA validated. Root frozen integration/reviewer pending; simulations do not replace hardware."
+      "execution_note": "Frozen2fa9115 integration51tests/fmt/alltargetClippy/examples0 with all23 source hashes before/after identical. Formalr1 registered/running readonly reviewer_t001; no final conclusion, IN_PROGRESS."
     },
     {
       "id": "T009",

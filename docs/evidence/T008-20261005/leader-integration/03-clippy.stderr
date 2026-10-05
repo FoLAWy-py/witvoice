@@ -1,0 +1,17 @@
+    Checking windows-link v0.2.1
+    Checking windows-strings v0.5.1
+    Checking windows-result v0.4.1
+    Checking windows-core v0.62.2
+    Checking serde_core v1.0.228
+    Checking windows-threading v0.2.1
+    Checking windows-future v0.3.2
+    Checking windows-numerics v0.3.1
+    Checking windows-collections v0.3.2
+    Checking ryu v1.0.23
+    Checking itoa v1.0.18
+    Checking memchr v2.8.3
+    Checking serde_json v1.0.145
+    Checking serde v1.0.228
+    Checking windows v0.62.2
+    Checking witvoice-audio v0.1.0 (D:\Project\witvoice\crates\audio)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 21.41s
