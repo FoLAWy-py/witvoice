@@ -1,0 +1,12 @@
+{
+  "captured_utc": "2026-10-05T09:34:12.468620+00:00",
+  "frozen_source_commit": "6c68c5dd3501da0681c27d57baa8ade694910468",
+  "path": "D:\\Project\\witvoice\\.local\\t008-t016-r2-leader\\target\\debug\\examples\\native_discovery_probe.exe",
+  "bytes": 877056,
+  "sha256": "434eb89704f07c8fed70f0bf8cdc6d4c4795dd43ef21fdb56e14701feac131a5",
+  "execution": "NOT_RUN",
+  "previous_once": "EXECUTED_NOT_REUSABLE",
+  "role": "compiled candidate for future specifically authorized diagnosis, no permission granted by compilation",
+  "actual_build_command": "cargo build --locked --workspace --examples",
+  "source_probe_sha256": "41fc709c7f7fa45b10a70a6490a8ab09b9cabdf7c718b7a569d4419018669e24"
+}

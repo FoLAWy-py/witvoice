@@ -1,5 +1,7 @@
 # 当前交接
 
+T008独立r2正在真实源码/全日志只读中继，尚无最终结论/不标DONE。T016-review-assignment为首轮formal待派发准备，当前attempt0；已核编译候选root exe877056bytes/SHA434eb897…，network NOT_RUN。新diagnostics保留旧13UNKNOWN与未修NativePeers吞Failed S2，旧一次授权已消费，不因编译成功启动。无writer/hardware/GPU/LANlease；next_task=T008。
+
 冻结6c68c5d新root全workspace/alltargets/process-tests实际132非空tests/fmt/alltargetClippy/全部examples全0，全部源码/rootdeps before-after相同，完整raw/meta/runner/字节域证明归档integration/20261005-T008-T016-r2。无新Start/model/GPU/audio/LAN/Mac。root验证lease释放，已登记T008独立正式r2/attempt2（最终结论尚无），3修复源全文/20继承Git原bytes证明可复用r1；T016正式r1排队/attempt0，NativePeers S2尚未修，旧实际LAN FAIL/13UNKNOWN/once不可复用。last_tested提升6c68c5d，不提升last_verified。next_task=T008。
 
 两个作者已实际STOP WRITES，audio3修复源/54作者tests，backend5诊断源/48作者tests全部四检查0。root完整10cmd raw/meta/indexSHA及before/after逐字节核验通过，旧20audio source原SHA同；严格仅8白名单源变更。归档r1-fix-author、diagnostics-author。已释放两作者lease并登记root仅独立.local整合验证，下一冻结后全workspace/alltargets/process-tests、fmt、Clippy、examples build（新root NOT_RUN），再T008正式r2/T016正式r1。无硬件/GPU/LAN；旧13UNKNOWN/once已消费；next_task=T008。
