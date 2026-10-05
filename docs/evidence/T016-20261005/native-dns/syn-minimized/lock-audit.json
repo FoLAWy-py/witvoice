@@ -1,0 +1,15 @@
+{
+  "retained_registry_packages": 4,
+  "all_versions_source_checksums_match_main": true,
+  "features_including_default": [
+    "clone-impls",
+    "derive",
+    "extra-traits",
+    "full",
+    "parsing",
+    "printing",
+    "proc-macro",
+    "visit",
+    "default"
+  ]
+}

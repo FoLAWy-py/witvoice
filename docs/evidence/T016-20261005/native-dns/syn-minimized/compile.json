@@ -1,0 +1,22 @@
+{
+  "start_utc": "2026-10-05T07:40:23.176920+00:00",
+  "end_utc": "2026-10-05T07:40:28.806881+00:00",
+  "argv": [
+    "cargo",
+    "build",
+    "--offline",
+    "--locked",
+    "--manifest-path",
+    "D:\\Project\\witvoice\\.local\\t016-syn-reproducer\\Cargo.toml",
+    "--lib",
+    "-j1"
+  ],
+  "cwd": "D:\\Project\\witvoice",
+  "exit": 0,
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "e4161f5872f5959a17ea662863c52a946fd11fa620146b998063c54371a920e3",
+  "CARGO_TARGET_DIR": "D:\\Project\\witvoice\\.local\\t016-syn-reproducer\\target",
+  "CARGO_BUILD_JOBS": "1",
+  "CARGO_INCREMENTAL": "0",
+  "scope": "compile-only minimized dependency; no application tests, downgrade, source repair or network/audio/GPU"
+}

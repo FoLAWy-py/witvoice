@@ -1,0 +1,6 @@
+   Compiling proc-macro2 v1.0.107
+   Compiling quote v1.0.47
+   Compiling unicode-ident v1.0.26
+   Compiling syn v2.0.119
+   Compiling witvoice-syn-ice-reproducer v0.0.0 (D:\Project\witvoice\.local\t016-syn-reproducer)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 5.57s

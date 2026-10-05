@@ -32,6 +32,36 @@
       ],
       "reviewer": "/root/reviewer_t001",
       "execution_note": "Native T007 r3 approved; new T008 implementation only. T016 compiler failures not assumed global; one scoped real audio build with process jobs1/inc0, if compiler fails stop no blind retries. No hardware/network/GPU."
+    },
+    {
+      "task_id": "T016",
+      "agent_instance_id": "/root/backend",
+      "allowed_paths": [
+        "crates/platform/src/discovery.rs",
+        "crates/platform/src/discovery/",
+        "crates/platform/src/lib.rs",
+        "crates/platform/tests/discovery.rs",
+        "crates/platform/README.md",
+        "crates/transport/src/discovery.rs",
+        "crates/transport/src/discovery/",
+        "crates/transport/tests/discovery.rs",
+        "crates/transport/examples/native_discovery_probe.rs",
+        "crates/transport/README.md",
+        ".local/t016-native-author/"
+      ],
+      "resource_leases": [
+        "code-writer:backend-native-fixes"
+      ],
+      "depends_on": [
+        "T003",
+        "T006"
+      ],
+      "contract": "ADR0003 native addendum + current615e759 source; fix actual E0509/strict lint, preserve formatter integration and frozen identity sources",
+      "acceptance_commands": [
+        "cargo test --locked platform+transport; fmt package check; clippy alltargets -Dwarnings; examples build; no LAN execution"
+      ],
+      "reviewer": "/root/reviewer_t001",
+      "execution_note": "Same locked Syn features minimized compile0 then actual full dep+native lib compile reached ordinary test source E0509. Compiler blocker no longer active in this limited run; cause historical failuresUNKNOWN. No blind retry on ICE/AV; full unique logs required."
     }
   ],
   "milestones": {
@@ -91,9 +121,9 @@
     {
       "id": "B004",
       "scope": "T016 native DNS source validation",
-      "status": "BLOCKED_TOOLCHAIN",
-      "evidence": "docs/evidence/T016-20261005/native-dns/compile-failure2.json",
-      "note": "Two compiler failures; current official stable1.99.0 exact compiler+dependency bytes match, causeUNKNOWN; needs fixed compatible toolchain or independently verified safe environment, no silent downgrade or system changes."
+      "status": "MITIGATED_WITH_LIMITATIONS",
+      "evidence": "docs/evidence/T016-20261005/native-dns/conditional-check/01-tests.json",
+      "note": "Historical AV/ICE/cargo-fmt parser failures causeUNKNOWN; exact Syn feature minimized compile0 and subsequent real app dependencies/native lib compile reached ordinary E0509. Limited observed obstacle passed, not stable hardware/toolchain certification. Fix ordinary source error then validate; stop if compiler fails again."
     }
   ],
   "distribution_status": "BLOCKED_LICENSE_CHAIN_NOT_BUILT",

@@ -1,0 +1,127 @@
+   Compiling proc-macro2 v1.0.107
+   Compiling quote v1.0.47
+   Compiling unicode-ident v1.0.26
+   Compiling syn v2.0.119
+   Compiling memchr v2.8.3
+   Compiling windows-link v0.2.1
+   Compiling serde_core v1.0.228
+   Compiling windows-strings v0.5.1
+   Compiling windows-result v0.4.1
+   Compiling windows-implement v0.60.2
+   Compiling windows-interface v0.59.3
+   Compiling windows-core v0.62.2
+   Compiling serde_json v1.0.145
+   Compiling serde v1.0.228
+   Compiling autocfg v1.5.1
+   Compiling num-traits v0.2.19
+   Compiling serde_derive v1.0.228
+   Compiling serde_derive_internals v0.29.1
+   Compiling time-core v0.1.9
+   Compiling schemars v0.8.22
+   Compiling num-conv v0.2.2
+   Compiling itoa v1.0.18
+   Compiling ryu v1.0.23
+   Compiling time-macros v0.2.32
+   Compiling schemars_derive v0.8.22
+   Compiling windows-threading v0.2.1
+   Compiling syn v3.0.6
+   Compiling deranged v0.5.8
+   Compiling powerfmt v0.2.0
+   Compiling dyn-clone v1.0.20
+   Compiling time v0.3.55
+   Compiling windows-future v0.3.2
+   Compiling windows-numerics v0.3.1
+   Compiling windows-collections v0.3.2
+   Compiling thiserror v2.0.21
+   Compiling minimal-lexical v0.2.1
+   Compiling shlex v2.0.1
+   Compiling find-msvc-tools v0.1.14
+   Compiling cc v1.6.0
+   Compiling nom v7.1.3
+   Compiling windows v0.62.2
+   Compiling witvoice-contracts v0.1.0 (D:\Project\witvoice\crates\contracts)
+   Compiling thiserror-impl v2.0.21
+   Compiling synstructure v0.13.2
+   Compiling asn1-rs-derive v0.6.0
+   Compiling rusticata-macros v4.1.0
+   Compiling ring v0.17.14
+   Compiling displaydoc v0.2.7
+   Compiling asn1-rs-impl v0.2.0
+   Compiling cfg-if v1.0.5
+   Compiling getrandom v0.2.17
+   Compiling asn1-rs v0.7.2
+   Compiling witvoice-platform v0.1.0 (D:\Project\witvoice\crates\platform)
+warning: use of deprecated method `std::sync::atomic::Atomic::<u64>::fetch_update`: renamed to `try_update` for consistency
+   --> crates\platform\src\discovery\native.rs:109:14
+    |
+109 |             .fetch_update(Ordering::Relaxed, Ordering::Relaxed, |n| {
+    |              ^^^^^^^^^^^^
+    |
+    = note: `#[warn(deprecated)]` on by default
+help: replace the use of the deprecated method
+    |
+109 -             .fetch_update(Ordering::Relaxed, Ordering::Relaxed, |n| {
+109 +             .try_update(Ordering::Relaxed, Ordering::Relaxed, |n| {
+    |
+
+warning: use of deprecated method `std::sync::atomic::Atomic::<usize>::fetch_update`: renamed to `try_update` for consistency
+   --> crates\platform\src\discovery\native.rs:506:14
+    |
+506 |             .fetch_update(Ordering::Relaxed, Ordering::Relaxed, |n| n.checked_add(1))
+    |              ^^^^^^^^^^^^
+    |
+help: replace the use of the deprecated method
+    |
+506 -             .fetch_update(Ordering::Relaxed, Ordering::Relaxed, |n| n.checked_add(1))
+506 +             .try_update(Ordering::Relaxed, Ordering::Relaxed, |n| n.checked_add(1))
+    |
+
+warning: `witvoice-platform` (lib) generated 2 warnings (run `cargo fix --lib -p witvoice-platform` to apply 2 suggestions)
+   Compiling num-integer v0.1.47
+   Compiling untrusted v0.9.0
+   Compiling oid-registry v0.8.1
+   Compiling num-bigint v0.4.8
+   Compiling zeroize v1.9.0
+   Compiling rustls-pki-types v1.15.1
+   Compiling der-parser v10.0.0
+   Compiling yasna v0.6.0
+   Compiling lazy_static v1.5.1
+   Compiling data-encoding v2.11.1
+   Compiling x509-parser v0.18.1
+   Compiling rcgen v0.14.10
+   Compiling witvoice-transport v0.1.0 (D:\Project\witvoice\crates\transport)
+error[E0509]: cannot move out of type `discovery::native::NativeDiscovery`, which implements the `Drop` trait
+   --> crates\platform\src\discovery\native\tests.rs:125:5
+    |
+125 | /     NativeDiscovery {
+126 | |         api: FAKE,
+127 | |         ..Default::default()
+128 | |     }
+    | |     ^
+    | |     |
+    | |_____cannot move out of here
+    |       move occurs because value has type `std::sync::Arc<Queue>`, which does not implement the `Copy` trait
+
+error[E0509]: cannot move out of type `discovery::native::NativeDiscovery`, which implements the `Drop` trait
+   --> crates\platform\src\discovery\native\tests.rs:125:5
+    |
+125 | /     NativeDiscovery {
+126 | |         api: FAKE,
+127 | |         ..Default::default()
+128 | |     }
+    | |     ^
+    | |     |
+    | |_____cannot move out of here
+    |       move occurs because value has type `Vec<std::sync::Arc<Operation>>`, which does not implement the `Copy` trait
+
+warning: unnecessary `unsafe` block
+   --> crates\platform\src\discovery\native\tests.rs:432:5
+    |
+432 |     unsafe {
+    |     ^^^^^^ unnecessary `unsafe` block
+    |
+    = note: `#[warn(unused_unsafe)]` (part of `#[warn(unused)]`) on by default
+
+For more information about this error, try `rustc --explain E0509`.
+warning: `witvoice-platform` (lib test) generated 3 warnings (2 duplicates)
+error: could not compile `witvoice-platform` (lib test) due to 2 previous errors; 3 warnings emitted

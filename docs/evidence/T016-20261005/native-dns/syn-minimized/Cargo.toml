@@ -1,0 +1,9 @@
+[workspace]
+resolver="3"
+[package]
+name="witvoice-syn-ice-reproducer"
+version="0.0.0"
+edition="2024"
+rust-version="1.99"
+[dependencies]
+syn={version="=2.0.119",features=["clone-impls", "derive", "extra-traits", "full", "parsing", "printing", "proc-macro", "visit"]}

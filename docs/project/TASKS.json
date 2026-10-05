@@ -490,7 +490,7 @@
       "milestone": "M3",
       "title": "LAN发现、手动寻址与双向身份信任",
       "owner_role": "backend",
-      "status": "BLOCKED",
+      "status": "IN_PROGRESS",
       "requirements": [
         "REQ-13",
         "REQ-14"
@@ -507,7 +507,7 @@
       "acceptance": "默认监听关闭；mDNS不建立信任；双端身份字符串导入、pin验证与撤销；陌生端无音频权限。",
       "agent_instance_id": "/root/backend",
       "resource_leases": [
-        "code-writer:backend-native-dns"
+        "code-writer:backend-native-fixes"
       ],
       "evidence": [
         "docs/evidence/T016-20261005/dependency-metadata.json",
@@ -533,11 +533,13 @@
         "docs/evidence/T016-20261005/native-dns/compiler-integrity/compiler-byte-audit.json",
         "docs/evidence/T016-20261005/native-dns/compiler-integrity/dependency-byte-audit-all.json",
         "docs/evidence/T016-20261005/native-dns/format/result.json",
-        "docs/evidence/T016-20261005/native-dns/static-preflight.md"
+        "docs/evidence/T016-20261005/native-dns/static-preflight.md",
+        "docs/evidence/T016-20261005/native-dns/syn-minimized/compile.json",
+        "docs/evidence/T016-20261005/native-dns/conditional-check/01-tests.json"
       ],
       "review": null,
       "attempts": 0,
-      "blocked_reason": "B004: two compiler failures before new native source/tests, rustc access violation then syn ICE; no same-series official patch; compiler/dependency file integrity matches. Cause UNKNOWN.",
+      "blocked_reason": null,
       "execution_note": "Controlled samewindows16feature clean target jobs1/inc0 compile0 in23.40s; causeUNKNOWN, first101 preserved. Production source still untested, backend authorized actual pure tests/builds in isolatedtarget, no API/network/hardware."
     },
     {

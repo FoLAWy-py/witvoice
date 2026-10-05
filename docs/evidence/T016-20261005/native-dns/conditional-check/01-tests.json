@@ -1,0 +1,24 @@
+{
+  "start_utc": "2026-10-05T07:42:04.114041+00:00",
+  "end_utc": "2026-10-05T07:42:51.103551+00:00",
+  "argv": [
+    "cargo",
+    "test",
+    "--locked",
+    "-p",
+    "witvoice-platform",
+    "-p",
+    "witvoice-transport"
+  ],
+  "cwd": "D:\\Project\\witvoice",
+  "exit": 101,
+  "stdout_bytes": 0,
+  "stderr_bytes": 4899,
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "f5b7175a52a46aebde5ece216b5d99c4573f1cedfcdfb7c31ca7ad81a5d12145",
+  "CARGO_TARGET_DIR": "D:\\Project\\witvoice\\.local\\t016-syn-reproducer\\target",
+  "CARGO_BUILD_JOBS": "1",
+  "CARGO_INCREMENTAL": "0",
+  "source": "615e759 formatter-integrated frozen native source",
+  "scope": "actual platform/transport unit/integration checks, NO native network probe/hardware/GPU/Mac; isolated diagnostic is not app result"
+}
