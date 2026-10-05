@@ -1,8 +1,8 @@
-# T009 / M1 / REQ-06,10 — pending, not activated
+# T009 / M1 / REQ-06,10 — activated after T008 r2
 
-Dependencies T007 and T008 must both be independently DONE before source work. Intended actual owner /root/audio_runtime UUID01a10767-80de-7e02-b3b0-73d1273a70bd; leader will register a fresh lease before dispatch. This document grants no active writer/hardware permission. You are not alone; preserve other changes and do not recursively spawn.
+Dependencies T007 and T008 are independently DONE. Actual owner /root/audio_runtime UUID01a10767-80de-7e02-b3b0-73d1273a70bd; de7d453 registered code-writer:audio-t009-route before actual followup dispatch on this resume. Software writer permission only; no hardware permission. You are not alone; preserve other changes and do not recursively spawn.
 
-Future whitelist crates/audio/src/route.rs, crates/audio/src/lib.rs, crates/audio/tests/route.rs, crates/audio/examples/route_probe.rs, crates/audio/examples/support/, crates/audio/README.md, .local/t009-author/. Root manifests/lock/shared contracts/Node/platform/worker/UI/ledger/evidence remain leader or other owner paths. Do not modify frozen T008 without a concrete reported requirement and new agreed scope.
+Active whitelist crates/audio/src/route.rs, crates/audio/src/lib.rs, crates/audio/tests/route.rs, crates/audio/examples/route_probe.rs, crates/audio/examples/support/, crates/audio/README.md, .local/t009-author/. Root manifests/lock/shared contracts/Node/platform/worker/UI/ledger/evidence remain leader or other owner paths. Do not modify frozen T008 without a concrete reported requirement and new agreed scope.
 
 Fixed task: actual processed-output render to virtual capture pair, strict saved UID/flow and current availability, missing/removal fail-mute, forbid feedback capture and physical output substitution. Windows reference CABLE Input(render) to CABLE Output(capture); names are display/candidate hints, not proof of routing. Existing Steam Streaming Microphone software render/capture endpoints are only unverified candidates. No assumed VB-CABLE installed, no default endpoint fallback, no changes to system defaults/drivers/firewall.
 

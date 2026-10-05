@@ -1,5 +1,7 @@
 # 当前交接
 
+当前已实际followup派发：T009 audio软件作者；T016首次r1 reviewer只读，backend/frontend冻结全文中继。T010尚无代码租约/实现。一次backend PS7/CLR宿主只读启动崩溃，原应用未执行；已准许一次明确不同宿主Windows PS5.1固定只读兼容，不改全局设置。root PnP读取tool返回aborted，结果待核，不标通过。无新音频/GPU/LAN授权或租约。next_task=T009。
+
 T008独立正式r2 APPROVED/DONE/attempt2已归档，无未解S0–S3，固定6c68软件/54author+132root；64captured inputs，不含新HW/VC/OS尾音/Mac。next_task=T009，已先登记audio窄route policy/probe writer，新硬件许可尚无/旧5s不可复用。T016首次formalr1登记attempt1，source6c68/8fe证据不变（与T009路径分离），NativePeers吞失败S2未修/旧LANFAIL13UNKNOWN/once耗尽。T010依赖闭合，backend只读准备3cmd0已停止，待leader测试feature/devdep/测试入口与具体实现派发；尚无T010source/tests，不把source getter当实际静音。当前1代码作者，无GPU/audio/LAN lease；M5/M6未过。
 
 T008独立r2正在真实源码/全日志只读中继，尚无最终结论/不标DONE。T016-review-assignment为首轮formal待派发准备，当前attempt0；已核编译候选root exe877056bytes/SHA434eb897…，network NOT_RUN。新diagnostics保留旧13UNKNOWN与未修NativePeers吞Failed S2，旧一次授权已消费，不因编译成功启动。无writer/hardware/GPU/LANlease；next_task=T008。

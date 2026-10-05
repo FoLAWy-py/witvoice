@@ -1,0 +1,82 @@
+{
+  "utc": "2026-10-05T10:19:25.1710325Z",
+  "level": "A/C metadata only; no native Initialize/Start/render/capture",
+  "commands": [
+    {
+      "chunk": "d74429",
+      "exit": 0,
+      "scope": "readonly AudioEndpoint inventory"
+    },
+    {
+      "chunk": "535937",
+      "exit": 0,
+      "scope": "readonly MEDIA properties"
+    },
+    {
+      "chunk": "b55943",
+      "exit": 0,
+      "scope": "readonly endpoint parent properties"
+    },
+    {
+      "start_chunk": "b6e3cb",
+      "completion_chunk": "0fa9fe",
+      "session": 20324,
+      "exit": 0,
+      "scope": "readonly four-level bounded parent query"
+    }
+  ],
+  "prior_tool_aborted": {
+    "artifact_created": false,
+    "result": "aborted, no exit code; no PASS claim"
+  },
+  "endpoints": [
+    {
+      "display_name": "扬声器 (Steam Streaming Microphone)",
+      "parent_media_name": "Steam Streaming Microphone",
+      "matching": "case-insensitive PnP device instance identity",
+      "parent_depth": 2,
+      "provider": "Valve Corporation",
+      "enumerator": "ROOT",
+      "service": "SteamStreamingMicrophone",
+      "driver_version": "8.33.15.17",
+      "driver_inf": "oem24.inf",
+      "route_role": "software candidate only"
+    },
+    {
+      "display_name": "麦克风 (Steam Streaming Microphone)",
+      "parent_media_name": "Steam Streaming Microphone",
+      "matching": "case-insensitive PnP device instance identity",
+      "parent_depth": 2,
+      "provider": "Valve Corporation",
+      "enumerator": "ROOT",
+      "service": "SteamStreamingMicrophone",
+      "driver_version": "8.33.15.17",
+      "driver_inf": "oem24.inf",
+      "route_role": "software candidate only"
+    }
+  ],
+  "private_artifacts": [
+    {
+      "private_path": ".local/t009-leader/pnp-media-private.json",
+      "bytes": 2504,
+      "sha256": "f682e39caf9f9e5ce73e37aac56acbf4c0e5424718f059d91eb1a2af7f566477",
+      "contents_public": false
+    },
+    {
+      "private_path": ".local/t009-leader/pnp-endpoint-private.json",
+      "bytes": 2389,
+      "sha256": "742b420bb926ab8d616943aea06ce2e479891981bfa0f488d7cc20bed3c9279d",
+      "contents_public": false
+    },
+    {
+      "private_path": ".local/t009-leader/pnp-parent-chain-private.json",
+      "bytes": 4494,
+      "sha256": "0e7109387163d51d0c908c19ad6df75a454fa9a0bb54249adffb56471b3c4ca0",
+      "contents_public": false
+    }
+  ],
+  "native_route_continuity": "NOT_RUN",
+  "physical_source_capture": "NOT_RUN",
+  "driver_install_or_default_change": false,
+  "correction": "Initial exact case-sensitive dictionary comparison returned false; case-insensitive identity match on original data proves both first parents match MEDIA. No name-only inference."
+}

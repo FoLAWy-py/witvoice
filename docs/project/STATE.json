@@ -51,7 +51,10 @@
         "docs/spec/01-architecture.md",
         "docs/spec/04-lan-protocol.md",
         "docs/spec/06-security-distribution.md",
-        "docs/spec/07-tests-acceptance.md"
+        "docs/spec/07-tests-acceptance.md",
+        "crates/contracts/src/values.rs",
+        "crates/contracts/src/control.rs",
+        "crates/contracts/src/lib.rs"
       ],
       "resource_leases": [
         "readonly-review:t016-r1"
