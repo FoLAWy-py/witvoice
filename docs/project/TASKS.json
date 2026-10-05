@@ -308,7 +308,7 @@
       "milestone": "M1",
       "title": "虚拟电缆路由与原声隔离",
       "owner_role": "audio_runtime",
-      "status": "IN_PROGRESS",
+      "status": "BLOCKED",
       "requirements": [
         "REQ-06",
         "REQ-10"
@@ -323,14 +323,16 @@
       ],
       "acceptance": "真实render→virtual capture验证；清楚区分CABLE Input与Output；设备缺失阻塞且不降级至物理原声。",
       "agent_instance_id": "/root/audio_runtime",
-      "resource_leases": [
-        "code-writer:leader-vbcable-supervisor"
+      "resource_leases": [],
+      "evidence": [
+        "docs/evidence/T009-20261005/author/leader-audit.json",
+        "docs/evidence/T009-20261005/preflight-audit.json",
+        "docs/evidence/T009-20261005/once/result.json"
       ],
-      "evidence": [],
       "review": null,
       "attempts": 0,
-      "blocked_reason": null,
-      "execution_note": "Audio actualSTOP_WRITES;62 pure tests/fmt/Clippy/probe build0, two ordinary101 retained; leader exact audit pending. Source probe compiled/not run. Root now sole supervisor writer/preflight, user once authorization unconsumed."
+      "blocked_reason": "One authorized actual run consumed: render prepare Capacity before any Start, child1/~0.119s; no continuity proof/no retry. Exact OS capacity unreported; bounded buffer adaptation/diagnostic needed before any separately scoped new authorization.",
+      "execution_note": "Independent static preflight permitted fixed once; user one permission consumed. Audio tests62 author/root0; all streams Start NOT_REACHED by source. Preparation Initialize attempted, normal cleanup UNKNOWN because no JSON report; no PCM marker/capture. Raw47B stderr retained."
     },
     {
       "id": "T010",
@@ -510,7 +512,7 @@
       "milestone": "M3",
       "title": "LAN发现、手动寻址与双向身份信任",
       "owner_role": "backend",
-      "status": "REVIEW",
+      "status": "IN_PROGRESS",
       "requirements": [
         "REQ-13",
         "REQ-14"
@@ -525,9 +527,9 @@
         "tests/security/"
       ],
       "acceptance": "默认监听关闭；mDNS不建立信任；双端身份字符串导入、pin验证与撤销；陌生端无音频权限。",
-      "agent_instance_id": "/root/reviewer_t001",
+      "agent_instance_id": "/root/backend",
       "resource_leases": [
-        "readonly-review:t016-r1"
+        "code-writer:backend-t016-r1"
       ],
       "evidence": [
         "docs/evidence/T016-20261005/dependency-metadata.json",
@@ -569,7 +571,7 @@
       "review": "docs/project/reviews/T016-r1.md",
       "attempts": 1,
       "blocked_reason": null,
-      "execution_note": "First formal task review registered frozen6c68/8fe evidence; earlier nativepreflight attempt0. New diagnostics tested48/root132, actual native oldFAIL13 unknown. NativePeers S2 intentionally pending. No new LAN approval or execution."
+      "execution_note": "Formalr1 REVISE attempt1/3: S2 NativePeers swallows Failed and retained snapshot; full report received. No fix lease yet; native positive discovery still unverified, old authorization consumed."
     },
     {
       "id": "T017",

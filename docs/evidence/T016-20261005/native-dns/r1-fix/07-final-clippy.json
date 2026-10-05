@@ -1,0 +1,72 @@
+{
+  "env": {
+    "CARGO_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo",
+    "CARGO_INCREMENTAL": "0",
+    "RUSTUP_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\rustup",
+    "CARGO_TARGET_DIR": "D:\\Project\\witvoice\\.local\\t016-diagnostics-author\\target",
+    "CARGO_BUILD_JOBS": "1"
+  },
+  "stderr": {
+    "path": "D:\\Project\\witvoice\\.local\\t016-r1-fix\\07-final-clippy.stderr",
+    "bytes": 150,
+    "sha256": "e05003499b82654c1cf284ecff0f91b92ce60d5542c76c9e828ed6186f54770c"
+  },
+  "scope": "T016 single S2 software only; NO_NETWORK_NO_HARDWARE_NO_AUDIO_NO_IDENTITY_API",
+  "executable": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\cargo.exe",
+  "end_utc": "2026-10-05T11:28:22.7296658Z",
+  "source_before": [
+    {
+      "sha256": "3733008f6f460025c6ae24ed59ab8e9516d05ff5c25bc5caeb755af17d8faa52",
+      "path": "crates/transport/src/discovery/native.rs"
+    },
+    {
+      "sha256": "7aec83bfdfecc6d7777731d4ec883263c341e75f63f9cc704c2183c54d30bed8",
+      "path": "crates/transport/src/lib.rs"
+    },
+    {
+      "sha256": "f43c0190ef960dafc54ef5fe4b3fec72bd0b14ddb4bdc528fcb472d7d3af49bc",
+      "path": "Cargo.lock"
+    },
+    {
+      "sha256": "a8be355dc2bbdb94b30e0d91d8a79da38f554c9572d9af9f8af645c6b779321c",
+      "path": "crates/transport/Cargo.toml"
+    }
+  ],
+  "source_after": [
+    {
+      "sha256": "3733008f6f460025c6ae24ed59ab8e9516d05ff5c25bc5caeb755af17d8faa52",
+      "path": "crates/transport/src/discovery/native.rs"
+    },
+    {
+      "sha256": "7aec83bfdfecc6d7777731d4ec883263c341e75f63f9cc704c2183c54d30bed8",
+      "path": "crates/transport/src/lib.rs"
+    },
+    {
+      "sha256": "f43c0190ef960dafc54ef5fe4b3fec72bd0b14ddb4bdc528fcb472d7d3af49bc",
+      "path": "Cargo.lock"
+    },
+    {
+      "sha256": "a8be355dc2bbdb94b30e0d91d8a79da38f554c9572d9af9f8af645c6b779321c",
+      "path": "crates/transport/Cargo.toml"
+    }
+  ],
+  "start_utc": "2026-10-05T11:28:21.9417824Z",
+  "cwd": "D:\\Project\\witvoice",
+  "exit_code": 0,
+  "argv": [
+    "clippy",
+    "--locked",
+    "-p",
+    "witvoice-transport",
+    "--all-targets",
+    "--",
+    "-D",
+    "warnings"
+  ],
+  "stdout": {
+    "path": "D:\\Project\\witvoice\\.local\\t016-r1-fix\\07-final-clippy.stdout",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "overrides": {}
+}

@@ -1,0 +1,18 @@
+{
+  "hardware": "NOT_RUN",
+  "config_sha256": "8c079b8e5073298543b9408938621e573b3435d77476b08d79d809306d205ce0",
+  "supervisor_sha256": "85aa2ce187a20a795f98cea5fde63ae056d88bb2b64920ecbd8bf80cc2272ddf",
+  "executable_sha256": "64bf013d645633a9e354e09f46fa1241d3294bbeb00c6c506af48d4fad33b8dc",
+  "status": "PASS_SOFTWARE_ONLY",
+  "scope_sha256": "f1b3241fdd3e887e5cef6d60d152320f7b6aeca2ed4c06adc156b6cd519baeca",
+  "source_commit": "2ed6346416343970218f517ddda6731ceee5e809",
+  "review": "PENDING",
+  "ast_parse_errors": 0,
+  "effective_tests": 62,
+  "commands": [
+    "test",
+    "fmt",
+    "clippy",
+    "build"
+  ]
+}

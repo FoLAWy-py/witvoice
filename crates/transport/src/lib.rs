@@ -16,6 +16,7 @@ pub enum Error {
     GenerationExhausted,
     ClockWentBackwards,
     MdnsCacheUnbounded,
+    NativeDiscoveryFailed(u32),
     Storage,
     Crypto,
 }

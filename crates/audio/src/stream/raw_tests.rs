@@ -12,6 +12,29 @@ use windows::{
 };
 
 const FAILED: HRESULT = HRESULT(0x80004005_u32 as i32);
+#[test]
+fn prepare_negotiated_capacity_keeps_zero_and_over_bound_reasons_exact_without_start() {
+    for actual in [0, 960, 961] {
+        let (result, allocations) = count_allocations(|| negotiated_capacity(actual, 960));
+        assert_eq!(allocations, 0);
+        match (actual, result) {
+            (960, Ok(value)) => assert_eq!(value, 960),
+            (
+                0 | 961,
+                Err(StreamError::NegotiatedCapacity {
+                    actual_frames,
+                    maximum_frames,
+                }),
+            ) => {
+                assert_eq!(actual_frames, actual);
+                assert_eq!(maximum_frames, 960);
+            }
+            _ => panic!("must retain exact rejected size without widening"),
+        }
+    }
+    // The injected helper has no IAudioClient or Start operation. The production
+    // Prepare branch invokes it before service acquisition and has no Start call.
+}
 unsafe extern "system" fn query(_: *mut c_void, _: *const GUID, out: *mut *mut c_void) -> HRESULT {
     if !out.is_null() {
         unsafe {

@@ -344,3 +344,15 @@ marker evidence, with separate flag counters and a fixed error/HRESULT report.
 Microsoft documents [discontinuity as a possible state transition or glitch](https://learn.microsoft.com/en-us/windows/win32/api/audioclient/ne-audioclient-_audclnt_bufferflags);
 it does not guarantee that a first-packet flag is harmless. This probe retains
 that strict failure and does not auto-retry. Close errors are reported separately.
+
+T009's consumed once-only run on frozen 2ed6346 failed at render Prepare with the
+old generic `Capacity`; it did not reach any Start or capture Prepare. That result
+does not distinguish a zero OS buffer from a buffer above 960 frames, and does not
+prove a driver fault. The diagnostic repair retains `GetBufferSize` as
+`NegotiatedCapacity { actual_frames, maximum_frames }`, with pure injected 0/960/961
+tests. Prepare's 200ms parameter bound, the probe's maximum 960 frames and the
+packet submission limit all remain unchanged. A future early Prepare failure
+prints its exact stage/requested/known actual capacity and native error, with
+`native_start=false`, `cleanup=UNKNOWN` and no retry; RAII teardown is not a real
+close measurement. No new probe, Initialize, Start, render or capture was executed
+for this repair. The original executed binary and evidence remain historical.

@@ -40,6 +40,10 @@ pub enum StreamError {
         closest: Option<Box<MixFormat>>,
     },
     Capacity,
+    NegotiatedCapacity {
+        actual_frames: u32,
+        maximum_frames: u32,
+    },
     State,
     WrongFlow,
     Packet(PacketError),
@@ -69,6 +73,18 @@ fn padding_with(call: impl FnOnce(*mut u32) -> HRESULT) -> Result<u32, StreamErr
     let mut padding = 0;
     packet_status("GetCurrentPadding", call(&mut padding))?;
     Ok(padding)
+}
+// Ordinary Prepare thread only; retain the real GetBufferSize result. Capacity
+// rejection does not negotiate a larger bound or call Start/retry/another device.
+fn negotiated_capacity(actual_frames: u32, maximum_frames: u32) -> Result<u32, StreamError> {
+    if actual_frames == 0 || actual_frames > maximum_frames {
+        Err(StreamError::NegotiatedCapacity {
+            actual_frames,
+            maximum_frames,
+        })
+    } else {
+        Ok(actual_frames)
+    }
 }
 impl From<MetadataError> for StreamError {
     fn from(error: MetadataError) -> Self {
@@ -218,11 +234,9 @@ impl SharedStream {
         }
         .map_err(|e| failure("Initialize", e))?;
         unsafe { client.SetEventHandle(event.0) }.map_err(|e| failure("SetEventHandle", e))?;
-        let capacity =
+        let actual_capacity =
             unsafe { client.GetBufferSize() }.map_err(|e| failure("GetBufferSize", e))?;
-        if capacity == 0 || capacity > maximum_frames {
-            return Err(StreamError::Capacity);
-        }
+        let capacity = negotiated_capacity(actual_capacity, maximum_frames)?;
         let service = match flow {
             Flow::Capture => Service::Capture(
                 unsafe { client.GetService() }.map_err(|e| failure("GetCaptureService", e))?,

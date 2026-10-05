@@ -1,0 +1,8 @@
+{
+  "execution_chunk": "2b3846",
+  "shell_exit": 1,
+  "child_exit": 1,
+  "raw_error": "Error: \"render prepare; no fallback: Capacity\"\n",
+  "analysis": "Failed in SharedStream::prepare render before capture prepare/any Start. Requested maximum960 is valid, so Capacity guard requires returned GetBufferSize zero or greater960; actual count unknown. Driver identity/exactformat passed preceding checks. No PCM submitted or captured; successful route/normal cleanup unproved. No retry.",
+  "next_action": "Software expose actual capacity and adapt bounded render chunks only after source review; new hardware attempt requires fresh explicit authorization, not implied by software fix."
+}

@@ -1,6 +1,30 @@
 //! Diagnostic-only synthesized marker; never model output or physical source.
 pub const FRAMES: usize = 96_000;
 pub const AMPLITUDE: f32 = 0.01;
+pub fn prepare_failure_report(
+    stage: &'static str,
+    error: &witvoice_audio::stream::StreamError,
+    requested: u32,
+) -> serde_json::Value {
+    use witvoice_audio::stream::StreamError;
+    let (actual, maximum, kind) = match error {
+        StreamError::NegotiatedCapacity {
+            actual_frames,
+            maximum_frames,
+        } => (
+            Some(*actual_frames),
+            Some(*maximum_frames),
+            "NegotiatedCapacity",
+        ),
+        StreamError::Capacity => (None, Some(requested), "CapacityParameter"),
+        _ => (None, Some(requested), "NativePrepareError"),
+    };
+    serde_json::json!({"status":"FAILED_MUTED","stage":stage,"route_profile":"VB_CABLE",
+        "requested_maximum_frames":requested,"actual_frames":actual,"maximum_frames":maximum,
+        "error_kind":kind,"error":format!("{error:?}"),"native_start":false,
+        "marker_rendered":false,"capture_read":false,"cleanup":"UNKNOWN",
+        "pcm_saved":false,"retry":false})
+}
 pub fn remaining(
     active: std::time::Duration,
     process: std::time::Duration,
@@ -105,6 +129,35 @@ pub fn correlate(expected: &[f32], captured: &[f32]) -> Option<Match> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn early_prepare_report_retains_exact_size_and_never_claims_start_or_cleanup() {
+        use witvoice_audio::stream::StreamError;
+        for actual in [0, 961] {
+            let report = prepare_failure_report(
+                "render_prepare",
+                &StreamError::NegotiatedCapacity {
+                    actual_frames: actual,
+                    maximum_frames: 960,
+                },
+                960,
+            );
+            assert_eq!(report["actual_frames"], actual);
+            assert_eq!(report["requested_maximum_frames"], 960);
+            assert_eq!(report["native_start"], false);
+            assert_eq!(report["cleanup"], "UNKNOWN");
+            assert_eq!(report["retry"], false);
+        }
+        let unknown = prepare_failure_report(
+            "capture_prepare",
+            &StreamError::Com {
+                operation: "GetBufferSize",
+                hresult: -1,
+            },
+            960,
+        );
+        assert!(unknown["actual_frames"].is_null());
+        assert_eq!(unknown["error_kind"], "NativePrepareError");
+    }
     #[test]
     fn active_and_process_deadlines_forbid_another_packet_at_the_boundary() {
         use std::time::Duration;

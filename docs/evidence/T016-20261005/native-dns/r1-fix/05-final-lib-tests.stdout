@@ -1,0 +1,13 @@
+
+running 8 tests
+test discovery::native::tests::first_fault_and_typed_origin_survive_later_events_and_close ... ok
+test discovery::native::tests::closing_cannot_restart_resolution_or_repopulate_records_from_queued_results ... ok
+test discovery::native::tests::zero_and_max_event_codes_remain_faults_and_unknown_metadata_is_not_fabricated ... ok
+test discovery::native::tests::normal_stopped_clears_records_without_creating_a_fault ... ok
+test discovery::native::tests::failed_event_blocks_same_batch_later_success_and_native_reentry_without_metadata ... ok
+test discovery::native::tests::retained_snapshot_without_failed_event_clears_records_before_and_after_queue_drain ... ok
+test discovery::native::tests::untrusted_native_results_use_address_and_ttl_guards_without_pairing ... ok
+test trust::tests::generation_exhaustion_clears_pins_and_cannot_restore_trust ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

@@ -1,0 +1,23 @@
+{
+  "authorization_id": "T009-VBCABLE-880c5b5b-9eda-4673-83ef-4a8cb9c2458c",
+  "created_utc": "2026-10-05T10:52:20.3867598Z",
+  "status": "CONSUMED_BEFORE_LAUNCH",
+  "human_authority": "User explicitly installed/selected VB-CABLE and authorized one reviewed marker loopback in the current conversation",
+  "selected_route": "VB_CABLE",
+  "max_marker_seconds": 5,
+  "max_total_seconds": 15,
+  "requested_marker_seconds": 2,
+  "amplitude": 0.01,
+  "allowed": "only verified CABLE Input render and CABLE Output capture",
+  "forbidden": [
+    "physical microphone",
+    "physical speaker",
+    "PCM disk or upload",
+    "default device modification",
+    "driver install",
+    "firewall/security change",
+    "automatic retry or endpoint substitution"
+  ],
+  "consumed_utc": "2026-10-05T11:21:31.6981888Z",
+  "process_id": null
+}

@@ -180,11 +180,31 @@ fn main() -> Result<(), String> {
     route
         .check_changes(&signal, &gate)
         .map_err(|_| "route changed")?;
-    let mut render = SharedStream::prepare(&scope.render_uid, Flow::Render, render_format, 960)
-        .map_err(|e| format!("render prepare; no fallback: {e:?}"))?;
+    let mut render =
+        match SharedStream::prepare(&scope.render_uid, Flow::Render, render_format, 960) {
+            Ok(owner) => owner,
+            Err(error) => {
+                gate.invalidate();
+                println!(
+                    "{}",
+                    route_marker::prepare_failure_report("render_prepare", &error, 960)
+                );
+                return Err(format!("render prepare; no fallback: {error:?}"));
+            }
+        };
     within_total()?;
-    let mut capture = SharedStream::prepare(&scope.capture_uid, Flow::Capture, capture_format, 960)
-        .map_err(|e| format!("capture prepare; no fallback: {e:?}"))?;
+    let mut capture =
+        match SharedStream::prepare(&scope.capture_uid, Flow::Capture, capture_format, 960) {
+            Ok(owner) => owner,
+            Err(error) => {
+                gate.invalidate();
+                println!(
+                    "{}",
+                    route_marker::prepare_failure_report("capture_prepare", &error, 960)
+                );
+                return Err(format!("capture prepare; no fallback: {error:?}"));
+            }
+        };
     within_total()?;
     render
         .bind_output_gate(Arc::clone(&gate))

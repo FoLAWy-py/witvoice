@@ -1,0 +1,552 @@
+{
+  "completed_utc": "2026-10-05T11:29:27.7172295Z",
+  "source": {
+    "path": "crates/transport/src/discovery/native.rs",
+    "raw_copy": ".local/t016-r1-fix/source-final.rs",
+    "sha256": "3733008f6f460025c6ae24ed59ab8e9516d05ff5c25bc5caeb755af17d8faa52",
+    "bytes": 18106
+  },
+  "protected_git_diff_exit": 0,
+  "effective_tests": 8,
+  "old_status13_origin": "UNKNOWN_NOT_RETROFITTED",
+  "no_ice_or_av_in_this_check_set": true,
+  "final_three_source_and_dependency_hashes_stable": true,
+  "task": "T016",
+  "runs": [
+    {
+      "metadata_sha256": "a6ed093b8cc0df7354aaf970d485dc76b05b30120817c1c6540a7f05e8926a5e",
+      "metadata": {
+        "stdout": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "path": "D:\\Project\\witvoice\\.local\\t016-r1-fix\\01-rustfmt.stdout",
+          "bytes": 0
+        },
+        "end_utc": "2026-10-05T11:25:57.7375032Z",
+        "scope": "T016 single S2 software only; NO_NETWORK_NO_HARDWARE_NO_AUDIO_NO_IDENTITY_API",
+        "executable": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\rustfmt.exe",
+        "cwd": "D:\\Project\\witvoice",
+        "source_after": [
+          {
+            "path": "crates/transport/src/discovery/native.rs",
+            "sha256": "d6fda8129ac23395c097be30af0d8b7aef9fcb110b22bf90eed1b9fadb731219"
+          },
+          {
+            "path": "crates/transport/src/lib.rs",
+            "sha256": "7aec83bfdfecc6d7777731d4ec883263c341e75f63f9cc704c2183c54d30bed8"
+          },
+          {
+            "path": "Cargo.lock",
+            "sha256": "f43c0190ef960dafc54ef5fe4b3fec72bd0b14ddb4bdc528fcb472d7d3af49bc"
+          },
+          {
+            "path": "crates/transport/Cargo.toml",
+            "sha256": "a8be355dc2bbdb94b30e0d91d8a79da38f554c9572d9af9f8af645c6b779321c"
+          }
+        ],
+        "env": {
+          "CARGO_TARGET_DIR": "D:\\Project\\witvoice\\.local\\t016-diagnostics-author\\target",
+          "CARGO_BUILD_JOBS": "1",
+          "RUSTUP_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\rustup",
+          "CARGO_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo",
+          "CARGO_INCREMENTAL": "0"
+        },
+        "argv": [
+          "--edition",
+          "2024",
+          "crates/transport/src/discovery/native.rs"
+        ],
+        "exit_code": 0,
+        "start_utc": "2026-10-05T11:25:57.6523615Z",
+        "source_before": [
+          {
+            "path": "crates/transport/src/discovery/native.rs",
+            "sha256": "24a665b2710364abbbe03def7d57330dd637f21854fdf242c77bdbb44d8d01de"
+          },
+          {
+            "path": "crates/transport/src/lib.rs",
+            "sha256": "7aec83bfdfecc6d7777731d4ec883263c341e75f63f9cc704c2183c54d30bed8"
+          },
+          {
+            "path": "Cargo.lock",
+            "sha256": "f43c0190ef960dafc54ef5fe4b3fec72bd0b14ddb4bdc528fcb472d7d3af49bc"
+          },
+          {
+            "path": "crates/transport/Cargo.toml",
+            "sha256": "a8be355dc2bbdb94b30e0d91d8a79da38f554c9572d9af9f8af645c6b779321c"
+          }
+        ],
+        "stderr": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "path": "D:\\Project\\witvoice\\.local\\t016-r1-fix\\01-rustfmt.stderr",
+          "bytes": 0
+        },
+        "overrides": {}
+      },
+      "stem": "01-rustfmt"
+    },
+    {
+      "metadata_sha256": "6ec20e94e66307260091eb68f2c4397a68c1d7858c94fc6fe9e8f1c6f320cdf1",
+      "metadata": {
+        "cwd": "D:\\Project\\witvoice",
+        "overrides": {},
+        "stderr": {
+          "bytes": 276,
+          "sha256": "133d5a823d52ae2331cda59403228b60c14bac4245155b6482f89b3ef11ac9a1",
+          "path": "D:\\Project\\witvoice\\.local\\t016-r1-fix\\02-transport-lib-tests.stderr"
+        },
+        "stdout": {
+          "bytes": 965,
+          "sha256": "38519f76f956e4af9cb66fcaabe4500ff8d7b02421edd66e2b92e9cd59a6d4a0",
+          "path": "D:\\Project\\witvoice\\.local\\t016-r1-fix\\02-transport-lib-tests.stdout"
+        },
+        "argv": [
+          "test",
+          "--locked",
+          "-p",
+          "witvoice-transport",
+          "--lib"
+        ],
+        "source_before": [
+          {
+            "path": "crates/transport/src/discovery/native.rs",
+            "sha256": "d6fda8129ac23395c097be30af0d8b7aef9fcb110b22bf90eed1b9fadb731219"
+          },
+          {
+            "path": "crates/transport/src/lib.rs",
+            "sha256": "7aec83bfdfecc6d7777731d4ec883263c341e75f63f9cc704c2183c54d30bed8"
+          },
+          {
+            "path": "Cargo.lock",
+            "sha256": "f43c0190ef960dafc54ef5fe4b3fec72bd0b14ddb4bdc528fcb472d7d3af49bc"
+          },
+          {
+            "path": "crates/transport/Cargo.toml",
+            "sha256": "a8be355dc2bbdb94b30e0d91d8a79da38f554c9572d9af9f8af645c6b779321c"
+          }
+        ],
+        "env": {
+          "CARGO_INCREMENTAL": "0",
+          "CARGO_TARGET_DIR": "D:\\Project\\witvoice\\.local\\t016-diagnostics-author\\target",
+          "CARGO_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo",
+          "CARGO_BUILD_JOBS": "1",
+          "RUSTUP_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\rustup"
+        },
+        "source_after": [
+          {
+            "path": "crates/transport/src/discovery/native.rs",
+            "sha256": "d6fda8129ac23395c097be30af0d8b7aef9fcb110b22bf90eed1b9fadb731219"
+          },
+          {
+            "path": "crates/transport/src/lib.rs",
+            "sha256": "7aec83bfdfecc6d7777731d4ec883263c341e75f63f9cc704c2183c54d30bed8"
+          },
+          {
+            "path": "Cargo.lock",
+            "sha256": "f43c0190ef960dafc54ef5fe4b3fec72bd0b14ddb4bdc528fcb472d7d3af49bc"
+          },
+          {
+            "path": "crates/transport/Cargo.toml",
+            "sha256": "a8be355dc2bbdb94b30e0d91d8a79da38f554c9572d9af9f8af645c6b779321c"
+          }
+        ],
+        "scope": "T016 single S2 software only; NO_NETWORK_NO_HARDWARE_NO_AUDIO_NO_IDENTITY_API",
+        "end_utc": "2026-10-05T11:26:12.5023405Z",
+        "exit_code": 0,
+        "start_utc": "2026-10-05T11:26:10.5427421Z",
+        "executable": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\cargo.exe"
+      },
+      "stem": "02-transport-lib-tests"
+    },
+    {
+      "metadata_sha256": "61f136b61d92eee3e21f4da5c807def50cb68952c70d956cd1870e741a359237",
+      "metadata": {
+        "cwd": "D:\\Project\\witvoice",
+        "exit_code": 0,
+        "scope": "T016 single S2 software only; NO_NETWORK_NO_HARDWARE_NO_AUDIO_NO_IDENTITY_API",
+        "env": {
+          "RUSTUP_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\rustup",
+          "CARGO_INCREMENTAL": "0",
+          "CARGO_TARGET_DIR": "D:\\Project\\witvoice\\.local\\t016-diagnostics-author\\target",
+          "CARGO_BUILD_JOBS": "1",
+          "CARGO_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo"
+        },
+        "stderr": {
+          "path": "D:\\Project\\witvoice\\.local\\t016-r1-fix\\03-fmt-check.stderr",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        "stdout": {
+          "path": "D:\\Project\\witvoice\\.local\\t016-r1-fix\\03-fmt-check.stdout",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        "overrides": {},
+        "source_before": [
+          {
+            "sha256": "d6fda8129ac23395c097be30af0d8b7aef9fcb110b22bf90eed1b9fadb731219",
+            "path": "crates/transport/src/discovery/native.rs"
+          },
+          {
+            "sha256": "7aec83bfdfecc6d7777731d4ec883263c341e75f63f9cc704c2183c54d30bed8",
+            "path": "crates/transport/src/lib.rs"
+          },
+          {
+            "sha256": "f43c0190ef960dafc54ef5fe4b3fec72bd0b14ddb4bdc528fcb472d7d3af49bc",
+            "path": "Cargo.lock"
+          },
+          {
+            "sha256": "a8be355dc2bbdb94b30e0d91d8a79da38f554c9572d9af9f8af645c6b779321c",
+            "path": "crates/transport/Cargo.toml"
+          }
+        ],
+        "end_utc": "2026-10-05T11:26:27.9008985Z",
+        "start_utc": "2026-10-05T11:26:27.7500858Z",
+        "executable": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\cargo.exe",
+        "source_after": [
+          {
+            "sha256": "d6fda8129ac23395c097be30af0d8b7aef9fcb110b22bf90eed1b9fadb731219",
+            "path": "crates/transport/src/discovery/native.rs"
+          },
+          {
+            "sha256": "7aec83bfdfecc6d7777731d4ec883263c341e75f63f9cc704c2183c54d30bed8",
+            "path": "crates/transport/src/lib.rs"
+          },
+          {
+            "sha256": "f43c0190ef960dafc54ef5fe4b3fec72bd0b14ddb4bdc528fcb472d7d3af49bc",
+            "path": "Cargo.lock"
+          },
+          {
+            "sha256": "a8be355dc2bbdb94b30e0d91d8a79da38f554c9572d9af9f8af645c6b779321c",
+            "path": "crates/transport/Cargo.toml"
+          }
+        ],
+        "argv": [
+          "fmt",
+          "--package",
+          "witvoice-transport",
+          "--check"
+        ]
+      },
+      "stem": "03-fmt-check"
+    },
+    {
+      "metadata_sha256": "3affef1c4acebb1bae4308be00256b57db1613bb3e59e1f4c1c51694ebda3cc0",
+      "metadata": {
+        "scope": "T016 single S2 software only; NO_NETWORK_NO_HARDWARE_NO_AUDIO_NO_IDENTITY_API",
+        "stderr": {
+          "bytes": 150,
+          "path": "D:\\Project\\witvoice\\.local\\t016-r1-fix\\04-clippy.stderr",
+          "sha256": "5983a8938f9e0e0dfdece6f5a48824581f27cba9964576d933a0ba893a49c106"
+        },
+        "env": {
+          "CARGO_BUILD_JOBS": "1",
+          "CARGO_TARGET_DIR": "D:\\Project\\witvoice\\.local\\t016-diagnostics-author\\target",
+          "CARGO_INCREMENTAL": "0",
+          "CARGO_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo",
+          "RUSTUP_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\rustup"
+        },
+        "overrides": {},
+        "cwd": "D:\\Project\\witvoice",
+        "source_after": [
+          {
+            "sha256": "d6fda8129ac23395c097be30af0d8b7aef9fcb110b22bf90eed1b9fadb731219",
+            "path": "crates/transport/src/discovery/native.rs"
+          },
+          {
+            "sha256": "7aec83bfdfecc6d7777731d4ec883263c341e75f63f9cc704c2183c54d30bed8",
+            "path": "crates/transport/src/lib.rs"
+          },
+          {
+            "sha256": "f43c0190ef960dafc54ef5fe4b3fec72bd0b14ddb4bdc528fcb472d7d3af49bc",
+            "path": "Cargo.lock"
+          },
+          {
+            "sha256": "a8be355dc2bbdb94b30e0d91d8a79da38f554c9572d9af9f8af645c6b779321c",
+            "path": "crates/transport/Cargo.toml"
+          }
+        ],
+        "source_before": [
+          {
+            "sha256": "d6fda8129ac23395c097be30af0d8b7aef9fcb110b22bf90eed1b9fadb731219",
+            "path": "crates/transport/src/discovery/native.rs"
+          },
+          {
+            "sha256": "7aec83bfdfecc6d7777731d4ec883263c341e75f63f9cc704c2183c54d30bed8",
+            "path": "crates/transport/src/lib.rs"
+          },
+          {
+            "sha256": "f43c0190ef960dafc54ef5fe4b3fec72bd0b14ddb4bdc528fcb472d7d3af49bc",
+            "path": "Cargo.lock"
+          },
+          {
+            "sha256": "a8be355dc2bbdb94b30e0d91d8a79da38f554c9572d9af9f8af645c6b779321c",
+            "path": "crates/transport/Cargo.toml"
+          }
+        ],
+        "stdout": {
+          "bytes": 0,
+          "path": "D:\\Project\\witvoice\\.local\\t016-r1-fix\\04-clippy.stdout",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "executable": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\cargo.exe",
+        "end_utc": "2026-10-05T11:26:48.6496715Z",
+        "exit_code": 0,
+        "start_utc": "2026-10-05T11:26:47.5476543Z",
+        "argv": [
+          "clippy",
+          "--locked",
+          "-p",
+          "witvoice-transport",
+          "--all-targets",
+          "--",
+          "-D",
+          "warnings"
+        ]
+      },
+      "stem": "04-clippy"
+    },
+    {
+      "metadata_sha256": "8a1b78fe1cd5c6c26fc86ad09d8016ee3b78661b7a9c949af5484126cec8533a",
+      "metadata": {
+        "source_before": [
+          {
+            "path": "crates/transport/src/discovery/native.rs",
+            "sha256": "3733008f6f460025c6ae24ed59ab8e9516d05ff5c25bc5caeb755af17d8faa52"
+          },
+          {
+            "path": "crates/transport/src/lib.rs",
+            "sha256": "7aec83bfdfecc6d7777731d4ec883263c341e75f63f9cc704c2183c54d30bed8"
+          },
+          {
+            "path": "Cargo.lock",
+            "sha256": "f43c0190ef960dafc54ef5fe4b3fec72bd0b14ddb4bdc528fcb472d7d3af49bc"
+          },
+          {
+            "path": "crates/transport/Cargo.toml",
+            "sha256": "a8be355dc2bbdb94b30e0d91d8a79da38f554c9572d9af9f8af645c6b779321c"
+          }
+        ],
+        "start_utc": "2026-10-05T11:27:54.171235Z",
+        "executable": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\cargo.exe",
+        "source_after": [
+          {
+            "path": "crates/transport/src/discovery/native.rs",
+            "sha256": "3733008f6f460025c6ae24ed59ab8e9516d05ff5c25bc5caeb755af17d8faa52"
+          },
+          {
+            "path": "crates/transport/src/lib.rs",
+            "sha256": "7aec83bfdfecc6d7777731d4ec883263c341e75f63f9cc704c2183c54d30bed8"
+          },
+          {
+            "path": "Cargo.lock",
+            "sha256": "f43c0190ef960dafc54ef5fe4b3fec72bd0b14ddb4bdc528fcb472d7d3af49bc"
+          },
+          {
+            "path": "crates/transport/Cargo.toml",
+            "sha256": "a8be355dc2bbdb94b30e0d91d8a79da38f554c9572d9af9f8af645c6b779321c"
+          }
+        ],
+        "end_utc": "2026-10-05T11:27:55.3192572Z",
+        "exit_code": 0,
+        "stderr": {
+          "path": "D:\\Project\\witvoice\\.local\\t016-r1-fix\\05-final-lib-tests.stderr",
+          "sha256": "a535932a624341fc696b8778b901629eb39b675996d2c9a27002b7304b2fbd5f",
+          "bytes": 276
+        },
+        "cwd": "D:\\Project\\witvoice",
+        "scope": "T016 single S2 software only; NO_NETWORK_NO_HARDWARE_NO_AUDIO_NO_IDENTITY_API",
+        "argv": [
+          "test",
+          "--locked",
+          "-p",
+          "witvoice-transport",
+          "--lib"
+        ],
+        "stdout": {
+          "path": "D:\\Project\\witvoice\\.local\\t016-r1-fix\\05-final-lib-tests.stdout",
+          "sha256": "3daef56e7ab2bdadc847a29bfec6f0a2c8c57cb2ba5c9ac1f0d288e675f9edd6",
+          "bytes": 965
+        },
+        "overrides": {},
+        "env": {
+          "CARGO_TARGET_DIR": "D:\\Project\\witvoice\\.local\\t016-diagnostics-author\\target",
+          "CARGO_BUILD_JOBS": "1",
+          "RUSTUP_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\rustup",
+          "CARGO_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo",
+          "CARGO_INCREMENTAL": "0"
+        }
+      },
+      "stem": "05-final-lib-tests"
+    },
+    {
+      "metadata_sha256": "81902663ea4846c6562de347099909eb17aec83a9ff390335ed59be6841f4457",
+      "metadata": {
+        "overrides": {},
+        "end_utc": "2026-10-05T11:28:07.2024345Z",
+        "executable": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\cargo.exe",
+        "stderr": {
+          "path": "D:\\Project\\witvoice\\.local\\t016-r1-fix\\06-final-fmt-check.stderr",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        "scope": "T016 single S2 software only; NO_NETWORK_NO_HARDWARE_NO_AUDIO_NO_IDENTITY_API",
+        "stdout": {
+          "path": "D:\\Project\\witvoice\\.local\\t016-r1-fix\\06-final-fmt-check.stdout",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        "source_before": [
+          {
+            "path": "crates/transport/src/discovery/native.rs",
+            "sha256": "3733008f6f460025c6ae24ed59ab8e9516d05ff5c25bc5caeb755af17d8faa52"
+          },
+          {
+            "path": "crates/transport/src/lib.rs",
+            "sha256": "7aec83bfdfecc6d7777731d4ec883263c341e75f63f9cc704c2183c54d30bed8"
+          },
+          {
+            "path": "Cargo.lock",
+            "sha256": "f43c0190ef960dafc54ef5fe4b3fec72bd0b14ddb4bdc528fcb472d7d3af49bc"
+          },
+          {
+            "path": "crates/transport/Cargo.toml",
+            "sha256": "a8be355dc2bbdb94b30e0d91d8a79da38f554c9572d9af9f8af645c6b779321c"
+          }
+        ],
+        "exit_code": 0,
+        "argv": [
+          "fmt",
+          "--package",
+          "witvoice-transport",
+          "--check"
+        ],
+        "source_after": [
+          {
+            "path": "crates/transport/src/discovery/native.rs",
+            "sha256": "3733008f6f460025c6ae24ed59ab8e9516d05ff5c25bc5caeb755af17d8faa52"
+          },
+          {
+            "path": "crates/transport/src/lib.rs",
+            "sha256": "7aec83bfdfecc6d7777731d4ec883263c341e75f63f9cc704c2183c54d30bed8"
+          },
+          {
+            "path": "Cargo.lock",
+            "sha256": "f43c0190ef960dafc54ef5fe4b3fec72bd0b14ddb4bdc528fcb472d7d3af49bc"
+          },
+          {
+            "path": "crates/transport/Cargo.toml",
+            "sha256": "a8be355dc2bbdb94b30e0d91d8a79da38f554c9572d9af9f8af645c6b779321c"
+          }
+        ],
+        "cwd": "D:\\Project\\witvoice",
+        "start_utc": "2026-10-05T11:28:07.0592309Z",
+        "env": {
+          "CARGO_BUILD_JOBS": "1",
+          "CARGO_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo",
+          "RUSTUP_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\rustup",
+          "CARGO_INCREMENTAL": "0",
+          "CARGO_TARGET_DIR": "D:\\Project\\witvoice\\.local\\t016-diagnostics-author\\target"
+        }
+      },
+      "stem": "06-final-fmt-check"
+    },
+    {
+      "metadata_sha256": "868335043720cba2a84297a298acdbca602afe4688af4cef9d4e89032ed3aaad",
+      "metadata": {
+        "env": {
+          "CARGO_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo",
+          "CARGO_INCREMENTAL": "0",
+          "RUSTUP_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\rustup",
+          "CARGO_TARGET_DIR": "D:\\Project\\witvoice\\.local\\t016-diagnostics-author\\target",
+          "CARGO_BUILD_JOBS": "1"
+        },
+        "stderr": {
+          "path": "D:\\Project\\witvoice\\.local\\t016-r1-fix\\07-final-clippy.stderr",
+          "bytes": 150,
+          "sha256": "e05003499b82654c1cf284ecff0f91b92ce60d5542c76c9e828ed6186f54770c"
+        },
+        "scope": "T016 single S2 software only; NO_NETWORK_NO_HARDWARE_NO_AUDIO_NO_IDENTITY_API",
+        "executable": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\cargo.exe",
+        "end_utc": "2026-10-05T11:28:22.7296658Z",
+        "source_before": [
+          {
+            "sha256": "3733008f6f460025c6ae24ed59ab8e9516d05ff5c25bc5caeb755af17d8faa52",
+            "path": "crates/transport/src/discovery/native.rs"
+          },
+          {
+            "sha256": "7aec83bfdfecc6d7777731d4ec883263c341e75f63f9cc704c2183c54d30bed8",
+            "path": "crates/transport/src/lib.rs"
+          },
+          {
+            "sha256": "f43c0190ef960dafc54ef5fe4b3fec72bd0b14ddb4bdc528fcb472d7d3af49bc",
+            "path": "Cargo.lock"
+          },
+          {
+            "sha256": "a8be355dc2bbdb94b30e0d91d8a79da38f554c9572d9af9f8af645c6b779321c",
+            "path": "crates/transport/Cargo.toml"
+          }
+        ],
+        "source_after": [
+          {
+            "sha256": "3733008f6f460025c6ae24ed59ab8e9516d05ff5c25bc5caeb755af17d8faa52",
+            "path": "crates/transport/src/discovery/native.rs"
+          },
+          {
+            "sha256": "7aec83bfdfecc6d7777731d4ec883263c341e75f63f9cc704c2183c54d30bed8",
+            "path": "crates/transport/src/lib.rs"
+          },
+          {
+            "sha256": "f43c0190ef960dafc54ef5fe4b3fec72bd0b14ddb4bdc528fcb472d7d3af49bc",
+            "path": "Cargo.lock"
+          },
+          {
+            "sha256": "a8be355dc2bbdb94b30e0d91d8a79da38f554c9572d9af9f8af645c6b779321c",
+            "path": "crates/transport/Cargo.toml"
+          }
+        ],
+        "start_utc": "2026-10-05T11:28:21.9417824Z",
+        "cwd": "D:\\Project\\witvoice",
+        "exit_code": 0,
+        "argv": [
+          "clippy",
+          "--locked",
+          "-p",
+          "witvoice-transport",
+          "--all-targets",
+          "--",
+          "-D",
+          "warnings"
+        ],
+        "stdout": {
+          "path": "D:\\Project\\witvoice\\.local\\t016-r1-fix\\07-final-clippy.stdout",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "overrides": {}
+      },
+      "stem": "07-final-clippy"
+    }
+  ],
+  "status": "STOPPED_WRITING",
+  "formal_approval": "NOT_PERFORMED",
+  "thread_uuid": "01a10767-4ff5-7f21-881a-146d094fbc55",
+  "limitations": [
+    "Real positive native DNS trial not rerun; prior authorization consumed",
+    "T010 compiler ICE remains independent BLOCKED; cache scoped success is not machine stability certification",
+    "T017 mTLS and Node revocation integration not implemented here",
+    "No automatic fault reset; only owner replacement after explicit lifecycle decision can obtain a clean NativePeers"
+  ],
+  "runner": {
+    "path": ".local/t016-r1-fix/run.ps1",
+    "sha256": "93f4c7cf627528e786a1e36b0a0ff6b8a390f4afa0c03e8f1fdcb57a2c1250e8"
+  },
+  "network": "NOT_RUN",
+  "old_once": "EXECUTED_NOT_REUSABLE_FAIL_NATIVE_DISCOVERY_RESOLVE",
+  "scope": "B pure injected discovery events; no actual WinDNS, DPAPI or audio calls; construction default-off",
+  "failures": [],
+  "protected_git_diff_stdout": [],
+  "author": "/root/backend",
+  "mac": "UNTESTED",
+  "review": "r1 single S2 fix; independent r2 required",
+  "new_regressions": 5
+}

@@ -1,0 +1,290 @@
+{
+  "runs": [
+    {
+      "metadata": "01-rustfmt.json",
+      "exit": 0,
+      "source_before": [
+        {
+          "path": "crates/transport/src/discovery/native.rs",
+          "sha256": "24a665b2710364abbbe03def7d57330dd637f21854fdf242c77bdbb44d8d01de"
+        },
+        {
+          "path": "crates/transport/src/lib.rs",
+          "sha256": "7aec83bfdfecc6d7777731d4ec883263c341e75f63f9cc704c2183c54d30bed8"
+        },
+        {
+          "path": "Cargo.lock",
+          "sha256": "f43c0190ef960dafc54ef5fe4b3fec72bd0b14ddb4bdc528fcb472d7d3af49bc"
+        },
+        {
+          "path": "crates/transport/Cargo.toml",
+          "sha256": "a8be355dc2bbdb94b30e0d91d8a79da38f554c9572d9af9f8af645c6b779321c"
+        }
+      ],
+      "source_after": [
+        {
+          "path": "crates/transport/src/discovery/native.rs",
+          "sha256": "d6fda8129ac23395c097be30af0d8b7aef9fcb110b22bf90eed1b9fadb731219"
+        },
+        {
+          "path": "crates/transport/src/lib.rs",
+          "sha256": "7aec83bfdfecc6d7777731d4ec883263c341e75f63f9cc704c2183c54d30bed8"
+        },
+        {
+          "path": "Cargo.lock",
+          "sha256": "f43c0190ef960dafc54ef5fe4b3fec72bd0b14ddb4bdc528fcb472d7d3af49bc"
+        },
+        {
+          "path": "crates/transport/Cargo.toml",
+          "sha256": "a8be355dc2bbdb94b30e0d91d8a79da38f554c9572d9af9f8af645c6b779321c"
+        }
+      ]
+    },
+    {
+      "metadata": "02-transport-lib-tests.json",
+      "exit": 0,
+      "source_before": [
+        {
+          "path": "crates/transport/src/discovery/native.rs",
+          "sha256": "d6fda8129ac23395c097be30af0d8b7aef9fcb110b22bf90eed1b9fadb731219"
+        },
+        {
+          "path": "crates/transport/src/lib.rs",
+          "sha256": "7aec83bfdfecc6d7777731d4ec883263c341e75f63f9cc704c2183c54d30bed8"
+        },
+        {
+          "path": "Cargo.lock",
+          "sha256": "f43c0190ef960dafc54ef5fe4b3fec72bd0b14ddb4bdc528fcb472d7d3af49bc"
+        },
+        {
+          "path": "crates/transport/Cargo.toml",
+          "sha256": "a8be355dc2bbdb94b30e0d91d8a79da38f554c9572d9af9f8af645c6b779321c"
+        }
+      ],
+      "source_after": [
+        {
+          "path": "crates/transport/src/discovery/native.rs",
+          "sha256": "d6fda8129ac23395c097be30af0d8b7aef9fcb110b22bf90eed1b9fadb731219"
+        },
+        {
+          "path": "crates/transport/src/lib.rs",
+          "sha256": "7aec83bfdfecc6d7777731d4ec883263c341e75f63f9cc704c2183c54d30bed8"
+        },
+        {
+          "path": "Cargo.lock",
+          "sha256": "f43c0190ef960dafc54ef5fe4b3fec72bd0b14ddb4bdc528fcb472d7d3af49bc"
+        },
+        {
+          "path": "crates/transport/Cargo.toml",
+          "sha256": "a8be355dc2bbdb94b30e0d91d8a79da38f554c9572d9af9f8af645c6b779321c"
+        }
+      ]
+    },
+    {
+      "metadata": "03-fmt-check.json",
+      "exit": 0,
+      "source_before": [
+        {
+          "sha256": "d6fda8129ac23395c097be30af0d8b7aef9fcb110b22bf90eed1b9fadb731219",
+          "path": "crates/transport/src/discovery/native.rs"
+        },
+        {
+          "sha256": "7aec83bfdfecc6d7777731d4ec883263c341e75f63f9cc704c2183c54d30bed8",
+          "path": "crates/transport/src/lib.rs"
+        },
+        {
+          "sha256": "f43c0190ef960dafc54ef5fe4b3fec72bd0b14ddb4bdc528fcb472d7d3af49bc",
+          "path": "Cargo.lock"
+        },
+        {
+          "sha256": "a8be355dc2bbdb94b30e0d91d8a79da38f554c9572d9af9f8af645c6b779321c",
+          "path": "crates/transport/Cargo.toml"
+        }
+      ],
+      "source_after": [
+        {
+          "sha256": "d6fda8129ac23395c097be30af0d8b7aef9fcb110b22bf90eed1b9fadb731219",
+          "path": "crates/transport/src/discovery/native.rs"
+        },
+        {
+          "sha256": "7aec83bfdfecc6d7777731d4ec883263c341e75f63f9cc704c2183c54d30bed8",
+          "path": "crates/transport/src/lib.rs"
+        },
+        {
+          "sha256": "f43c0190ef960dafc54ef5fe4b3fec72bd0b14ddb4bdc528fcb472d7d3af49bc",
+          "path": "Cargo.lock"
+        },
+        {
+          "sha256": "a8be355dc2bbdb94b30e0d91d8a79da38f554c9572d9af9f8af645c6b779321c",
+          "path": "crates/transport/Cargo.toml"
+        }
+      ]
+    },
+    {
+      "metadata": "04-clippy.json",
+      "exit": 0,
+      "source_before": [
+        {
+          "sha256": "d6fda8129ac23395c097be30af0d8b7aef9fcb110b22bf90eed1b9fadb731219",
+          "path": "crates/transport/src/discovery/native.rs"
+        },
+        {
+          "sha256": "7aec83bfdfecc6d7777731d4ec883263c341e75f63f9cc704c2183c54d30bed8",
+          "path": "crates/transport/src/lib.rs"
+        },
+        {
+          "sha256": "f43c0190ef960dafc54ef5fe4b3fec72bd0b14ddb4bdc528fcb472d7d3af49bc",
+          "path": "Cargo.lock"
+        },
+        {
+          "sha256": "a8be355dc2bbdb94b30e0d91d8a79da38f554c9572d9af9f8af645c6b779321c",
+          "path": "crates/transport/Cargo.toml"
+        }
+      ],
+      "source_after": [
+        {
+          "sha256": "d6fda8129ac23395c097be30af0d8b7aef9fcb110b22bf90eed1b9fadb731219",
+          "path": "crates/transport/src/discovery/native.rs"
+        },
+        {
+          "sha256": "7aec83bfdfecc6d7777731d4ec883263c341e75f63f9cc704c2183c54d30bed8",
+          "path": "crates/transport/src/lib.rs"
+        },
+        {
+          "sha256": "f43c0190ef960dafc54ef5fe4b3fec72bd0b14ddb4bdc528fcb472d7d3af49bc",
+          "path": "Cargo.lock"
+        },
+        {
+          "sha256": "a8be355dc2bbdb94b30e0d91d8a79da38f554c9572d9af9f8af645c6b779321c",
+          "path": "crates/transport/Cargo.toml"
+        }
+      ]
+    },
+    {
+      "metadata": "05-final-lib-tests.json",
+      "exit": 0,
+      "source_before": [
+        {
+          "path": "crates/transport/src/discovery/native.rs",
+          "sha256": "3733008f6f460025c6ae24ed59ab8e9516d05ff5c25bc5caeb755af17d8faa52"
+        },
+        {
+          "path": "crates/transport/src/lib.rs",
+          "sha256": "7aec83bfdfecc6d7777731d4ec883263c341e75f63f9cc704c2183c54d30bed8"
+        },
+        {
+          "path": "Cargo.lock",
+          "sha256": "f43c0190ef960dafc54ef5fe4b3fec72bd0b14ddb4bdc528fcb472d7d3af49bc"
+        },
+        {
+          "path": "crates/transport/Cargo.toml",
+          "sha256": "a8be355dc2bbdb94b30e0d91d8a79da38f554c9572d9af9f8af645c6b779321c"
+        }
+      ],
+      "source_after": [
+        {
+          "path": "crates/transport/src/discovery/native.rs",
+          "sha256": "3733008f6f460025c6ae24ed59ab8e9516d05ff5c25bc5caeb755af17d8faa52"
+        },
+        {
+          "path": "crates/transport/src/lib.rs",
+          "sha256": "7aec83bfdfecc6d7777731d4ec883263c341e75f63f9cc704c2183c54d30bed8"
+        },
+        {
+          "path": "Cargo.lock",
+          "sha256": "f43c0190ef960dafc54ef5fe4b3fec72bd0b14ddb4bdc528fcb472d7d3af49bc"
+        },
+        {
+          "path": "crates/transport/Cargo.toml",
+          "sha256": "a8be355dc2bbdb94b30e0d91d8a79da38f554c9572d9af9f8af645c6b779321c"
+        }
+      ]
+    },
+    {
+      "metadata": "06-final-fmt-check.json",
+      "exit": 0,
+      "source_before": [
+        {
+          "path": "crates/transport/src/discovery/native.rs",
+          "sha256": "3733008f6f460025c6ae24ed59ab8e9516d05ff5c25bc5caeb755af17d8faa52"
+        },
+        {
+          "path": "crates/transport/src/lib.rs",
+          "sha256": "7aec83bfdfecc6d7777731d4ec883263c341e75f63f9cc704c2183c54d30bed8"
+        },
+        {
+          "path": "Cargo.lock",
+          "sha256": "f43c0190ef960dafc54ef5fe4b3fec72bd0b14ddb4bdc528fcb472d7d3af49bc"
+        },
+        {
+          "path": "crates/transport/Cargo.toml",
+          "sha256": "a8be355dc2bbdb94b30e0d91d8a79da38f554c9572d9af9f8af645c6b779321c"
+        }
+      ],
+      "source_after": [
+        {
+          "path": "crates/transport/src/discovery/native.rs",
+          "sha256": "3733008f6f460025c6ae24ed59ab8e9516d05ff5c25bc5caeb755af17d8faa52"
+        },
+        {
+          "path": "crates/transport/src/lib.rs",
+          "sha256": "7aec83bfdfecc6d7777731d4ec883263c341e75f63f9cc704c2183c54d30bed8"
+        },
+        {
+          "path": "Cargo.lock",
+          "sha256": "f43c0190ef960dafc54ef5fe4b3fec72bd0b14ddb4bdc528fcb472d7d3af49bc"
+        },
+        {
+          "path": "crates/transport/Cargo.toml",
+          "sha256": "a8be355dc2bbdb94b30e0d91d8a79da38f554c9572d9af9f8af645c6b779321c"
+        }
+      ]
+    },
+    {
+      "metadata": "07-final-clippy.json",
+      "exit": 0,
+      "source_before": [
+        {
+          "sha256": "3733008f6f460025c6ae24ed59ab8e9516d05ff5c25bc5caeb755af17d8faa52",
+          "path": "crates/transport/src/discovery/native.rs"
+        },
+        {
+          "sha256": "7aec83bfdfecc6d7777731d4ec883263c341e75f63f9cc704c2183c54d30bed8",
+          "path": "crates/transport/src/lib.rs"
+        },
+        {
+          "sha256": "f43c0190ef960dafc54ef5fe4b3fec72bd0b14ddb4bdc528fcb472d7d3af49bc",
+          "path": "Cargo.lock"
+        },
+        {
+          "sha256": "a8be355dc2bbdb94b30e0d91d8a79da38f554c9572d9af9f8af645c6b779321c",
+          "path": "crates/transport/Cargo.toml"
+        }
+      ],
+      "source_after": [
+        {
+          "sha256": "3733008f6f460025c6ae24ed59ab8e9516d05ff5c25bc5caeb755af17d8faa52",
+          "path": "crates/transport/src/discovery/native.rs"
+        },
+        {
+          "sha256": "7aec83bfdfecc6d7777731d4ec883263c341e75f63f9cc704c2183c54d30bed8",
+          "path": "crates/transport/src/lib.rs"
+        },
+        {
+          "sha256": "f43c0190ef960dafc54ef5fe4b3fec72bd0b14ddb4bdc528fcb472d7d3af49bc",
+          "path": "Cargo.lock"
+        },
+        {
+          "sha256": "a8be355dc2bbdb94b30e0d91d8a79da38f554c9572d9af9f8af645c6b779321c",
+          "path": "crates/transport/Cargo.toml"
+        }
+      ]
+    }
+  ],
+  "source_sha256": "3733008f6f460025c6ae24ed59ab8e9516d05ff5c25bc5caeb755af17d8faa52",
+  "old_origin13": "UNKNOWN",
+  "network": "NOT_RUN",
+  "effective_tests": 8,
+  "formal_review": "PENDING_R2",
+  "seven_raw_and_metadata_exact": true
+}

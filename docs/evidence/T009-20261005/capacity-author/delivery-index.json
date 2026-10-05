@@ -1,0 +1,326 @@
+{
+  "task": "T009",
+  "slice": "structured Prepare capacity rejection, no widening/no retry",
+  "author": "/root/audio_runtime",
+  "agent_uuid": "01a10767-80de-7e02-b3b0-73d1273a70bd",
+  "base_audio_source_commit": "2ed6346416343970218f517ddda6731ceee5e809",
+  "captured_utc": "2026-10-05T11:31:41.585313+00:00",
+  "hash_domain": "raw working file bytes; normalized Git metadata hashes not claimed equal",
+  "changed_source_sha256": {
+    "crates/audio/src/stream/native.rs": "f448f43222566d36fa5dca178c038606035d8421535a24d4297c3bdbb4fd9f45",
+    "crates/audio/src/stream/raw_tests.rs": "3aff51c8dc13185b22fe9a73e8686eee1b49eee480501a003ed55aa9537302f9",
+    "crates/audio/examples/route_probe.rs": "5ebed61b9ea434498e5657a75d7baebb677b22ffb7ec484e3e07fa396aa77758",
+    "crates/audio/examples/support/route_marker.rs": "e89c6bd2a98640add471dfed64dc6c9c701145ef6198c8493543c90c32a5aba5",
+    "crates/audio/README.md": "0adbdad26ca397e1a76eea19f6d7bd069a82a3688e4ebca5f8ec9bbb17ae1d90"
+  },
+  "all_audio_source_sha256": {
+    "crates/audio/examples/format_support_probe.rs": "642dd87273231593cb03fc2a617bb2082a847f2fdefd5d837ae3b388ba838ccb",
+    "crates/audio/examples/list_endpoints.rs": "48de663138c39cf1eb1d19a58902a699ff6b02830d2493950ecf18a0b745600c",
+    "crates/audio/examples/notification_probe.rs": "83a9e7a7afdc3efb3faa78a4fee171b07ea0d4e2d7fca63f35c3ffd92e883f3d",
+    "crates/audio/examples/removal_probe.rs": "3f79293103daf44372577c81bfa008b895964c74bb1d821a101f9fe5c846ce2c",
+    "crates/audio/examples/route_probe.rs": "5ebed61b9ea434498e5657a75d7baebb677b22ffb7ec484e3e07fa396aa77758",
+    "crates/audio/examples/stream_smoke.rs": "32d96e2be6843cc8caaf24c67a9f23ea499fbbd0042dd2593394860531c1846c",
+    "crates/audio/examples/support/mod.rs": "cecf33cb705b319895f37e62f707ad1b9717893af417ef4a1ed37335af0287b9",
+    "crates/audio/examples/support/route_marker.rs": "e89c6bd2a98640add471dfed64dc6c9c701145ef6198c8493543c90c32a5aba5",
+    "crates/audio/README.md": "0adbdad26ca397e1a76eea19f6d7bd069a82a3688e4ebca5f8ec9bbb17ae1d90",
+    "crates/audio/src/format.rs": "28adc5bdda089561d7091d8612b0bcc80a623ef9d7075e9e5fa9c506d9b817a7",
+    "crates/audio/src/lib.rs": "bfcf8dd9063a6fc5115b0f0b2f91ca0da65d2458c8527c64665063eb5de6807b",
+    "crates/audio/src/notifications/native.rs": "2126b4602f9188861038c2e6f15a77c70d116a11799d5e00371b4c077de23e64",
+    "crates/audio/src/notifications.rs": "b4d8cf94973a6c8138013a19928c8724fac7a10eefc350087cdb6af992f7bf3a",
+    "crates/audio/src/realtime/clock.rs": "4de324bddd7b517a873080eefc97dfb9a68923adbe2f867b1fbd35fd9bd7e9ff",
+    "crates/audio/src/realtime/pipeline.rs": "c9b60fb4971867012b114f4897f0cfa7b4896889c65f452fd2bf04d419598cda",
+    "crates/audio/src/realtime/spsc.rs": "94b9cdd6ab4c76381c44495dc71f83121fc1fe4bb7b8395fd8e5310dfb729a8d",
+    "crates/audio/src/realtime.rs": "2221f43bdf6e16ce16650630c8e1ca0a7fe08f4128c3bb95f0299b2d5c3bcce8",
+    "crates/audio/src/route.rs": "8be6b672cb5e62f1f0a08f41d9177d00c164f83dd8ed8f5c64f5ce55c679707f",
+    "crates/audio/src/stream/native.rs": "f448f43222566d36fa5dca178c038606035d8421535a24d4297c3bdbb4fd9f45",
+    "crates/audio/src/stream/raw_tests.rs": "3aff51c8dc13185b22fe9a73e8686eee1b49eee480501a003ed55aa9537302f9",
+    "crates/audio/src/stream.rs": "6b4902eb727e9aa063e15204877e40493cf541979b3236209f0a30b76d7f2674",
+    "crates/audio/src/wasapi.rs": "80bd3c5b26fd6589f24650f3b1a0bd3b143912a0bfc64ce460f4dfeeee1e8c20",
+    "crates/audio/tests/allocation.rs": "29380b33dd06a2250bda91756f23af62c43e08062e828c4fe023857309444bdd",
+    "crates/audio/tests/conversion.rs": "0d3e0b7f9fcda66bdb9189e8f46214454ad1a661cc2d8ae8586e64163987f220",
+    "crates/audio/tests/realtime.rs": "f356f1d3265898d03fc181d9e0cfae36ecd6bf1f425e43bd5398485915ab5da7",
+    "crates/audio/tests/route.rs": "83185f65b9dab7ca84f12b5f5cc8f4246c9fbd52cb4daf04e51157ba7378c729",
+    "crates/audio/tests/stream_packets.rs": "343d9d02853ccc3a7b118d5c445e2ad8bb165e19e03e9e284c8ac295a03fd6d1"
+  },
+  "commands": [
+    {
+      "metadata_file": "build-20261005T113018703249.json",
+      "metadata_raw_sha256": "ac24fdb86d357e34ab1454cc5b4be1b12373558844aa3e108102292b020df187",
+      "executable": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\cargo.exe",
+      "argv": [
+        "build",
+        "--locked",
+        "-p",
+        "witvoice-audio",
+        "--example",
+        "route_probe"
+      ],
+      "started_utc": "2026-10-05T11:30:18.707334+00:00",
+      "finished_utc": "2026-10-05T11:30:19.332487+00:00",
+      "wall_seconds": 0.6254288000000088,
+      "exit": 0,
+      "environment": {
+        "CARGO_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo",
+        "RUSTUP_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\rustup",
+        "CARGO_TARGET_DIR": "D:\\Project\\witvoice\\.local\\t009-author\\target",
+        "CARGO_BUILD_JOBS": "1",
+        "CARGO_INCREMENTAL": "0"
+      },
+      "logs": {
+        "stdout": {
+          "path": ".local/t009-capacity-fix/build-20261005T113018703249.stdout.txt",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stderr": {
+          "path": ".local/t009-capacity-fix/build-20261005T113018703249.stderr.txt",
+          "bytes": 142,
+          "sha256": "22d0e5dbd3d3b8cdbe21275cd92ea06d6f891c0a9382c4a9f8249fc97f9a9c68"
+        }
+      },
+      "source_before_after_equal": true,
+      "source_after_equals_delivery": true
+    },
+    {
+      "metadata_file": "clippy-20261005T113003282585.json",
+      "metadata_raw_sha256": "eeb32b6b6979291a7c89f59f1fb1f07cb34b2cddf3d3c534ad74df90a37aa705",
+      "executable": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\cargo.exe",
+      "argv": [
+        "clippy",
+        "--locked",
+        "-p",
+        "witvoice-audio",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "started_utc": "2026-10-05T11:30:03.285633+00:00",
+      "finished_utc": "2026-10-05T11:30:04.795266+00:00",
+      "wall_seconds": 1.5085740999998052,
+      "exit": 0,
+      "environment": {
+        "CARGO_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo",
+        "RUSTUP_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\rustup",
+        "CARGO_TARGET_DIR": "D:\\Project\\witvoice\\.local\\t009-author\\target",
+        "CARGO_BUILD_JOBS": "1",
+        "CARGO_INCREMENTAL": "0"
+      },
+      "logs": {
+        "stdout": {
+          "path": ".local/t009-capacity-fix/clippy-20261005T113003282585.stdout.txt",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stderr": {
+          "path": ".local/t009-capacity-fix/clippy-20261005T113003282585.stderr.txt",
+          "bytes": 142,
+          "sha256": "2554b924ac1ca5a3022bbf365983165ed21e1f542981ef860f4e864c086ccbfc"
+        }
+      },
+      "source_before_after_equal": true,
+      "source_after_equals_delivery": true
+    },
+    {
+      "metadata_file": "fmt-check-20261005T112947242128.json",
+      "metadata_raw_sha256": "357885d445bca6473373f8b3af03e45396c85af27c1d02d362d3dc12195c75f0",
+      "executable": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\cargo.exe",
+      "argv": [
+        "fmt",
+        "--package",
+        "witvoice-audio",
+        "--check"
+      ],
+      "started_utc": "2026-10-05T11:29:47.246184+00:00",
+      "finished_utc": "2026-10-05T11:29:47.441836+00:00",
+      "wall_seconds": 0.1953705999999329,
+      "exit": 0,
+      "environment": {
+        "CARGO_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo",
+        "RUSTUP_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\rustup",
+        "CARGO_TARGET_DIR": "D:\\Project\\witvoice\\.local\\t009-author\\target",
+        "CARGO_BUILD_JOBS": "1",
+        "CARGO_INCREMENTAL": "0"
+      },
+      "logs": {
+        "stdout": {
+          "path": ".local/t009-capacity-fix/fmt-check-20261005T112947242128.stdout.txt",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stderr": {
+          "path": ".local/t009-capacity-fix/fmt-check-20261005T112947242128.stderr.txt",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "source_before_after_equal": true,
+      "source_after_equals_delivery": true
+    },
+    {
+      "metadata_file": "format-source-20261005T112915089198.json",
+      "metadata_raw_sha256": "6b7dd59def552abcc1036c71c8c5da658040b1eba37c3534fcd9eba34972f341",
+      "executable": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\rustfmt.exe",
+      "argv": [
+        "--edition",
+        "2024",
+        "crates/audio/src/stream/native.rs",
+        "crates/audio/src/stream/raw_tests.rs",
+        "crates/audio/examples/route_probe.rs",
+        "crates/audio/examples/support/route_marker.rs"
+      ],
+      "started_utc": "2026-10-05T11:29:15.093483+00:00",
+      "finished_utc": "2026-10-05T11:29:15.172237+00:00",
+      "wall_seconds": 0.07851580000033209,
+      "exit": 0,
+      "environment": {
+        "CARGO_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo",
+        "RUSTUP_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\rustup",
+        "CARGO_TARGET_DIR": "D:\\Project\\witvoice\\.local\\t009-author\\target",
+        "CARGO_BUILD_JOBS": "1",
+        "CARGO_INCREMENTAL": "0"
+      },
+      "logs": {
+        "stdout": {
+          "path": ".local/t009-capacity-fix/format-source-20261005T112915089198.stdout.txt",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stderr": {
+          "path": ".local/t009-capacity-fix/format-source-20261005T112915089198.stderr.txt",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "source_before_after_equal": false,
+      "source_after_equals_delivery": true
+    },
+    {
+      "metadata_file": "test-20261005T112928132039.json",
+      "metadata_raw_sha256": "13d2517a97dbf669a115c98d196aa301d3f0b1b5ddce304b29e45adc8f786edb",
+      "executable": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\cargo.exe",
+      "argv": [
+        "test",
+        "--locked",
+        "-p",
+        "witvoice-audio",
+        "--all-targets"
+      ],
+      "started_utc": "2026-10-05T11:29:28.136686+00:00",
+      "finished_utc": "2026-10-05T11:29:34.385650+00:00",
+      "wall_seconds": 6.249599899999794,
+      "exit": 0,
+      "environment": {
+        "CARGO_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo",
+        "RUSTUP_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\rustup",
+        "CARGO_TARGET_DIR": "D:\\Project\\witvoice\\.local\\t009-author\\target",
+        "CARGO_BUILD_JOBS": "1",
+        "CARGO_INCREMENTAL": "0"
+      },
+      "logs": {
+        "stdout": {
+          "path": ".local/t009-capacity-fix/test-20261005T112928132039.stdout.txt",
+          "bytes": 6689,
+          "sha256": "a11f47877a4ed9cdda9d9d6b9d32ccf18bb8bd6f39c657b5f7ae0761ee0be2eb"
+        },
+        "stderr": {
+          "path": ".local/t009-capacity-fix/test-20261005T112928132039.stderr.txt",
+          "bytes": 1548,
+          "sha256": "64f6507d5e6d812e48bcc29c6ed83491556806341fda8178ecc6e7367e7cbbf2"
+        }
+      },
+      "source_before_after_equal": true,
+      "source_after_equals_delivery": true
+    }
+  ],
+  "command_count": 5,
+  "nonzero_commands": [],
+  "final_check_metadata": [
+    "test-20261005T112928132039.json",
+    "fmt-check-20261005T112947242128.json",
+    "clippy-20261005T113003282585.json",
+    "build-20261005T113018703249.json"
+  ],
+  "final_test_partitions": [
+    25,
+    3,
+    10,
+    14,
+    6,
+    3,
+    0,
+    0,
+    0,
+    0,
+    3,
+    0
+  ],
+  "effective_tests": 64,
+  "readonly_git_checks": [
+    {
+      "argv": [
+        "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\git\\cmd\\git.exe",
+        "diff",
+        "--check",
+        "--",
+        "crates/audio/src/stream/native.rs",
+        "crates/audio/src/stream/raw_tests.rs",
+        "crates/audio/examples/route_probe.rs",
+        "crates/audio/examples/support/route_marker.rs",
+        "crates/audio/README.md"
+      ],
+      "started_utc": "2026-10-05T11:31:41.512587+00:00",
+      "finished_utc": "2026-10-05T11:31:41.553648+00:00",
+      "exit": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\git\\cmd\\git.exe",
+        "diff",
+        "--exit-code",
+        "2ed6346416343970218f517ddda6731ceee5e809",
+        "--",
+        "crates/audio/src/route.rs",
+        "crates/audio/src/lib.rs",
+        "crates/audio/tests/route.rs"
+      ],
+      "started_utc": "2026-10-05T11:31:41.553648+00:00",
+      "finished_utc": "2026-10-05T11:31:41.583808+00:00",
+      "exit": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "new_probe_binary": {
+    "path": ".local/t009-author/target/debug/examples/route_probe.exe",
+    "bytes": 891904,
+    "sha256": "fffc85218b1b5d09c165dafeaed2685f601c7fce285c741fb4f18692c9db8ccb",
+    "build_metadata": "build-20261005T113018703249.json",
+    "executed": false
+  },
+  "invariants": [
+    "Prepare parameter bound <=200ms retained",
+    "probe maximum960 retained",
+    "submit_processed <=960 retained",
+    "NegotiatedCapacity retains exact GetBufferSize value including0, with no automatic widening or retry",
+    "early report stage/requested/knownactual/native_startfalse/cleanupUNKNOWN; no RAII-to-close-PASS claim"
+  ],
+  "risk_notes": [
+    "Historical consumed once failed with generic Capacity; actual0 versus greater960 remains UNKNOWN until new explicitly authorized diagnostic, not tested here.",
+    "No native Initialize/Start/render/capture/metadata probe was run; new binary only compiled.",
+    "Origin/evidence scope and processed-result trust boundaries unchanged; route success is still unproven.",
+    "OS cleanup and retained COM registration on failure require actual evidence; helper tests do not establish actual teardown.",
+    "T010/T016 compiler failure causes remain UNKNOWN; no new ICE/AV/toolpanic observed in these five checks."
+  ],
+  "unexecuted": [
+    "any new or old probe execution",
+    "all hardware/GPU/LAN",
+    "capacity measurement on actual driver",
+    "full VC/model/third-party/Mac verification"
+  ],
+  "hardware": "NOT_RUN; once authorization already consumed",
+  "independent_review": "PENDING",
+  "status": "AUTHOR_DELIVERED_STOP_WRITES"
+}

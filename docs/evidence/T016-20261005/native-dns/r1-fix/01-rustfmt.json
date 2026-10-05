@@ -1,0 +1,67 @@
+{
+  "stdout": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "path": "D:\\Project\\witvoice\\.local\\t016-r1-fix\\01-rustfmt.stdout",
+    "bytes": 0
+  },
+  "end_utc": "2026-10-05T11:25:57.7375032Z",
+  "scope": "T016 single S2 software only; NO_NETWORK_NO_HARDWARE_NO_AUDIO_NO_IDENTITY_API",
+  "executable": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\rustfmt.exe",
+  "cwd": "D:\\Project\\witvoice",
+  "source_after": [
+    {
+      "path": "crates/transport/src/discovery/native.rs",
+      "sha256": "d6fda8129ac23395c097be30af0d8b7aef9fcb110b22bf90eed1b9fadb731219"
+    },
+    {
+      "path": "crates/transport/src/lib.rs",
+      "sha256": "7aec83bfdfecc6d7777731d4ec883263c341e75f63f9cc704c2183c54d30bed8"
+    },
+    {
+      "path": "Cargo.lock",
+      "sha256": "f43c0190ef960dafc54ef5fe4b3fec72bd0b14ddb4bdc528fcb472d7d3af49bc"
+    },
+    {
+      "path": "crates/transport/Cargo.toml",
+      "sha256": "a8be355dc2bbdb94b30e0d91d8a79da38f554c9572d9af9f8af645c6b779321c"
+    }
+  ],
+  "env": {
+    "CARGO_TARGET_DIR": "D:\\Project\\witvoice\\.local\\t016-diagnostics-author\\target",
+    "CARGO_BUILD_JOBS": "1",
+    "RUSTUP_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\rustup",
+    "CARGO_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo",
+    "CARGO_INCREMENTAL": "0"
+  },
+  "argv": [
+    "--edition",
+    "2024",
+    "crates/transport/src/discovery/native.rs"
+  ],
+  "exit_code": 0,
+  "start_utc": "2026-10-05T11:25:57.6523615Z",
+  "source_before": [
+    {
+      "path": "crates/transport/src/discovery/native.rs",
+      "sha256": "24a665b2710364abbbe03def7d57330dd637f21854fdf242c77bdbb44d8d01de"
+    },
+    {
+      "path": "crates/transport/src/lib.rs",
+      "sha256": "7aec83bfdfecc6d7777731d4ec883263c341e75f63f9cc704c2183c54d30bed8"
+    },
+    {
+      "path": "Cargo.lock",
+      "sha256": "f43c0190ef960dafc54ef5fe4b3fec72bd0b14ddb4bdc528fcb472d7d3af49bc"
+    },
+    {
+      "path": "crates/transport/Cargo.toml",
+      "sha256": "a8be355dc2bbdb94b30e0d91d8a79da38f554c9572d9af9f8af645c6b779321c"
+    }
+  ],
+  "stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "path": "D:\\Project\\witvoice\\.local\\t016-r1-fix\\01-rustfmt.stderr",
+    "bytes": 0
+  },
+  "overrides": {}
+}

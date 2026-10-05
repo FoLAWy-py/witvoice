@@ -7,64 +7,80 @@
   "active_milestone": "M1",
   "active_tasks": [
     {
-      "task_id": "T016",
-      "agent_instance_id": "/root/reviewer_t001",
-      "allowed_paths": [
-        "crates/platform/src/discovery.rs",
-        "crates/platform/src/discovery/",
-        "crates/platform/src/identity.rs",
-        "crates/platform/src/lib.rs",
-        "crates/platform/tests/",
-        "crates/transport/",
-        "docs/project/T016-review-assignment.md",
-        "docs/project/T016-diagnostics-assignment.md",
-        "docs/evidence/T016-20261005/",
-        "docs/evidence/integration/20261005-T008-T016-r2/",
-        "docs/spec/01-architecture.md",
-        "docs/spec/04-lan-protocol.md",
-        "docs/spec/06-security-distribution.md",
-        "docs/spec/07-tests-acceptance.md",
-        "crates/contracts/src/values.rs",
-        "crates/contracts/src/control.rs",
-        "crates/contracts/src/lib.rs",
-        "crates/platform/README.md",
-        "crates/transport/README.md",
-        "crates/platform/src/windows.rs"
-      ],
-      "resource_leases": [
-        "readonly-review:t016-r1"
-      ],
-      "depends_on": [
-        "T003",
-        "T006"
-      ],
-      "contract": "docs/project/T016-review-assignment.md: first formalr1 source6c68, raw author48/root132, actual consumed onceFAIL/unknown13, observable failures required; source remains frozen despite disjoint T009",
-      "acceptance_commands": [
-        "Independent exact frozen source/evidence read and precise S0-S3/minimum reproduction or limited fixed task approval"
-      ],
-      "execution_note": "Only first formalattempt1/3; no escalation/rerun/network/hardware/Mac. Earlier preflight not formalapproval.; windows.rs read only current_user_sid helper, not whole file; frontend UUID01a10768-e2d1-75f3-8131-5a1bfeb73deb exact readonly relay."
-    },
-    {
       "task_id": "T009",
       "agent_instance_id": "/root",
       "allowed_paths": [
         ".local/t009-vbcable-once/supervise_once.ps1",
         ".local/t009-vbcable-once/config.json",
         "docs/evidence/T009-20261005/",
-        "docs/project/"
+        "docs/project/",
+        ".local/t009-leader-check/",
+        ".local/t009-author/target/",
+        ".local/t009-vbcable-once/"
       ],
-      "resource_leases": [
-        "code-writer:leader-vbcable-supervisor"
-      ],
+      "resource_leases": [],
       "depends_on": [
         "T007",
         "T008"
       ],
-      "contract": "Create reviewed bounded native PowerShell5.1 once supervisor after both authors actual STOP_WRITES; only preflight creation/parse/hash, hardware NOT_RUN",
+      "contract": "Independent preflight received allows current fixed config; one2s0.01 marker exact verified VB-CABLE pair with13s child/15s total, no physical endpoints/PCMfiles/default changes/retry",
       "acceptance_commands": [
         "PowerShell AST parse no errors; readonly independent source/preflight review"
       ],
-      "execution_note": "No audio/GPU/LAN hardware lease yet; author62 tests/fmt/Clippy/build0 verified pending leader byte audit. One human VB permission remains AUTHORIZED_NOT_EXECUTED."
+      "execution_note": "Registered before actual execution; human authorization remains unconsumed until supervisor consume-beforelaunch. No concurrent GPU/audio/LAN test."
+    },
+    {
+      "task_id": "T010",
+      "agent_instance_id": "/root",
+      "allowed_paths": [
+        ".local/t010-integration-cache/",
+        ".local/t008-t016-r2-leader/target/",
+        "docs/evidence/integration/20261005-T009-T010-T016/",
+        "docs/project/",
+        "docs/evidence/T016-20261005/native-dns/r1-fix/"
+      ],
+      "resource_leases": [
+        "code-writer:leader-conditional-integration"
+      ],
+      "depends_on": [
+        "T006",
+        "T008"
+      ],
+      "contract": "One conditional workspace validation after authors STOP: reuse exact prior132-test workspace27feature Windows cached units, avoiding failed cold16feature unit. Not same failedT010 command/coldtarget or environment repair; stop onICE.",
+      "acceptance_commands": [
+        "cargo test --locked --workspace --all-targets --features witvoice-node/process-tests,witvoice-session/test-support -- --nocapture",
+        "cargo fmt --all --check",
+        "cargo clippy --locked --workspace --all-targets --features witvoice-node/process-tests,witvoice-session/test-support -- -D warnings",
+        "cargo build --locked --workspace --examples"
+      ],
+      "execution_note": "Prepare runner only, wait audioSTOP before freeze/run. Root+audio max2writers, no hardware/GPU/LAN; fullargv/raw/UTC/source beforeafter/exit preserved."
+    },
+    {
+      "task_id": "T010",
+      "agent_instance_id": "/root/backend",
+      "allowed_paths": [
+        "crates/session/src/lib.rs",
+        "crates/session/src/test_support.rs",
+        "tests/contract/session_identity.rs",
+        "tests/integration/identity_pipeline.rs",
+        "tests/integration/support/mod.rs",
+        "apps/voice-node/tests/supervision.rs",
+        "apps/voice-node/README.md",
+        ".local/t010-static-fix/"
+      ],
+      "resource_leases": [
+        "code-writer:backend-t010-static"
+      ],
+      "depends_on": [
+        "T006",
+        "T008"
+      ],
+      "contract": "Static known muted getter defect and targeted negative coverage; singlecanonicalFSM unchanged, document explicit Stop recovery forBlocked busy, no root/sharedaudio/platform changes",
+      "acceptance_commands": [
+        "rustfmt affectedsources --check",
+        "Leader conditional workspace27featurecache tests after authorSTOP; not blind prior coldtargetretry"
+      ],
+      "execution_note": "Root+backend max2writers; edit/format only, no cargo/compiler/hardware/network; preserve originalICE"
     }
   ],
   "milestones": {
@@ -179,8 +195,8 @@
   "last_verified_scope": "Independent T008 r2 approved audio software slice plus prior frozen M0/T006/T007 API/T021. Excludes T016 diagnosis/discovery formal approval, new hardware/virtual route/whole VC/Mac.",
   "execution_status": "RUNNING_SCOPED_TASKS",
   "interruption_evidence": "docs/project/interruption-20261005.json",
-  "last_tested_commit": "6c68c5dd3501da0681c27d57baa8ade694910468",
-  "last_tested_scope": "Frozen repaired T008 + T016 diagnosis:132 effective workspace alltargets/process-tests, fmt/alltargetClippy/all examples0; 64 captured Rust/manifest/audioREADME hash entries unchanged. No native Start/model/GPU/audio/LAN/Mac.",
+  "last_tested_commit": "2ed6346416343970218f517ddda6731ceee5e809",
+  "last_tested_scope": "T009 subset only:62 audio effective tests/fmt/strictClippy/probe build0 postintegration. T010 compilerICE blocked; no wholeworkspace/native Start/model/Mac proof.",
   "windows_virtual_route": {
     "selected": "VB-CABLE",
     "render": "CABLE Input",
@@ -189,7 +205,7 @@
     "custom_driver": "OUT_OF_SCOPE",
     "once_authorization": {
       "source": "human explicit VB-CABLE instruction on this resume",
-      "status": "AUTHORIZED_NOT_EXECUTED",
+      "status": "CONSUMED_FAILED_NO_RETRY",
       "max_marker_seconds": 5,
       "max_total_seconds": 15,
       "no_retry": true,
@@ -198,6 +214,6 @@
       "pcm_disk_upload": false,
       "default_device_changes": false
     },
-    "continuity": "NOT_RUN"
+    "continuity": "FAIL_PREPARE_CAPACITY_BEFORE_START"
   }
 }

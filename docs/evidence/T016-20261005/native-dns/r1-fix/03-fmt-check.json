@@ -1,0 +1,68 @@
+{
+  "cwd": "D:\\Project\\witvoice",
+  "exit_code": 0,
+  "scope": "T016 single S2 software only; NO_NETWORK_NO_HARDWARE_NO_AUDIO_NO_IDENTITY_API",
+  "env": {
+    "RUSTUP_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\rustup",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_TARGET_DIR": "D:\\Project\\witvoice\\.local\\t016-diagnostics-author\\target",
+    "CARGO_BUILD_JOBS": "1",
+    "CARGO_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo"
+  },
+  "stderr": {
+    "path": "D:\\Project\\witvoice\\.local\\t016-r1-fix\\03-fmt-check.stderr",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "stdout": {
+    "path": "D:\\Project\\witvoice\\.local\\t016-r1-fix\\03-fmt-check.stdout",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "overrides": {},
+  "source_before": [
+    {
+      "sha256": "d6fda8129ac23395c097be30af0d8b7aef9fcb110b22bf90eed1b9fadb731219",
+      "path": "crates/transport/src/discovery/native.rs"
+    },
+    {
+      "sha256": "7aec83bfdfecc6d7777731d4ec883263c341e75f63f9cc704c2183c54d30bed8",
+      "path": "crates/transport/src/lib.rs"
+    },
+    {
+      "sha256": "f43c0190ef960dafc54ef5fe4b3fec72bd0b14ddb4bdc528fcb472d7d3af49bc",
+      "path": "Cargo.lock"
+    },
+    {
+      "sha256": "a8be355dc2bbdb94b30e0d91d8a79da38f554c9572d9af9f8af645c6b779321c",
+      "path": "crates/transport/Cargo.toml"
+    }
+  ],
+  "end_utc": "2026-10-05T11:26:27.9008985Z",
+  "start_utc": "2026-10-05T11:26:27.7500858Z",
+  "executable": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\cargo.exe",
+  "source_after": [
+    {
+      "sha256": "d6fda8129ac23395c097be30af0d8b7aef9fcb110b22bf90eed1b9fadb731219",
+      "path": "crates/transport/src/discovery/native.rs"
+    },
+    {
+      "sha256": "7aec83bfdfecc6d7777731d4ec883263c341e75f63f9cc704c2183c54d30bed8",
+      "path": "crates/transport/src/lib.rs"
+    },
+    {
+      "sha256": "f43c0190ef960dafc54ef5fe4b3fec72bd0b14ddb4bdc528fcb472d7d3af49bc",
+      "path": "Cargo.lock"
+    },
+    {
+      "sha256": "a8be355dc2bbdb94b30e0d91d8a79da38f554c9572d9af9f8af645c6b779321c",
+      "path": "crates/transport/Cargo.toml"
+    }
+  ],
+  "argv": [
+    "fmt",
+    "--package",
+    "witvoice-transport",
+    "--check"
+  ]
+}

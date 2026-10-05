@@ -1,0 +1,42 @@
+{
+  "effective_tests": 64,
+  "five_commands_raw_and_metadata_exact": true,
+  "old_once": "FAILED_CONSUMED_NO_RETRY",
+  "all27sources_match": true,
+  "task": "T009",
+  "hardware": "NOT_RUN",
+  "owner": "/root",
+  "runs": [
+    {
+      "metadata": "build-20261005T113018703249.json",
+      "exit": 0,
+      "source_before_after_equal": true,
+      "source_after_equals_delivery": true
+    },
+    {
+      "metadata": "clippy-20261005T113003282585.json",
+      "exit": 0,
+      "source_before_after_equal": true,
+      "source_after_equals_delivery": true
+    },
+    {
+      "metadata": "fmt-check-20261005T112947242128.json",
+      "exit": 0,
+      "source_before_after_equal": true,
+      "source_after_equals_delivery": true
+    },
+    {
+      "metadata": "format-source-20261005T112915089198.json",
+      "exit": 0,
+      "source_before_after_equal": false,
+      "source_after_equals_delivery": true
+    },
+    {
+      "metadata": "test-20261005T112928132039.json",
+      "exit": 0,
+      "source_before_after_equal": true,
+      "source_after_equals_delivery": true
+    }
+  ],
+  "new_binary_sha256": "fffc85218b1b5d09c165dafeaed2685f601c7fce285c741fb4f18692c9db8ccb"
+}

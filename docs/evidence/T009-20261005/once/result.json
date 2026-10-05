@@ -1,0 +1,32 @@
+{
+  "task": "T009",
+  "authorization_id": "T009-VBCABLE-880c5b5b-9eda-4673-83ef-4a8cb9c2458c",
+  "status": "FAIL_ROUTE_PROBE",
+  "child_exit": 1,
+  "timed_out": false,
+  "child_terminated": false,
+  "error": null,
+  "report": null,
+  "cleanup": "UNKNOWN",
+  "pcm_saved": false,
+  "physical_capture": "NEVER_STARTED",
+  "physical_render": "NEVER_STARTED",
+  "os_buffer_erasure": "UNKNOWN",
+  "source_commit": "2ed6346416343970218f517ddda6731ceee5e809",
+  "executable_sha256": "64bf013d645633a9e354e09f46fa1241d3294bbeb00c6c506af48d4fad33b8dc",
+  "scope_sha256": "f1b3241fdd3e887e5cef6d60d152320f7b6aeca2ed4c06adc156b6cd519baeca",
+  "supervisor_sha256": "85aa2ce187a20a795f98cea5fde63ae056d88bb2b64920ecbd8bf80cc2272ddf",
+  "config_sha256": "8c079b8e5073298543b9408938621e573b3435d77476b08d79d809306d205ce0",
+  "started_utc": "2026-10-05T11:21:31.6981888Z",
+  "process_id": 31720,
+  "finished_utc": "2026-10-05T11:21:31.8165084Z",
+  "wall_seconds": 0.1194608,
+  "stdout": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stderr": {
+    "bytes": 47,
+    "sha256": "dcf0cdc62c899a4ce019dc637bd2a74630bb5a0434ba12f120d47bd7394f2c1f"
+  }
+}

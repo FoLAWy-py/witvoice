@@ -1,0 +1,69 @@
+{
+  "cwd": "D:\\Project\\witvoice",
+  "overrides": {},
+  "stderr": {
+    "bytes": 276,
+    "sha256": "133d5a823d52ae2331cda59403228b60c14bac4245155b6482f89b3ef11ac9a1",
+    "path": "D:\\Project\\witvoice\\.local\\t016-r1-fix\\02-transport-lib-tests.stderr"
+  },
+  "stdout": {
+    "bytes": 965,
+    "sha256": "38519f76f956e4af9cb66fcaabe4500ff8d7b02421edd66e2b92e9cd59a6d4a0",
+    "path": "D:\\Project\\witvoice\\.local\\t016-r1-fix\\02-transport-lib-tests.stdout"
+  },
+  "argv": [
+    "test",
+    "--locked",
+    "-p",
+    "witvoice-transport",
+    "--lib"
+  ],
+  "source_before": [
+    {
+      "path": "crates/transport/src/discovery/native.rs",
+      "sha256": "d6fda8129ac23395c097be30af0d8b7aef9fcb110b22bf90eed1b9fadb731219"
+    },
+    {
+      "path": "crates/transport/src/lib.rs",
+      "sha256": "7aec83bfdfecc6d7777731d4ec883263c341e75f63f9cc704c2183c54d30bed8"
+    },
+    {
+      "path": "Cargo.lock",
+      "sha256": "f43c0190ef960dafc54ef5fe4b3fec72bd0b14ddb4bdc528fcb472d7d3af49bc"
+    },
+    {
+      "path": "crates/transport/Cargo.toml",
+      "sha256": "a8be355dc2bbdb94b30e0d91d8a79da38f554c9572d9af9f8af645c6b779321c"
+    }
+  ],
+  "env": {
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_TARGET_DIR": "D:\\Project\\witvoice\\.local\\t016-diagnostics-author\\target",
+    "CARGO_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo",
+    "CARGO_BUILD_JOBS": "1",
+    "RUSTUP_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\rustup"
+  },
+  "source_after": [
+    {
+      "path": "crates/transport/src/discovery/native.rs",
+      "sha256": "d6fda8129ac23395c097be30af0d8b7aef9fcb110b22bf90eed1b9fadb731219"
+    },
+    {
+      "path": "crates/transport/src/lib.rs",
+      "sha256": "7aec83bfdfecc6d7777731d4ec883263c341e75f63f9cc704c2183c54d30bed8"
+    },
+    {
+      "path": "Cargo.lock",
+      "sha256": "f43c0190ef960dafc54ef5fe4b3fec72bd0b14ddb4bdc528fcb472d7d3af49bc"
+    },
+    {
+      "path": "crates/transport/Cargo.toml",
+      "sha256": "a8be355dc2bbdb94b30e0d91d8a79da38f554c9572d9af9f8af645c6b779321c"
+    }
+  ],
+  "scope": "T016 single S2 software only; NO_NETWORK_NO_HARDWARE_NO_AUDIO_NO_IDENTITY_API",
+  "end_utc": "2026-10-05T11:26:12.5023405Z",
+  "exit_code": 0,
+  "start_utc": "2026-10-05T11:26:10.5427421Z",
+  "executable": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\cargo.exe"
+}

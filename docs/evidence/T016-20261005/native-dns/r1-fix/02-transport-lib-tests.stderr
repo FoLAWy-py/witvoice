@@ -1,0 +1,3 @@
+   Compiling witvoice-transport v0.1.0 (D:\Project\witvoice\crates\transport)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.85s
+     Running unittests src\lib.rs (.local\t016-diagnostics-author\target\debug\deps\witvoice_transport-c17476c64fbd1333.exe)
