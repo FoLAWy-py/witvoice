@@ -1,0 +1,103 @@
+{
+  "utc": "2026-10-05T10:45:13.4618324Z",
+  "selection": "VB-CABLE selected explicitly by user for this Windows round",
+  "operation": "readonly PnP properties + frozen metadata-only WASAPI enumeration",
+  "command_chunks": [
+    "eade18",
+    "1a2c27",
+    "d067f3",
+    "f714bc",
+    "41450c"
+  ],
+  "all_completed_exit_codes": 0,
+  "identity_rule": "PnP instance suffix equals WASAPI UID case-insensitively; explicit API flow/active/mix and actual parent MEDIA driver",
+  "enum_exe_sha256": "024a665c801cc4fa8c52938cdf74bd17973a19216b31fe163adbc96ff5b7bc03",
+  "enum_source_commit": "6c68c5dd3501da0681c27d57baa8ade694910468",
+  "endpoints": [
+    {
+      "flow": "Render",
+      "display_name": "CABLE Input (VB-Audio Virtual Cable)",
+      "state_bits": 1,
+      "mix_format": {
+        "format_tag": 65534,
+        "sample_rate": 48000,
+        "channels": 2,
+        "container_bits": 32,
+        "valid_bits": 32,
+        "block_align": 8,
+        "average_bytes_per_second": 384000,
+        "extra_bytes": 22,
+        "channel_mask": 3,
+        "subformat": "00000003-0000-0010-8000-00AA00389B71",
+        "adapter_format": {
+          "sample_rate": 48000,
+          "channels": 2,
+          "encoding": "Float32"
+        },
+        "adapter_error": null
+      },
+      "provider": "VB-Audio Software",
+      "service": "VBAudioVACMME",
+      "driver_version": "3.3.1.7",
+      "inf": "oem95.inf"
+    },
+    {
+      "flow": "Capture",
+      "display_name": "CABLE Output (VB-Audio Virtual Cable)",
+      "state_bits": 1,
+      "mix_format": {
+        "format_tag": 65534,
+        "sample_rate": 48000,
+        "channels": 2,
+        "container_bits": 32,
+        "valid_bits": 32,
+        "block_align": 8,
+        "average_bytes_per_second": 384000,
+        "extra_bytes": 22,
+        "channel_mask": 3,
+        "subformat": "00000003-0000-0010-8000-00AA00389B71",
+        "adapter_format": {
+          "sample_rate": 48000,
+          "channels": 2,
+          "encoding": "Float32"
+        },
+        "adapter_error": null
+      },
+      "provider": "VB-Audio Software",
+      "service": "VBAudioVACMME",
+      "driver_version": "3.3.1.7",
+      "inf": "oem95.inf"
+    }
+  ],
+  "private_artifacts": [
+    {
+      "private_path": ".local/t009-vbcable-once/pnp-private.json",
+      "bytes": 4532,
+      "sha256": "b83c00d085b648ab33505885f88c2f1fff18ce491af828e7da5355aeec941567",
+      "public_contents": false
+    },
+    {
+      "private_path": ".local/t009-vbcable-once/wasapi-private.json",
+      "bytes": 11186,
+      "sha256": "8fa9eb85bc5ce4f1ecec56e606bad8a3e8bb5a0621d102f0469c7fec9acb36d1",
+      "public_contents": false
+    },
+    {
+      "private_path": ".local/t009-vbcable-once/verified-pair-private.json",
+      "bytes": 2092,
+      "sha256": "4b506fd03349810628cdb2b5104ebac85186623816bb9a153f5a18153dc7a0a3",
+      "public_contents": false
+    },
+    {
+      "private_path": ".local/t009-vbcable-once/metadata-execution.json",
+      "bytes": 509,
+      "sha256": "d1a0d07828bdc95b49d7c1de8daba803a3e71b0ebde8942245c1e344277e18ed",
+      "public_contents": false
+    }
+  ],
+  "excluded": "CABLE In 16ch and all Steam/physical endpoints",
+  "native_initialize_start": "NOT_RUN",
+  "route_continuity": "NOT_RUN",
+  "once_authorization": "AUTHORIZED_NOT_EXECUTED",
+  "scope": "Device appearance/metadata does not prove loopback, VC, third-party app or long stability"
+}

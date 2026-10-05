@@ -16,7 +16,10 @@
         "crates/audio/examples/route_probe.rs",
         "crates/audio/examples/support/",
         "crates/audio/README.md",
-        ".local/t009-author/"
+        ".local/t009-author/",
+        ".local/t009-vbcable-once/pnp-private.json",
+        ".local/t009-vbcable-once/wasapi-private.json",
+        "docs/evidence/T009-20261005/candidate-metadata.json"
       ],
       "resource_leases": [
         "code-writer:audio-t009-route"
@@ -32,7 +35,7 @@
         "cargo clippy --locked -p witvoice-audio --all-targets -- -D warnings",
         "cargo build --locked -p witvoice-audio --example route_probe"
       ],
-      "execution_note": "Software implementation/metadata only. Native Start/render/capture need NEW concrete approval and exclusive lease after compiled source review."
+      "execution_note": "Renewed on explicit VB-CABLE instruction; audio software author only. User authorized once generated marker <=5s/whole <=15s on verified CABLE pair, leader source review/build/lease/announcement required; no physical streams/no retry. Steam retired candidate."
     },
     {
       "task_id": "T016",
@@ -71,26 +74,37 @@
     },
     {
       "task_id": "T010",
-      "agent_instance_id": "/root",
+      "agent_instance_id": "/root/backend",
       "allowed_paths": [
-        "crates/session/Cargo.toml",
-        "apps/voice-node/Cargo.toml",
-        "Cargo.lock",
-        ".local/t010-leader/"
+        "crates/session/src/lib.rs",
+        "crates/session/src/test_support.rs",
+        "crates/session/tests/lifecycle.rs",
+        "crates/session/README.md",
+        "tests/contract/session_identity.rs",
+        "tests/integration/identity_pipeline.rs",
+        "tests/integration/support/",
+        "apps/voice-node/src/lib.rs",
+        "apps/voice-node/src/bin/process-probe.rs",
+        "apps/voice-node/tests/supervision.rs",
+        "apps/voice-node/README.md",
+        ".local/t010-author/"
       ],
       "resource_leases": [
-        "code-writer:leader-t010-manifests"
+        "code-writer:backend-t010-foundation"
       ],
       "depends_on": [
         "T006",
         "T008"
       ],
-      "contract": "docs/project/T010-assignment.md; default-off erased test hooks; audio devdeps and explicit integration targets; backend architecture answer pending before manifest edit",
+      "contract": "docs/project/T010-assignment.md now activated; default-off erased library hooks, audio adapter only test targets, same Runtime/failclosed production",
       "acceptance_commands": [
-        "cargo metadata --locked --offline --no-deps --format-version 1 after author test files exist",
-        "leader inspect exact local-only lock delta; no registry version changes"
+        "cargo test --locked -p witvoice-session --all-targets --features test-support -- --nocapture",
+        "cargo test --locked -p witvoice-node --all-targets --features process-tests -- --nocapture",
+        "cargo fmt --package witvoice-session --package witvoice-node --check",
+        "cargo clippy --locked -p witvoice-session -p witvoice-node --all-targets --features witvoice-node/process-tests -- -D warnings",
+        "cargo build --locked -p witvoice-node --release"
       ],
-      "execution_note": "Manifest lease registered before code; audio T009 + leader at most2 writers. No backend source lease yet."
+      "execution_note": "Leader manifest lease released after exact local-only lock audit and locked metadata0. Backend software implementation lease registered before dispatch; audio+backend at most2 writers. No hardware/GPU/LAN."
     }
   ],
   "milestones": {
@@ -206,5 +220,24 @@
   "execution_status": "RUNNING_SCOPED_TASKS",
   "interruption_evidence": "docs/project/interruption-20261005.json",
   "last_tested_commit": "6c68c5dd3501da0681c27d57baa8ade694910468",
-  "last_tested_scope": "Frozen repaired T008 + T016 diagnosis:132 effective workspace alltargets/process-tests, fmt/alltargetClippy/all examples0; 64 captured Rust/manifest/audioREADME hash entries unchanged. No native Start/model/GPU/audio/LAN/Mac."
+  "last_tested_scope": "Frozen repaired T008 + T016 diagnosis:132 effective workspace alltargets/process-tests, fmt/alltargetClippy/all examples0; 64 captured Rust/manifest/audioREADME hash entries unchanged. No native Start/model/GPU/audio/LAN/Mac.",
+  "windows_virtual_route": {
+    "selected": "VB-CABLE",
+    "render": "CABLE Input",
+    "capture": "CABLE Output",
+    "steam_candidate": "WITHDRAWN_CURRENT_ROUND_HISTORY_RETAINED",
+    "custom_driver": "OUT_OF_SCOPE",
+    "once_authorization": {
+      "source": "human explicit VB-CABLE instruction on this resume",
+      "status": "AUTHORIZED_NOT_EXECUTED",
+      "max_marker_seconds": 5,
+      "max_total_seconds": 15,
+      "no_retry": true,
+      "physical_capture": false,
+      "physical_render": false,
+      "pcm_disk_upload": false,
+      "default_device_changes": false
+    },
+    "continuity": "NOT_RUN"
+  }
 }

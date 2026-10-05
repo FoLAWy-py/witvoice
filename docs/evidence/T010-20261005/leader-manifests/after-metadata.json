@@ -1,0 +1,29 @@
+{
+  "started_utc": "2026-10-05T10:31:16.2844949Z",
+  "finished_utc": "2026-10-05T10:31:16.3814098Z",
+  "argv": [
+    "cargo",
+    "metadata",
+    "--locked",
+    "--offline",
+    "--no-deps",
+    "--format-version",
+    "1"
+  ],
+  "exit_code": 0,
+  "logs": [
+    {
+      "name": "after-metadata.stdout.json",
+      "bytes": 16382,
+      "sha256": "1a09f3d7225effc00c7d8410c411e6fc40d50006394fd8d18513d4308fe00515"
+    },
+    {
+      "name": "after-metadata.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "application_build_tests": "NOT_RUN",
+  "source_hooks": "NOT_CREATED",
+  "boundary": "locked manifest parsing only; no compilation/device/network"
+}

@@ -1,0 +1,17 @@
+{
+  "started_utc": "2026-10-05T10:24:43.7382977Z",
+  "finished_utc": "2026-10-05T10:24:43.9058773Z",
+  "argv": [
+    "cargo",
+    "metadata",
+    "--locked",
+    "--offline",
+    "--no-deps",
+    "--format-version",
+    "1"
+  ],
+  "exit_code": 0,
+  "boundary": "metadata parsing only; no application tests/build/device operation",
+  "rustc": "rustc 1.99.0 (b940084d7 2026-09-28)",
+  "cargo": "cargo 1.99.0 (5f94df478 2026-08-27)"
+}

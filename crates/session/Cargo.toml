@@ -5,6 +5,23 @@ edition.workspace = true
 rust-version.workspace = true
 publish.workspace = true
 
+[features]
+default = []
+test-support = []
+
 [dependencies]
 witvoice-contracts = { path = "../contracts" }
 serde_json.workspace = true
+
+[dev-dependencies]
+witvoice-audio = { path = "../audio" }
+
+[[test]]
+name = "session_identity"
+path = "../../tests/contract/session_identity.rs"
+required-features = ["test-support"]
+
+[[test]]
+name = "identity_pipeline"
+path = "../../tests/integration/identity_pipeline.rs"
+required-features = ["test-support"]

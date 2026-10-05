@@ -682,6 +682,7 @@ name = "witvoice-node"
 version = "0.1.0"
 dependencies = [
  "serde_json",
+ "witvoice-audio",
  "witvoice-contracts",
  "witvoice-platform",
  "witvoice-session",
@@ -700,6 +701,7 @@ name = "witvoice-session"
 version = "0.1.0"
 dependencies = [
  "serde_json",
+ "witvoice-audio",
  "witvoice-contracts",
 ]
 

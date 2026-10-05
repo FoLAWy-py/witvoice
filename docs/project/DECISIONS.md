@@ -11,3 +11,5 @@ M0将实现细节写入带编号ADR；不能将尚未实施的决定记作测试
 - [ADR 0002](../adr/0002-local-node-exit.md)：T006 补齐本地鉴权 ExitNode、输出失效与 Node-owned worker Job；不增加 LAN 退出权限。实现/独立审查待。
 
 - ADR0003: T016标准WindowsDNS-SD替代未证明cache界的mdnsdaemon；默认关闭、显式接口/用户LANopt-in、有界自有队列/异步寿命，无新模型/驱动/服务或Mac实测claim。见 docs/adr/0003-native-dns-sd.md。
+
+- 2026-10-05 用户明确固定本轮Windows VB-CABLE；Steam候选撤回保留历史；不自建驱动。一次<=5s marker/<=15s双端闭环授权未执行，见 ADR0004 与 vbcable-metadata。

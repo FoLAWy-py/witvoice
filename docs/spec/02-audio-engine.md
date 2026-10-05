@@ -6,7 +6,7 @@
 
 实际音频端点可能使用 stereo、44.1kHz 或其他格式。必须协商，不声称硬件一定原生支持 48kHz mono。2ch 虚拟设备需要明确 mono → 双通道映射，默认两通道复制同一 mono 信号；增益与限幅在映射前完成。
 
-Windows 路由示例：Node 把处理后声音写入 **CABLE Input（播放/render 端点）**；第三方应用选择 **CABLE Output（录音/capture 端点）**。不要把两者名称的 Input/Output 误认为用户话筒方向。[S10]
+本轮 Windows 固定 VB-CABLE 路由（用户已自行安装；仍需真实闭环验收）：Node 把处理后声音写入 **CABLE Input（播放/render 端点）**；第三方应用选择 **CABLE Output（录音/capture 端点）**。不要把两者名称的 Input/Output 误认为用户话筒方向。[S10]
 
 Mac 路由示例：Node 输出到 BlackHole 的输出侧；第三方应用选择 BlackHole 输入侧。设备按持久 ID/UID 保存，名称只供展示；移除后不能选一个同名物理麦克风作替代。[S11]
 

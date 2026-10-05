@@ -14,3 +14,5 @@ B003（T002安全运行时，RESOLVED_EXPERIMENT_ONLY）：原Torch2.5.1落在�
 B004（T016 native DNS validation，BLOCKED_TOOLCHAIN）：新11文件已保存但未编译/测试。cargo第一例windows0.62.2 rustc访问异常c0000005；隔离compile-only成功后实际应用检查syn2.0.119 MIR assert ICE101。完整failure1/2及compiler-diagnostic、compiler-integrity在docs/evidence/T016-20261005/native-dns/。官方stable清单摘要核查仍1.99.0，官方77,093,924字节编译器包SHA匹配，33已安装bin/lib文件逐字节SHA一致；syn2/syn3/windows缓存包锁摘要和解包源一致。原因UNKNOWN，当前数据不能归因硬件或证明修复。最小解阻：可修复该ICE的兼容正式工具链/独立稳定环境验证；任何降级最低Rust、改BIOS/安全设置或外传bug材料先走具体变更/授权。T008独立作用域继续，若同样compiler失败只记录，不盲试。
 
 B004 更新（当前 MITIGATED_WITH_LIMITATIONS，2026-10-05 07:42:51Z）：同原Syn2.0.119九feature最小工程compile0后，一次条件性真实platform/transport构建成功编译全部依赖与native lib，最终仅test E0509和警告；完整syn-minimized/conditional-check证据已归档。原AV/ICE/cargo-fmt parser panic原因仍UNKNOWN，不声称硬件/工具链普遍稳定，也不删历史。backend正在普通源码/lint修复，T016恢复IN_PROGRESS；最小当前动作是修复已定位源错误并完成检查，若编译器再崩溃立即停、重新记录精准阻塞。只读WHEA时间窗无匹配事件，不证明CPU/RAM正常。
+
+2026-10-05 当前T009前置更新：用户已自行安装并明确选择VB-CABLE，真实UID/flow/active/48k2chFloat32及父驱动只读核对通过；设备缺失不再是当前前置。一次生成marker闭环已授权但未执行，不能把安装或metadata写成闭环PASS。Steam停止作为当前候选，无自建驱动CR发现。旧B001许可及Mac/2h/质量等门不变。

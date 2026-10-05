@@ -1,0 +1,20 @@
+{
+  "utc": "2026-10-05T10:29:55.2942899Z",
+  "tool_failure_chunk": "19526b",
+  "tool_exit": -1073741819,
+  "cargo_exit": "0 inferred from explicit immediate nonzero guard and subsequent Python WER; no directly captured cargo metadata",
+  "lock_exact_equal_after_only_two_local_dependency_additions": true,
+  "registry_versions_and_checksums_unchanged": true,
+  "python_post_audit": "FAILED access violation, no whole command PASS",
+  "os_event": {
+    "time_utc": "2026-10-05T10:27:58.8830589Z",
+    "application": "python.exe",
+    "module": "python312.dll",
+    "exception": "0xc0000005",
+    "offset": "0x29e1c",
+    "report_id": "2317adfa-780f-4344-b1ea-760ec3f89262"
+  },
+  "application_tests": "NOT_RUN",
+  "cause": "UNKNOWN",
+  "no_global_or_security_changes": true
+}

@@ -1,0 +1,40 @@
+{
+  "recorded_utc": "2026-10-05T10:28:44.988211+00:00",
+  "tool_chunk": "19526b",
+  "tool_exit_code": -1073741819,
+  "started_utc": "NOT_CAPTURED",
+  "command": "cargo generate-lockfile --offline",
+  "application_compile_tests": "NOT_RUN",
+  "phase": "two manifest edits completed; following offline Cargo lock operation returned access violation; post-audit not executed",
+  "cause": "UNKNOWN until own log/OS evidence",
+  "no_retry": true,
+  "files": {
+    "crates/session/Cargo.toml": {
+      "before_sha256": "0154d336b36c70f56da457a47fdedbe9f411e4072fa9aa99f6dcf77667b4e9c5",
+      "after_sha256": "3b9e19a31741bb5ee9ce1e7131ae04185dc700a67e1339a71dd25cff44b311d0",
+      "same_bytes": false
+    },
+    "apps/voice-node/Cargo.toml": {
+      "before_sha256": "549ad569756eef6b580d99910cdea8c73da081a667d710892c646e7a926092fe",
+      "after_sha256": "2b33363884ae2bd61a578bae734a18a405502e076bb70864167d163dacd766ea",
+      "same_bytes": false
+    },
+    "Cargo.lock": {
+      "before_sha256": "f199d7be816b5185bedd17598d6c387a43707e7168235e5ad18129aa569d8e92",
+      "after_sha256": "f43c0190ef960dafc54ef5fe4b3fec72bd0b14ddb4bdc528fcb472d7d3af49bc",
+      "same_bytes": false
+    }
+  },
+  "logs": [
+    {
+      "name": "lock.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "lock.stderr.txt",
+      "bytes": 67,
+      "sha256": "1789a606c44bfe9e9e3a1ffafc550f0645aad8d6ae21a4222d2a0af4106476b5"
+    }
+  ]
+}
