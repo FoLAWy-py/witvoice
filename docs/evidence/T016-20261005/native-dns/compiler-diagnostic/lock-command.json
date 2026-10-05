@@ -1,0 +1,17 @@
+{
+  "start": "2026-10-05T06:51:36.3647879Z",
+  "end": "2026-10-05T06:51:36.8607022Z",
+  "argv": [
+    "cargo",
+    "generate-lockfile",
+    "--offline",
+    "--manifest-path",
+    ".local/t016-compiler-isolation/Cargo.toml"
+  ],
+  "exit": 0,
+  "target": "D:\\Project\\witvoice\\.local\\t016-compiler-isolation\\target",
+  "cargo_home": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo",
+  "jobs": "1",
+  "incremental": "0",
+  "boundary": "offline diagnostic lock only, no build/tests"
+}

@@ -521,12 +521,17 @@
         "docs/evidence/T016-20261005/identity/workspace-count.json",
         "docs/adr/0003-native-dns-sd.md",
         "docs/evidence/T016-20261005/native-dns-lock-audit.json",
-        "docs/evidence/T016-20261005/native-dns-feature-command.json"
+        "docs/evidence/T016-20261005/native-dns-feature-command.json",
+        "docs/evidence/T016-20261005/native-dns/compile-failure1.json",
+        "docs/evidence/T016-20261005/native-dns/compiler-diagnostic/preflight.json",
+        "docs/evidence/T016-20261005/native-dns/compiler-diagnostic/lock-audit.json",
+        "docs/evidence/T016-20261005/native-dns/compiler-diagnostic/build-command.json",
+        "docs/evidence/T016-20261005/native-dns/compiler-diagnostic/result.json"
       ],
       "review": null,
       "attempts": 0,
       "blocked_reason": null,
-      "execution_note": "Native source implementation continuing; first cargo101 compiler AV in windows0.62.2 before tests. Root diagnosing one controlled isolation retry, no fakePASS. Backend fixed.local rawfailed-result archive allowed, no new network/hardware."
+      "execution_note": "Controlled samewindows16feature clean target jobs1/inc0 compile0 in23.40s; causeUNKNOWN, first101 preserved. Production source still untested, backend authorized actual pure tests/builds in isolatedtarget, no API/network/hardware."
     },
     {
       "id": "T017",

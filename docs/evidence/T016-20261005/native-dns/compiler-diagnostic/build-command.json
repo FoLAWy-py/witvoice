@@ -1,0 +1,20 @@
+{
+  "start": "2026-10-05T06:52:05.9025906Z",
+  "end": "2026-10-05T06:52:29.4666185Z",
+  "argv": [
+    "cargo",
+    "build",
+    "--locked",
+    "--offline",
+    "--manifest-path",
+    ".local/t016-compiler-isolation/Cargo.toml",
+    "--lib",
+    "-j1"
+  ],
+  "exit": 0,
+  "target": "D:\\Project\\witvoice\\.local\\t016-compiler-isolation\\target",
+  "cargo_home": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo",
+  "jobs": "1",
+  "incremental": "0",
+  "boundary": "one same-version 16feature isolated dependency compile, no app/audio/network tests"
+}

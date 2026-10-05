@@ -52,7 +52,7 @@
         "cargo build -p witvoice-transport --locked --examples; no native network probe run"
       ],
       "reviewer": "/root/reviewer_t001",
-      "execution_note": "3 interrupted source byte backups MATCH. Resume native addendum exact whitelist; rootdeps released; no actual network/hardware/GPU or rootfiles."
+      "execution_note": "SameWindows16feature diagnostic compile0; root writer released. Backend may run locked tests/fmt/clippy/examples on isolatedtarget jobs1/inc0, no network/hardware; cause unknown."
     },
     {
       "task_id": "T007",
@@ -74,28 +74,6 @@
       ],
       "reviewer": "/root/reviewer_t001",
       "execution_note": "relay11 historical events including two101 failures; not own formal approval"
-    },
-    {
-      "task_id": "T016",
-      "agent_instance_id": "/root",
-      "allowed_paths": [
-        ".local/t016-compiler-isolation/",
-        "docs/evidence/T016-20261005/native-dns/compiler-diagnostic/"
-      ],
-      "resource_leases": [
-        "code-writer:leader-compiler-isolation"
-      ],
-      "depends_on": [
-        "T003",
-        "T006"
-      ],
-      "contract": "one compile-only sameWindows0.62.2/16features target isolation, no production source or main deps changed",
-      "acceptance_commands": [
-        "cargo generate-lockfile --offline --manifest-path .local/t016-compiler-isolation/Cargo.toml",
-        "cargo build --locked --offline --manifest-path .local/t016-compiler-isolation/Cargo.toml --lib -j1; CARGO_INCREMENTAL=0"
-      ],
-      "reviewer": "/root/reviewer_t001",
-      "execution_note": "root+backend2 writers disjoint; 0hardware/GPU; diagnostic notapplicationPASS"
     }
   ],
   "milestones": {
@@ -201,6 +179,6 @@
   },
   "completion_claim_allowed": false,
   "last_verified_scope": "M0 + T006 foundation + reviewed T007 metadata/conversion/notifications + T021 design; not hardware/UI/real production VC/whole product",
-  "execution_status": "RESUMING_REGISTERED_LEASES",
+  "execution_status": "RUNNING_SCOPED_TASKS",
   "interruption_evidence": "docs/project/interruption-20261005.json"
 }
