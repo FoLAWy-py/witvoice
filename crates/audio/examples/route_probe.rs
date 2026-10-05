@@ -3,6 +3,9 @@
 #[path = "support/route_marker.rs"]
 mod route_marker;
 #[cfg(windows)]
+#[path = "support/route_startup.rs"]
+mod route_startup;
+#[cfg(windows)]
 fn main() -> Result<(), String> {
     use std::{
         io::Read,
@@ -49,13 +52,17 @@ fn main() -> Result<(), String> {
         || (args[1] != "--metadata-only"
             && args[1] != "--approve-route-probe"
             && args[1] != "--approve-capture-mix-probe"
-            && args[1] != "--approve-raw-capture-mix-probe")
+            && args[1] != "--approve-raw-capture-mix-probe"
+            && args[1] != "--approve-primed-raw-capture-mix-probe")
     {
-        return Err("absolute PRIVATE_SCOPE_JSON --metadata-only|--approve-route-probe|--approve-capture-mix-probe|--approve-raw-capture-mix-probe; authorization and exclusive lease required".into());
+        return Err("absolute PRIVATE_SCOPE_JSON --metadata-only|--approve-route-probe|--approve-capture-mix-probe|--approve-raw-capture-mix-probe|--approve-primed-raw-capture-mix-probe; authorization and exclusive lease required".into());
     }
     let capture_mix = args[1] == "--approve-capture-mix-probe";
-    let raw_capture_mix = args[1] == "--approve-raw-capture-mix-probe";
-    let descriptor_mode = if raw_capture_mix {
+    let primed = args[1] == "--approve-primed-raw-capture-mix-probe";
+    let raw_capture_mix = args[1] == "--approve-raw-capture-mix-probe" || primed;
+    let descriptor_mode = if primed {
+        "CAPTURE_RAW_EXACT_MIX_PRIMED_RENDER_BASIC"
+    } else if raw_capture_mix {
         "CAPTURE_RAW_EXACT_MIX_RENDER_BASIC"
     } else if capture_mix {
         "CAPTURE_EXACT_MIX_RENDER_BASIC"
@@ -188,8 +195,6 @@ fn main() -> Result<(), String> {
         .map_err(|_| "route invalidated")?;
     let mut gate =
         OutputGate::new(Binding::new(9, 1).map_err(|_| "binding")?).map_err(|_| "gate")?;
-    gate.arm().map_err(|_| "gate cannot arm")?;
-    let gate = Arc::new(gate);
     within_total()?;
     route
         .check_changes(&signal, &gate)
@@ -229,6 +234,81 @@ fn main() -> Result<(), String> {
         }
     };
     within_total()?;
+    // This explicit new diagnostic keeps the gate private and closed while
+    // observing capture startup. Render remains Prepared with its silent prefill.
+    // The old RAW mode and its failed evidence do not become a passing result.
+    let mut startup = route_startup::Startup::default();
+    let active_start = Instant::now();
+    if primed {
+        let mut startup_packet = [0.0; 1440];
+        let preparation = (|| {
+            capture
+                .start(ExplicitStart::UserApproved)
+                .map_err(|e| format!("startup capture Start: {e:?}"))?;
+            while !startup.complete {
+                within_total()?;
+                let remaining = route_startup::LIMIT
+                    .checked_sub(active_start.elapsed())
+                    .filter(|value| !value.is_zero())
+                    .ok_or("startup deadline expired")?;
+                watch
+                    .dispatch(Duration::ZERO)
+                    .map_err(|e| format!("startup dispatch: {e:?}"))?;
+                route
+                    .check_changes(&signal, &gate)
+                    .map_err(|_| "startup route changed")?;
+                if capture
+                    .wait_event(remaining.min(Duration::from_millis(2)))
+                    .map_err(|e| format!("startup capture wait: {e:?}"))?
+                {
+                    let observed = capture
+                        .capture_packet(&mut startup_packet)
+                        .map_err(|e| format!("startup capture packet: {e:?}"))?;
+                    route_marker::erase(&mut startup_packet);
+                    if let Some(meta) = observed {
+                        startup.observe(meta, active_start.elapsed())?;
+                    }
+                }
+            }
+            route
+                .revalidate_pair(
+                    Some(snapshot(
+                        &scope.render_uid,
+                        Flow::Render,
+                        Some(render_format),
+                        software,
+                    )?),
+                    Some(snapshot(
+                        &scope.capture_uid,
+                        Flow::Capture,
+                        Some(capture_format),
+                        software,
+                    )?),
+                    &gate,
+                )
+                .map_err(|_| "route invalid after startup")?;
+            within_total()?;
+            if active_start.elapsed() >= route_startup::LIMIT {
+                return Err("startup deadline expired".into());
+            }
+            Ok::<(), String>(())
+        })();
+        route_marker::erase(&mut startup_packet);
+        if let Err(error) = preparation {
+            gate.invalidate();
+            let capture_close_error = capture.close().err().map(|e| format!("{e:?}"));
+            let render_close_error = render.close().err().map(|e| format!("{e:?}"));
+            let watch_close_error = watch.close().err().map(|e| format!("{e:?}"));
+            println!(
+                "{}",
+                serde_json::json!({"status":"FAILED_MUTED","route_profile":"VB_CABLE","stage":"startup_preparation","descriptor_mode":descriptor_mode,"startup":startup,"run_error":error,"marker_frames":0,"sink_pcm_frames":0,"gate_armed":false,"ack_ready":gate.ack_ready(),"capture_closed":capture_close_error.is_none(),"render_closed":render_close_error.is_none(),"watch_closed":watch_close_error.is_none(),"capture_close_error":capture_close_error,"render_close_error":render_close_error,"watch_close_error":watch_close_error,"active_wall_seconds":active_start.elapsed().as_secs_f64(),"process_wall_seconds":total_started.elapsed().as_secs_f64(),"physical_capture":"NEVER_STARTED","pcm_saved":false,"retry":false})
+            );
+            return Err("startup preparation failed; no restart or fallback".into());
+        }
+    }
+    let startup_wall_seconds = primed.then(|| active_start.elapsed().as_secs_f64());
+    gate.arm().map_err(|_| "gate cannot arm")?;
+    let gate = Arc::new(gate);
     render
         .bind_output_gate(Arc::clone(&gate))
         .map_err(|e| format!("gate binding: {e:?}"))?;
@@ -246,8 +326,13 @@ fn main() -> Result<(), String> {
         let mut capture_packets = 0u64;
         let mut discontinuities = 0u64;
         let mut timestamp_errors = 0u64;
-        let start = Instant::now();
-        let requested = Duration::from_secs(2);
+        let start = if primed { active_start } else { Instant::now() };
+        // Leave ordinary scheduler bookkeeping inside the same two-second cap.
+        let requested = if primed {
+            Duration::from_millis(1950)
+        } else {
+            Duration::from_secs(2)
+        };
         let clock = || start.elapsed().as_nanos().min((u64::MAX - 1) as u128) as u64;
         // Marker is explicitly diagnostic, not model conversion. It only enters the
         // example through the governed typed sink; no production raw-render bypass.
@@ -256,9 +341,11 @@ fn main() -> Result<(), String> {
             route
                 .check_changes(&signal, &gate)
                 .map_err(|_| "route changed")?;
-            capture
-                .start(ExplicitStart::UserApproved)
-                .map_err(|e| format!("capture Start: {e:?}"))?;
+            if !primed {
+                capture
+                    .start(ExplicitStart::UserApproved)
+                    .map_err(|e| format!("capture Start: {e:?}"))?;
+            }
             render
                 .start(ExplicitStart::UserApproved)
                 .map_err(|e| format!("render Start: {e:?}"))?;
@@ -362,7 +449,7 @@ fn main() -> Result<(), String> {
             && gate.ack_ready()
             && within_total().is_ok();
         let report = serde_json::json!({"status":if passed {"ROUTE_MARKER_OBSERVED"} else {"FAILED_MUTED"},
-        "route_profile":"VB_CABLE","descriptor_mode":descriptor_mode,"requested_seconds":2,"maximum_marker_seconds":5,"maximum_process_seconds":15,
+        "route_profile":"VB_CABLE","descriptor_mode":descriptor_mode,"startup":if primed {serde_json::json!(startup)} else {serde_json::Value::Null},"startup_wall_seconds":startup_wall_seconds,"marker_stop_target_seconds":requested.as_secs_f64(),"requested_seconds":2,"maximum_marker_seconds":5,"maximum_process_seconds":15,
         "requested_maximum_frames":1440,"render_capacity_frames":render.capacity_frames(),"capture_capacity_frames":capture.capacity_frames(),
         "process_wall_seconds":total_started.elapsed().as_secs_f64(),"active_wall_seconds":active_wall,"wall_including_close_seconds":start.elapsed().as_secs_f64(),
         "marker_amplitude":route_marker::AMPLITUDE,"marker_frames":sent,"capture_frames":received,"capture_packets":capture_packets,
