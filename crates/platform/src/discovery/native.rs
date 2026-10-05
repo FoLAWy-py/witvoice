@@ -98,15 +98,15 @@ impl Default for Queue {
 }
 impl Queue {
     fn push(&self, event: Event) {
-        if let Ok(mut items) = self.items.try_lock() {
-            if items.len() < QUEUE_LIMIT {
-                items.push_back(event);
-                return;
-            }
+        if let Ok(mut items) = self.items.try_lock()
+            && items.len() < QUEUE_LIMIT
+        {
+            items.push_back(event);
+            return;
         }
         let _ = self
             .dropped
-            .fetch_update(Ordering::Relaxed, Ordering::Relaxed, |n| {
+            .try_update(Ordering::Relaxed, Ordering::Relaxed, |n| {
                 Some(n.saturating_add(1))
             });
     }
@@ -396,11 +396,11 @@ fn wide(text: &str) -> Vec<u16> {
     text.encode_utf16().chain(Some(0)).collect()
 }
 fn callback_guard(context: *const c_void, call: impl FnOnce()) {
-    if std::panic::catch_unwind(std::panic::AssertUnwindSafe(call)).is_err() {
-        if let Some(op) = callback_operation(context) {
-            op.failure.store(INVALID, Ordering::Release);
-            op.queue.push(Event::Failed(INVALID));
-        }
+    if std::panic::catch_unwind(std::panic::AssertUnwindSafe(call)).is_err()
+        && let Some(op) = callback_operation(context)
+    {
+        op.failure.store(INVALID, Ordering::Release);
+        op.queue.push(Event::Failed(INVALID));
     }
 }
 unsafe extern "system" fn browse_callback(
@@ -503,7 +503,7 @@ impl NativeDiscovery {
             return Err(DiscoveryError::Capacity);
         }
         let token = NEXT
-            .fetch_update(Ordering::Relaxed, Ordering::Relaxed, |n| n.checked_add(1))
+            .try_update(Ordering::Relaxed, Ordering::Relaxed, |n| n.checked_add(1))
             .map_err(|_| DiscoveryError::Capacity)?;
         let interface = self.interface.ok_or(DiscoveryError::InterfaceRequired)?;
         let mut op = Arc::new(Operation {

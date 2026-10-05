@@ -122,10 +122,9 @@ const FAKE: Api = Api {
     free_instance: count_instance,
 };
 fn adapter() -> NativeDiscovery {
-    NativeDiscovery {
-        api: FAKE,
-        ..Default::default()
-    }
+    let mut adapter = NativeDiscovery::default();
+    adapter.api = FAKE;
+    adapter
 }
 const NAME: &str = "device._voice-node._udp.local";
 const ID: &str = "00000000-0000-0000-0000-000000000001";
@@ -429,9 +428,7 @@ fn record_link_budget_cycle_data_length_utf16_and_once_free() {
     assert!(d.poll().contains(&Event::Failed(INVALID)));
     record.pNext = std::ptr::null_mut();
     let mut unterminated = vec![65u16; 129];
-    unsafe {
-        record.Data.PTR.pNameHost = PWSTR(unterminated.as_mut_ptr());
-    }
+    record.Data.PTR.pNameHost = PWSTR(unterminated.as_mut_ptr());
     unsafe {
         browse_callback(0, token, &*record);
     }

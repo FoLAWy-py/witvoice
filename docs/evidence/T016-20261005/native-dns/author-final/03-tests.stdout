@@ -1,0 +1,53 @@
+
+running 11 tests
+test discovery::native::tests::cancel_return_is_not_terminal_and_full_queue_cannot_drop_terminal_state ... ok
+test discovery::native::tests::default_off_and_invalid_inputs_do_not_enter_os ... ok
+test discovery::native::tests::fixed_context_budget_and_opaque_token_exhaustion ... ok
+test discovery::native::tests::instance_schema_lengths_interface_and_free_exactly_once ... ok
+test discovery::native::tests::queue_expiry_and_resolve_deadline_are_not_wall_clock_or_ttl_reset ... ok
+test discovery::native::tests::record_link_budget_cycle_data_length_utf16_and_once_free ... ok
+test discovery::native::tests::simultaneous_operation_caps_and_cancel_failure_quarantine ... ok
+test discovery::native::tests::register_cancel_race_still_deregisters_same_request_and_retains_failure ... ok
+test discovery::native::tests::late_unknown_context_never_dereferences_token_and_frees_each_result_once ... ok
+test discovery::native::tests::contended_queue_never_waits_or_loses_out_of_band_terminal_flag ... ok
+test discovery::native::tests::immediate_callback_retains_call_reference_until_os_return ... ok
+
+test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s
+
+
+running 2 tests
+test only_fixed_dns_service_single_labels_are_accepted ... ok
+test actual_default_object_with_no_approval_never_starts_native_discovery ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 5 tests
+test reject_traversal_unc_device_and_non_directory_roots ... ok
+test real_local_junction_rejected_and_cleanup_does_not_follow_target ... ok
+test protected_current_user_dacl_is_actual_on_directory_and_key_file ... ok
+test corrupt_oversized_and_hard_link_files_rejected ... ok
+test dpapi_real_roundtrip_fixed_file_no_overwrite_and_bounds ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+
+running 3 tests
+test discovery::native::tests::closing_cannot_restart_resolution_or_repopulate_records_from_queued_results ... ok
+test discovery::native::tests::untrusted_native_results_use_address_and_ttl_guards_without_pairing ... FAILED
+test trust::tests::generation_exhaustion_clears_pins_and_cannot_restore_trust ... ok
+
+failures:
+
+---- discovery::native::tests::untrusted_native_results_use_address_and_ttl_guards_without_pairing stdout ----
+
+thread 'discovery::native::tests::untrusted_native_results_use_address_and_ttl_guards_without_pairing' (94400) panicked at crates\transport\src\discovery\native.rs:184:14:
+called `Result::unwrap()` on an `Err` value: ClockWentBackwards
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    discovery::native::tests::untrusted_native_results_use_address_and_ttl_guards_without_pairing
+
+test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

@@ -1,0 +1,1237 @@
+{
+  "author": "/root/backend",
+  "agent_thread_id": "01a10767-4ff5-7f21-881a-146d094fbc55",
+  "completed_utc": "2026-10-05T07:56:20.1453171Z",
+  "task": "T016",
+  "formal_attempts": 0,
+  "author_status": "STOPPED_WRITING",
+  "final_source": [
+    {
+      "path": "crates/platform/src/lib.rs",
+      "sha256": "38e087b23847cd1fd9033fbaba0ebf44b83075ba6c37b9226a691ba3b7553957"
+    },
+    {
+      "path": "crates/platform/src/discovery.rs",
+      "sha256": "9e0a574687c5deb60ba4185459cfbb19d1c8ffae50628f8f9369a36ca963467b"
+    },
+    {
+      "path": "crates/platform/src/discovery/native.rs",
+      "sha256": "0850737ad1be76d0dbb673e9430239d051da8cbd27f7ac5890ffcb5a94b56285"
+    },
+    {
+      "path": "crates/platform/src/discovery/native/tests.rs",
+      "sha256": "502fbc75853cf725f95c78196f126de06e5355226420fc1e34cec47f8b119ce0"
+    },
+    {
+      "path": "crates/platform/tests/discovery.rs",
+      "sha256": "e9143602a1dd082101f6a8b4ffd0a7ecab6db53ae7d66ff15a1de28572e0690c"
+    },
+    {
+      "path": "crates/platform/README.md",
+      "sha256": "e74467e00702ac549b4ce2b118dac17033afe6382bb38408c06f44c6c4de1665"
+    },
+    {
+      "path": "crates/transport/src/discovery.rs",
+      "sha256": "2cb608a6e8fa670b5ff653d4350a0e0c6fa37d7946b235fc46a203d404e8e66c"
+    },
+    {
+      "path": "crates/transport/src/discovery/native.rs",
+      "sha256": "2cada5723d634916287459f32c301fe2aa05a348decf42bb9ed5aedaf38d7aff"
+    },
+    {
+      "path": "crates/transport/tests/discovery.rs",
+      "sha256": "b6ea153f66334e74f97f5c43cda23559c823bfa3e52eb01d22f90608b0b8732c"
+    },
+    {
+      "path": "crates/transport/examples/native_discovery_probe.rs",
+      "sha256": "6ad5769b4dd13c7fe806a0ca816fb5a4634222e0b58cd2d60d72ebce1bb9e21b"
+    },
+    {
+      "path": "crates/transport/README.md",
+      "sha256": "2a687a60970531ea5b149bbab1a817bd63f33ca3cc4bfd702510e717bd611105"
+    }
+  ],
+  "final_checks_same_source": "MATCH",
+  "nonempty_tests_passed": 30,
+  "zero_doc_tests": 2,
+  "actual_dns_lan": "NOT_RUN",
+  "audio_gpu": "NOT_RUN",
+  "tls_possession": "T017_NOT_RUN",
+  "mac": "UNTESTED",
+  "historic_compiler_cause": "UNKNOWN",
+  "compiler_mitigation": "LIMITED_PROCESS_JOBS1_INCREMENTAL0_OWNED_TARGET",
+  "runs": [
+    {
+      "stem": "03-tests",
+      "metadata_sha256": "a12eb417804ccbdda4201686c00b28adc376f0a67a1b50168c3049bc5d3e613e",
+      "metadata": {
+        "executable": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\cargo.exe",
+        "argv": [
+          "test",
+          "--locked",
+          "-p",
+          "witvoice-platform",
+          "-p",
+          "witvoice-transport"
+        ],
+        "cwd": "D:\\Project\\witvoice",
+        "start_utc": "2026-10-05T07:50:42.5104993Z",
+        "end_utc": "2026-10-05T07:50:47.6301768Z",
+        "exit_code": 101,
+        "env": {
+          "CARGO_TARGET_DIR": "D:\\Project\\witvoice\\.local\\t016-syn-reproducer\\target",
+          "CARGO_BUILD_JOBS": "1",
+          "CARGO_INCREMENTAL": "0",
+          "CARGO_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo",
+          "RUSTUP_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\rustup"
+        },
+        "override_preflight": "absent",
+        "source_before": [
+          {
+            "path": "crates/platform/src/lib.rs",
+            "sha256": "38e087b23847cd1fd9033fbaba0ebf44b83075ba6c37b9226a691ba3b7553957"
+          },
+          {
+            "path": "crates/platform/src/discovery.rs",
+            "sha256": "9e0a574687c5deb60ba4185459cfbb19d1c8ffae50628f8f9369a36ca963467b"
+          },
+          {
+            "path": "crates/platform/src/discovery/native.rs",
+            "sha256": "a9c139976d01857b1179849aec118ce2de679e251f0ac2eb0ae7164bbad0d2c9"
+          },
+          {
+            "path": "crates/platform/src/discovery/native/tests.rs",
+            "sha256": "502fbc75853cf725f95c78196f126de06e5355226420fc1e34cec47f8b119ce0"
+          },
+          {
+            "path": "crates/platform/tests/discovery.rs",
+            "sha256": "e9143602a1dd082101f6a8b4ffd0a7ecab6db53ae7d66ff15a1de28572e0690c"
+          },
+          {
+            "path": "crates/platform/README.md",
+            "sha256": "e74467e00702ac549b4ce2b118dac17033afe6382bb38408c06f44c6c4de1665"
+          },
+          {
+            "path": "crates/transport/src/discovery.rs",
+            "sha256": "2cb608a6e8fa670b5ff653d4350a0e0c6fa37d7946b235fc46a203d404e8e66c"
+          },
+          {
+            "path": "crates/transport/src/discovery/native.rs",
+            "sha256": "73879b9546577e036b121c6d8e16921365424d11a9d3e14e73f451eb959cd37f"
+          },
+          {
+            "path": "crates/transport/tests/discovery.rs",
+            "sha256": "b6ea153f66334e74f97f5c43cda23559c823bfa3e52eb01d22f90608b0b8732c"
+          },
+          {
+            "path": "crates/transport/examples/native_discovery_probe.rs",
+            "sha256": "6ad5769b4dd13c7fe806a0ca816fb5a4634222e0b58cd2d60d72ebce1bb9e21b"
+          },
+          {
+            "path": "crates/transport/README.md",
+            "sha256": "2a687a60970531ea5b149bbab1a817bd63f33ca3cc4bfd702510e717bd611105"
+          }
+        ],
+        "source_after": [
+          {
+            "path": "crates/platform/src/lib.rs",
+            "sha256": "38e087b23847cd1fd9033fbaba0ebf44b83075ba6c37b9226a691ba3b7553957"
+          },
+          {
+            "path": "crates/platform/src/discovery.rs",
+            "sha256": "9e0a574687c5deb60ba4185459cfbb19d1c8ffae50628f8f9369a36ca963467b"
+          },
+          {
+            "path": "crates/platform/src/discovery/native.rs",
+            "sha256": "a9c139976d01857b1179849aec118ce2de679e251f0ac2eb0ae7164bbad0d2c9"
+          },
+          {
+            "path": "crates/platform/src/discovery/native/tests.rs",
+            "sha256": "502fbc75853cf725f95c78196f126de06e5355226420fc1e34cec47f8b119ce0"
+          },
+          {
+            "path": "crates/platform/tests/discovery.rs",
+            "sha256": "e9143602a1dd082101f6a8b4ffd0a7ecab6db53ae7d66ff15a1de28572e0690c"
+          },
+          {
+            "path": "crates/platform/README.md",
+            "sha256": "e74467e00702ac549b4ce2b118dac17033afe6382bb38408c06f44c6c4de1665"
+          },
+          {
+            "path": "crates/transport/src/discovery.rs",
+            "sha256": "2cb608a6e8fa670b5ff653d4350a0e0c6fa37d7946b235fc46a203d404e8e66c"
+          },
+          {
+            "path": "crates/transport/src/discovery/native.rs",
+            "sha256": "73879b9546577e036b121c6d8e16921365424d11a9d3e14e73f451eb959cd37f"
+          },
+          {
+            "path": "crates/transport/tests/discovery.rs",
+            "sha256": "b6ea153f66334e74f97f5c43cda23559c823bfa3e52eb01d22f90608b0b8732c"
+          },
+          {
+            "path": "crates/transport/examples/native_discovery_probe.rs",
+            "sha256": "6ad5769b4dd13c7fe806a0ca816fb5a4634222e0b58cd2d60d72ebce1bb9e21b"
+          },
+          {
+            "path": "crates/transport/README.md",
+            "sha256": "2a687a60970531ea5b149bbab1a817bd63f33ca3cc4bfd702510e717bd611105"
+          }
+        ],
+        "stdout": {
+          "path": "D:\\Project\\witvoice\\.local\\t016-native-author\\03-tests.stdout",
+          "length": 2890,
+          "sha256": "cf1ad5bd81a89a1a3ed3ebd33f94a1eb85ee2c84a925bff1f7793a22e221547f"
+        },
+        "stderr": {
+          "path": "D:\\Project\\witvoice\\.local\\t016-native-author\\03-tests.stderr",
+          "length": 750,
+          "sha256": "0354149e4ec0579addded7b7762169b50531ec58466a1f5a05e33a465da5295b"
+        }
+      }
+    },
+    {
+      "stem": "04-tests",
+      "metadata_sha256": "01d33e002d466d03ca5793964f61b195a590a01c2a8cdd4de89c5c7c3862e58f",
+      "metadata": {
+        "executable": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\cargo.exe",
+        "argv": [
+          "test",
+          "--locked",
+          "-p",
+          "witvoice-platform",
+          "-p",
+          "witvoice-transport"
+        ],
+        "cwd": "D:\\Project\\witvoice",
+        "start_utc": "2026-10-05T07:52:16.8615098Z",
+        "end_utc": "2026-10-05T07:52:20.3799373Z",
+        "exit_code": 0,
+        "env": {
+          "CARGO_TARGET_DIR": "D:\\Project\\witvoice\\.local\\t016-syn-reproducer\\target",
+          "CARGO_BUILD_JOBS": "1",
+          "CARGO_INCREMENTAL": "0",
+          "CARGO_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo",
+          "RUSTUP_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\rustup"
+        },
+        "override_preflight": "absent",
+        "source_before": [
+          {
+            "path": "crates/platform/src/lib.rs",
+            "sha256": "38e087b23847cd1fd9033fbaba0ebf44b83075ba6c37b9226a691ba3b7553957"
+          },
+          {
+            "path": "crates/platform/src/discovery.rs",
+            "sha256": "9e0a574687c5deb60ba4185459cfbb19d1c8ffae50628f8f9369a36ca963467b"
+          },
+          {
+            "path": "crates/platform/src/discovery/native.rs",
+            "sha256": "a9c139976d01857b1179849aec118ce2de679e251f0ac2eb0ae7164bbad0d2c9"
+          },
+          {
+            "path": "crates/platform/src/discovery/native/tests.rs",
+            "sha256": "502fbc75853cf725f95c78196f126de06e5355226420fc1e34cec47f8b119ce0"
+          },
+          {
+            "path": "crates/platform/tests/discovery.rs",
+            "sha256": "e9143602a1dd082101f6a8b4ffd0a7ecab6db53ae7d66ff15a1de28572e0690c"
+          },
+          {
+            "path": "crates/platform/README.md",
+            "sha256": "e74467e00702ac549b4ce2b118dac17033afe6382bb38408c06f44c6c4de1665"
+          },
+          {
+            "path": "crates/transport/src/discovery.rs",
+            "sha256": "2cb608a6e8fa670b5ff653d4350a0e0c6fa37d7946b235fc46a203d404e8e66c"
+          },
+          {
+            "path": "crates/transport/src/discovery/native.rs",
+            "sha256": "2a255e5a76d8b3472d6e7282c3890302d2be6989ccc6480139a070528261c8fa"
+          },
+          {
+            "path": "crates/transport/tests/discovery.rs",
+            "sha256": "b6ea153f66334e74f97f5c43cda23559c823bfa3e52eb01d22f90608b0b8732c"
+          },
+          {
+            "path": "crates/transport/examples/native_discovery_probe.rs",
+            "sha256": "6ad5769b4dd13c7fe806a0ca816fb5a4634222e0b58cd2d60d72ebce1bb9e21b"
+          },
+          {
+            "path": "crates/transport/README.md",
+            "sha256": "2a687a60970531ea5b149bbab1a817bd63f33ca3cc4bfd702510e717bd611105"
+          }
+        ],
+        "source_after": [
+          {
+            "path": "crates/platform/src/lib.rs",
+            "sha256": "38e087b23847cd1fd9033fbaba0ebf44b83075ba6c37b9226a691ba3b7553957"
+          },
+          {
+            "path": "crates/platform/src/discovery.rs",
+            "sha256": "9e0a574687c5deb60ba4185459cfbb19d1c8ffae50628f8f9369a36ca963467b"
+          },
+          {
+            "path": "crates/platform/src/discovery/native.rs",
+            "sha256": "a9c139976d01857b1179849aec118ce2de679e251f0ac2eb0ae7164bbad0d2c9"
+          },
+          {
+            "path": "crates/platform/src/discovery/native/tests.rs",
+            "sha256": "502fbc75853cf725f95c78196f126de06e5355226420fc1e34cec47f8b119ce0"
+          },
+          {
+            "path": "crates/platform/tests/discovery.rs",
+            "sha256": "e9143602a1dd082101f6a8b4ffd0a7ecab6db53ae7d66ff15a1de28572e0690c"
+          },
+          {
+            "path": "crates/platform/README.md",
+            "sha256": "e74467e00702ac549b4ce2b118dac17033afe6382bb38408c06f44c6c4de1665"
+          },
+          {
+            "path": "crates/transport/src/discovery.rs",
+            "sha256": "2cb608a6e8fa670b5ff653d4350a0e0c6fa37d7946b235fc46a203d404e8e66c"
+          },
+          {
+            "path": "crates/transport/src/discovery/native.rs",
+            "sha256": "2a255e5a76d8b3472d6e7282c3890302d2be6989ccc6480139a070528261c8fa"
+          },
+          {
+            "path": "crates/transport/tests/discovery.rs",
+            "sha256": "b6ea153f66334e74f97f5c43cda23559c823bfa3e52eb01d22f90608b0b8732c"
+          },
+          {
+            "path": "crates/transport/examples/native_discovery_probe.rs",
+            "sha256": "6ad5769b4dd13c7fe806a0ca816fb5a4634222e0b58cd2d60d72ebce1bb9e21b"
+          },
+          {
+            "path": "crates/transport/README.md",
+            "sha256": "2a687a60970531ea5b149bbab1a817bd63f33ca3cc4bfd702510e717bd611105"
+          }
+        ],
+        "stdout": {
+          "path": "D:\\Project\\witvoice\\.local\\t016-native-author\\04-tests.stdout",
+          "length": 3470,
+          "sha256": "1f5e3aa3be5be60b1a0739d27199bb58020ca843bf9e2a8076e265e6b7202f6a"
+        },
+        "stderr": {
+          "path": "D:\\Project\\witvoice\\.local\\t016-native-author\\04-tests.stderr",
+          "length": 891,
+          "sha256": "7d293fb840f32d206e67a53ad2d6c59beba0f3edd6cdbac0a76e1a4a5f213a79"
+        }
+      }
+    },
+    {
+      "stem": "05-fmt-check",
+      "metadata_sha256": "54e0659f92d73bb1d51a00a8f6c699311b6cc8a7c583c6868b900b8958ad94ee",
+      "metadata": {
+        "executable": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\cargo.exe",
+        "argv": [
+          "fmt",
+          "--package",
+          "witvoice-platform",
+          "--package",
+          "witvoice-transport",
+          "--check"
+        ],
+        "cwd": "D:\\Project\\witvoice",
+        "start_utc": "2026-10-05T07:52:48.8583792Z",
+        "end_utc": "2026-10-05T07:52:49.0607822Z",
+        "exit_code": 0,
+        "env": {
+          "CARGO_TARGET_DIR": "D:\\Project\\witvoice\\.local\\t016-syn-reproducer\\target",
+          "CARGO_BUILD_JOBS": "1",
+          "CARGO_INCREMENTAL": "0",
+          "CARGO_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo",
+          "RUSTUP_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\rustup"
+        },
+        "override_preflight": "absent",
+        "source_before": [
+          {
+            "path": "crates/platform/src/lib.rs",
+            "sha256": "38e087b23847cd1fd9033fbaba0ebf44b83075ba6c37b9226a691ba3b7553957"
+          },
+          {
+            "path": "crates/platform/src/discovery.rs",
+            "sha256": "9e0a574687c5deb60ba4185459cfbb19d1c8ffae50628f8f9369a36ca963467b"
+          },
+          {
+            "path": "crates/platform/src/discovery/native.rs",
+            "sha256": "a9c139976d01857b1179849aec118ce2de679e251f0ac2eb0ae7164bbad0d2c9"
+          },
+          {
+            "path": "crates/platform/src/discovery/native/tests.rs",
+            "sha256": "502fbc75853cf725f95c78196f126de06e5355226420fc1e34cec47f8b119ce0"
+          },
+          {
+            "path": "crates/platform/tests/discovery.rs",
+            "sha256": "e9143602a1dd082101f6a8b4ffd0a7ecab6db53ae7d66ff15a1de28572e0690c"
+          },
+          {
+            "path": "crates/platform/README.md",
+            "sha256": "e74467e00702ac549b4ce2b118dac17033afe6382bb38408c06f44c6c4de1665"
+          },
+          {
+            "path": "crates/transport/src/discovery.rs",
+            "sha256": "2cb608a6e8fa670b5ff653d4350a0e0c6fa37d7946b235fc46a203d404e8e66c"
+          },
+          {
+            "path": "crates/transport/src/discovery/native.rs",
+            "sha256": "2a255e5a76d8b3472d6e7282c3890302d2be6989ccc6480139a070528261c8fa"
+          },
+          {
+            "path": "crates/transport/tests/discovery.rs",
+            "sha256": "b6ea153f66334e74f97f5c43cda23559c823bfa3e52eb01d22f90608b0b8732c"
+          },
+          {
+            "path": "crates/transport/examples/native_discovery_probe.rs",
+            "sha256": "6ad5769b4dd13c7fe806a0ca816fb5a4634222e0b58cd2d60d72ebce1bb9e21b"
+          },
+          {
+            "path": "crates/transport/README.md",
+            "sha256": "2a687a60970531ea5b149bbab1a817bd63f33ca3cc4bfd702510e717bd611105"
+          }
+        ],
+        "source_after": [
+          {
+            "path": "crates/platform/src/lib.rs",
+            "sha256": "38e087b23847cd1fd9033fbaba0ebf44b83075ba6c37b9226a691ba3b7553957"
+          },
+          {
+            "path": "crates/platform/src/discovery.rs",
+            "sha256": "9e0a574687c5deb60ba4185459cfbb19d1c8ffae50628f8f9369a36ca963467b"
+          },
+          {
+            "path": "crates/platform/src/discovery/native.rs",
+            "sha256": "a9c139976d01857b1179849aec118ce2de679e251f0ac2eb0ae7164bbad0d2c9"
+          },
+          {
+            "path": "crates/platform/src/discovery/native/tests.rs",
+            "sha256": "502fbc75853cf725f95c78196f126de06e5355226420fc1e34cec47f8b119ce0"
+          },
+          {
+            "path": "crates/platform/tests/discovery.rs",
+            "sha256": "e9143602a1dd082101f6a8b4ffd0a7ecab6db53ae7d66ff15a1de28572e0690c"
+          },
+          {
+            "path": "crates/platform/README.md",
+            "sha256": "e74467e00702ac549b4ce2b118dac17033afe6382bb38408c06f44c6c4de1665"
+          },
+          {
+            "path": "crates/transport/src/discovery.rs",
+            "sha256": "2cb608a6e8fa670b5ff653d4350a0e0c6fa37d7946b235fc46a203d404e8e66c"
+          },
+          {
+            "path": "crates/transport/src/discovery/native.rs",
+            "sha256": "2a255e5a76d8b3472d6e7282c3890302d2be6989ccc6480139a070528261c8fa"
+          },
+          {
+            "path": "crates/transport/tests/discovery.rs",
+            "sha256": "b6ea153f66334e74f97f5c43cda23559c823bfa3e52eb01d22f90608b0b8732c"
+          },
+          {
+            "path": "crates/transport/examples/native_discovery_probe.rs",
+            "sha256": "6ad5769b4dd13c7fe806a0ca816fb5a4634222e0b58cd2d60d72ebce1bb9e21b"
+          },
+          {
+            "path": "crates/transport/README.md",
+            "sha256": "2a687a60970531ea5b149bbab1a817bd63f33ca3cc4bfd702510e717bd611105"
+          }
+        ],
+        "stdout": {
+          "path": "D:\\Project\\witvoice\\.local\\t016-native-author\\05-fmt-check.stdout",
+          "length": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stderr": {
+          "path": "D:\\Project\\witvoice\\.local\\t016-native-author\\05-fmt-check.stderr",
+          "length": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    },
+    {
+      "stem": "06-clippy",
+      "metadata_sha256": "d1fca93dccfe61bacb3ad5d2a2db9a21699cd142d29be754379846b85c098192",
+      "metadata": {
+        "executable": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\cargo.exe",
+        "argv": [
+          "clippy",
+          "--locked",
+          "-p",
+          "witvoice-platform",
+          "-p",
+          "witvoice-transport",
+          "--all-targets",
+          "--",
+          "-D",
+          "warnings"
+        ],
+        "cwd": "D:\\Project\\witvoice",
+        "start_utc": "2026-10-05T07:53:07.011334Z",
+        "end_utc": "2026-10-05T07:53:19.7432063Z",
+        "exit_code": 101,
+        "env": {
+          "CARGO_TARGET_DIR": "D:\\Project\\witvoice\\.local\\t016-syn-reproducer\\target",
+          "CARGO_BUILD_JOBS": "1",
+          "CARGO_INCREMENTAL": "0",
+          "CARGO_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo",
+          "RUSTUP_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\rustup"
+        },
+        "override_preflight": "absent",
+        "source_before": [
+          {
+            "path": "crates/platform/src/lib.rs",
+            "sha256": "38e087b23847cd1fd9033fbaba0ebf44b83075ba6c37b9226a691ba3b7553957"
+          },
+          {
+            "path": "crates/platform/src/discovery.rs",
+            "sha256": "9e0a574687c5deb60ba4185459cfbb19d1c8ffae50628f8f9369a36ca963467b"
+          },
+          {
+            "path": "crates/platform/src/discovery/native.rs",
+            "sha256": "a9c139976d01857b1179849aec118ce2de679e251f0ac2eb0ae7164bbad0d2c9"
+          },
+          {
+            "path": "crates/platform/src/discovery/native/tests.rs",
+            "sha256": "502fbc75853cf725f95c78196f126de06e5355226420fc1e34cec47f8b119ce0"
+          },
+          {
+            "path": "crates/platform/tests/discovery.rs",
+            "sha256": "e9143602a1dd082101f6a8b4ffd0a7ecab6db53ae7d66ff15a1de28572e0690c"
+          },
+          {
+            "path": "crates/platform/README.md",
+            "sha256": "e74467e00702ac549b4ce2b118dac17033afe6382bb38408c06f44c6c4de1665"
+          },
+          {
+            "path": "crates/transport/src/discovery.rs",
+            "sha256": "2cb608a6e8fa670b5ff653d4350a0e0c6fa37d7946b235fc46a203d404e8e66c"
+          },
+          {
+            "path": "crates/transport/src/discovery/native.rs",
+            "sha256": "2a255e5a76d8b3472d6e7282c3890302d2be6989ccc6480139a070528261c8fa"
+          },
+          {
+            "path": "crates/transport/tests/discovery.rs",
+            "sha256": "b6ea153f66334e74f97f5c43cda23559c823bfa3e52eb01d22f90608b0b8732c"
+          },
+          {
+            "path": "crates/transport/examples/native_discovery_probe.rs",
+            "sha256": "6ad5769b4dd13c7fe806a0ca816fb5a4634222e0b58cd2d60d72ebce1bb9e21b"
+          },
+          {
+            "path": "crates/transport/README.md",
+            "sha256": "2a687a60970531ea5b149bbab1a817bd63f33ca3cc4bfd702510e717bd611105"
+          }
+        ],
+        "source_after": [
+          {
+            "path": "crates/platform/src/lib.rs",
+            "sha256": "38e087b23847cd1fd9033fbaba0ebf44b83075ba6c37b9226a691ba3b7553957"
+          },
+          {
+            "path": "crates/platform/src/discovery.rs",
+            "sha256": "9e0a574687c5deb60ba4185459cfbb19d1c8ffae50628f8f9369a36ca963467b"
+          },
+          {
+            "path": "crates/platform/src/discovery/native.rs",
+            "sha256": "a9c139976d01857b1179849aec118ce2de679e251f0ac2eb0ae7164bbad0d2c9"
+          },
+          {
+            "path": "crates/platform/src/discovery/native/tests.rs",
+            "sha256": "502fbc75853cf725f95c78196f126de06e5355226420fc1e34cec47f8b119ce0"
+          },
+          {
+            "path": "crates/platform/tests/discovery.rs",
+            "sha256": "e9143602a1dd082101f6a8b4ffd0a7ecab6db53ae7d66ff15a1de28572e0690c"
+          },
+          {
+            "path": "crates/platform/README.md",
+            "sha256": "e74467e00702ac549b4ce2b118dac17033afe6382bb38408c06f44c6c4de1665"
+          },
+          {
+            "path": "crates/transport/src/discovery.rs",
+            "sha256": "2cb608a6e8fa670b5ff653d4350a0e0c6fa37d7946b235fc46a203d404e8e66c"
+          },
+          {
+            "path": "crates/transport/src/discovery/native.rs",
+            "sha256": "2a255e5a76d8b3472d6e7282c3890302d2be6989ccc6480139a070528261c8fa"
+          },
+          {
+            "path": "crates/transport/tests/discovery.rs",
+            "sha256": "b6ea153f66334e74f97f5c43cda23559c823bfa3e52eb01d22f90608b0b8732c"
+          },
+          {
+            "path": "crates/transport/examples/native_discovery_probe.rs",
+            "sha256": "6ad5769b4dd13c7fe806a0ca816fb5a4634222e0b58cd2d60d72ebce1bb9e21b"
+          },
+          {
+            "path": "crates/transport/README.md",
+            "sha256": "2a687a60970531ea5b149bbab1a817bd63f33ca3cc4bfd702510e717bd611105"
+          }
+        ],
+        "stdout": {
+          "path": "D:\\Project\\witvoice\\.local\\t016-native-author\\06-clippy.stdout",
+          "length": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stderr": {
+          "path": "D:\\Project\\witvoice\\.local\\t016-native-author\\06-clippy.stderr",
+          "length": 3071,
+          "sha256": "4578fcc1cb6fca2b891b36f3bc08a51b6af5d9e5d5be399cef59490078890e5e"
+        }
+      }
+    },
+    {
+      "stem": "07-clippy",
+      "metadata_sha256": "76120ceab90b6a009d78edddc391192a285609ba1c67863d852e1954fe0fe15a",
+      "metadata": {
+        "executable": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\cargo.exe",
+        "argv": [
+          "clippy",
+          "--locked",
+          "-p",
+          "witvoice-platform",
+          "-p",
+          "witvoice-transport",
+          "--all-targets",
+          "--",
+          "-D",
+          "warnings"
+        ],
+        "cwd": "D:\\Project\\witvoice",
+        "start_utc": "2026-10-05T07:54:05.3338993Z",
+        "end_utc": "2026-10-05T07:54:07.7843661Z",
+        "exit_code": 101,
+        "env": {
+          "CARGO_TARGET_DIR": "D:\\Project\\witvoice\\.local\\t016-syn-reproducer\\target",
+          "CARGO_BUILD_JOBS": "1",
+          "CARGO_INCREMENTAL": "0",
+          "CARGO_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo",
+          "RUSTUP_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\rustup"
+        },
+        "override_preflight": "absent",
+        "source_before": [
+          {
+            "path": "crates/platform/src/lib.rs",
+            "sha256": "38e087b23847cd1fd9033fbaba0ebf44b83075ba6c37b9226a691ba3b7553957"
+          },
+          {
+            "path": "crates/platform/src/discovery.rs",
+            "sha256": "9e0a574687c5deb60ba4185459cfbb19d1c8ffae50628f8f9369a36ca963467b"
+          },
+          {
+            "path": "crates/platform/src/discovery/native.rs",
+            "sha256": "0850737ad1be76d0dbb673e9430239d051da8cbd27f7ac5890ffcb5a94b56285"
+          },
+          {
+            "path": "crates/platform/src/discovery/native/tests.rs",
+            "sha256": "502fbc75853cf725f95c78196f126de06e5355226420fc1e34cec47f8b119ce0"
+          },
+          {
+            "path": "crates/platform/tests/discovery.rs",
+            "sha256": "e9143602a1dd082101f6a8b4ffd0a7ecab6db53ae7d66ff15a1de28572e0690c"
+          },
+          {
+            "path": "crates/platform/README.md",
+            "sha256": "e74467e00702ac549b4ce2b118dac17033afe6382bb38408c06f44c6c4de1665"
+          },
+          {
+            "path": "crates/transport/src/discovery.rs",
+            "sha256": "2cb608a6e8fa670b5ff653d4350a0e0c6fa37d7946b235fc46a203d404e8e66c"
+          },
+          {
+            "path": "crates/transport/src/discovery/native.rs",
+            "sha256": "2a255e5a76d8b3472d6e7282c3890302d2be6989ccc6480139a070528261c8fa"
+          },
+          {
+            "path": "crates/transport/tests/discovery.rs",
+            "sha256": "b6ea153f66334e74f97f5c43cda23559c823bfa3e52eb01d22f90608b0b8732c"
+          },
+          {
+            "path": "crates/transport/examples/native_discovery_probe.rs",
+            "sha256": "6ad5769b4dd13c7fe806a0ca816fb5a4634222e0b58cd2d60d72ebce1bb9e21b"
+          },
+          {
+            "path": "crates/transport/README.md",
+            "sha256": "2a687a60970531ea5b149bbab1a817bd63f33ca3cc4bfd702510e717bd611105"
+          }
+        ],
+        "source_after": [
+          {
+            "path": "crates/platform/src/lib.rs",
+            "sha256": "38e087b23847cd1fd9033fbaba0ebf44b83075ba6c37b9226a691ba3b7553957"
+          },
+          {
+            "path": "crates/platform/src/discovery.rs",
+            "sha256": "9e0a574687c5deb60ba4185459cfbb19d1c8ffae50628f8f9369a36ca963467b"
+          },
+          {
+            "path": "crates/platform/src/discovery/native.rs",
+            "sha256": "0850737ad1be76d0dbb673e9430239d051da8cbd27f7ac5890ffcb5a94b56285"
+          },
+          {
+            "path": "crates/platform/src/discovery/native/tests.rs",
+            "sha256": "502fbc75853cf725f95c78196f126de06e5355226420fc1e34cec47f8b119ce0"
+          },
+          {
+            "path": "crates/platform/tests/discovery.rs",
+            "sha256": "e9143602a1dd082101f6a8b4ffd0a7ecab6db53ae7d66ff15a1de28572e0690c"
+          },
+          {
+            "path": "crates/platform/README.md",
+            "sha256": "e74467e00702ac549b4ce2b118dac17033afe6382bb38408c06f44c6c4de1665"
+          },
+          {
+            "path": "crates/transport/src/discovery.rs",
+            "sha256": "2cb608a6e8fa670b5ff653d4350a0e0c6fa37d7946b235fc46a203d404e8e66c"
+          },
+          {
+            "path": "crates/transport/src/discovery/native.rs",
+            "sha256": "2a255e5a76d8b3472d6e7282c3890302d2be6989ccc6480139a070528261c8fa"
+          },
+          {
+            "path": "crates/transport/tests/discovery.rs",
+            "sha256": "b6ea153f66334e74f97f5c43cda23559c823bfa3e52eb01d22f90608b0b8732c"
+          },
+          {
+            "path": "crates/transport/examples/native_discovery_probe.rs",
+            "sha256": "6ad5769b4dd13c7fe806a0ca816fb5a4634222e0b58cd2d60d72ebce1bb9e21b"
+          },
+          {
+            "path": "crates/transport/README.md",
+            "sha256": "2a687a60970531ea5b149bbab1a817bd63f33ca3cc4bfd702510e717bd611105"
+          }
+        ],
+        "stdout": {
+          "path": "D:\\Project\\witvoice\\.local\\t016-native-author\\07-clippy.stdout",
+          "length": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stderr": {
+          "path": "D:\\Project\\witvoice\\.local\\t016-native-author\\07-clippy.stderr",
+          "length": 2105,
+          "sha256": "32ba5fc47ebf32c1761a620673848ec48d5b34747fb9b7bd19406689bd8df4c6"
+        }
+      }
+    },
+    {
+      "stem": "08-clippy",
+      "metadata_sha256": "dfec86f3eb1fa69ffc7a69f2f7b7f6991ab67edd7b40efcf9f5b2723e722eb91",
+      "metadata": {
+        "executable": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\cargo.exe",
+        "argv": [
+          "clippy",
+          "--locked",
+          "-p",
+          "witvoice-platform",
+          "-p",
+          "witvoice-transport",
+          "--all-targets",
+          "--",
+          "-D",
+          "warnings"
+        ],
+        "cwd": "D:\\Project\\witvoice",
+        "start_utc": "2026-10-05T07:54:36.7197345Z",
+        "end_utc": "2026-10-05T07:54:37.8367455Z",
+        "exit_code": 0,
+        "env": {
+          "CARGO_TARGET_DIR": "D:\\Project\\witvoice\\.local\\t016-syn-reproducer\\target",
+          "CARGO_BUILD_JOBS": "1",
+          "CARGO_INCREMENTAL": "0",
+          "CARGO_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo",
+          "RUSTUP_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\rustup"
+        },
+        "override_preflight": "absent",
+        "source_before": [
+          {
+            "path": "crates/platform/src/lib.rs",
+            "sha256": "38e087b23847cd1fd9033fbaba0ebf44b83075ba6c37b9226a691ba3b7553957"
+          },
+          {
+            "path": "crates/platform/src/discovery.rs",
+            "sha256": "9e0a574687c5deb60ba4185459cfbb19d1c8ffae50628f8f9369a36ca963467b"
+          },
+          {
+            "path": "crates/platform/src/discovery/native.rs",
+            "sha256": "0850737ad1be76d0dbb673e9430239d051da8cbd27f7ac5890ffcb5a94b56285"
+          },
+          {
+            "path": "crates/platform/src/discovery/native/tests.rs",
+            "sha256": "502fbc75853cf725f95c78196f126de06e5355226420fc1e34cec47f8b119ce0"
+          },
+          {
+            "path": "crates/platform/tests/discovery.rs",
+            "sha256": "e9143602a1dd082101f6a8b4ffd0a7ecab6db53ae7d66ff15a1de28572e0690c"
+          },
+          {
+            "path": "crates/platform/README.md",
+            "sha256": "e74467e00702ac549b4ce2b118dac17033afe6382bb38408c06f44c6c4de1665"
+          },
+          {
+            "path": "crates/transport/src/discovery.rs",
+            "sha256": "2cb608a6e8fa670b5ff653d4350a0e0c6fa37d7946b235fc46a203d404e8e66c"
+          },
+          {
+            "path": "crates/transport/src/discovery/native.rs",
+            "sha256": "2cada5723d634916287459f32c301fe2aa05a348decf42bb9ed5aedaf38d7aff"
+          },
+          {
+            "path": "crates/transport/tests/discovery.rs",
+            "sha256": "b6ea153f66334e74f97f5c43cda23559c823bfa3e52eb01d22f90608b0b8732c"
+          },
+          {
+            "path": "crates/transport/examples/native_discovery_probe.rs",
+            "sha256": "6ad5769b4dd13c7fe806a0ca816fb5a4634222e0b58cd2d60d72ebce1bb9e21b"
+          },
+          {
+            "path": "crates/transport/README.md",
+            "sha256": "2a687a60970531ea5b149bbab1a817bd63f33ca3cc4bfd702510e717bd611105"
+          }
+        ],
+        "source_after": [
+          {
+            "path": "crates/platform/src/lib.rs",
+            "sha256": "38e087b23847cd1fd9033fbaba0ebf44b83075ba6c37b9226a691ba3b7553957"
+          },
+          {
+            "path": "crates/platform/src/discovery.rs",
+            "sha256": "9e0a574687c5deb60ba4185459cfbb19d1c8ffae50628f8f9369a36ca963467b"
+          },
+          {
+            "path": "crates/platform/src/discovery/native.rs",
+            "sha256": "0850737ad1be76d0dbb673e9430239d051da8cbd27f7ac5890ffcb5a94b56285"
+          },
+          {
+            "path": "crates/platform/src/discovery/native/tests.rs",
+            "sha256": "502fbc75853cf725f95c78196f126de06e5355226420fc1e34cec47f8b119ce0"
+          },
+          {
+            "path": "crates/platform/tests/discovery.rs",
+            "sha256": "e9143602a1dd082101f6a8b4ffd0a7ecab6db53ae7d66ff15a1de28572e0690c"
+          },
+          {
+            "path": "crates/platform/README.md",
+            "sha256": "e74467e00702ac549b4ce2b118dac17033afe6382bb38408c06f44c6c4de1665"
+          },
+          {
+            "path": "crates/transport/src/discovery.rs",
+            "sha256": "2cb608a6e8fa670b5ff653d4350a0e0c6fa37d7946b235fc46a203d404e8e66c"
+          },
+          {
+            "path": "crates/transport/src/discovery/native.rs",
+            "sha256": "2cada5723d634916287459f32c301fe2aa05a348decf42bb9ed5aedaf38d7aff"
+          },
+          {
+            "path": "crates/transport/tests/discovery.rs",
+            "sha256": "b6ea153f66334e74f97f5c43cda23559c823bfa3e52eb01d22f90608b0b8732c"
+          },
+          {
+            "path": "crates/transport/examples/native_discovery_probe.rs",
+            "sha256": "6ad5769b4dd13c7fe806a0ca816fb5a4634222e0b58cd2d60d72ebce1bb9e21b"
+          },
+          {
+            "path": "crates/transport/README.md",
+            "sha256": "2a687a60970531ea5b149bbab1a817bd63f33ca3cc4bfd702510e717bd611105"
+          }
+        ],
+        "stdout": {
+          "path": "D:\\Project\\witvoice\\.local\\t016-native-author\\08-clippy.stdout",
+          "length": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stderr": {
+          "path": "D:\\Project\\witvoice\\.local\\t016-native-author\\08-clippy.stderr",
+          "length": 226,
+          "sha256": "6529629ae8cdfbebbaebd331c1750013bdfa33a4ea9b436f4ab69eb320c7a8d8"
+        }
+      }
+    },
+    {
+      "stem": "09-tests-final",
+      "metadata_sha256": "630780383b8fd02175929ff73363e88b81b67444867535e8a5a8aae63533755b",
+      "metadata": {
+        "executable": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\cargo.exe",
+        "argv": [
+          "test",
+          "--locked",
+          "-p",
+          "witvoice-platform",
+          "-p",
+          "witvoice-transport"
+        ],
+        "cwd": "D:\\Project\\witvoice",
+        "start_utc": "2026-10-05T07:54:56.3071001Z",
+        "end_utc": "2026-10-05T07:55:01.6680609Z",
+        "exit_code": 0,
+        "env": {
+          "CARGO_TARGET_DIR": "D:\\Project\\witvoice\\.local\\t016-syn-reproducer\\target",
+          "CARGO_BUILD_JOBS": "1",
+          "CARGO_INCREMENTAL": "0",
+          "CARGO_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo",
+          "RUSTUP_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\rustup"
+        },
+        "override_preflight": "absent",
+        "source_before": [
+          {
+            "path": "crates/platform/src/lib.rs",
+            "sha256": "38e087b23847cd1fd9033fbaba0ebf44b83075ba6c37b9226a691ba3b7553957"
+          },
+          {
+            "path": "crates/platform/src/discovery.rs",
+            "sha256": "9e0a574687c5deb60ba4185459cfbb19d1c8ffae50628f8f9369a36ca963467b"
+          },
+          {
+            "path": "crates/platform/src/discovery/native.rs",
+            "sha256": "0850737ad1be76d0dbb673e9430239d051da8cbd27f7ac5890ffcb5a94b56285"
+          },
+          {
+            "path": "crates/platform/src/discovery/native/tests.rs",
+            "sha256": "502fbc75853cf725f95c78196f126de06e5355226420fc1e34cec47f8b119ce0"
+          },
+          {
+            "path": "crates/platform/tests/discovery.rs",
+            "sha256": "e9143602a1dd082101f6a8b4ffd0a7ecab6db53ae7d66ff15a1de28572e0690c"
+          },
+          {
+            "path": "crates/platform/README.md",
+            "sha256": "e74467e00702ac549b4ce2b118dac17033afe6382bb38408c06f44c6c4de1665"
+          },
+          {
+            "path": "crates/transport/src/discovery.rs",
+            "sha256": "2cb608a6e8fa670b5ff653d4350a0e0c6fa37d7946b235fc46a203d404e8e66c"
+          },
+          {
+            "path": "crates/transport/src/discovery/native.rs",
+            "sha256": "2cada5723d634916287459f32c301fe2aa05a348decf42bb9ed5aedaf38d7aff"
+          },
+          {
+            "path": "crates/transport/tests/discovery.rs",
+            "sha256": "b6ea153f66334e74f97f5c43cda23559c823bfa3e52eb01d22f90608b0b8732c"
+          },
+          {
+            "path": "crates/transport/examples/native_discovery_probe.rs",
+            "sha256": "6ad5769b4dd13c7fe806a0ca816fb5a4634222e0b58cd2d60d72ebce1bb9e21b"
+          },
+          {
+            "path": "crates/transport/README.md",
+            "sha256": "2a687a60970531ea5b149bbab1a817bd63f33ca3cc4bfd702510e717bd611105"
+          }
+        ],
+        "source_after": [
+          {
+            "path": "crates/platform/src/lib.rs",
+            "sha256": "38e087b23847cd1fd9033fbaba0ebf44b83075ba6c37b9226a691ba3b7553957"
+          },
+          {
+            "path": "crates/platform/src/discovery.rs",
+            "sha256": "9e0a574687c5deb60ba4185459cfbb19d1c8ffae50628f8f9369a36ca963467b"
+          },
+          {
+            "path": "crates/platform/src/discovery/native.rs",
+            "sha256": "0850737ad1be76d0dbb673e9430239d051da8cbd27f7ac5890ffcb5a94b56285"
+          },
+          {
+            "path": "crates/platform/src/discovery/native/tests.rs",
+            "sha256": "502fbc75853cf725f95c78196f126de06e5355226420fc1e34cec47f8b119ce0"
+          },
+          {
+            "path": "crates/platform/tests/discovery.rs",
+            "sha256": "e9143602a1dd082101f6a8b4ffd0a7ecab6db53ae7d66ff15a1de28572e0690c"
+          },
+          {
+            "path": "crates/platform/README.md",
+            "sha256": "e74467e00702ac549b4ce2b118dac17033afe6382bb38408c06f44c6c4de1665"
+          },
+          {
+            "path": "crates/transport/src/discovery.rs",
+            "sha256": "2cb608a6e8fa670b5ff653d4350a0e0c6fa37d7946b235fc46a203d404e8e66c"
+          },
+          {
+            "path": "crates/transport/src/discovery/native.rs",
+            "sha256": "2cada5723d634916287459f32c301fe2aa05a348decf42bb9ed5aedaf38d7aff"
+          },
+          {
+            "path": "crates/transport/tests/discovery.rs",
+            "sha256": "b6ea153f66334e74f97f5c43cda23559c823bfa3e52eb01d22f90608b0b8732c"
+          },
+          {
+            "path": "crates/transport/examples/native_discovery_probe.rs",
+            "sha256": "6ad5769b4dd13c7fe806a0ca816fb5a4634222e0b58cd2d60d72ebce1bb9e21b"
+          },
+          {
+            "path": "crates/transport/README.md",
+            "sha256": "2a687a60970531ea5b149bbab1a817bd63f33ca3cc4bfd702510e717bd611105"
+          }
+        ],
+        "stdout": {
+          "path": "D:\\Project\\witvoice\\.local\\t016-native-author\\09-tests-final.stdout",
+          "length": 3470,
+          "sha256": "ed1f87cf0de9ec9cf479141bee26f4130333a1b8b496773ed91672486f7ecbfd"
+        },
+        "stderr": {
+          "path": "D:\\Project\\witvoice\\.local\\t016-native-author\\09-tests-final.stderr",
+          "length": 967,
+          "sha256": "57b31dbc2ae138552be838f3bbbf4fb1f32816811e0ab2921bc9819420d10a06"
+        }
+      }
+    },
+    {
+      "stem": "10-fmt-final",
+      "metadata_sha256": "33fdd18044f42514ca2359a11cf3d11d061e552073731ebb3690fb441005c498",
+      "metadata": {
+        "executable": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\cargo.exe",
+        "argv": [
+          "fmt",
+          "--package",
+          "witvoice-platform",
+          "--package",
+          "witvoice-transport",
+          "--check"
+        ],
+        "cwd": "D:\\Project\\witvoice",
+        "start_utc": "2026-10-05T07:55:22.1279081Z",
+        "end_utc": "2026-10-05T07:55:22.3127611Z",
+        "exit_code": 0,
+        "env": {
+          "CARGO_TARGET_DIR": "D:\\Project\\witvoice\\.local\\t016-syn-reproducer\\target",
+          "CARGO_BUILD_JOBS": "1",
+          "CARGO_INCREMENTAL": "0",
+          "CARGO_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo",
+          "RUSTUP_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\rustup"
+        },
+        "override_preflight": "absent",
+        "source_before": [
+          {
+            "path": "crates/platform/src/lib.rs",
+            "sha256": "38e087b23847cd1fd9033fbaba0ebf44b83075ba6c37b9226a691ba3b7553957"
+          },
+          {
+            "path": "crates/platform/src/discovery.rs",
+            "sha256": "9e0a574687c5deb60ba4185459cfbb19d1c8ffae50628f8f9369a36ca963467b"
+          },
+          {
+            "path": "crates/platform/src/discovery/native.rs",
+            "sha256": "0850737ad1be76d0dbb673e9430239d051da8cbd27f7ac5890ffcb5a94b56285"
+          },
+          {
+            "path": "crates/platform/src/discovery/native/tests.rs",
+            "sha256": "502fbc75853cf725f95c78196f126de06e5355226420fc1e34cec47f8b119ce0"
+          },
+          {
+            "path": "crates/platform/tests/discovery.rs",
+            "sha256": "e9143602a1dd082101f6a8b4ffd0a7ecab6db53ae7d66ff15a1de28572e0690c"
+          },
+          {
+            "path": "crates/platform/README.md",
+            "sha256": "e74467e00702ac549b4ce2b118dac17033afe6382bb38408c06f44c6c4de1665"
+          },
+          {
+            "path": "crates/transport/src/discovery.rs",
+            "sha256": "2cb608a6e8fa670b5ff653d4350a0e0c6fa37d7946b235fc46a203d404e8e66c"
+          },
+          {
+            "path": "crates/transport/src/discovery/native.rs",
+            "sha256": "2cada5723d634916287459f32c301fe2aa05a348decf42bb9ed5aedaf38d7aff"
+          },
+          {
+            "path": "crates/transport/tests/discovery.rs",
+            "sha256": "b6ea153f66334e74f97f5c43cda23559c823bfa3e52eb01d22f90608b0b8732c"
+          },
+          {
+            "path": "crates/transport/examples/native_discovery_probe.rs",
+            "sha256": "6ad5769b4dd13c7fe806a0ca816fb5a4634222e0b58cd2d60d72ebce1bb9e21b"
+          },
+          {
+            "path": "crates/transport/README.md",
+            "sha256": "2a687a60970531ea5b149bbab1a817bd63f33ca3cc4bfd702510e717bd611105"
+          }
+        ],
+        "source_after": [
+          {
+            "path": "crates/platform/src/lib.rs",
+            "sha256": "38e087b23847cd1fd9033fbaba0ebf44b83075ba6c37b9226a691ba3b7553957"
+          },
+          {
+            "path": "crates/platform/src/discovery.rs",
+            "sha256": "9e0a574687c5deb60ba4185459cfbb19d1c8ffae50628f8f9369a36ca963467b"
+          },
+          {
+            "path": "crates/platform/src/discovery/native.rs",
+            "sha256": "0850737ad1be76d0dbb673e9430239d051da8cbd27f7ac5890ffcb5a94b56285"
+          },
+          {
+            "path": "crates/platform/src/discovery/native/tests.rs",
+            "sha256": "502fbc75853cf725f95c78196f126de06e5355226420fc1e34cec47f8b119ce0"
+          },
+          {
+            "path": "crates/platform/tests/discovery.rs",
+            "sha256": "e9143602a1dd082101f6a8b4ffd0a7ecab6db53ae7d66ff15a1de28572e0690c"
+          },
+          {
+            "path": "crates/platform/README.md",
+            "sha256": "e74467e00702ac549b4ce2b118dac17033afe6382bb38408c06f44c6c4de1665"
+          },
+          {
+            "path": "crates/transport/src/discovery.rs",
+            "sha256": "2cb608a6e8fa670b5ff653d4350a0e0c6fa37d7946b235fc46a203d404e8e66c"
+          },
+          {
+            "path": "crates/transport/src/discovery/native.rs",
+            "sha256": "2cada5723d634916287459f32c301fe2aa05a348decf42bb9ed5aedaf38d7aff"
+          },
+          {
+            "path": "crates/transport/tests/discovery.rs",
+            "sha256": "b6ea153f66334e74f97f5c43cda23559c823bfa3e52eb01d22f90608b0b8732c"
+          },
+          {
+            "path": "crates/transport/examples/native_discovery_probe.rs",
+            "sha256": "6ad5769b4dd13c7fe806a0ca816fb5a4634222e0b58cd2d60d72ebce1bb9e21b"
+          },
+          {
+            "path": "crates/transport/README.md",
+            "sha256": "2a687a60970531ea5b149bbab1a817bd63f33ca3cc4bfd702510e717bd611105"
+          }
+        ],
+        "stdout": {
+          "path": "D:\\Project\\witvoice\\.local\\t016-native-author\\10-fmt-final.stdout",
+          "length": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stderr": {
+          "path": "D:\\Project\\witvoice\\.local\\t016-native-author\\10-fmt-final.stderr",
+          "length": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    },
+    {
+      "stem": "11-examples-build",
+      "metadata_sha256": "682f98bef3b5107c8010c51a7cd898c68b4c4d9db9b6b04e35f8ccb1b565f43b",
+      "metadata": {
+        "executable": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\cargo.exe",
+        "argv": [
+          "build",
+          "--locked",
+          "-p",
+          "witvoice-transport",
+          "--examples"
+        ],
+        "cwd": "D:\\Project\\witvoice",
+        "start_utc": "2026-10-05T07:55:26.6244233Z",
+        "end_utc": "2026-10-05T07:55:26.8330482Z",
+        "exit_code": 0,
+        "env": {
+          "CARGO_TARGET_DIR": "D:\\Project\\witvoice\\.local\\t016-syn-reproducer\\target",
+          "CARGO_BUILD_JOBS": "1",
+          "CARGO_INCREMENTAL": "0",
+          "CARGO_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo",
+          "RUSTUP_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\rustup"
+        },
+        "override_preflight": "absent",
+        "source_before": [
+          {
+            "path": "crates/platform/src/lib.rs",
+            "sha256": "38e087b23847cd1fd9033fbaba0ebf44b83075ba6c37b9226a691ba3b7553957"
+          },
+          {
+            "path": "crates/platform/src/discovery.rs",
+            "sha256": "9e0a574687c5deb60ba4185459cfbb19d1c8ffae50628f8f9369a36ca963467b"
+          },
+          {
+            "path": "crates/platform/src/discovery/native.rs",
+            "sha256": "0850737ad1be76d0dbb673e9430239d051da8cbd27f7ac5890ffcb5a94b56285"
+          },
+          {
+            "path": "crates/platform/src/discovery/native/tests.rs",
+            "sha256": "502fbc75853cf725f95c78196f126de06e5355226420fc1e34cec47f8b119ce0"
+          },
+          {
+            "path": "crates/platform/tests/discovery.rs",
+            "sha256": "e9143602a1dd082101f6a8b4ffd0a7ecab6db53ae7d66ff15a1de28572e0690c"
+          },
+          {
+            "path": "crates/platform/README.md",
+            "sha256": "e74467e00702ac549b4ce2b118dac17033afe6382bb38408c06f44c6c4de1665"
+          },
+          {
+            "path": "crates/transport/src/discovery.rs",
+            "sha256": "2cb608a6e8fa670b5ff653d4350a0e0c6fa37d7946b235fc46a203d404e8e66c"
+          },
+          {
+            "path": "crates/transport/src/discovery/native.rs",
+            "sha256": "2cada5723d634916287459f32c301fe2aa05a348decf42bb9ed5aedaf38d7aff"
+          },
+          {
+            "path": "crates/transport/tests/discovery.rs",
+            "sha256": "b6ea153f66334e74f97f5c43cda23559c823bfa3e52eb01d22f90608b0b8732c"
+          },
+          {
+            "path": "crates/transport/examples/native_discovery_probe.rs",
+            "sha256": "6ad5769b4dd13c7fe806a0ca816fb5a4634222e0b58cd2d60d72ebce1bb9e21b"
+          },
+          {
+            "path": "crates/transport/README.md",
+            "sha256": "2a687a60970531ea5b149bbab1a817bd63f33ca3cc4bfd702510e717bd611105"
+          }
+        ],
+        "source_after": [
+          {
+            "path": "crates/platform/src/lib.rs",
+            "sha256": "38e087b23847cd1fd9033fbaba0ebf44b83075ba6c37b9226a691ba3b7553957"
+          },
+          {
+            "path": "crates/platform/src/discovery.rs",
+            "sha256": "9e0a574687c5deb60ba4185459cfbb19d1c8ffae50628f8f9369a36ca963467b"
+          },
+          {
+            "path": "crates/platform/src/discovery/native.rs",
+            "sha256": "0850737ad1be76d0dbb673e9430239d051da8cbd27f7ac5890ffcb5a94b56285"
+          },
+          {
+            "path": "crates/platform/src/discovery/native/tests.rs",
+            "sha256": "502fbc75853cf725f95c78196f126de06e5355226420fc1e34cec47f8b119ce0"
+          },
+          {
+            "path": "crates/platform/tests/discovery.rs",
+            "sha256": "e9143602a1dd082101f6a8b4ffd0a7ecab6db53ae7d66ff15a1de28572e0690c"
+          },
+          {
+            "path": "crates/platform/README.md",
+            "sha256": "e74467e00702ac549b4ce2b118dac17033afe6382bb38408c06f44c6c4de1665"
+          },
+          {
+            "path": "crates/transport/src/discovery.rs",
+            "sha256": "2cb608a6e8fa670b5ff653d4350a0e0c6fa37d7946b235fc46a203d404e8e66c"
+          },
+          {
+            "path": "crates/transport/src/discovery/native.rs",
+            "sha256": "2cada5723d634916287459f32c301fe2aa05a348decf42bb9ed5aedaf38d7aff"
+          },
+          {
+            "path": "crates/transport/tests/discovery.rs",
+            "sha256": "b6ea153f66334e74f97f5c43cda23559c823bfa3e52eb01d22f90608b0b8732c"
+          },
+          {
+            "path": "crates/transport/examples/native_discovery_probe.rs",
+            "sha256": "6ad5769b4dd13c7fe806a0ca816fb5a4634222e0b58cd2d60d72ebce1bb9e21b"
+          },
+          {
+            "path": "crates/transport/README.md",
+            "sha256": "2a687a60970531ea5b149bbab1a817bd63f33ca3cc4bfd702510e717bd611105"
+          }
+        ],
+        "stdout": {
+          "path": "D:\\Project\\witvoice\\.local\\t016-native-author\\11-examples-build.stdout",
+          "length": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stderr": {
+          "path": "D:\\Project\\witvoice\\.local\\t016-native-author\\11-examples-build.stderr",
+          "length": 72,
+          "sha256": "a5f4c585ee974ca44916ac30a98bbc189e067a7e0a6bc6d2e8d6bc525be724af"
+        }
+      }
+    }
+  ]
+}

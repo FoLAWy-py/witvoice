@@ -147,8 +147,10 @@ mod tests {
     use super::*;
     #[test]
     fn untrusted_native_results_use_address_and_ttl_guards_without_pairing() {
-        let mut peers = NativePeers::default();
-        peers.interface = Some(19);
+        let mut peers = NativePeers {
+            interface: Some(19),
+            ..Default::default()
+        };
         let now = Instant::now();
         let id = "00000000-0000-0000-0000-000000000001"
             .to_owned()
@@ -166,7 +168,13 @@ mod tests {
             ),
             Err(Error::InvalidAddress)
         );
-        assert!(peers.poll().unwrap().is_empty());
+        assert!(
+            peers
+                .records
+                .snapshot(now.duration_since(peers.started))
+                .unwrap()
+                .is_empty()
+        );
         let id = "00000000-0000-0000-0000-000000000001"
             .to_owned()
             .try_into()
@@ -204,8 +212,10 @@ mod tests {
     }
     #[test]
     fn closing_cannot_restart_resolution_or_repopulate_records_from_queued_results() {
-        let mut peers = NativePeers::default();
-        peers.interface = Some(19);
+        let mut peers = NativePeers {
+            interface: Some(19),
+            ..Default::default()
+        };
         peers.close().unwrap();
         let now = Instant::now();
         assert_eq!(
