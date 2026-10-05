@@ -1,0 +1,13 @@
+{
+    "host":  "5.1.26100.7462",
+    "executable":  "D:\\Project\\witvoice\\.local\\venvs\\meanvc2-m0\\Scripts\\python.exe",
+    "argv":  "-c \"import os; print(os.getpid())\"",
+    "spawned_pid":  51688,
+    "python_reported_pid":  "51844",
+    "exit":  0,
+    "stderr":  "",
+    "model":  "NOT_RUN",
+    "GPU":  "NOT_RUN",
+    "audio":  "NOT_RUN",
+    "UTC":  "2026-10-05T15:21:54.5501789Z"
+}

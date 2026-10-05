@@ -301,8 +301,12 @@ mod probe {
                 .ancestors()
                 .nth(2)
                 .ok_or_else(|| failure("fixed_root"))?;
-            let python = root.join(".local/venvs/meanvc2-m0/Scripts/python.exe");
-            let runtime = root.join("workers/vc_worker/runtime.py");
+            // Launch the fixed base interpreter directly. The venv redirector
+            // creates a different worker PID, which strict pipe auth rejects.
+            let python = Path::new(
+                r"C:\Users\22198\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe",
+            );
+            let runtime = root.join("workers/vc_worker/model_bootstrap.py");
             if !python.is_file() || !runtime.is_file() {
                 return Err(failure("fixed_runtime_missing"));
             }
@@ -337,7 +341,7 @@ mod probe {
             ];
             // Fixed binary/script; stdin receives exactly32 secret bytes; worker
             // stdout/stderr go to NUL, never raw audio/paths or probe stdout.
-            let worker = match job.spawn_bootstrapped(&python, &args, false, &credential) {
+            let worker = match job.spawn_bootstrapped(python, &args, false, &credential) {
                 Ok(worker) => worker,
                 Err(error) => {
                     let (zero, count) = cleanup_job(&job, &mut control, &mut media);

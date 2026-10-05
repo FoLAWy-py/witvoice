@@ -1,0 +1,6 @@
+$ErrorActionPreference='Stop'
+$base='D:\Project\witvoice\.local\t011-warmup-import-diagnostic'
+$si=New-Object Diagnostics.ProcessStartInfo
+$si.FileName='D:\Project\witvoice\.local\venvs\meanvc2-m0\Scripts\python.exe';$si.Arguments='-c "import os; print(os.getpid())"';$si.UseShellExecute=$false;$si.CreateNoWindow=$true;$si.RedirectStandardOutput=$true;$si.RedirectStandardError=$true
+$p=New-Object Diagnostics.Process;$p.StartInfo=$si
+try{[void]$p.Start();$spawned=$p.Id;$a=$p.StandardOutput.ReadToEndAsync();$b=$p.StandardError.ReadToEndAsync();if(-not$p.WaitForExit(5000)){$p.Kill();throw 'owned software PID diagnostic timeout'};$o=$a.GetAwaiter().GetResult();$e=$b.GetAwaiter().GetResult();$m=[ordered]@{host=$PSVersionTable.PSVersion.ToString();executable=$si.FileName;argv=$si.Arguments;spawned_pid=$spawned;python_reported_pid=$o.Trim();exit=$p.ExitCode;stderr=$e;model='NOT_RUN';GPU='NOT_RUN';audio='NOT_RUN';UTC=[DateTime]::UtcNow.ToString('o')};[IO.File]::WriteAllText("$base\pid-result.json",($m|ConvertTo-Json -Depth 8),(New-Object Text.UTF8Encoding($false)));$m|ConvertTo-Json -Depth 8}finally{$p.Dispose()}

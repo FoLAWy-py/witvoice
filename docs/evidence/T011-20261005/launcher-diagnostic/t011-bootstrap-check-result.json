@@ -1,0 +1,18 @@
+{
+  "host": "7.6.5",
+  "spawned_pid": 52924,
+  "python_report": {
+    "python_pid": 52924,
+    "fixed_runtime": "D:\\Project\\witvoice\\workers\\vc_worker\\runtime.py",
+    "torch_imported": false,
+    "torch_origin": "D:\\Project\\witvoice\\.local\\venvs\\meanvc2-m0\\Lib\\site-packages\\torch\\__init__.py",
+    "no_model_site_processing": "bootstrap uses sys.path.insert, not site.addsitedir"
+  },
+  "exit": 0,
+  "stderr": "",
+  "PID_equal": true,
+  "GPU": "NOT_RUN",
+  "model": "NOT_RUN",
+  "torch_imported": false,
+  "UTC": "2026-10-05T15:25:09.5686415Z"
+}

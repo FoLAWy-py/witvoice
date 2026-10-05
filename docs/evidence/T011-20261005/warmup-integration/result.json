@@ -1,0 +1,90 @@
+{
+  "source_commit": "c5c9644945e239bd74ee17dc7e6cf28ebb0c4380",
+  "source_inputs": 105,
+  "effective_tests": 199,
+  "commands": {
+    "workspace-tests": {
+      "exit": 0,
+      "argv": [
+        "test",
+        "--locked",
+        "--workspace",
+        "--all-targets",
+        "--features",
+        "witvoice-node/process-tests,witvoice-session/test-support",
+        "--verbose",
+        "--",
+        "--nocapture"
+      ],
+      "wall_seconds": 11.9170388,
+      "stdout": {
+        "bytes": 23564,
+        "sha256": "f2a807d5ae58e5a4c092887c50505f91d7841c8faffd80edf69d022c666b891f"
+      },
+      "stderr": {
+        "bytes": 11211,
+        "sha256": "d376ec4a1d86d604d9b736be2f4057e78ca4e4917b17f5a2da2f19def0ebd1ca"
+      }
+    },
+    "fmt": {
+      "exit": 0,
+      "argv": [
+        "fmt",
+        "--all",
+        "--check"
+      ],
+      "wall_seconds": 0.7228486,
+      "stdout": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "clippy": {
+      "exit": 0,
+      "argv": [
+        "clippy",
+        "--locked",
+        "--workspace",
+        "--all-targets",
+        "--features",
+        "witvoice-node/process-tests,witvoice-session/test-support",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "wall_seconds": 1.2478249,
+      "stdout": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "bytes": 146,
+        "sha256": "157de3f5ee8daabcd92724f310aba9f2c0a86278d1047053809f2a61ad7727e1"
+      }
+    },
+    "examples": {
+      "exit": 0,
+      "argv": [
+        "build",
+        "--locked",
+        "--workspace",
+        "--examples"
+      ],
+      "wall_seconds": 1.4746200999999999,
+      "stdout": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "bytes": 146,
+        "sha256": "6d3fc1c6543b80e8dc592f1e13cda411e1217148e4eaedcc1538c45cf980ba79"
+      }
+    }
+  },
+  "model_GPU_audio_network": "NOT_RUN",
+  "inputs_all_equal": true
+}
