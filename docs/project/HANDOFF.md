@@ -1,5 +1,9 @@
 # 当前交接
 
+中断恢复点（2026-10-05）：四个实际子agent均interrupted，STATE.active_tasks已清空，代码/审查/硬件/GPU租约释放。next_task=T007，T007第三/最后正式审查无最终结论，恢复同一r3，不增第4轮也不标DONE。T016新增平台lib/discovery/native三个文件未提交，保持原样并另存.local私有字节备份；摘要和可见进程观测见interruption-20261005.json。新原生DNS片段尚未验证，不移用旧身份15测试/旧工作区78测试作为该片段PASS；transport probe/适配/测试尚未交付。无后台继续承诺。
+
+恢复时先核部分源码摘要与工作树，再登记具体lease：reviewer/frontend补完冻结T007 r3，backend续T016既有窄白名单。T008仅pending assignment，依赖未批准不得开工。以下当前基线段描述中断前已验证事实与历史分工；若其中有“正在/当前运行/持有”的文字，执行状态以本中断段和STATE为准。
+
 项目 IN_PROGRESS，授权终点 M5/WINDOWS_DELIVERED；M6 真实 Mac 与双向 LAN 仍必需，completion_claim_allowed=false。当前 next_task=T007，M1/M3/M4 IN_PROGRESS；M0、T001–T006、T021 已有独立批准 DONE。
 
 T007 第三且最后一轮正式审查正在进行，attempts=3，实际 reviewer /root/reviewer_t001（UUID01a1077c-556d-7152-892c-d9f92346ec0f），结果尚未批准，不能标 DONE。当前流/通知/探针源码冻结3af8a6f；独立 reviewer 在只读角色内接收 frontend/audio 的固定全文中继，无独立测试复跑。新增20个作者日志逐字节来源证明与当前普通用户 Windows 环境冻结126ac24；旧失败历史完整保留。78项工作区测试、fmt、Clippy在ab89088冻结整合后实际退出0（证据56f4168），其中33项audio测试；随后381eb41仅切换T016依赖/feature，不能把之前78项说成当前新依赖的复跑。
@@ -12,7 +16,7 @@ T016 身份/DPAPI/寻址/信任11文件冻结ab89088，15项实际测试退出0�
 
 T016 root manifest/lock单点准备完成于381eb4131dc7798d3e7ea09291958541a9a705c6：离线94→82包，仅删除12项未用依赖，保留包版本/源/checksum不变；windows0.62.2只增加Dns feature，platform+transport cargo check退出0，未调用网络API。root代码锁已释放。backend /root/backend（UUID01a10767-4ff5-7f21-881a-146d094fbc55）已通过真实followup恢复执行原生addendum，持有backend-native-dns写入锁，白名单见STATE/T016-assignment。仅平台/transport原生适配及纯注入测试，有限LAN探针只创建/编译、不得实际运行；无LAN、防火墙、麦克风/GPU授权。缺额外feature先交leader，不自行修改根文件。
 
-当前4个保留子agent：backend实现、reviewer正式T007审查、frontend/audio只读证据中继；最多1代码写入者，0硬件/GPU租约，无第二leader/递归spawn。历史hci/ml等实际线程证据仍保留，不能说它们当前运行。自定义角色派发与职责注入实证通过；磁盘完整配置schema与sandbox强制仍UNVERIFIED。默认命令在创建进程前ACL故障，限定范围require_escalated兼容执行，未改ACL/全局配置；reviewer不提权、不声称复跑。
+中断前4个保留子agent分工：backend实现、reviewer正式T007审查、frontend/audio只读证据中继；中断后均已停止，0代码写入者、0硬件/GPU租约，无第二leader/递归spawn。历史hci/ml等实际线程证据仍保留，不能说它们当前运行。自定义角色派发与职责注入实证通过；磁盘完整配置schema与sandbox强制仍UNVERIFIED。默认命令在创建进程前ACL故障，限定范围require_escalated兼容执行，未改ACL/全局配置；reviewer不提权、不声称复跑。
 
 当前文档validator实际退出0，仅检查7/35/32需求/7角色一致性，非应用测试。B001派生代码/独立speaker权重许可仍阻止捆绑再分发；Windows整机2h、24源/3音色质量签收、真实虚拟电缆、Mac与有线双向LAN仍未执行，不标PASS。现有下载/本机音频转换授权持续；短5秒硬件授权不扩大成任意录音许可，驱动/防火墙/数据外传仍需具体批准。
 

@@ -1,0 +1,46 @@
+{
+  "captured_utc": "2026-10-05T06:23:19.175010+00:00",
+  "base_commit": "2159593bd04a9d59efc00fcb1f7c8b1a9d5ed6c7",
+  "agent_statuses": {
+    "/root/audio_runtime": "interrupted",
+    "/root/backend": "interrupted",
+    "/root/frontend": "interrupted",
+    "/root/reviewer_t001": "interrupted"
+  },
+  "partial_source": [
+    {
+      "path": "crates/platform/src/lib.rs",
+      "bytes": 302,
+      "sha256": "88dde884c45af794447de33beb77352b18787072b54e35184ad643e7e88b7528",
+      "status": "UNCOMMITTED_NOT_VERIFIED"
+    },
+    {
+      "path": "crates/platform/src/discovery.rs",
+      "bytes": 1603,
+      "sha256": "6faf67e6bcea91e13896cc6954687f3342731a76b160b4f5633688bfd6003026",
+      "status": "UNCOMMITTED_NOT_VERIFIED"
+    },
+    {
+      "path": "crates/platform/src/discovery/native.rs",
+      "bytes": 18184,
+      "sha256": "ecc13b6e5783495fd1173c288e66920ebf7bf1e034e5467912e2d595b0be330e",
+      "status": "UNCOMMITTED_NOT_VERIFIED"
+    }
+  ],
+  "private_backup": ".local/interruption-t016-6a2d8d4c325d437bbad1dd4a4f1d3b0f",
+  "repo_process_observation": {
+    "observed_utc": "2026-10-05T06:20:39.4309616Z",
+    "boundary": "only processes with visible ExecutablePath under repo; no systemwide absence claim",
+    "processes": []
+  },
+  "build_candidate_observation": {
+    "observed_utc": "2026-10-05T06:23:18.9799184Z",
+    "scope": "visible known build/probe executable names; candidates do not prove project ownership",
+    "candidates": []
+  },
+  "new_partial_source_tests": "NOT_VERIFIED; no post-interruption application tests run",
+  "T007_r3": "NO_FINAL_RESULT; continue same attempt3, not attempt4",
+  "next_task": "T007",
+  "leases": "RELEASED",
+  "background_continuation": "NONE_PROMISED"
+}
