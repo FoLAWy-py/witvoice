@@ -1,0 +1,28 @@
+{
+    "task":  "T011",
+    "owner":  "/root",
+    "name":  "platform-fmt-current",
+    "exe":  "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\cargo.exe",
+    "argv":  [
+                 "fmt",
+                 "--check",
+                 "-p",
+                 "witvoice-platform"
+             ],
+    "cwd":  "D:\\Project\\witvoice",
+    "host":  "5.1.26100.7462",
+    "started_utc":  "2026-10-05T14:22:09.5104193Z",
+    "finished_utc":  "2026-10-05T14:22:09.6929934Z",
+    "wall_seconds":  0.1816836,
+    "exit":  0,
+    "hardware":  "NOT_RUN",
+    "model":  "NOT_RUN",
+    "stdout":  {
+                   "bytes":  0,
+                   "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+               },
+    "stderr":  {
+                   "bytes":  0,
+                   "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+               }
+}

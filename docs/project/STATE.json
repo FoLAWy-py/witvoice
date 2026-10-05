@@ -34,7 +34,11 @@
         ".local/t011-native-client",
         "docs/evidence/T011-20261005/native-client",
         "docs/project/reviews/T011-software-limited.md",
-        "crates/platform/examples/worker_python_probe.rs"
+        "crates/platform/examples/worker_python_probe.rs",
+        ".local/t011-native-final",
+        "docs/evidence/T011-20261005/native-integration",
+        "workers/vc_worker/README.md",
+        "workers/vc_worker/test_windows_pipe.py"
       ],
       "dependencies": [
         "T002",
@@ -56,7 +60,14 @@
         "workers/vc_worker/windows_pipe.py",
         "workers/vc_worker/native_interop_probe.py",
         "crates/platform/examples/worker_python_probe.rs",
-        "docs/evidence/T011-20261005/native-client"
+        "docs/evidence/T011-20261005/native-client",
+        "crates/platform/src/windows.rs",
+        "crates/platform/tests/worker_pipe.rs",
+        "crates/platform/README.md",
+        "docs/evidence/T011-20261005/native-author",
+        "docs/evidence/T011-20261005/native-integration",
+        "workers/vc_worker/test_windows_pipe.py",
+        ".local/t011-native-client"
       ],
       "dependencies": [
         "T002",
@@ -125,9 +136,9 @@
     {
       "id": "B004",
       "scope": "T010 application verification and toolchain reliability",
-      "status": "RESOLVED_FOR_CURRENT_TEST_RUN_ROOT_CAUSE_UNKNOWN",
-      "evidence": "docs/evidence/integration/20261005-bounded-final/result.json",
-      "note": "Current163tests/fmt/strictClippy/examples/defaultcheck0 actualSystemPS5.1; oldICE/AV retained UNKNOWN, no causal or generalstability claim"
+      "status": "BLOCKED_CURRENT_INTEGRATION_LINK_PDB",
+      "evidence": "docs/evidence/T011-20261005/native-integration/first-link-failure/native-workspace-tests.json",
+      "note": "Newd730 cargo101 transportlibtest MSVC LNK1318 unexpectedPDB OK0 beforeapplicationtests;100inputs beforeafter equal. No fullworkspace retry, no AVcause/settingchange. Independentplatformprobe build/fmt/strictClippy0 is limitedscope."
     },
     {
       "id": "B005",
@@ -215,8 +226,8 @@
     },
     "continuity": "FAIL_CAPTURE_INITIALIZE_0x887c001a_BEFORE_START"
   },
-  "last_attempted_commit": "7ea5bd743d50c4a586cb0ab94b3b88866772ab59",
-  "last_attempted_result": "185effective workspace/fmt/strictClippy/examples/defaultcheck0;4Pythoncontrol+6PCM0+bindingdriftcorrected0;96 frozeninputs equal. T011partial only; native/modelnotimplemented. Original31ba Clippy101 retained.",
+  "last_attempted_commit": "d7306893e44230b947ad7ac842d731a7603bea1c",
+  "last_attempted_result": "Newd730 cargo101 transportlibtest MSVC LNK1318 unexpectedPDB OK0 beforeapplicationtests;100inputs beforeafter equal. No fullworkspace retry, no AVcause/settingchange. Independentplatformprobe build/fmt/strictClippy0 is limitedscope.",
   "latest_vbcable_diagnostic": {
     "authorization_id": "T009-EXACT-MIX-4b726af0-03d9-4553-ab95-a4416fe45145",
     "status": "CONSUMED_FAILED_NO_RETRY",

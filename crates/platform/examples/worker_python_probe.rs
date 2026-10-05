@@ -85,6 +85,12 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Cleanup is confirmed by the owner querying the real Job, never a worker assertion.
     let cleanup = job.terminate();
     let remaining = job.active_processes();
+    let clean = cleanup.is_ok() && matches!(remaining, Ok(0));
+    if !clean {
+        // A still-live child may hold stdout open. Never block draining its
+        // scalar pipe when the real owner has not confirmed process-tree exit.
+        return Err("owned process cleanup unconfirmed".into());
+    }
     let mut scalar = Vec::new();
     if let Some(output) = child.take_output() {
         output.take(4097).read_to_end(&mut scalar)?;
@@ -92,7 +98,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     if scalar.len() > 4096 {
         return Err("diagnostic scalar output bound".into());
     }
-    let clean = cleanup.is_ok() && matches!(remaining, Ok(0));
     let passed = run.is_ok() && clean;
     println!(
         "{{\"status\":\"{}\",\"control_and_media\":{},\"source_samples\":{},\"owned_job_empty\":{},\"wall_seconds\":{},\"model\":\"NOT_RUN\",\"audio\":\"NOT_RUN\",\"pcm_saved\":false}}",
@@ -106,9 +111,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         clean,
         started.elapsed().as_secs_f64()
     );
-    if !clean {
-        return Err("owned process cleanup unconfirmed".into());
-    }
     run
 }
 #[cfg(not(all(windows, debug_assertions)))]

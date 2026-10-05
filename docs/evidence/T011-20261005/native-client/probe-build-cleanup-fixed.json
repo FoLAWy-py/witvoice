@@ -1,0 +1,31 @@
+{
+    "task":  "T011",
+    "owner":  "/root",
+    "name":  "probe-build-cleanup-fixed",
+    "exe":  "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\cargo.exe",
+    "argv":  [
+                 "build",
+                 "--locked",
+                 "--offline",
+                 "-p",
+                 "witvoice-platform",
+                 "--example",
+                 "worker_python_probe"
+             ],
+    "cwd":  "D:\\Project\\witvoice",
+    "host":  "5.1.26100.7462",
+    "started_utc":  "2026-10-05T14:27:48.7757290Z",
+    "finished_utc":  "2026-10-05T14:27:49.2786697Z",
+    "wall_seconds":  0.5032768,
+    "exit":  0,
+    "hardware":  "NOT_RUN",
+    "model":  "NOT_RUN",
+    "stdout":  {
+                   "bytes":  0,
+                   "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+               },
+    "stderr":  {
+                   "bytes":  148,
+                   "sha256":  "498af9bf15280944ee9fc37aba8b04fc44d8689883e7f3063abbf1fa1f8c7a2e"
+               }
+}

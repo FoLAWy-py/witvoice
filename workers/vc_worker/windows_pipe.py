@@ -8,6 +8,7 @@ from __future__ import annotations
 import ctypes as c
 from ctypes import wintypes as w
 import re
+import os
 import sys
 import threading
 import time
@@ -140,26 +141,41 @@ class PipeClient:
         transferred=w.DWORD()
         event=api.k.CreateEventW(None,True,False,None)
         if not event: raise api.error()
+        issued=False;completed=False
         try:
             operation.hEvent=event
             fn=api.k.ReadFile if payload is None else api.k.WriteFile
+            # Set before entering ctypes: Python can raise after the native call
+            # submitted work but before its return value reaches this assignment.
+            issued=True
             started=fn(self._handle,buf,count,None,c.byref(operation))
             if not started:
                 error=c.get_last_error()
                 if error!=997: raise OSError(error,"worker pipe transfer failed")
                 wait=api.k.WaitForSingleObject(event,max(0,(deadline_ns-time.monotonic_ns())//1_000_000))
                 if wait!=0:
-                    api.k.CancelIoEx(self._handle,c.byref(operation))
-                    # Keep operation, event and buffer alive through cancellation completion.
-                    api.k.GetOverlappedResult(self._handle,c.byref(operation),c.byref(transferred),True)
                     if wait==258: raise TimeoutError("worker pipe transfer deadline")
                     raise api.error()
             if not api.k.GetOverlappedResult(self._handle,c.byref(operation),c.byref(transferred),False):
                 raise api.error()
+            completed=True
             _deadline(deadline_ns)
             if not 1 <= transferred.value <= count: raise EOFError("worker pipe transfer incomplete")
             return buf.raw[:transferred.value] if payload is None else transferred.value
         except BaseException:
+            if issued and not completed:
+                try:
+                    api.k.CancelIoEx(self._handle,c.byref(operation))
+                    # This covers every exceptional exit after native submission,
+                    # including Python interruption at a ctypes return boundary.
+                    api.k.GetOverlappedResult(self._handle,c.byref(operation),c.byref(transferred),True)
+                    if operation.Internal == 0x103:  # STATUS_PENDING
+                        os._exit(70)
+                except BaseException:
+                    # A second interruption during cancellation cannot unwind live
+                    # kernel buffers. Retire this owned worker address space; Node
+                    # must handle the unexpected process exit as FailedMuted.
+                    os._exit(70)
             self.close();raise
         finally: api.k.CloseHandle(event)
 

@@ -1,0 +1,33 @@
+{
+    "task":  "T011",
+    "owner":  "/root",
+    "name":  "platform-clippy-current",
+    "exe":  "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\cargo.exe",
+    "argv":  [
+                 "clippy",
+                 "--locked",
+                 "--offline",
+                 "-p",
+                 "witvoice-platform",
+                 "--all-targets",
+                 "--",
+                 "-D",
+                 "warnings"
+             ],
+    "cwd":  "D:\\Project\\witvoice",
+    "host":  "5.1.26100.7462",
+    "started_utc":  "2026-10-05T14:22:09.6950169Z",
+    "finished_utc":  "2026-10-05T14:22:10.0967171Z",
+    "wall_seconds":  0.40183179999999996,
+    "exit":  0,
+    "hardware":  "NOT_RUN",
+    "model":  "NOT_RUN",
+    "stdout":  {
+                   "bytes":  0,
+                   "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+               },
+    "stderr":  {
+                   "bytes":  148,
+                   "sha256":  "d0046070ea7740a20e99da8dc7391f989ecf17ef290c2a17d51475104aa3163b"
+               }
+}

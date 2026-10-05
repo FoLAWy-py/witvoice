@@ -1,0 +1,29 @@
+{
+    "task":  "T011",
+    "owner":  "/root",
+    "name":  "ownership-compile",
+    "exe":  "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "argv":  [
+                 "-m",
+                 "py_compile",
+                 "workers/vc_worker/windows_pipe.py",
+                 "workers/vc_worker/test_windows_pipe.py",
+                 "workers/vc_worker/native_interop_probe.py"
+             ],
+    "cwd":  "D:\\Project\\witvoice",
+    "host":  "5.1.26100.7462",
+    "started_utc":  "2026-10-05T14:25:39.4785048Z",
+    "finished_utc":  "2026-10-05T14:25:39.5422709Z",
+    "wall_seconds":  0.0634279,
+    "exit":  0,
+    "hardware":  "NOT_RUN",
+    "model":  "NOT_RUN",
+    "stdout":  {
+                   "bytes":  0,
+                   "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+               },
+    "stderr":  {
+                   "bytes":  0,
+                   "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+               }
+}

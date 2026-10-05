@@ -1,0 +1,8 @@
+test_interrupt_after_submission_drains_before_buffers_released (test_windows_pipe.OwnershipTests.test_interrupt_after_submission_drains_before_buffers_released) ... ok
+test_invalid_deadline_retires_handle_without_submitting (test_windows_pipe.OwnershipTests.test_invalid_deadline_retires_handle_without_submitting) ... ok
+test_timeout_drains_before_close (test_windows_pipe.OwnershipTests.test_timeout_drains_before_close) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.000s
+
+OK
