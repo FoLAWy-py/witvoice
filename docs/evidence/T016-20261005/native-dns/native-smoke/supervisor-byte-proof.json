@@ -1,0 +1,15 @@
+{
+  "auditor": "/root",
+  "actual_execution_path": "D:\\Project\\witvoice\\.local\\t016-authorized-native\\supervise_once.py",
+  "actual_raw_sha256": "064f6845ba56521c0e0e83012524e278be902446803d94a13a0de9c3f4860a8b",
+  "git_LF_sha256": "13f15533a5f26104e6dd89627a38232f822d2082f2fc1494e8dff0a05c7e2f45",
+  "byte_transform_hex": "0d0a -> 0a only",
+  "CRLF_count": 88,
+  "actual_raw_CRLF_to_LF_exact_git_equal": true,
+  "AST_exact_equal": true,
+  "public_working_raw_exact_actual_raw": true,
+  "execution_ROOT": "D:\\Project\\witvoice",
+  "archive_is_not_execution_path": true,
+  "config_binding": "execution-binding.json (private config static flag false, NOT_RUN)",
+  "statement": "Only line endings differ; no independent execution or native PASS"
+}
