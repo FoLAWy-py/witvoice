@@ -7,37 +7,6 @@
   "active_milestone": "M1",
   "active_tasks": [
     {
-      "task_id": "T009",
-      "agent_instance_id": "/root/audio_runtime",
-      "allowed_paths": [
-        "crates/audio/src/route.rs",
-        "crates/audio/src/lib.rs",
-        "crates/audio/tests/route.rs",
-        "crates/audio/examples/route_probe.rs",
-        "crates/audio/examples/support/",
-        "crates/audio/README.md",
-        ".local/t009-author/",
-        ".local/t009-vbcable-once/pnp-private.json",
-        ".local/t009-vbcable-once/wasapi-private.json",
-        "docs/evidence/T009-20261005/candidate-metadata.json"
-      ],
-      "resource_leases": [
-        "code-writer:audio-t009-route"
-      ],
-      "depends_on": [
-        "T007",
-        "T008"
-      ],
-      "contract": "docs/project/T009-assignment.md now activated: saved UID/flow strict virtual-pair policy, feedback/raw-source isolation, bounded candidate probe; no physical substitution",
-      "acceptance_commands": [
-        "cargo test --locked -p witvoice-audio --all-targets",
-        "cargo fmt --package witvoice-audio --check",
-        "cargo clippy --locked -p witvoice-audio --all-targets -- -D warnings",
-        "cargo build --locked -p witvoice-audio --example route_probe"
-      ],
-      "execution_note": "Renewed on explicit VB-CABLE instruction; audio software author only. User authorized once generated marker <=5s/whole <=15s on verified CABLE pair, leader source review/build/lease/announcement required; no physical streams/no retry. Steam retired candidate."
-    },
-    {
       "task_id": "T016",
       "agent_instance_id": "/root/reviewer_t001",
       "allowed_paths": [
@@ -57,7 +26,10 @@
         "docs/spec/07-tests-acceptance.md",
         "crates/contracts/src/values.rs",
         "crates/contracts/src/control.rs",
-        "crates/contracts/src/lib.rs"
+        "crates/contracts/src/lib.rs",
+        "crates/platform/README.md",
+        "crates/transport/README.md",
+        "crates/platform/src/windows.rs"
       ],
       "resource_leases": [
         "readonly-review:t016-r1"
@@ -70,41 +42,29 @@
       "acceptance_commands": [
         "Independent exact frozen source/evidence read and precise S0-S3/minimum reproduction or limited fixed task approval"
       ],
-      "execution_note": "Only first formalattempt1/3; no escalation/rerun/network/hardware/Mac. Earlier preflight not formalapproval."
+      "execution_note": "Only first formalattempt1/3; no escalation/rerun/network/hardware/Mac. Earlier preflight not formalapproval.; windows.rs read only current_user_sid helper, not whole file; frontend UUID01a10768-e2d1-75f3-8131-5a1bfeb73deb exact readonly relay."
     },
     {
-      "task_id": "T010",
-      "agent_instance_id": "/root/backend",
+      "task_id": "T009",
+      "agent_instance_id": "/root",
       "allowed_paths": [
-        "crates/session/src/lib.rs",
-        "crates/session/src/test_support.rs",
-        "crates/session/tests/lifecycle.rs",
-        "crates/session/README.md",
-        "tests/contract/session_identity.rs",
-        "tests/integration/identity_pipeline.rs",
-        "tests/integration/support/",
-        "apps/voice-node/src/lib.rs",
-        "apps/voice-node/src/bin/process-probe.rs",
-        "apps/voice-node/tests/supervision.rs",
-        "apps/voice-node/README.md",
-        ".local/t010-author/"
+        ".local/t009-vbcable-once/supervise_once.ps1",
+        ".local/t009-vbcable-once/config.json",
+        "docs/evidence/T009-20261005/",
+        "docs/project/"
       ],
       "resource_leases": [
-        "code-writer:backend-t010-foundation"
+        "code-writer:leader-vbcable-supervisor"
       ],
       "depends_on": [
-        "T006",
+        "T007",
         "T008"
       ],
-      "contract": "docs/project/T010-assignment.md now activated; default-off erased library hooks, audio adapter only test targets, same Runtime/failclosed production",
+      "contract": "Create reviewed bounded native PowerShell5.1 once supervisor after both authors actual STOP_WRITES; only preflight creation/parse/hash, hardware NOT_RUN",
       "acceptance_commands": [
-        "cargo test --locked -p witvoice-session --all-targets --features test-support -- --nocapture",
-        "cargo test --locked -p witvoice-node --all-targets --features process-tests -- --nocapture",
-        "cargo fmt --package witvoice-session --package witvoice-node --check",
-        "cargo clippy --locked -p witvoice-session -p witvoice-node --all-targets --features witvoice-node/process-tests -- -D warnings",
-        "cargo build --locked -p witvoice-node --release"
+        "PowerShell AST parse no errors; readonly independent source/preflight review"
       ],
-      "execution_note": "Leader manifest lease released after exact local-only lock audit and locked metadata0. Backend software implementation lease registered before dispatch; audio+backend at most2 writers. No hardware/GPU/LAN."
+      "execution_note": "No audio/GPU/LAN hardware lease yet; author62 tests/fmt/Clippy/build0 verified pending leader byte audit. One human VB permission remains AUTHORIZED_NOT_EXECUTED."
     }
   ],
   "milestones": {
@@ -163,10 +123,10 @@
     },
     {
       "id": "B004",
-      "scope": "T016 native DNS source validation",
-      "status": "MITIGATED_WITH_LIMITATIONS",
-      "evidence": "docs/evidence/T016-20261005/native-dns/conditional-check/01-tests.json",
-      "note": "Final frozen 11-source integration: 30 nonempty tests, fmt, all-target Clippy, examples0. Historical AV/ICE/parser causeUNKNOWN; limited verification only, no hardware/LAN PASS."
+      "scope": "T010 application verification and toolchain reliability",
+      "status": "BLOCKED_COMPILER_ICE",
+      "evidence": "docs/evidence/T010-20261005/author-ice/02-session-tests.json",
+      "note": "rustc1.99 windows0.62.2 invalid Once state ICE101 at10:54:12Z; app tests never started. Full28570B stderr retained; finalPrepared staticfix NOT_TESTED. Earlier isolated T016/T009 PASS limited; causeUNKNOWN, no repeat/downgrade/security modification."
     }
   ],
   "distribution_status": "BLOCKED_LICENSE_CHAIN_NOT_BUILT",

@@ -1,5 +1,7 @@
 # 当前交接
 
+两个实际作者已STOP_WRITES：T009 final62tests/fmt/Clippy/build0与6源/README/index待leader字节审计，VB only probe未运行；T0107源保存、rustc windows依赖ICE101在应用tests开始前阻塞，Prepared静态修后未编译，全部后续NOT_RUN，不重试。两codelease释放，root先登记仅PS5.1一次监督源码writer（尚无硬件lease/无Start），之后freeze/审查/告知/使用人已授权once VB marker<=5s总<=15s。once ID880c5b5b…未消费。T016同r1新5源与fixeddomain已读，48raw/meta/helper等待readonlyfrontend补齐，已知NativePeersS2仍未修。next_task=T009，M5/M6仍未通过。
+
 本轮用户明确采用已自行安装VB-CABLE；Steam当前候选撤回但历史保留，无发现自建驱动CR（不造撤回记录），不开发/安装驱动。新一次授权：仅真实核实CABLE render/capture，低幅生成marker<=5s/总期限<=15s/有界/no physical/no PCM disk-upload/default修改，源码审查/构建/锁登记/操作告知后leader执行，无需重复确认；当前未消费/NOT_RUN，失败禁止自动重试。T009 audio lease已更新，保留五未提交源。T010根两个manifest和lock未提交已保留；guard后Python审计AV由WER定位，锁仅两local devdep字节变更的native审计0、新locked metadata0，应用tests未执行。root manifest lease释放，backend T010软件writer已先登记；最多audio+backend两作者。T016同首轮r1冻结仍未结论，需恢复只读review/全文中继；旧LAN once消费仍FAIL13UNKNOWN。next_task=T009，M5/M6未通过。
 
 已归档T009两个软件候选PnP关系（casefold identity修正，连续性NOT_RUN）。root已先登记T010仅manifest第二writer lease，backend仍只读T016，待测试钩子精确答复才改manifest/派发；audio T009作者+root最多2写入者，无硬件/GPU/LAN租约。T016首轮独立审查进行。next_task=T009。

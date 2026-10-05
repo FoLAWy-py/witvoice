@@ -1,0 +1,120 @@
+{
+  "utc": "2026-10-05T11:02:26.0138477Z",
+  "index_raw_sha256": "cb0a1a7b6a1dcc4696c2cf26978c88653e0aff01e6c2ccc315670998c45ec026",
+  "commands": [
+    {
+      "metadata": "build-20261005T105555450985.json",
+      "metadata_sha256": "9da3cceb0039263e4f04d3452c1fe03b8aa7ead75d12a94822b7cd3c3cb372ee",
+      "command_exit": 0,
+      "raw_exact": true,
+      "is_final": true,
+      "final_source_maps_equal": true
+    },
+    {
+      "metadata": "clippy-20261005T105231982403.json",
+      "metadata_sha256": "c10c13416a9a9f31faa5d94f2e61cf6f0983b048badae8c6cd7bcb3f84665441",
+      "command_exit": 101,
+      "raw_exact": true,
+      "is_final": false,
+      "final_source_maps_equal": null
+    },
+    {
+      "metadata": "clippy-20261005T105539795652.json",
+      "metadata_sha256": "a63f30efecc4854ccd641dc6fb3f6e1e392e9463e7efe9b9ece44b723ddb5f16",
+      "command_exit": 0,
+      "raw_exact": true,
+      "is_final": true,
+      "final_source_maps_equal": true
+    },
+    {
+      "metadata": "fmt-check-20261005T105231735113.json",
+      "metadata_sha256": "d9a3c31d0431ba06f9482c626d8ce7c4f5d9baf1d6f28c862c5d28a39fddba1d",
+      "command_exit": 0,
+      "raw_exact": true,
+      "is_final": false,
+      "final_source_maps_equal": null
+    },
+    {
+      "metadata": "fmt-check-20261005T105526964661.json",
+      "metadata_sha256": "09f7c633c1e09fc2a9f3bd706037ede1311f30c7f5f4f5a4a7333bc9c8d7c1ae",
+      "command_exit": 0,
+      "raw_exact": true,
+      "is_final": true,
+      "final_source_maps_equal": true
+    },
+    {
+      "metadata": "format-source-20261005T104753552700.json",
+      "metadata_sha256": "2768ea42ae932271e43902a59d4a213ed5f3d77e73d329a9bf0c931ba2f8b1c3",
+      "command_exit": 0,
+      "raw_exact": true,
+      "is_final": false,
+      "final_source_maps_equal": null
+    },
+    {
+      "metadata": "format-source-20261005T105156433821.json",
+      "metadata_sha256": "be6361a78a74094d783f27ca6faf59b89528ecd52405275c21ea9004586e7dbc",
+      "command_exit": 0,
+      "raw_exact": true,
+      "is_final": false,
+      "final_source_maps_equal": null
+    },
+    {
+      "metadata": "format-source-20261005T105459768959.json",
+      "metadata_sha256": "b37c5411aa7d6154c1ec8685642eec0652128803f8368fca49ecc93af81412e3",
+      "command_exit": 0,
+      "raw_exact": true,
+      "is_final": false,
+      "final_source_maps_equal": null
+    },
+    {
+      "metadata": "test-20261005T104808019409.json",
+      "metadata_sha256": "308bbb6ff8781732b361a00467f3788ca4b90d7263249b31e8e39891c42659ee",
+      "command_exit": 101,
+      "raw_exact": true,
+      "is_final": false,
+      "final_source_maps_equal": null
+    },
+    {
+      "metadata": "test-20261005T105209186148.json",
+      "metadata_sha256": "a71799b8f9b8117f57dc402622dd7ac8cd3286a5e192f0097fb73d66c57bf697",
+      "command_exit": 0,
+      "raw_exact": true,
+      "is_final": false,
+      "final_source_maps_equal": null
+    },
+    {
+      "metadata": "test-20261005T105512274088.json",
+      "metadata_sha256": "0cb6fbd949410754d43a81810f91bac5118b8973089cfcb491a9fdb794d8c1f9",
+      "command_exit": 0,
+      "raw_exact": true,
+      "is_final": true,
+      "final_source_maps_equal": true
+    }
+  ],
+  "source_map_count": 27,
+  "final_source_exact": true,
+  "effective_tests": 62,
+  "test_partitions": [
+    24,
+    3,
+    10,
+    14,
+    6,
+    3,
+    0,
+    0,
+    0,
+    0,
+    2,
+    0
+  ],
+  "binary_sha256": "64bf013d645633a9e354e09f46fa1241d3294bbeb00c6c506af48d4fad33b8dc",
+  "binary_bytes": 885248,
+  "hardware": "NOT_RUN",
+  "failed_original_commands": [
+    "clippy-20261005T105231982403.json",
+    "test-20261005T104808019409.json"
+  ],
+  "independent_review": "PENDING",
+  "workspace_tests": "NOT_RUN; T010 compilerICE blocker preserved"
+}

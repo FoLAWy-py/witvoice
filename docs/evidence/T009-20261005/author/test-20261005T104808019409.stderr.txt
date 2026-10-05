@@ -1,0 +1,36 @@
+   Compiling proc-macro2 v1.0.107
+   Compiling unicode-ident v1.0.26
+   Compiling quote v1.0.47
+   Compiling syn v2.0.119
+   Compiling windows-link v0.2.1
+   Compiling windows-result v0.4.1
+   Compiling windows-strings v0.5.1
+   Compiling windows-interface v0.59.3
+   Compiling windows-implement v0.60.2
+   Compiling windows-core v0.62.2
+   Compiling serde_core v1.0.228
+   Compiling windows-threading v0.2.1
+   Compiling serde_json v1.0.145
+   Compiling serde v1.0.228
+   Compiling windows-future v0.3.2
+   Compiling windows-collections v0.3.2
+   Compiling windows-numerics v0.3.1
+   Compiling serde_derive v1.0.228
+   Compiling ryu v1.0.23
+   Compiling memchr v2.8.3
+   Compiling itoa v1.0.18
+   Compiling windows v0.62.2
+   Compiling witvoice-audio v0.1.0 (D:\Project\witvoice\crates\audio)
+error[E0624]: method `accept_initial_baseline` is private
+   --> crates\audio\examples\route_probe.rs:154:16
+    |
+154 |     if !signal.accept_initial_baseline() {
+    |                ^^^^^^^^^^^^^^^^^^^^^^^ private method
+    |
+   ::: crates\audio\src\notifications.rs:147:5
+    |
+147 |     pub(crate) fn accept_initial_baseline(&self) -> bool {
+    |     ---------------------------------------------------- private method defined here
+
+For more information about this error, try `rustc --explain E0624`.
+error: could not compile `witvoice-audio` (example "route_probe" test) due to 1 previous error

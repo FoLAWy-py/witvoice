@@ -324,20 +324,20 @@
       "acceptance": "真实render→virtual capture验证；清楚区分CABLE Input与Output；设备缺失阻塞且不降级至物理原声。",
       "agent_instance_id": "/root/audio_runtime",
       "resource_leases": [
-        "code-writer:audio-t009-route"
+        "code-writer:leader-vbcable-supervisor"
       ],
       "evidence": [],
       "review": null,
       "attempts": 0,
       "blocked_reason": null,
-      "execution_note": "Renewed on explicit VB-CABLE instruction; audio software author only. User authorized once generated marker <=5s/whole <=15s on verified CABLE pair, leader source review/build/lease/announcement required; no physical streams/no retry. Steam retired candidate."
+      "execution_note": "Audio actualSTOP_WRITES;62 pure tests/fmt/Clippy/probe build0, two ordinary101 retained; leader exact audit pending. Source probe compiled/not run. Root now sole supervisor writer/preflight, user once authorization unconsumed."
     },
     {
       "id": "T010",
       "milestone": "M1",
       "title": "测试引擎、状态契约与崩溃基础测试",
       "owner_role": "backend",
-      "status": "IN_PROGRESS",
+      "status": "BLOCKED",
       "requirements": [
         "REQ-07",
         "REQ-23",
@@ -358,14 +358,15 @@
       ],
       "acceptance": "测试构建IdentityEngine贯通；UI被杀、损坏IPC、非法消息、退出均正确；发行配置不暴露FakeEngine。",
       "agent_instance_id": "/root/backend",
-      "resource_leases": [
-        "code-writer:backend-t010-foundation"
+      "resource_leases": [],
+      "evidence": [
+        "docs/evidence/T010-20261005/author-ice/02-session-tests.json",
+        "docs/evidence/T010-20261005/author-ice/leader-log-byte-audit.json"
       ],
-      "evidence": [],
       "review": null,
       "attempts": 0,
-      "blocked_reason": null,
-      "execution_note": "Leader local devdeps/test features/explicit targets prepared; native lock two-local-deps equality0 and locked metadata0. Python audit19526b access violation preserved/corrected as Python WER, not Cargo/application PASS. Backend erased-hook answer received and software writer now registered before dispatch; no hardware."
+      "blocked_reason": "Actual rustc1.99 compiler ICE in windows0.62.2 dependency before application tests. StaticPrepared fix saved untested, no retry; requires compatible verified compiler/stable environment without changing requirement/minimum/security implicitly.",
+      "execution_note": "ActualbackendSTOP_WRITES,7 sources saved.01rustfmt0/02cargoICE101, application tests NOT_RUN. Prepared staticfix after failure uncompiled. Protection audit mistakenly toolchunk e51a14 ref128 preserved; leader will use actual222ef56. No formal approval/DONE."
     },
     {
       "id": "T011",

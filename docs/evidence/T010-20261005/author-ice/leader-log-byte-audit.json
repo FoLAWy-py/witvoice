@@ -1,0 +1,35 @@
+{
+  "utc": "2026-10-05T10:57:46.2555419Z",
+  "logs": [
+    {
+      "name": "01-rustfmt.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "exact_copy": true,
+      "command_exit": 0
+    },
+    {
+      "name": "01-rustfmt.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "exact_copy": true,
+      "command_exit": 0
+    },
+    {
+      "name": "02-session-tests.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "exact_copy": true,
+      "command_exit": 101
+    },
+    {
+      "name": "02-session-tests.stderr",
+      "bytes": 28570,
+      "sha256": "fb7e039e0d00f09510e607df1d3788f2272f17194bdbab438a1329ca0429c972",
+      "exact_copy": true,
+      "command_exit": 101
+    }
+  ],
+  "result": "rustfmt0; cargo101 compiler ICE before application tests",
+  "no_rerun": true
+}

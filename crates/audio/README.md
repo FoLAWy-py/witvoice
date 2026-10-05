@@ -281,3 +281,66 @@ Callbacks use nonwaiting `get`, borrow the retained Arc and never clone or drop
 ownership. Test-only pause hooks exercise both RMW orders in the actual publish
 branch; no waiting hook is reachable from a production native callback. Existing
 in-flight tickets still prevent ACK until release; each monitor remains separate.
+
+## T009 explicit virtual routing
+
+`route::RouteSelection` keeps exact saved render/capture UIDs and local parent
+evidence. Unknown or physical virtual endpoints, wrong direction, inactive or
+unsupported format, different software parents and identical IDs are rejected.
+Windows persistent identities use ASCII case-insensitive equality, never names.
+Production `candidate` additionally requires a separately proven physical capture
+source, excluding both virtual IDs. `virtual_candidate` is a diagnostic-only pair;
+it cannot pass production source revalidation, and a production selection cannot
+skip its source check using `revalidate_pair`. Neither method arms an OutputGate,
+starts a device or declares model readiness/route continuity. Origin observations
+come from trusted local control evidence; arbitrary UI assertions are not proof.
+Revalidation/COM queries are control operations and may allocate. Packet-side
+`check_changes` only tests sticky atomics and invalidates the output gate; batching
+cannot revive the retired selection. Retain a registered route watch from before
+current snapshots through close, with checks before/after native operations.
+
+The `route_probe` example accepts an absolute private scope JSON (8192 bytes max)
+and exactly `--metadata-only` or `--approve-route-probe`. It never opens a physical
+input/output. Its current profile is only the locally audited VB-CABLE driver:
+`route_profile=VB_CABLE`, `driver_provider=VB-Audio Software`,
+`driver_service=VBAudioVACMME`, `driver_version=3.3.1.7`, `driver_inf=oem95.inf`.
+Other required fields are `render_uid`, `capture_uid`, `software_parent`,
+`software_evidence`, `render_channels`, `capture_channels`, `render_encoding`,
+`capture_encoding` (explicit `pcm16` or `float32`; rate fixed 48k). The leader must
+bind those exact IDs to fresh PnP parent/driver evidence, retain the sidecar hash
+and authorize only CABLE Input render -> CABLE Output capture. This file is a
+trusted operator artifact, not signed authentication of caller-supplied claims.
+CABLE In 16ch, default devices, Steam candidates and same-name substitutions are
+not this execution scope. Metadata-only does not register, Initialize or Start.
+
+The opt-in mode requires the new specific once-only permission and exclusive
+audio lease, checked by the trusted leader/operator, not granted by a CLI flag.
+It synthesizes a fixed two-second, amplitude 0.01 marker in the example only,
+through the existing typed processed queue and ticket-governed native sink. This
+diagnostic is not converted voice or IdentityEngine production capability.
+Native buffers and scratch are bounded at 960 frames, the queue at eight 480-frame
+blocks, target 1440 frames during feeding, with production expiry/underflow rules.
+Each scheduled capture is checked against the remaining two-second window; no
+loop retries failed Start, format, queue, device change or capture. Any failure
+invalidates before normal STA Stop/Reset/unregister. Caller marker/capture/scratch
+buffers use volatile zero overwrite, and all allocated queue slots are overwritten
+before release. Compiler-created transient stack/register copies and OS queued
+audio cannot be promised erased. No PCM or private IDs appear in the public output.
+
+Overall deadline is 15s, with checks before/after phases; synchronous OS COM calls
+cannot be interrupted by those checks. Execute only under the leader's external
+approximately 13s process watchdog to enforce that limit including a hung call.
+Watchdog termination means cleanup/erasure UNKNOWN, never success. Normal close
+times and requested/actual active duration are separate scalars. Post-close finite
+correlation examines 8192 samples over +/-200ms, threshold >=0.6, with sufficient
+capture length, finite low-level samples, no output underflow and all close/ACK
+successes required. This proves only a generated marker reaching the selected
+virtual capture, not acoustic latency, a third-party app, model quality, the full
+VC pipeline, two-hour stability or Mac. No probe was run by the author; T009
+requires actual once-only routing evidence and independent review before DONE.
+
+Any DATA_DISCONTINUITY (including the first packet) or uncertain timestamp rejects
+marker evidence, with separate flag counters and a fixed error/HRESULT report.
+Microsoft documents [discontinuity as a possible state transition or glitch](https://learn.microsoft.com/en-us/windows/win32/api/audioclient/ne-audioclient-_audclnt_bufferflags);
+it does not guarantee that a first-packet flag is harmless. This probe retains
+that strict failure and does not auto-retry. Close errors are reported separately.

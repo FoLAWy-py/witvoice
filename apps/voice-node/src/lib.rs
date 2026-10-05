@@ -11,6 +11,26 @@ pub fn run_with_process_probe(args: impl Iterator<Item = String>) -> std::io::Re
     run_inner(args, true)
 }
 
+/// Nonblocking trusted supervisor seam used only by ordinary-process tests.
+/// The same Runtime retires output before the caller performs Job cleanup.
+#[cfg(all(windows, feature = "process-tests"))]
+pub fn retire_failed_test_worker(
+    runtime: &mut witvoice_session::Runtime,
+    worker: &witvoice_platform::Process,
+) -> std::io::Result<bool> {
+    if worker.wait(std::time::Duration::ZERO)?.is_none() {
+        return Ok(false);
+    }
+    let binding = runtime
+        .test_binding()
+        .cloned()
+        .ok_or_else(|| std::io::Error::other("no trusted fixture binding"))?;
+    runtime
+        .test_worker_failed(&binding)
+        .map_err(|code| std::io::Error::other(format!("trusted worker failure: {code:?}")))?;
+    Ok(true)
+}
+
 #[cfg(windows)]
 fn run_inner(args: impl Iterator<Item = String>, probe_worker: bool) -> std::io::Result<()> {
     use std::{io::Read, sync::mpsc, time::Duration};

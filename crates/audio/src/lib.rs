@@ -4,6 +4,7 @@
 pub mod format;
 pub mod notifications;
 pub mod realtime;
+pub mod route;
 pub mod stream;
 #[cfg(windows)]
 pub mod wasapi;

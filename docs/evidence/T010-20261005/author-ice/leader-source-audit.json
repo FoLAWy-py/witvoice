@@ -1,0 +1,11 @@
+{
+  "utc": "2026-10-05T11:08:06.5456967Z",
+  "actual_ref": "222ef56",
+  "protection_diff_exit": 0,
+  "protection_diff_empty": true,
+  "final_sources_exact": 7,
+  "final_static_fix_uncompiled": true,
+  "author_invalid_ref128_preserved": true,
+  "author_index_sha256": "75042e71296295b307fb21531eecd0bce84fc5fa77f13bb169006be95bfc9c1f",
+  "test_result": "BLOCKED_COMPILER_ICE_BEFORE_APP_TESTS"
+}

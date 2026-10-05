@@ -1,0 +1,16 @@
+{
+  "actual_agent": "/root/backend",
+  "actual_thread_uuid": "01a10767-4ff5-7f21-881a-146d094fbc55",
+  "source": "author complete original tool result relay to leader; not recreated execution",
+  "chunk_id": "3ffcb5",
+  "wall_time_seconds": 4.3115771,
+  "exit_code": -1073741819,
+  "original_token_count": 443,
+  "actual_command_scope": "fixed Git reads of source6c68 discovery.rs/native.rs/native/tests.rs/platform discoverytests/probe",
+  "started_utc": "NOT_CAPTURED",
+  "phase": "PowerShell7 CLR/COM startup telemetry before command body; no app test or native LAN",
+  "output": "Fatal error.\r\nInternal CLR error. (0x80131506)\r\n   at System.Collections.Concurrent.ConcurrentDictionary`2[[System.RuntimeTypeHandle, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Runtime.InteropServices.Marshalling.IIUnknownCacheStrategy+TableInfo, System.Runtime.InteropServices, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a]]..ctor(Int32, Int32)\r\n   at System.Runtime.InteropServices.Marshalling.StrategyBasedComWrappers.CreateCacheStrategy()\r\n   at System.Runtime.InteropServices.Marshalling.StrategyBasedComWrappers.CreateObject(IntPtr, System.Runtime.InteropServices.CreateObjectFlags)\r\n   at System.Runtime.InteropServices.ComWrappers.CreateAndRegisterObjectForComInstance(IntPtr, System.Runtime.InteropServices.CreateObjectFlags, System.Object, IntPtr ByRef)\r\n   at System.Runtime.InteropServices.ComWrappers.TryGetOrCreateObjectForComInstanceInternal(IntPtr, System.Runtime.InteropServices.CreateObjectFlags, System.Object, IntPtr ByRef)\r\n   at System.Runtime.InteropServices.ComWrappers.GetOrCreateObjectForComInstance(IntPtr, System.Runtime.InteropServices.CreateObjectFlags)\r\n   at Microsoft.PowerShell.Telemetry.WindowsDataCollectionSetting.CanCollectDiagnostics(Microsoft.PowerShell.Telemetry.PlatformDataCollectionLevel)\r\n   at Microsoft.PowerShell.Telemetry.ApplicationInsightsTelemetry..cctor()\r\n   at Microsoft.PowerShell.Telemetry.ApplicationInsightsTelemetry.SendPSCoreStartupTelemetry(System.String, Double)\r\n   at Microsoft.PowerShell.ConsoleHost.Start(System.String, System.String, Boolean)\r\n   at Microsoft.PowerShell.UnmanagedPSEntry.Start(System.String[], Int32)\r\n   at Microsoft.PowerShell.ManagedPSEntry.Main(System.String[])\r\n",
+  "compatibility": "different system PowerShell5.1 fixed readonly Git text succeeded a64637 exit0, no global settings modified",
+  "cause": "UNKNOWN; do not infer hardware health or fault",
+  "independent_reviewer_rerun": false
+}

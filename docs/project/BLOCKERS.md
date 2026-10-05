@@ -16,3 +16,5 @@ B004（T016 native DNS validation，BLOCKED_TOOLCHAIN）：新11文件已保存�
 B004 更新（当前 MITIGATED_WITH_LIMITATIONS，2026-10-05 07:42:51Z）：同原Syn2.0.119九feature最小工程compile0后，一次条件性真实platform/transport构建成功编译全部依赖与native lib，最终仅test E0509和警告；完整syn-minimized/conditional-check证据已归档。原AV/ICE/cargo-fmt parser panic原因仍UNKNOWN，不声称硬件/工具链普遍稳定，也不删历史。backend正在普通源码/lint修复，T016恢复IN_PROGRESS；最小当前动作是修复已定位源错误并完成检查，若编译器再崩溃立即停、重新记录精准阻塞。只读WHEA时间窗无匹配事件，不证明CPU/RAM正常。
 
 2026-10-05 当前T009前置更新：用户已自行安装并明确选择VB-CABLE，真实UID/flow/active/48k2chFloat32及父驱动只读核对通过；设备缺失不再是当前前置。一次生成marker闭环已授权但未执行，不能把安装或metadata写成闭环PASS。Steam停止作为当前候选，无自建驱动CR发现。旧B001许可及Mac/2h/质量等门不变。
+
+B004 当前重新BLOCKED_COMPILER_ICE（2026-10-05 10:54:12Z，T010）：rustc1.99编译windows0.62.2时 invalid Once state /once/futex.rs:96，cargo101；真实应用tests尚未开始。原完整28570B stderr SHAfb7e039e…已归档author-ice，jobs1/inc0/独立Dtarget、overrides为空。Prepared静态修复保存但未测，后续检查/发行构建均NOT_RUN；作者已停，无盲重试。T009实际62测试与既定检查0是独立有限证据，不证明环境普遍稳定。最小解阻仍为兼容且核验过的工具链/独立稳定环境；当前原因UNKNOWN，不自动降minimum/改BIOS/安全设置/外传。

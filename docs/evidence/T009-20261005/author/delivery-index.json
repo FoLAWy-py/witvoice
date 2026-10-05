@@ -1,0 +1,566 @@
+{
+  "task": "T009",
+  "author": "/root/audio_runtime",
+  "agent_uuid": "01a10767-80de-7e02-b3b0-73d1273a70bd",
+  "captured_utc": "2026-10-05T10:57:25.305245+00:00",
+  "hash_domain": "raw working file bytes, not normalized Git metadata bytes",
+  "changed_source_sha256": {
+    "crates/audio/src/lib.rs": "bfcf8dd9063a6fc5115b0f0b2f91ca0da65d2458c8527c64665063eb5de6807b",
+    "crates/audio/src/route.rs": "8be6b672cb5e62f1f0a08f41d9177d00c164f83dd8ed8f5c64f5ce55c679707f",
+    "crates/audio/tests/route.rs": "83185f65b9dab7ca84f12b5f5cc8f4246c9fbd52cb4daf04e51157ba7378c729",
+    "crates/audio/examples/route_probe.rs": "f3df386b5a163efc713b86880af9824159ca42a553521752ee76cc812ea9ae0d",
+    "crates/audio/examples/support/route_marker.rs": "bc02214724a40fa47288acda4e7ba48aeaee667efb62d189c292386dab89cdeb",
+    "crates/audio/README.md": "65eeedc640433bf9d66e827fb322361edfff6b85437d09175a760fd1725abeeb"
+  },
+  "all_audio_source_sha256": {
+    "crates/audio/examples/format_support_probe.rs": "642dd87273231593cb03fc2a617bb2082a847f2fdefd5d837ae3b388ba838ccb",
+    "crates/audio/examples/list_endpoints.rs": "48de663138c39cf1eb1d19a58902a699ff6b02830d2493950ecf18a0b745600c",
+    "crates/audio/examples/notification_probe.rs": "83a9e7a7afdc3efb3faa78a4fee171b07ea0d4e2d7fca63f35c3ffd92e883f3d",
+    "crates/audio/examples/removal_probe.rs": "3f79293103daf44372577c81bfa008b895964c74bb1d821a101f9fe5c846ce2c",
+    "crates/audio/examples/route_probe.rs": "f3df386b5a163efc713b86880af9824159ca42a553521752ee76cc812ea9ae0d",
+    "crates/audio/examples/stream_smoke.rs": "32d96e2be6843cc8caaf24c67a9f23ea499fbbd0042dd2593394860531c1846c",
+    "crates/audio/examples/support/mod.rs": "cecf33cb705b319895f37e62f707ad1b9717893af417ef4a1ed37335af0287b9",
+    "crates/audio/examples/support/route_marker.rs": "bc02214724a40fa47288acda4e7ba48aeaee667efb62d189c292386dab89cdeb",
+    "crates/audio/README.md": "65eeedc640433bf9d66e827fb322361edfff6b85437d09175a760fd1725abeeb",
+    "crates/audio/src/format.rs": "28adc5bdda089561d7091d8612b0bcc80a623ef9d7075e9e5fa9c506d9b817a7",
+    "crates/audio/src/lib.rs": "bfcf8dd9063a6fc5115b0f0b2f91ca0da65d2458c8527c64665063eb5de6807b",
+    "crates/audio/src/notifications/native.rs": "2126b4602f9188861038c2e6f15a77c70d116a11799d5e00371b4c077de23e64",
+    "crates/audio/src/notifications.rs": "b4d8cf94973a6c8138013a19928c8724fac7a10eefc350087cdb6af992f7bf3a",
+    "crates/audio/src/realtime/clock.rs": "4de324bddd7b517a873080eefc97dfb9a68923adbe2f867b1fbd35fd9bd7e9ff",
+    "crates/audio/src/realtime/pipeline.rs": "c9b60fb4971867012b114f4897f0cfa7b4896889c65f452fd2bf04d419598cda",
+    "crates/audio/src/realtime/spsc.rs": "94b9cdd6ab4c76381c44495dc71f83121fc1fe4bb7b8395fd8e5310dfb729a8d",
+    "crates/audio/src/realtime.rs": "2221f43bdf6e16ce16650630c8e1ca0a7fe08f4128c3bb95f0299b2d5c3bcce8",
+    "crates/audio/src/route.rs": "8be6b672cb5e62f1f0a08f41d9177d00c164f83dd8ed8f5c64f5ce55c679707f",
+    "crates/audio/src/stream/native.rs": "a080879e5da2af378b98b73b6f9412dfa874d2cff59654a43c2548ebb824cab4",
+    "crates/audio/src/stream/raw_tests.rs": "aad7c07404f24fe27780c947944b47ea3472b6e6da8a9625ca1d943ed2b84509",
+    "crates/audio/src/stream.rs": "6b4902eb727e9aa063e15204877e40493cf541979b3236209f0a30b76d7f2674",
+    "crates/audio/src/wasapi.rs": "80bd3c5b26fd6589f24650f3b1a0bd3b143912a0bfc64ce460f4dfeeee1e8c20",
+    "crates/audio/tests/allocation.rs": "29380b33dd06a2250bda91756f23af62c43e08062e828c4fe023857309444bdd",
+    "crates/audio/tests/conversion.rs": "0d3e0b7f9fcda66bdb9189e8f46214454ad1a661cc2d8ae8586e64163987f220",
+    "crates/audio/tests/realtime.rs": "f356f1d3265898d03fc181d9e0cfae36ecd6bf1f425e43bd5398485915ab5da7",
+    "crates/audio/tests/route.rs": "83185f65b9dab7ca84f12b5f5cc8f4246c9fbd52cb4daf04e51157ba7378c729",
+    "crates/audio/tests/stream_packets.rs": "343d9d02853ccc3a7b118d5c445e2ad8bb165e19e03e9e284c8ac295a03fd6d1"
+  },
+  "command_count": 11,
+  "commands": [
+    {
+      "metadata_file": "build-20261005T105555450985.json",
+      "metadata_raw_sha256": "9da3cceb0039263e4f04d3452c1fe03b8aa7ead75d12a94822b7cd3c3cb372ee",
+      "argv": [
+        "build",
+        "--locked",
+        "-p",
+        "witvoice-audio",
+        "--example",
+        "route_probe"
+      ],
+      "executable": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\cargo.exe",
+      "started_utc": "2026-10-05T10:55:55.459617+00:00",
+      "finished_utc": "2026-10-05T10:55:56.273643+00:00",
+      "wall_seconds": 0.8141442000001007,
+      "exit": 0,
+      "environment": {
+        "CARGO_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo",
+        "RUSTUP_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\rustup",
+        "CARGO_TARGET_DIR": "D:\\Project\\witvoice\\.local\\t009-author\\target",
+        "CARGO_BUILD_JOBS": "1",
+        "CARGO_INCREMENTAL": "0"
+      },
+      "logs": {
+        "stdout": {
+          "path": ".local/t009-author/build-20261005T105555450985.stdout.txt",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "actual_hash_match": true
+        },
+        "stderr": {
+          "path": ".local/t009-author/build-20261005T105555450985.stderr.txt",
+          "bytes": 142,
+          "sha256": "2bc9869ed75beca7f89eb18bcd084dcfd84576b5c000d3b1f381581e6b3e1a19",
+          "actual_hash_match": true
+        }
+      },
+      "source_before_after_equal": true,
+      "source_after_equals_delivery": true
+    },
+    {
+      "metadata_file": "clippy-20261005T105231982403.json",
+      "metadata_raw_sha256": "c10c13416a9a9f31faa5d94f2e61cf6f0983b048badae8c6cd7bcb3f84665441",
+      "argv": [
+        "clippy",
+        "--locked",
+        "-p",
+        "witvoice-audio",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "executable": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\cargo.exe",
+      "started_utc": "2026-10-05T10:52:31.985960+00:00",
+      "finished_utc": "2026-10-05T10:52:39.927357+00:00",
+      "wall_seconds": 7.941402500000095,
+      "exit": 101,
+      "environment": {
+        "CARGO_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo",
+        "RUSTUP_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\rustup",
+        "CARGO_TARGET_DIR": "D:\\Project\\witvoice\\.local\\t009-author\\target",
+        "CARGO_BUILD_JOBS": "1",
+        "CARGO_INCREMENTAL": "0"
+      },
+      "logs": {
+        "stdout": {
+          "path": ".local/t009-author/clippy-20261005T105231982403.stdout.txt",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "actual_hash_match": true
+        },
+        "stderr": {
+          "path": ".local/t009-author/clippy-20261005T105231982403.stderr.txt",
+          "bytes": 1874,
+          "sha256": "91746ea0ac7a1ff5384a615fc60236c1543e1524f5371de1f6d7c5733fedb52b",
+          "actual_hash_match": true
+        }
+      },
+      "source_before_after_equal": true,
+      "source_after_equals_delivery": false
+    },
+    {
+      "metadata_file": "clippy-20261005T105539795652.json",
+      "metadata_raw_sha256": "a63f30efecc4854ccd641dc6fb3f6e1e392e9463e7efe9b9ece44b723ddb5f16",
+      "argv": [
+        "clippy",
+        "--locked",
+        "-p",
+        "witvoice-audio",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "executable": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\cargo.exe",
+      "started_utc": "2026-10-05T10:55:39.802772+00:00",
+      "finished_utc": "2026-10-05T10:55:41.589244+00:00",
+      "wall_seconds": 1.7865555000000768,
+      "exit": 0,
+      "environment": {
+        "CARGO_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo",
+        "RUSTUP_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\rustup",
+        "CARGO_TARGET_DIR": "D:\\Project\\witvoice\\.local\\t009-author\\target",
+        "CARGO_BUILD_JOBS": "1",
+        "CARGO_INCREMENTAL": "0"
+      },
+      "logs": {
+        "stdout": {
+          "path": ".local/t009-author/clippy-20261005T105539795652.stdout.txt",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "actual_hash_match": true
+        },
+        "stderr": {
+          "path": ".local/t009-author/clippy-20261005T105539795652.stderr.txt",
+          "bytes": 142,
+          "sha256": "b23449cbbc82cb2a8754a0c165643dcf72a07394c1ed9fcc3f59fc71420ef8d4",
+          "actual_hash_match": true
+        }
+      },
+      "source_before_after_equal": true,
+      "source_after_equals_delivery": true
+    },
+    {
+      "metadata_file": "fmt-check-20261005T105231735113.json",
+      "metadata_raw_sha256": "d9a3c31d0431ba06f9482c626d8ce7c4f5d9baf1d6f28c862c5d28a39fddba1d",
+      "argv": [
+        "fmt",
+        "--package",
+        "witvoice-audio",
+        "--check"
+      ],
+      "executable": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\cargo.exe",
+      "started_utc": "2026-10-05T10:52:31.739412+00:00",
+      "finished_utc": "2026-10-05T10:52:31.927243+00:00",
+      "wall_seconds": 0.18780320000018946,
+      "exit": 0,
+      "environment": {
+        "CARGO_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo",
+        "RUSTUP_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\rustup",
+        "CARGO_TARGET_DIR": "D:\\Project\\witvoice\\.local\\t009-author\\target",
+        "CARGO_BUILD_JOBS": "1",
+        "CARGO_INCREMENTAL": "0"
+      },
+      "logs": {
+        "stdout": {
+          "path": ".local/t009-author/fmt-check-20261005T105231735113.stdout.txt",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "actual_hash_match": true
+        },
+        "stderr": {
+          "path": ".local/t009-author/fmt-check-20261005T105231735113.stderr.txt",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "actual_hash_match": true
+        }
+      },
+      "source_before_after_equal": true,
+      "source_after_equals_delivery": false
+    },
+    {
+      "metadata_file": "fmt-check-20261005T105526964661.json",
+      "metadata_raw_sha256": "09f7c633c1e09fc2a9f3bd706037ede1311f30c7f5f4f5a4a7333bc9c8d7c1ae",
+      "argv": [
+        "fmt",
+        "--package",
+        "witvoice-audio",
+        "--check"
+      ],
+      "executable": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\cargo.exe",
+      "started_utc": "2026-10-05T10:55:26.969172+00:00",
+      "finished_utc": "2026-10-05T10:55:27.197071+00:00",
+      "wall_seconds": 0.2284556000001885,
+      "exit": 0,
+      "environment": {
+        "CARGO_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo",
+        "RUSTUP_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\rustup",
+        "CARGO_TARGET_DIR": "D:\\Project\\witvoice\\.local\\t009-author\\target",
+        "CARGO_BUILD_JOBS": "1",
+        "CARGO_INCREMENTAL": "0"
+      },
+      "logs": {
+        "stdout": {
+          "path": ".local/t009-author/fmt-check-20261005T105526964661.stdout.txt",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "actual_hash_match": true
+        },
+        "stderr": {
+          "path": ".local/t009-author/fmt-check-20261005T105526964661.stderr.txt",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "actual_hash_match": true
+        }
+      },
+      "source_before_after_equal": true,
+      "source_after_equals_delivery": true
+    },
+    {
+      "metadata_file": "format-source-20261005T104753552700.json",
+      "metadata_raw_sha256": "2768ea42ae932271e43902a59d4a213ed5f3d77e73d329a9bf0c931ba2f8b1c3",
+      "argv": [
+        "--edition",
+        "2024",
+        "crates/audio/src/route.rs",
+        "crates/audio/src/lib.rs",
+        "crates/audio/tests/route.rs",
+        "crates/audio/examples/route_probe.rs",
+        "crates/audio/examples/support/route_marker.rs"
+      ],
+      "executable": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\rustfmt.exe",
+      "started_utc": "2026-10-05T10:47:53.563142+00:00",
+      "finished_utc": "2026-10-05T10:47:54.085086+00:00",
+      "wall_seconds": 0.5225772999999663,
+      "exit": 0,
+      "environment": {
+        "CARGO_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo",
+        "RUSTUP_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\rustup",
+        "CARGO_TARGET_DIR": "D:\\Project\\witvoice\\.local\\t009-author\\target",
+        "CARGO_BUILD_JOBS": "1",
+        "CARGO_INCREMENTAL": "0"
+      },
+      "logs": {
+        "stdout": {
+          "path": ".local/t009-author/format-source-20261005T104753552700.stdout.txt",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "actual_hash_match": true
+        },
+        "stderr": {
+          "path": ".local/t009-author/format-source-20261005T104753552700.stderr.txt",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "actual_hash_match": true
+        }
+      },
+      "source_before_after_equal": false,
+      "source_after_equals_delivery": false
+    },
+    {
+      "metadata_file": "format-source-20261005T105156433821.json",
+      "metadata_raw_sha256": "be6361a78a74094d783f27ca6faf59b89528ecd52405275c21ea9004586e7dbc",
+      "argv": [
+        "--edition",
+        "2024",
+        "crates/audio/src/route.rs",
+        "crates/audio/src/lib.rs",
+        "crates/audio/tests/route.rs",
+        "crates/audio/examples/route_probe.rs",
+        "crates/audio/examples/support/route_marker.rs"
+      ],
+      "executable": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\rustfmt.exe",
+      "started_utc": "2026-10-05T10:51:56.438593+00:00",
+      "finished_utc": "2026-10-05T10:51:56.562911+00:00",
+      "wall_seconds": 0.1250930999999582,
+      "exit": 0,
+      "environment": {
+        "CARGO_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo",
+        "RUSTUP_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\rustup",
+        "CARGO_TARGET_DIR": "D:\\Project\\witvoice\\.local\\t009-author\\target",
+        "CARGO_BUILD_JOBS": "1",
+        "CARGO_INCREMENTAL": "0"
+      },
+      "logs": {
+        "stdout": {
+          "path": ".local/t009-author/format-source-20261005T105156433821.stdout.txt",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "actual_hash_match": true
+        },
+        "stderr": {
+          "path": ".local/t009-author/format-source-20261005T105156433821.stderr.txt",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "actual_hash_match": true
+        }
+      },
+      "source_before_after_equal": false,
+      "source_after_equals_delivery": false
+    },
+    {
+      "metadata_file": "format-source-20261005T105459768959.json",
+      "metadata_raw_sha256": "b37c5411aa7d6154c1ec8685642eec0652128803f8368fca49ecc93af81412e3",
+      "argv": [
+        "--edition",
+        "2024",
+        "crates/audio/src/route.rs",
+        "crates/audio/src/lib.rs",
+        "crates/audio/tests/route.rs",
+        "crates/audio/examples/route_probe.rs",
+        "crates/audio/examples/support/route_marker.rs"
+      ],
+      "executable": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\rustfmt.exe",
+      "started_utc": "2026-10-05T10:54:59.773020+00:00",
+      "finished_utc": "2026-10-05T10:54:59.897161+00:00",
+      "wall_seconds": 0.12339249999990898,
+      "exit": 0,
+      "environment": {
+        "CARGO_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo",
+        "RUSTUP_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\rustup",
+        "CARGO_TARGET_DIR": "D:\\Project\\witvoice\\.local\\t009-author\\target",
+        "CARGO_BUILD_JOBS": "1",
+        "CARGO_INCREMENTAL": "0"
+      },
+      "logs": {
+        "stdout": {
+          "path": ".local/t009-author/format-source-20261005T105459768959.stdout.txt",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "actual_hash_match": true
+        },
+        "stderr": {
+          "path": ".local/t009-author/format-source-20261005T105459768959.stderr.txt",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "actual_hash_match": true
+        }
+      },
+      "source_before_after_equal": false,
+      "source_after_equals_delivery": true
+    },
+    {
+      "metadata_file": "test-20261005T104808019409.json",
+      "metadata_raw_sha256": "308bbb6ff8781732b361a00467f3788ca4b90d7263249b31e8e39891c42659ee",
+      "argv": [
+        "test",
+        "--locked",
+        "-p",
+        "witvoice-audio",
+        "--all-targets"
+      ],
+      "executable": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\cargo.exe",
+      "started_utc": "2026-10-05T10:48:08.023930+00:00",
+      "finished_utc": "2026-10-05T10:48:30.344940+00:00",
+      "wall_seconds": 22.32225029999995,
+      "exit": 101,
+      "environment": {
+        "CARGO_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo",
+        "RUSTUP_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\rustup",
+        "CARGO_TARGET_DIR": "D:\\Project\\witvoice\\.local\\t009-author\\target",
+        "CARGO_BUILD_JOBS": "1",
+        "CARGO_INCREMENTAL": "0"
+      },
+      "logs": {
+        "stdout": {
+          "path": ".local/t009-author/test-20261005T104808019409.stdout.txt",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "actual_hash_match": true
+        },
+        "stderr": {
+          "path": ".local/t009-author/test-20261005T104808019409.stderr.txt",
+          "bytes": 1397,
+          "sha256": "50ecc03de95f90be2e1ca746f34caf5ffb621589a2607195bff807eda6ce95a7",
+          "actual_hash_match": true
+        }
+      },
+      "source_before_after_equal": true,
+      "source_after_equals_delivery": false
+    },
+    {
+      "metadata_file": "test-20261005T105209186148.json",
+      "metadata_raw_sha256": "a71799b8f9b8117f57dc402622dd7ac8cd3286a5e192f0097fb73d66c57bf697",
+      "argv": [
+        "test",
+        "--locked",
+        "-p",
+        "witvoice-audio",
+        "--all-targets"
+      ],
+      "executable": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\cargo.exe",
+      "started_utc": "2026-10-05T10:52:09.190692+00:00",
+      "finished_utc": "2026-10-05T10:52:12.740724+00:00",
+      "wall_seconds": 3.550281099999893,
+      "exit": 0,
+      "environment": {
+        "CARGO_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo",
+        "RUSTUP_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\rustup",
+        "CARGO_TARGET_DIR": "D:\\Project\\witvoice\\.local\\t009-author\\target",
+        "CARGO_BUILD_JOBS": "1",
+        "CARGO_INCREMENTAL": "0"
+      },
+      "logs": {
+        "stdout": {
+          "path": ".local/t009-author/test-20261005T105209186148.stdout.txt",
+          "bytes": 6377,
+          "sha256": "0a4e0f34eec1c9fc972a81f09844f760d75f94cb4ccf1e706fd27327d0baf0d8",
+          "actual_hash_match": true
+        },
+        "stderr": {
+          "path": ".local/t009-author/test-20261005T105209186148.stderr.txt",
+          "bytes": 1548,
+          "sha256": "b5362ad10a8429d54321f7f9712dfb2cff0e8978d0b63ae428b515edadfe5a07",
+          "actual_hash_match": true
+        }
+      },
+      "source_before_after_equal": true,
+      "source_after_equals_delivery": false
+    },
+    {
+      "metadata_file": "test-20261005T105512274088.json",
+      "metadata_raw_sha256": "0cb6fbd949410754d43a81810f91bac5118b8973089cfcb491a9fdb794d8c1f9",
+      "argv": [
+        "test",
+        "--locked",
+        "-p",
+        "witvoice-audio",
+        "--all-targets"
+      ],
+      "executable": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\cargo.exe",
+      "started_utc": "2026-10-05T10:55:12.283779+00:00",
+      "finished_utc": "2026-10-05T10:55:15.770559+00:00",
+      "wall_seconds": 3.487058599999955,
+      "exit": 0,
+      "environment": {
+        "CARGO_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo",
+        "RUSTUP_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\rustup",
+        "CARGO_TARGET_DIR": "D:\\Project\\witvoice\\.local\\t009-author\\target",
+        "CARGO_BUILD_JOBS": "1",
+        "CARGO_INCREMENTAL": "0"
+      },
+      "logs": {
+        "stdout": {
+          "path": ".local/t009-author/test-20261005T105512274088.stdout.txt",
+          "bytes": 6461,
+          "sha256": "383bcebf068d327af8710e51c1e5553e8abb488f9dbe589b46f8d0d47a94db6a",
+          "actual_hash_match": true
+        },
+        "stderr": {
+          "path": ".local/t009-author/test-20261005T105512274088.stderr.txt",
+          "bytes": 1548,
+          "sha256": "0e59664e282ad7cd7b461dc774a6921b15c66b6ef024300c3e86c21583183a6b",
+          "actual_hash_match": true
+        }
+      },
+      "source_before_after_equal": true,
+      "source_after_equals_delivery": true
+    }
+  ],
+  "nonzero_commands": [
+    "clippy-20261005T105231982403.json",
+    "test-20261005T104808019409.json"
+  ],
+  "final_check_metadata": [
+    "test-20261005T105512274088.json",
+    "fmt-check-20261005T105526964661.json",
+    "clippy-20261005T105539795652.json",
+    "build-20261005T105555450985.json"
+  ],
+  "final_test_partitions": [
+    24,
+    3,
+    10,
+    14,
+    6,
+    3,
+    0,
+    0,
+    0,
+    0,
+    2,
+    0
+  ],
+  "effective_tests": 62,
+  "probe_binary": {
+    "path": ".local/t009-author/target/debug/examples/route_probe.exe",
+    "bytes": 885248,
+    "sha256": "64bf013d645633a9e354e09f46fa1241d3294bbeb00c6c506af48d4fad33b8dc",
+    "build_metadata": "build-20261005T105555450985.json",
+    "executed": false
+  },
+  "git_diff_check": {
+    "argv": [
+      "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\git\\cmd\\git.exe",
+      "diff",
+      "--check",
+      "--",
+      "crates/audio/src/lib.rs",
+      "crates/audio/src/route.rs",
+      "crates/audio/tests/route.rs",
+      "crates/audio/examples/route_probe.rs",
+      "crates/audio/examples/support/route_marker.rs",
+      "crates/audio/README.md"
+    ],
+    "exit": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "profile": "VB_CABLE only; exact current driver/provider/service/version/inf; private leader sidecar binds audited render/capture UIDs",
+  "limits": {
+    "requested_marker_seconds": 2,
+    "maximum_marker_seconds": 5,
+    "amplitude": 0.01,
+    "rate": 48000,
+    "native_capacity_frames": 960,
+    "queue_blocks": 8,
+    "maximum_process_seconds": 15,
+    "external_watchdog_required_seconds": 13
+  },
+  "risk_notes": [
+    "Sidecar/Origin observations are trusted local control evidence, not authentication of arbitrary UI claims.",
+    "Synchronous OS COM calls can hang; external watchdog enforces process deadline. Kill means cleanup/erasure UNKNOWN.",
+    "Any discontinuity including first packet rejects route evidence; real startup behavior not yet measured.",
+    "Volatile erase covers caller buffers; queue slots overwritten before free. OS and transient stack/register copies UNKNOWN.",
+    "Correlation only validates synthesized route marker, never converted voice, acoustic latency, app acceptance or Mac.",
+    "T010/T016 compiler failures remain cause UNKNOWN; no inference from this successful independent build."
+  ],
+  "unexecuted": [
+    "native Initialize/Start/render/capture/notification registration by author",
+    "once VB-CABLE route continuity",
+    "physical source capture/output",
+    "real model/T014/T015/T026 performance/quality",
+    "GPU/LAN/Mac",
+    "drivers/default device modifications"
+  ],
+  "hardware": "NOT_RUN",
+  "status": "AUTHOR_DELIVERED_STOP_WRITES",
+  "independent_review": "PENDING"
+}

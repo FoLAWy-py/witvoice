@@ -15,6 +15,8 @@ use witvoice_contracts::{
 };
 use witvoice_platform::{PipeClient, Process, ProcessJob, Secret, current_process_is_elevated};
 const LIMIT: Duration = Duration::from_secs(3);
+#[path = "../../../tests/integration/support/mod.rs"]
+mod identity_support;
 static NEXT: AtomicU64 = AtomicU64::new(1);
 fn tag() -> String {
     assert!(
@@ -406,4 +408,52 @@ fn malformed_bootstrap_timeout_and_endpoint_failure_start_no_worker() {
     assert!(!other.0.wait().unwrap().success());
     assert_eq!(line(other.0.stdout.take().unwrap()), "");
     state(&node.endpoint, node.child.0.id(), &node.secret);
+}
+
+#[test]
+fn actual_owned_helper_death_retires_same_runtime_before_job_cleanup_and_pcm_is_zero() {
+    use identity_support::*;
+    let _ = tag(); // Actual non-elevated Windows user check.
+    let job = ProcessJob::new(false).unwrap();
+    let helper = job
+        .spawn(
+            Path::new(env!("CARGO_BIN_EXE_process-probe")),
+            &["leaf".into()],
+            false,
+        )
+        .unwrap();
+    assert_eq!(job.active_processes().unwrap(), 1);
+    assert!(
+        members(&job)
+            .iter()
+            .all(|(_, image)| image == "process-probe.exe")
+    );
+    let (mut runtime, adapter) = fixture();
+    running(&mut runtime);
+    let gate = adapter.gate();
+    let (before, result) = identity_render(&gate);
+    result.unwrap();
+    assert!(before.iter().all(|value| (*value - 0.25).abs() < 0.00001));
+    assert!(!witvoice_node::retire_failed_test_worker(&mut runtime, &helper).unwrap());
+    helper.terminate().unwrap();
+    exited(&helper);
+    assert!(witvoice_node::retire_failed_test_worker(&mut runtime, &helper).unwrap());
+    assert_eq!(
+        runtime.state(),
+        witvoice_contracts::state::SessionState::FailedMuted
+    );
+    assert_eq!(runtime.epoch(), 2);
+    assert_zero(&gate);
+    assert!(runtime.take_resource_cleanup());
+    // Slow owner cleanup is intentionally after the software sink has already gone zero.
+    job.terminate().unwrap();
+    assert_eq!(job.active_processes().unwrap(), 0);
+    assert_eq!(
+        code(runtime.handle(&mute(3, 2, false)).unwrap()),
+        ErrorCode::InvalidState
+    );
+    println!(
+        "actual helper {} reclaimed; same Runtime epoch2 FailedMuted; software PCM zero before Job cleanup",
+        helper.id()
+    );
 }
