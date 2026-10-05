@@ -50,6 +50,26 @@
         "Read exact frozen source/test/negative/fault evidence; issue precise S0–S3 or approve fixed T008 only"
       ],
       "execution_note": "Readonly/no escalation/no sourcewrites; actual51tests/fmt/clippy/examples0 author+leader; hardware/Mac/Node binding NOT_RUN"
+    },
+    {
+      "task_id": "T016",
+      "agent_instance_id": "/root",
+      "allowed_paths": [
+        ".local/t016-authorized-native/",
+        "docs/evidence/T016-20261005/native-dns/native-smoke/"
+      ],
+      "resource_leases": [
+        "verification-writer:t016-probe-supervisor"
+      ],
+      "depends_on": [
+        "T003",
+        "T006"
+      ],
+      "contract": "Human once-only interface19 two-proc DNS trial, each10s total15s; prepare supervisor first, run only compiled frozen positive evidence probe and static preflight",
+      "acceptance_commands": [
+        "CreateProcessNoWindow bounded selected own probes; rawprivate results and redacted public hashes; exactRegistered/exactUUID+endpoint/expiry/terminalcleanup required"
+      ],
+      "execution_note": "Current NOT_RUN; preserve consumed authorization even failure. No retry/no firewall/audio/GPU/model/keys. Only leader supervisor/evidence writes."
     }
   ],
   "milestones": {
