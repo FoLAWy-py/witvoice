@@ -1,3 +1,6 @@
+Current formalr2 attempt2/3: reviewer UUID01a1077c-556d-7152-892c-d9f92346ec0f, source/evidence75473156a14cd9b1fe0f26b4f56bde5de80ee520. Only r1 S2 NativePeers fault retention fix native.rs+Error enum. Author8 puretests/fmt/strictClippy0 full7meta/14raw audited. Root conditional72source workspacecheck pending; do not invent it. Read frozen fullsource and logs via actualaudio/root/frontend read_thread relays, max20000 chars/item; no escalation/edit/rerun/network/hardware. Formal delta approval cannotclose missing realpositiveDNS gate; oldnativeFAIL13UNKNOWN consumed, newbinariesNOT_RUN. Sequential afterT009limited review.
+
+Historicalr1 follows:
 # T016 / M3 / REQ-13,14 — formal r1 activated
 
 Actual independent reviewer /root/reviewer_t001 UUID01a1077c-556d-7152-892c-d9f92346ec0f. de7d453 registered attempt1 and readonly-review:t016-r1 before actual followup dispatch after T008 r2. Earlier native smoke static preflight was attempt0, not formal task approval. No source/evidence/ledger writes, escalation, recursive agents, tests/hardware/network. Authorized fixed fulltext relay is the known executor compatibility; do not claim reviewer reruns.

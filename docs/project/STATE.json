@@ -7,29 +7,6 @@
   "active_milestone": "M1",
   "active_tasks": [
     {
-      "task_id": "T009",
-      "agent_instance_id": "/root",
-      "allowed_paths": [
-        ".local/t009-vbcable-once/supervise_once.ps1",
-        ".local/t009-vbcable-once/config.json",
-        "docs/evidence/T009-20261005/",
-        "docs/project/",
-        ".local/t009-leader-check/",
-        ".local/t009-author/target/",
-        ".local/t009-vbcable-once/"
-      ],
-      "resource_leases": [],
-      "depends_on": [
-        "T007",
-        "T008"
-      ],
-      "contract": "Independent preflight received allows current fixed config; one2s0.01 marker exact verified VB-CABLE pair with13s child/15s total, no physical endpoints/PCMfiles/default changes/retry",
-      "acceptance_commands": [
-        "PowerShell AST parse no errors; readonly independent source/preflight review"
-      ],
-      "execution_note": "Registered before actual execution; human authorization remains unconsumed until supervisor consume-beforelaunch. No concurrent GPU/audio/LAN test."
-    },
-    {
       "task_id": "T010",
       "agent_instance_id": "/root",
       "allowed_paths": [
@@ -81,6 +58,49 @@
         "Leader conditional workspace27featurecache tests after authorSTOP; not blind prior coldtargetretry"
       ],
       "execution_note": "Root+backend max2writers; edit/format only, no cargo/compiler/hardware/network; preserve originalICE"
+    },
+    {
+      "task_id": "T009",
+      "agent_instance_id": "/root/reviewer_t001",
+      "allowed_paths": [
+        "crates/audio/",
+        "docs/evidence/T009-20261005/"
+      ],
+      "resource_leases": [
+        "readonly-review:t009-capacity-limited"
+      ],
+      "depends_on": [
+        "T007",
+        "T008"
+      ],
+      "contract": "Limited independent64test diagnostic delta review frozen75473156; not formalDONE/newattempt, oldonceFAIL/cleanupUNKNOWN consumed",
+      "acceptance_commands": [
+        "Readonly frozen diff/context/fullraw/meta/index"
+      ],
+      "execution_note": "No escalation/rerun/nativeInitialize/hardware; software scope only"
+    },
+    {
+      "task_id": "T016",
+      "agent_instance_id": "/root/reviewer_t001",
+      "allowed_paths": [
+        "crates/transport/src/discovery/native.rs",
+        "crates/transport/src/lib.rs",
+        "docs/evidence/T016-20261005/",
+        "docs/project/reviews/T016-r1.md",
+        "docs/project/T016-review-assignment.md"
+      ],
+      "resource_leases": [
+        "readonly-review:t016-r2"
+      ],
+      "depends_on": [
+        "T003",
+        "T006"
+      ],
+      "contract": "Second formalr2 attempt2/3 source75473156/evidence75473156; singleS2 immutablefault/snapshot closure and regression, root conditional checks pending",
+      "acceptance_commands": [
+        "Readonly source/raw evidence; explicit limits/remainingnativepositiveFAIL"
+      ],
+      "execution_note": "Sequential afterT009limited, no escalation/rerun/network/hardware/thirdattempt; no wholeTaskDONE without realpositive discovery"
     }
   ],
   "milestones": {

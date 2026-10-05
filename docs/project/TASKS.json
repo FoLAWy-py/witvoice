@@ -512,7 +512,7 @@
       "milestone": "M3",
       "title": "LAN发现、手动寻址与双向身份信任",
       "owner_role": "backend",
-      "status": "IN_PROGRESS",
+      "status": "REVIEW",
       "requirements": [
         "REQ-13",
         "REQ-14"
@@ -527,9 +527,9 @@
         "tests/security/"
       ],
       "acceptance": "默认监听关闭；mDNS不建立信任；双端身份字符串导入、pin验证与撤销；陌生端无音频权限。",
-      "agent_instance_id": "/root/backend",
+      "agent_instance_id": "/root/reviewer_t001",
       "resource_leases": [
-        "code-writer:backend-t016-r1"
+        "readonly-review:t016-r2"
       ],
       "evidence": [
         "docs/evidence/T016-20261005/dependency-metadata.json",
@@ -566,12 +566,14 @@
         "docs/evidence/T016-20261005/native-dns/native-smoke/result.json",
         "docs/evidence/T016-20261005/native-dns/diagnostics-author/leader-audit.json",
         "docs/evidence/integration/20261005-T008-T016-r2/result.json",
-        "docs/evidence/integration/20261005-T008-T016-r2/leader-audit.json"
+        "docs/evidence/integration/20261005-T008-T016-r2/leader-audit.json",
+        "docs/project/reviews/T016-r1.md",
+        "docs/evidence/T016-20261005/native-dns/r1-fix/leader-audit.json"
       ],
-      "review": "docs/project/reviews/T016-r1.md",
-      "attempts": 1,
+      "review": "docs/project/reviews/T016-r2.md",
+      "attempts": 2,
       "blocked_reason": null,
-      "execution_note": "Formalr1 REVISE attempt1/3: S2 NativePeers swallows Failed and retained snapshot; full report received. No fix lease yet; native positive discovery still unverified, old authorization consumed."
+      "execution_note": "Second formalr2 fixed75473156, sourceS2 repaired/8tests+fmt/Clippy0. AuthorSTOP, root aftermerge workspace check pending. Realnativepositive remainsfailed13UNKNOWN/oldonceconsumed; noLANretest. No formalresultyet."
     },
     {
       "id": "T017",
