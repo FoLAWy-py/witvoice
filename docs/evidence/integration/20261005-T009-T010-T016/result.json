@@ -1,0 +1,28 @@
+{
+  "source_commit": "78c18c163e31dfdc36457088b90ee25c83534a2b",
+  "status": "BLOCKED_COMPILER_ACCESS_VIOLATION",
+  "cargo_exit": 101,
+  "started_utc": "2026-10-05T11:44:23.2767076Z",
+  "finished_utc": "2026-10-05T11:45:06.6408694Z",
+  "wall_seconds": 43.3626998,
+  "source_entries": 72,
+  "source_before_after_equal": true,
+  "windows_cache_hit": true,
+  "failing_target": "witvoice-session test session_identity",
+  "rustc_exit": "0xc0000005 STATUS_ACCESS_VIOLATION",
+  "cause": "UNKNOWN",
+  "effective_application_tests": 0,
+  "application_tests": "NOT_RUN",
+  "subsequent_fmt_clippy_examples": "NOT_RUN_STOPPED",
+  "original_T010_ICE": "RETAINED_NO_RETRY",
+  "new_hardware": "NOT_RUN",
+  "once": "CONSUMED_FAILED",
+  "raw": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "stderr": {
+    "sha256": "89949af3cf2e77c18481bc6fceb4ad8d2d1197cf8874ac041b67db6dc9d79bed",
+    "bytes": 28041
+  }
+}

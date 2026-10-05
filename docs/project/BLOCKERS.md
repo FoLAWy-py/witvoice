@@ -18,3 +18,6 @@ B004 更新（当前 MITIGATED_WITH_LIMITATIONS，2026-10-05 07:42:51Z）：同�
 2026-10-05 当前T009前置更新：用户已自行安装并明确选择VB-CABLE，真实UID/flow/active/48k2chFloat32及父驱动只读核对通过；设备缺失不再是当前前置。一次生成marker闭环已授权但未执行，不能把安装或metadata写成闭环PASS。Steam停止作为当前候选，无自建驱动CR发现。旧B001许可及Mac/2h/质量等门不变。
 
 B004 当前重新BLOCKED_COMPILER_ICE（2026-10-05 10:54:12Z，T010）：rustc1.99编译windows0.62.2时 invalid Once state /once/futex.rs:96，cargo101；真实应用tests尚未开始。原完整28570B stderr SHAfb7e039e…已归档author-ice，jobs1/inc0/独立Dtarget、overrides为空。Prepared静态修复保存但未测，后续检查/发行构建均NOT_RUN；作者已停，无盲重试。T009实际62测试与既定检查0是独立有限证据，不证明环境普遍稳定。最小解阻仍为兼容且核验过的工具链/独立稳定环境；当前原因UNKNOWN，不自动降minimum/改BIOS/安全设置/外传。
+B004 当前更新（2026-10-05 11:45:06Z）：条件性 workspace27feature缓存检查确认Fresh windows0.62.2；随后 session_identity 的 rustc 访问异常0xc0000005，cargo101、应用tests尚未开始，完整28041B stderr保留integration/20261005-T009-T010-T016/。停止其余fmt/Clippy/examples及所有额外Cargo；原invalidOnce ICE不删，原因UNKNOWN。固定source78c18c1，只能在稳定原生Windows执行环境重新验收；不能将已生成部分二进制或作者局部checks当root整合PASS。
+B005（T009）：用户一次VB-CABLE授权已消费；renderPrepare Capacity beforeStart，child1/0.11946s，真实GetBufferSize为0或>960但actualcount未记，cleanupUNKNOWN。最小结构化容量诊断已实现/64purechecks0，无上限放宽/无重试；新硬件诊断须另获具体授权并通过稳定编译器整合检查，设备安装不等于闭环。
+B006（T016）：r1 S2已修复/8puretests0，r2独立材料审查中；一次原native发现仍注册成功/Found后resolve失败13来源UNKNOWN，无positiveDNS证明、授权消费。新探针编译NOT_RUN，重新有限指定有线接口验证须独立审查/稳定编译器及新具体LAN授权；不改防火墙、不扩到Mac。

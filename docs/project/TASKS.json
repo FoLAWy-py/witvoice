@@ -363,12 +363,14 @@
       "resource_leases": [],
       "evidence": [
         "docs/evidence/T010-20261005/author-ice/02-session-tests.json",
-        "docs/evidence/T010-20261005/author-ice/leader-log-byte-audit.json"
+        "docs/evidence/T010-20261005/author-ice/leader-log-byte-audit.json",
+        "docs/evidence/T010-20261005/static-fix/leader-audit.json",
+        "docs/evidence/integration/20261005-T009-T010-T016/result.json"
       ],
       "review": null,
       "attempts": 0,
-      "blocked_reason": "Actual rustc1.99 compiler ICE in windows0.62.2 dependency before application tests. StaticPrepared fix saved untested, no retry; requires compatible verified compiler/stable environment without changing requirement/minimum/security implicitly.",
-      "execution_note": "ActualbackendSTOP_WRITES,7 sources saved.01rustfmt0/02cargoICE101, application tests NOT_RUN. Prepared staticfix after failure uncompiled. Protection audit mistakenly toolchunk e51a14 ref128 preserved; leader will use actual222ef56. No formal approval/DONE."
+      "blocked_reason": "Original coldwindows invalidOnce ICE retained. Conditional known27featurecache hit then actualsession_identity compiler AV0xc0000005/cargo101; app tests notstarted/all subsequentchecks STOPPED. Exactsource78c18 frozen; stable native compiler execution required.",
+      "execution_note": "Staticgetter+3negative cases implemented, standaloneformat0; no successful app test, defaultproduction/release guard check NOT_RUN. All sourceauthorsSTOP; formalT010attempt0."
     },
     {
       "id": "T011",

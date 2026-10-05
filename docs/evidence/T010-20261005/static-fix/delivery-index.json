@@ -1,0 +1,279 @@
+{
+  "sources": [
+    {
+      "path": "crates/session/src/lib.rs",
+      "bytes": 19963,
+      "sha256": "e26525772cb07838da7c2685c77b4a15ca3cdd409f9d479a8aaae9d4596e1aec"
+    },
+    {
+      "path": "crates/session/src/test_support.rs",
+      "bytes": 1147,
+      "sha256": "ebb3ca57a2f7dc1fd6bb9832412ad5046610a09b3badf35d8af9dd736fed0b0d"
+    },
+    {
+      "path": "tests/contract/session_identity.rs",
+      "bytes": 9261,
+      "sha256": "8dd73fc61be1efc2427855dbf490734c94a7dadc14daabb61b55c38dec025126"
+    },
+    {
+      "path": "tests/integration/identity_pipeline.rs",
+      "bytes": 3742,
+      "sha256": "11daebbebe5075872bdd7df13e177b38ac3165b7f02923f4a3e224aabb021af3"
+    },
+    {
+      "path": "tests/integration/support/mod.rs",
+      "bytes": 6799,
+      "sha256": "e5409d06091870085d3efcdbd317f6948a321d76929ca1b2ab1e89404a80b045"
+    },
+    {
+      "path": "apps/voice-node/tests/supervision.rs",
+      "bytes": 15554,
+      "sha256": "21b543d3476b399ddf116ebbc0d9cbb72092b2d88715fa1062964a30f7e63982"
+    },
+    {
+      "path": "apps/voice-node/README.md",
+      "bytes": 6406,
+      "sha256": "0b491dbd311c3178b42de36b2e07ffc22ff2751b81664b2d70a027f591662b69"
+    }
+  ],
+  "next": "leader conditional 27feature cached validation after both authors STOP; no own coldtarget retry",
+  "resources": {
+    "mac": "UNTESTED",
+    "audio_devices": "NOT_RUN",
+    "cargo": "NOT_RUN",
+    "gpu_models": "NOT_RUN",
+    "network": "NOT_RUN"
+  },
+  "formal_approval": "NOT_PERFORMED",
+  "author": "/root/backend",
+  "runner": {
+    "sha256": "6061f1953fcd0adc8f011d00bae91930fbf9993abf681b2cac54a0746c236cc1",
+    "path": ".local/t010-static-fix/format.ps1"
+  },
+  "status": "STOPPED_WRITING_STATIC_ONLY",
+  "task": "T010",
+  "original_ice": "RETAINED_B004_CAUSE_UNKNOWN",
+  "completed_utc": "2026-10-05T11:42:18.5447431Z",
+  "new_contract_regressions": 3,
+  "recovery": "Prepare Busy -> Blocked -> explicit Stop; pending Stop Busy requires newrequestID afterquiescence; oldBusy responses unchanged",
+  "runs": [
+    {
+      "metadata": {
+        "end_utc": "2026-10-05T11:41:11.2244916Z",
+        "verification": "FORMAT_ONLY; APPLICATION_COMPILE_AND_TEST_NOT_RUN",
+        "stderr": {
+          "bytes": 0,
+          "path": "D:\\Project\\witvoice\\.local\\t010-static-fix\\01-rustfmt.stderr",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source_after": [
+          {
+            "bytes": 19963,
+            "path": "crates/session/src/lib.rs",
+            "sha256": "e26525772cb07838da7c2685c77b4a15ca3cdd409f9d479a8aaae9d4596e1aec"
+          },
+          {
+            "bytes": 1147,
+            "path": "crates/session/src/test_support.rs",
+            "sha256": "ebb3ca57a2f7dc1fd6bb9832412ad5046610a09b3badf35d8af9dd736fed0b0d"
+          },
+          {
+            "bytes": 9261,
+            "path": "tests/contract/session_identity.rs",
+            "sha256": "8dd73fc61be1efc2427855dbf490734c94a7dadc14daabb61b55c38dec025126"
+          },
+          {
+            "bytes": 3742,
+            "path": "tests/integration/identity_pipeline.rs",
+            "sha256": "11daebbebe5075872bdd7df13e177b38ac3165b7f02923f4a3e224aabb021af3"
+          },
+          {
+            "bytes": 6799,
+            "path": "tests/integration/support/mod.rs",
+            "sha256": "e5409d06091870085d3efcdbd317f6948a321d76929ca1b2ab1e89404a80b045"
+          },
+          {
+            "bytes": 15554,
+            "path": "apps/voice-node/tests/supervision.rs",
+            "sha256": "21b543d3476b399ddf116ebbc0d9cbb72092b2d88715fa1062964a30f7e63982"
+          },
+          {
+            "bytes": 6406,
+            "path": "apps/voice-node/README.md",
+            "sha256": "0b491dbd311c3178b42de36b2e07ffc22ff2751b81664b2d70a027f591662b69"
+          }
+        ],
+        "stdout": {
+          "bytes": 0,
+          "path": "D:\\Project\\witvoice\\.local\\t010-static-fix\\01-rustfmt.stdout",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "exit_code": 0,
+        "source_before": [
+          {
+            "bytes": 19891,
+            "path": "crates/session/src/lib.rs",
+            "sha256": "6db82a0da0eef79ee7ab1d2a65ed534288bb87f47c8a1e0eaa70884cf3aebd48"
+          },
+          {
+            "bytes": 1147,
+            "path": "crates/session/src/test_support.rs",
+            "sha256": "ebb3ca57a2f7dc1fd6bb9832412ad5046610a09b3badf35d8af9dd736fed0b0d"
+          },
+          {
+            "bytes": 8782,
+            "path": "tests/contract/session_identity.rs",
+            "sha256": "1e21941067a701fb3097c3a97e9c6230d36bf8e694291145ac24821f5dfdd937"
+          },
+          {
+            "bytes": 3742,
+            "path": "tests/integration/identity_pipeline.rs",
+            "sha256": "11daebbebe5075872bdd7df13e177b38ac3165b7f02923f4a3e224aabb021af3"
+          },
+          {
+            "bytes": 6734,
+            "path": "tests/integration/support/mod.rs",
+            "sha256": "fb51bb95bfd91aeb711612ec16fe3847f2ba067634343cac9487c667ed1332fb"
+          },
+          {
+            "bytes": 15554,
+            "path": "apps/voice-node/tests/supervision.rs",
+            "sha256": "21b543d3476b399ddf116ebbc0d9cbb72092b2d88715fa1062964a30f7e63982"
+          },
+          {
+            "bytes": 6406,
+            "path": "apps/voice-node/README.md",
+            "sha256": "0b491dbd311c3178b42de36b2e07ffc22ff2751b81664b2d70a027f591662b69"
+          }
+        ],
+        "start_utc": "2026-10-05T11:41:11.0391151Z",
+        "scope": "NO_CARGO_NO_DEVICE_NO_NETWORK_NO_MODEL",
+        "argv": [
+          "--edition",
+          "2024",
+          "crates/session/src/lib.rs",
+          "crates/session/src/test_support.rs",
+          "tests/contract/session_identity.rs",
+          "tests/integration/identity_pipeline.rs",
+          "tests/integration/support/mod.rs",
+          "apps/voice-node/tests/supervision.rs"
+        ],
+        "executable": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\rustfmt.exe",
+        "cwd": "D:\\Project\\witvoice"
+      },
+      "metadata_sha256": "41c2b7c3c1f0355e911e147a409efab0f967393c7133fe882817d5d34021793b",
+      "metadata_path": "D:\\Project\\witvoice\\.local\\t010-static-fix\\01-rustfmt.json"
+    },
+    {
+      "metadata": {
+        "argv": [
+          "--edition",
+          "2024",
+          "--check",
+          "crates/session/src/lib.rs",
+          "crates/session/src/test_support.rs",
+          "tests/contract/session_identity.rs",
+          "tests/integration/identity_pipeline.rs",
+          "tests/integration/support/mod.rs",
+          "apps/voice-node/tests/supervision.rs"
+        ],
+        "stderr": {
+          "path": "D:\\Project\\witvoice\\.local\\t010-static-fix\\02-rustfmt-check.stderr",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "scope": "NO_CARGO_NO_DEVICE_NO_NETWORK_NO_MODEL",
+        "exit_code": 0,
+        "source_after": [
+          {
+            "bytes": 19963,
+            "path": "crates/session/src/lib.rs",
+            "sha256": "e26525772cb07838da7c2685c77b4a15ca3cdd409f9d479a8aaae9d4596e1aec"
+          },
+          {
+            "bytes": 1147,
+            "path": "crates/session/src/test_support.rs",
+            "sha256": "ebb3ca57a2f7dc1fd6bb9832412ad5046610a09b3badf35d8af9dd736fed0b0d"
+          },
+          {
+            "bytes": 9261,
+            "path": "tests/contract/session_identity.rs",
+            "sha256": "8dd73fc61be1efc2427855dbf490734c94a7dadc14daabb61b55c38dec025126"
+          },
+          {
+            "bytes": 3742,
+            "path": "tests/integration/identity_pipeline.rs",
+            "sha256": "11daebbebe5075872bdd7df13e177b38ac3165b7f02923f4a3e224aabb021af3"
+          },
+          {
+            "bytes": 6799,
+            "path": "tests/integration/support/mod.rs",
+            "sha256": "e5409d06091870085d3efcdbd317f6948a321d76929ca1b2ab1e89404a80b045"
+          },
+          {
+            "bytes": 15554,
+            "path": "apps/voice-node/tests/supervision.rs",
+            "sha256": "21b543d3476b399ddf116ebbc0d9cbb72092b2d88715fa1062964a30f7e63982"
+          },
+          {
+            "bytes": 6406,
+            "path": "apps/voice-node/README.md",
+            "sha256": "0b491dbd311c3178b42de36b2e07ffc22ff2751b81664b2d70a027f591662b69"
+          }
+        ],
+        "end_utc": "2026-10-05T11:41:24.056493Z",
+        "verification": "FORMAT_ONLY; APPLICATION_COMPILE_AND_TEST_NOT_RUN",
+        "executable": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\rustfmt.exe",
+        "source_before": [
+          {
+            "bytes": 19963,
+            "path": "crates/session/src/lib.rs",
+            "sha256": "e26525772cb07838da7c2685c77b4a15ca3cdd409f9d479a8aaae9d4596e1aec"
+          },
+          {
+            "bytes": 1147,
+            "path": "crates/session/src/test_support.rs",
+            "sha256": "ebb3ca57a2f7dc1fd6bb9832412ad5046610a09b3badf35d8af9dd736fed0b0d"
+          },
+          {
+            "bytes": 9261,
+            "path": "tests/contract/session_identity.rs",
+            "sha256": "8dd73fc61be1efc2427855dbf490734c94a7dadc14daabb61b55c38dec025126"
+          },
+          {
+            "bytes": 3742,
+            "path": "tests/integration/identity_pipeline.rs",
+            "sha256": "11daebbebe5075872bdd7df13e177b38ac3165b7f02923f4a3e224aabb021af3"
+          },
+          {
+            "bytes": 6799,
+            "path": "tests/integration/support/mod.rs",
+            "sha256": "e5409d06091870085d3efcdbd317f6948a321d76929ca1b2ab1e89404a80b045"
+          },
+          {
+            "bytes": 15554,
+            "path": "apps/voice-node/tests/supervision.rs",
+            "sha256": "21b543d3476b399ddf116ebbc0d9cbb72092b2d88715fa1062964a30f7e63982"
+          },
+          {
+            "bytes": 6406,
+            "path": "apps/voice-node/README.md",
+            "sha256": "0b491dbd311c3178b42de36b2e07ffc22ff2751b81664b2d70a027f591662b69"
+          }
+        ],
+        "start_utc": "2026-10-05T11:41:23.8506001Z",
+        "stdout": {
+          "path": "D:\\Project\\witvoice\\.local\\t010-static-fix\\02-rustfmt-check.stdout",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "cwd": "D:\\Project\\witvoice"
+      },
+      "metadata_sha256": "29ce932be6179b130c002b9d45ea7931208bf0d596b13b88821251c359ce3315",
+      "metadata_path": "D:\\Project\\witvoice\\.local\\t010-static-fix\\02-rustfmt-check.json"
+    }
+  ],
+  "thread_uuid": "01a10767-4ff5-7f21-881a-146d094fbc55",
+  "compile_and_application_tests": "NOT_RUN",
+  "scope": "Erased control-thread muted observation and sameRuntime software tests; canonicalFSM unchanged"
+}

@@ -7,32 +7,6 @@
   "active_milestone": "M1",
   "active_tasks": [
     {
-      "task_id": "T010",
-      "agent_instance_id": "/root",
-      "allowed_paths": [
-        ".local/t010-integration-cache/",
-        ".local/t008-t016-r2-leader/target/",
-        "docs/evidence/integration/20261005-T009-T010-T016/",
-        "docs/project/",
-        "docs/evidence/T016-20261005/native-dns/r1-fix/"
-      ],
-      "resource_leases": [
-        "code-writer:leader-conditional-integration"
-      ],
-      "depends_on": [
-        "T006",
-        "T008"
-      ],
-      "contract": "One conditional workspace validation after authors STOP: reuse exact prior132-test workspace27feature Windows cached units, avoiding failed cold16feature unit. Not same failedT010 command/coldtarget or environment repair; stop onICE.",
-      "acceptance_commands": [
-        "cargo test --locked --workspace --all-targets --features witvoice-node/process-tests,witvoice-session/test-support -- --nocapture",
-        "cargo fmt --all --check",
-        "cargo clippy --locked --workspace --all-targets --features witvoice-node/process-tests,witvoice-session/test-support -- -D warnings",
-        "cargo build --locked --workspace --examples"
-      ],
-      "execution_note": "Prepare runner only, wait audioSTOP before freeze/run. Root+audio max2writers, no hardware/GPU/LAN; fullargv/raw/UTC/source beforeafter/exit preserved."
-    },
-    {
       "task_id": "T009",
       "agent_instance_id": "/root/reviewer_t001",
       "allowed_paths": [
@@ -121,7 +95,7 @@
     }
   },
   "last_verified_commit": "6c68c5dd3501da0681c27d57baa8ade694910468",
-  "next_task": "T009",
+  "next_task": "T010",
   "blockers": [
     {
       "id": "B001",
@@ -133,9 +107,9 @@
     {
       "id": "B004",
       "scope": "T010 application verification and toolchain reliability",
-      "status": "BLOCKED_COMPILER_ICE",
-      "evidence": "docs/evidence/T010-20261005/author-ice/02-session-tests.json",
-      "note": "rustc1.99 windows0.62.2 invalid Once state ICE101 at10:54:12Z; app tests never started. Full28570B stderr retained; finalPrepared staticfix NOT_TESTED. Earlier isolated T016/T009 PASS limited; causeUNKNOWN, no repeat/downgrade/security modification."
+      "status": "BLOCKED_COMPILER_ICE_AND_ACCESS_VIOLATION",
+      "evidence": "docs/evidence/integration/20261005-T009-T010-T016/result.json",
+      "note": "ColdT010 windows invalidOnce ICE101 retained. One distinct validated27featurecache conditional source78c18:Freshwindows hit, then session_identity rustc AV0xc0000005/cargo101 before all app tests. Entire subsequent checkset stopped, causeUNKNOWN/no globalchanges or retry."
     }
   ],
   "distribution_status": "BLOCKED_LICENSE_CHAIN_NOT_BUILT",
@@ -189,7 +163,7 @@
   "execution_status": "RUNNING_SCOPED_TASKS",
   "interruption_evidence": "docs/project/interruption-20261005.json",
   "last_tested_commit": "2ed6346416343970218f517ddda6731ceee5e809",
-  "last_tested_scope": "T009 subset only:62 audio effective tests/fmt/strictClippy/probe build0 postintegration. T010 compilerICE blocked; no wholeworkspace/native Start/model/Mac proof.",
+  "last_tested_scope": "Last fully passing scope remains6c68 workspace132 and2ed T00962. Current78c18 workspace compilation failed101/AV before tests; author754T00964/T0168 local pure checks passed, no root aftermerge PASS.",
   "windows_virtual_route": {
     "selected": "VB-CABLE",
     "render": "CABLE Input",

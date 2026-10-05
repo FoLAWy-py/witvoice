@@ -1,0 +1,20 @@
+[
+  {
+    "path": "crates/transport/src/discovery/native.rs",
+    "frozen_ref": "75473156a14cd9b1fe0f26b4f56bde5de80ee520",
+    "git_blob_byte_sha256": "3733008f6f460025c6ae24ed59ab8e9516d05ff5c25bc5caeb755af17d8faa52",
+    "bytes": 18106,
+    "conditional_before_sha256": "3733008f6f460025c6ae24ed59ab8e9516d05ff5c25bc5caeb755af17d8faa52",
+    "conditional_after_sha256": "3733008f6f460025c6ae24ed59ab8e9516d05ff5c25bc5caeb755af17d8faa52",
+    "equal": true
+  },
+  {
+    "path": "crates/transport/src/lib.rs",
+    "frozen_ref": "75473156a14cd9b1fe0f26b4f56bde5de80ee520",
+    "git_blob_byte_sha256": "7aec83bfdfecc6d7777731d4ec883263c341e75f63f9cc704c2183c54d30bed8",
+    "bytes": 665,
+    "conditional_before_sha256": "7aec83bfdfecc6d7777731d4ec883263c341e75f63f9cc704c2183c54d30bed8",
+    "conditional_after_sha256": "7aec83bfdfecc6d7777731d4ec883263c341e75f63f9cc704c2183c54d30bed8",
+    "equal": true
+  }
+]
