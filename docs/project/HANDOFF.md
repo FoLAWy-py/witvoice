@@ -1,5 +1,7 @@
 # 当前交接
 
+T008作者历史03-tests实际49有效测试0（普通E0689已修）、04fmt0；当前正在加强四组8h离散SPSC送帧模拟，并修普通Clippy lint；因此旧49通过不是当前改后复跑。日志由作者唯一文件保存，不覆盖失败。两个writer仅audio/backend路径完全分离，root不持代码锁，后续先收停止写入与SHA，再冻结整合复测/独立review。next_task=T008，M5/M6未关闭。
+
 B004在限定新检查中已越过：同Syn2.0.119原九feature最小构建0（5.63s），随后真实platform/transport依赖和native lib编译到普通test E0509（Drop对象结构更新不能move）+严格warning待修；没有compiler ICE/AV。历史原因UNKNOWN，不叫全机器修复。T016恢复IN_PROGRESS，root验证写入锁释放并登记backend普通源码/lint修复；只许原native白名单，保留root格式/保护identity/manifest/lock。audio并行T008两代码作者，无LAN/hardware/GPU。所有旧失败保留syn-minimized/conditional-check。
 
 T016窄静态回调寿命检查已由实际frontend完成（非formal批准/attempts0）；固定5160b97三文件全文未观察具体UAF或关闭后重启。root仅九源码rustfmt整合：首次package fmt差异1（显示partial）；保存完整的新check遇cargo-fmt TOML parser panic101，standalone八文件format0、package剩lib顺序diff1；补lib顺序并standalone九文件check0，其他12冻结文件SHA不变。源码formatter-only变更、全部失败保留format/result.json；未编译新DNS/未tests，不证明工具链恢复。root锁释放，只有audio T008写入、无hardware/GPU/LAN。
