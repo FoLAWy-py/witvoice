@@ -1,5 +1,7 @@
 # 当前交接
 
+T016冻结92d6a25整合30有效tests/fmt/alltargetClippy/examples全exit0，完整日志在native-dns/leader-integration，root验证lease释放。用户call_EgHe1WXg0JyX0Gc0ObFTgUGx/0已批准一次interface19有线双进程mDNS（每进程≤10s、总≤15s）；授权JSON已保存，尚未运行。现有探针exit0无法证明真实Registered/精确本次node观测，先只读核最小修订，再登记backend探针lease/编译/静态预检后仅运行一次。
+
 T016作者已停止写入并释放backend代码锁。原始03–11完整日志逐字节SHA/长度已核，最后四命令同一11源码前后SHA一致：30有效tests/fmt/clippy/examples退出0。06-clippy索引与原始UTC仅尾零词法差异、时间值相同，两原件保留；此前归档断言失败/566a653部分提交已补全于author-final/leader-audit.json，不改历史。原生DNS/LAN NOT_RUN、正式review待，T016仍IN_PROGRESS。当前仅audio T008代码写入，无硬件/GPU/LAN租约；next_task=T008。
 
 T008作者历史03-tests实际49有效测试0（普通E0689已修）、04fmt0；当前正在加强四组8h离散SPSC送帧模拟，并修普通Clippy lint；因此旧49通过不是当前改后复跑。日志由作者唯一文件保存，不覆盖失败。两个writer仅audio/backend路径完全分离，root不持代码锁，后续先收停止写入与SHA，再冻结整合复测/独立review。next_task=T008，M5/M6未关闭。

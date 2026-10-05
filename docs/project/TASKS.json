@@ -535,12 +535,13 @@
         "docs/evidence/T016-20261005/native-dns/syn-minimized/compile.json",
         "docs/evidence/T016-20261005/native-dns/conditional-check/01-tests.json",
         "docs/evidence/T016-20261005/native-dns/author-final/12-delivery-index.json",
-        "docs/evidence/T016-20261005/native-dns/author-final/leader-audit.json"
+        "docs/evidence/T016-20261005/native-dns/author-final/leader-audit.json",
+        "docs/evidence/T016-20261005/native-dns/leader-integration/result.json"
       ],
       "review": null,
       "attempts": 0,
       "blocked_reason": null,
-      "execution_note": "Author stopped; 30 nonempty tests, fmt/clippy/examples0 on 11 final source hashes. Raw bytes and final four before/after validated by leader. Real DNS/LAN NOT_RUN; integration rerun and formal review pending."
+      "execution_note": "Frozen92d6a25 full integration30 tests/fmt/alltargetsClippy/examples0. Default networkOFF. One explicit interface19 probe authorized, not run; strengthen probe evidence before one run; formal attempts0."
     },
     {
       "id": "T017",

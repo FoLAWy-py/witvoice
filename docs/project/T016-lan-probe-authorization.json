@@ -1,0 +1,17 @@
+{
+  "authorized_by": "human_user",
+  "question_item_id": "[\"request_user_input_async\",\"call_EgHe1WXg0JyX0Gc0ObFTgUGx\",0]",
+  "answer": "允许这一次有线接口测试",
+  "interface_index": 19,
+  "interface_description": "Realtek PCIe GbE Family Controller",
+  "operation": "One two-process advertise+browse/resolve DNS-SD smoke",
+  "maximum_process_seconds": 10,
+  "maximum_overall_seconds": 15,
+  "service": "_voice-node._udp.local",
+  "broadcast": "Random test node UUID, protocol1, private local endpoint hint:40000",
+  "privacy": "No audio/model/key/profile/identity-string data; raw address local only, public evidence redacted",
+  "firewall_changes": false,
+  "execution_status": "NOT_RUN",
+  "source_requirement": "Concrete compiled reviewed probe; positive Registered and exact expected test node evidence required, exit0 insufficient",
+  "utc_recorded": "2026-10-05T08:17:20.266110+00:00"
+}

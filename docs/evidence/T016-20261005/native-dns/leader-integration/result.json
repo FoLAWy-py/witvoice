@@ -1,0 +1,23 @@
+{
+  "runs": [
+    {
+      "stem": "01-tests",
+      "exit_code": 0
+    },
+    {
+      "stem": "02-fmt",
+      "exit_code": 0
+    },
+    {
+      "stem": "03-clippy",
+      "exit_code": 0
+    },
+    {
+      "stem": "04-examples",
+      "exit_code": 0
+    }
+  ],
+  "source_match": true,
+  "hardware_lan": "NOT_RUN",
+  "formal_review": "PENDING"
+}

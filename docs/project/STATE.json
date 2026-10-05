@@ -32,29 +32,6 @@
       ],
       "reviewer": "/root/reviewer_t001",
       "execution_note": "Native T007 r3 approved; new T008 implementation only. T016 compiler failures not assumed global; one scoped real audio build with process jobs1/inc0, if compiler fails stop no blind retries. No hardware/network/GPU."
-    },
-    {
-      "task_id": "T016",
-      "agent_instance_id": "/root",
-      "allowed_paths": [
-        ".local/t016-leader-integration/",
-        "docs/evidence/T016-20261005/native-dns/leader-integration/"
-      ],
-      "resource_leases": [
-        "verification-writer:t016-leader"
-      ],
-      "depends_on": [
-        "T003",
-        "T006"
-      ],
-      "contract": "Frozen native DNS source566a653 + author-final byte audit; no source/root deps modifications",
-      "acceptance_commands": [
-        "cargo test --locked -p witvoice-platform -p witvoice-transport",
-        "cargo fmt --package witvoice-platform --package witvoice-transport --check",
-        "cargo clippy --locked -p witvoice-platform -p witvoice-transport --all-targets -- -D warnings",
-        "cargo build --locked -p witvoice-platform -p witvoice-transport --examples"
-      ],
-      "execution_note": "No LAN/audio/GPU; process-only D target/jobs1/inc0. Stop on compiler AV/ICE; no blind retry."
     }
   ],
   "milestones": {
@@ -116,7 +93,7 @@
       "scope": "T016 native DNS source validation",
       "status": "MITIGATED_WITH_LIMITATIONS",
       "evidence": "docs/evidence/T016-20261005/native-dns/conditional-check/01-tests.json",
-      "note": "Historical AV/ICE/cargo-fmt parser failures causeUNKNOWN; exact Syn feature minimized compile0 and subsequent real app dependencies/native lib compile reached ordinary E0509. Limited observed obstacle passed, not stable hardware/toolchain certification. Fix ordinary source error then validate; stop if compiler fails again."
+      "note": "Final frozen 11-source integration: 30 nonempty tests, fmt, all-target Clippy, examples0. Historical AV/ICE/parser causeUNKNOWN; limited verification only, no hardware/LAN PASS."
     }
   ],
   "distribution_status": "BLOCKED_LICENSE_CHAIN_NOT_BUILT",
