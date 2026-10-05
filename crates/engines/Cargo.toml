@@ -9,3 +9,4 @@ publish.workspace = true
 witvoice-contracts = { path = '../contracts' }
 witvoice-platform = { path = '../platform' }
 serde_json.workspace = true
+serde.workspace = true

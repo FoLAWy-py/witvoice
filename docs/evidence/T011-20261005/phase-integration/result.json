@@ -1,0 +1,25 @@
+{
+  "workspace-tests": {
+    "exit": 0,
+    "wall_seconds": 10.0207382
+  },
+  "fmt": {
+    "exit": 0,
+    "wall_seconds": 0.3516699
+  },
+  "clippy": {
+    "exit": 0,
+    "wall_seconds": 0.4312946
+  },
+  "examples": {
+    "exit": 0,
+    "wall_seconds": 0.6769221
+  },
+  "source_commit": "7d4ed3440f1d8ab6d00795b551b8b114fb7e1eaa",
+  "inputs": 109,
+  "source_all_equal": true,
+  "effective_tests": 208,
+  "model": "NOT_RUN",
+  "gpu": "NOT_RUN",
+  "audio": "NOT_RUN"
+}

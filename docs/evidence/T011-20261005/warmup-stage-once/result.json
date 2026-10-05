@@ -1,0 +1,114 @@
+{
+    "source_commit":  "7d4ed3440f1d8ab6d00795b551b8b114fb7e1eaa",
+    "binary_sha256":  "af46b2b890d293e7b2a75f0c55cef9e72e51cea65d6d41c1804770dbadb96fc7",
+    "config_sha256":  "8c4aa052b8a98cdf3a8e761d6b11c82d57205b4c50b9a92b5b6f86fd91d529ee",
+    "owner":  "/root",
+    "host":  "5.1.26100.7462",
+    "started_utc":  "2026-10-05T16:04:53.4419698Z",
+    "status":  "FAIL_REAL_WARMUP",
+    "model":  "REAL_WARMUP_ATTEMPT",
+    "audio":  "NOT_RUN",
+    "network":  "NOT_RUN",
+    "pcm_saved":  false,
+    "exit":  1,
+    "timed_out":  false,
+    "owned_job_cleanup":  "CONFIRMED_BY_REAL_OWNER",
+    "report":  {
+                   "automatic_retries":  0,
+                   "backend":  "cuda",
+                   "chunk_samples":  2560,
+                   "cleanup_confirmed":  true,
+                   "cleanup_failure":  null,
+                   "cleanup_failure_os_error":  null,
+                   "device_budget_bytes":  4294967296,
+                   "diagnostic_stage_recording":  true,
+                   "duration_preserving":  false,
+                   "engine":  "meanvc2",
+                   "failure":  "ipc_deadline",
+                   "failure_last_heartbeat_age_ms":  504,
+                   "failure_os_error":  null,
+                   "failure_request_elapsed_ms":  404,
+                   "failure_stage":  "heartbeat_read",
+                   "heartbeat_count":  49,
+                   "host_budget_bytes":  6442450944,
+                   "lookahead_is_total_delay":  false,
+                   "lookahead_samples":  640,
+                   "max_heartbeat_gap_ms":  123,
+                   "media_exchanged":  false,
+                   "model_ready":  false,
+                   "model_sha256":  "01caafec9a3991a5514df9412952d24ae3370406358a01e20e03df41f2f5d515",
+                   "native_rate":  16000,
+                   "output_open":  false,
+                   "owned_active_processes":  0,
+                   "policy_output_allowed_after_cleanup":  false,
+                   "ready_received":  false,
+                   "reference_id":  "00000000-0000-0000-0000-000000000011",
+                   "result":  "FAILED",
+                   "sink_present":  false,
+                   "stopped_ack":  false
+               },
+    "phase_diagnostic":  "VALID_BOUNDED_SCALARS",
+    "phase_complete":  false,
+    "phase_records":  [
+                          {
+                              "stage":  "imports_array_audio",
+                              "edge":  "before",
+                              "elapsed_ns":  0
+                          },
+                          {
+                              "stage":  "imports_array_audio",
+                              "edge":  "after",
+                              "elapsed_ns":  62000000
+                          },
+                          {
+                              "stage":  "imports_torch",
+                              "edge":  "before",
+                              "elapsed_ns":  62000000
+                          },
+                          {
+                              "stage":  "imports_torch",
+                              "edge":  "after",
+                              "elapsed_ns":  1421000000
+                          },
+                          {
+                              "stage":  "imports_adapter",
+                              "edge":  "before",
+                              "elapsed_ns":  1421000000
+                          },
+                          {
+                              "stage":  "imports_adapter",
+                              "edge":  "after",
+                              "elapsed_ns":  1421000000
+                          },
+                          {
+                              "stage":  "fixtures_check",
+                              "edge":  "before",
+                              "elapsed_ns":  1421000000
+                          },
+                          {
+                              "stage":  "fixtures_check",
+                              "edge":  "after",
+                              "elapsed_ns":  1437000000
+                          },
+                          {
+                              "stage":  "model_load",
+                              "edge":  "before",
+                              "elapsed_ns":  1437000000
+                          }
+                      ],
+    "phase_file":  {
+                       "bytes":  592,
+                       "sha256":  "e450bc1bf1ce2116022aca03c92baf84eea039fc61a5ed41f0513faf554e231a"
+                   },
+    "finished_utc":  "2026-10-05T16:04:59.0851613Z",
+    "wall_seconds":  5.6459459,
+    "stdout":  {
+                   "bytes":  916,
+                   "sha256":  "0c84f43a3674ac49e1e96147073e0226e67eed7b6a1bb5fb1a0b669a4ed26ad1"
+               },
+    "stderr":  {
+                   "bytes":  0,
+                   "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+               },
+    "source_after_all_equal":  true
+}

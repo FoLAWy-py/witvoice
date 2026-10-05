@@ -1,0 +1,158 @@
+{
+    "task":  "T011 finite model process isolation author software slice",
+    "uuid":  "01a10767-4ff5-7f21-881a-146d094fbc55",
+    "utc":  "2026-10-05T16:33:01.5239422Z",
+    "sources":  [
+                    {
+                        "path":  "D:\\Project\\witvoice\\workers\\vc_worker\\model_process.py",
+                        "sha256":  "32cf3d901665aa5de34a016dcdbf54e1fab4fb4d6a232d9628a1febdcc11e90b",
+                        "bytes":  9953,
+                        "lines":  239
+                    },
+                    {
+                        "path":  "D:\\Project\\witvoice\\workers\\vc_worker\\model_host.py",
+                        "sha256":  "c3e6d7edef8789f6222944e9ea0da6654e31ac0289c328e1e6c39ad42abff121",
+                        "bytes":  2707,
+                        "lines":  67
+                    },
+                    {
+                        "path":  "D:\\Project\\witvoice\\workers\\vc_worker\\model_host_bootstrap.py",
+                        "sha256":  "b39c3c4bc41f73e244e4e4c067078e14b7a3c1f94074395e2517c6e9a7899e34",
+                        "bytes":  2259,
+                        "lines":  55
+                    },
+                    {
+                        "path":  "D:\\Project\\witvoice\\workers\\vc_worker\\test_model_process.py",
+                        "sha256":  "0bc08320e24f517a8c425396cf6982eac64058231f16e312c29c7e1790dbaee9",
+                        "bytes":  11890,
+                        "lines":  256
+                    }
+                ],
+    "files":  [
+                  {
+                      "path":  "D:\\Project\\witvoice\\.local\\t011-isolation-author\\01-software-tests.json",
+                      "sha256":  "f6610b1ff6e4d857ee74a30ed5cdf89a84191a0502bb2c6c9b0bc7e931084607",
+                      "bytes":  2798
+                  },
+                  {
+                      "path":  "D:\\Project\\witvoice\\.local\\t011-isolation-author\\01-software-tests.stderr",
+                      "sha256":  "a696a4a731f0787428e6697ff9761690608520765851594bf8389f1fc7f5a382",
+                      "bytes":  2535
+                  },
+                  {
+                      "path":  "D:\\Project\\witvoice\\.local\\t011-isolation-author\\01-software-tests.stdout",
+                      "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                      "bytes":  0
+                  },
+                  {
+                      "path":  "D:\\Project\\witvoice\\.local\\t011-isolation-author\\02-four-source-compile.json",
+                      "sha256":  "5645889f36a4db4415dbb9686dd337f1b8db2d89ce2e84c0cff2d1bf6b4f0d10",
+                      "bytes":  2934
+                  },
+                  {
+                      "path":  "D:\\Project\\witvoice\\.local\\t011-isolation-author\\02-four-source-compile.stderr",
+                      "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                      "bytes":  0
+                  },
+                  {
+                      "path":  "D:\\Project\\witvoice\\.local\\t011-isolation-author\\02-four-source-compile.stdout",
+                      "sha256":  "a5d352f5727d8d481413c493af9b5bc54bb616e105e271c019b2f7dabc06273c",
+                      "bytes":  56
+                  },
+                  {
+                      "path":  "D:\\Project\\witvoice\\.local\\t011-isolation-author\\delivery-index.json",
+                      "sha256":  "4b84352b94485cc526aea5c543b4c8723e195153dbd1d894a3b261ba50a65afb",
+                      "bytes":  1648
+                  },
+                  {
+                      "path":  "D:\\Project\\witvoice\\.local\\t011-isolation-author\\host-failure-observation.json",
+                      "sha256":  "89f677de0d2f28f44d06a6fe3f01582819f28f601b0e258284f592a4bef01eac",
+                      "bytes":  1140
+                  },
+                  {
+                      "path":  "D:\\Project\\witvoice\\.local\\t011-isolation-author\\model_host.py.pyc",
+                      "sha256":  "7ab7882398d98817e039e62e808c004f4a7667e0d102488d26c85577ccca8de5",
+                      "bytes":  3675
+                  },
+                  {
+                      "path":  "D:\\Project\\witvoice\\.local\\t011-isolation-author\\model_host_bootstrap.py.pyc",
+                      "sha256":  "2005db9c5563ff69cc8587b0f44daad5c90fde620014a52545299be7f48e850e",
+                      "bytes":  4141
+                  },
+                  {
+                      "path":  "D:\\Project\\witvoice\\.local\\t011-isolation-author\\model_process.py.pyc",
+                      "sha256":  "727c8641edc719e45492bb22c68a516bbb7cfb85276fbcc2c3116f3f434c256f",
+                      "bytes":  14966
+                  },
+                  {
+                      "path":  "D:\\Project\\witvoice\\.local\\t011-isolation-author\\runner.ps1",
+                      "sha256":  "277ebcea3faf6abe03f0fbd0ee048ee785156edf44951a74bdcfd224d9915a13",
+                      "bytes":  4130
+                  },
+                  {
+                      "path":  "D:\\Project\\witvoice\\.local\\t011-isolation-author\\test_model_process.py.pyc",
+                      "sha256":  "393e675e6e1eedd24c5f61ef95e7c778a1cc025d4e90c178a6f10a9f8480e55d",
+                      "bytes":  26426
+                  }
+              ],
+    "checks":  {
+                   "test_count":  18,
+                   "four_file_compile":  0,
+                   "scoped_software_tests":  0
+               },
+    "host_failure":  {
+                         "tool_item":  "873fbc",
+                         "exit_code":  -1073741819,
+                         "wall_time_seconds":  6.5649066,
+                         "original_token_count":  968,
+                         "output_truncated":  true,
+                         "original_start_utc":  null,
+                         "original_end_utc":  null,
+                         "visible_first_lines":  [
+                                                     "Fatal error.",
+                                                     "Internal CLR error. (0x80131506)"
+                                                 ],
+                         "visible_stack_contains":  [
+                                                        "System.Private.CoreLib Version=10.0.0.0",
+                                                        "Newtonsoft.Json Version=13.0.0.0",
+                                                        "PowerShell.ConsoleHost.ParseCommandLine",
+                                                        "GetConfigurationNameFromGroupPolicy"
+                                                    ],
+                         "full_output_available":  false,
+                         "raw_provenance":  "Exact truncated tool output and full cmd in backend tool item873fbc; do not reconstruct omitted stack",
+                         "application_or_python_tests_executed":  false,
+                         "cause":  "UNKNOWN",
+                         "recovery":  "Leader readonlySystem5 source proof; explicitSystem5 narrow repairs and scopedchecks"
+                     },
+    "architecture":  {
+                         "max_cleanup_wait_seconds":  2,
+                         "isolated_no_site_flags":  true,
+                         "cleanup_owner":  "model task only",
+                         "fixed_base_python":  true,
+                         "fake_production_selector":  false,
+                         "max_scalar_bytes":  65536,
+                         "absolute_prepare_ns":  120000000000,
+                         "fixed_script_and_two_package_paths":  true,
+                         "node_credential_to_child":  false,
+                         "frame_endian":  "u32BE",
+                         "child_any_job_guard":  "required before prepare, not specificNodeJob proof"
+                     },
+    "not_run":  [
+                    "modelhost main/bootstrap real entry",
+                    "Torch/GPU/model/realwarmup",
+                    "specificNodeJob inheritedmembership witness",
+                    "realmodel memorycombinedbudget",
+                    "audio",
+                    "LAN",
+                    "Mac",
+                    "whole worker unittestdiscover"
+                ],
+    "risks":  [
+                  "Synchronous native calls and process creation lack universal wallclock bound; Node independentdeadline and entireJobkill/query remain authoritative",
+                  "Owner cleanup timeout raises; cannot claim resource release",
+                  "Software nativeGIL child does not establish originalfailure cause/GIL diagnosis",
+                  "Futuremedia/model-host conversion belongs T012; result is scalar only"
+              ],
+    "writes":  "STOP_WRITES",
+    "self_approved":  false
+}

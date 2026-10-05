@@ -1,0 +1,118 @@
+       Fresh unicode-ident v1.0.26
+       Fresh proc-macro2 v1.0.107
+       Fresh quote v1.0.47
+       Fresh syn v2.0.119
+       Fresh memchr v2.8.3
+       Fresh serde_core v1.0.228
+       Fresh serde_derive v1.0.228
+       Fresh itoa v1.0.18
+       Fresh ryu v1.0.23
+       Fresh serde_json v1.0.145
+       Fresh serde v1.0.228
+       Fresh windows-link v0.2.1
+       Fresh windows-strings v0.5.1
+       Fresh windows-result v0.4.1
+       Fresh windows-interface v0.59.3
+       Fresh windows-implement v0.60.2
+       Fresh windows-core v0.62.2
+       Fresh windows-threading v0.2.1
+       Fresh windows-future v0.3.2
+       Fresh windows-numerics v0.3.1
+       Fresh windows-collections v0.3.2
+       Fresh windows v0.62.2
+       Fresh serde_derive_internals v0.29.1
+       Fresh schemars_derive v0.8.22
+       Fresh dyn-clone v1.0.20
+       Fresh schemars v0.8.22
+       Fresh autocfg v1.5.1
+       Fresh num-conv v0.2.2
+       Fresh time-core v0.1.9
+       Fresh time-macros v0.2.32
+       Fresh syn v3.0.6
+       Fresh deranged v0.5.8
+       Fresh powerfmt v0.2.0
+       Fresh time v0.3.55
+       Fresh num-traits v0.2.19
+       Fresh find-msvc-tools v0.1.14
+       Fresh minimal-lexical v0.2.1
+       Fresh shlex v2.0.1
+       Fresh cc v1.6.0
+       Fresh nom v7.1.3
+       Fresh thiserror-impl v2.0.21
+       Fresh synstructure v0.13.2
+       Fresh asn1-rs-derive v0.6.0
+       Fresh thiserror v2.0.21
+       Fresh rusticata-macros v4.1.0
+       Fresh displaydoc v0.2.7
+       Fresh asn1-rs-impl v0.2.0
+       Fresh cfg-if v1.0.5
+       Fresh getrandom v0.2.17
+       Fresh asn1-rs v0.7.2
+       Fresh num-integer v0.1.47
+       Fresh untrusted v0.9.0
+       Fresh ring v0.17.14
+       Fresh num-bigint v0.4.8
+       Fresh zeroize v1.9.0
+       Fresh rustls-pki-types v1.15.1
+       Fresh der-parser v10.0.0
+       Fresh oid-registry v0.8.1
+       Fresh yasna v0.6.0
+       Fresh lazy_static v1.5.1
+       Fresh data-encoding v2.11.1
+       Fresh x509-parser v0.18.1
+       Fresh rcgen v0.14.10
+       Dirty witvoice-engines v0.1.0 (D:\Project\witvoice\crates\engines): the file `crates\engines\examples\worker_warmup_probe.rs` has changed (13435689062.814133000s, 23m 22s after last build at 13435687660.075585400s)
+   Compiling witvoice-engines v0.1.0 (D:\Project\witvoice\crates\engines)
+     Running `D:\Software\WitvoiceToolchain\Rust\rustup\toolchains\1.99.0-x86_64-pc-windows-msvc\bin\rustc.exe --crate-name worker_warmup_probe --edition=2024 crates\engines\examples\worker_warmup_probe.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --emit=dep-info,link -C embed-bitcode=no -C debuginfo=2 --test --check-cfg cfg(docsrs,test) --check-cfg "cfg(feature, values())" -C metadata=e29233c1b3b07577 -C extra-filename=-ff412533052856d4 --out-dir D:\Project\witvoice\.local\t008-t016-r2-leader\target\debug\examples -L dependency=D:\Project\witvoice\.local\t008-t016-r2-leader\target\debug\deps --extern serde_json=D:\Project\witvoice\.local\t008-t016-r2-leader\target\debug\deps\libserde_json-88054f347e5048f7.rlib --extern witvoice_contracts=D:\Project\witvoice\.local\t008-t016-r2-leader\target\debug\deps\libwitvoice_contracts-72b447387b0f797a.rlib --extern witvoice_engines=D:\Project\witvoice\.local\t008-t016-r2-leader\target\debug\deps\libwitvoice_engines-994211df814478ae.rlib --extern witvoice_platform=D:\Project\witvoice\.local\t008-t016-r2-leader\target\debug\deps\libwitvoice_platform-7e85ed7169e1b80f.rlib`
+       Fresh witvoice-transport v0.1.0 (D:\Project\witvoice\crates\transport)
+       Fresh witvoice-node v0.1.0 (D:\Project\witvoice\apps\voice-node)
+       Fresh witvoice-session v0.1.0 (D:\Project\witvoice\crates\session)
+       Fresh witvoice-platform v0.1.0 (D:\Project\witvoice\crates\platform)
+       Fresh witvoice-contracts v0.1.0 (D:\Project\witvoice\crates\contracts)
+       Fresh witvoice-audio v0.1.0 (D:\Project\witvoice\crates\audio)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.62s
+     Running `D:\Project\witvoice\.local\t008-t016-r2-leader\target\debug\deps\witvoice_audio-7d7890efffab862e.exe --nocapture`
+     Running `D:\Project\witvoice\.local\t008-t016-r2-leader\target\debug\deps\allocation-6868499f27ad3dbe.exe --nocapture`
+     Running `D:\Project\witvoice\.local\t008-t016-r2-leader\target\debug\deps\conversion-9654af611442d653.exe --nocapture`
+     Running `D:\Project\witvoice\.local\t008-t016-r2-leader\target\debug\deps\realtime-b05544c5d5f1b3ae.exe --nocapture`
+     Running `D:\Project\witvoice\.local\t008-t016-r2-leader\target\debug\deps\route-d6869487f3517654.exe --nocapture`
+     Running `D:\Project\witvoice\.local\t008-t016-r2-leader\target\debug\deps\stream_packets-61454096036df5f9.exe --nocapture`
+     Running `D:\Project\witvoice\.local\t008-t016-r2-leader\target\debug\examples\format_support_probe-e70599d51fba2678.exe --nocapture`
+     Running `D:\Project\witvoice\.local\t008-t016-r2-leader\target\debug\examples\list_endpoints-318a93a3d796693c.exe --nocapture`
+     Running `D:\Project\witvoice\.local\t008-t016-r2-leader\target\debug\examples\notification_probe-a1365d3aec31e4e7.exe --nocapture`
+     Running `D:\Project\witvoice\.local\t008-t016-r2-leader\target\debug\examples\removal_probe-5e7741a6c01e4588.exe --nocapture`
+     Running `D:\Project\witvoice\.local\t008-t016-r2-leader\target\debug\examples\route_probe-b8dc12d755ac9bc4.exe --nocapture`
+     Running `D:\Project\witvoice\.local\t008-t016-r2-leader\target\debug\examples\stream_smoke-d72fd5349e586143.exe --nocapture`
+     Running `D:\Project\witvoice\.local\t008-t016-r2-leader\target\debug\deps\witvoice_contracts-9f1f2c6215c3b1d9.exe --nocapture`
+     Running `D:\Project\witvoice\.local\t008-t016-r2-leader\target\debug\deps\export_schema-34767560d4c10172.exe --nocapture`
+     Running `D:\Project\witvoice\.local\t008-t016-r2-leader\target\debug\deps\wire-87e96d2fd22dc591.exe --nocapture`
+     Running `D:\Project\witvoice\.local\t008-t016-r2-leader\target\debug\deps\worker_wire-11cae59cd1a46627.exe --nocapture`
+     Running `D:\Project\witvoice\.local\t008-t016-r2-leader\target\debug\deps\witvoice_engines-193ce479d926d7d2.exe --nocapture`
+     Running `D:\Project\witvoice\.local\t008-t016-r2-leader\target\debug\deps\lifecycle-f6c1b3fbbc59c513.exe --nocapture`
+     Running `D:\Project\witvoice\.local\t008-t016-r2-leader\target\debug\examples\worker_warmup_probe-ff412533052856d4.exe --nocapture`
+     Running `D:\Project\witvoice\.local\t008-t016-r2-leader\target\debug\deps\witvoice_node-55cc0ba5d7c9e0b7.exe --nocapture`
+     Running `D:\Project\witvoice\.local\t008-t016-r2-leader\target\debug\deps\ipc_probe-b62fbe5fec3ad9d8.exe --nocapture`
+     Running `D:\Project\witvoice\.local\t008-t016-r2-leader\target\debug\deps\process_probe-39a97ac187f1e69e.exe --nocapture`
+     Running `D:\Project\witvoice\.local\t008-t016-r2-leader\target\debug\deps\witvoice_node-87ebfa019e4dad85.exe --nocapture`
+     Running `D:\Project\witvoice\.local\t008-t016-r2-leader\target\debug\deps\supervision-fd40ddc4cbdc8431.exe --nocapture`
+     Running `D:\Project\witvoice\.local\t008-t016-r2-leader\target\debug\deps\windows_process-d961aa381cb94532.exe --nocapture`
+     Running `D:\Project\witvoice\.local\t008-t016-r2-leader\target\debug\deps\witvoice_platform-428bbbe40c90341f.exe --nocapture`
+
+thread 'discovery::native::tests::panic_capture_keeps_actual_status_or_explicit_unknown' (55680) panicked at crates\platform\src\discovery\native\tests.rs:630:13:
+injected callback panic
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'discovery::native::tests::panic_capture_keeps_actual_status_or_explicit_unknown' (55680) panicked at crates\platform\src\discovery\native\tests.rs:630:13:
+injected callback panic
+     Running `D:\Project\witvoice\.local\t008-t016-r2-leader\target\debug\deps\discovery-038b02a27236e4a7.exe --nocapture`
+     Running `D:\Project\witvoice\.local\t008-t016-r2-leader\target\debug\deps\identity-d43d0469405ed41a.exe --nocapture`
+     Running `D:\Project\witvoice\.local\t008-t016-r2-leader\target\debug\deps\worker_pipe-ede23a93254b5383.exe --nocapture`
+     Running `D:\Project\witvoice\.local\t008-t016-r2-leader\target\debug\examples\worker_python_probe-b1bc8723e3f029e9.exe --nocapture`
+     Running `D:\Project\witvoice\.local\t008-t016-r2-leader\target\debug\deps\witvoice_session-5588782100d8f96d.exe --nocapture`
+     Running `D:\Project\witvoice\.local\t008-t016-r2-leader\target\debug\deps\identity_pipeline-1ed8937e3772b5fb.exe --nocapture`
+     Running `D:\Project\witvoice\.local\t008-t016-r2-leader\target\debug\deps\lifecycle-ac0f5039d8795e6d.exe --nocapture`
+     Running `D:\Project\witvoice\.local\t008-t016-r2-leader\target\debug\deps\session_identity-70aa45f999e81714.exe --nocapture`
+     Running `D:\Project\witvoice\.local\t008-t016-r2-leader\target\debug\deps\witvoice_transport-96fb95844fbf38b7.exe --nocapture`
+     Running `D:\Project\witvoice\.local\t008-t016-r2-leader\target\debug\deps\discovery-97ed75bc111af175.exe --nocapture`
+     Running `D:\Project\witvoice\.local\t008-t016-r2-leader\target\debug\deps\identity-f673295866f56754.exe --nocapture`
+     Running `D:\Project\witvoice\.local\t008-t016-r2-leader\target\debug\examples\native_discovery_probe-e911cf209ba15164.exe --nocapture`

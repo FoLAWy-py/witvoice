@@ -1,0 +1,42 @@
+{
+    "task":  "T011 software model process isolation",
+    "uuid":  "01a10767-4ff5-7f21-881a-146d094fbc55",
+    "executable":  "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "argv":  [
+                 "-I",
+                 "-S",
+                 "-B",
+                 "-c",
+                 "import py_compile;from pathlib import Path;root=Path(r\u0027D:\\Project\\witvoice\u0027);names=(\u0027model_process.py\u0027,\u0027model_host.py\u0027,\u0027model_host_bootstrap.py\u0027,\u0027test_model_process.py\u0027);[py_compile.compile(str(root/\u0027workers/vc_worker\u0027/name),cfile=str(root/\u0027.local/t011-isolation-author\u0027/(name+\u0027.pyc\u0027)),doraise=True) for name in names];print(\u00274 assigned Python sources compiled; model/main NOT_RUN\u0027)"
+             ],
+    "cwd":  "D:\\Project\\witvoice",
+    "execution_host":  {
+                           "version":  "5.1.26100.7462",
+                           "process":  "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+                       },
+    "start_utc":  "2026-10-05T16:31:44.5666445Z",
+    "end_utc":  "2026-10-05T16:31:44.6218420Z",
+    "exit_code":  0,
+    "source_before_sha256":  {
+                                 "model_host.py":  "c3e6d7edef8789f6222944e9ea0da6654e31ac0289c328e1e6c39ad42abff121",
+                                 "model_host_bootstrap.py":  "b39c3c4bc41f73e244e4e4c067078e14b7a3c1f94074395e2517c6e9a7899e34",
+                                 "model_process.py":  "32cf3d901665aa5de34a016dcdbf54e1fab4fb4d6a232d9628a1febdcc11e90b",
+                                 "test_model_process.py":  "0bc08320e24f517a8c425396cf6982eac64058231f16e312c29c7e1790dbaee9"
+                             },
+    "source_after_sha256":  {
+                                "model_host.py":  "c3e6d7edef8789f6222944e9ea0da6654e31ac0289c328e1e6c39ad42abff121",
+                                "model_host_bootstrap.py":  "b39c3c4bc41f73e244e4e4c067078e14b7a3c1f94074395e2517c6e9a7899e34",
+                                "model_process.py":  "32cf3d901665aa5de34a016dcdbf54e1fab4fb4d6a232d9628a1febdcc11e90b",
+                                "test_model_process.py":  "0bc08320e24f517a8c425396cf6982eac64058231f16e312c29c7e1790dbaee9"
+                            },
+    "stdout":  {
+                   "bytes":  56,
+                   "sha256":  "a5d352f5727d8d481413c493af9b5bc54bb616e105e271c019b2f7dabc06273c"
+               },
+    "stderr":  {
+                   "bytes":  0,
+                   "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+               },
+    "capture":  "Complete redirect stream text UTF8 withoutBOM",
+    "scope":  "Only test_model_process and four py_compile outputs; test subprocess executes only finite native GIL Sleep; modelhost/realmodel/Torch/GPU/audio/LAN NOT_RUN"
+}

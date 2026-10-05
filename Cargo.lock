@@ -681,6 +681,7 @@ dependencies = [
 name = "witvoice-engines"
 version = "0.1.0"
 dependencies = [
+ "serde",
  "serde_json",
  "witvoice-contracts",
  "witvoice-platform",

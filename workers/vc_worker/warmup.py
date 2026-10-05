@@ -31,7 +31,8 @@ def prepare_fixed(request, observer=None):
     phase("imports_adapter", "before")
     from audit_assets import sha256
     from evidence_checks import module_devices, require_safe_torch
-    from feasibility import SOURCE, REFERENCE, load_runner, private_bytes
+    from feasibility import SOURCE, REFERENCE, load_runner
+    from process_memory import model_tree_private_bytes
 
     phase("imports_adapter", "after")
     phase("fixtures_check", "before")
@@ -78,7 +79,7 @@ def prepare_fixed(request, observer=None):
         raise RuntimeError("real warmup did not execute conversion")
     phase("convert_warmup", "after")
     phase("finalize", "before")
-    finalize_preparation(runner, torch.cuda.synchronize, private_bytes,
+    finalize_preparation(runner, torch.cuda.synchronize, model_tree_private_bytes,
                          torch.cuda.memory_reserved)
     phase("finalize", "after")
     capabilities = {

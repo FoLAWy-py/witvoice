@@ -1,0 +1,24 @@
+{
+    "tool_item":  "873fbc",
+    "exit_code":  -1073741819,
+    "wall_time_seconds":  6.5649066,
+    "original_token_count":  968,
+    "output_truncated":  true,
+    "original_start_utc":  null,
+    "original_end_utc":  null,
+    "visible_first_lines":  [
+                                "Fatal error.",
+                                "Internal CLR error. (0x80131506)"
+                            ],
+    "visible_stack_contains":  [
+                                   "System.Private.CoreLib Version=10.0.0.0",
+                                   "Newtonsoft.Json Version=13.0.0.0",
+                                   "PowerShell.ConsoleHost.ParseCommandLine",
+                                   "GetConfigurationNameFromGroupPolicy"
+                               ],
+    "full_output_available":  false,
+    "raw_provenance":  "Exact truncated tool output and full cmd in backend tool item873fbc; do not reconstruct omitted stack",
+    "application_or_python_tests_executed":  false,
+    "cause":  "UNKNOWN",
+    "recovery":  "Leader readonlySystem5 source proof; explicitSystem5 narrow repairs and scopedchecks"
+}

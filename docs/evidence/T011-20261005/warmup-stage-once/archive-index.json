@@ -1,0 +1,36 @@
+{
+  "source_commit": "7d4ed3440f1d8ab6d00795b551b8b114fb7e1eaa",
+  "actual_tool": "0298ec",
+  "files": [
+    {
+      "file": "config.json",
+      "bytes": 12777,
+      "sha256": "8c4aa052b8a98cdf3a8e761d6b11c82d57205b4c50b9a92b5b6f86fd91d529ee"
+    },
+    {
+      "file": "execute.ps1",
+      "bytes": 7483,
+      "sha256": "f48fbac1d653814f664c1765b9bd5035890047b41f02813588f2d3d1372dbf04"
+    },
+    {
+      "file": "result.json",
+      "bytes": 5093,
+      "sha256": "1309f72c98a0908fe3768f9d4f97da72a0247891bfe9ea9d64824b94f06eba5f"
+    },
+    {
+      "file": "stdout.raw",
+      "bytes": 916,
+      "sha256": "0c84f43a3674ac49e1e96147073e0226e67eed7b6a1bb5fb1a0b669a4ed26ad1"
+    },
+    {
+      "file": "stderr.raw",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "prepare-stages.ndjson",
+      "bytes": 592,
+      "sha256": "e450bc1bf1ce2116022aca03c92baf84eea039fc61a5ed41f0513faf554e231a"
+    }
+  ]
+}

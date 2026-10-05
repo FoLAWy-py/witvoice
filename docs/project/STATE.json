@@ -10,23 +10,35 @@
       "task_id": "T011",
       "agent": "/root",
       "thread_id": "01a10764-d851-7d02-ac79-365d2576a226",
-      "mode": "FROZEN_DIAGNOSTIC_INTEGRATION",
+      "mode": "ISOLATION_INTEGRATION_WRITER",
       "dependencies": [
         "T002",
         "T006",
         "T010"
       ],
       "path_whitelist": [
+        "workers/vc_worker/runtime.py",
+        "workers/vc_worker/warmup.py",
+        "workers/vc_worker/prepare_diagnostics.py",
+        "workers/vc_worker/test_runtime.py",
+        "workers/vc_worker/process_memory.py",
+        "workers/vc_worker/test_process_memory.py",
+        "crates/engines/examples/worker_warmup_probe.rs",
+        "crates/engines/Cargo.toml",
+        "Cargo.lock",
+        "crates/platform/tests/model_job.rs",
         "docs/project",
+        "docs/adr",
         "docs/evidence/T011-20261005",
-        ".local/t011-stage-final",
-        ".local/t011-warmup-stage-once"
+        ".local/t011-isolation-root",
+        ".local/t011-isolated-warmup-once",
+        "workers/vc_worker/test_prepare_diagnostics.py"
       ],
+      "contract": "docs/project/T011-isolation-assignment.md",
       "resources": [
-        "sourcewriters STOP; sole software integration; no GPU/audio/LAN"
+        "secondcodewriter disjoint; noGPU/audio/LAN"
       ],
-      "contract": "docs/project/T011-deadline-assignment.md",
-      "acceptance": "Frozen root integration, fullraw/source/binary binding, independent finite preflight before one NEW model phase diagnostic"
+      "acceptance": "Control/model separation and totalmemory accounting softwaretests/nativeJob then frozen integration"
     }
   ],
   "milestones": {
@@ -153,10 +165,10 @@
   },
   "completion_claim_allowed": false,
   "last_verified_scope": "T010 independentformalr1 limitedfoundation APPROVED plus previoussoftware; T009adaptedlimitedpreflight only, hardware/VC/Macexcluded",
-  "execution_status": "FROZEN_DIAGNOSTIC_SOFTWARE_INTEGRATION_NO_GPU_AUDIO_LAN",
+  "execution_status": "ISOLATION_SOFTWARE_FROZEN_REVIEW_NO_GPU_AUDIO_LAN",
   "interruption_evidence": "docs/project/interruption-20261005.json",
-  "last_tested_commit": "8b762650c65e47c28fd1a16f7dd35c9423e6e029",
-  "last_tested_scope": "106frozeninputs equal;199effectiveworkspace tests/fmt/strictClippy/examples0; unchanged34Python tests/compile0 plusnewbootstrap help/compile0/PID-equal softwareonly. NewrealwarmupNOT_RUN.",
+  "last_tested_commit": "7d4ed3440f1d8ab6d00795b551b8b114fb7e1eaa",
+  "last_tested_scope": "116raw inputs unchanged;210 effective native workspace tests/fmt/strictClippy/examples0;61Python/compile0; actual finite Python descendant specificownedJob and cleanup0. Isolation real model NOT_RUN.",
   "windows_virtual_route": {
     "selected": "VB-CABLE",
     "render": "CABLE Input",
@@ -176,8 +188,8 @@
     },
     "continuity": "FAIL_CAPTURE_INITIALIZE_0x887c001a_BEFORE_START"
   },
-  "last_attempted_commit": "8b762650c65e47c28fd1a16f7dd35c9423e6e029",
-  "last_attempted_result": "Direct bootstrap native authentication and126heartbeats; real warmupFAILED ipc_deadline13.4620318s; actualJob0/outputclosed/noReady; no automatic retry.",
+  "last_attempted_commit": "7d4ed3440f1d8ab6d00795b551b8b114fb7e1eaa",
+  "last_attempted_result": "StageonceFAILED heartbeat_read ipc_deadline during model_load interval;49ACKs/Job0/outputclosed. No autoGPU retry.",
   "latest_vbcable_diagnostic": {
     "authorization_id": "T009-EXACT-MIX-4b726af0-03d9-4553-ab95-a4416fe45145",
     "status": "CONSUMED_FAILED_NO_RETRY",
@@ -198,16 +210,20 @@
     "recorded_utc": "2026-10-05T13:11:39.4248355Z"
   },
   "latest_model_warmup": {
-    "source_commit": "8b762650c65e47c28fd1a16f7dd35c9423e6e029",
+    "source_commit": "7d4ed3440f1d8ab6d00795b551b8b114fb7e1eaa",
     "status": "FAIL_REAL_WARMUP",
     "error": "ipc_deadline",
-    "wall_seconds": 13.4620318,
-    "heartbeat_count": 126,
-    "max_heartbeat_gap_ms": 115,
+    "failure_stage": "heartbeat_read",
+    "failure_last_heartbeat_age_ms": 504,
+    "failure_request_elapsed_ms": 404,
+    "wall_seconds": 5.6459459,
+    "heartbeat_count": 49,
+    "max_heartbeat_gap_ms": 123,
     "ready": false,
     "owned_job_empty": true,
-    "actual_model_GPU_execution": "UNVERIFIED_NO_MODEL_READY",
-    "evidence": "docs/evidence/T011-20261005/warmup-direct-once/result.json",
+    "actual_model_GPU_execution": "UNVERIFIED_NO_PLACEMENT_OR_READY",
+    "last_model_phase": "model_load:before; no completion",
+    "evidence": "docs/evidence/T011-20261005/warmup-stage-once/result.json",
     "not_reusable": true
   }
 }

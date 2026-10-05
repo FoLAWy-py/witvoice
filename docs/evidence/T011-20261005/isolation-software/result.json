@@ -1,0 +1,56 @@
+{
+  "scope": "T011 fixed model-process isolation software integration only",
+  "source_commit_before": "7d4ed3440f1d8ab6d00795b551b8b114fb7e1eaa",
+  "working_tree_changes": true,
+  "source_inputs": 116,
+  "source_all_equal": true,
+  "rust_effective_tests": 210,
+  "python_tests": 61,
+  "checks": {
+    "python-tests-isolation": {
+      "exit": 0,
+      "wall_seconds": 3.5884731
+    },
+    "compile-isolation": {
+      "exit": 0,
+      "wall_seconds": 0.1383554
+    },
+    "isolation-workspace-tests": {
+      "exit": 0,
+      "wall_seconds": 10.9787663
+    },
+    "isolation-fmt": {
+      "exit": 0,
+      "wall_seconds": 0.3724627
+    },
+    "isolation-clippy": {
+      "exit": 0,
+      "wall_seconds": 0.6737219999999999
+    },
+    "isolation-examples": {
+      "exit": 0,
+      "wall_seconds": 0.7887932999999999
+    },
+    "lock": {
+      "exit": 0,
+      "wall_seconds": 0.384111
+    },
+    "format": {
+      "exit": 0,
+      "wall_seconds": 0.06927359999999999
+    },
+    "model-job": {
+      "exit": 0,
+      "wall_seconds": 15.448446899999999
+    }
+  },
+  "real_model": "NOT_RUN",
+  "GPU": "NOT_RUN",
+  "audio": "NOT_RUN",
+  "LAN": "NOT_RUN",
+  "specific_job_inheritance": "Actual finite software Python descendant test passed; not real model witness",
+  "T011_complete": false,
+  "formal_review_attempts": 0,
+  "legacy_host_failures": "Preserved; cause UNKNOWN",
+  "host_failure_873fbc": "Original output truncated; no invented raw/UTC"
+}

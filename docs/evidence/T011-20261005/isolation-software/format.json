@@ -1,0 +1,17 @@
+{
+    "exit":  0,
+    "executable":  "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\rustfmt.exe",
+    "wall_seconds":  0.069273599999999991,
+    "started_utc":  "2026-10-05T16:31:05.3699116Z",
+    "argv":  [
+                 "--edition",
+                 "2024",
+                 "crates/engines/examples/worker_warmup_probe.rs",
+                 "crates/platform/tests/model_job.rs"
+             ],
+    "host":  "5.1.26100.7462",
+    "model":  "NOT_RUN",
+    "finished_utc":  "2026-10-05T16:31:05.4386515Z",
+    "GPU":  "NOT_RUN",
+    "audio":  "NOT_RUN"
+}

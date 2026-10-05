@@ -1,0 +1,21 @@
+{
+    "exit":  0,
+    "executable":  "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\cargo.exe",
+    "wall_seconds":  15.448446899999999,
+    "started_utc":  "2026-10-05T16:31:05.4403805Z",
+    "argv":  [
+                 "test",
+                 "--locked",
+                 "-p",
+                 "witvoice-platform",
+                 "--test",
+                 "model_job",
+                 "--",
+                 "--nocapture"
+             ],
+    "host":  "5.1.26100.7462",
+    "model":  "NOT_RUN",
+    "finished_utc":  "2026-10-05T16:31:20.8891786Z",
+    "GPU":  "NOT_RUN",
+    "audio":  "NOT_RUN"
+}

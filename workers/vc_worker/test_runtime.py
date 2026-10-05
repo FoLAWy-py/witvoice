@@ -85,6 +85,42 @@ class RuntimeTests(unittest.TestCase):
                     allow_destruction.set()
                     self.assertTrue(destroyed.wait(1))
 
+    def test_process_owner_cleanup_waits_for_stop_release_off_control(self):
+        closing = threading.Event()
+        closed = threading.Event()
+        allow = threading.Event()
+        owners = []
+        class ProcessOwner:
+            def close(self):
+                owners.append(threading.get_ident())
+                closing.set()
+                allow.wait(2)
+                closed.set()
+        cap = {
+            "engine_id": "meanvc2", "model_sha256": MODEL_SHA, "backend": "cuda",
+            "native_input_rate": 16000, "native_output_rate": 16000,
+            "chunk_samples": 2560, "lookahead_samples": 640,
+            "conditioning_schema": "test-only-fixture", "duration_preserving": False,
+            "capability_test_run_id": "test-only-no-model",
+            "model_memory_budget_bytes": "1", "device_memory_budget_bytes": "1",
+        }
+        session = WarmupSession(lambda _: (ProcessOwner(), cap))
+        session.handle(WARMUP)
+        until = time.monotonic() + 1
+        while session._result.empty() and time.monotonic() < until:
+            time.sleep(.001)
+        self.assertFalse(session._result.empty())
+        self.assertEqual(json.loads(session.poll_ready()[0])["event"]["kind"], "Ready")
+        self.assertEqual(json.loads(session.handle(request("Stop"))[0])["event"]["kind"], "Stopped")
+        self.assertFalse(closing.is_set())
+        session.close()
+        try:
+            self.assertTrue(closing.wait(1))
+            self.assertNotEqual(owners, [threading.get_ident()])
+        finally:
+            allow.set()
+            self.assertTrue(closed.wait(1))
+
     def test_ready_only_after_completion_and_cannot_repeat(self):
         entered = threading.Event()
         release = threading.Event()

@@ -1,0 +1,19 @@
+   Compiling syn v2.0.119
+   Compiling windows-strings v0.5.1
+   Compiling windows-result v0.4.1
+   Compiling windows-implement v0.60.2
+   Compiling windows-interface v0.59.3
+   Compiling windows-core v0.62.2
+   Compiling serde_derive v1.0.228
+   Compiling serde_derive_internals v0.29.1
+   Compiling schemars_derive v0.8.22
+   Compiling serde v1.0.228
+   Compiling schemars v0.8.22
+   Compiling windows-future v0.3.2
+   Compiling windows-collections v0.3.2
+   Compiling windows-numerics v0.3.1
+   Compiling windows v0.62.2
+   Compiling witvoice-contracts v0.1.0 (D:\Project\witvoice\crates\contracts)
+   Compiling witvoice-platform v0.1.0 (D:\Project\witvoice\crates\platform)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 15.30s
+     Running tests\model_job.rs (.local\t008-t016-r2-leader\target\debug\deps\model_job-037d3eabfd2f5d3d.exe)

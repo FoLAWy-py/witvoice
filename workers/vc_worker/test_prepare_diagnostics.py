@@ -84,10 +84,11 @@ class DiagnosticTests(unittest.TestCase):
             def write_frame(self, *_):
                 pass
         # Failure injection only: no real loader, auth, endpoints or CUDA.
-        def unavailable(_):
+        def unavailable(_, diagnostic=False):
+            self.assertFalse(diagnostic)
             raise RuntimeError("injected loader")
         with patch("windows_pipe.PipeClient", FakePipe), \
-             patch("warmup.prepare_fixed", unavailable), \
+             patch("model_process.prepare_isolated", unavailable), \
              patch.object(StageJournal, "fixed", side_effect=AssertionError("default logging")), \
              patch.object(sys, "argv", ["runtime.py", "--control", "c", "--media", "m", "--node-pid", "1"]), \
              patch.object(sys, "stdin", SimpleNamespace(buffer=io.BytesIO(b"x"*32))):

@@ -1,0 +1,23 @@
+test_child_memory_error_maps_without_exception_text (test_model_process.ClosedResults.test_child_memory_error_maps_without_exception_text) ... ok
+test_corrupt_duplicate_and_wrong_binding_result_rejected (test_model_process.ClosedResults.test_corrupt_duplicate_and_wrong_binding_result_rejected) ... ok
+test_failure_mapping_is_closed (test_model_process.ClosedResults.test_failure_mapping_is_closed) ... ok
+test_no_job_guard_prevents_loader_and_only_fixed_failure (test_model_process.ClosedResults.test_no_job_guard_prevents_loader_and_only_fixed_failure) ... ok
+test_stale_request_id_and_changed_caps_rejected (test_model_process.ClosedResults.test_stale_request_id_and_changed_caps_rejected) ... ok
+test_unapproved_request_cannot_launch (test_model_process.ClosedResults.test_unapproved_request_cannot_launch) ... ok
+test_valid_fixed_request_and_exact_caps (test_model_process.ClosedResults.test_valid_fixed_request_and_exact_caps) ... ok
+test_deadline_after_partial_read_does_not_renew (test_model_process.Frames.test_deadline_after_partial_read_does_not_renew) ... ok
+test_oversize_rejected_before_body_read (test_model_process.Frames.test_oversize_rejected_before_body_read) ... ok
+test_partial_prefix_and_body_eof_fail (test_model_process.Frames.test_partial_prefix_and_body_eof_fail) ... ok
+test_partial_reads_keep_one_deadline (test_model_process.Frames.test_partial_reads_keep_one_deadline) ... ok
+test_partial_writes_keep_one_deadline_and_exact_bytes (test_model_process.Frames.test_partial_writes_keep_one_deadline_and_exact_bytes) ... ok
+test_zero_oversize_and_incomplete_write_rejected (test_model_process.Frames.test_zero_oversize_and_incomplete_write_rejected) ... ok
+test_zero_prefix_rejected_before_body_read (test_model_process.Frames.test_zero_prefix_rejected_before_body_read) ... ok
+test_child_native_gil_sleep_does_not_block_parent_heartbeat_or_stop (test_model_process.Ownership.test_child_native_gil_sleep_does_not_block_parent_heartbeat_or_stop) ... ok
+test_close_timeout_is_not_resource_release_success (test_model_process.Ownership.test_close_timeout_is_not_resource_release_success) ... ok
+test_ready_decode_past_original_deadline_cannot_return_capabilities (test_model_process.Ownership.test_ready_decode_past_original_deadline_cannot_return_capabilities) ... ok
+test_receive_failure_closes_owned_process (test_model_process.Ownership.test_receive_failure_closes_owned_process) ... ok
+
+----------------------------------------------------------------------
+Ran 18 tests in 0.360s
+
+OK

@@ -58,6 +58,9 @@ class WarmupSession:
             # close() signals this only after the control loop has written any
             # Stopped ack. Node must still kill/query its Job if cleanup stalls.
             self._model_release.wait()
+            close = getattr(runner, "close", None)
+            if close is not None:
+                close()  # model task only; Node still owns ultimate Job cleanup
 
     def handle(self, payload):
         request = decode_control(payload, "WorkerRequest", self._binding)
@@ -123,7 +126,7 @@ class WarmupSession:
 
 def main():
     from windows_pipe import PipeClient
-    from warmup import prepare_fixed
+    from model_process import prepare_isolated
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--control", required=True)
     parser.add_argument("--media", required=True)
@@ -134,10 +137,7 @@ def main():
     if len(secret) != 32 or args.control == args.media:
         raise ValueError("invalid worker bootstrap")
     startup = time.monotonic_ns() + 2_500_000_000
-    loader = prepare_fixed
-    if args.prepare_diagnostic:
-        from prepare_diagnostics import prepare_with_diagnostics
-        loader = prepare_with_diagnostics
+    loader = lambda request: prepare_isolated(request, diagnostic=args.prepare_diagnostic)
     session = WarmupSession(loader)
     try:
         with PipeClient(args.control, args.node_pid, secret, startup) as control:

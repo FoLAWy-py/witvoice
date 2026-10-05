@@ -1,0 +1,26 @@
+{
+  "external_packages_unchanged": true,
+  "changes": [
+    {
+      "before": {
+        "name": "witvoice-engines",
+        "version": "0.1.0",
+        "dependencies": [
+          "serde_json",
+          "witvoice-contracts",
+          "witvoice-platform"
+        ]
+      },
+      "after": {
+        "name": "witvoice-engines",
+        "version": "0.1.0",
+        "dependencies": [
+          "serde",
+          "serde_json",
+          "witvoice-contracts",
+          "witvoice-platform"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+    "task":  "T011 software model process isolation",
+    "uuid":  "01a10767-4ff5-7f21-881a-146d094fbc55",
+    "executable":  "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "argv":  [
+                 "-I",
+                 "-S",
+                 "-B",
+                 "-c",
+                 "import sys;sys.path[:0]=[r\u0027D:\\Project\\witvoice\\workers\\vc_worker\u0027,r\u0027D:\\Project\\witvoice\\.local\\t011-leader\\python-deps\u0027];import unittest;result=unittest.TextTestRunner(verbosity=2).run(unittest.defaultTestLoader.loadTestsFromName(\u0027test_model_process\u0027));sys.exit(0 if result.wasSuccessful() else 1)"
+             ],
+    "cwd":  "D:\\Project\\witvoice",
+    "execution_host":  {
+                           "version":  "5.1.26100.7462",
+                           "process":  "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+                       },
+    "start_utc":  "2026-10-05T16:31:44.0264825Z",
+    "end_utc":  "2026-10-05T16:31:44.5332524Z",
+    "exit_code":  0,
+    "source_before_sha256":  {
+                                 "model_host.py":  "c3e6d7edef8789f6222944e9ea0da6654e31ac0289c328e1e6c39ad42abff121",
+                                 "model_host_bootstrap.py":  "b39c3c4bc41f73e244e4e4c067078e14b7a3c1f94074395e2517c6e9a7899e34",
+                                 "model_process.py":  "32cf3d901665aa5de34a016dcdbf54e1fab4fb4d6a232d9628a1febdcc11e90b",
+                                 "test_model_process.py":  "0bc08320e24f517a8c425396cf6982eac64058231f16e312c29c7e1790dbaee9"
+                             },
+    "source_after_sha256":  {
+                                "model_host.py":  "c3e6d7edef8789f6222944e9ea0da6654e31ac0289c328e1e6c39ad42abff121",
+                                "model_host_bootstrap.py":  "b39c3c4bc41f73e244e4e4c067078e14b7a3c1f94074395e2517c6e9a7899e34",
+                                "model_process.py":  "32cf3d901665aa5de34a016dcdbf54e1fab4fb4d6a232d9628a1febdcc11e90b",
+                                "test_model_process.py":  "0bc08320e24f517a8c425396cf6982eac64058231f16e312c29c7e1790dbaee9"
+                            },
+    "stdout":  {
+                   "bytes":  0,
+                   "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+               },
+    "stderr":  {
+                   "bytes":  2535,
+                   "sha256":  "a696a4a731f0787428e6697ff9761690608520765851594bf8389f1fc7f5a382"
+               },
+    "capture":  "Complete redirect stream text UTF8 withoutBOM",
+    "scope":  "Only test_model_process and four py_compile outputs; test subprocess executes only finite native GIL Sleep; modelhost/realmodel/Torch/GPU/audio/LAN NOT_RUN"
+}

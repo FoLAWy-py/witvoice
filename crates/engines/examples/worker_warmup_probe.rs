@@ -11,7 +11,8 @@ mod probe {
     use super::warmup_diagnostics::{RequestDeadline, Stage, Timing, classify_io};
     use std::{
         ffi::OsString,
-        io,
+        fs::File,
+        io::{self, Read},
         path::Path,
         time::{Duration, Instant},
     };
@@ -152,10 +153,52 @@ mod probe {
         Ok(())
     }
 
+    #[derive(serde::Deserialize)]
+    #[serde(deny_unknown_fields)]
+    struct ModelIdentity {
+        controller_pid: u32,
+        model_pid: u32,
+    }
+    impl ModelIdentity {
+        fn matches(&self, authenticated_pid: u32, members: &[u32]) -> bool {
+            self.controller_pid == authenticated_pid
+                && self.model_pid != 0
+                && self.model_pid != self.controller_pid
+                && members.contains(&authenticated_pid)
+                && members.contains(&self.model_pid)
+        }
+    }
+    struct ModelJob<'a> {
+        root: &'a Path,
+        job: &'a ProcessJob,
+        controller_pid: u32,
+    }
+    impl ModelJob<'_> {
+        fn verify(&self) -> Result<bool> {
+            let path = self
+                .root
+                .join(".local/t011-isolated-warmup-once/model-process-private.json");
+            let mut bytes = Vec::with_capacity(513);
+            File::open(path)
+                .map_err(io_failure)?
+                .take(513)
+                .read_to_end(&mut bytes)
+                .map_err(io_failure)?;
+            if bytes.len() > 512 {
+                return Err(failure("model_identity_limit"));
+            }
+            let identity: ModelIdentity =
+                serde_json::from_slice(&bytes).map_err(|_| failure("model_identity_invalid"))?;
+            let members = self.job.process_ids().map_err(io_failure)?;
+            Ok(identity.matches(self.controller_pid, &members))
+        }
+    }
+
     struct Observations {
         ready: bool,
         stopped: bool,
         heartbeat_count: u64,
+        model_job_verified: Option<bool>,
         timing: Timing,
         clock: Instant,
         stage: Stage,
@@ -166,6 +209,7 @@ mod probe {
                 ready: false,
                 stopped: false,
                 heartbeat_count: 0,
+                model_job_verified: None,
                 timing: Timing::default(),
                 clock: Instant::now(),
                 stage: Stage::Preflight,
@@ -188,6 +232,7 @@ mod probe {
         lifecycle: &mut WorkerLifecycle,
         observations: &mut Observations,
         clock: Instant,
+        model_job: &ModelJob<'_>,
     ) -> Result<()> {
         let expected_proof = proof()?;
         lifecycle
@@ -287,6 +332,14 @@ mod probe {
             }
             std::thread::sleep(BEAT);
         }
+        // Resources are held until Stop. Verify exact PID membership while
+        // both controller/model are alive; arbitrary Job membership is not proof.
+        observations.stage = Stage::ReadyValidate;
+        let verified = model_job.verify()?;
+        observations.model_job_verified = Some(verified);
+        if !verified {
+            return Err(failure("model_not_in_owned_job"));
+        }
         // No sink exists. Invalidate policy permission BEFORE any Stop I/O.
         lifecycle.stop();
         let stop = request(binding, sequence, WorkerCommand::Stop)?;
@@ -345,7 +398,7 @@ mod probe {
             "lookahead_samples":640, "lookahead_is_total_delay":false,
             "native_rate":16000, "chunk_samples":2560, "duration_preserving":false,
             "engine":"meanvc2", "backend":"cuda", "failure":"preflight",
-            "diagnostic_stage_recording":true
+            "diagnostic_stage_recording":true, "model_job_membership_verified":null
         });
         let setup = (|| {
             if current_process_is_elevated().map_err(io_failure)? {
@@ -411,6 +464,11 @@ mod probe {
             let mut lifecycle =
                 WorkerLifecycle::new(session).map_err(|_| failure("lifecycle_new"))?;
             let mut observations = Observations::new();
+            let model_job = ModelJob {
+                root,
+                job: &job,
+                controller_pid: worker.id(),
+            };
             let protocol = (|| {
                 let startup = Instant::now() + Duration::from_secs(3);
                 observations.stage = Stage::AuthenticateControl;
@@ -426,6 +484,7 @@ mod probe {
                     &mut lifecycle,
                     &mut observations,
                     clock,
+                    &model_job,
                 )
             })()
             .map_err(|error: Failure| error.at(observations.stage));
@@ -445,6 +504,11 @@ mod probe {
             {
                 let _ = lifecycle.worker_fault(local, error.fault);
             }
+            if observations.model_job_verified.is_none() {
+                // Optional failure-path evidence, never overwrites first fault.
+                observations.model_job_verified = model_job.verify().ok();
+            }
+            report["model_job_membership_verified"] = observations.model_job_verified.into();
             // Always close channels and terminate/query this owned Job, even
             // on EOF, invalid response, timeout, MemoryPressure, or Stopped.
             let (zero, active, cleanup_fault) = cleanup_job(&job, &mut control, &mut media);
@@ -474,6 +538,7 @@ mod probe {
             let successful = protocol.is_ok()
                 && observations.ready
                 && observations.stopped
+                && observations.model_job_verified == Some(true)
                 && zero
                 && policy_clean;
             report["model_ready"] = successful.into();
@@ -496,6 +561,32 @@ mod probe {
     #[cfg(test)]
     mod tests {
         use super::*;
+
+        #[test]
+        fn model_membership_requires_exact_authenticated_controller_and_child() {
+            let identity = ModelIdentity {
+                controller_pid: 42,
+                model_pid: 84,
+            };
+            assert!(identity.matches(42, &[42, 84]));
+            assert!(!identity.matches(99, &[42, 84, 99]));
+            assert!(!identity.matches(42, &[42]));
+            assert!(!identity.matches(42, &[84]));
+            assert!(
+                !ModelIdentity {
+                    controller_pid: 42,
+                    model_pid: 42
+                }
+                .matches(42, &[42])
+            );
+            assert!(
+                !ModelIdentity {
+                    controller_pid: 42,
+                    model_pid: 0
+                }
+                .matches(42, &[42, 0])
+            );
+        }
 
         #[test]
         fn stage_propagation_preserves_os_number_and_error_class() {

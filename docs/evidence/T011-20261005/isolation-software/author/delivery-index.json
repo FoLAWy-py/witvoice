@@ -1,0 +1,32 @@
+{
+    "uuid":  "01a10767-4ff5-7f21-881a-146d094fbc55",
+    "utc":  "2026-10-05T16:31:44.6242973Z",
+    "runner_sha256":  "277ebcea3faf6abe03f0fbd0ee048ee785156edf44951a74bdcfd224d9915a13",
+    "sources":  {
+                    "model_host.py":  "c3e6d7edef8789f6222944e9ea0da6654e31ac0289c328e1e6c39ad42abff121",
+                    "model_host_bootstrap.py":  "b39c3c4bc41f73e244e4e4c067078e14b7a3c1f94074395e2517c6e9a7899e34",
+                    "model_process.py":  "32cf3d901665aa5de34a016dcdbf54e1fab4fb4d6a232d9628a1febdcc11e90b",
+                    "test_model_process.py":  "0bc08320e24f517a8c425396cf6982eac64058231f16e312c29c7e1790dbaee9"
+                },
+    "events":  [
+                   {
+                       "path":  "D:\\Project\\witvoice\\.local\\t011-isolation-author\\01-software-tests.json",
+                       "sha256":  "f6610b1ff6e4d857ee74a30ed5cdf89a84191a0502bb2c6c9b0bc7e931084607",
+                       "exit_code":  0
+                   },
+                   {
+                       "path":  "D:\\Project\\witvoice\\.local\\t011-isolation-author\\02-four-source-compile.json",
+                       "sha256":  "5645889f36a4db4415dbb9686dd337f1b8db2d89ce2e84c0cff2d1bf6b4f0d10",
+                       "exit_code":  0
+                   }
+               ],
+    "not_run":  [
+                    "model_host_bootstrap main",
+                    "real model/Torch/GPU",
+                    "Node owned specificJob inheritance witness",
+                    "audio",
+                    "LAN",
+                    "Mac"
+                ],
+    "writes":  "STOP_AFTER_DELIVERY"
+}

@@ -1,5 +1,6 @@
 """Opt-in bounded model-phase diagnostics; no control-owner file operations."""
 import json
+import os
 from pathlib import Path
 import time
 
@@ -24,7 +25,7 @@ class StageJournal:
     @classmethod
     def fixed(cls):
         root = Path(__file__).resolve().parents[2]
-        return cls(root / ".local/t011-warmup-stage-once/prepare-stages.ndjson")
+        return cls(root / ".local/t011-isolated-warmup-once/prepare-stages.ndjson")
 
     def record(self, stage, edge):
         if stage not in STAGES or edge not in ("before", "after"):
@@ -57,5 +58,9 @@ class StageJournal:
 
 def prepare_with_diagnostics(request):
     from warmup import prepare_fixed
+    root = Path(__file__).resolve().parents[2]
+    identity = root / ".local/t011-isolated-warmup-once/model-process-private.json"
+    with identity.open("x", encoding="ascii") as output:
+        json.dump({"controller_pid": os.getppid(), "model_pid": os.getpid()}, output, separators=(",", ":"))
     with StageJournal.fixed() as journal:
         return prepare_fixed(request, observer=journal.record)
