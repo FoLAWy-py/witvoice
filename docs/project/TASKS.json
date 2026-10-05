@@ -262,7 +262,7 @@
       "review": "docs/project/reviews/T007-r3.md",
       "attempts": 3,
       "blocked_reason": null,
-      "execution_note": "Interrupted third/last formal review; final result absent, attempts3 unchanged. Resume same r3 after re-registering readonly lease; no DONE."
+      "execution_note": "Same formal r3 resumed after interruption, attempts3 unchanged; not approved. Reviewer and frontend readonly frozen relay."
     },
     {
       "id": "T008",
@@ -502,7 +502,9 @@
       ],
       "acceptance": "默认监听关闭；mDNS不建立信任；双端身份字符串导入、pin验证与撤销；陌生端无音频权限。",
       "agent_instance_id": "/root/backend",
-      "resource_leases": [],
+      "resource_leases": [
+        "code-writer:backend-native-dns"
+      ],
       "evidence": [
         "docs/evidence/T016-20261005/dependency-metadata.json",
         "docs/evidence/T016-20261005/fetch-command.json",
@@ -522,7 +524,7 @@
       "review": null,
       "attempts": 0,
       "blocked_reason": null,
-      "execution_note": "Backend interrupted: partial platform lib/discovery/native3 files preserved uncommitted with SHA and private backup. New native slice NOT_VERIFIED, no post-interruption tests. Resume only after re-registering exact whitelist; attempts0 unchanged."
+      "execution_note": "Registered resumption of native DNS addendum; preserved3files and byte backup match. New source not tested yet; no actual LAN/DNS API or hardware authorization."
     },
     {
       "id": "T017",

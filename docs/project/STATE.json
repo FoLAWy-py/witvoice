@@ -5,7 +5,55 @@
   "project_status": "IN_PROGRESS",
   "authorized_target": "WINDOWS_DELIVERED",
   "active_milestone": "M1",
-  "active_tasks": [],
+  "active_tasks": [
+    {
+      "task_id": "T007",
+      "agent_instance_id": "/root/reviewer_t001",
+      "allowed_paths": [],
+      "resource_leases": [
+        "review-readonly:T007-r3"
+      ],
+      "depends_on": [
+        "T003"
+      ],
+      "contract": "fixed T007 acceptance + SPEC02/07, source3af/evidence56f; no T008 inverted deps",
+      "acceptance_commands": [
+        "readonly full frozen source/evidence relay; no independent test rerun"
+      ],
+      "reviewer": "/root/reviewer_t001",
+      "execution_note": "Resume interrupted same r3/attempt3, source3af/evidence56f/126; final result absent. Reviewer readonly, frontend fixed fulltext relay no edits/rerun."
+    },
+    {
+      "task_id": "T016",
+      "agent_instance_id": "/root/backend",
+      "allowed_paths": [
+        "crates/platform/src/discovery.rs",
+        "crates/platform/src/discovery/",
+        "crates/platform/src/lib.rs",
+        "crates/platform/tests/discovery.rs",
+        "crates/platform/README.md",
+        "crates/transport/src/discovery.rs",
+        "crates/transport/src/discovery/",
+        "crates/transport/tests/discovery.rs",
+        "crates/transport/examples/native_discovery_probe.rs",
+        "crates/transport/README.md"
+      ],
+      "resource_leases": [
+        "code-writer:backend-native-dns"
+      ],
+      "depends_on": [
+        "T003",
+        "T006"
+      ],
+      "contract": "ADR0003 + T016-assignment native addendum + SPEC04/06",
+      "acceptance_commands": [
+        "cargo test/fmt/clippy platform+transport locked",
+        "cargo build -p witvoice-transport --locked --examples; no native network probe run"
+      ],
+      "reviewer": "/root/reviewer_t001",
+      "execution_note": "3 interrupted source byte backups MATCH. Resume native addendum exact whitelist; rootdeps released; no actual network/hardware/GPU or rootfiles."
+    }
+  ],
   "milestones": {
     "M0": {
       "status": "DONE",
@@ -109,6 +157,6 @@
   },
   "completion_claim_allowed": false,
   "last_verified_scope": "M0 + T006 foundation + reviewed T007 metadata/conversion/notifications + T021 design; not hardware/UI/real production VC/whole product",
-  "execution_status": "INTERRUPTED_NO_ACTIVE_LEASES",
+  "execution_status": "RESUMING_REGISTERED_LEASES",
   "interruption_evidence": "docs/project/interruption-20261005.json"
 }

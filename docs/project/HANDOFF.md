@@ -1,5 +1,7 @@
 # 当前交接
 
+恢复继续（2026-10-05，用户“继续推进”）：三个T016部分源码及私有备份逐字节/摘要MATCH；T00710冻结Git blob与当前工作源码逐路径一致。重新登记T007同一r3只读审查和T016/backend窄白名单代码lease，尚未新增测试成绩；即将真实followup恢复既有线程。next_task=T007，T008依赖仍未批准，禁止开工。原中断记录保留供溯源，执行状态以本段与STATE为准。
+
 中断恢复点（2026-10-05）：四个实际子agent均interrupted，STATE.active_tasks已清空，代码/审查/硬件/GPU租约释放。next_task=T007，T007第三/最后正式审查无最终结论，恢复同一r3，不增第4轮也不标DONE。T016新增平台lib/discovery/native三个文件未提交，保持原样并另存.local私有字节备份；摘要和可见进程观测见interruption-20261005.json。新原生DNS片段尚未验证，不移用旧身份15测试/旧工作区78测试作为该片段PASS；transport probe/适配/测试尚未交付。无后台继续承诺。
 
 恢复时先核部分源码摘要与工作树，再登记具体lease：reviewer/frontend补完冻结T007 r3，backend续T016既有窄白名单。T008仅pending assignment，依赖未批准不得开工。以下当前基线段描述中断前已验证事实与历史分工；若其中有“正在/当前运行/持有”的文字，执行状态以本中断段和STATE为准。
