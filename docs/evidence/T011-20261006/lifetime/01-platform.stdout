@@ -1,0 +1,34 @@
+
+running 29 tests
+test discovery::native::tests::callback_failure_capture_is_independent_of_full_or_contended_queue ... ok
+test discovery::native::tests::every_browse_structural_rejection_has_its_actual_reason ... ok
+test process::member_snapshot_tests::exact_membership_and_stable_bounded_identity_are_required ... ok
+test process::member_snapshot_tests::lifetime_error_replay_preserves_native_and_win32_domains ... ok
+test discovery::native::tests::every_resolve_scalar_schema_rejection_has_its_actual_reason ... ok
+test discovery::native::tests::record_link_budget_cycle_data_length_utf16_and_once_free ... ok
+test discovery::native::tests::immediate_callback_retains_call_reference_until_os_return ... ok
+test process::member_snapshot_tests::historical_or_new_members_never_become_complete_coverage ... ok
+test process::native_error_tests::structured_native_error_keeps_hresult_and_operation_without_win32_alias ... ok
+test process::member_snapshot_tests::lifetime_duplicate_zero_and_capacity_are_rejected ... ok
+test discovery::native::tests::cancel_return_is_not_terminal_and_full_queue_cannot_drop_terminal_state ... ok
+test process::member_snapshot_tests::lifetime_first_missing_proof_is_immutable ... ok
+test discovery::native::tests::panic_capture_keeps_actual_status_or_explicit_unknown ... ok
+test process::member_snapshot_tests::lifetime_missing_or_new_history_never_becomes_complete_proof ... ok
+test discovery::native::tests::register_and_deregister_callback_status_are_distinct_stages ... ok
+test process::member_snapshot_tests::lifetime_pid_match_never_substitutes_for_object_identity ... ok
+test process::member_snapshot_tests::lifetime_retains_exact_historical_identities_after_natural_exit ... ok
+test discovery::native::tests::fixed_context_budget_and_opaque_token_exhaustion ... ok
+test discovery::native::tests::late_unknown_context_never_dereferences_token_and_frees_each_result_once ... ok
+test process::member_snapshot_tests::member_waits_share_remaining_deadline_without_renewal ... ok
+test discovery::native::tests::native_status13_is_not_local_callback_zero_and_survives_clean ... ok
+test discovery::native::tests::every_text_field_distinguishes_null_bound_and_invalid_utf16 ... ok
+test discovery::native::tests::contended_queue_never_waits_or_loses_out_of_band_terminal_flag ... ok
+test discovery::native::tests::register_cancel_race_still_deregisters_same_request_and_retains_failure ... ok
+test discovery::native::tests::default_off_and_invalid_inputs_do_not_enter_os ... ok
+test discovery::native::tests::instance_schema_lengths_interface_and_free_exactly_once ... ok
+test discovery::native::tests::simultaneous_operation_caps_and_cancel_failure_quarantine ... ok
+test discovery::native::tests::queue_expiry_and_resolve_deadline_are_not_wall_clock_or_ttl_reset ... ok
+test discovery::native::tests::first_failure_is_one_coherent_atomic_publication_under_contention ... ok
+
+test result: ok. 29 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

@@ -1,0 +1,12 @@
+{
+  "scope": "Leader formatting invocation, not application or hardware validation",
+  "first_command": "SystemPowerShell5.1 -> D:/Software/WitvoiceToolchain/Rust/cargo/bin/rustfmt.exe --edition2024 platform process.rs/lib.rs without toolchain-env.ps1",
+  "result": "Completed exit0 after automatic official Rust1.99.0 installation",
+  "observed_extra_location": "C:/Users/22198/.rustup/toolchains/1.99.0-x86_64-pc-windows-msvc",
+  "authorization": "Existing human authorization to supplement/download tools; preference D was missed in this invocation",
+  "stop_attempt": "Observed PID40180/exact rustfmt args; before guarded stop execution process had already ended, no process stopped; guarded stop exit1 retained separately",
+  "system_settings": "No security/driver/firewall or persistent PATH edits; did not change global rustup auto-install settings",
+  "application_test": "NOT_RUN",
+  "followup": "All application checks explicitly load existing process-only D CARGO_HOME/RUSTUP_HOME and same existing D target; no dependency/version upgrade claimed",
+  "tool_outputs": ["ce7270", "7d75a3", "69ad40", "ba517b", "da9830"]
+}

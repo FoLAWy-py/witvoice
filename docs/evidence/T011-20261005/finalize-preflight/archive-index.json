@@ -1,0 +1,38 @@
+{
+  "audit.json": {
+    "bytes": 748,
+    "sha256": "3b735d8ac490fca30c12532e9d14f1711f66c730aa61375d984b59a4379c7d63"
+  },
+  "config.json": {
+    "bytes": 14670,
+    "sha256": "e013f6e7aaafb961c9dbf9ae568dcc9ce29bff474aeee85ec5a76e02cf8971fc"
+  },
+  "execute.ps1": {
+    "bytes": 9711,
+    "sha256": "0010efa528479a9ca8f4a84b61f9261f2238946dc20205ddef4aa918ea899264"
+  },
+  "predicate-tests.json": {
+    "bytes": 2305,
+    "sha256": "679fb81de73911599e51f5bc13ab8bc976a495290ebf4bcba5868118cd636911"
+  },
+  "predicate-tests.ps1": {
+    "bytes": 2407,
+    "sha256": "2da4d65d6d73dd684a0ef31a12b460c4a20482d91162beb90f197f5341a4714a"
+  },
+  "reader-tests.json": {
+    "bytes": 2337,
+    "sha256": "6fb881b30d83256eaac280a11bcdb079faee7f758247c7003f825baad101ed4d"
+  },
+  "reader-tests.ps1": {
+    "bytes": 3087,
+    "sha256": "21210a9223d9a2ad7cfc8f554a709a6c1f6beb591b1de1dee6cac6636d04d6bd"
+  },
+  "resources-tests.json": {
+    "bytes": 2888,
+    "sha256": "2e289e68e1c0d8f89fbea340209f32c4054b727417d75959a69723bc93d0d776"
+  },
+  "resources-tests.ps1": {
+    "bytes": 3127,
+    "sha256": "e93d376f79ed2a7bc3895acaa7bfd97691c8b94a503f3c761d6e3e01e9afbd64"
+  }
+}

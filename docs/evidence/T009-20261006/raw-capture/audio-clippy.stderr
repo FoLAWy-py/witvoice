@@ -1,0 +1,8 @@
+    Checking windows-core v0.62.2
+    Checking windows-future v0.3.2
+    Checking windows-collections v0.3.2
+    Checking windows-numerics v0.3.1
+    Checking serde v1.0.228
+    Checking windows v0.62.2
+    Checking witvoice-audio v0.1.0 (D:\Project\witvoice\crates\audio)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 16.53s

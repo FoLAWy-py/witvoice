@@ -1,0 +1,42 @@
+
+running 19 tests
+test authenticated_dual_channels_ready_stop_ack_and_actual_tree_zero ... owned native member 44444: python.exe
+owned native member 63900: conhost.exe
+owned native member 65520: python.exe
+owned native member 62956: conhost.exe
+first cleanup observation: Some(CleanupSnapshot { stage: Released, terminate_succeeded: Some(true), active_processes: Some(0), process_id_count: Some(0), controller_signaled: Some(true), controller_exit_code: Some(1), policy_confirmed: Some(true), stopped_ack: true, elapsed_ms: Some(4), primary_failure: None, cleanup_failure: None })
+stop result: Ok(()); output_allowed: false; resources_released: true; stopped_ack: true
+retained owned member 44444 waitZERO=Ok(Some(1))
+retained owned member 63900 waitZERO=Ok(Some(1))
+retained owned member 65520 waitZERO=Ok(Some(1))
+retained owned member 62956 waitZERO=Ok(Some(1))
+ok
+test bad_ready_request_binding_and_complete_capability_are_fail_closed ... ok
+test both_channel_authentication_required_wrong_token_or_missing_media_never_ready ... ok
+test cleanup_observation_all_zero_and_signaled_require_policy_confirmation ... ok
+test cleanup_observation_controller_signaled_later_uses_only_remaining_budget ... ok
+test cleanup_observation_expired_remaining_budget_never_waits_or_renews ... ok
+test cleanup_observation_first_refusal_never_overwritten_by_later_success_or_failure ... ok
+test cleanup_observation_native_stage_and_hresult_are_retained_separately ... ok
+test cleanup_observation_nonempty_ids_stops_before_controller_wait ... ok
+test cleanup_observation_nonzero_active_stops_before_ids_or_wait ... ok
+test cleanup_observation_precondition_and_policy_refusal_keep_unexecuted_null ... ok
+test cleanup_observation_raw_win32_and_unknown_text_do_not_become_hresult ... ok
+test cleanup_observation_remaining_wait_api_error_retains_first_refusal ... ok
+test cleanup_observation_unsignaled_controller_retains_actual_zero_queries ... ok
+test delayed_owner_monitor_cannot_accept_late_ready_or_heartbeat ... ok
+test eof_partial_frame_heartbeat_timeout_and_memory_pressure_retire_actual_job ... FAILED
+test old_epoch_after_real_restart_cannot_reopen_output ... FAILED
+test shared_absolute_deadline_is_not_renewed_after_partial_header ... FAILED
+test two_fresh_native_pids_epochs_then_third_fault_requires_explicit_reset ... FAILED
+
+failures:
+
+failures:
+    eof_partial_frame_heartbeat_timeout_and_memory_pressure_retire_actual_job
+    old_epoch_after_real_restart_cannot_reopen_output
+    shared_absolute_deadline_is_not_renewed_after_partial_header
+    two_fresh_native_pids_epochs_then_third_fault_requires_explicit_reset
+
+test result: FAILED. 15 passed; 4 failed; 0 ignored; 0 measured; 0 filtered out; finished in 4.60s
+

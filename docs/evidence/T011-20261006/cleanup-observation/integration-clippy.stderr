@@ -1,0 +1,5 @@
+    Checking witvoice-platform v0.1.0 (D:\Project\witvoice\crates\platform)
+    Checking witvoice-node v0.1.0 (D:\Project\witvoice\apps\voice-node)
+    Checking witvoice-engines v0.1.0 (D:\Project\witvoice\crates\engines)
+    Checking witvoice-transport v0.1.0 (D:\Project\witvoice\crates\transport)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 7.53s

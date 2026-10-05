@@ -1,0 +1,212 @@
+{
+  "task": "T011",
+  "cleanup_at_failure": {
+    "job_zero": "NOT_PROVEN",
+    "process_ids": "UNKNOWN not independently logged",
+    "exact_cause": "UNKNOWN",
+    "resource_release": "NOT_PROVEN",
+    "active_processes": "UNKNOWN not independently logged",
+    "process_wait_zero": "UNKNOWN not independently logged"
+  },
+  "created_utc": "2026-10-05T18:15:02.8317888Z",
+  "records": [
+    {
+      "bytes": 3512,
+      "sha256": "d3bbaa265bb4092a4ef2d94818aba92f19265eeb07ae8a088228c0c44ef1bbe4",
+      "name": "01-fmt.json"
+    },
+    {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "name": "01-fmt.stderr"
+    },
+    {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "name": "01-fmt.stdout"
+    },
+    {
+      "bytes": 3650,
+      "sha256": "39722badc8c57ec4cae4841cd4123328fb5af2bdbff6996b5b376301666ab019",
+      "name": "02-peer-compile.json"
+    },
+    {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "name": "02-peer-compile.stderr"
+    },
+    {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "name": "02-peer-compile.stdout"
+    },
+    {
+      "bytes": 3512,
+      "sha256": "c4e15c973a83aaae041be04f60f009c6d3b3b183d6cb29ead6dd4d2930716a4c",
+      "name": "03-fmt.json"
+    },
+    {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "name": "03-fmt.stderr"
+    },
+    {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "name": "03-fmt.stdout"
+    },
+    {
+      "bytes": 3512,
+      "sha256": "21307bfe3de1ceb4080094c652d35e1796eef57f9a2d38e0a5ad870132ebe604",
+      "name": "04-fmt.json"
+    },
+    {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "name": "04-fmt.stderr"
+    },
+    {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "name": "04-fmt.stdout"
+    },
+    {
+      "bytes": 3706,
+      "sha256": "f3ff7a9c02a6d9c837808d5b5af3577b72dc07665f9b5c2c7b8cf6704de0b8df",
+      "name": "05-native-tests.json"
+    },
+    {
+      "bytes": 357,
+      "sha256": "94049ad95add5f301dc966e4d1f22722d16ccdd6b91ad947ec762094c28898ef",
+      "name": "05-native-tests.stderr"
+    },
+    {
+      "bytes": 3800,
+      "sha256": "a4414c213a239340d5f5f1996b5f87c9837914fa9a537a8ee89df2c80f2ba67d",
+      "name": "05-native-tests.stdout"
+    },
+    {
+      "bytes": 3512,
+      "sha256": "e88f2ad02e8fa96d45e6ed960d85fc853b57408c90e34a257175e1c37c6113ec",
+      "name": "06-fmt.json"
+    },
+    {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "name": "06-fmt.stderr"
+    },
+    {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "name": "06-fmt.stdout"
+    },
+    {
+      "bytes": 3721,
+      "sha256": "b8f9deef9785a8d5a4b618cfc8da8b06e5fae13ce2d82d260083fe9884bb8222",
+      "name": "07-member-diagnostic.json"
+    },
+    {
+      "bytes": 357,
+      "sha256": "d063d2b4b28ee0cf45ef344cae31e0fcbe6cdf9cbba3349673e95126001be7b2",
+      "name": "07-member-diagnostic.stderr"
+    },
+    {
+      "bytes": 3956,
+      "sha256": "e939e31762f15e18853c49d54bb0a1a891b50c7d87650f803287734eea19b29c",
+      "name": "07-member-diagnostic.stdout"
+    },
+    {
+      "bytes": 3512,
+      "sha256": "2559f0a5bfe1f140d4a370d3fd161e73bea1e4e4dd2e66b59c7cca074a4f2d71",
+      "name": "08-fmt.json"
+    },
+    {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "name": "08-fmt.stderr"
+    },
+    {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "name": "08-fmt.stdout"
+    },
+    {
+      "bytes": 3706,
+      "sha256": "bf744b8f8f81d91662ba80577f89172cd73fce4af8361da1dd88a39c3a73107a",
+      "name": "09-native-tests.json"
+    },
+    {
+      "bytes": 357,
+      "sha256": "69baaccd737845a3a320a6c058ece907923391ab9e4cb53bad09912f682d4a58",
+      "name": "09-native-tests.stderr"
+    },
+    {
+      "bytes": 3989,
+      "sha256": "b5ad7b0664676c9dda73be629557b19e13816032d5888e882d1b89f2c937ef8b",
+      "name": "09-native-tests.stdout"
+    },
+    {
+      "bytes": 3958,
+      "sha256": "0fc17a4f20ba0b4411879f54f0b5a9eecf34ab5f6c02f8c48d27526b67bbb540",
+      "name": "check.ps1"
+    },
+    {
+      "bytes": 7911,
+      "sha256": "438c7d8143796153205c32aea5ae85ede8af98df0d812b8e0f655c0588719450",
+      "name": "peer.pyc"
+    },
+    {
+      "bytes": 44,
+      "sha256": "5e29127950bbad7155704adbd3fc84cf54a3843add1ff74b4c06e759fd9c45cb",
+      "name": "wsda6331ca3691e1fa-1-c.members.json"
+    }
+  ],
+  "status": "STOPPED_NATIVE_CLEANUP_FAILURE",
+  "prelaunch_source_write": {
+    "later_write": "apply_patch source-only success",
+    "utc": "UNKNOWN tool transcript only",
+    "error": "Rejected(\"Failed to create unified exec process: 文件名或扩展名太长。 (os error 206)\")",
+    "exit_code": "NO_PROCESS"
+  },
+  "source": [
+    {
+      "bytes": 24985,
+      "sha256": "21ecb47dc9e25c5bbe0a59cb388ab337945af69cc334450a288836b2602e1a4c",
+      "path": "crates/engines/src/supervisor.rs"
+    },
+    {
+      "bytes": 8736,
+      "sha256": "fa980c93af4cbf3bb25ee53c5ca2baadda87adb0e235d1cf9072b56c3b824302",
+      "path": "crates/engines/tests/worker_supervision.rs"
+    },
+    {
+      "bytes": 6550,
+      "sha256": "79981208e2f8e66c7a0a0c307a4a5c9727701797810022d2e341e95470e7b667",
+      "path": "tests/integration/worker_supervision_peer.py"
+    }
+  ],
+  "checks": {
+    "GPU": "NOT_RUN",
+    "standalone_fmt": "01/03/04/06/08 exit0",
+    "native_05": "exit101 count expected2 actual4 then7mutexpoison",
+    "audio": "NOT_RUN",
+    "strict_clippy": "NOT_RUN",
+    "native_07": "exit101 exact4PIDimage observed oldcount2 assertion then7mutexpoison",
+    "model": "NOT_RUN",
+    "LAN": "NOT_RUN",
+    "peer_compile": "02 exit0 on earlier source only; finalpeercompile NOT_RUN",
+    "fmt_check": "NOT_RUN",
+    "native_09": "exit101 firstStop returnedCleanup Protocol rawNone then7mutexpoison"
+  },
+  "limitations": [
+    "Test peer cfg(test) source include only; no production fake engine selector",
+    "Fixed audited development interpreter/layout requires later trusted installed layout integration",
+    "No real PCM streaming (T012) or canonical Runtime/UI hookup (T014)",
+    "Windows native cancellation completion universal boundedness not claimed",
+    "Kernel query failure injection NOT_RUN",
+    "Two python and two conhost observed in ownJob; no individual conhost parent relation observed",
+    "Native test failure preserved; no subsequent Cargo/native rerun after cleanup STOP"
+  ],
+  "slice": "WorkerSupervisor native owner",
+  "actual_uuid": "01a10767-4ff5-7f21-881a-146d094fbc55"
+}

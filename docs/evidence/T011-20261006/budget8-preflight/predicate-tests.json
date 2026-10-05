@@ -1,0 +1,71 @@
+{
+    "model":  "NOT_RUN",
+    "exit":  0,
+    "audio":  "NOT_RUN",
+    "host":  "5.1.26100.7462",
+    "tests":  12,
+    "gpu":  "NOT_RUN",
+    "cases":  [
+                  {
+                      "actual_accept":  true,
+                      "case":  "known_ready",
+                      "exit":  0
+                  },
+                  {
+                      "actual_accept":  false,
+                      "case":  "unknown_job",
+                      "exit":  0
+                  },
+                  {
+                      "actual_accept":  false,
+                      "case":  "wrong_job",
+                      "exit":  0
+                  },
+                  {
+                      "actual_accept":  false,
+                      "case":  "unknown_gap",
+                      "exit":  0
+                  },
+                  {
+                      "actual_accept":  false,
+                      "case":  "first_ack_unknown",
+                      "exit":  0
+                  },
+                  {
+                      "actual_accept":  false,
+                      "case":  "deadline",
+                      "exit":  0
+                  },
+                  {
+                      "actual_accept":  false,
+                      "case":  "not_ready",
+                      "exit":  0
+                  },
+                  {
+                      "actual_accept":  false,
+                      "case":  "no_stop",
+                      "exit":  0
+                  },
+                  {
+                      "actual_accept":  false,
+                      "case":  "not_empty",
+                      "exit":  0
+                  },
+                  {
+                      "actual_accept":  false,
+                      "case":  "open_output",
+                      "exit":  0
+                  },
+                  {
+                      "actual_accept":  false,
+                      "case":  "media",
+                      "exit":  0
+                  },
+                  {
+                      "actual_accept":  false,
+                      "case":  "retry",
+                      "exit":  0
+                  }
+              ],
+    "scope":  "Actual extracted frozen success predicate; no supervisor main"
+}

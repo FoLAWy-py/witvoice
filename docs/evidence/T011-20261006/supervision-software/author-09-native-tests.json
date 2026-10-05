@@ -1,0 +1,76 @@
+{
+    "exit_code":  101,
+    "env":  {
+                "RUSTFLAGS":  null,
+                "RUSTUP_HOME":  "D:\\Software\\WitvoiceToolchain\\Rust\\rustup",
+                "CARGO_BUILD_JOBS":  "1",
+                "CARGO_TARGET_DIR":  "D:\\Project\\witvoice\\.local\\t008-t016-r2-leader\\target",
+                "CARGO_HOME":  "D:\\Software\\WitvoiceToolchain\\Rust\\cargo",
+                "CARGO_INCREMENTAL":  "0",
+                "CARGO_ENCODED_RUSTFLAGS":  null
+            },
+    "source_before":  [
+                          {
+                              "path":  "crates/engines/src/supervisor.rs",
+                              "sha256":  "21ecb47dc9e25c5bbe0a59cb388ab337945af69cc334450a288836b2602e1a4c",
+                              "bytes":  24985
+                          },
+                          {
+                              "path":  "crates/engines/tests/worker_supervision.rs",
+                              "sha256":  "fa980c93af4cbf3bb25ee53c5ca2baadda87adb0e235d1cf9072b56c3b824302",
+                              "bytes":  8736
+                          },
+                          {
+                              "path":  "tests/integration/worker_supervision_peer.py",
+                              "sha256":  "79981208e2f8e66c7a0a0c307a4a5c9727701797810022d2e341e95470e7b667",
+                              "bytes":  6550
+                          }
+                      ],
+    "start_utc":  "2026-10-05T18:12:45.5591000Z",
+    "end_utc":  "2026-10-05T18:12:48.0406007Z",
+    "stdout":  {
+                   "path":  "D:\\Project\\witvoice\\.local\\t011-supervisor-author\\09-native-tests.stdout",
+                   "sha256":  "b5ad7b0664676c9dda73be629557b19e13816032d5888e882d1b89f2c937ef8b",
+                   "bytes":  3989
+               },
+    "actual_agent_uuid":  "01a10767-4ff5-7f21-881a-146d094fbc55",
+    "cwd":  "D:\\Project\\witvoice",
+    "source_after":  [
+                         {
+                             "path":  "crates/engines/src/supervisor.rs",
+                             "sha256":  "21ecb47dc9e25c5bbe0a59cb388ab337945af69cc334450a288836b2602e1a4c",
+                             "bytes":  24985
+                         },
+                         {
+                             "path":  "crates/engines/tests/worker_supervision.rs",
+                             "sha256":  "fa980c93af4cbf3bb25ee53c5ca2baadda87adb0e235d1cf9072b56c3b824302",
+                             "bytes":  8736
+                         },
+                         {
+                             "path":  "tests/integration/worker_supervision_peer.py",
+                             "sha256":  "79981208e2f8e66c7a0a0c307a4a5c9727701797810022d2e341e95470e7b667",
+                             "bytes":  6550
+                         }
+                     ],
+    "kind":  "tests",
+    "host":  "5.1.26100.7462",
+    "label":  "09-native-tests",
+    "binary":  "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\cargo.exe",
+    "stderr":  {
+                   "path":  "D:\\Project\\witvoice\\.local\\t011-supervisor-author\\09-native-tests.stderr",
+                   "sha256":  "69baaccd737845a3a320a6c058ece907923391ab9e4cb53bad09912f682d4a58",
+                   "bytes":  357
+               },
+    "runner_sha256":  "0fc17a4f20ba0b4411879f54f0b5a9eecf34ab5f6c02f8c48d27526b67bbb540",
+    "argv":  [
+                 "test",
+                 "--locked",
+                 "--offline",
+                 "-p",
+                 "witvoice-engines",
+                 "--test",
+                 "worker_supervision",
+                 "--",
+                 "--test-threads=1"
+             ]
+}

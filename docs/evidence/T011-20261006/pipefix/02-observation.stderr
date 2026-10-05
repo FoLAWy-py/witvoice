@@ -1,0 +1,4 @@
+   Compiling witvoice-platform v0.1.0 (D:\Project\witvoice\crates\platform)
+   Compiling witvoice-engines v0.1.0 (D:\Project\witvoice\crates\engines)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 4.02s
+     Running tests\worker_supervision.rs (.local\t008-t016-r2-leader\target\debug\deps\worker_supervision-a72727e7f40d2491.exe)

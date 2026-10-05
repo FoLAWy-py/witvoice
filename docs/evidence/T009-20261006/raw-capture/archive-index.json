@@ -1,0 +1,110 @@
+{
+  "ANALYSIS.json": {
+    "bytes": 1166,
+    "sha256": "3f28d75ffadcd85460a819066a3fdac86c1e345bb45fe401cc44466055bb8da0"
+  },
+  "audio-build.json": {
+    "bytes": 8948,
+    "sha256": "7da4adc9f530726c571f8f93daef1f62b546690deea87c4afedb1f6af3706f08"
+  },
+  "audio-build.stderr": {
+    "bytes": 142,
+    "sha256": "e8bec23f038575ea3d1b90128f455956f4581ba1873be53788310799aea83ccd"
+  },
+  "audio-build.stdout": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "audio-clippy.json": {
+    "bytes": 9040,
+    "sha256": "993ce451fd34f4b76c32209fec8cdc85acd911197c1a96f5c5872f2783c153e8"
+  },
+  "audio-clippy.stderr": {
+    "bytes": 346,
+    "sha256": "2ff9073ef544c8521b5d391f1a332c5cf96a6d32f974609618c9035e0eb7a30c"
+  },
+  "audio-clippy.stdout": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "audio-fmt.json": {
+    "bytes": 8876,
+    "sha256": "d00a78649ae9553416fea343c4c761db0392b4ac3174b36e4cf75355c7b7435a"
+  },
+  "audio-fmt.stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "audio-fmt.stdout": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "audio-tests.json": {
+    "bytes": 8974,
+    "sha256": "d5d367ca4313177233c5a6a35d8229e456f36be838d12617150ed7891c11424c"
+  },
+  "audio-tests.stderr": {
+    "bytes": 1218,
+    "sha256": "1b44d6e14a7cb1aef47e5aa327100aade47e8bca32148d3f5b00b2d6e8ae6e6c"
+  },
+  "audio-tests.stdout": {
+    "bytes": 6265,
+    "sha256": "3947a96288c4eb167e0103adac6988dd4990bd2da32c68a6b34ad9282e54b314"
+  },
+  "check-runner.ps1": {
+    "bytes": 2512,
+    "sha256": "5b845eff410d9025543193b3b2e41e9d1d5d6f53a0cae39690b9bdd40bc356d2"
+  },
+  "checks.ps1": {
+    "bytes": 544,
+    "sha256": "16737c244002609d7078a87fb2199b4b8eb5d9b3957d34acc17e84fcb49b1f6f"
+  },
+  "config.json": {
+    "bytes": 3986,
+    "sha256": "590efda5d4d1e74e98439accccb6640af4b5585547e4a73f6aa8859b14fee7a8"
+  },
+  "ffmpeg-inventory-result.json": {
+    "bytes": 1696,
+    "sha256": "ec32677b9789c953f0b9c872ea21a8e256a7f8bdd8466062c7500c845791a7cd"
+  },
+  "frozen-audio-inputs.json": {
+    "bytes": 3475,
+    "sha256": "a097f895eb0e1e4cc9b79eb3d697c3b439697e73fd2218d78f1d7c8e38f2bc83"
+  },
+  "grant-object-check.ps1": {
+    "bytes": 839,
+    "sha256": "7e2ffaa95b27756d56a67645a9f6f3d02dad766a19c330f6669826f71a0caec6"
+  },
+  "metadata-result.json": {
+    "bytes": 2445,
+    "sha256": "f39403386056355f1283a52f16334b153b73cb84521d406b139d4d796fc9faf6"
+  },
+  "once.json": {
+    "bytes": 481,
+    "sha256": "adc7effc1e09de33ee9f6bbf9d159844711756932ee075dfce7d4e8ef55c7598"
+  },
+  "preflight-result.json": {
+    "bytes": 1641,
+    "sha256": "7c031901b35f787c774fcce74ca79eeb39fb0017f3a20e445869a2bd2c714222"
+  },
+  "result.json": {
+    "bytes": 3201,
+    "sha256": "4eee55f5fa5f7100974ec528a29d4bccbda501dc18ce72694f1c671cbd728c24"
+  },
+  "source-after.json": {
+    "bytes": 3293,
+    "sha256": "2110454d598ad91df855b5a8757437448e47644fb500bb534b002b14932114c3"
+  },
+  "stderr.raw": {
+    "bytes": 51,
+    "sha256": "ef5e5d01ec7b1ba3be6838a73c6e409c97d70a2490a9752d8b3c4badf44ba717"
+  },
+  "stdout.raw": {
+    "bytes": 951,
+    "sha256": "8ec63c5e1a74badb10fdf6d59577a5ad4e0bda048f75449b815809943e473d6c"
+  },
+  "supervise_once.ps1": {
+    "bytes": 6701,
+    "sha256": "3dba9dec227bc8972fe6ed8b28ef8d602e80aea7a694373a65596b624b822dc8"
+  }
+}

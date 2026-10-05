@@ -1,0 +1,71 @@
+{
+    "exit_code":  0,
+    "env":  {
+                "RUSTFLAGS":  null,
+                "RUSTUP_HOME":  "D:\\Software\\WitvoiceToolchain\\Rust\\rustup",
+                "CARGO_BUILD_JOBS":  "1",
+                "CARGO_TARGET_DIR":  null,
+                "CARGO_HOME":  "D:\\Software\\WitvoiceToolchain\\Rust\\cargo",
+                "CARGO_INCREMENTAL":  "0",
+                "CARGO_ENCODED_RUSTFLAGS":  null
+            },
+    "source_before":  [
+                          {
+                              "path":  "crates/engines/src/supervisor.rs",
+                              "sha256":  "3cfbd3b17f19bc39f801c0a25f6b26c6d5005d951a38ff8ee8b1e987d10c8fed",
+                              "bytes":  23979
+                          },
+                          {
+                              "path":  "crates/engines/tests/worker_supervision.rs",
+                              "sha256":  "7743cfde9f26697ecb4b73d4a6bbaf9256a2a301c8334da50b80a6184b235ad3",
+                              "bytes":  7689
+                          },
+                          {
+                              "path":  "tests/integration/worker_supervision_peer.py",
+                              "sha256":  "dd3ae383b9be1cb0e41d7425d141ea717b8782a2089ee99ca51fb754aa619ca5",
+                              "bytes":  5731
+                          }
+                      ],
+    "start_utc":  "2026-10-05T18:04:55.5332648Z",
+    "end_utc":  "2026-10-05T18:04:55.6380021Z",
+    "stdout":  {
+                   "path":  "D:\\Project\\witvoice\\.local\\t011-supervisor-author\\02-peer-compile.stdout",
+                   "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                   "bytes":  0
+               },
+    "actual_agent_uuid":  "01a10767-4ff5-7f21-881a-146d094fbc55",
+    "cwd":  "D:\\Project\\witvoice",
+    "source_after":  [
+                         {
+                             "path":  "crates/engines/src/supervisor.rs",
+                             "sha256":  "3cfbd3b17f19bc39f801c0a25f6b26c6d5005d951a38ff8ee8b1e987d10c8fed",
+                             "bytes":  23979
+                         },
+                         {
+                             "path":  "crates/engines/tests/worker_supervision.rs",
+                             "sha256":  "7743cfde9f26697ecb4b73d4a6bbaf9256a2a301c8334da50b80a6184b235ad3",
+                             "bytes":  7689
+                         },
+                         {
+                             "path":  "tests/integration/worker_supervision_peer.py",
+                             "sha256":  "dd3ae383b9be1cb0e41d7425d141ea717b8782a2089ee99ca51fb754aa619ca5",
+                             "bytes":  5731
+                         }
+                     ],
+    "kind":  "pycompile",
+    "host":  "5.1.26100.7462",
+    "label":  "02-peer-compile",
+    "binary":  "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "stderr":  {
+                   "path":  "D:\\Project\\witvoice\\.local\\t011-supervisor-author\\02-peer-compile.stderr",
+                   "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                   "bytes":  0
+               },
+    "runner_sha256":  "0fc17a4f20ba0b4411879f54f0b5a9eecf34ab5f6c02f8c48d27526b67bbb540",
+    "argv":  [
+                 "-I",
+                 "-S",
+                 "-c",
+                 "import py_compile; py_compile.compile(\"tests/integration/worker_supervision_peer.py\", cfile=\".local/t011-supervisor-author/peer.pyc\", doraise=True)"
+             ]
+}

@@ -1,0 +1,16 @@
+
+running 11 tests
+test cleanup_observation_all_zero_and_signaled_require_policy_confirmation ... ok
+test cleanup_observation_controller_signaled_later_uses_only_remaining_budget ... ok
+test cleanup_observation_expired_remaining_budget_never_waits_or_renews ... ok
+test cleanup_observation_first_refusal_never_overwritten_by_later_success_or_failure ... ok
+test cleanup_observation_native_stage_and_hresult_are_retained_separately ... ok
+test cleanup_observation_nonempty_ids_stops_before_controller_wait ... ok
+test cleanup_observation_nonzero_active_stops_before_ids_or_wait ... ok
+test cleanup_observation_precondition_and_policy_refusal_keep_unexecuted_null ... ok
+test cleanup_observation_raw_win32_and_unknown_text_do_not_become_hresult ... ok
+test cleanup_observation_remaining_wait_api_error_retains_first_refusal ... ok
+test cleanup_observation_unsignaled_controller_retains_actual_zero_queries ... ok
+
+test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 8 filtered out; finished in 0.00s
+

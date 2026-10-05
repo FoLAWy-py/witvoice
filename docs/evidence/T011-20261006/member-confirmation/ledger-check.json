@@ -1,0 +1,19 @@
+{
+  "scope": "SPEC/ledger consistency only; no application/model/audio/LAN tests",
+  "command": [
+    "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "tools/project/validate_spec.py"
+  ],
+  "cwd": "D:\\Project\\witvoice",
+  "started_utc": "2026-10-05T19:38:46.010751+00:00",
+  "ended_utc": "2026-10-05T19:38:46.235113+00:00",
+  "exit": 0,
+  "stdout": {
+    "bytes": 267,
+    "sha256": "2feb0d566bbc1439ad405b6742756f26d99828f92039ad085266d3925092c5a5"
+  },
+  "stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "source_commit": "72a626ab372dce8e8f5a505f4ee8fc2266835806",
+  "scope": "T011 supervision software only",
+  "source_count": 121,
+  "root_checks": [
+    {
+      "name": "python-tests-supervisor",
+      "exit": 0,
+      "wall_seconds": 6.8076554,
+      "both121_equal": true
+    },
+    {
+      "name": "compile-supervisor",
+      "exit": 0,
+      "wall_seconds": 0.3291651,
+      "both121_equal": true
+    },
+    {
+      "name": "compileonly-fmt",
+      "exit": 0,
+      "wall_seconds": 0.9238029999999999,
+      "both121_equal": true
+    },
+    {
+      "name": "compileonly-clippy",
+      "exit": 0,
+      "wall_seconds": 2.5717597,
+      "both121_equal": true
+    },
+    {
+      "name": "compileonly-examples",
+      "exit": 0,
+      "wall_seconds": 2.4904397,
+      "both121_equal": true
+    }
+  ],
+  "native_tests": "FAILED_STOP_CLEANUP_PROTOCOL_UNKNOWN",
+  "native_failure": "author09 first Stop Cleanup/Protocol/rawNone; remaining7 mutex-poison are not independent outcomes",
+  "native_source_binding": "author09 before/after3 writer files; root121 raw freeze was collected after author09; no claim of author121-before proof",
+  "old_model_evidence": "budget8-once f9a PASS_REAL_WARMUP_ONLY remains separate; no new owner real-model validation",
+  "hardware": "NOT_RUN",
+  "T011": "IN_PROGRESS",
+  "formal_review_attempts": 0
+}

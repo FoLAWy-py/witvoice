@@ -1,0 +1,69 @@
+{
+  "task": "T009",
+  "scope": "READ_ONLY metadata; no Initialize/Start/PCM/default-device changes",
+  "command": [
+    "D:\\Project\\witvoice\\.local\\t008-t016-r2-leader\\target\\debug\\examples\\list_endpoints.exe"
+  ],
+  "started_utc": "2026-10-05T19:58:16.279795+00:00",
+  "finished_utc": "2026-10-05T19:58:16.363753+00:00",
+  "exit": 0,
+  "binary_sha256": "cd6dd0e99aeaeb7a2dcb94c4f7f9d6028144449d7aaa456821e2d8446b378809",
+  "scope_sha256": "f1b3241fdd3e887e5cef6d60d152320f7b6aeca2ed4c06adc156b6cd519baeca",
+  "same_previously_verified_pair": true,
+  "endpoints": [
+    {
+      "uid_sha256": "21753b912b5eaf6420729979c77b17d9fccdd0e0ac1a65099e609d8de3f2ac0a",
+      "saved_uid_sha256": "21b8f9bab2bf9006f1d86efb59dea6039bc1eec072c32be72d5559ba09d09eed",
+      "only_case_differs": true,
+      "flow": "Render",
+      "state_bits": 1,
+      "mix_format": {
+        "format_tag": 65534,
+        "sample_rate": 48000,
+        "channels": 2,
+        "container_bits": 32,
+        "valid_bits": 32,
+        "block_align": 8,
+        "average_bytes_per_second": 384000,
+        "extra_bytes": 22,
+        "channel_mask": 3,
+        "subformat": "00000003-0000-0010-8000-00AA00389B71",
+        "adapter_format": {
+          "sample_rate": 48000,
+          "channels": 2,
+          "encoding": "Float32"
+        },
+        "adapter_error": null
+      },
+      "mix_error": null
+    },
+    {
+      "uid_sha256": "4c6b4e8ccbb70e3045d2e9358057812f6738d339b0656c956af9ac8c0e978762",
+      "saved_uid_sha256": "004baa65df99ee70223a85f507e0f862171b314d7b901e731f2bf5056163ab52",
+      "only_case_differs": true,
+      "flow": "Capture",
+      "state_bits": 1,
+      "mix_format": {
+        "format_tag": 65534,
+        "sample_rate": 48000,
+        "channels": 2,
+        "container_bits": 32,
+        "valid_bits": 32,
+        "block_align": 8,
+        "average_bytes_per_second": 384000,
+        "extra_bytes": 22,
+        "channel_mask": 3,
+        "subformat": "00000003-0000-0010-8000-00AA00389B71",
+        "adapter_format": {
+          "sample_rate": 48000,
+          "channels": 2,
+          "encoding": "Float32"
+        },
+        "adapter_error": null
+      },
+      "mix_error": null
+    }
+  ],
+  "stdout_sha256": "8fa9eb85bc5ce4f1ecec56e606bad8a3e8bb5a0621d102f0469c7fec9acb36d1",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

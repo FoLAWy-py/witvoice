@@ -1,0 +1,9 @@
+# T011 frozen72a native cleanup: limited independent failure audit
+
+Reviewer /root/reviewer_t001 UUID01a1077c-556d-7152-892c-d9f92346ec0f, actual read-only final receipt. No independent rerun/edit; no T011 DONE approval, formal attempts0. Frozen72a626ab372dce8e8f5a505f4ee8fc2266835806. Author09 exit101, three writer sources before/after SHA equal. Actual firstcase authenticated dualpipes/Ready and exact Job controller/leaf two Python PIDs+two conhost; Stop then returns Cleanup/Protocol/rawNone. Next7mutex poison not independent results, Job0/all member exits UNKNOWN. No conhost parent relation proof.
+
+S2: supervisor512 combines nonzero active and nonempty PID list into identical error;518 controller unsignaled same error. platform/process41 fail converts native HRESULT to text, raw_os_error=None cannot rule out native terminate/query/GetExitCodeProcess failure. Stop primary control fault may be masked by cleanup return; ACK not observed in09.
+
+Accepted minimum repair contract: closed CleanupStage/internal native-operation enums, first bounded actual-results snapshot including active/count/wait/exit/elapsed/StoppedACK/original primary failure; unexecuted fields null; no extra query/string parsing. Preserve typed HRESULT vs Win32 domains and all three cleanup predicates/deadlines/fail-muted quarantine/restart refusal. Pure negative tests for each stage/code/unknown/firstfault and allzero success. New native/model execution NOT approved by this receipt; require fresh frozen independent preflight.
+
+Read through root full relay 4d7ce0,97dfe4,3a64d5,366210,4360c5,3864ad plus root five-check result73dcdd. Full code/09metadata/raw covered limited cleanup scope; not full module formal audit/workspace regression. Prior f9a8GiB realwarmup-only PASS remains separate. Next sameT011 bounded observation repair; no GPU/audio/LAN/source write in review.

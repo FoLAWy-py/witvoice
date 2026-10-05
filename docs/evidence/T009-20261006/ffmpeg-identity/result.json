@@ -1,0 +1,14 @@
+{
+  "utc": "2026-10-05T20:43:45.909454+00:00",
+  "finished_utc": "2026-10-05T20:43:45.966250+00:00",
+  "exit": 0,
+  "binary_sha256": "02e5a3cd0fe2e47ab88b66df901909bb62c54cb925990b3272ab9a7458f2ca23",
+  "source_sha256": "63bf7af3f888e470ebb52a19264c0b19d74ee29c1b2f8cf2bc1eb6908d848293",
+  "alternative_sha256": "0e1added6fa773692df04a56a565f2986a695322a44144d267ffc97d1b9dbcca",
+  "endpoint_uid_sha256": "4c6b4e8ccbb70e3045d2e9358057812f6738d339b0656c956af9ac8c0e978762",
+  "saved_uid_case_insensitive_exact_match": true,
+  "flow": "Capture",
+  "state_bits": 1,
+  "scope": "DirectShow property storage + waveIn metadata + IMMDevice; no BindToObject/waveInOpen/Activate/Initialize/Start/PCM",
+  "third_party_capture": "NOT_RUN"
+}

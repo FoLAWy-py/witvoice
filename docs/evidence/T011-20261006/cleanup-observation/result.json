@@ -1,0 +1,59 @@
+{
+  "source_commit": "d80698f132ea6bddbbcf0da71906b68830c85299",
+  "source_count": 121,
+  "root_checks": [
+    {
+      "name": "integration-platform-error-tests",
+      "exit": 0,
+      "wall_seconds": 2.325793,
+      "both121_equal": true
+    },
+    {
+      "name": "integration-cleanup-observation-tests",
+      "exit": 0,
+      "wall_seconds": 3.4407696,
+      "both121_equal": true
+    },
+    {
+      "name": "integration-fmt",
+      "exit": 0,
+      "wall_seconds": 0.7563622999999999,
+      "both121_equal": true
+    },
+    {
+      "name": "integration-clippy",
+      "exit": 0,
+      "wall_seconds": 7.8137412,
+      "both121_equal": true
+    },
+    {
+      "name": "integration-examples",
+      "exit": 0,
+      "wall_seconds": 7.7958957,
+      "both121_equal": true
+    },
+    {
+      "name": "python-tests-cleanup",
+      "exit": 0,
+      "wall_seconds": 6.1046039,
+      "both121_equal": true
+    },
+    {
+      "name": "compile-cleanup",
+      "exit": 0,
+      "wall_seconds": 0.29059999999999997,
+      "both121_equal": true
+    }
+  ],
+  "pure_Rust_tests": 9,
+  "Python_tests": 66,
+  "native_tests": "NOT_RUN_AFTER_OBSERVATION_REPAIR",
+  "previous_failure": "author09 Cleanup/Protocol/rawNone causeUNKNOWN, not relabeled",
+  "hardware": "NOT_RUN",
+  "config_sha256": "5964e4cfad87bb33f7769ede5e4e198a3449c4ac93a4518e0a81e963f4f5b7fc",
+  "supervisor_sha256": "858a62d5b360725bbf8a5d4cbf3113cc5accd5ec1ee54b0abe59f99981721f85",
+  "binary_sha256": "bdaf109c32ec54abf2e5e81e3a1a5f7931722308b16a05c8287dd17c65aa4560",
+  "T011": "IN_PROGRESS",
+  "independent_preflight": "PENDING",
+  "formal_attempts": 0
+}

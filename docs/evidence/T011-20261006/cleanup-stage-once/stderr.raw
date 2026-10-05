@@ -1,0 +1,4 @@
+
+thread 'authenticated_dual_channels_ready_stop_ack_and_actual_tree_zero' (63196) panicked at crates\engines\tests\worker_supervision.rs:342:13:
+called `Result::unwrap()` on an `Err` value: Failure { kind: Cleanup, fault: Protocol, raw_os_error: None, wire_code: None, native_failure: None }
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace

@@ -8,6 +8,8 @@
 
 M0将实现细节写入带编号ADR；不能将尚未实施的决定记作测试结果。
 
+- [CR-0006 / ADR0006](../adr/0006-authorized-warmup-host-gate.md)：2026-10-06用户明确授权T011主机预热门6→8GiB，设备4GiB和SPEC07规划4/3GiB保持。新f9a一次真实预热Ready/Stopped/ownedJob0通过，内存快照7.187GiB；原6GiB失败保留，不称内存优化或完整VC通过。
+
 - [ADR 0002](../adr/0002-local-node-exit.md)：T006 补齐本地鉴权 ExitNode、输出失效与 Node-owned worker Job；不增加 LAN 退出权限。实现/独立审查待。
 
 - ADR0003: T016标准WindowsDNS-SD替代未证明cache界的mdnsdaemon；默认关闭、显式接口/用户LANopt-in、有界自有队列/异步寿命，无新模型/驱动/服务或Mac实测claim。见 docs/adr/0003-native-dns-sd.md。

@@ -70,9 +70,11 @@
     {
       "id": "B005",
       "scope": "T009 VB-CABLE continuity",
-      "status": "BLOCKED_CAPTURE_INITIALIZE",
-      "evidence": "docs/evidence/T009-20261005/exact-mix-once/result.json",
-      "note": "Exact owned mix descriptor also captureInitialize0x887c001a; render1056 <=1440. 0.320018s/child1/no timeout/noStart/marker/read. Descriptordifference not sufficientfix; no blindretry, capacity/cleanupunknown."
+      "status": "RAW_INIT_AND_PRIME_PASSED_STABLE_MARKER_DISCONTINUITY",
+      "evidence": "docs/evidence/T009-20261006/primed-capture/result.json",
+      "note": "Original default/exactmix Initialize0x887c001a preserved. One explicitRAW pair Init+Start passed, capacities1056/1056, firstpacket discontinuity -> failedmuted/cleanupconfirmed. No blindretry; finite startup phase source/API audit follows; RAW rootcause UNKNOWN.",
+      "current_evidence": "docs/evidence/T009-20261006/raw-capture/result.json",
+      "next_action": "Read-only audit finite scheduler/capture metadata; no native retry until a concrete diagnosis, frozen bounded change and independent preflight."
     },
     {
       "id": "B006",
@@ -80,6 +82,14 @@
       "status": "BLOCKED_NATIVE_POSITIVE",
       "evidence": "docs/project/reviews/T016-r2.md",
       "note": "T016 r2softwareS2closed/currentrootintegration0; nativeonceFailed13UNKNOWN consumed, realpositive stillmissing"
+    },
+    {
+      "id": "B007",
+      "scope": "T011 real warmup Ready and dependent T012-T015",
+      "status": "RESOLVED_AUTHORIZED_WARMUP_ONLY_RESOURCE_TARGET_DEVIATION_OPEN",
+      "evidence": "docs/evidence/T011-20261005/finalize-once/result.json",
+      "note": "Actual final host(controller+child)6671941632>6442450944, device1853882368; memory_pressure/noReady/Job0/outputclosed. Minimum: verified same-model quality-preserving memory reduction without lowering original gates, then newly frozen independently reviewed single validation; no blind retry/new model exploration. HumanCR0006 host8GiB; actualnewPASS only. Old6GiBfailure remainsFAILED; SPECplanning4GiB and memory attribution/steady/peak remain open.",
+      "current_evidence": "docs/evidence/T011-20261006/budget8-once/result.json"
     }
   ],
   "distribution_status": "BLOCKED_LICENSE_CHAIN_NOT_BUILT",
@@ -106,7 +116,7 @@
       "reviewer_t001": "/root/reviewer_t001"
     },
     "id_format": "canonical collaboration IDs plus actual UUID session metadata; see T005-thread-id-provenance.json; historical roles not all active",
-    "execution_limit": "Default shell/node fails before process creation: apply deny-read ACLs. Leader scoped commands and explicitly assigned backend/audio fixed-path relays work after auto-review require_escalated; audio authored T004 in disjoint whitelist. Reviewer never escalates or edits; no independent reviewer rerun. Exact disk config loading and sandbox enforcement remain unverified. No ACL/global settings modified. Current explicit audit a2a800: tool shell5.1 requested but actual host7.6.5 bundledpwsh; explicit systemchild version5.1.26100.7462/read-only0. Historical actualshell without measurementUNKNOWN; no globalsettings/ACLchanges. Allsourcewriters/relays/reviewerSTOP, no hardware/GPU/networklease. New finite preflight reviewer 01a1077c-556d-7152-892c-d9f92346ec0f approved exact 8b direct configuration; root sole GPU lease before run.",
+    "execution_limit": "Default shell/node fails before process creation: apply deny-read ACLs. Leader scoped commands and explicitly assigned backend/audio fixed-path relays work after auto-review require_escalated; audio authored T004 in disjoint whitelist. Reviewer never escalates or edits; no independent reviewer rerun. Exact disk config loading and sandbox enforcement remain unverified. No ACL/global settings modified. Current explicit audit a2a800: tool shell5.1 requested but actual host7.6.5 bundledpwsh; explicit systemchild version5.1.26100.7462/read-only0. Historical actualshell without measurementUNKNOWN; no globalsettings/ACLchanges. Allsourcewriters/relays/reviewerSTOP, no hardware/GPU/networklease. New finite preflight reviewer 01a1077c-556d-7152-892c-d9f92346ec0f approved exact 8b direct configuration; root sole GPU lease before run. Latest e03 bounded resource preflight independently approved; all children STOP, root sole GPU lease, no source writers/audio/LAN. e03resourceonce completed memory_pressure; actualJob0, soleGPU lease RELEASED, no audio/LAN/sourcewriter; backend limited static read-only audit. Session boundary: all retained children STOP, source writers0, GPU/audio/LAN leases0; no background work. Final FAILED independently signed; static retention UNKNOWN, nextT011.",
     "review_source": "leader_or_explicitly_authorized_agent_full_text_relay",
     "sandbox_enforcement_verified": false,
     "failed_redispatch": {
@@ -126,14 +136,28 @@
       "/root/audio_runtime": "01a10767-80de-7e02-b3b0-73d1273a70bd",
       "/root/backend": "01a10767-4ff5-7f21-881a-146d094fbc55",
       "/root/reviewer": "01a10767-2000-7371-b1db-0c918066e6f9"
+    },
+    "current_execution": {
+      "root": "sole integrator",
+      "backend": "STOP",
+      "reviewer_t001": "READONLY_FINAL_PREFLIGHT",
+      "audio_startup": "STOP_DELIVERED",
+      "source_writers": 0,
+      "GPU_audio_LAN_leases": 0,
+      "stream_worker": {
+        "uuid": "01a10dd9-54b7-76a2-a3af-608091142321",
+        "status": "STOP_READONLY_T012_PREPARATION",
+        "model_audio_runs": false,
+        "changes": false
+      }
     }
   },
   "completion_claim_allowed": false,
   "last_verified_scope": "T010 independentformalr1 limitedfoundation APPROVED plus previoussoftware; T009adaptedlimitedpreflight only, hardware/VC/Macexcluded",
-  "execution_status": "RESOURCE_SOFTWARE_FROZEN_PREFLIGHT_NO_GPU_AUDIO_LAN",
+  "execution_status": "FROZEN_T011_NATIVE_AND_T009_DRAIN_PREFLIGHT",
   "interruption_evidence": "docs/project/interruption-20261005.json",
-  "last_tested_commit": "25b6fc9b577fc0f9bf8d931c925c13ff262b72e6",
-  "last_tested_scope": "118raw equal;212workspace/fmt/strictClippy/examples0;65Python/compile0. Unchanged budgets, closed resourceobserverdefaultoff. No newmodel outcome.",
+  "last_tested_commit": "e1bd4b205a2ab75b9ca5353d9f9562235afdef00",
+  "last_tested_scope": "e1bd4b2 integrated strict IPC HRESULT_FROM_WIN32 error preservation + production WorkerSupervisor control-only real warmup diagnostic + explicit bounded capture drain. Root actual 145 pure tests (35+11+16+83), fmt/strictworkspaceClippy with process-tests/test-support/examples exit0, all126 pre/post/current bytes equal. Native/model/audio new once configurations frozen and NOT_RUN pending independent preflight. Old consumed failures remain failed. No VC or FFmpeg receipt. nextT011 native suite, then real production owner if suite passes; independent T009 finite drain once. No background promise.",
   "windows_virtual_route": {
     "selected": "VB-CABLE",
     "render": "CABLE Input",
@@ -151,10 +175,10 @@
       "pcm_disk_upload": false,
       "default_device_changes": false
     },
-    "continuity": "FAIL_CAPTURE_INITIALIZE_0x887c001a_BEFORE_START"
+    "continuity": "NOT_PASSED; raw Initialize/Start succeeded, first capture discontinuity failed"
   },
-  "last_attempted_commit": "25b6fc9b577fc0f9bf8d931c925c13ff262b72e6",
-  "last_attempted_result": "IsolatedonceFAILED heartbeat_write/ipc_failure after conversion phase;128ACKs/Job0/outputclosed;final resource check incomplete. No auto retry.",
+  "last_attempted_commit": "f9a622433084fb120494f4c66777df1380c8f42b",
+  "last_attempted_result": "PASS_REAL_WARMUP_ONLY11.7936089s/ReadyStopped/exactJob/actualJob0/114HBmax102/host7717109760/device1853882368/outputclosed/118equal. Not fullVC/T011DONE.",
   "latest_vbcable_diagnostic": {
     "authorization_id": "T009-EXACT-MIX-4b726af0-03d9-4553-ab95-a4416fe45145",
     "status": "CONSUMED_FAILED_NO_RETRY",
@@ -175,20 +199,27 @@
     "recorded_utc": "2026-10-05T13:11:39.4248355Z"
   },
   "latest_model_warmup": {
-    "source_commit": "25b6fc9b577fc0f9bf8d931c925c13ff262b72e6",
-    "status": "FAIL_REAL_WARMUP",
-    "error": "ipc_failure",
-    "failure_stage": "heartbeat_write",
-    "wall_seconds": 13.221287499999999,
-    "heartbeat_count": 128,
-    "max_heartbeat_gap_ms": 104,
-    "ready": false,
+    "source_commit": "f9a622433084fb120494f4c66777df1380c8f42b",
+    "status": "PASS_REAL_WARMUP_ONLY",
+    "error": "none",
+    "wall_seconds": 11.793608899999999,
+    "ready": true,
+    "stopped_ack": true,
+    "specific_model_job": true,
     "owned_job_empty": true,
-    "actual_model_GPU_execution": "PLACEMENT_AND_INTERNAL_CONVERSION_GUARDS_COMPLETED; READY_AND_RESOURCE_BUDGET_UNVERIFIED",
-    "last_model_phase": "finalize:before; no completion",
-    "host_device_bytes": "UNKNOWN",
-    "evidence": "docs/evidence/T011-20261005/isolated-once/result.json",
-    "not_reusable": true
+    "heartbeat_count": 114,
+    "max_heartbeat_gap_ms": 102,
+    "resources": {
+      "host_private_bytes": 7717109760,
+      "device_reserved_bytes": 1853882368,
+      "host_budget_bytes": 8589934592,
+      "device_budget_bytes": 4294967296
+    },
+    "resource_scope": "finalreset+sync/controller+child PrivateUsage and CUDAreserved snapshot/notpeak/steady/SPECtarget",
+    "actual_model_GPU_execution": "REAL_PREPARATION_VERIFIED; VC/speaker/vocoderCUDA,ASRCPU guards",
+    "evidence": "docs/evidence/T011-20261006/budget8-once/result.json",
+    "not_reusable": true,
+    "automatic_retry": false
   },
   "latest_isolated_warmup": {
     "source_commit": "25b6fc9b577fc0f9bf8d931c925c13ff262b72e6",
@@ -205,5 +236,369 @@
     "host_device_bytes": "UNKNOWN",
     "evidence": "docs/evidence/T011-20261005/isolated-once/result.json",
     "not_reusable": true
+  },
+  "latest_finalize_warmup": {
+    "source_commit": "e03fe0413bcb0d583f45ff92789f5f2b0f3424a1",
+    "status": "FAIL_REAL_WARMUP",
+    "error": "memory_pressure",
+    "failure_stage": "heartbeat_read",
+    "wall_seconds": 27.961236399999997,
+    "heartbeat_count": 264,
+    "max_heartbeat_gap_ms": 108,
+    "ready": false,
+    "owned_job_empty": true,
+    "actual_model_GPU_execution": "PLACEMENT_AND_INTERNAL_CONVERSION_GUARDS_COMPLETED; READY_REFUSED_RESOURCE_GATE",
+    "last_model_phase": "finalize:before; resource sampled; no completion",
+    "resources": {
+      "host_private_bytes": 6671941632,
+      "device_reserved_bytes": 1853882368,
+      "host_budget_bytes": 6442450944,
+      "device_budget_bytes": 4294967296
+    },
+    "resource_scope": "finalreset+sync snapshot/controller+child PrivateUsage and CUDA reserved,notpeak/steady/SPEC07target",
+    "evidence": "docs/evidence/T011-20261005/finalize-once/result.json",
+    "not_reusable": true,
+    "automatic_retry": false,
+    "independent_review": "docs/project/reviews/T011-finalize-limited.md"
+  },
+  "session_boundary": null,
+  "approved_change_requests": [
+    {
+      "id": "CR-0006",
+      "human_instruction": "上调至8GiB尝试，继续推进",
+      "scope": "T011 host warmup gate only6→8GiB; not SPEC07 planning targets",
+      "evidence": "docs/adr/0006-authorized-warmup-host-gate.md",
+      "actual_new_run": "PASS_REAL_WARMUP_ONLY",
+      "evidence_result": "docs/evidence/T011-20261006/budget8-once/result.json"
+    }
+  ],
+  "latest_budget8_warmup": {
+    "source_commit": "f9a622433084fb120494f4c66777df1380c8f42b",
+    "status": "PASS_REAL_WARMUP_ONLY",
+    "error": "none",
+    "wall_seconds": 11.793608899999999,
+    "ready": true,
+    "stopped_ack": true,
+    "specific_model_job": true,
+    "owned_job_empty": true,
+    "heartbeat_count": 114,
+    "max_heartbeat_gap_ms": 102,
+    "resources": {
+      "host_private_bytes": 7717109760,
+      "device_reserved_bytes": 1853882368,
+      "host_budget_bytes": 8589934592,
+      "device_budget_bytes": 4294967296
+    },
+    "resource_scope": "finalreset+sync/controller+child PrivateUsage and CUDAreserved snapshot/notpeak/steady/SPECtarget",
+    "actual_model_GPU_execution": "REAL_PREPARATION_VERIFIED; VC/speaker/vocoderCUDA,ASRCPU guards",
+    "evidence": "docs/evidence/T011-20261006/budget8-once/result.json",
+    "not_reusable": true,
+    "automatic_retry": false
+  },
+  "native_supervisor_attempt": {
+    "source_commit": "72a626ab372dce8e8f5a505f4ee8fc2266835806",
+    "status": "FAILED_CLEANUP_CONFIRMATION_UNKNOWN",
+    "evidence": "docs/evidence/T011-20261006/supervision-software/result.json",
+    "backend_stopped": true,
+    "root_codewriters": 0,
+    "GPU_audio_LAN_leases": 0,
+    "Job0": "NOT_PROVEN",
+    "remaining7_cases": "NOT_INDEPENDENTLY_VALIDATED",
+    "independent_review": "docs/project/reviews/T011-supervision-limited.md",
+    "S2": "OBSERVATION_AND_CONTROL_DEADLINE_AND_FIXED_FIRSTCASE_MEMBER_CONFIRMATION_CLOSED; OTHER7/HISTORY/REALMODEL_UNVERIFIED",
+    "observation_repair": "SOFTWARE_PASS; FIRST_NATIVE_CASE_INDEPENDENTLY_SIGNED_ONLY; OTHER7/HISTORY/NEWOWNER_REALMODEL_NOT_RUN",
+    "observation_evidence": "docs/evidence/T011-20261006/cleanup-observation/result.json",
+    "latest_evidence": "docs/evidence/T011-20261006/member-confirmation/result.json",
+    "latest_limited_review": "docs/project/reviews/T011-member-preflight.md"
+  },
+  "previous_session_boundary": {
+    "recorded_utc": "2026-10-05T17:30:21.059183+00:00",
+    "all_children_stopped": true,
+    "source_writers": 0,
+    "gpu_audio_lan_leases": 0,
+    "next_task": "T011",
+    "next_slice": "Bounded same-model memory attribution software; do not reuse consumed once or relax budget. Fresh independently reviewed configuration before any actual model test. T009 vendor/native capture initialization diagnostic still required.",
+    "background_work": false
+  },
+  "native_diagnostic_lease": {
+    "task": "T011",
+    "owner": "/root",
+    "registered_utc": "2026-10-05T19:27:28.994251+00:00",
+    "status": "RELEASED",
+    "max_ms": 15000,
+    "config_sha256": "e2c7ed3fa5c87b8507a7b2f4ab0094c8365c3cbfa0773356d8f0847de0b5654c",
+    "GPU_audio_LAN": false,
+    "automatic_retry": false,
+    "released_utc": "2026-10-05T19:30:44.206067+00:00",
+    "result": "PASS_NATIVE_FIRSTCASE_ONLY"
+  },
+  "latest_native_cleanup_diagnostic": {
+    "source_commit": "8537187433b0ddf45487e4e3fc77ec33eeea86d9",
+    "source_count": 121,
+    "root_checks": [
+      {
+        "name": "integration-platform-error-tests",
+        "exit": 0,
+        "wall_seconds": 2.6431402,
+        "both121_equal": true
+      },
+      {
+        "name": "integration-member-snapshot-tests",
+        "exit": 0,
+        "wall_seconds": 0.3787298,
+        "both121_equal": true
+      },
+      {
+        "name": "integration-cleanup-observation-tests",
+        "exit": 0,
+        "wall_seconds": 3.7657757999999997,
+        "both121_equal": true
+      },
+      {
+        "name": "integration-fmt",
+        "exit": 0,
+        "wall_seconds": 0.8532734999999999,
+        "both121_equal": true
+      },
+      {
+        "name": "integration-clippy",
+        "exit": 0,
+        "wall_seconds": 7.539501,
+        "both121_equal": true
+      },
+      {
+        "name": "integration-examples",
+        "exit": 0,
+        "wall_seconds": 7.3924883999999995,
+        "both121_equal": true
+      }
+    ],
+    "pure_Rust_tests": 15,
+    "Python_tests": "NOT_REPEATED; unchanged Python retains d806 66test evidence only",
+    "native_case": "PASS_NATIVE_FIRSTCASE_ONLY",
+    "specific_Job_members_verified": 4,
+    "all4_retained_native_handles_exited": true,
+    "Job_active": 0,
+    "Job_id_count": 0,
+    "controller_signaled": true,
+    "stopped_ack": true,
+    "policy_confirmed": true,
+    "output_allowed": false,
+    "cleanup_elapsed_ms": 4,
+    "wall_seconds": 0.2958397,
+    "exit": 0,
+    "no_retry": true,
+    "remaining7": "NOT_RUN",
+    "model_GPU_audio_LAN": "NOT_RUN",
+    "T011": "IN_PROGRESS",
+    "old09_cause": "UNKNOWN",
+    "oldr3": "FAILED_WAIT_CONTROLLER_UNSIGNALED",
+    "olddad": "FAILED_OTHER_NATIVE_HANDLE_NOT_EXITED",
+    "independent_review": "SIGNED_PASS_NATIVE_FIRSTCASE_ONLY; UUID01a1077c-556d-7152-892c-d9f92346ec0f; no rerun",
+    "history_and_realworker_coverage": "UNVERIFIED; missing historical member refuses release",
+    "config_sha256": "e2c7ed3fa5c87b8507a7b2f4ab0094c8365c3cbfa0773356d8f0847de0b5654c",
+    "supervisor_sha256": "6370c090dc5ce28dc9dc826fe09beba3758169e01ce6d4eaa895ab31ed48a2d4",
+    "binary_sha256": "fdc6649ff82599e08e2ab6445a6a91dff78cb10fc822c712dddc1d09262634d4",
+    "evidence": "docs/evidence/T011-20261006/member-confirmation/result.json"
+  },
+  "work_priority": [
+    "T011",
+    "T009",
+    "T012",
+    "T013",
+    "T014",
+    "T015"
+  ],
+  "audio_diagnostic_lease": {
+    "status": "RELEASED",
+    "owner": "/root",
+    "task": "T009",
+    "scope": "same fixed VB-CABLE pair explicit primedRAW capture prep plus governed synthetic marker; no physical",
+    "active_ms": 2000,
+    "total_ms": 15000,
+    "authorization_id": "T009-PRIMED-ba005b32-8091-44e6-83fd-75a857066867",
+    "review": "docs/project/reviews/T009-primed-preflight.md",
+    "acquired_utc": "2026-10-05T20:37:52.427043+00:00",
+    "released_utc": "2026-10-05T20:39:25.999075+00:00",
+    "result": {
+      "source_commit": "41299a5f176bbdca8a0931c793391b587d49498d",
+      "status": "FAILED_MUTED_NOT_ROUTE_PASS",
+      "startup_passed": true,
+      "startup_seconds": 0.0336396,
+      "marker_phase_discontinuity_packets": 1,
+      "timestamp_errors": 0,
+      "underflow_frames": 0,
+      "active_seconds": 1.1010648,
+      "cleanup": "CONFIRMED_BY_CHILD",
+      "source_after_33_equal": true,
+      "meaning": "Explicit RAW Initialization and Start passed; startup preparation passed; stable marker correlation not evaluated because one later discontinuity. Origin of later discontinuity UNKNOWN. No VC/FFmpeg/third-party/long-stability evidence. No retry or original-voice fallback."
+    }
+  },
+  "latest_vbcable_raw_diagnostic": {
+    "task": "T009",
+    "authorization_id": "T009-RAW-1c5956a8-ac15-470b-9fc9-beb2829bad72",
+    "status": "FAIL_ROUTE_PROBE",
+    "child_exit": 1,
+    "timed_out": false,
+    "child_terminated": false,
+    "error": "capture discontinuity or invalid timestamp",
+    "report": {
+      "ack_ready": true,
+      "active_wall_seconds": 0.0213445,
+      "capture_capacity_frames": 1056,
+      "capture_close_error": null,
+      "capture_closed": true,
+      "capture_frames": 0,
+      "capture_packets": 1,
+      "descriptor_mode": "CAPTURE_RAW_EXACT_MIX_RENDER_BASIC",
+      "discontinuity_packets": 1,
+      "marker_amplitude": 0.009999999776482582,
+      "marker_frames": 2400,
+      "match": null,
+      "maximum_marker_seconds": 5,
+      "maximum_process_seconds": 15,
+      "model_quality": "NOT_TESTED",
+      "os_tail": "UNKNOWN",
+      "pcm_saved": false,
+      "physical_capture": "NEVER_STARTED",
+      "process_wall_seconds": 0.1707554,
+      "render_capacity_frames": 1056,
+      "render_close_error": null,
+      "render_closed": true,
+      "requested_maximum_frames": 1440,
+      "requested_seconds": 2,
+      "route_profile": "VB_CABLE",
+      "run_error": "capture discontinuity or invalid timestamp",
+      "run_ok": false,
+      "sink_pcm_frames": 960,
+      "sink_silence_frames": 0,
+      "status": "FAILED_MUTED",
+      "timestamp_error_packets": 0,
+      "underflow_frames": 0,
+      "wall_including_close_seconds": 0.0250638,
+      "watch_close_error": null,
+      "watch_closed": true
+    },
+    "cleanup": "CONFIRMED_BY_CHILD",
+    "pcm_saved": false,
+    "physical_capture": "NEVER_STARTED",
+    "physical_render": "NEVER_STARTED",
+    "os_buffer_erasure": "UNKNOWN",
+    "source_commit": "8537187433b0ddf45487e4e3fc77ec33eeea86d9",
+    "executable_sha256": "f22d2c49e1137aa98f7046f60979948bcfd7afb1503b2f733fa1b5d11784ad89",
+    "scope_sha256": "f1b3241fdd3e887e5cef6d60d152320f7b6aeca2ed4c06adc156b6cd519baeca",
+    "supervisor_sha256": "3dba9dec227bc8972fe6ed8b28ef8d602e80aea7a694373a65596b624b822dc8",
+    "config_sha256": "590efda5d4d1e74e98439accccb6640af4b5585547e4a73f6aa8859b14fee7a8",
+    "started_utc": "2026-10-05T20:07:31.9376256Z",
+    "process_id": 23000,
+    "finished_utc": "2026-10-05T20:07:32.2733358Z",
+    "wall_seconds": 0.3363004,
+    "stdout": {
+      "bytes": 951,
+      "sha256": "8ec63c5e1a74badb10fdf6d59577a5ad4e0bda048f75449b815809943e473d6c"
+    },
+    "stderr": {
+      "bytes": 51,
+      "sha256": "ef5e5d01ec7b1ba3be6838a73c6e409c97d70a2490a9752d8b3c4badf44ba717"
+    },
+    "evidence": "docs/evidence/T009-20261006/raw-capture/result.json"
+  },
+  "third_party_first_target": "FFmpeg; explicit human reply, received VC NOT_RUN",
+  "lifetime_root_checks": {
+    "commit": "2c15bd04bafbe7bacd61d5b5c7f74f409d761cea",
+    "pure_tests": 56,
+    "all_six_exit": 0,
+    "source_count": 121,
+    "source_maps_equal": true,
+    "evidence": "docs/evidence/T011-20261006/lifetime",
+    "native": "NOT_RUN",
+    "real_supervisor_model": "NOT_RUN",
+    "third_party": "NOT_RUN"
+  },
+  "native_worker_test_lease": {
+    "status": "RELEASED",
+    "owner": "/root",
+    "task": "T011",
+    "max_ms": 20000,
+    "scope": "single exact new closed EOF observation; fixed Pythonpeer, no Torch/model/GPU/audio/LAN",
+    "review": "docs/project/reviews/T011-observation-preflight.md",
+    "acquired_utc": "2026-10-05T20:44:28.486635+00:00",
+    "released_utc": "2026-10-05T20:51:49.758690+00:00",
+    "result": "FAILED_EOF_CLASSIFICATION_CLEANUP_CONFIRMED"
+  },
+  "lifetime_native_result": {
+    "commit": "2c15bd04bafbe7bacd61d5b5c7f74f409d761cea",
+    "exit": 101,
+    "wall_seconds": 4.7352413,
+    "passed_pure": 11,
+    "passed_native": 4,
+    "first_failure": "eof mode returned Protocol, expected Eof, tests line456; original vs cleanup failure attribution UNKNOWN",
+    "subsequent": {
+      "old_epoch": "NOT_VALIDATED_MUTEX_POISON",
+      "shared_deadline": "NOT_VALIDATED_MUTEX_POISON",
+      "restart": "NOT_VALIDATED_MUTEX_POISON"
+    },
+    "evidence": "docs/evidence/T011-20261006/lifetime/native-once",
+    "source_count": 121,
+    "same": true,
+    "retry": false,
+    "real_newowner_model": "NOT_RUN"
+  },
+  "latest_vbcable_primed_diagnostic": {
+    "source_commit": "41299a5f176bbdca8a0931c793391b587d49498d",
+    "status": "FAILED_MUTED_NOT_ROUTE_PASS",
+    "startup_passed": true,
+    "startup_seconds": 0.0336396,
+    "marker_phase_discontinuity_packets": 1,
+    "timestamp_errors": 0,
+    "underflow_frames": 0,
+    "active_seconds": 1.1010648,
+    "cleanup": "CONFIRMED_BY_CHILD",
+    "source_after_33_equal": true,
+    "meaning": "Explicit RAW Initialization and Start passed; startup preparation passed; stable marker correlation not evaluated because one later discontinuity. Origin of later discontinuity UNKNOWN. No VC/FFmpeg/third-party/long-stability evidence. No retry or original-voice fallback."
+  },
+  "latest_eof_scalar": {
+    "evidence": "docs/evidence/T011-20261006/lifetime-observation/native-once/result.json",
+    "child_exit": 101,
+    "cleanup_confirmed": true,
+    "member_failure": null,
+    "actual_pipe_hresult": "UNKNOWN",
+    "status": "FAILED_CLASSIFICATION",
+    "remaining_modes": "NOT_RUN",
+    "automatic_retry": false
+  },
+  "ffmpeg_receiver": {
+    "selected_by": "human: first FFmpeg",
+    "identity": "VERIFIED_METADATA_ONLY",
+    "identity_evidence": "docs/evidence/T009-20261006/ffmpeg-identity/result.json",
+    "capture": "NOT_RUN",
+    "converted_receipt": "NOT_RUN"
+  },
+  "latest_integrated_software": {
+    "source_commit": "e1bd4b205a2ab75b9ca5353d9f9562235afdef00",
+    "pure_tests": 145,
+    "counts": {
+      "01-platform": 35,
+      "02-observation": 11,
+      "03-lifecycle": 16,
+      "03b-audio": 83
+    },
+    "checks": "ALL7_EXIT0",
+    "inputs": 126,
+    "equal": true,
+    "evidence": "docs/evidence/T011-20261006/pipefix/",
+    "native_model_audio": "NOT_RUN"
+  },
+  "repository_sync": {
+    "remote": "origin",
+    "url": "https://github.com/FoLAWy-py/witvoice.git",
+    "local_branch": "master",
+    "remote_branch": "main",
+    "authorization": "Human explicitly requested binding this repository and uploading the current project on 2026-10-06.",
+    "scope": "Current source, documentation and text evidence with existing local history; excludes ignored private/runtime assets.",
+    "remote_initial_commit": "055abe06773731c18414eb2c269cd5f4ff57eee7",
+    "method": "Preserve both histories by merging the remote initial commit; normal push without force.",
+    "application_validation": "Existing evidence preserved; this synchronization runs only the SPEC/ledger validator and Git checks.",
+    "recorded_utc": "2026-10-05T21:06:26.506040+00:00"
   }
 }

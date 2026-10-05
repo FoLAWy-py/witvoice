@@ -1,0 +1,34 @@
+{
+  "ANALYSIS.md": {
+    "bytes": 1951,
+    "sha256": "fde2e48c05030ce947078b5fdd6bf828128c98dcd2908b153c19ea9d19179018"
+  },
+  "config.json": {
+    "bytes": 14859,
+    "sha256": "8da1df0e3757ae2cd3f94f8da63a3b233ed31967effa4fe67361d551414317b5"
+  },
+  "execute.ps1": {
+    "bytes": 9710,
+    "sha256": "e7acca38d166100621a1c92dafae9ac8789dda7876ee2a02cf38ece8f949906c"
+  },
+  "prepare-stages.ndjson": {
+    "bytes": 1056,
+    "sha256": "95663ebeaa879e4845eec3f0ca455536587317767e205707a3099a2b4b019104"
+  },
+  "resources.json": {
+    "bytes": 132,
+    "sha256": "f19e388d501550edf2a40dcb3f3dc7a98c61e276a7bb731c6dd9dbdfd2439689"
+  },
+  "result.json": {
+    "bytes": 7319,
+    "sha256": "48a3113afeeec7e4205ba1eb0b5ce430269cbf4e84589f51cf0dc74bce6d1e35"
+  },
+  "stderr.raw": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stdout.raw": {
+    "bytes": 932,
+    "sha256": "80cfbe1d6b29a7e9d037a8cbefefbb9313ebbbd5811fa940a9c5a42c4358d593"
+  }
+}

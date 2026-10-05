@@ -1,0 +1,854 @@
+{
+    "task":  "T011-minimal-exact-job-members-confirmation",
+    "actual_agent":  "/root/backend",
+    "actual_agent_uuid":  "01a10767-4ff5-7f21-881a-146d094fbc55",
+    "created_utc":  "2026-10-05T19:23:26.5108134Z",
+    "status":  "STOP_WRITES_STOP_CARGO",
+    "host":  "5.1.26100.7462",
+    "source_before_edit":  [
+                               {
+                                   "sha256":  "65082543ac42d3d18d03cdd60f384ec2d7c58c011cfc6c341ebeb255bd1c4f36",
+                                   "path":  "crates/engines/src/supervisor.rs"
+                               },
+                               {
+                                   "sha256":  "42ff54c4ebd9156865459198ab869c575772fc14f36fb1825b3dc262c21d263c",
+                                   "path":  "crates/engines/tests/worker_supervision.rs"
+                               }
+                           ],
+    "sources":  [
+                    {
+                        "path":  "crates/engines/src/supervisor.rs",
+                        "bytes":  31218,
+                        "sha256":  "286f7d8e36657d8469203ea2b6de37b5e406a415d3be7f44466de3c5e5bbe55d"
+                    },
+                    {
+                        "path":  "crates/engines/tests/worker_supervision.rs",
+                        "bytes":  21302,
+                        "sha256":  "40aba769b5add6039f68a30ab20b14ba0eeae7a4240147fecec3cb0a36c441cd"
+                    }
+                ],
+    "checks":  [
+                   {
+                       "exit_code":  0,
+                       "env":  {
+                                   "RUSTFLAGS":  null,
+                                   "RUSTUP_HOME":  "D:\\Software\\WitvoiceToolchain\\Rust\\rustup",
+                                   "CARGO_BUILD_JOBS":  "1",
+                                   "CARGO_TARGET_DIR":  "D:\\Project\\witvoice\\.local\\t008-t016-r2-leader\\target",
+                                   "CARGO_HOME":  "D:\\Software\\WitvoiceToolchain\\Rust\\cargo",
+                                   "CARGO_INCREMENTAL":  "0",
+                                   "CARGO_ENCODED_RUSTFLAGS":  null
+                               },
+                       "source_before":  [
+                                             {
+                                                 "path":  "crates/engines/src/supervisor.rs",
+                                                 "sha256":  "86dd75dd022886095a289f57a455778f14e1b56b8ce7987fbee0ad733363907e",
+                                                 "bytes":  31475
+                                             },
+                                             {
+                                                 "path":  "crates/engines/tests/worker_supervision.rs",
+                                                 "sha256":  "6610dc1c5ed1eb3598a08c3855a138465fe6e732c999b8c1bcbbecc3a48550a6",
+                                                 "bytes":  21336
+                                             },
+                                             {
+                                                 "path":  "tests/integration/worker_supervision_peer.py",
+                                                 "sha256":  "79981208e2f8e66c7a0a0c307a4a5c9727701797810022d2e341e95470e7b667",
+                                                 "bytes":  6550
+                                             },
+                                             {
+                                                 "path":  "crates/platform/src/process.rs",
+                                                 "sha256":  "f8dcc9086ef604be39208d668692d4d665f92bfb0da8d145b5f6147a567b1c0f",
+                                                 "bytes":  30903
+                                             },
+                                             {
+                                                 "path":  "crates/platform/src/lib.rs",
+                                                 "sha256":  "704e38723096defde9950593a57da6005348cfa2d362a0d2cd32cdf2dd07836a",
+                                                 "bytes":  377
+                                             },
+                                             {
+                                                 "path":  "crates/engines/src/lifecycle.rs",
+                                                 "sha256":  "2cb8b40a16c5169780810df0dc6892f37a7c6e55b61f1efa7e2e639ee1fc1675",
+                                                 "bytes":  14245
+                                             },
+                                             {
+                                                 "path":  "Cargo.lock",
+                                                 "sha256":  "98c5ffc4880143547576e12c440b97264c98c57b4ecea6c0e073a3bc2c765ac5",
+                                                 "bytes":  18998
+                                             }
+                                         ],
+                       "start_utc":  "2026-10-05T19:19:30.9176666Z",
+                       "end_utc":  "2026-10-05T19:19:31.0925360Z",
+                       "stdout":  {
+                                      "path":  "D:\\Project\\witvoice\\.local\\t011-member-author\\01-fmt.stdout",
+                                      "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                                      "bytes":  0
+                                  },
+                       "actual_agent_uuid":  "01a10767-4ff5-7f21-881a-146d094fbc55",
+                       "cwd":  "D:\\Project\\witvoice",
+                       "source_after":  [
+                                            {
+                                                "path":  "crates/engines/src/supervisor.rs",
+                                                "sha256":  "86dd75dd022886095a289f57a455778f14e1b56b8ce7987fbee0ad733363907e",
+                                                "bytes":  31475
+                                            },
+                                            {
+                                                "path":  "crates/engines/tests/worker_supervision.rs",
+                                                "sha256":  "40aba769b5add6039f68a30ab20b14ba0eeae7a4240147fecec3cb0a36c441cd",
+                                                "bytes":  21302
+                                            },
+                                            {
+                                                "path":  "tests/integration/worker_supervision_peer.py",
+                                                "sha256":  "79981208e2f8e66c7a0a0c307a4a5c9727701797810022d2e341e95470e7b667",
+                                                "bytes":  6550
+                                            },
+                                            {
+                                                "path":  "crates/platform/src/process.rs",
+                                                "sha256":  "f8dcc9086ef604be39208d668692d4d665f92bfb0da8d145b5f6147a567b1c0f",
+                                                "bytes":  30903
+                                            },
+                                            {
+                                                "path":  "crates/platform/src/lib.rs",
+                                                "sha256":  "704e38723096defde9950593a57da6005348cfa2d362a0d2cd32cdf2dd07836a",
+                                                "bytes":  377
+                                            },
+                                            {
+                                                "path":  "crates/engines/src/lifecycle.rs",
+                                                "sha256":  "2cb8b40a16c5169780810df0dc6892f37a7c6e55b61f1efa7e2e639ee1fc1675",
+                                                "bytes":  14245
+                                            },
+                                            {
+                                                "path":  "Cargo.lock",
+                                                "sha256":  "98c5ffc4880143547576e12c440b97264c98c57b4ecea6c0e073a3bc2c765ac5",
+                                                "bytes":  18998
+                                            }
+                                        ],
+                       "kind":  "fmt",
+                       "host":  "5.1.26100.7462",
+                       "label":  "01-fmt",
+                       "binary":  "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\rustfmt.exe",
+                       "stderr":  {
+                                      "path":  "D:\\Project\\witvoice\\.local\\t011-member-author\\01-fmt.stderr",
+                                      "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                                      "bytes":  0
+                                  },
+                       "runner_sha256":  "4b778e715d72223dfce72faa4b2770f545c85ca8355ef9b8aab886bda275f8a2",
+                       "argv":  [
+                                    "--edition",
+                                    "2024",
+                                    "crates/engines/src/supervisor.rs",
+                                    "crates/engines/tests/worker_supervision.rs"
+                                ]
+                   },
+                   {
+                       "exit_code":  0,
+                       "env":  {
+                                   "RUSTFLAGS":  null,
+                                   "RUSTUP_HOME":  "D:\\Software\\WitvoiceToolchain\\Rust\\rustup",
+                                   "CARGO_BUILD_JOBS":  "1",
+                                   "CARGO_TARGET_DIR":  "D:\\Project\\witvoice\\.local\\t008-t016-r2-leader\\target",
+                                   "CARGO_HOME":  "D:\\Software\\WitvoiceToolchain\\Rust\\cargo",
+                                   "CARGO_INCREMENTAL":  "0",
+                                   "CARGO_ENCODED_RUSTFLAGS":  null
+                               },
+                       "source_before":  [
+                                             {
+                                                 "path":  "crates/engines/src/supervisor.rs",
+                                                 "sha256":  "86dd75dd022886095a289f57a455778f14e1b56b8ce7987fbee0ad733363907e",
+                                                 "bytes":  31475
+                                             },
+                                             {
+                                                 "path":  "crates/engines/tests/worker_supervision.rs",
+                                                 "sha256":  "40aba769b5add6039f68a30ab20b14ba0eeae7a4240147fecec3cb0a36c441cd",
+                                                 "bytes":  21302
+                                             },
+                                             {
+                                                 "path":  "tests/integration/worker_supervision_peer.py",
+                                                 "sha256":  "79981208e2f8e66c7a0a0c307a4a5c9727701797810022d2e341e95470e7b667",
+                                                 "bytes":  6550
+                                             },
+                                             {
+                                                 "path":  "crates/platform/src/process.rs",
+                                                 "sha256":  "b4e438dc05b880a20f8af36a3bc77795b01fdbe967211df4a1dd947322c97b2a",
+                                                 "bytes":  30653
+                                             },
+                                             {
+                                                 "path":  "crates/platform/src/lib.rs",
+                                                 "sha256":  "704e38723096defde9950593a57da6005348cfa2d362a0d2cd32cdf2dd07836a",
+                                                 "bytes":  377
+                                             },
+                                             {
+                                                 "path":  "crates/engines/src/lifecycle.rs",
+                                                 "sha256":  "2cb8b40a16c5169780810df0dc6892f37a7c6e55b61f1efa7e2e639ee1fc1675",
+                                                 "bytes":  14245
+                                             },
+                                             {
+                                                 "path":  "Cargo.lock",
+                                                 "sha256":  "98c5ffc4880143547576e12c440b97264c98c57b4ecea6c0e073a3bc2c765ac5",
+                                                 "bytes":  18998
+                                             }
+                                         ],
+                       "start_utc":  "2026-10-05T19:20:49.3744258Z",
+                       "end_utc":  "2026-10-05T19:20:53.1429910Z",
+                       "stdout":  {
+                                      "path":  "D:\\Project\\witvoice\\.local\\t011-member-author\\02-observation-tests.stdout",
+                                      "sha256":  "d09a833bc89c5e6f8f349ab9b61478c921fba04a3c5775aae563b34e7e970734",
+                                      "bytes":  1007
+                                  },
+                       "actual_agent_uuid":  "01a10767-4ff5-7f21-881a-146d094fbc55",
+                       "cwd":  "D:\\Project\\witvoice",
+                       "source_after":  [
+                                            {
+                                                "path":  "crates/engines/src/supervisor.rs",
+                                                "sha256":  "86dd75dd022886095a289f57a455778f14e1b56b8ce7987fbee0ad733363907e",
+                                                "bytes":  31475
+                                            },
+                                            {
+                                                "path":  "crates/engines/tests/worker_supervision.rs",
+                                                "sha256":  "40aba769b5add6039f68a30ab20b14ba0eeae7a4240147fecec3cb0a36c441cd",
+                                                "bytes":  21302
+                                            },
+                                            {
+                                                "path":  "tests/integration/worker_supervision_peer.py",
+                                                "sha256":  "79981208e2f8e66c7a0a0c307a4a5c9727701797810022d2e341e95470e7b667",
+                                                "bytes":  6550
+                                            },
+                                            {
+                                                "path":  "crates/platform/src/process.rs",
+                                                "sha256":  "b4e438dc05b880a20f8af36a3bc77795b01fdbe967211df4a1dd947322c97b2a",
+                                                "bytes":  30653
+                                            },
+                                            {
+                                                "path":  "crates/platform/src/lib.rs",
+                                                "sha256":  "704e38723096defde9950593a57da6005348cfa2d362a0d2cd32cdf2dd07836a",
+                                                "bytes":  377
+                                            },
+                                            {
+                                                "path":  "crates/engines/src/lifecycle.rs",
+                                                "sha256":  "2cb8b40a16c5169780810df0dc6892f37a7c6e55b61f1efa7e2e639ee1fc1675",
+                                                "bytes":  14245
+                                            },
+                                            {
+                                                "path":  "Cargo.lock",
+                                                "sha256":  "98c5ffc4880143547576e12c440b97264c98c57b4ecea6c0e073a3bc2c765ac5",
+                                                "bytes":  18998
+                                            }
+                                        ],
+                       "kind":  "tests",
+                       "host":  "5.1.26100.7462",
+                       "label":  "02-observation-tests",
+                       "binary":  "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\cargo.exe",
+                       "stderr":  {
+                                      "path":  "D:\\Project\\witvoice\\.local\\t011-member-author\\02-observation-tests.stderr",
+                                      "sha256":  "41d2c5488740cd146d88c3d6f4dd62a6f5f2fda87b3886fb2f8154e12ac35b55",
+                                      "bytes":  812
+                                  },
+                       "runner_sha256":  "4b778e715d72223dfce72faa4b2770f545c85ca8355ef9b8aab886bda275f8a2",
+                       "argv":  [
+                                    "test",
+                                    "--locked",
+                                    "--offline",
+                                    "-p",
+                                    "witvoice-engines",
+                                    "--test",
+                                    "worker_supervision",
+                                    "cleanup_observation",
+                                    "--",
+                                    "--test-threads=1"
+                                ]
+                   },
+                   {
+                       "exit_code":  0,
+                       "env":  {
+                                   "RUSTFLAGS":  null,
+                                   "RUSTUP_HOME":  "D:\\Software\\WitvoiceToolchain\\Rust\\rustup",
+                                   "CARGO_BUILD_JOBS":  "1",
+                                   "CARGO_TARGET_DIR":  "D:\\Project\\witvoice\\.local\\t008-t016-r2-leader\\target",
+                                   "CARGO_HOME":  "D:\\Software\\WitvoiceToolchain\\Rust\\cargo",
+                                   "CARGO_INCREMENTAL":  "0",
+                                   "CARGO_ENCODED_RUSTFLAGS":  null
+                               },
+                       "source_before":  [
+                                             {
+                                                 "path":  "crates/engines/src/supervisor.rs",
+                                                 "sha256":  "86dd75dd022886095a289f57a455778f14e1b56b8ce7987fbee0ad733363907e",
+                                                 "bytes":  31475
+                                             },
+                                             {
+                                                 "path":  "crates/engines/tests/worker_supervision.rs",
+                                                 "sha256":  "40aba769b5add6039f68a30ab20b14ba0eeae7a4240147fecec3cb0a36c441cd",
+                                                 "bytes":  21302
+                                             },
+                                             {
+                                                 "path":  "tests/integration/worker_supervision_peer.py",
+                                                 "sha256":  "79981208e2f8e66c7a0a0c307a4a5c9727701797810022d2e341e95470e7b667",
+                                                 "bytes":  6550
+                                             },
+                                             {
+                                                 "path":  "crates/platform/src/process.rs",
+                                                 "sha256":  "b4e438dc05b880a20f8af36a3bc77795b01fdbe967211df4a1dd947322c97b2a",
+                                                 "bytes":  30653
+                                             },
+                                             {
+                                                 "path":  "crates/platform/src/lib.rs",
+                                                 "sha256":  "704e38723096defde9950593a57da6005348cfa2d362a0d2cd32cdf2dd07836a",
+                                                 "bytes":  377
+                                             },
+                                             {
+                                                 "path":  "crates/engines/src/lifecycle.rs",
+                                                 "sha256":  "2cb8b40a16c5169780810df0dc6892f37a7c6e55b61f1efa7e2e639ee1fc1675",
+                                                 "bytes":  14245
+                                             },
+                                             {
+                                                 "path":  "Cargo.lock",
+                                                 "sha256":  "98c5ffc4880143547576e12c440b97264c98c57b4ecea6c0e073a3bc2c765ac5",
+                                                 "bytes":  18998
+                                             }
+                                         ],
+                       "start_utc":  "2026-10-05T19:21:04.6614234Z",
+                       "end_utc":  "2026-10-05T19:21:04.8582962Z",
+                       "stdout":  {
+                                      "path":  "D:\\Project\\witvoice\\.local\\t011-member-author\\03-fmtcheck.stdout",
+                                      "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                                      "bytes":  0
+                                  },
+                       "actual_agent_uuid":  "01a10767-4ff5-7f21-881a-146d094fbc55",
+                       "cwd":  "D:\\Project\\witvoice",
+                       "source_after":  [
+                                            {
+                                                "path":  "crates/engines/src/supervisor.rs",
+                                                "sha256":  "86dd75dd022886095a289f57a455778f14e1b56b8ce7987fbee0ad733363907e",
+                                                "bytes":  31475
+                                            },
+                                            {
+                                                "path":  "crates/engines/tests/worker_supervision.rs",
+                                                "sha256":  "40aba769b5add6039f68a30ab20b14ba0eeae7a4240147fecec3cb0a36c441cd",
+                                                "bytes":  21302
+                                            },
+                                            {
+                                                "path":  "tests/integration/worker_supervision_peer.py",
+                                                "sha256":  "79981208e2f8e66c7a0a0c307a4a5c9727701797810022d2e341e95470e7b667",
+                                                "bytes":  6550
+                                            },
+                                            {
+                                                "path":  "crates/platform/src/process.rs",
+                                                "sha256":  "b4e438dc05b880a20f8af36a3bc77795b01fdbe967211df4a1dd947322c97b2a",
+                                                "bytes":  30653
+                                            },
+                                            {
+                                                "path":  "crates/platform/src/lib.rs",
+                                                "sha256":  "704e38723096defde9950593a57da6005348cfa2d362a0d2cd32cdf2dd07836a",
+                                                "bytes":  377
+                                            },
+                                            {
+                                                "path":  "crates/engines/src/lifecycle.rs",
+                                                "sha256":  "2cb8b40a16c5169780810df0dc6892f37a7c6e55b61f1efa7e2e639ee1fc1675",
+                                                "bytes":  14245
+                                            },
+                                            {
+                                                "path":  "Cargo.lock",
+                                                "sha256":  "98c5ffc4880143547576e12c440b97264c98c57b4ecea6c0e073a3bc2c765ac5",
+                                                "bytes":  18998
+                                            }
+                                        ],
+                       "kind":  "fmtcheck",
+                       "host":  "5.1.26100.7462",
+                       "label":  "03-fmtcheck",
+                       "binary":  "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\rustfmt.exe",
+                       "stderr":  {
+                                      "path":  "D:\\Project\\witvoice\\.local\\t011-member-author\\03-fmtcheck.stderr",
+                                      "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                                      "bytes":  0
+                                  },
+                       "runner_sha256":  "4b778e715d72223dfce72faa4b2770f545c85ca8355ef9b8aab886bda275f8a2",
+                       "argv":  [
+                                    "--edition",
+                                    "2024",
+                                    "--check",
+                                    "crates/engines/src/supervisor.rs",
+                                    "crates/engines/tests/worker_supervision.rs"
+                                ]
+                   },
+                   {
+                       "exit_code":  0,
+                       "env":  {
+                                   "RUSTFLAGS":  null,
+                                   "RUSTUP_HOME":  "D:\\Software\\WitvoiceToolchain\\Rust\\rustup",
+                                   "CARGO_BUILD_JOBS":  "1",
+                                   "CARGO_TARGET_DIR":  "D:\\Project\\witvoice\\.local\\t008-t016-r2-leader\\target",
+                                   "CARGO_HOME":  "D:\\Software\\WitvoiceToolchain\\Rust\\cargo",
+                                   "CARGO_INCREMENTAL":  "0",
+                                   "CARGO_ENCODED_RUSTFLAGS":  null
+                               },
+                       "source_before":  [
+                                             {
+                                                 "path":  "crates/engines/src/supervisor.rs",
+                                                 "sha256":  "286f7d8e36657d8469203ea2b6de37b5e406a415d3be7f44466de3c5e5bbe55d",
+                                                 "bytes":  31218
+                                             },
+                                             {
+                                                 "path":  "crates/engines/tests/worker_supervision.rs",
+                                                 "sha256":  "40aba769b5add6039f68a30ab20b14ba0eeae7a4240147fecec3cb0a36c441cd",
+                                                 "bytes":  21302
+                                             },
+                                             {
+                                                 "path":  "tests/integration/worker_supervision_peer.py",
+                                                 "sha256":  "79981208e2f8e66c7a0a0c307a4a5c9727701797810022d2e341e95470e7b667",
+                                                 "bytes":  6550
+                                             },
+                                             {
+                                                 "path":  "crates/platform/src/process.rs",
+                                                 "sha256":  "b4e438dc05b880a20f8af36a3bc77795b01fdbe967211df4a1dd947322c97b2a",
+                                                 "bytes":  30653
+                                             },
+                                             {
+                                                 "path":  "crates/platform/src/lib.rs",
+                                                 "sha256":  "704e38723096defde9950593a57da6005348cfa2d362a0d2cd32cdf2dd07836a",
+                                                 "bytes":  377
+                                             },
+                                             {
+                                                 "path":  "crates/engines/src/lifecycle.rs",
+                                                 "sha256":  "2cb8b40a16c5169780810df0dc6892f37a7c6e55b61f1efa7e2e639ee1fc1675",
+                                                 "bytes":  14245
+                                             },
+                                             {
+                                                 "path":  "Cargo.lock",
+                                                 "sha256":  "98c5ffc4880143547576e12c440b97264c98c57b4ecea6c0e073a3bc2c765ac5",
+                                                 "bytes":  18998
+                                             }
+                                         ],
+                       "start_utc":  "2026-10-05T19:22:04.7721257Z",
+                       "end_utc":  "2026-10-05T19:22:04.9253485Z",
+                       "stdout":  {
+                                      "path":  "D:\\Project\\witvoice\\.local\\t011-member-author\\04-fmt.stdout",
+                                      "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                                      "bytes":  0
+                                  },
+                       "actual_agent_uuid":  "01a10767-4ff5-7f21-881a-146d094fbc55",
+                       "cwd":  "D:\\Project\\witvoice",
+                       "source_after":  [
+                                            {
+                                                "path":  "crates/engines/src/supervisor.rs",
+                                                "sha256":  "286f7d8e36657d8469203ea2b6de37b5e406a415d3be7f44466de3c5e5bbe55d",
+                                                "bytes":  31218
+                                            },
+                                            {
+                                                "path":  "crates/engines/tests/worker_supervision.rs",
+                                                "sha256":  "40aba769b5add6039f68a30ab20b14ba0eeae7a4240147fecec3cb0a36c441cd",
+                                                "bytes":  21302
+                                            },
+                                            {
+                                                "path":  "tests/integration/worker_supervision_peer.py",
+                                                "sha256":  "79981208e2f8e66c7a0a0c307a4a5c9727701797810022d2e341e95470e7b667",
+                                                "bytes":  6550
+                                            },
+                                            {
+                                                "path":  "crates/platform/src/process.rs",
+                                                "sha256":  "b4e438dc05b880a20f8af36a3bc77795b01fdbe967211df4a1dd947322c97b2a",
+                                                "bytes":  30653
+                                            },
+                                            {
+                                                "path":  "crates/platform/src/lib.rs",
+                                                "sha256":  "704e38723096defde9950593a57da6005348cfa2d362a0d2cd32cdf2dd07836a",
+                                                "bytes":  377
+                                            },
+                                            {
+                                                "path":  "crates/engines/src/lifecycle.rs",
+                                                "sha256":  "2cb8b40a16c5169780810df0dc6892f37a7c6e55b61f1efa7e2e639ee1fc1675",
+                                                "bytes":  14245
+                                            },
+                                            {
+                                                "path":  "Cargo.lock",
+                                                "sha256":  "98c5ffc4880143547576e12c440b97264c98c57b4ecea6c0e073a3bc2c765ac5",
+                                                "bytes":  18998
+                                            }
+                                        ],
+                       "kind":  "fmt",
+                       "host":  "5.1.26100.7462",
+                       "label":  "04-fmt",
+                       "binary":  "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\rustfmt.exe",
+                       "stderr":  {
+                                      "path":  "D:\\Project\\witvoice\\.local\\t011-member-author\\04-fmt.stderr",
+                                      "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                                      "bytes":  0
+                                  },
+                       "runner_sha256":  "4b778e715d72223dfce72faa4b2770f545c85ca8355ef9b8aab886bda275f8a2",
+                       "argv":  [
+                                    "--edition",
+                                    "2024",
+                                    "crates/engines/src/supervisor.rs",
+                                    "crates/engines/tests/worker_supervision.rs"
+                                ]
+                   },
+                   {
+                       "exit_code":  0,
+                       "env":  {
+                                   "RUSTFLAGS":  null,
+                                   "RUSTUP_HOME":  "D:\\Software\\WitvoiceToolchain\\Rust\\rustup",
+                                   "CARGO_BUILD_JOBS":  "1",
+                                   "CARGO_TARGET_DIR":  "D:\\Project\\witvoice\\.local\\t008-t016-r2-leader\\target",
+                                   "CARGO_HOME":  "D:\\Software\\WitvoiceToolchain\\Rust\\cargo",
+                                   "CARGO_INCREMENTAL":  "0",
+                                   "CARGO_ENCODED_RUSTFLAGS":  null
+                               },
+                       "source_before":  [
+                                             {
+                                                 "path":  "crates/engines/src/supervisor.rs",
+                                                 "sha256":  "286f7d8e36657d8469203ea2b6de37b5e406a415d3be7f44466de3c5e5bbe55d",
+                                                 "bytes":  31218
+                                             },
+                                             {
+                                                 "path":  "crates/engines/tests/worker_supervision.rs",
+                                                 "sha256":  "40aba769b5add6039f68a30ab20b14ba0eeae7a4240147fecec3cb0a36c441cd",
+                                                 "bytes":  21302
+                                             },
+                                             {
+                                                 "path":  "tests/integration/worker_supervision_peer.py",
+                                                 "sha256":  "79981208e2f8e66c7a0a0c307a4a5c9727701797810022d2e341e95470e7b667",
+                                                 "bytes":  6550
+                                             },
+                                             {
+                                                 "path":  "crates/platform/src/process.rs",
+                                                 "sha256":  "b4e438dc05b880a20f8af36a3bc77795b01fdbe967211df4a1dd947322c97b2a",
+                                                 "bytes":  30653
+                                             },
+                                             {
+                                                 "path":  "crates/platform/src/lib.rs",
+                                                 "sha256":  "704e38723096defde9950593a57da6005348cfa2d362a0d2cd32cdf2dd07836a",
+                                                 "bytes":  377
+                                             },
+                                             {
+                                                 "path":  "crates/engines/src/lifecycle.rs",
+                                                 "sha256":  "2cb8b40a16c5169780810df0dc6892f37a7c6e55b61f1efa7e2e639ee1fc1675",
+                                                 "bytes":  14245
+                                             },
+                                             {
+                                                 "path":  "Cargo.lock",
+                                                 "sha256":  "98c5ffc4880143547576e12c440b97264c98c57b4ecea6c0e073a3bc2c765ac5",
+                                                 "bytes":  18998
+                                             }
+                                         ],
+                       "start_utc":  "2026-10-05T19:22:15.3717291Z",
+                       "end_utc":  "2026-10-05T19:22:17.6349962Z",
+                       "stdout":  {
+                                      "path":  "D:\\Project\\witvoice\\.local\\t011-member-author\\05-observation-tests.stdout",
+                                      "sha256":  "d09a833bc89c5e6f8f349ab9b61478c921fba04a3c5775aae563b34e7e970734",
+                                      "bytes":  1007
+                                  },
+                       "actual_agent_uuid":  "01a10767-4ff5-7f21-881a-146d094fbc55",
+                       "cwd":  "D:\\Project\\witvoice",
+                       "source_after":  [
+                                            {
+                                                "path":  "crates/engines/src/supervisor.rs",
+                                                "sha256":  "286f7d8e36657d8469203ea2b6de37b5e406a415d3be7f44466de3c5e5bbe55d",
+                                                "bytes":  31218
+                                            },
+                                            {
+                                                "path":  "crates/engines/tests/worker_supervision.rs",
+                                                "sha256":  "40aba769b5add6039f68a30ab20b14ba0eeae7a4240147fecec3cb0a36c441cd",
+                                                "bytes":  21302
+                                            },
+                                            {
+                                                "path":  "tests/integration/worker_supervision_peer.py",
+                                                "sha256":  "79981208e2f8e66c7a0a0c307a4a5c9727701797810022d2e341e95470e7b667",
+                                                "bytes":  6550
+                                            },
+                                            {
+                                                "path":  "crates/platform/src/process.rs",
+                                                "sha256":  "b4e438dc05b880a20f8af36a3bc77795b01fdbe967211df4a1dd947322c97b2a",
+                                                "bytes":  30653
+                                            },
+                                            {
+                                                "path":  "crates/platform/src/lib.rs",
+                                                "sha256":  "704e38723096defde9950593a57da6005348cfa2d362a0d2cd32cdf2dd07836a",
+                                                "bytes":  377
+                                            },
+                                            {
+                                                "path":  "crates/engines/src/lifecycle.rs",
+                                                "sha256":  "2cb8b40a16c5169780810df0dc6892f37a7c6e55b61f1efa7e2e639ee1fc1675",
+                                                "bytes":  14245
+                                            },
+                                            {
+                                                "path":  "Cargo.lock",
+                                                "sha256":  "98c5ffc4880143547576e12c440b97264c98c57b4ecea6c0e073a3bc2c765ac5",
+                                                "bytes":  18998
+                                            }
+                                        ],
+                       "kind":  "tests",
+                       "host":  "5.1.26100.7462",
+                       "label":  "05-observation-tests",
+                       "binary":  "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\cargo.exe",
+                       "stderr":  {
+                                      "path":  "D:\\Project\\witvoice\\.local\\t011-member-author\\05-observation-tests.stderr",
+                                      "sha256":  "176b2a404b9caecbb1699d60158e82eadc27b041ec6f75f39810882eb4da794a",
+                                      "bytes":  275
+                                  },
+                       "runner_sha256":  "4b778e715d72223dfce72faa4b2770f545c85ca8355ef9b8aab886bda275f8a2",
+                       "argv":  [
+                                    "test",
+                                    "--locked",
+                                    "--offline",
+                                    "-p",
+                                    "witvoice-engines",
+                                    "--test",
+                                    "worker_supervision",
+                                    "cleanup_observation",
+                                    "--",
+                                    "--test-threads=1"
+                                ]
+                   },
+                   {
+                       "exit_code":  0,
+                       "env":  {
+                                   "RUSTFLAGS":  null,
+                                   "RUSTUP_HOME":  "D:\\Software\\WitvoiceToolchain\\Rust\\rustup",
+                                   "CARGO_BUILD_JOBS":  "1",
+                                   "CARGO_TARGET_DIR":  "D:\\Project\\witvoice\\.local\\t008-t016-r2-leader\\target",
+                                   "CARGO_HOME":  "D:\\Software\\WitvoiceToolchain\\Rust\\cargo",
+                                   "CARGO_INCREMENTAL":  "0",
+                                   "CARGO_ENCODED_RUSTFLAGS":  null
+                               },
+                       "source_before":  [
+                                             {
+                                                 "path":  "crates/engines/src/supervisor.rs",
+                                                 "sha256":  "286f7d8e36657d8469203ea2b6de37b5e406a415d3be7f44466de3c5e5bbe55d",
+                                                 "bytes":  31218
+                                             },
+                                             {
+                                                 "path":  "crates/engines/tests/worker_supervision.rs",
+                                                 "sha256":  "40aba769b5add6039f68a30ab20b14ba0eeae7a4240147fecec3cb0a36c441cd",
+                                                 "bytes":  21302
+                                             },
+                                             {
+                                                 "path":  "tests/integration/worker_supervision_peer.py",
+                                                 "sha256":  "79981208e2f8e66c7a0a0c307a4a5c9727701797810022d2e341e95470e7b667",
+                                                 "bytes":  6550
+                                             },
+                                             {
+                                                 "path":  "crates/platform/src/process.rs",
+                                                 "sha256":  "b4e438dc05b880a20f8af36a3bc77795b01fdbe967211df4a1dd947322c97b2a",
+                                                 "bytes":  30653
+                                             },
+                                             {
+                                                 "path":  "crates/platform/src/lib.rs",
+                                                 "sha256":  "704e38723096defde9950593a57da6005348cfa2d362a0d2cd32cdf2dd07836a",
+                                                 "bytes":  377
+                                             },
+                                             {
+                                                 "path":  "crates/engines/src/lifecycle.rs",
+                                                 "sha256":  "2cb8b40a16c5169780810df0dc6892f37a7c6e55b61f1efa7e2e639ee1fc1675",
+                                                 "bytes":  14245
+                                             },
+                                             {
+                                                 "path":  "Cargo.lock",
+                                                 "sha256":  "98c5ffc4880143547576e12c440b97264c98c57b4ecea6c0e073a3bc2c765ac5",
+                                                 "bytes":  18998
+                                             }
+                                         ],
+                       "start_utc":  "2026-10-05T19:22:27.6534618Z",
+                       "end_utc":  "2026-10-05T19:22:27.8257299Z",
+                       "stdout":  {
+                                      "path":  "D:\\Project\\witvoice\\.local\\t011-member-author\\06-fmtcheck.stdout",
+                                      "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                                      "bytes":  0
+                                  },
+                       "actual_agent_uuid":  "01a10767-4ff5-7f21-881a-146d094fbc55",
+                       "cwd":  "D:\\Project\\witvoice",
+                       "source_after":  [
+                                            {
+                                                "path":  "crates/engines/src/supervisor.rs",
+                                                "sha256":  "286f7d8e36657d8469203ea2b6de37b5e406a415d3be7f44466de3c5e5bbe55d",
+                                                "bytes":  31218
+                                            },
+                                            {
+                                                "path":  "crates/engines/tests/worker_supervision.rs",
+                                                "sha256":  "40aba769b5add6039f68a30ab20b14ba0eeae7a4240147fecec3cb0a36c441cd",
+                                                "bytes":  21302
+                                            },
+                                            {
+                                                "path":  "tests/integration/worker_supervision_peer.py",
+                                                "sha256":  "79981208e2f8e66c7a0a0c307a4a5c9727701797810022d2e341e95470e7b667",
+                                                "bytes":  6550
+                                            },
+                                            {
+                                                "path":  "crates/platform/src/process.rs",
+                                                "sha256":  "b4e438dc05b880a20f8af36a3bc77795b01fdbe967211df4a1dd947322c97b2a",
+                                                "bytes":  30653
+                                            },
+                                            {
+                                                "path":  "crates/platform/src/lib.rs",
+                                                "sha256":  "704e38723096defde9950593a57da6005348cfa2d362a0d2cd32cdf2dd07836a",
+                                                "bytes":  377
+                                            },
+                                            {
+                                                "path":  "crates/engines/src/lifecycle.rs",
+                                                "sha256":  "2cb8b40a16c5169780810df0dc6892f37a7c6e55b61f1efa7e2e639ee1fc1675",
+                                                "bytes":  14245
+                                            },
+                                            {
+                                                "path":  "Cargo.lock",
+                                                "sha256":  "98c5ffc4880143547576e12c440b97264c98c57b4ecea6c0e073a3bc2c765ac5",
+                                                "bytes":  18998
+                                            }
+                                        ],
+                       "kind":  "fmtcheck",
+                       "host":  "5.1.26100.7462",
+                       "label":  "06-fmtcheck",
+                       "binary":  "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\rustfmt.exe",
+                       "stderr":  {
+                                      "path":  "D:\\Project\\witvoice\\.local\\t011-member-author\\06-fmtcheck.stderr",
+                                      "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                                      "bytes":  0
+                                  },
+                       "runner_sha256":  "4b778e715d72223dfce72faa4b2770f545c85ca8355ef9b8aab886bda275f8a2",
+                       "argv":  [
+                                    "--edition",
+                                    "2024",
+                                    "--check",
+                                    "crates/engines/src/supervisor.rs",
+                                    "crates/engines/tests/worker_supervision.rs"
+                                ]
+                   }
+               ],
+    "artifacts":  [
+                      {
+                          "path":  ".local/t011-member-author/01-fmt.json",
+                          "bytes":  5812,
+                          "sha256":  "049e9de4f5e3b9e28265e464bf5b850226b07e80e781ee90491e5490ef5e0586"
+                      },
+                      {
+                          "path":  ".local/t011-member-author/01-fmt.stdout",
+                          "bytes":  0,
+                          "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                      },
+                      {
+                          "path":  ".local/t011-member-author/01-fmt.stderr",
+                          "bytes":  0,
+                          "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                      },
+                      {
+                          "path":  ".local/t011-member-author/02-observation-tests.json",
+                          "bytes":  6004,
+                          "sha256":  "1f2aae8c611f4281d4b2bad0964ad470af398254fa731e40a0ae414c110c7517"
+                      },
+                      {
+                          "path":  ".local/t011-member-author/02-observation-tests.stdout",
+                          "bytes":  1007,
+                          "sha256":  "d09a833bc89c5e6f8f349ab9b61478c921fba04a3c5775aae563b34e7e970734"
+                      },
+                      {
+                          "path":  ".local/t011-member-author/02-observation-tests.stderr",
+                          "bytes":  812,
+                          "sha256":  "41d2c5488740cd146d88c3d6f4dd62a6f5f2fda87b3886fb2f8154e12ac35b55"
+                      },
+                      {
+                          "path":  ".local/t011-member-author/03-fmtcheck.json",
+                          "bytes":  5861,
+                          "sha256":  "117f645dfd53ff6e568bb2384578e7067aeb27c83a105afedebe160ed0f8cd6f"
+                      },
+                      {
+                          "path":  ".local/t011-member-author/03-fmtcheck.stdout",
+                          "bytes":  0,
+                          "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                      },
+                      {
+                          "path":  ".local/t011-member-author/03-fmtcheck.stderr",
+                          "bytes":  0,
+                          "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                      },
+                      {
+                          "path":  ".local/t011-member-author/04-fmt.json",
+                          "bytes":  5812,
+                          "sha256":  "d005b15c69131983978ce340f0baf3d883881d19134039166873084bf0cdf7ef"
+                      },
+                      {
+                          "path":  ".local/t011-member-author/04-fmt.stdout",
+                          "bytes":  0,
+                          "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                      },
+                      {
+                          "path":  ".local/t011-member-author/04-fmt.stderr",
+                          "bytes":  0,
+                          "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                      },
+                      {
+                          "path":  ".local/t011-member-author/05-observation-tests.json",
+                          "bytes":  6004,
+                          "sha256":  "29621e475b70d49582028f7cf5b386938f0ea4ae2e9eb132e6d8cc5991655392"
+                      },
+                      {
+                          "path":  ".local/t011-member-author/05-observation-tests.stdout",
+                          "bytes":  1007,
+                          "sha256":  "d09a833bc89c5e6f8f349ab9b61478c921fba04a3c5775aae563b34e7e970734"
+                      },
+                      {
+                          "path":  ".local/t011-member-author/05-observation-tests.stderr",
+                          "bytes":  275,
+                          "sha256":  "176b2a404b9caecbb1699d60158e82eadc27b041ec6f75f39810882eb4da794a"
+                      },
+                      {
+                          "path":  ".local/t011-member-author/06-fmtcheck.json",
+                          "bytes":  5861,
+                          "sha256":  "8820290357b1e6e746edaee8e9c8a27f503ade5c5a3b6fd164aeb9aa7674909b"
+                      },
+                      {
+                          "path":  ".local/t011-member-author/06-fmtcheck.stdout",
+                          "bytes":  0,
+                          "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                      },
+                      {
+                          "path":  ".local/t011-member-author/06-fmtcheck.stderr",
+                          "bytes":  0,
+                          "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                      }
+                  ],
+    "runner":  {
+                   "path":  ".local/t011-member-author/check.ps1",
+                   "bytes":  3990,
+                   "sha256":  "4b778e715d72223dfce72faa4b2770f545c85ca8355ef9b8aab886bda275f8a2"
+               },
+    "delivery_script":  {
+                            "path":  ".local/t011-member-author/deliver.ps1",
+                            "bytes":  4747,
+                            "sha256":  "8361d3639ec0b3cb8830d9cadbd73fd67ab48e0de5323eae3c188e0d22eb4511"
+                        },
+    "unchanged_peer":  {
+                           "path":  "tests/integration/worker_supervision_peer.py",
+                           "bytes":  6550,
+                           "sha256":  "79981208e2f8e66c7a0a0c307a4a5c9727701797810022d2e341e95470e7b667"
+                       },
+    "implementation":  "Only cleanup termination switched to platform strict terminate_all_members_until using original shared3s deadline. cfg(test) member accessor captures retained exact-ownerJob handles via platform API; native tests no longer reopen PIDs with Process::observe. Reclaimed logs each heldPID and actual zero-wait Result before original unchanged success assertion, with no extra wait/sleep or relaxed predicates. Leader confirmed obsolete owned_process_ids had no callers and authorized removal to resolve actual same-source integration dead_code warning.",
+    "coverage":  "Final two source hashes are exactly bound by05 pure11test and06fmtcheck before/after. Existing11 observation cases retained; native8 filtered. New platform member-predicate tests and strictClippy are leader owned, not executed by backend.",
+    "results":  {
+                    "final_pure_tests_exit":  0,
+                    "final_pure_tests_passed":  11,
+                    "final_pure_tests_failed":  0,
+                    "native_tests_filtered_not_run":  8,
+                    "fmt_check_exit":  0,
+                    "strict_clippy":  "NOT_RUN_BY_BACKEND",
+                    "platform_member_tests":  "NOT_RUN_BY_BACKEND",
+                    "wholeworkspace":  "NOT_RUN",
+                    "examples_build":  "NOT_RUN",
+                    "Python_tests":  "NOT_RUN",
+                    "model_GPU_audio_LAN":  "NOT_RUN",
+                    "compiler_ICE_AV":  "NONE_OBSERVED",
+                    "full_T011":  "IN_PROGRESS_NOT_APPROVED"
+                },
+    "retained_warning":  {
+                             "command_label":  "02-observation-tests",
+                             "exit":  0,
+                             "ordinary_warning":  "unused public owned_process_ids in integration same-source module",
+                             "Clippy_run":  false,
+                             "repair":  "Leader actual rg caller check033796 followed by approval; obsolete method removed,04format/05puretests/06format on final source",
+                             "final05warning":  "NONE_IN_COMPLETE_RAW"
+                         },
+    "read_nonzero":  {
+                         "tool_chunk":  "75b2bf",
+                         "exit":  1,
+                         "reason":  "rg new platform APIs had no matches while leader implementation pending",
+                         "application_failure":  false,
+                         "compiler_invoked":  false
+                     },
+    "risk":  "Earlier dad441b Stop/Released but retained member waitZERO None failure remains exact member UNKNOWN, not changed to PASS. New strict capture may reject historical members already exited or changed member history; retain failclosed refusal. No actual native member cleanup executed here, and no whole-task release/ready/VC/Mac proof.",
+    "source_bytes":  "SHA binds working file bytes, not asserted equal to Git LF normalization",
+    "public_evidence":  "Leader owns archive/ledger and independent approval"
+}

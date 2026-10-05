@@ -1,0 +1,13 @@
+{
+  "source_commit": "e03fe0413bcb0d583f45ff92789f5f2b0f3424a1",
+  "command": [
+    "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "tools/project/validate_spec.py"
+  ],
+  "started_utc": "2026-10-05T17:30:21.070222+00:00",
+  "finished_utc": "2026-10-05T17:30:21.234328+00:00",
+  "exit": 0,
+  "scope": "SPEC/ledger consistency ONLY; not application/model/audio/LAN test",
+  "stdout": "SPEC/ledger consistency: PASS\r\n7 milestones | 35 tasks | 32 traced requirements | 7 agent roles\r\nTOML syntax checked; installed Codex configuration compatibility is NOT tested.\r\nApplication code, Windows/Mac builds, audio, models and LAN performance are NOT tested.\r\n",
+  "stderr": ""
+}

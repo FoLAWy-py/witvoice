@@ -1,0 +1,5 @@
+{
+  "925c69": "read-only logname lookup PathNotFound; git diff valid; not applicationtest",
+  "991d8f": "second guessed logname PathNotFound; directory inventory valid; not applicationtest",
+  "a7a367": "correct02-observation-tests full raw read actual0; no tests rerun"
+}

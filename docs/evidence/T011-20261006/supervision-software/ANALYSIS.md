@@ -1,0 +1,11 @@
+# T011 native supervision: software verification incomplete
+
+Frozen local source 72a626ab372dce8e8f5a505f4ee8fc2266835806. Leader native Windows PS5.1 checks: Python66 tests, Python compilation including final testpeer, fmt, strict Clippy/all-targets, examples build exit0; each command121 raw before/after equal. Existing lock SHA98c5ffc4 unchanged. These checks do not execute the native supervisor tests.
+
+Backend actual UUID01a10767-4ff5-7f21-881a-146d094fbc55 authored only three files; leader integrated dependency edges/export/existing policy deadline accessor. Author05 first wrong expected2 vs actual4 process assertion;07 instrumented exact ownerJob4 images while retaining old assertion;09 verifies actual controller+leaf two Python PIDs and two conhost Job members then Stop returns Cleanup/Protocol/rawNone. Parent relationships of conhost are UNKNOWN. Each run exit101; subsequent7 cases fail mutex poison and are not separately validated. All original failures retained. Job0/all four retained handles exited are NOT_PROVEN; no retry after cleanup stop condition.
+
+Three possible cleanup confirmation predicates are not separately recorded: active count, PID-list emptiness, retained controller handle signaled; native query boundary failures with no OS code also remain possible. Cause UNKNOWN. Current code keeps output permission false and quarantines failed cleanup, never permits restart from unconfirmed cleanup. Independent limited review pending before a narrow scalar-stage diagnostic; do not delete predicates or add sleep to make tests green.
+
+No new Torch/model/GPU/audio/LAN, PCM recording, default-device or system changes. Prior actual f9a8GiB model warmup success is immutable and does not prove this new owner implementation or VC closure. T011 remainsIN_PROGRESS, T012 not started, T009captureInitialize0x887c001a remainsblocked, M5/M6 not verified.
+
+Official semantics checked read-only: https://learn.microsoft.com/en-us/windows/win32/api/jobapi2/nf-jobapi2-terminatejobobject and https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-terminateprocess. Termination initiation is not a substitute for observed completion; this does not establish which predicate failed in09.

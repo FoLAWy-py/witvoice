@@ -1,0 +1,5 @@
+   Compiling witvoice-platform v0.1.0 (D:\Project\witvoice\crates\platform)
+   Compiling witvoice-engines v0.1.0 (D:\Project\witvoice\crates\engines)
+   Compiling witvoice-transport v0.1.0 (D:\Project\witvoice\crates\transport)
+   Compiling witvoice-audio v0.1.0 (D:\Project\witvoice\crates\audio)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 9.61s

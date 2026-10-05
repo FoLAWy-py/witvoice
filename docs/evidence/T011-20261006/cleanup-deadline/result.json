@@ -1,0 +1,49 @@
+{
+  "source_commit": "dad441bedff171311d1a46f58e2b4851a82b5faa",
+  "source_count": 121,
+  "root_checks": [
+    {
+      "name": "integration-platform-error-tests",
+      "exit": 0,
+      "wall_seconds": 2.0828045,
+      "both121_equal": true
+    },
+    {
+      "name": "integration-cleanup-observation-tests",
+      "exit": 0,
+      "wall_seconds": 0.3228619,
+      "both121_equal": true
+    },
+    {
+      "name": "integration-fmt",
+      "exit": 0,
+      "wall_seconds": 0.8048362,
+      "both121_equal": true
+    },
+    {
+      "name": "integration-clippy",
+      "exit": 0,
+      "wall_seconds": 7.3333306,
+      "both121_equal": true
+    },
+    {
+      "name": "integration-examples",
+      "exit": 0,
+      "wall_seconds": 7.3059347,
+      "both121_equal": true
+    }
+  ],
+  "pure_Rust_tests": 12,
+  "Python_tests": "NOT_REPEATED; unchanged Python source retains d806 66test evidence only",
+  "native_case": "FAILED_NATIVE_MEMBER_HANDLE_NOT_EXITED",
+  "native_owner_stop": "OK; Released/Jobactive0/ids0/controllerSignaled/policyConfirmed/ACKtrue/3ms/outputfalse/resourcestrue reported",
+  "all4_native_handles_exited": "NOT_PROVEN; at least one zero-wait None; exact member UNKNOWN",
+  "wall_seconds": 0.25419349999999996,
+  "exit": 101,
+  "no_retry": true,
+  "remaining7": "NOT_RUN",
+  "model_GPU_audio_LAN": "NOT_RUN",
+  "T011": "IN_PROGRESS",
+  "old09_cause": "UNKNOWN",
+  "oldr3": "FAILED_WAIT_CONTROLLER_UNSIGNALED"
+}

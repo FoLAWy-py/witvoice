@@ -1,0 +1,8 @@
+{
+  "first_tool_output": "06fe6a",
+  "actual_parse_status": "NOT_PROVEN despite command exit0; parent shell interpolated inline child variables and stderr contains binding failures",
+  "diagnostic_body": "NOT_EXECUTED",
+  "corrected_method": "Fixed parse-native.ps1, ErrorActionPreference Stop, explicit PS5.1 File",
+  "corrected_actual_tool_output": "90d891",
+  "corrected_result": "exit0 syntax-only; not a runtime test"
+}

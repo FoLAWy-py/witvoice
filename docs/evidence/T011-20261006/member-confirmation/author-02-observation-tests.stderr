@@ -1,0 +1,16 @@
+   Compiling witvoice-platform v0.1.0 (D:\Project\witvoice\crates\platform)
+   Compiling witvoice-engines v0.1.0 (D:\Project\witvoice\crates\engines)
+warning: method `owned_process_ids` is never used
+   --> crates\engines\tests\..\src\supervisor.rs:341:12
+    |
+282 | impl WorkerSupervisor {
+    | --------------------- method in this implementation
+...
+341 |     pub fn owned_process_ids(&self) -> Result<Vec<u32>> {
+    |            ^^^^^^^^^^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: `witvoice-engines` (test "worker_supervision") generated 1 warning
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.57s
+     Running tests\worker_supervision.rs (.local\t008-t016-r2-leader\target\debug\deps\worker_supervision-a72727e7f40d2491.exe)

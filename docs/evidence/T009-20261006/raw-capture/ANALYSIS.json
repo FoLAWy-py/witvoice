@@ -1,0 +1,26 @@
+{
+  "actual_native_result": "FAILED_STARTUP_DISCONTINUITY; not route PASS",
+  "Initialize_Start": "PASSED_EXPLICIT_RAW_CAPTURE_ONLY",
+  "render_capture_frames": [
+    1056,
+    1056
+  ],
+  "first_capture_packets": 1,
+  "discontinuities": 1,
+  "timestamp_errors": 0,
+  "frames_kept": 0,
+  "cleanup": "capture/render/watch closed, gate ack_ready true",
+  "physical": "NEVER_STARTED",
+  "PCM": "NOT_SAVED_OR_UPLOADED",
+  "retry": false,
+  "source_dirty_audio": true,
+  "source_after_equals_frozen": true,
+  "old_0x887c001a_cause": "UNKNOWN; RAW result does not attribute APO root cause",
+  "next_action": "Read-only official API/startup prereoll review before newly scoped source correction, no blind repeat",
+  "tool_errors": [
+    "223030 toolhost CLR0x80131506/-1073741819 before read commands; not app test",
+    "inspect.py first exactcase comparison failed; GetDevice selection unchanged, case-only difference established",
+    "relay KeyError for AGENTS absent oldmap and GBK printing corrected; raw receipts retained in root turn",
+    "following rg missing paths produced exit1 after successful prepare; not application result"
+  ]
+}

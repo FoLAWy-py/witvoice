@@ -1,0 +1,6 @@
+
+thread 'eof_partial_frame_heartbeat_timeout_and_memory_pressure_retire_actual_job' (52228) panicked at crates\engines\tests\worker_supervision.rs:468:9:
+assertion `left == right` failed: eof
+  left: Protocol
+ right: Eof
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace

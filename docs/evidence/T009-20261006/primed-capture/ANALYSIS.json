@@ -1,0 +1,13 @@
+{
+  "source_commit": "41299a5f176bbdca8a0931c793391b587d49498d",
+  "status": "FAILED_MUTED_NOT_ROUTE_PASS",
+  "startup_passed": true,
+  "startup_seconds": 0.0336396,
+  "marker_phase_discontinuity_packets": 1,
+  "timestamp_errors": 0,
+  "underflow_frames": 0,
+  "active_seconds": 1.1010648,
+  "cleanup": "CONFIRMED_BY_CHILD",
+  "source_after_33_equal": true,
+  "meaning": "Explicit RAW Initialization and Start passed; startup preparation passed; stable marker correlation not evaluated because one later discontinuity. Origin of later discontinuity UNKNOWN. No VC/FFmpeg/third-party/long-stability evidence. No retry or original-voice fallback."
+}

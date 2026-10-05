@@ -1,0 +1,69 @@
+
+running 8 tests
+test authenticated_dual_channels_ready_stop_ack_and_actual_tree_zero ... FAILED
+test bad_ready_request_binding_and_complete_capability_are_fail_closed ... FAILED
+test both_channel_authentication_required_wrong_token_or_missing_media_never_ready ... FAILED
+test delayed_owner_monitor_cannot_accept_late_ready_or_heartbeat ... FAILED
+test eof_partial_frame_heartbeat_timeout_and_memory_pressure_retire_actual_job ... FAILED
+test old_epoch_after_real_restart_cannot_reopen_output ... FAILED
+test shared_absolute_deadline_is_not_renewed_after_partial_header ... FAILED
+test two_fresh_native_pids_epochs_then_third_fault_requires_explicit_reset ... FAILED
+
+failures:
+
+---- authenticated_dual_channels_ready_stop_ack_and_actual_tree_zero stdout ----
+
+thread 'authenticated_dual_channels_ready_stop_ack_and_actual_tree_zero' (52704) panicked at crates\engines\tests\worker_supervision.rs:75:5:
+assertion `left == right` failed: actual controller plus finite descendant
+  left: 4
+ right: 2
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- bad_ready_request_binding_and_complete_capability_are_fail_closed stdout ----
+
+thread 'bad_ready_request_binding_and_complete_capability_are_fail_closed' (62128) panicked at crates\engines\tests\worker_supervision.rs:89:33:
+called `Result::unwrap()` on an `Err` value: PoisonError { .. }
+
+---- both_channel_authentication_required_wrong_token_or_missing_media_never_ready stdout ----
+
+thread 'both_channel_authentication_required_wrong_token_or_missing_media_never_ready' (58152) panicked at crates\engines\tests\worker_supervision.rs:183:33:
+called `Result::unwrap()` on an `Err` value: PoisonError { .. }
+
+---- delayed_owner_monitor_cannot_accept_late_ready_or_heartbeat stdout ----
+
+thread 'delayed_owner_monitor_cannot_accept_late_ready_or_heartbeat' (600) panicked at crates\engines\tests\worker_supervision.rs:209:33:
+called `Result::unwrap()` on an `Err` value: PoisonError { .. }
+
+---- eof_partial_frame_heartbeat_timeout_and_memory_pressure_retire_actual_job stdout ----
+
+thread 'eof_partial_frame_heartbeat_timeout_and_memory_pressure_retire_actual_job' (53640) panicked at crates\engines\tests\worker_supervision.rs:109:33:
+called `Result::unwrap()` on an `Err` value: PoisonError { .. }
+
+---- old_epoch_after_real_restart_cannot_reopen_output stdout ----
+
+thread 'old_epoch_after_real_restart_cannot_reopen_output' (55632) panicked at crates\engines\tests\worker_supervision.rs:165:33:
+called `Result::unwrap()` on an `Err` value: PoisonError { .. }
+
+---- shared_absolute_deadline_is_not_renewed_after_partial_header stdout ----
+
+thread 'shared_absolute_deadline_is_not_renewed_after_partial_header' (54092) panicked at crates\engines\tests\worker_supervision.rs:195:33:
+called `Result::unwrap()` on an `Err` value: PoisonError { .. }
+
+---- two_fresh_native_pids_epochs_then_third_fault_requires_explicit_reset stdout ----
+
+thread 'two_fresh_native_pids_epochs_then_third_fault_requires_explicit_reset' (63196) panicked at crates\engines\tests\worker_supervision.rs:126:33:
+called `Result::unwrap()` on an `Err` value: PoisonError { .. }
+
+
+failures:
+    authenticated_dual_channels_ready_stop_ack_and_actual_tree_zero
+    bad_ready_request_binding_and_complete_capability_are_fail_closed
+    both_channel_authentication_required_wrong_token_or_missing_media_never_ready
+    delayed_owner_monitor_cannot_accept_late_ready_or_heartbeat
+    eof_partial_frame_heartbeat_timeout_and_memory_pressure_retire_actual_job
+    old_epoch_after_real_restart_cannot_reopen_output
+    shared_absolute_deadline_is_not_renewed_after_partial_header
+    two_fresh_native_pids_epochs_then_third_fault_requires_explicit_reset
+
+test result: FAILED. 0 passed; 8 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.23s
+

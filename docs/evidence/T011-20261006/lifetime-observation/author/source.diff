@@ -1,0 +1,436 @@
+diff --git a/crates/engines/src/supervisor.rs b/crates/engines/src/supervisor.rs
+index 5950d98..17ed7f8 100644
+--- a/crates/engines/src/supervisor.rs
++++ b/crates/engines/src/supervisor.rs
+@@ -16,6 +16,7 @@ use witvoice_contracts::{
+     worker::{WorkerBinding, WorkerCommand, WorkerEvent, WorkerRequest, decode_worker_response},
+ };
+ use witvoice_platform::{
++    MemberFailureSnapshot,
+     Process, ProcessJob, Secret, WorkerPipeServer, current_process_is_elevated,
+ };
+ 
+@@ -274,6 +275,7 @@ pub struct WorkerSupervisor {
+     capabilities: Option<PreparedCapabilities>,
+     first_failure: Option<Failure>,
+     cleanup_snapshot: Option<CleanupSnapshot>,
++    member_failure_snapshot: Option<MemberFailureSnapshot>,
+     last_cleaned_pid: Option<u32>,
+     stopped_ack: bool,
+     #[cfg(test)]
+@@ -294,6 +296,7 @@ impl WorkerSupervisor {
+             capabilities: None,
+             first_failure: None,
+             cleanup_snapshot: None,
++            member_failure_snapshot: None,
+             last_cleaned_pid: None,
+             stopped_ack: false,
+             #[cfg(test)]
+@@ -679,6 +682,9 @@ impl WorkerSupervisor {
+             }
+             Ok(())
+         })();
++        if let Some(snapshot) = own.job.lifetime_failure_snapshot() {
++            self.member_failure_snapshot.get_or_insert(snapshot);
++        }
+         let elapsed = u64::try_from(started.elapsed().as_millis()).ok();
+         remember_cleanup(
+             &mut self.cleanup_snapshot,
+@@ -740,6 +746,11 @@ impl WorkerSupervisor {
+         Ok(())
+     }
+     #[cfg(test)]
++    pub fn test_member_failure_snapshot(&self) -> Option<MemberFailureSnapshot> {
++        self.member_failure_snapshot.or_else(|| self.owned.as_ref()
++            .and_then(|own| own.job.lifetime_failure_snapshot()))
++    }
++    #[cfg(test)]
+     pub fn test_owned_member_handles(&self) -> Result<Vec<Process>> {
+         let own = self
+             .owned
+diff --git a/crates/engines/tests/worker_supervision.rs b/crates/engines/tests/worker_supervision.rs
+index 0e051f7..bc53bf0 100644
+--- a/crates/engines/tests/worker_supervision.rs
++++ b/crates/engines/tests/worker_supervision.rs
+@@ -343,6 +343,9 @@ fn fault(owner: &mut WorkerSupervisor) -> supervisor::Failure {
+     let limit = Instant::now() + Duration::from_secs(3);
+     loop {
+         if let Err(error) = owner.poll() {
++            println!("fault returned={error:?} first_failure={:?} cleanup_snapshot={:?} member_failure={:?} phase={:?} output_allowed={} resources_released={} stopped_ack={}",
++                owner.first_failure(), owner.cleanup_snapshot(), owner.test_member_failure_snapshot(),
++                owner.phase(), owner.output_allowed(), owner.resources_released(), owner.stopped_ack());
+             return error;
+         }
+         assert!(Instant::now() < limit, "finite fault wait");
+@@ -433,6 +436,7 @@ fn bad_ready_request_binding_and_complete_capability_are_fail_closed() {
+     ] {
+         let mut worker = owner(mode);
+         initial(&mut worker);
++        println!("fault mode={mode}");
+         let error = fault(&mut worker);
+         assert_eq!(error.kind, FailureKind::Protocol);
+         assert_eq!(worker.phase(), Phase::RetryPending);
+@@ -452,6 +456,7 @@ fn eof_partial_frame_heartbeat_timeout_and_memory_pressure_retire_actual_job() {
+     ] {
+         let mut worker = owner(mode);
+         initial(&mut worker);
++        println!("fault mode={mode}");
+         let error = fault(&mut worker);
+         assert_eq!(error.fault, expected, "{mode}");
+         assert!(worker.last_cleaned_pid().is_some());
+diff --git a/crates/platform/src/lib.rs b/crates/platform/src/lib.rs
+index f84c25f..5e4d70d 100644
+--- a/crates/platform/src/lib.rs
++++ b/crates/platform/src/lib.rs
+@@ -9,6 +9,7 @@ pub use windows::*;
+ mod process;
+ #[cfg(windows)]
+ pub use process::{
++    MemberFailureReason, MemberFailureSnapshot, MemberFailureStage,
+     Process, ProcessJob, ProcessNativeFailure, ProcessOperation, launch_node,
+     launch_node_from_ui_job, process_native_failure,
+ };
+diff --git a/crates/platform/src/process.rs b/crates/platform/src/process.rs
+index eda9c8f..588c35c 100644
+--- a/crates/platform/src/process.rs
++++ b/crates/platform/src/process.rs
+@@ -328,10 +328,67 @@ struct RetainedMember {
+     identity: MemberIdentity,
+     process: Process,
+ }
++/// Closed diagnostic location. Reading a snapshot performs no native calls.
++#[derive(Clone, Copy, Debug, PartialEq, Eq)]
++pub enum MemberFailureStage {
++    RememberVerify, RememberIdentity, RememberCoverage, RememberDuplicate,
++    Tracking, BeforeAccounting, BeforeIds, RetainedWait, Capacity, OpenMember,
++    VerifyMember, MemberIdentity, AfterAccounting, AfterIds, Snapshot, Coverage,
++}
++/// Predicate reasons are typed at their original rejection site, never text parsed.
++#[derive(Clone, Copy, Debug, PartialEq, Eq)]
++pub enum MemberFailureReason {
++    ApiError, Unknown, TrackingDisabled, HistoricalObjectSignaled, Capacity,
++    InvalidIdentity, IdentityChanged, NotOwned, SnapshotChanged, IdentitySet,
++    IncompleteHistory,
++}
++#[derive(Clone, Copy, Debug, PartialEq, Eq)]
++pub struct MemberFailureSnapshot {
++    pub stage: MemberFailureStage,
++    pub reason: MemberFailureReason,
++    pub error_kind: io::ErrorKind,
++    pub raw_os_error: Option<i32>,
++    pub native_failure: Option<ProcessNativeFailure>,
++    pub total: [Option<u32>; 2],
++    pub active: [Option<u32>; 2],
++    pub id_counts: [Option<usize>; 2],
++    pub retained: usize,
++    pub staged: usize,
++}
++impl MemberFailureSnapshot {
++    fn new(stage: MemberFailureStage, retained: usize) -> Self {
++        Self { stage, reason: MemberFailureReason::Unknown,
++            error_kind: io::ErrorKind::Other, raw_os_error: None, native_failure: None,
++            total: [None; 2], active: [None; 2], id_counts: [None; 2], retained, staged: 0 }
++    }
++    fn failed(mut self, error: &io::Error) -> Self {
++        self.error_kind = error.kind();
++        self.raw_os_error = error.raw_os_error();
++        self.native_failure = process_native_failure(error);
++        self.reason = if self.raw_os_error.is_some() || self.native_failure.is_some() {
++            MemberFailureReason::ApiError
++        } else if let Some(reason) = error.get_ref().and_then(|e| e.downcast_ref::<MemberPredicateError>()) {
++            reason.reason
++        } else { self.reason };
++        self
++    }
++}
++#[derive(Debug)]
++struct MemberPredicateError { reason: MemberFailureReason, message: &'static str }
++impl std::fmt::Display for MemberPredicateError {
++    fn fmt(&self, output: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
++        output.write_str(self.message)
++    }
++}
++impl std::error::Error for MemberPredicateError {}
++fn member_rejection(kind: io::ErrorKind, reason: MemberFailureReason, message: &'static str) -> io::Error {
++    io::Error::new(kind, MemberPredicateError { reason, message })
++}
+ struct MemberLedger {
+     handles: Vec<RetainedMember>,
+     total: u32,
+     first_error: Option<io::Error>,
++    first_snapshot: Option<MemberFailureSnapshot>,
+     tracking: bool,
+ }
+ impl Default for MemberLedger {
+@@ -340,6 +397,7 @@ impl Default for MemberLedger {
+             handles: Vec::with_capacity(8),
+             total: 0,
+             first_error: None,
++            first_snapshot: None,
+             tracking: false,
+         }
+     }
+@@ -348,6 +406,12 @@ impl MemberLedger {
+     fn freeze_error(&mut self, error: io::Error) -> io::Error {
+         repeat_member_error(self.first_error.get_or_insert(error))
+     }
++    fn freeze_observed(&mut self, error: io::Error, observation: MemberFailureSnapshot) -> io::Error {
++        if self.first_error.is_none() {
++            self.first_snapshot.get_or_insert(observation.failed(&error));
++        }
++        self.freeze_error(error)
++    }
+ }
+ fn repeat_member_error(error: &io::Error) -> io::Error {
+     if let Some(code) = error.raw_os_error() {
+@@ -544,15 +608,19 @@ impl ProcessJob {
+         if let Some(error) = &ledger.first_error {
+             return Err(repeat_member_error(error));
+         }
++        let mut observed = MemberFailureSnapshot::new(MemberFailureStage::RememberVerify, ledger.handles.len());
+         let result = (|| {
+             self.verify_member(process)?;
++            observed.stage = MemberFailureStage::RememberIdentity;
+             let identity = process.identity()?;
+             let known: Vec<_> = ledger
+                 .handles
+                 .iter()
+                 .map(|member| member.identity)
+                 .collect();
++            observed.stage = MemberFailureStage::RememberCoverage;
+             validate_lifetime_members(&known, &[identity], known.len() as u32 + 1)?;
++            observed.stage = MemberFailureStage::RememberDuplicate;
+             let retained = process.duplicate()?;
+             ledger.handles.push(RetainedMember {
+                 identity,
+@@ -561,7 +629,7 @@ impl ProcessJob {
+             Ok(())
+         })();
+         if let Err(error) = result {
+-            return Err(ledger.freeze_error(error));
++            return Err(ledger.freeze_observed(error, observed));
+         }
+         Ok(())
+     }
+@@ -571,14 +639,23 @@ impl ProcessJob {
+     pub fn retain_lifetime_members(&self) -> io::Result<()> {
+         let mut ledger = self.members.borrow_mut();
+         if !ledger.tracking {
+-            return Err(io::Error::other("worker lifetime tracking not enabled"));
++            let observed = MemberFailureSnapshot::new(MemberFailureStage::Tracking, ledger.handles.len());
++            // Observation only: retain the original rejection without enabling tracking.
++            let error = member_rejection(io::ErrorKind::Other, MemberFailureReason::TrackingDisabled, "worker lifetime tracking not enabled");
++            ledger.first_snapshot.get_or_insert(observed.failed(&error));
++            return Err(error);
+         }
+         if let Some(error) = &ledger.first_error {
+             return Err(repeat_member_error(error));
+         }
++        let mut observed = MemberFailureSnapshot::new(MemberFailureStage::BeforeAccounting, ledger.handles.len());
+         let result = (|| {
+             let before = self.accounting()?;
++            observed.total[0] = Some(before.TotalProcesses);
++            observed.active[0] = Some(before.ActiveProcesses);
++            observed.stage = MemberFailureStage::BeforeIds;
+             let ids = self.process_ids()?;
++            observed.id_counts[0] = Some(ids.len());
+             let mut added = Vec::with_capacity(8);
+             let mut active = Vec::with_capacity(8);
+             for pid in &ids {
+@@ -589,23 +666,35 @@ impl ProcessJob {
+                 {
+                     // A PID listed active must still name the same retained live
+                     // object. Never reopen a historical PID to repair missing proof.
++                    observed.stage = MemberFailureStage::RetainedWait;
+                     if member.process.wait(Duration::ZERO)?.is_some() {
+-                        return Err(io::Error::other(
++                        return Err(member_rejection(io::ErrorKind::Other, MemberFailureReason::HistoricalObjectSignaled,
+                             "historical PID is active again or snapshot changed",
+                         ));
+                     }
+                     active.push(member.identity);
+                 } else {
++                    observed.stage = MemberFailureStage::Capacity;
+                     require_member_slot(ledger.handles.len(), added.len())?;
++                    observed.stage = MemberFailureStage::OpenMember;
+                     let process = Process::open_known(*pid, false)?;
++                    observed.stage = MemberFailureStage::VerifyMember;
+                     self.verify_member(&process)?;
++                    observed.stage = MemberFailureStage::MemberIdentity;
+                     let identity = process.identity()?;
+                     active.push(identity);
+                     added.push(RetainedMember { identity, process });
++                    observed.staged = added.len();
+                 }
+             }
++            observed.stage = MemberFailureStage::AfterAccounting;
+             let after = self.accounting()?;
++            observed.total[1] = Some(after.TotalProcesses);
++            observed.active[1] = Some(after.ActiveProcesses);
++            observed.stage = MemberFailureStage::AfterIds;
+             let after_ids = self.process_ids()?;
++            observed.id_counts[1] = Some(after_ids.len());
++            observed.stage = MemberFailureStage::Snapshot;
+             validate_member_snapshot(
+                 [before.TotalProcesses, after.TotalProcesses],
+                 [before.ActiveProcesses, after.ActiveProcesses],
+@@ -617,16 +706,21 @@ impl ProcessJob {
+                 .iter()
+                 .map(|member| member.identity)
+                 .collect();
++            observed.stage = MemberFailureStage::Coverage;
+             validate_lifetime_members(&known, &active, before.TotalProcesses)?;
+             ledger.handles.extend(added);
+             ledger.total = before.TotalProcesses;
+             Ok(())
+         })();
+         if let Err(error) = result {
+-            return Err(ledger.freeze_error(error));
++            return Err(ledger.freeze_observed(error, observed));
+         }
+         Ok(())
+     }
++    /// Stored first rejection only; no process lookup, wait, or Job query.
++    pub fn lifetime_failure_snapshot(&self) -> Option<MemberFailureSnapshot> {
++        self.members.borrow().first_snapshot
++    }
+     /// Duplicate only verified lifetime handles, including naturally exited members.
+     /// No PID reopening; failed or missing history refuses the entire result.
+     pub fn retained_member_handles(&self) -> io::Result<Vec<Process>> {
+@@ -663,7 +757,7 @@ impl ProcessJob {
+ 
+ fn require_member_slot(retained: usize, staged: usize) -> io::Result<()> {
+     if retained.checked_add(staged).is_none_or(|count| count >= 8) {
+-        return Err(io::Error::other("job lifetime member limit"));
++        return Err(member_rejection(io::ErrorKind::Other, MemberFailureReason::Capacity, "job lifetime member limit"));
+     }
+     Ok(())
+ }
+@@ -681,18 +775,18 @@ fn validate_lifetime_members(
+                     .any(|previous| previous.pid == item.pid)
+             })
+         {
+-            return Err(io::Error::other("bounded member identities invalid"));
++            return Err(member_rejection(io::ErrorKind::Other, MemberFailureReason::InvalidIdentity, "bounded member identities invalid"));
+         }
+     }
+     let mut combined = known.to_vec();
+     for item in active {
+         if let Some(previous) = combined.iter().find(|previous| previous.pid == item.pid) {
+             if previous != item {
+-                return Err(io::Error::other("job member PID identity changed"));
++                return Err(member_rejection(io::ErrorKind::Other, MemberFailureReason::IdentityChanged, "job member PID identity changed"));
+             }
+         } else {
+             if combined.len() == 8 {
+-                return Err(io::Error::other("job lifetime member limit"));
++                return Err(member_rejection(io::ErrorKind::Other, MemberFailureReason::Capacity, "job lifetime member limit"));
+             }
+             combined.push(*item);
+         }
+@@ -702,8 +796,8 @@ fn validate_lifetime_members(
+ 
+ fn require_owned_member(verified: bool) -> io::Result<()> {
+     if !verified {
+-        return Err(io::Error::new(
+-            io::ErrorKind::PermissionDenied,
++        return Err(member_rejection(
++            io::ErrorKind::PermissionDenied, MemberFailureReason::NotOwned,
+             "job member not verified",
+         ));
+     }
+@@ -721,7 +815,7 @@ fn validate_member_snapshot(
+         || active[0] as usize != before.len()
+         || active[1] as usize != after.len()
+     {
+-        return Err(io::Error::other(
++        return Err(member_rejection(io::ErrorKind::Other, MemberFailureReason::SnapshotChanged,
+             "job membership changed during bounded capture",
+         ));
+     }
+@@ -730,13 +824,13 @@ fn validate_member_snapshot(
+     first.sort_unstable();
+     second.sort_unstable();
+     if first != second || first.contains(&0) || first.windows(2).any(|pair| pair[0] == pair[1]) {
+-        return Err(io::Error::other("job member identity set not verified"));
++        return Err(member_rejection(io::ErrorKind::Other, MemberFailureReason::IdentitySet, "job member identity set not verified"));
+     }
+     Ok(())
+ }
+ fn require_complete_members(created: u32, captured: usize, after_created: u32) -> io::Result<()> {
+     if captured > 8 || created as usize != captured || created != after_created {
+-        return Err(io::Error::other("job lifetime member coverage unknown"));
++        return Err(member_rejection(io::ErrorKind::Other, MemberFailureReason::IncompleteHistory, "job lifetime member coverage unknown"));
+     }
+     Ok(())
+ }
+@@ -1000,6 +1094,69 @@ fn spawn(
+ #[cfg(test)]
+ mod member_snapshot_tests {
+     use super::*;
++    #[test]
++    fn lifetime_observation_closed_predicate_reasons_preserve_errors() {
++        let empty: [MemberIdentity; 0] = [];
++        let invalid = [MemberIdentity { pid: 0, created: 1 }];
++        let changed = [MemberIdentity { pid: 1, created: 999 }];
++        for (error, reason) in [
++            (require_member_slot(8, 0).unwrap_err(), MemberFailureReason::Capacity),
++            (validate_lifetime_members(&invalid, &empty, 1).unwrap_err(), MemberFailureReason::InvalidIdentity),
++            (validate_lifetime_members(&[identity(1)], &changed, 1).unwrap_err(), MemberFailureReason::IdentityChanged),
++            (require_owned_member(false).unwrap_err(), MemberFailureReason::NotOwned),
++            (validate_member_snapshot([1, 2], [1, 1], &[1], &[1]).unwrap_err(), MemberFailureReason::SnapshotChanged),
++            (validate_member_snapshot([1, 1], [1, 1], &[1], &[2]).unwrap_err(), MemberFailureReason::IdentitySet),
++            (require_complete_members(2, 1, 2).unwrap_err(), MemberFailureReason::IncompleteHistory),
++        ] {
++            let observed = MemberFailureSnapshot::new(MemberFailureStage::Coverage, 1).failed(&error);
++            assert_eq!(observed.reason, reason);
++            assert_eq!(observed.error_kind, error.kind());
++            assert_eq!(observed.raw_os_error, None);
++            assert_eq!(observed.native_failure, None);
++            assert_eq!(observed.total, [None, None]);
++        }
++    }
++    #[test]
++    fn lifetime_observation_native_win32_and_unknown_remain_separate() {
++        let native = fail_operation(ProcessOperation::QueryJobIds,
++            windows::core::Error::from_hresult(windows::core::HRESULT(0x80070005u32 as i32)));
++        let base = MemberFailureSnapshot::new(MemberFailureStage::BeforeIds, 2);
++        let observed = base.failed(&native);
++        assert_eq!(observed.reason, MemberFailureReason::ApiError);
++        assert_eq!(observed.native_failure, process_native_failure(&native));
++        assert_eq!(observed.raw_os_error, None);
++        let raw = base.failed(&io::Error::from_raw_os_error(5));
++        assert_eq!(raw.raw_os_error, Some(5));
++        assert_eq!(raw.native_failure, None);
++        assert_eq!(raw.reason, MemberFailureReason::ApiError);
++        let unknown = base.failed(&io::Error::other("not a typed native source"));
++        assert_eq!(unknown.reason, MemberFailureReason::Unknown);
++        assert_eq!(unknown.raw_os_error, None);
++        assert_eq!(unknown.native_failure, None);
++    }
++    #[test]
++    fn lifetime_observation_first_snapshot_is_immutable_and_partial() {
++        let mut ledger = MemberLedger::default();
++        let mut first = MemberFailureSnapshot::new(MemberFailureStage::RetainedWait, 2);
++        first.total[0] = Some(3);
++        first.active[0] = Some(2);
++        first.id_counts[0] = Some(2);
++        first.staged = 1;
++        let rejected = member_rejection(io::ErrorKind::Other,
++            MemberFailureReason::HistoricalObjectSignaled, "historical PID is active again or snapshot changed");
++        let expected = first.failed(&rejected);
++        ledger.freeze_observed(rejected, first);
++        let later = MemberFailureSnapshot::new(MemberFailureStage::AfterIds, 8);
++        ledger.freeze_observed(io::Error::from_raw_os_error(5), later);
++        assert_eq!(ledger.first_snapshot, Some(expected));
++        assert_eq!(expected.total, [Some(3), None]);
++        assert_eq!(expected.active, [Some(2), None]);
++        assert_eq!(expected.id_counts, [Some(2), None]);
++        assert_eq!(expected.retained, 2);
++        assert_eq!(expected.staged, 1);
++        assert_eq!(ledger.first_error.as_ref().unwrap().kind(), io::ErrorKind::Other);
++        assert_eq!(ledger.first_error.as_ref().unwrap().raw_os_error(), None);
++    }
+     fn identity(pid: u32) -> MemberIdentity {
+         MemberIdentity {
+             pid,

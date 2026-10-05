@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "cmd.exe",
+    "/d",
+    "/c",
+    "D:\\Project\\witvoice\\.local\\ffmpeg-identity\\build.cmd"
+  ],
+  "utc": "2026-10-05T20:43:43.962293+00:00",
+  "exit": 0,
+  "source_sha256": "63bf7af3f888e470ebb52a19264c0b19d74ee29c1b2f8cf2bc1eb6908d848293",
+  "runner_sha256": "96c4560d4118705c07ee967a85d67215493ab00846f528cde538aae362c2cac8"
+}

@@ -1,0 +1,47 @@
+{
+  "agent": "/root/backend",
+  "thread_id": "01a10767-4ff5-7f21-881a-146d094fbc55",
+  "turn_id": "01a10d89-d933-7843-80da-058144c1ef08",
+  "status": "completed",
+  "startedAt": 1791228500,
+  "completedAt": 1791228624,
+  "durationMs": 124185,
+  "commands": [
+    {
+      "id": "exec-8b82b95c-772b-4359-bc1a-79150f76221a",
+      "command": "\"C:\\\\Users\\\\22198\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command '$started=[DateTime]::UtcNow.ToString('\"'o'); Write-Output ('start_utc='+\"'$started); rg -n '\"'terminate_all_members_until|retained_member_handles|capture_members|TotalProcesses|total_processes|member_snapshot|pub fn cleanup|pub fn stop|control.close|media.close|fn launch|fn poll|accept\\\\(|spawn_|read_frame|Stopped|MemoryPressure|finally|close\\\\(|_exit|return|mode|ready_eof|bad_|eof' crates/platform/src/process.rs crates/engines/src/supervisor.rs tests/integration/worker_supervision_peer.py workers/vc_worker/runtime.py workers/vc_worker/model_process.py; Write-Output ('end_utc='+[DateTime]::UtcNow.ToString('o'))\"",
+      "cwd": "D:\\Project\\witvoice",
+      "status": "completed",
+      "exit": 0,
+      "durationMs": 626,
+      "returned_chars": 20000,
+      "provider_truncated": true,
+      "original_chars": 21068
+    },
+    {
+      "id": "exec-35438929-1d2f-4fdc-ad6d-6243f5b4bc4e",
+      "command": "\"C:\\\\Users\\\\22198\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Write-Output ('start_utc='+[DateTime]::UtcNow.ToString('o')); function Show([string]\"'$path,[int]$first,[int]$last){$lines=Get-Content -LiteralPath $path; Write-Output ($path+'\"':'+\"'$first+'\"'-'+\"'$last); for($i=$first;$i -le $last;$i++){Write-Output ('\"'{0}: {1}' -f \"'$i,$lines[$i-1])}}; Show '\"'crates/platform/src/process.rs' 429 529; Show 'crates/engines/src/supervisor.rs' 249 280; Show 'crates/engines/src/supervisor.rs' 414 488; Show 'crates/engines/src/supervisor.rs' 531 615; Show 'crates/engines/src/supervisor.rs' 630 723; Show 'tests/integration/worker_supervision_peer.py' 39 110; Show 'workers/vc_worker/runtime.py' 41 66; Show 'workers/vc_worker/runtime.py' 93 103; Show 'workers/vc_worker/runtime.py' 108 179; Show 'workers/vc_worker/model_process.py' 194 241; foreach(\"'$path in @('\"'crates/platform/src/process.rs','crates/engines/src/supervisor.rs','tests/integration/worker_supervision_peer.py','workers/vc_worker/runtime.py','workers/vc_worker/model_process.py')){Write-Output (\"'$path+'\"' SHA256='+ (Get-FileHash -LiteralPath \"'$path -Algorithm SHA256).Hash.ToLowerInvariant())}; Write-Output ('\"'end_utc='+[DateTime]::UtcNow.ToString('o'))\"",
+      "cwd": "D:\\Project\\witvoice",
+      "status": "completed",
+      "exit": 0,
+      "durationMs": 893,
+      "returned_chars": 20000,
+      "provider_truncated": true,
+      "original_chars": 31306
+    },
+    {
+      "id": "exec-6ba83fb3-0728-4df2-b25c-72be8e33ad84",
+      "command": "\"C:\\\\Users\\\\22198\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Write-Output ('start_utc='+[DateTime]::UtcNow.ToString('o')); \"'$lines=Get-Content -LiteralPath '\"'crates/platform/src/process.rs'; for(\"'$line=675;$line -le 776;$line++){Write-Output ('\"'{0}: {1}' -f \"'$line,$lines[$line-1])}; $lines=Get-Content -LiteralPath '\"'crates/engines/src/supervisor.rs'; for(\"'$line=617;$line -le 630;$line++){Write-Output ('\"'{0}: {1}' -f \"'$line,$lines[$line-1])}; Write-Output ('\"'end_utc='+[DateTime]::UtcNow.ToString('o'))\"",
+      "cwd": "D:\\Project\\witvoice",
+      "status": "completed",
+      "exit": 0,
+      "durationMs": 701,
+      "returned_chars": 4909,
+      "provider_truncated": false,
+      "original_chars": null
+    }
+  ],
+  "final": "只读审计完成，已停止。UUID：`01a10767-4ff5-7f21-881a-146d094fbc55`；三条读取命令均退出 0。\n\n确认 [supervisor.rs](/D:/Project/witvoice/crates/engines/src/supervisor.rs:654) 先关闭管道，再捕获当前成员；[process.rs](/D:/Project/witvoice/crates/platform/src/process.rs:516) 在历史总数超过捕获数量时拒绝释放。EOF、握手失败或真实 worker Stop 后自然退出，可能触发这种保守拒绝，具体竞态仍 UNKNOWN。\n\n建议仅增加每个 OwnedWorker 最多八个已验证成员句柄的生命周期账本，提前保留、清理时复用。漏掉出生后立即退出的成员仍须拒绝确认，不能降低覆盖要求。\n\n未运行测试或模型，未批准 T011 完成。",
+  "scope": "Read-only audit only. Two command outputs provider-truncated at 20000 chars; thread archive is an explicitly partial tool receipt, not a complete raw stdout archive. No source edit, test, model, GPU, audio or LAN run.",
+  "next_slice": "Bounded <=8 lifecycle retained exact-Job member handle ledger; historical/new member unknown coverage continues to refuse release. Not implemented or approved."
+}

@@ -1,0 +1,17 @@
+{
+  "source_commit": "f9a622433084fb120494f4c66777df1380c8f42b",
+  "raw_inputs_equal": 118,
+  "config_sha256": "8da1df0e3757ae2cd3f94f8da63a3b233ed31967effa4fe67361d551414317b5",
+  "binary_sha256": "ee42bb299114ef423b20bf1825ae49958e8d38753cbd921dfb118063757452d2",
+  "supervisor_sha256": "e7acca38d166100621a1c92dafae9ac8789dda7876ee2a02cf38ece8f949906c",
+  "status": "NOT_RUN",
+  "resource_cases": 11,
+  "phase_cases": 8,
+  "predicate_cases": 12,
+  "all_check_exits": 0,
+  "lease": "NO_GPU_AUDIO_LAN",
+  "host_gate": 8589934592,
+  "device_gate": 4294967296,
+  "change_request": "CR-0006",
+  "old_failure_not_relabelled": true
+}

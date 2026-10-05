@@ -1,0 +1,53 @@
+    Checking witvoice-platform v0.1.0 (D:\Project\witvoice\crates\platform)
+    Checking witvoice-node v0.1.0 (D:\Project\witvoice\apps\voice-node)
+    Checking witvoice-engines v0.1.0 (D:\Project\witvoice\crates\engines)
+    Checking witvoice-transport v0.1.0 (D:\Project\witvoice\crates\transport)
+error: items after a test module
+   --> crates\platform\src\process.rs:422:1
+    |
+422 |   mod native_error_tests {
+    |   ^^^^^^^^^^^^^^^^^^^^^^
+...
+474 |   pub fn launch_node(program: &Path, endpoint: &str, secret: &Secret) -> io::Result<Process> {
+    |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+480 | / pub fn launch_node_from_ui_job(
+481 | |     program: &Path,
+482 | |     endpoint: &str,
+483 | |     secret: &Secret,
+484 | |     ui: &ProcessJob,
+485 | | ) -> io::Result<Process> {
+    | |________________________^
+...
+488 | / fn launch_node_inner(
+489 | |     program: &Path,
+490 | |     endpoint: &str,
+491 | |     secret: &Secret,
+492 | |     ui: Option<&ProcessJob>,
+493 | | ) -> io::Result<Process> {
+    | |________________________^
+...
+520 |   struct Attributes {
+    |   ^^^^^^^^^^^^^^^^^
+...
+524 |   impl Attributes {
+    |   ^^^^^^^^^^^^^^^
+...
+557 |   impl Drop for Attributes {
+    |   ^^^^^^^^^^^^^^^^^^^^^^^^
+...
+567 | / fn spawn(
+568 | |     program: &Path,
+569 | |     args: &[OsString],
+570 | |     job: Option<&ProcessJob>,
+...   |
+574 | |     separate_from: Option<&ProcessJob>,
+575 | | ) -> io::Result<Process> {
+    | |________________________^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.99.0/index.html#items_after_test_module
+    = note: `-D clippy::items-after-test-module` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[allow(clippy::items_after_test_module)]`
+    = help: move the items to before the test module was defined
+
+error: could not compile `witvoice-platform` (lib test) due to 1 previous error

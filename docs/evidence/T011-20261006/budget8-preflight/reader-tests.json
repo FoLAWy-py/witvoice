@@ -1,0 +1,63 @@
+{
+    "host":  "5.1.26100.7462",
+    "started_utc":  "2026-10-05T17:39:46.5989003Z",
+    "finished_utc":  "2026-10-05T17:39:46.6917576Z",
+    "supervisor_sha256":  "e7acca38d166100621a1c92dafae9ac8789dda7876ee2a02cf38ece8f949906c",
+    "cases":  [
+                  {
+                      "complete":  true,
+                      "case":  "complete",
+                      "actual":  "VALID_BOUNDED_SCALARS",
+                      "exit":  0
+                  },
+                  {
+                      "complete":  false,
+                      "case":  "partial_progress",
+                      "actual":  "VALID_BOUNDED_SCALARS",
+                      "exit":  0
+                  },
+                  {
+                      "complete":  false,
+                      "case":  "partial_tail",
+                      "actual":  "INVALID_OR_PARTIAL",
+                      "exit":  0
+                  },
+                  {
+                      "complete":  false,
+                      "case":  "duplicate",
+                      "actual":  "INVALID_OR_PARTIAL",
+                      "exit":  0
+                  },
+                  {
+                      "complete":  false,
+                      "case":  "extra",
+                      "actual":  "INVALID_OR_PARTIAL",
+                      "exit":  0
+                  },
+                  {
+                      "complete":  false,
+                      "case":  "oversize",
+                      "actual":  "INVALID_OR_PARTIAL",
+                      "exit":  0
+                  },
+                  {
+                      "complete":  false,
+                      "case":  "overcount",
+                      "actual":  "INVALID_OR_PARTIAL",
+                      "exit":  0
+                  },
+                  {
+                      "complete":  false,
+                      "case":  "order",
+                      "actual":  "INVALID_OR_PARTIAL",
+                      "exit":  0
+                  }
+              ],
+    "tests":  8,
+    "exit":  0,
+    "model":  "NOT_RUN",
+    "gpu":  "NOT_RUN",
+    "audio":  "NOT_RUN",
+    "scope":  "Actual reader block only; no supervisor main/model launch",
+    "prior_host_failure":  "8d17cf -1073740791; later readonly confirmed script absent; no test result"
+}

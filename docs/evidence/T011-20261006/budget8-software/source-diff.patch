@@ -1,0 +1,147 @@
+diff --git a/crates/engines/examples/worker_warmup_probe.rs b/crates/engines/examples/worker_warmup_probe.rs
+index aee4dbb..13f9b07 100644
+--- a/crates/engines/examples/worker_warmup_probe.rs
++++ b/crates/engines/examples/worker_warmup_probe.rs
+@@ -31,7 +31,7 @@ mod probe {
+     const MODEL: &str = "01caafec9a3991a5514df9412952d24ae3370406358a01e20e03df41f2f5d515";
+     const REFERENCE: &str = "00000000-0000-0000-0000-000000000011";
+     const SCHEMA: &str = "meanvc2-reference-local-v1";
+-    const HOST_BUDGET: u64 = 6 * 1024 * 1024 * 1024;
++    const HOST_BUDGET: u64 = 8 * 1024 * 1024 * 1024;
+     const DEVICE_BUDGET: u64 = 4 * 1024 * 1024 * 1024;
+     const WARMUP_MS: u64 = 120_000;
+     const IO: Duration = Duration::from_millis(400);
+@@ -177,7 +177,7 @@ mod probe {
+         fn verify(&self) -> Result<bool> {
+             let path = self
+                 .root
+-                .join(".local/t011-finalize-warmup-once/model-process-private.json");
++                .join(".local/t011-budget8-warmup-once/model-process-private.json");
+             let mut bytes = Vec::with_capacity(513);
+             File::open(path)
+                 .map_err(io_failure)?
+diff --git a/docs/spec/07-tests-acceptance.md b/docs/spec/07-tests-acceptance.md
+index 9a40714..0599bf1 100644
+--- a/docs/spec/07-tests-acceptance.md
++++ b/docs/spec/07-tests-acceptance.md
+@@ -43,6 +43,8 @@ LAN硬门槛使用同一路由器的有线连接、无人工拥塞、记录接
+ 
+ UI+Node不含模型：稳态总私有内存目标≤500MiB；空闲无持续高刷新。选定模型目标：Windows总模型内存≤4GiB、GPU后端专用显存≤3GiB；超预算必须列出占用来源和用户影响，不能删指标隐藏。
+ 
++T011 诊断预热主机门：CR-0006 经用户于2026-10-06明确授权，从6GiB调到8GiB（controller+model child私有内存合计），设备诊断门仍4GiB；这不改变上述4GiB模型/3GiB显存规划目标，不是资源优化或验收通过。历史6GiB失败保留。
++
+ CPU统一报告process CPU seconds / wall seconds得到的“核当量”，再给全机归一化百分比与逻辑核数。Mac统一内存不伪造独立VRAM。多个WebView/worker进程应分别列出，避免共享页重复计数造成误导。
+ 
+ GPU占用不设跨设备固定百分比保证；记录backend、功耗模式、并发负载与p95/p99。能与游戏共存不等于任何游戏满载仍然达标；故障注入须验证资源抢占时安全静音、不积压。
+diff --git a/workers/vc_worker/README.md b/workers/vc_worker/README.md
+index d8103b0..d965e49 100644
+--- a/workers/vc_worker/README.md
++++ b/workers/vc_worker/README.md
+@@ -6,7 +6,7 @@ T002 的 feasibility.py 仅保留已验证模型实验，复用固定 MeanVC2 
+ 
+ T011 正在实现：protocol.py 使用 Rust 导出的 worker-media.json 定义独立二进制 PCM 帧，拒绝旧绑定、越界、非有限样本和损坏长度；部分读写共享绝对期限。windows_pipe.py 与 Rust WorkerPipeServer 的真实 Windows 互操作已经实测通过，Node 的 Job 所有者确认清理；证据仅限通信与进程，不代表模型或音频闭环。
+ 
+-runtime.py 是 Prepare-only 控制入口，只有固定 MeanVC2/CUDA/已授权参考。模型加载由一个独立任务执行，完成队列容量1；控制所有者回复 Heartbeat 和 Stop，不等待模型线程。warmup.py 复用已核模型入口，对真实输出、设备与预热资源预算检查后才返回 Ready，随后清空模型缓存；尚未执行的真实预热不能标 PASS。VC lookahead640 samples只表示 VC 未来上下文，不是总延迟。主机6GiB/设备4GiB是预热就绪时的限制，不是峰值性能报告或运行期资源治理证明。
++runtime.py 是 Prepare-only 控制入口，只有固定 MeanVC2/CUDA/已授权参考。模型加载由一个独立任务执行，完成队列容量1；控制所有者回复 Heartbeat 和 Stop，不等待模型线程。warmup.py 复用已核模型入口，对真实输出、设备与预热资源预算检查后才返回 Ready，随后清空模型缓存；尚未执行的真实预热不能标 PASS。VC lookahead640 samples只表示 VC 未来上下文，不是总延迟。主机8GiB（CR-0006 用户授权）/设备4GiB是预热就绪时的限制，不是峰值性能报告或运行期资源治理证明。
+ 
+ Stop 的 Stopped 消息仅是协议确认；模型/GPU释放必须由 Node 确认其 Job 已空。当前媒体推理仍由 T012 接入，生产 Node 会话与输出门仍待后续任务；没有静默原声旁路或备用模型。
+ 
+diff --git a/workers/vc_worker/model_process.py b/workers/vc_worker/model_process.py
+index ddc6b32..91e5592 100644
+--- a/workers/vc_worker/model_process.py
++++ b/workers/vc_worker/model_process.py
+@@ -130,6 +130,7 @@ def response_payload(request, kind, capabilities=None):
+ 
+ def decode_result(payload, request):
+     from control import decode_control
++    from warmup import HOST_BUDGET, DEVICE_BUDGET
+     response = decode_control(payload, "WorkerResponse", request["binding"])
+     if response["request_id"] != request["request_id"]:
+         raise ValueError("model request mismatch")
+@@ -148,8 +149,8 @@ def decode_result(payload, request):
+         "conditioning_schema": "meanvc2-reference-local-v1",
+         "duration_preserving": False,
+         "capability_test_run_id": "T011-warmup-" + request["request_id"],
+-        "model_memory_budget_bytes": str(6 * 1024 ** 3),
+-        "device_memory_budget_bytes": str(4 * 1024 ** 3),
++        "model_memory_budget_bytes": str(HOST_BUDGET),
++        "device_memory_budget_bytes": str(DEVICE_BUDGET),
+     }
+     if cap != expected:
+         raise ValueError("unverified model capability")
+diff --git a/workers/vc_worker/prepare_diagnostics.py b/workers/vc_worker/prepare_diagnostics.py
+index deec147..59b91dd 100644
+--- a/workers/vc_worker/prepare_diagnostics.py
++++ b/workers/vc_worker/prepare_diagnostics.py
+@@ -25,7 +25,7 @@ class StageJournal:
+     @classmethod
+     def fixed(cls):
+         root = Path(__file__).resolve().parents[2]
+-        return cls(root / ".local/t011-finalize-warmup-once/prepare-stages.ndjson")
++        return cls(root / ".local/t011-budget8-warmup-once/prepare-stages.ndjson")
+ 
+     def record(self, stage, edge):
+         if stage not in STAGES or edge not in ("before", "after"):
+@@ -74,7 +74,7 @@ def write_resources(path, host, device):
+ def prepare_with_diagnostics(request):
+     from warmup import prepare_fixed
+     root = Path(__file__).resolve().parents[2]
+-    base = root / ".local/t011-finalize-warmup-once"
++    base = root / ".local/t011-budget8-warmup-once"
+     identity = base / "model-process-private.json"
+     with identity.open("x", encoding="ascii") as output:
+         json.dump({"controller_pid": os.getppid(), "model_pid": os.getpid()}, output, separators=(",", ":"))
+diff --git a/workers/vc_worker/test_model_process.py b/workers/vc_worker/test_model_process.py
+index 711df9f..aa2937c 100644
+--- a/workers/vc_worker/test_model_process.py
++++ b/workers/vc_worker/test_model_process.py
+@@ -25,7 +25,7 @@ CAP = {
+     "lookahead_samples": 640, "conditioning_schema": "meanvc2-reference-local-v1",
+     "duration_preserving": False,
+     "capability_test_run_id": "T011-warmup-" + REQUEST["request_id"],
+-    "model_memory_budget_bytes": str(6 * 1024 ** 3),
++    "model_memory_budget_bytes": str(8 * 1024 ** 3),
+     "device_memory_budget_bytes": str(4 * 1024 ** 3),
+ }
+ 
+diff --git a/workers/vc_worker/test_prepare_diagnostics.py b/workers/vc_worker/test_prepare_diagnostics.py
+index 214f295..a095d78 100644
+--- a/workers/vc_worker/test_prepare_diagnostics.py
++++ b/workers/vc_worker/test_prepare_diagnostics.py
+@@ -44,6 +44,23 @@ class DiagnosticTests(unittest.TestCase):
+             finalize_preparation(Model(), sync, lambda: None, lambda: 0, observe)
+         self.assertEqual(steps[-1], (None, 0))
+ 
++    def test_authorized_host_boundary_preserves_device_and_unknown_gates(self):
++        from warmup import HOST_BUDGET, DEVICE_BUDGET, finalize_preparation
++        class Model:
++            def _init_cache(self): pass
++        # Prior actually rejected snapshot is now eligible; no model/quality change.
++        for host in (6671941632, 8 * 1024 ** 3):
++            finalize_preparation(Model(), lambda: None, lambda: host, lambda: 1853882368)
++        with self.assertRaises(MemoryError):
++            finalize_preparation(Model(), lambda: None, lambda: 8 * 1024 ** 3 + 1,
++                                 lambda: 0)
++        with self.assertRaises(MemoryError):
++            finalize_preparation(Model(), lambda: None, lambda: 6671941632,
++                                 lambda: DEVICE_BUDGET + 1)
++        with self.assertRaises(RuntimeError):
++            finalize_preparation(Model(), lambda: None, lambda: None, lambda: 0)
++        self.assertEqual(HOST_BUDGET, 8589934592)
++
+     def test_closed_order_exact_16_and_no_overwrite(self):
+         with tempfile.TemporaryDirectory() as d:
+             path = Path(d) / "phase.ndjson"
+diff --git a/workers/vc_worker/warmup.py b/workers/vc_worker/warmup.py
+index a9d9a9b..f2fd8e6 100644
+--- a/workers/vc_worker/warmup.py
++++ b/workers/vc_worker/warmup.py
+@@ -1,7 +1,7 @@
+ """Real fixed MeanVC2 preparation; no endpoints, downloads or PCM files written."""
+ from runtime import MODEL_SHA, REFERENCE_ID
+ 
+-HOST_BUDGET = 6 * 1024 ** 3
++HOST_BUDGET = 8 * 1024 ** 3  # CR-0006: explicit human-approved warmup host gate
+ DEVICE_BUDGET = 4 * 1024 ** 3
+ 
+ 

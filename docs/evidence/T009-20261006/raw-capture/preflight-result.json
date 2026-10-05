@@ -1,0 +1,40 @@
+{
+  "prepared_utc": "2026-10-05T19:59:51.663491+00:00",
+  "source_dirty_audio": true,
+  "software_checks": [
+    {
+      "name": "audio-tests",
+      "exit": 0,
+      "wall_seconds": 45.174726
+    },
+    {
+      "name": "audio-fmt",
+      "exit": 0,
+      "wall_seconds": 0.4979112
+    },
+    {
+      "name": "audio-clippy",
+      "exit": 0,
+      "wall_seconds": 16.7678559
+    },
+    {
+      "name": "audio-build",
+      "exit": 0,
+      "wall_seconds": 2.9127826
+    }
+  ],
+  "config_sha256": "590efda5d4d1e74e98439accccb6640af4b5585547e4a73f6aa8859b14fee7a8",
+  "binary_sha256": "f22d2c49e1137aa98f7046f60979948bcfd7afb1503b2f733fa1b5d11784ad89",
+  "supervisor_sha256": "3dba9dec227bc8972fe6ed8b28ef8d602e80aea7a694373a65596b624b822dc8",
+  "scope_sha256": "f1b3241fdd3e887e5cef6d60d152320f7b6aeca2ed4c06adc156b6cd519baeca",
+  "source_count": 31,
+  "native": "NOT_RUN",
+  "meaning_0x887c001a": "UNVERIFIED; no official SDK symbol found",
+  "hypothesis": "Explicit RAW stream isolates optional APO processing only; no guarantee of repair or attribution. Initialize parameters already match official shared event rules.",
+  "official_sources": [
+    "https://learn.microsoft.com/en-us/windows/win32/api/audioclient/ne-audioclient-audclnt_streamoptions",
+    "https://learn.microsoft.com/en-us/windows/win32/api/audioclient/nf-audioclient-iaudioclient2-setclientproperties",
+    "https://learn.microsoft.com/en-us/windows/win32/api/audioclient/ns-audioclient-audioclientproperties-r1",
+    "https://learn.microsoft.com/en-us/windows/win32/api/audioclient/nf-audioclient-iaudioclient-initialize"
+  ]
+}

@@ -1,0 +1,13 @@
+
+running 1 test
+test eof_partial_frame_heartbeat_timeout_and_memory_pressure_retire_actual_job ... fault mode=eof
+fault returned=Failure { kind: Io, fault: Protocol, raw_os_error: None, wire_code: None, native_failure: None } first_failure=Some(Failure { kind: Io, fault: Protocol, raw_os_error: None, wire_code: None, native_failure: None }) cleanup_snapshot=Some(CleanupSnapshot { stage: Released, terminate_succeeded: Some(true), active_processes: Some(0), process_id_count: Some(0), controller_signaled: Some(true), controller_exit_code: Some(1), policy_confirmed: Some(true), stopped_ack: false, elapsed_ms: Some(2), primary_failure: Some(Failure { kind: Io, fault: Protocol, raw_os_error: None, wire_code: None, native_failure: None }), cleanup_failure: None }) member_failure=None phase=RetryPending output_allowed=false resources_released=true stopped_ack=false
+FAILED
+
+failures:
+
+failures:
+    eof_partial_frame_heartbeat_timeout_and_memory_pressure_retire_actual_job
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 18 filtered out; finished in 0.08s
+

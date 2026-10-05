@@ -1,0 +1,16 @@
+{"stage":"imports_array_audio","edge":"before","elapsed_ns":0}
+{"stage":"imports_array_audio","edge":"after","elapsed_ns":78000000}
+{"stage":"imports_torch","edge":"before","elapsed_ns":78000000}
+{"stage":"imports_torch","edge":"after","elapsed_ns":1515000000}
+{"stage":"imports_adapter","edge":"before","elapsed_ns":1515000000}
+{"stage":"imports_adapter","edge":"after","elapsed_ns":1515000000}
+{"stage":"fixtures_check","edge":"before","elapsed_ns":1515000000}
+{"stage":"fixtures_check","edge":"after","elapsed_ns":1531000000}
+{"stage":"model_load","edge":"before","elapsed_ns":1531000000}
+{"stage":"model_load","edge":"after","elapsed_ns":10297000000}
+{"stage":"placement_validate","edge":"before","elapsed_ns":10297000000}
+{"stage":"placement_validate","edge":"after","elapsed_ns":10312000000}
+{"stage":"convert_warmup","edge":"before","elapsed_ns":10312000000}
+{"stage":"convert_warmup","edge":"after","elapsed_ns":11078000000}
+{"stage":"finalize","edge":"before","elapsed_ns":11078000000}
+{"stage":"finalize","edge":"after","elapsed_ns":11078000000}

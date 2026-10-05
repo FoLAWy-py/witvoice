@@ -1,0 +1,9 @@
+# CR0006 fixed MeanVC2 warmup: PASS_REAL_WARMUP_ONLY
+
+Actual native Windows sourcef9a622433084fb120494f4c66777df1380c8f42b; exact independently reviewed config8da1df0e3757ae2cd3f94f8da63a3b233ed31967effa4fe67361d551414317b5. Human approved8GiB host gate only; no model/quality/device/deadline changes. Actual UTC2026-10-05T17:48:18.3622484Z–17:48:30.1431821Z (local2026-10-06),11.7936089s,child0/no supervisor timeout/no retry.
+
+Real fixed loading, actual VC/speaker/vocoderCUDA and ASRCPU placement guards, finite nonblank internal conversion, finalreset/sync and all16phase records complete. Ready exactcaps/binding/request validated,114successfulHB/max102ms,Stopped ACK. Before Stop the real native Node owner found both authenticated controller/model PID in its exact Job, then terminated and queried actualJob0; cleanuptrue/closedoutput/noSink/media/audio/network/PCMfiles.118 raw app sources unchanged. Specific Job proof was after Ready/beforeStop, not before loading.
+
+Final snapshot host(controller+modelchild)7717109760 bytes (~7.187GiB), device CUDAreserved1853882368 (~1.727GiB), within approved8589934592 host/unchanged4294967296 device. Snapshot is not peak/steady/leak/profile attribution. Host deviates above SPEC07 model4GiB planning target; source attribution remains UNKNOWN and user impact/headroom documented in CR0006. New higher gate is not memory optimization. Difference from prior6671941632 snapshot is un-attributed; do not invent causal comparison or relabel old6GiB FAILED. Compatibility2/2 unchanged.
+
+Limited real warmup only: no media conversion through Node, virtual endpoint/third-party/physicalmic/stability/24source3voice/owner quality/M5/M6 evidence. FullT011 production supervision/retry/gate and fullVC remain open. T009 independent captureInitialize0x887c001a remainsblocked. SoleGPUlease released; no consumed-once reuse or automatic nextmodelrun. NextT011 smallest lifecycle integration gap audit.

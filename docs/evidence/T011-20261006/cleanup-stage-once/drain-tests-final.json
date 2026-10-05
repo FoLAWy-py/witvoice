@@ -1,0 +1,48 @@
+{
+    "owner":  "/root",
+    "task":  "T011",
+    "kind":  "same production deadline functions extracted; real local anonymous held writer, no processes/audio/network",
+    "started_utc":  "2026-10-05T18:53:16.0137832Z",
+    "finished_utc":  "2026-10-05T18:53:16.5409967Z",
+    "wall_ms":  515,
+    "exit":  0,
+    "host":  "5.1.26100.7462",
+    "executable":  "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+    "argv":  [
+                 "-NoProfile",
+                 "-File",
+                 "D:\\Project\\witvoice\\.local\\t011-cleanup-r2-root\\drain-tests.ps1",
+                 "-RunId",
+                 "final"
+             ],
+    "supervisor_sha256":  "6370c090dc5ce28dc9dc826fe09beba3758169e01ce6d4eaa895ab31ed48a2d4",
+    "tests_sha256":  "873080b57dbcb90a53f53f1268e7cd12268dd6d409cfd5a606f7761a00331230",
+    "cases":  [
+                  {
+                      "wall_ms":  90,
+                      "status":  "DEADLINE",
+                      "case":  "real held write handle",
+                      "no_process":  true
+                  },
+                  {
+                      "wall_ms":  44,
+                      "status":  "DEADLINE",
+                      "case":  "second stream remains pending"
+                  },
+                  {
+                      "wall_ms":  34,
+                      "status":  "DEADLINE",
+                      "case":  "already expired deadline"
+                  },
+                  {
+                      "wall_ms":  0,
+                      "status":  "COMPLETE",
+                      "case":  "both complete"
+                  },
+                  {
+                      "wall_ms":  8,
+                      "status":  "FAULTED",
+                      "case":  "faulted stream"
+                  }
+              ]
+}

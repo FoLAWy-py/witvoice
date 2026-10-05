@@ -1,0 +1,46 @@
+{
+  "binary_sha256": "9b5b7c765a8b093ed5169102a4c3530a8d2a36e4e2338a6c363b214da32cc766",
+  "results": [
+    {
+      "name": "version",
+      "command": [
+        "D:\\Resource\\ffmpeg\\bin\\ffmpeg.exe",
+        "-version"
+      ],
+      "exit": 0,
+      "started_utc": "2026-10-05T20:06:41.726882+00:00",
+      "ended_utc": "2026-10-05T20:06:42.151977+00:00",
+      "stdout_sha256": "0face43aec786e835e6e8be3e6555720f0556d90b36880d1a8df415b74eb2359",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "version": "ffmpeg version 2026-02-18-git-52b676bb29-essentials_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+      "cable_output_names": [],
+      "capture_start": "NOT_RUN",
+      "dshow_device_mapping": "NOT_VERIFIED"
+    },
+    {
+      "name": "dshow-list",
+      "command": [
+        "D:\\Resource\\ffmpeg\\bin\\ffmpeg.exe",
+        "-hide_banner",
+        "-list_devices",
+        "true",
+        "-f",
+        "dshow",
+        "-i",
+        "dummy"
+      ],
+      "exit": 0,
+      "started_utc": "2026-10-05T20:06:42.151977+00:00",
+      "ended_utc": "2026-10-05T20:06:42.843689+00:00",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "6828926f0d4e4e451e9984a5aa778b65bbd894345b104ad39137f061de9080ee",
+      "version": null,
+      "cable_output_names": [
+        "CABLE Output (VB-Audio Virtual Cable)"
+      ],
+      "capture_start": "NOT_RUN",
+      "dshow_device_mapping": "NOT_VERIFIED"
+    }
+  ],
+  "scope": "Version and DirectShow list only; no physical/cable stream Start, PCM or settings changes"
+}

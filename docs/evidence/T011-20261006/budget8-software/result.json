@@ -1,0 +1,44 @@
+{
+  "scope": "CR0006 authorized host8GiB only/software NOT model",
+  "integrated_application_commit": "f9a622433084fb120494f4c66777df1380c8f42b",
+  "source_manifest_commit": "e03fe0413bcb0d583f45ff92789f5f2b0f3424a1",
+  "frozen_working_tree_changes": true,
+  "source_inputs": 118,
+  "raw_equal": true,
+  "rust_effective_tests": 212,
+  "python_tests": 66,
+  "checks": {
+    "python-tests-budget8": {
+      "exit": 0,
+      "wall_seconds": 3.8837528,
+      "raw118_equal": true
+    },
+    "compile-budget8": {
+      "exit": 0,
+      "wall_seconds": 0.20090129999999998,
+      "raw118_equal": true
+    },
+    "budget8-workspace-tests": {
+      "exit": 0,
+      "wall_seconds": 11.1796276,
+      "raw118_equal": true
+    },
+    "budget8-fmt": {
+      "exit": 0,
+      "wall_seconds": 0.4084865,
+      "raw118_equal": true
+    },
+    "budget8-clippy": {
+      "exit": 0,
+      "wall_seconds": 0.4702416,
+      "raw118_equal": true
+    },
+    "budget8-examples": {
+      "exit": 0,
+      "wall_seconds": 0.7430639,
+      "raw118_equal": true
+    }
+  },
+  "GPU_audio_LAN": "NOT_RUN",
+  "T011_complete": false
+}

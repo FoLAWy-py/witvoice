@@ -1,0 +1,15 @@
+{
+  "source_commit": "e03fe0413bcb0d583f45ff92789f5f2b0f3424a1",
+  "raw_inputs_equal": 118,
+  "config_sha256": "e013f6e7aaafb961c9dbf9ae568dcc9ce29bff474aeee85ec5a76e02cf8971fc",
+  "binary_sha256": "1efa80bc8592935af8fea988f439edc214377a9af7df09e059b9f8f5ee46c825",
+  "supervisor_sha256": "0010efa528479a9ca8f4a84b61f9261f2238946dc20205ddef4aa918ea899264",
+  "status": "NOT_RUN",
+  "resources_reader_cases": 9,
+  "phase_reader_cases": 8,
+  "success_predicate_cases": 12,
+  "all_check_exits": 0,
+  "lease": "NO_GPU_AUDIO_LAN",
+  "budgets_model_weights_quality_unchanged": true,
+  "diagnostic_scope": "Final cache reset+sync then actual controller+child private and CUDA reserved snapshot, not peak; unknown/over limit refuse Ready"
+}

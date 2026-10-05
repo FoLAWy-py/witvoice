@@ -1,0 +1,9 @@
+# T009 explicit RAW capture preparation: limited preflight
+
+Actual reviewer /root/reviewer_t001 UUID01a1077c-556d-7152-892c-d9f92346ec0f: APPROVE ONE_PRIMED_ROUTE_ONLY. Independent readonly, no rerun/edit/hardware.
+
+Source41299a5f176bbdca8a0931c793391b587d49498d; config2adc964f90b9f9632b7a83f8b756e8dfc0d8ed8def2f544ad4191861a1e9ed5c; binary2b09e5f209bb40a41bb7b4e4c85be475e8e32b622f965d9a1b4951817e052192; wrapperf32b20ee42243f54b4422cc55fd95a157db0a7b4e0838f6b6e4d7e9d3d348447; originalUIDscopef1b3241fdd3e887e5cef6d60d152320f7b6aeca2ed4c06adc156b6cd519baeca; authorizationT009-PRIMED-ba005b32-8091-44e6-83fd-75a857066867.
+
+Actually read full496line probe, full startup helper/four tests, wrapper/config/unconsumed grant, all four root check metadata/fullstdout/stderr. Root70tests/fmt/strictaudioClippy/examples exit0,33inputs beforeafter/currentbytes equal. No mustfix S0/S1/S2 in this scope. Preparatory gate remains private/unarmed/renderPrepared silentprefill; first capture discarded/erased with flags retained, subsequent2clean position-contiguous QPC-increasing packets; fixed100ms absolute deadline. Revalidate before arm/share/bind. Failure explicitly closes streams/watch and reports marker0. Markerphase still zero discontinuity/timestamp/underflow with correlation>=.6.
+
+One new consumed directory/explicitflag, originalsame pair, exclusiveaudio lease; preparation included in active<=2s, markerstop target1.95s, amplitude<=.01, capacities1440/commit960, total<=15s, no retry/fallback/physicalaudio/PCMdisk/default/security/driver/upload. Raw failures immutable. Source of startup discontinuity and OS tail UNKNOWN; hardware NOT_RUN at preflight. This is not T009 DONE, realworker/VC/Mac approval. Relays839f6b/03b5b1/e7ccd7/82f9a8/22e2d6/aebeab/60df68/61287a/d78c47/4b56f0, metadataonlybe192e.

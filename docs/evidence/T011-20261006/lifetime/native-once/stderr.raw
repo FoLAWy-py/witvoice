@@ -1,0 +1,15 @@
+
+thread 'eof_partial_frame_heartbeat_timeout_and_memory_pressure_retire_actual_job' (61768) panicked at crates\engines\tests\worker_supervision.rs:456:9:
+assertion `left == right` failed: eof
+  left: Protocol
+ right: Eof
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'old_epoch_after_real_restart_cannot_reopen_output' (65516) panicked at crates\engines\tests\worker_supervision.rs:502:33:
+called `Result::unwrap()` on an `Err` value: PoisonError { .. }
+
+thread 'shared_absolute_deadline_is_not_renewed_after_partial_header' (57248) panicked at crates\engines\tests\worker_supervision.rs:532:33:
+called `Result::unwrap()` on an `Err` value: PoisonError { .. }
+
+thread 'two_fresh_native_pids_epochs_then_third_fault_requires_explicit_reset' (60452) panicked at crates\engines\tests\worker_supervision.rs:463:33:
+called `Result::unwrap()` on an `Err` value: PoisonError { .. }

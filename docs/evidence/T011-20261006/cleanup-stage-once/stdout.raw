@@ -1,0 +1,17 @@
+
+running 1 test
+test authenticated_dual_channels_ready_stop_ack_and_actual_tree_zero ... owned native member 62964: python.exe
+owned native member 62004: conhost.exe
+owned native member 57164: python.exe
+owned native member 62676: conhost.exe
+first cleanup observation: Some(CleanupSnapshot { stage: WaitController, terminate_succeeded: Some(true), active_processes: Some(0), process_id_count: Some(0), controller_signaled: Some(false), controller_exit_code: None, policy_confirmed: None, stopped_ack: true, elapsed_ms: Some(0), primary_failure: None, cleanup_failure: Some(Failure { kind: Cleanup, fault: Protocol, raw_os_error: None, wire_code: None, native_failure: None }) })
+stop result: Err(Failure { kind: Cleanup, fault: Protocol, raw_os_error: None, wire_code: None, native_failure: None }); output_allowed: false; resources_released: false; stopped_ack: true
+FAILED
+
+failures:
+
+failures:
+    authenticated_dual_channels_ready_stop_ack_and_actual_tree_zero
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 15 filtered out; finished in 0.14s
+

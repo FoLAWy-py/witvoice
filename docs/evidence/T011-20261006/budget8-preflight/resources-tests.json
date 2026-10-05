@@ -1,0 +1,91 @@
+{
+    "exit":  0,
+    "scope":  "Actual extracted resource reader/gate only; no supervisor main",
+    "supervisor_sha256":  "e7acca38d166100621a1c92dafae9ac8789dda7876ee2a02cf38ece8f949906c",
+    "started_utc":  "2026-10-05T17:39:46.1773591Z",
+    "audio":  "NOT_RUN",
+    "host":  "5.1.26100.7462",
+    "model":  "NOT_RUN",
+    "finished_utc":  "2026-10-05T17:39:46.3137332Z",
+    "GPU":  "NOT_RUN",
+    "tests":  11,
+    "cases":  [
+                  {
+                      "known":  true,
+                      "within_budget":  true,
+                      "case":  "known",
+                      "exit":  0,
+                      "diagnostic":  "VALID_BOUNDED_SCALARS"
+                  },
+                  {
+                      "known":  true,
+                      "within_budget":  true,
+                      "case":  "old_measured_host",
+                      "exit":  0,
+                      "diagnostic":  "VALID_BOUNDED_SCALARS"
+                  },
+                  {
+                      "known":  true,
+                      "within_budget":  true,
+                      "case":  "host_at_8GiB",
+                      "exit":  0,
+                      "diagnostic":  "VALID_BOUNDED_SCALARS"
+                  },
+                  {
+                      "known":  true,
+                      "within_budget":  false,
+                      "case":  "host_over",
+                      "exit":  0,
+                      "diagnostic":  "VALID_BOUNDED_SCALARS"
+                  },
+                  {
+                      "known":  true,
+                      "within_budget":  false,
+                      "case":  "device_over",
+                      "exit":  0,
+                      "diagnostic":  "VALID_BOUNDED_SCALARS"
+                  },
+                  {
+                      "known":  false,
+                      "within_budget":  false,
+                      "case":  "unknown",
+                      "exit":  0,
+                      "diagnostic":  "VALID_BOUNDED_SCALARS"
+                  },
+                  {
+                      "known":  false,
+                      "within_budget":  false,
+                      "case":  "duplicate",
+                      "exit":  0,
+                      "diagnostic":  "INVALID_OR_PARTIAL"
+                  },
+                  {
+                      "known":  false,
+                      "within_budget":  false,
+                      "case":  "extra",
+                      "exit":  0,
+                      "diagnostic":  "INVALID_OR_PARTIAL"
+                  },
+                  {
+                      "known":  false,
+                      "within_budget":  false,
+                      "case":  "boolean",
+                      "exit":  0,
+                      "diagnostic":  "INVALID_OR_PARTIAL"
+                  },
+                  {
+                      "known":  false,
+                      "within_budget":  false,
+                      "case":  "oversize",
+                      "exit":  0,
+                      "diagnostic":  "INVALID_OR_PARTIAL"
+                  },
+                  {
+                      "known":  false,
+                      "within_budget":  false,
+                      "case":  "partial",
+                      "exit":  0,
+                      "diagnostic":  "INVALID_OR_PARTIAL"
+                  }
+              ]
+}

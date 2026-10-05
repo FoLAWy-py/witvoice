@@ -1,0 +1,68 @@
+{
+  "source_commit": "8537187433b0ddf45487e4e3fc77ec33eeea86d9",
+  "source_count": 121,
+  "root_checks": [
+    {
+      "name": "integration-platform-error-tests",
+      "exit": 0,
+      "wall_seconds": 2.6431402,
+      "both121_equal": true
+    },
+    {
+      "name": "integration-member-snapshot-tests",
+      "exit": 0,
+      "wall_seconds": 0.3787298,
+      "both121_equal": true
+    },
+    {
+      "name": "integration-cleanup-observation-tests",
+      "exit": 0,
+      "wall_seconds": 3.7657757999999997,
+      "both121_equal": true
+    },
+    {
+      "name": "integration-fmt",
+      "exit": 0,
+      "wall_seconds": 0.8532734999999999,
+      "both121_equal": true
+    },
+    {
+      "name": "integration-clippy",
+      "exit": 0,
+      "wall_seconds": 7.539501,
+      "both121_equal": true
+    },
+    {
+      "name": "integration-examples",
+      "exit": 0,
+      "wall_seconds": 7.3924883999999995,
+      "both121_equal": true
+    }
+  ],
+  "pure_Rust_tests": 15,
+  "Python_tests": "NOT_REPEATED; unchanged Python retains d806 66test evidence only",
+  "native_case": "PASS_NATIVE_FIRSTCASE_ONLY",
+  "specific_Job_members_verified": 4,
+  "all4_retained_native_handles_exited": true,
+  "Job_active": 0,
+  "Job_id_count": 0,
+  "controller_signaled": true,
+  "stopped_ack": true,
+  "policy_confirmed": true,
+  "output_allowed": false,
+  "cleanup_elapsed_ms": 4,
+  "wall_seconds": 0.2958397,
+  "exit": 0,
+  "no_retry": true,
+  "remaining7": "NOT_RUN",
+  "model_GPU_audio_LAN": "NOT_RUN",
+  "T011": "IN_PROGRESS",
+  "old09_cause": "UNKNOWN",
+  "oldr3": "FAILED_WAIT_CONTROLLER_UNSIGNALED",
+  "olddad": "FAILED_OTHER_NATIVE_HANDLE_NOT_EXITED",
+  "independent_review": "SIGNED_PASS_NATIVE_FIRSTCASE_ONLY; UUID01a1077c-556d-7152-892c-d9f92346ec0f; no rerun",
+  "history_and_realworker_coverage": "UNVERIFIED; missing historical member refuses release",
+  "config_sha256": "e2c7ed3fa5c87b8507a7b2f4ab0094c8365c3cbfa0773356d8f0847de0b5654c",
+  "supervisor_sha256": "6370c090dc5ce28dc9dc826fe09beba3758169e01ce6d4eaa895ab31ed48a2d4",
+  "binary_sha256": "fdc6649ff82599e08e2ab6445a6a91dff78cb10fc822c712dddc1d09262634d4"
+}

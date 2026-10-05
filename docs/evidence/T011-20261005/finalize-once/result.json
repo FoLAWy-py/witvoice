@@ -1,0 +1,158 @@
+{
+    "source_commit":  "e03fe0413bcb0d583f45ff92789f5f2b0f3424a1",
+    "binary_sha256":  "1efa80bc8592935af8fea988f439edc214377a9af7df09e059b9f8f5ee46c825",
+    "config_sha256":  "e013f6e7aaafb961c9dbf9ae568dcc9ce29bff474aeee85ec5a76e02cf8971fc",
+    "owner":  "/root",
+    "host":  "5.1.26100.7462",
+    "started_utc":  "2026-10-05T17:21:36.6679577Z",
+    "status":  "FAIL_REAL_WARMUP",
+    "model":  "REAL_WARMUP_ATTEMPT",
+    "audio":  "NOT_RUN",
+    "network":  "NOT_RUN",
+    "pcm_saved":  false,
+    "exit":  1,
+    "timed_out":  false,
+    "owned_job_cleanup":  "CONFIRMED_BY_REAL_OWNER",
+    "report":  {
+                   "automatic_retries":  0,
+                   "backend":  "cuda",
+                   "chunk_samples":  2560,
+                   "cleanup_confirmed":  true,
+                   "cleanup_failure":  null,
+                   "cleanup_failure_os_error":  null,
+                   "device_budget_bytes":  4294967296,
+                   "diagnostic_stage_recording":  true,
+                   "duration_preserving":  false,
+                   "engine":  "meanvc2",
+                   "failure":  "memory_pressure",
+                   "failure_last_heartbeat_age_ms":  101,
+                   "failure_os_error":  null,
+                   "failure_request_elapsed_ms":  1,
+                   "failure_stage":  "heartbeat_read",
+                   "heartbeat_count":  264,
+                   "host_budget_bytes":  6442450944,
+                   "lookahead_is_total_delay":  false,
+                   "lookahead_samples":  640,
+                   "max_heartbeat_gap_ms":  108,
+                   "media_exchanged":  false,
+                   "model_job_membership_verified":  false,
+                   "model_ready":  false,
+                   "model_sha256":  "01caafec9a3991a5514df9412952d24ae3370406358a01e20e03df41f2f5d515",
+                   "native_rate":  16000,
+                   "output_open":  false,
+                   "owned_active_processes":  0,
+                   "policy_output_allowed_after_cleanup":  false,
+                   "ready_received":  false,
+                   "reference_id":  "00000000-0000-0000-0000-000000000011",
+                   "result":  "FAILED",
+                   "sink_present":  false,
+                   "stopped_ack":  false
+               },
+    "phase_diagnostic":  "VALID_BOUNDED_SCALARS",
+    "phase_complete":  false,
+    "phase_records":  [
+                          {
+                              "stage":  "imports_array_audio",
+                              "edge":  "before",
+                              "elapsed_ns":  0
+                          },
+                          {
+                              "stage":  "imports_array_audio",
+                              "edge":  "after",
+                              "elapsed_ns":  125000000
+                          },
+                          {
+                              "stage":  "imports_torch",
+                              "edge":  "before",
+                              "elapsed_ns":  125000000
+                          },
+                          {
+                              "stage":  "imports_torch",
+                              "edge":  "after",
+                              "elapsed_ns":  3469000000
+                          },
+                          {
+                              "stage":  "imports_adapter",
+                              "edge":  "before",
+                              "elapsed_ns":  3469000000
+                          },
+                          {
+                              "stage":  "imports_adapter",
+                              "edge":  "after",
+                              "elapsed_ns":  3469000000
+                          },
+                          {
+                              "stage":  "fixtures_check",
+                              "edge":  "before",
+                              "elapsed_ns":  3469000000
+                          },
+                          {
+                              "stage":  "fixtures_check",
+                              "edge":  "after",
+                              "elapsed_ns":  3500000000
+                          },
+                          {
+                              "stage":  "model_load",
+                              "edge":  "before",
+                              "elapsed_ns":  3500000000
+                          },
+                          {
+                              "stage":  "model_load",
+                              "edge":  "after",
+                              "elapsed_ns":  24453000000
+                          },
+                          {
+                              "stage":  "placement_validate",
+                              "edge":  "before",
+                              "elapsed_ns":  24453000000
+                          },
+                          {
+                              "stage":  "placement_validate",
+                              "edge":  "after",
+                              "elapsed_ns":  24469000000
+                          },
+                          {
+                              "stage":  "convert_warmup",
+                              "edge":  "before",
+                              "elapsed_ns":  24469000000
+                          },
+                          {
+                              "stage":  "convert_warmup",
+                              "edge":  "after",
+                              "elapsed_ns":  26219000000
+                          },
+                          {
+                              "stage":  "finalize",
+                              "edge":  "before",
+                              "elapsed_ns":  26219000000
+                          }
+                      ],
+    "phase_file":  {
+                       "bytes":  997,
+                       "sha256":  "1dfd97b556ade4dea222fae382c209fdf94c04dc6b5c772677acf4c6292c4c15"
+                   },
+    "resource_diagnostic":  "VALID_BOUNDED_SCALARS",
+    "resource_known":  true,
+    "resource_within_budget":  false,
+    "resources":  {
+                      "host_private_bytes":  6671941632,
+                      "device_reserved_bytes":  1853882368,
+                      "host_budget_bytes":  6442450944,
+                      "device_budget_bytes":  4294967296
+                  },
+    "resource_file":  {
+                          "bytes":  132,
+                          "sha256":  "a8fea7410935ac889c077350bb180509e8f6ba08d23f9e1158b9e76f1599ac5c"
+                      },
+    "finished_utc":  "2026-10-05T17:22:04.6219509Z",
+    "wall_seconds":  27.961236399999997,
+    "stdout":  {
+                   "bytes":  956,
+                   "sha256":  "86c4f94f8ee59357497010a05ab0a95f4faaddca09267a04930e07f19fb5d68e"
+               },
+    "stderr":  {
+                   "bytes":  0,
+                   "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+               },
+    "source_after_all_equal":  true
+}
