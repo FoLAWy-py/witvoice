@@ -35,33 +35,26 @@
     },
     {
       "task_id": "T016",
-      "agent_instance_id": "/root/backend",
+      "agent_instance_id": "/root",
       "allowed_paths": [
-        "crates/platform/src/discovery.rs",
-        "crates/platform/src/discovery/",
-        "crates/platform/src/lib.rs",
-        "crates/platform/tests/discovery.rs",
-        "crates/platform/README.md",
-        "crates/transport/src/discovery.rs",
-        "crates/transport/src/discovery/",
-        "crates/transport/tests/discovery.rs",
-        "crates/transport/examples/native_discovery_probe.rs",
-        "crates/transport/README.md",
-        ".local/t016-native-author/"
+        ".local/t016-leader-integration/",
+        "docs/evidence/T016-20261005/native-dns/leader-integration/"
       ],
       "resource_leases": [
-        "code-writer:backend-native-fixes"
+        "verification-writer:t016-leader"
       ],
       "depends_on": [
         "T003",
         "T006"
       ],
-      "contract": "ADR0003 native addendum + current615e759 source; fix actual E0509/strict lint, preserve formatter integration and frozen identity sources",
+      "contract": "Frozen native DNS source566a653 + author-final byte audit; no source/root deps modifications",
       "acceptance_commands": [
-        "cargo test --locked platform+transport; fmt package check; clippy alltargets -Dwarnings; examples build; no LAN execution"
+        "cargo test --locked -p witvoice-platform -p witvoice-transport",
+        "cargo fmt --package witvoice-platform --package witvoice-transport --check",
+        "cargo clippy --locked -p witvoice-platform -p witvoice-transport --all-targets -- -D warnings",
+        "cargo build --locked -p witvoice-platform -p witvoice-transport --examples"
       ],
-      "reviewer": "/root/reviewer_t001",
-      "execution_note": "Same locked Syn features minimized compile0 then actual full dep+native lib compile reached ordinary test source E0509. Compiler blocker no longer active in this limited run; cause historical failuresUNKNOWN. No blind retry on ICE/AV; full unique logs required."
+      "execution_note": "No LAN/audio/GPU; process-only D target/jobs1/inc0. Stop on compiler AV/ICE; no blind retry."
     }
   ],
   "milestones": {

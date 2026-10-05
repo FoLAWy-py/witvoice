@@ -1,0 +1,116 @@
+{
+  "auditor": "/root",
+  "utc": "2026-10-05T08:09:57.205819+00:00",
+  "index_sha256": "b188e3d9a175c7bdebb7673cfe03dda6a3f9112bff3355f0c9b212c85ff00617",
+  "runs": [
+    {
+      "stem": "03-tests",
+      "exit_code": 101,
+      "metadata_sha256": "a12eb417804ccbdda4201686c00b28adc376f0a67a1b50168c3049bc5d3e613e"
+    },
+    {
+      "stem": "04-tests",
+      "exit_code": 0,
+      "metadata_sha256": "01d33e002d466d03ca5793964f61b195a590a01c2a8cdd4de89c5c7c3862e58f"
+    },
+    {
+      "stem": "05-fmt-check",
+      "exit_code": 0,
+      "metadata_sha256": "54e0659f92d73bb1d51a00a8f6c699311b6cc8a7c583c6868b900b8958ad94ee"
+    },
+    {
+      "stem": "06-clippy",
+      "exit_code": 101,
+      "metadata_sha256": "d1fca93dccfe61bacb3ad5d2a2db9a21699cd142d29be754379846b85c098192"
+    },
+    {
+      "stem": "07-clippy",
+      "exit_code": 101,
+      "metadata_sha256": "76120ceab90b6a009d78edddc391192a285609ba1c67863d852e1954fe0fe15a"
+    },
+    {
+      "stem": "08-clippy",
+      "exit_code": 0,
+      "metadata_sha256": "dfec86f3eb1fa69ffc7a69f2f7b7f6991ab67edd7b40efcf9f5b2723e722eb91"
+    },
+    {
+      "stem": "09-tests-final",
+      "exit_code": 0,
+      "metadata_sha256": "630780383b8fd02175929ff73363e88b81b67444867535e8a5a8aae63533755b"
+    },
+    {
+      "stem": "10-fmt-final",
+      "exit_code": 0,
+      "metadata_sha256": "33fdd18044f42514ca2359a11cf3d11d061e552073731ebb3690fb441005c498"
+    },
+    {
+      "stem": "11-examples-build",
+      "exit_code": 0,
+      "metadata_sha256": "682f98bef3b5107c8010c51a7cd898c68b4c4d9db9b6b04e35f8ccb1b565f43b"
+    }
+  ],
+  "source_hashes": [
+    {
+      "path": "crates/platform/src/lib.rs",
+      "sha256": "38e087b23847cd1fd9033fbaba0ebf44b83075ba6c37b9226a691ba3b7553957"
+    },
+    {
+      "path": "crates/platform/src/discovery.rs",
+      "sha256": "9e0a574687c5deb60ba4185459cfbb19d1c8ffae50628f8f9369a36ca963467b"
+    },
+    {
+      "path": "crates/platform/src/discovery/native.rs",
+      "sha256": "0850737ad1be76d0dbb673e9430239d051da8cbd27f7ac5890ffcb5a94b56285"
+    },
+    {
+      "path": "crates/platform/src/discovery/native/tests.rs",
+      "sha256": "502fbc75853cf725f95c78196f126de06e5355226420fc1e34cec47f8b119ce0"
+    },
+    {
+      "path": "crates/platform/tests/discovery.rs",
+      "sha256": "e9143602a1dd082101f6a8b4ffd0a7ecab6db53ae7d66ff15a1de28572e0690c"
+    },
+    {
+      "path": "crates/platform/README.md",
+      "sha256": "e74467e00702ac549b4ce2b118dac17033afe6382bb38408c06f44c6c4de1665"
+    },
+    {
+      "path": "crates/transport/src/discovery.rs",
+      "sha256": "2cb608a6e8fa670b5ff653d4350a0e0c6fa37d7946b235fc46a203d404e8e66c"
+    },
+    {
+      "path": "crates/transport/src/discovery/native.rs",
+      "sha256": "2cada5723d634916287459f32c301fe2aa05a348decf42bb9ed5aedaf38d7aff"
+    },
+    {
+      "path": "crates/transport/tests/discovery.rs",
+      "sha256": "b6ea153f66334e74f97f5c43cda23559c823bfa3e52eb01d22f90608b0b8732c"
+    },
+    {
+      "path": "crates/transport/examples/native_discovery_probe.rs",
+      "sha256": "6ad5769b4dd13c7fe806a0ca816fb5a4634222e0b58cd2d60d72ebce1bb9e21b"
+    },
+    {
+      "path": "crates/transport/README.md",
+      "sha256": "2a687a60970531ea5b149bbab1a817bd63f33ca3cc4bfd702510e717bd611105"
+    }
+  ],
+  "raw_stream_bytes_verified": true,
+  "final_four_source_before_after_match": true,
+  "metadata_lexical_differences": [
+    {
+      "stem": "06-clippy",
+      "field": "start_utc",
+      "raw": "2026-10-05T07:53:07.0113340Z",
+      "embedded": "2026-10-05T07:53:07.011334Z",
+      "classification": "Equal UTC value, lexical trailing-zero difference; originals retained"
+    }
+  ],
+  "prior_archive_failure": {
+    "chunk": "400a24",
+    "python_exit": 1,
+    "cause": "Exact object comparison rejected equivalent UTC spelling before remaining copy; subsequent shell git commit566a653 preserved partial archive. This audit completes it; no history rewritten."
+  },
+  "actual_dns_lan": "NOT_RUN",
+  "formal_review": "PENDING"
+}

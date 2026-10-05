@@ -1,0 +1,11 @@
+   Compiling witvoice-platform v0.1.0 (D:\Project\witvoice\crates\platform)
+   Compiling witvoice-transport v0.1.0 (D:\Project\witvoice\crates\transport)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 4.87s
+     Running unittests src\lib.rs (.local\t016-syn-reproducer\target\debug\deps\witvoice_platform-0f7e4839a54bf224.exe)
+     Running tests\discovery.rs (.local\t016-syn-reproducer\target\debug\deps\discovery-05b911523659791a.exe)
+     Running tests\identity.rs (.local\t016-syn-reproducer\target\debug\deps\identity-28df2ec08ce8b7bf.exe)
+     Running unittests src\lib.rs (.local\t016-syn-reproducer\target\debug\deps\witvoice_transport-c17476c64fbd1333.exe)
+     Running tests\discovery.rs (.local\t016-syn-reproducer\target\debug\deps\discovery-d648934f0da497ae.exe)
+     Running tests\identity.rs (.local\t016-syn-reproducer\target\debug\deps\identity-3596dc4c91e7d7f3.exe)
+   Doc-tests witvoice_platform
+   Doc-tests witvoice_transport

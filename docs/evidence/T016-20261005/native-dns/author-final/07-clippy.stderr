@@ -1,0 +1,40 @@
+    Checking witvoice-platform v0.1.0 (D:\Project\witvoice\crates\platform)
+    Checking zeroize v1.9.0
+    Checking rustls-pki-types v1.15.1
+    Checking der-parser v10.0.0
+    Checking oid-registry v0.8.1
+    Checking yasna v0.6.0
+    Checking data-encoding v2.11.1
+    Checking lazy_static v1.5.1
+    Checking x509-parser v0.18.1
+    Checking rcgen v0.14.10
+    Checking witvoice-transport v0.1.0 (D:\Project\witvoice\crates\transport)
+error: field assignment outside of initializer for an instance created with Default::default()
+   --> crates\transport\src\discovery\native.rs:151:9
+    |
+151 |         peers.interface = Some(19);
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+note: consider initializing the variable with `discovery::native::NativePeers { interface: Some(19), ..Default::default() }` and removing relevant reassignments
+   --> crates\transport\src\discovery\native.rs:150:9
+    |
+150 |         let mut peers = NativePeers::default();
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.99.0/index.html#field_reassign_with_default
+    = note: `-D clippy::field-reassign-with-default` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[allow(clippy::field_reassign_with_default)]`
+
+error: field assignment outside of initializer for an instance created with Default::default()
+   --> crates\transport\src\discovery\native.rs:214:9
+    |
+214 |         peers.interface = Some(19);
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+note: consider initializing the variable with `discovery::native::NativePeers { interface: Some(19), ..Default::default() }` and removing relevant reassignments
+   --> crates\transport\src\discovery\native.rs:213:9
+    |
+213 |         let mut peers = NativePeers::default();
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.99.0/index.html#field_reassign_with_default
+
+error: could not compile `witvoice-transport` (lib test) due to 2 previous errors

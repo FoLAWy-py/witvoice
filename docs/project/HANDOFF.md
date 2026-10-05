@@ -1,5 +1,7 @@
 # 当前交接
 
+T016作者已停止写入并释放backend代码锁。原始03–11完整日志逐字节SHA/长度已核，最后四命令同一11源码前后SHA一致：30有效tests/fmt/clippy/examples退出0。06-clippy索引与原始UTC仅尾零词法差异、时间值相同，两原件保留；此前归档断言失败/566a653部分提交已补全于author-final/leader-audit.json，不改历史。原生DNS/LAN NOT_RUN、正式review待，T016仍IN_PROGRESS。当前仅audio T008代码写入，无硬件/GPU/LAN租约；next_task=T008。
+
 T008作者历史03-tests实际49有效测试0（普通E0689已修）、04fmt0；当前正在加强四组8h离散SPSC送帧模拟，并修普通Clippy lint；因此旧49通过不是当前改后复跑。日志由作者唯一文件保存，不覆盖失败。两个writer仅audio/backend路径完全分离，root不持代码锁，后续先收停止写入与SHA，再冻结整合复测/独立review。next_task=T008，M5/M6未关闭。
 
 B004在限定新检查中已越过：同Syn2.0.119原九feature最小构建0（5.63s），随后真实platform/transport依赖和native lib编译到普通test E0509（Drop对象结构更新不能move）+严格warning待修；没有compiler ICE/AV。历史原因UNKNOWN，不叫全机器修复。T016恢复IN_PROGRESS，root验证写入锁释放并登记backend普通源码/lint修复；只许原native白名单，保留root格式/保护identity/manifest/lock。audio并行T008两代码作者，无LAN/hardware/GPU。所有旧失败保留syn-minimized/conditional-check。
