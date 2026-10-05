@@ -1,0 +1,60 @@
+{
+  "runs": [
+    {
+      "stem": "01-workspace-tests",
+      "exit_code": 0
+    },
+    {
+      "stem": "02-fmt",
+      "exit_code": 0
+    },
+    {
+      "stem": "03-clippy",
+      "exit_code": 0
+    },
+    {
+      "stem": "04-probe-build",
+      "exit_code": 0
+    }
+  ],
+  "frozen_commit": "3a2574cbcee34282b92c895d7980004a12be90eb",
+  "source_match": true,
+  "audio_lan_gpu_hardware": "NOT_RUN",
+  "formal_review": "PENDING",
+  "nonempty_passed": 120,
+  "harness_counts": [
+    22,
+    2,
+    10,
+    14,
+    3,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    12,
+    0,
+    0,
+    0,
+    0,
+    7,
+    3,
+    11,
+    2,
+    5,
+    1,
+    7,
+    3,
+    3,
+    6,
+    9
+  ],
+  "probe_binary": {
+    "path": "D:\\Project\\witvoice\\.local\\t016-leader-integration\\target\\debug\\examples\\native_discovery_probe.exe",
+    "sha256": "a21e2e48052f5228fdd75e74afaf6f6f3e755d588a2ce46ae8eec89975294b50",
+    "length": 859648
+  }
+}

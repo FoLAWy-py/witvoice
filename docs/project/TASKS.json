@@ -289,7 +289,8 @@
       "resource_leases": [],
       "evidence": [
         "docs/evidence/T008-20261005/author/leader-audit.json",
-        "docs/evidence/T008-20261005/leader-integration/result.json"
+        "docs/evidence/T008-20261005/leader-integration/result.json",
+        "docs/evidence/T016-20261005/native-dns/final-integration/result.json"
       ],
       "review": "docs/project/reviews/T008-r1.md",
       "attempts": 1,
@@ -539,7 +540,8 @@
         "docs/evidence/T016-20261005/native-dns/author-final/12-delivery-index.json",
         "docs/evidence/T016-20261005/native-dns/author-final/leader-audit.json",
         "docs/evidence/T016-20261005/native-dns/leader-integration/result.json",
-        "docs/evidence/T016-20261005/native-dns/probe-author/leader-audit.json"
+        "docs/evidence/T016-20261005/native-dns/probe-author/leader-audit.json",
+        "docs/evidence/T016-20261005/native-dns/final-integration/result.json"
       ],
       "review": null,
       "attempts": 0,

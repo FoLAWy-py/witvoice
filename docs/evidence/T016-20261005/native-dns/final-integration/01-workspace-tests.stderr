@@ -1,0 +1,42 @@
+   Compiling windows-strings v0.5.1
+   Compiling windows-result v0.4.1
+   Compiling windows-core v0.62.2
+   Compiling windows-future v0.3.2
+   Compiling windows-collections v0.3.2
+   Compiling windows-numerics v0.3.1
+   Compiling windows v0.62.2
+   Compiling witvoice-platform v0.1.0 (D:\Project\witvoice\crates\platform)
+   Compiling witvoice-session v0.1.0 (D:\Project\witvoice\crates\session)
+   Compiling witvoice-audio v0.1.0 (D:\Project\witvoice\crates\audio)
+   Compiling witvoice-node v0.1.0 (D:\Project\witvoice\apps\voice-node)
+   Compiling witvoice-transport v0.1.0 (D:\Project\witvoice\crates\transport)
+   Compiling witvoice-contracts v0.1.0 (D:\Project\witvoice\crates\contracts)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1m 00s
+     Running unittests src\lib.rs (.local\t016-leader-integration\target\debug\deps\witvoice_audio-7d7890efffab862e.exe)
+     Running tests\allocation.rs (.local\t016-leader-integration\target\debug\deps\allocation-6868499f27ad3dbe.exe)
+     Running tests\conversion.rs (.local\t016-leader-integration\target\debug\deps\conversion-9654af611442d653.exe)
+     Running tests\realtime.rs (.local\t016-leader-integration\target\debug\deps\realtime-b05544c5d5f1b3ae.exe)
+     Running tests\stream_packets.rs (.local\t016-leader-integration\target\debug\deps\stream_packets-61454096036df5f9.exe)
+     Running unittests examples\format_support_probe.rs (.local\t016-leader-integration\target\debug\examples\format_support_probe-e70599d51fba2678.exe)
+     Running unittests examples\list_endpoints.rs (.local\t016-leader-integration\target\debug\examples\list_endpoints-318a93a3d796693c.exe)
+     Running unittests examples\notification_probe.rs (.local\t016-leader-integration\target\debug\examples\notification_probe-a1365d3aec31e4e7.exe)
+     Running unittests examples\removal_probe.rs (.local\t016-leader-integration\target\debug\examples\removal_probe-5e7741a6c01e4588.exe)
+     Running unittests examples\stream_smoke.rs (.local\t016-leader-integration\target\debug\examples\stream_smoke-d72fd5349e586143.exe)
+     Running unittests src\lib.rs (.local\t016-leader-integration\target\debug\deps\witvoice_contracts-9f1f2c6215c3b1d9.exe)
+     Running unittests src\bin\export_schema.rs (.local\t016-leader-integration\target\debug\deps\export_schema-34767560d4c10172.exe)
+     Running tests\wire.rs (.local\t016-leader-integration\target\debug\deps\wire-87e96d2fd22dc591.exe)
+     Running unittests src\lib.rs (.local\t016-leader-integration\target\debug\deps\witvoice_node-f7ff64f21f842114.exe)
+     Running unittests src\bin\ipc-probe.rs (.local\t016-leader-integration\target\debug\deps\ipc_probe-6242343bc5e5df64.exe)
+     Running unittests src\bin\process-probe.rs (.local\t016-leader-integration\target\debug\deps\process_probe-0e90684fa52cccda.exe)
+     Running unittests src\main.rs (.local\t016-leader-integration\target\debug\deps\witvoice_node-574b05fa8a930313.exe)
+     Running tests\supervision.rs (.local\t016-leader-integration\target\debug\deps\supervision-eb0fba7752c8f149.exe)
+     Running tests\windows_process.rs (.local\t016-leader-integration\target\debug\deps\windows_process-5609c284774a3753.exe)
+     Running unittests src\lib.rs (.local\t016-leader-integration\target\debug\deps\witvoice_platform-428bbbe40c90341f.exe)
+     Running tests\discovery.rs (.local\t016-leader-integration\target\debug\deps\discovery-038b02a27236e4a7.exe)
+     Running tests\identity.rs (.local\t016-leader-integration\target\debug\deps\identity-d43d0469405ed41a.exe)
+     Running unittests src\lib.rs (.local\t016-leader-integration\target\debug\deps\witvoice_session-3d414291dd7d93b0.exe)
+     Running tests\lifecycle.rs (.local\t016-leader-integration\target\debug\deps\lifecycle-522dc5d5f8ecdae8.exe)
+     Running unittests src\lib.rs (.local\t016-leader-integration\target\debug\deps\witvoice_transport-96fb95844fbf38b7.exe)
+     Running tests\discovery.rs (.local\t016-leader-integration\target\debug\deps\discovery-97ed75bc111af175.exe)
+     Running tests\identity.rs (.local\t016-leader-integration\target\debug\deps\identity-f673295866f56754.exe)
+     Running unittests examples\native_discovery_probe.rs (.local\t016-leader-integration\target\debug\examples\native_discovery_probe-e911cf209ba15164.exe)

@@ -166,5 +166,7 @@
   "completion_claim_allowed": false,
   "last_verified_scope": "Frozen M0/T006/T007 Windows API + T021 design; T007 review r3 approved. Excludes subsequent native DNS source, current T008 changes and whole hardware/UI/production VC/Mac.",
   "execution_status": "RUNNING_SCOPED_TASKS",
-  "interruption_evidence": "docs/project/interruption-20261005.json"
+  "interruption_evidence": "docs/project/interruption-20261005.json",
+  "last_tested_commit": "3a2574cbcee34282b92c895d7980004a12be90eb",
+  "last_tested_scope": "120 nonempty Windows workspace alltargets/process-tests, fmt/alltargetClippy/probe build0 on identical before/after source. Includes currentT008/newDNS pure tests, no final formal approvals/native Start/model/GPU/LAN/Mac."
 }

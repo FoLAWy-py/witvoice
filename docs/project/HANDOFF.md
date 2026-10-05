@@ -1,5 +1,7 @@
 # 当前交接
 
+最新冻结3a2574cb全workspace/alltargets/process-tests实际120非空tests/fmt/alltargetClippy/probe build全部0，所有源码/root manifest/lock before-after SHA一致；当前source未见新compiler崩溃但B004旧原因仍UNKNOWN。last_tested_commit单独保存，不把未审T008/T016提升last_verified。最终probe exeSHAa21e2e48…编译未运行；一次LAN授权仍NOT_RUN。root监督器source已归档native-smoke/supervise_once.py，可审查期限/no重试，尚无frozen-config。T008正式r1排队，T016静态预检收完整源中；next_task=T008。
+
 T016增强探针已交付停止（仅probe.rs，SHAe37c8882…），7完整命令raw/SHA及最后4源前后MATCH，9纯例测试/fmt/clippy/build0；真实LAN仍0次。backend lease释放。root已创建仅自己两个进程的once监督器/AST解析，无config不执行；总限15s、单进程9.5s监督余量、超时FAIL/no重试。将冻结整棵workspace后test-alltargets/process-tests、fmt、Clippy、probe build；独立原生寿命/新probe预检到齐再只运行用户授权一次。T008r1登记排队待审，next_task=T008。
 
 T008冻结2fa9115整合复跑51非空测试/fmt/alltargets Clippy/examples exit0；每次23audio源码before/afterSHA同作者最终，日志完整。已登记独立reviewer_t001正式r1（attempt1/3、只读中继/no复跑），尚无结论，不标DONE；root验证lease释放。backend继续T016仅探针证据修订/noLAN实际运行；next_task=T008。
