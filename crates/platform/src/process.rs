@@ -399,12 +399,16 @@ impl ProcessJob {
             .collect()
     }
     pub fn terminate(&self) -> io::Result<()> {
+        self.terminate_until(Instant::now() + Duration::from_secs(3))
+    }
+    /// Share an owner's absolute cleanup deadline with later retained-handle waits.
+    /// This blocking operation belongs exclusively on a non-realtime control task.
+    pub fn terminate_until(&self, deadline: Instant) -> io::Result<()> {
         // SAFETY: private owner job, includes descendants (worker job disallows breakaway).
         unsafe {
             TerminateJobObject(self.handle.0, 1)
                 .map_err(|error| fail_operation(ProcessOperation::TerminateJob, error))?;
         }
-        let deadline = Instant::now() + Duration::from_secs(3);
         while self.active_processes()? != 0 {
             if Instant::now() >= deadline {
                 return Err(io::Error::new(
@@ -412,7 +416,9 @@ impl ProcessJob {
                     "job cleanup deadline",
                 ));
             }
-            std::thread::sleep(Duration::from_millis(5));
+            std::thread::sleep(
+                Duration::from_millis(5).min(deadline.saturating_duration_since(Instant::now())),
+            );
         }
         Ok(())
     }

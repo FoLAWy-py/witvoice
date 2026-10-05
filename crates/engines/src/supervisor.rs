@@ -25,6 +25,7 @@ const PYTHON: &str =
     r"C:\Users\22198\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe";
 const IO_WINDOW: Duration = Duration::from_millis(400);
 const STARTUP: Duration = Duration::from_millis(2500);
+const CLEANUP_WINDOW: Duration = Duration::from_secs(3);
 const BEAT: Duration = Duration::from_millis(100);
 const WARMUP_MS: u64 = 120_000;
 const MAX_EVENTS_PER_REQUEST: usize = 4;
@@ -133,6 +134,24 @@ impl CleanupObservation {
             return Err(self.reject(failure(FailureKind::Cleanup, Fault::Protocol)));
         }
         Ok(())
+    }
+    pub(crate) fn wait_until(
+        &mut self,
+        deadline: Instant,
+        now: Instant,
+        wait: impl FnOnce(Duration) -> io::Result<Option<u32>>,
+    ) -> Result<()> {
+        self.snapshot.stage = CleanupStage::WaitController;
+        let remaining = deadline
+            .checked_duration_since(now)
+            .filter(|remaining| !remaining.is_zero())
+            .ok_or_else(|| {
+                self.reject(cleanup_io_failure(io::Error::new(
+                    io::ErrorKind::TimedOut,
+                    "controller cleanup deadline",
+                )))
+            })?;
+        self.wait(wait(remaining).map_err(cleanup_io_failure))
     }
     pub(crate) fn confirm(
         &mut self,
@@ -621,6 +640,7 @@ impl WorkerSupervisor {
     /// On query/termination error the owner remains quarantined and cannot restart.
     pub fn cleanup(&mut self) -> Result<()> {
         let started = Instant::now();
+        let deadline = started + CLEANUP_WINDOW;
         let mut observation = CleanupObservation::new(self.first_failure, self.stopped_ack);
         if self
             .owned
@@ -642,11 +662,17 @@ impl WorkerSupervisor {
         own.control.close();
         own.media.close();
         let clean = (|| {
-            observation.terminate(own.job.terminate().map_err(cleanup_io_failure))?;
+            observation.terminate(
+                own.job
+                    .terminate_until(deadline)
+                    .map_err(cleanup_io_failure),
+            )?;
             observation.active(own.job.active_processes().map_err(cleanup_io_failure))?;
             observation.ids(own.job.process_ids().map_err(cleanup_io_failure))?;
             if let Some(process) = own.process.as_ref() {
-                observation.wait(process.wait(Duration::ZERO).map_err(cleanup_io_failure))?;
+                observation.wait_until(deadline, Instant::now(), |remaining| {
+                    process.wait(remaining)
+                })?;
             }
             if own.policy_started {
                 let binding = self.lifecycle.binding().expect("cleanup binding");

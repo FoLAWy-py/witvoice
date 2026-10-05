@@ -224,6 +224,84 @@ fn cleanup_observation_first_refusal_never_overwritten_by_later_success_or_failu
     assert!(saved.unwrap().stopped_ack);
 }
 
+#[test]
+fn cleanup_observation_controller_signaled_later_uses_only_remaining_budget() {
+    let started = Instant::now();
+    let deadline = started + Duration::from_secs(3);
+    let after_job = started + Duration::from_millis(1200);
+    let mut observed = through_ids();
+    observed
+        .wait_until(deadline, after_job, |remaining| {
+            assert_eq!(remaining, Duration::from_millis(1800));
+            // Deterministic native-result fixture: Job was already empty but the
+            // retained controller handle signals during its remaining wait.
+            Ok(Some(1))
+        })
+        .unwrap();
+    observed.confirm(Ok(lifecycle::Action::None)).unwrap();
+    let snapshot = observed.finish(Some(1500), true);
+    assert_eq!(snapshot.stage, CleanupStage::Released);
+    assert_eq!(snapshot.active_processes, Some(0));
+    assert_eq!(snapshot.process_id_count, Some(0));
+    assert_eq!(snapshot.controller_signaled, Some(true));
+    assert_eq!(snapshot.controller_exit_code, Some(1));
+    assert_eq!(snapshot.cleanup_failure, None);
+}
+
+#[test]
+fn cleanup_observation_expired_remaining_budget_never_waits_or_renews() {
+    let started = Instant::now();
+    let deadline = started + Duration::from_secs(3);
+    for now in [deadline, deadline + Duration::from_millis(1)] {
+        let mut observed = through_ids();
+        let error = observed
+            .wait_until(deadline, now, |_| {
+                panic!("expired absolute deadline must not query the controller")
+            })
+            .unwrap_err();
+        assert_eq!(error.kind, FailureKind::Cleanup);
+        let snapshot = observed.finish(Some(3000), false);
+        assert_eq!(snapshot.stage, CleanupStage::WaitController);
+        assert_eq!(snapshot.active_processes, Some(0));
+        assert_eq!(snapshot.process_id_count, Some(0));
+        assert_eq!(snapshot.controller_signaled, None);
+        assert_eq!(snapshot.controller_exit_code, None);
+        assert_eq!(snapshot.policy_confirmed, None);
+        assert_eq!(snapshot.cleanup_failure, Some(error));
+        assert_eq!(snapshot.primary_failure, Some(observed_primary()));
+        assert!(snapshot.stopped_ack);
+    }
+}
+
+#[test]
+fn cleanup_observation_remaining_wait_api_error_retains_first_refusal() {
+    let started = Instant::now();
+    let deadline = started + Duration::from_secs(3);
+    let mut observed = through_ids();
+    let error = observed
+        .wait_until(
+            deadline,
+            started + Duration::from_millis(2900),
+            |remaining| {
+                assert_eq!(remaining, Duration::from_millis(100));
+                Err(std::io::Error::from_raw_os_error(5))
+            },
+        )
+        .unwrap_err();
+    assert_eq!(error.kind, FailureKind::Cleanup);
+    assert_eq!(error.raw_os_error, Some(5));
+    let first = observed.finish(Some(2900), false);
+    assert_eq!(first.stage, CleanupStage::WaitController);
+    assert_eq!(first.controller_signaled, None);
+    assert_eq!(first.policy_confirmed, None);
+    assert_eq!(first.primary_failure, Some(observed_primary()));
+    let mut saved = None;
+    remember_cleanup(&mut saved, first);
+    remember_cleanup(&mut saved, all_released());
+    assert_eq!(saved, Some(first));
+    assert_eq!(saved.unwrap().cleanup_failure, Some(error));
+}
+
 // Compile exactly the production source with only its cfg(test) fixed-peer factory.
 pub use witvoice_engines::lifecycle;
 #[path = "../src/supervisor.rs"]
