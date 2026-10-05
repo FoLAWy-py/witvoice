@@ -327,12 +327,15 @@
       "evidence": [
         "docs/evidence/T009-20261005/author/leader-audit.json",
         "docs/evidence/T009-20261005/preflight-audit.json",
-        "docs/evidence/T009-20261005/once/result.json"
+        "docs/evidence/T009-20261005/once/result.json",
+        "docs/evidence/T009-20261005/capacity-author/leader-audit.json",
+        "docs/project/reviews/T009-preflight.md",
+        "docs/project/reviews/T009-capacity-limited.md"
       ],
-      "review": null,
+      "review": "docs/project/reviews/T009-capacity-limited.md",
       "attempts": 0,
-      "blocked_reason": "One authorized actual run consumed: render prepare Capacity before any Start, child1/~0.119s; no continuity proof/no retry. Exact OS capacity unreported; bounded buffer adaptation/diagnostic needed before any separately scoped new authorization.",
-      "execution_note": "Independent static preflight permitted fixed once; user one permission consumed. Audio tests62 author/root0; all streams Start NOT_REACHED by source. Preparation Initialize attempted, normal cleanup UNKNOWN because no JSON report; no PCM marker/capture. Raw47B stderr retained."
+      "blocked_reason": "Stable native compilerintegration required; thereafter fresh specifichardware authorization for diagnostic/continuity. Current once consumed failedCapacity; no automaticretry/newUID/maxbound relaxation.",
+      "execution_note": "64puretests/fmt/Clippy/probe build0; independentlimited softwarediagnostic recognition, formalattempt0/noDONE. NewbinaryNOT_RUN; oldonceconsumedCapacitybeforeStart, actualcount/cleanupUNKNOWN; fullroot78 integrationcompilerAVnoapp tests. AllSTOP."
     },
     {
       "id": "T010",
@@ -514,7 +517,7 @@
       "milestone": "M3",
       "title": "LAN发现、手动寻址与双向身份信任",
       "owner_role": "backend",
-      "status": "REVIEW",
+      "status": "BLOCKED",
       "requirements": [
         "REQ-13",
         "REQ-14"
@@ -530,9 +533,7 @@
       ],
       "acceptance": "默认监听关闭；mDNS不建立信任；双端身份字符串导入、pin验证与撤销；陌生端无音频权限。",
       "agent_instance_id": "/root/reviewer_t001",
-      "resource_leases": [
-        "readonly-review:t016-r2"
-      ],
+      "resource_leases": [],
       "evidence": [
         "docs/evidence/T016-20261005/dependency-metadata.json",
         "docs/evidence/T016-20261005/fetch-command.json",
@@ -574,8 +575,8 @@
       ],
       "review": "docs/project/reviews/T016-r2.md",
       "attempts": 2,
-      "blocked_reason": null,
-      "execution_note": "Second formalr2 fixed75473156, sourceS2 repaired/8tests+fmt/Clippy0. AuthorSTOP, root aftermerge workspace check pending. Realnativepositive remainsfailed13UNKNOWN/oldonceconsumed; noLANretest. No formalresultyet."
+      "blocked_reason": "Formalr2 S2CLOSED / TASKACCEPTANCEBLOCKED: rootcompilerAVbeforeapptests and oldnativepositiveFailed13UNKNOWN, no newLANauthorization/evidence.",
+      "execution_note": "Attempt2/3 independentfrozen754 fullsource/author8checks/rootfailedbytesproof read, no newS0-S3mustfix; no furthercodefix needed. No rootPASS, trueDNSpositive stillmissing/newprobeNOT_RUN. AllSTOP."
     },
     {
       "id": "T017",

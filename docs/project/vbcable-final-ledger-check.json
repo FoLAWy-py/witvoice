@@ -1,0 +1,16 @@
+{
+  "task_scope": "FinalSPEC/ledger validation only",
+  "executable": "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+  "argv": [
+    "tools/project/validate_spec.py"
+  ],
+  "cwd": "D:\\Project\\witvoice",
+  "started_utc": "2026-10-05T12:00:33.1320464Z",
+  "finished_utc": "2026-10-05T12:00:33.2497242Z",
+  "exit": 0,
+  "stdout": "SPEC/ledger consistency: PASS\r\n7 milestones | 35 tasks | 32 traced requirements | 7 agent roles\r\nTOML syntax checked; installed Codex configuration compatibility is NOT tested.\r\nApplication code, Windows/Mac builds, audio, models and LAN performance are NOT tested.\r\n",
+  "stderr": "",
+  "actual_parent_powershell": "7.6.5",
+  "application_validation": "NOT_TESTED",
+  "hardware": "NOT_TESTED"
+}

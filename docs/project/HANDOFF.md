@@ -1,3 +1,19 @@
+当前交接（2026-10-05）：全部作者、只读中继和独立reviewer已STOP，active_tasks清空，无代码/音频/GPU/LAN锁，无后台继续。next_task=T010；IN_PROGRESS，授权终点仍M5/WINDOWS_DELIVERED，M6真Mac/双向必需且未验，completion_claim_allowed=false。
+
+本轮已采用用户自行安装VB-CABLE；Steam停止当前候选、历史保留，无自建驱动CR发现/不创建假撤回。metadata确切PnP实例suffix=WASAPI UID、共同VB-Audio父/驱动3.3.1.7/oem95，CABLE Input render→CABLE Output capture，两active48k2chFloat32；私有UID在.local/t009-vbcable-once/verified-pair-private.json，公开证据脱敏，外观不代表闭环。
+
+唯一授权真实执行source2ed6346/binary64bf013d/supervisor85aa2ce1/config8c079b8e。11:21:31.6981888Z启动，child31720 exit1，整体0.1194608s，无timeout。render Prepare Capacity在capturePrepare和任何Start之前失败，stderr47B完整保存。GetBufferSize实际0或>960、actualcount未记；无PCM提交/捕获，正常清理UNKNOWN。once永久消费，无重试/换端点/物理设备/default/PCM文件。证据T009/once/result+analysis+raw，旧二进制另存.local/.../executed-route-probe.exe。不叫闭环PASS。
+
+最小确定修复source75473156：T009结构化协商容量及早期失败报告，960/200ms原界限保留；author64puretests/fmt/strictClippy/build0，完整5meta10raw审计；reviewer有限认可，非正式DONE/新授权。新probe二进制NOT_RUN。T016首故障/Snapshot传播单S2修复，author8tests/fmt/strictClippy0，完整7meta14raw；正式r2 attempt2/3 S2CLOSED/no新S0–S3mustfix，wholeTASK BLOCKED，reviews/T016-r2.md。旧真实DNS onceFAIL13originUNKNOWN，授权消费，新探针NOT_RUN；mTLS/Node撤销/真实双机/Mac不由此验收。
+
+T010 source78c18c1：复用单Runtime/FSM，debugonly Identity adapter/gate，默认发行不Ready；修复getter观察实际gate、加入错误命令不影响PCM、heldticketStop/Blocked必须Stop恢复/旧workerbinding拒绝源码，standalonefmt/check0。没有应用测试PASS或formalT010批准。原冷targetwindows invalidOnce ICE101保留。唯一条件性workspace27feature已通过缓存验证命中Fresh windows0.62.2，却随后session_identity编译rustc0xc0000005，cargo101，43.3626998s，stdout0B/stderr28041B，72源前后全等。应用tests尚未开始，后续fmt/Clippy/examples和所有CargoSTOP。证据integration/20261005-T009-T010-T016/及T010/static-fix/，不运行部分已生成tests或再次盲试。
+
+执行环境更正：exec.shell请求SystemPS5.1不证明实际引擎；实测当前Codexbundledpwsh7.6.5。显式Process启动SystemPS仅version返回5.1.26100.7462/0。历史无实测版本为UNKNOWN，原NativePS5.1文字只是requested-shell。此更正不改变原生WindowsRust/raw/UTC/exit事实，也不归因compilerAV；见execution-host-correction.json。保持原33官方编译器文件核查历史，不改BIOS/安全/驱动/全局ACL，不降minimum/换模型。
+
+最小解阻顺序：先在稳定Windows原生执行环境，对冻结78c18c1及原argv完成真实整合验证并保留失败，不上传源码/录音、勿默认修改系统；恢复T010后独立formalreview。再由leader准备可审阅的新T009硬件诊断范围，向人类请求新一次授权（旧once不能复用），核真实容量之后才决定有界适配；不直接提高上限。T016仅缺稳定rootintegration与新明确指定有线接口有限positive授权，旧13不能追认来源。依赖未满足不推进T011/T017或M5/M6验收。B001权重/派生许可链依然阻止发行；无Mac/2h/第三方应用/真实VC整体证据。
+
+当前源/evidence冻结及正式结论均保存，后续以此段/STATE/TASKS/reviews为准。以下保留历史过程，不将旧正在/锁/next_task字样当当前状态。
+
 T009 once preflight independently permits frozen config8c079b8e…/supervisor85aa2ce1…/binary64bf013d…; exclusive leader audio-hardware lease registered. About to consume single human permission; NOT_RUN until actual result. Root62 audio tests/fmt/Clippy/build0. T016 r1 REVISE singleS2 archived; backend narrow native.rs fix lease with verified existingcache (no LAN). T010 stillBLOCKED compilerICE; no retest. next_task=T009.
 
 # 当前交接

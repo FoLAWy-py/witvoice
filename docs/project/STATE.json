@@ -5,51 +5,7 @@
   "project_status": "IN_PROGRESS",
   "authorized_target": "WINDOWS_DELIVERED",
   "active_milestone": "M1",
-  "active_tasks": [
-    {
-      "task_id": "T009",
-      "agent_instance_id": "/root/reviewer_t001",
-      "allowed_paths": [
-        "crates/audio/",
-        "docs/evidence/T009-20261005/"
-      ],
-      "resource_leases": [
-        "readonly-review:t009-capacity-limited"
-      ],
-      "depends_on": [
-        "T007",
-        "T008"
-      ],
-      "contract": "Limited independent64test diagnostic delta review frozen75473156; not formalDONE/newattempt, oldonceFAIL/cleanupUNKNOWN consumed",
-      "acceptance_commands": [
-        "Readonly frozen diff/context/fullraw/meta/index"
-      ],
-      "execution_note": "No escalation/rerun/nativeInitialize/hardware; software scope only"
-    },
-    {
-      "task_id": "T016",
-      "agent_instance_id": "/root/reviewer_t001",
-      "allowed_paths": [
-        "crates/transport/src/discovery/native.rs",
-        "crates/transport/src/lib.rs",
-        "docs/evidence/T016-20261005/",
-        "docs/project/reviews/T016-r1.md",
-        "docs/project/T016-review-assignment.md"
-      ],
-      "resource_leases": [
-        "readonly-review:t016-r2"
-      ],
-      "depends_on": [
-        "T003",
-        "T006"
-      ],
-      "contract": "Second formalr2 attempt2/3 source75473156/evidence75473156; singleS2 immutablefault/snapshot closure and regression, root conditional checks pending",
-      "acceptance_commands": [
-        "Readonly source/raw evidence; explicit limits/remainingnativepositiveFAIL"
-      ],
-      "execution_note": "Sequential afterT009limited, no escalation/rerun/network/hardware/thirdattempt; no wholeTaskDONE without realpositive discovery"
-    }
-  ],
+  "active_tasks": [],
   "milestones": {
     "M0": {
       "status": "DONE",
@@ -110,6 +66,20 @@
       "status": "BLOCKED_COMPILER_ICE_AND_ACCESS_VIOLATION",
       "evidence": "docs/evidence/integration/20261005-T009-T010-T016/result.json",
       "note": "ColdT010 windows invalidOnce ICE101 retained. One distinct validated27featurecache conditional source78c18:Freshwindows hit, then session_identity rustc AV0xc0000005/cargo101 before all app tests. Entire subsequent checkset stopped, causeUNKNOWN/no globalchanges or retry."
+    },
+    {
+      "id": "B005",
+      "scope": "T009 VB-CABLE continuity",
+      "status": "BLOCKED_CONSUMED_HARDWARE_AUTHORIZATION",
+      "evidence": "docs/evidence/T009-20261005/once/result.json",
+      "note": "Oncefailed beforeStart Capacity/actualcount0or>960UNKNOWN/cleanupUNKNOWN. Diagnostic64tests0 independently limitedreview, no boundwidening/newdeviceexecution; need stableintegration then fresh specificauthorization."
+    },
+    {
+      "id": "B006",
+      "scope": "T016 realnative discovery plus integration",
+      "status": "BLOCKED_NATIVE_POSITIVE_AND_COMPILER",
+      "evidence": "docs/project/reviews/T016-r2.md",
+      "note": "Formalr2 S2closed/no newmustfix; author8purechecks0, rootAVbeforetests, oldactualonceFAIL13unknown consumed. Need stable nativeintegration and separatelyapproved finiteLANpositive, nofirewallchanges."
     }
   ],
   "distribution_status": "BLOCKED_LICENSE_CHAIN_NOT_BUILT",
@@ -136,7 +106,7 @@
       "reviewer_t001": "/root/reviewer_t001"
     },
     "id_format": "canonical collaboration IDs plus actual UUID session metadata; see T005-thread-id-provenance.json; historical roles not all active",
-    "execution_limit": "Default shell/node fails before process creation: apply deny-read ACLs. Leader scoped commands and explicitly assigned backend/audio fixed-path relays work after auto-review require_escalated; audio authored T004 in disjoint whitelist. Reviewer never escalates or edits; no independent reviewer rerun. Exact disk config loading and sandbox enforcement remain unverified. No ACL/global settings modified.",
+    "execution_limit": "Default shell/node fails before process creation: apply deny-read ACLs. Leader scoped commands and explicitly assigned backend/audio fixed-path relays work after auto-review require_escalated; audio authored T004 in disjoint whitelist. Reviewer never escalates or edits; no independent reviewer rerun. Exact disk config loading and sandbox enforcement remain unverified. No ACL/global settings modified. Current explicit audit a2a800: tool shell5.1 requested but actual host7.6.5 bundledpwsh; explicit systemchild version5.1.26100.7462/read-only0. Historical actualshell without measurementUNKNOWN; no globalsettings/ACLchanges. Allsourcewriters/relays/reviewerSTOP, no hardware/GPU/networklease.",
     "review_source": "leader_or_explicitly_authorized_agent_full_text_relay",
     "sandbox_enforcement_verified": false,
     "failed_redispatch": {
@@ -160,7 +130,7 @@
   },
   "completion_claim_allowed": false,
   "last_verified_scope": "Independent T008 r2 approved audio software slice plus prior frozen M0/T006/T007 API/T021. Excludes T016 diagnosis/discovery formal approval, new hardware/virtual route/whole VC/Mac.",
-  "execution_status": "RUNNING_SCOPED_TASKS",
+  "execution_status": "STOPPED_AT_EXTERNAL_BLOCKERS",
   "interruption_evidence": "docs/project/interruption-20261005.json",
   "last_tested_commit": "2ed6346416343970218f517ddda6731ceee5e809",
   "last_tested_scope": "Last fully passing scope remains6c68 workspace132 and2ed T00962. Current78c18 workspace compilation failed101/AV before tests; author754T00964/T0168 local pure checks passed, no root aftermerge PASS.",
@@ -182,5 +152,7 @@
       "default_device_changes": false
     },
     "continuity": "FAIL_PREPARE_CAPACITY_BEFORE_START"
-  }
+  },
+  "last_attempted_commit": "78c18c163e31dfdc36457088b90ee25c83534a2b",
+  "last_attempted_result": "CompilerAV0xc0000005/cargo101 beforeapp tests, raw28041B stderr saved; all laterchecksSTOPPED"
 }

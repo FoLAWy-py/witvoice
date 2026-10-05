@@ -1,0 +1,14 @@
+{
+  "utc": "2026-10-05T11:59:47.6608764Z",
+  "observed_named_project_processes": [
+    {
+      "id": 19144,
+      "name": "rustc"
+    }
+  ],
+  "code_writers": 0,
+  "audio_gpu_network_leases": 0,
+  "all_agents": "STOP",
+  "next_task": "T010",
+  "global_machine_idle": "NOT_CLAIMED"
+}

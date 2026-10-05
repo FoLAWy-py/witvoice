@@ -1,0 +1,13 @@
+{
+  "utc": "2026-10-05T11:52:24.4700371Z",
+  "requested_exec_shell": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+  "observed_exec_powershell": "7.6.5",
+  "observed_exec_process": "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+  "explicit_child_executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+  "explicit_child_argv": "-NoLogo -NoProfile -NonInteractive -Command \"$PSVersionTable.PSVersion.ToString()\"",
+  "explicit_child_stdout": "5.1.26100.7462\r\n",
+  "explicit_child_stderr": "",
+  "explicit_child_exit": 0,
+  "scope": "Readonly version only; no Cargo/hardware/security changes",
+  "correction": "Tool shell argument is not proof of actual engine. Current root nativePS5.1 wording is requested-shell metadata, actual execution now observed7.6.5. Historical exact engines UNKNOWN without version record; Rust nativeWindows outcomes/rawsource/UTC/exit remain valid."
+}
