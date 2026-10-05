@@ -506,7 +506,9 @@
       ],
       "acceptance": "默认监听关闭；mDNS不建立信任；双端身份字符串导入、pin验证与撤销；陌生端无音频权限。",
       "agent_instance_id": "/root/backend",
-      "resource_leases": [],
+      "resource_leases": [
+        "code-writer:backend-probe-evidence"
+      ],
       "evidence": [
         "docs/evidence/T016-20261005/dependency-metadata.json",
         "docs/evidence/T016-20261005/fetch-command.json",

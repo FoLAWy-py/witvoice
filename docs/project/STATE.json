@@ -32,6 +32,29 @@
       ],
       "reviewer": "/root/reviewer_t001",
       "execution_note": "Native T007 r3 approved; new T008 implementation only. T016 compiler failures not assumed global; one scoped real audio build with process jobs1/inc0, if compiler fails stop no blind retries. No hardware/network/GPU."
+    },
+    {
+      "task_id": "T016",
+      "agent_instance_id": "/root/backend",
+      "allowed_paths": [
+        "crates/transport/examples/native_discovery_probe.rs",
+        ".local/t016-probe-author/"
+      ],
+      "resource_leases": [
+        "code-writer:backend-probe-evidence"
+      ],
+      "depends_on": [
+        "T003",
+        "T006"
+      ],
+      "contract": "Only compiled probe evidence criteria: actualRegistered, exact UUID/private endpoint/expiry, sticky failures/drop, complete terminal cleanup; production native API/source/deps unchanged",
+      "acceptance_commands": [
+        "cargo test --locked -p witvoice-transport --example native_discovery_probe",
+        "cargo fmt --package witvoice-transport --check",
+        "cargo clippy --locked -p witvoice-transport --all-targets -- -D warnings",
+        "cargo build --locked -p witvoice-transport --example native_discovery_probe"
+      ],
+      "execution_note": "No actual network run; one approved interface19 trial reserved for root after freeze. No retry of real trial."
     }
   ],
   "milestones": {

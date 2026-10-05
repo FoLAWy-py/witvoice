@@ -1,0 +1,9 @@
+# T016 finite probe evidence repair / REQ13–14
+
+Actual author /root/backend UUID01a10767-4ff5-7f21-881a-146d094fbc55; leader remains root. You are not alone; audio writes only audio. No recursive agents. Source2f9d92d production unchanged.
+
+Only crates/transport/examples/native_discovery_probe.rs and .local/t016-probe-author/ allowed. No platform/transport production/root manifests/lock/contracts/state/evidence/README edits. NativeDiscovery/Event existing APIs, numeric private selected endpoint, interface19 approval saved separately. DefaultOFF.
+
+Retain six args --allow-lan interface testUUID advertise|browse exactPrivateIPv4Endpoint duration1..9000ms. Each process includes cleanup within10s. Fixed service only. Actual Registered needed for advertiser; browse only this testUUID full name, one resolve attempt preserving absolute expiry; actual Resolved instance/nodeID/address/future expiry exact. Sticky asynchronous errors/drops cannot be overridden; wrong/unknown results never success. No privatekey/identity/audio/QUIC listener. API-start failures after submission must enter same bounded cleanup before return; pending or terminal unconfirmed is failure. JSON result stdout raw address local only; leader publishes sanitized evidence retaining rawhash. Test-only observer negative fixtures do not enter OS. Include meaningful tests unregistered/foreignnode/wrongendpoint/expired/errorthenregistered/drop/unconfirmedcleanup/earlyStopped. No broader daemon/API redesign.
+
+Commands test locked transport example, fmt packagecheck, alltarget Clippy -Dwarnings, examplebuild. Process scoped audited env/D target jobs1/inc0, unique full stdoutstderr/UTC/argv/source beforeafter every result including failures. Compiler ICE/AV stop no blind retry. No network/hardware/GPU execution by author, approval once reserved root. Final freeze exact SHA then stop. Formal attempt0 preflight independent reviewer ongoing; final whole review later.
