@@ -21,6 +21,78 @@ WARMUP = request("Warmup", args={"model_sha256": MODEL_SHA,
 
 
 class RuntimeTests(unittest.TestCase):
+    def test_failed_handoff_keeps_binding_terminal_event_and_one_deadline(self):
+        for cause in (RuntimeError, MemoryError):
+            with self.subTest(cause=cause):
+                clock = [10]
+                def failed(_):
+                    raise cause("private detail")
+                session = WarmupSession(failed, clock=lambda: clock[0])
+                session.handle(WARMUP)
+                limit = time.monotonic() + 1
+                while session._result.empty() and time.monotonic() < limit:
+                    time.sleep(.001)
+                heartbeat = session.handle(request("Heartbeat"))
+                terminal = session.poll_ready()
+                self.assertEqual(json.loads(heartbeat[0])["event"]["kind"], "Heartbeat")
+                expected = "MemoryPressure" if cause is MemoryError else "Failed"
+                self.assertEqual(json.loads(terminal[0])["event"]["kind"], expected)
+                self.assertEqual(json.loads(terminal[0])["request_id"], json.loads(WARMUP)["request_id"])
+                deadline = session.terminal_deadline_ns
+                self.assertEqual(deadline, 450_000_010)
+                self.assertTrue(session.control_open)
+                for value in (100_000_010, 449_000_010):
+                    clock[0] = value
+                    self.assertEqual(json.loads(session.handle(request("Heartbeat"))[0])["event"]["kind"], "Heartbeat")
+                    self.assertEqual(session.terminal_deadline_ns, deadline)
+                    self.assertEqual(session.poll_ready(), [])
+                with self.assertRaises(ValueError):
+                    session.handle(request("Heartbeat", epoch=2))
+                with self.assertRaises(ValueError):
+                    session.handle(WARMUP)
+                clock[0] = deadline
+                with self.assertRaises(TimeoutError):
+                    session.handle(request("Heartbeat"))
+                session.close()
+                self.assertFalse(session.control_open)
+
+    def test_terminal_stop_and_eof_close_without_ready(self):
+        for ending in ("stop", "eof"):
+            with self.subTest(ending=ending):
+                def failed(_):
+                    raise RuntimeError("private detail")
+                session = WarmupSession(failed)
+                session.handle(WARMUP)
+                limit = time.monotonic() + 1
+                while session._result.empty() and time.monotonic() < limit:
+                    time.sleep(.001)
+                self.assertEqual(json.loads(session.poll_ready()[0])["event"]["kind"], "Failed")
+                if ending == "stop":
+                    self.assertEqual(json.loads(session.handle(request("Stop"))[0])["event"]["kind"], "Stopped")
+                    self.assertFalse(session.control_open)
+                    session.close()
+                else:
+                    # Exercise main's real finally path with a pre-failed
+                    # session and an injected EOF; no loader or native pipe.
+                    import runtime
+                    import io
+                    import sys
+                    from types import SimpleNamespace
+                    from unittest.mock import patch
+                    class EofPipe:
+                        def __init__(self, *_): pass
+                        def __enter__(self): return self
+                        def __exit__(self, *_): pass
+                        def read_frame(self, *_): raise EOFError("injected peer closed")
+                    with patch("windows_pipe.PipeClient", EofPipe), \
+                         patch.object(runtime, "WarmupSession", return_value=session), \
+                         patch.object(sys, "argv", ["runtime.py", "--control", "c", "--media", "m", "--node-pid", "1"]), \
+                         patch.object(sys, "stdin", SimpleNamespace(buffer=io.BytesIO(b"x" * 32))):
+                        with self.assertRaises(EOFError):
+                            runtime.main()
+                    self.assertFalse(session.control_open)
+                self.assertEqual(session.poll_ready(), [])
+
     def test_reset_allocations_exceeding_ready_budget_never_publish_ready(self):
         from warmup import DEVICE_BUDGET, HOST_BUDGET, finalize_preparation
         for exceed_host in (True, False):

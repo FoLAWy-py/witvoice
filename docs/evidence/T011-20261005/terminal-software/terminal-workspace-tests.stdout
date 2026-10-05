@@ -1,0 +1,451 @@
+
+running 29 tests
+test notifications::tests::baseline_does_not_clear_sticky_or_hide_a_real_change ... ok
+test notifications::tests::bound_notification_invalidates_exact_output_before_cleanup_and_keeps_monitor_independent ... ok
+test notifications::tests::change_during_or_after_baseline_cannot_be_acknowledged_away ... ok
+test notifications::tests::multiple_notifications_coalesce_without_clearing_invalidation ... ok
+test notifications::native::tests::teardown_failure_keeps_reference_then_success_releases_once ... ok
+test notifications::tests::notification_arriving_during_control_check_remains_pending ... ok
+test notifications::native::tests::all_native_callback_methods_publish_without_uid_reads_or_allocations ... ok
+test wasapi::tests::basic_pcm_and_float_descriptors_keep_documented_tags_and_roundtrip ... ok
+test notifications::tests::prebind_reasons_and_failed_second_bind_preserve_sticky_exact_gate ... ok
+test realtime::clock::tests::phase_extreme_batch_and_counter_overflow_leave_state_unchanged ... ok
+test stream::native::raw_tests::governed_native_commit_pairs_errors_and_mute_ticket_covers_release_without_allocating ... ok
+test stream::native::raw_tests::negotiated_30ms_bound_and_single_commit_limits_are_checked_without_allocation ... ok
+test stream::native::raw_tests::raw_capture_get_and_release_failures_allocate_zero_and_pair_correctly ... ok
+test notifications::native::tests::registration_owner_cannot_be_reused_even_after_failure ... ok
+test stream::native::raw_tests::raw_padding_failure_ignores_written_value_and_retires_without_allocation ... ok
+test stream::native::tests::capture_pairs_every_nonempty_acquisition_and_retains_metadata ... ok
+test stream::native::tests::changes_during_acquire_or_release_erase_entire_packet_and_forbid_retry ... ok
+test stream::native::tests::render_never_dereferences_data_and_releases_all_frames_silent ... ok
+test stream::native::tests::timeout_and_successful_operations_cannot_restore_changed_owner ... ok
+test wasapi::tests::high_precision_pcm_descriptors_own_complete_extension_and_roundtrip ... ok
+test wasapi::tests::refuses_reduced_valid_bits_and_unexpected_channel_mask ... ok
+test wasapi::tests::validates_native_layout_and_rejects_short_extension ... ok
+test stream::native::raw_tests::prepare_negotiated_capacity_keeps_zero_and_over_bound_reasons_exact_without_start ... ok
+test notifications::tests::concurrent_producers_cannot_overwrite_other_reasons ... ok
+test stream::native::raw_tests::raw_render_get_and_release_failures_allocate_zero_and_never_submit_pcm ... ok
+test wasapi::tests::exact_mix_validation_checks_complete_float_shape_without_native_calls ... ok
+test notifications::tests::paused_first_notification_and_first_bind_cannot_both_miss_invalidation ... ok
+test stream::native::raw_tests::bounded_capture_stereo_packets_use_1440_preallocated_mono_and_reject_insufficient_space ... ok
+test stream::native::raw_tests::production_bounded_render_branch_commits_once_and_notification_or_mute_never_passes_pcm ... ok
+
+test result: ok. 29 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 3 tests
+test unbound_notification_handshake_and_batching_allocate_zero ... ok
+test conversion_success_and_failure_paths_allocate_zero ... ok
+test queued_governor_success_rejections_expiry_underflow_and_tickets_allocate_zero ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 10 tests
+test malformed_buffers_and_gain_are_silent ... ok
+test float_downmix_large_finite_values_is_bounded ... ok
+test pcm16_downmix_does_not_overflow ... ok
+test gain_zero_and_empty_buffers_are_safe ... ok
+test pcm24_sign_extension_and_endpoints ... ok
+test pcm8_midpoint_is_silence ... ok
+test rejects_unimplemented_channels_and_rates ... ok
+test render_limits_then_duplicates_channels ... ok
+test late_nonfinite_frame_silences_entire_destination ... ok
+test signed_encodings_roundtrip_and_clamp_edges ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 14 tests
+test capture_deadline_equals_now_erases_tail_and_counts_expired_not_underflow ... ok
+test backward_arrival_clock_and_future_timestamp_fault_requires_new_gate ... ok
+test invalid_queue_config_and_checked_sample_interval_fail_closed ... ok
+test rejected_overflow_duplicate_and_foreign_epoch_preserve_live_source_order ... ok
+test disabled_or_disconnected_monitor_has_no_virtual_queue_or_clock_dependency ... ok
+test sustained_correction_outside_range_retires_clock_without_widening ... ok
+test interpolation_preserves_ramp_and_source_indices_across_packet_boundary ... ok
+test final_requested_sample_does_not_prefetch_future_callback_or_repeat_on_starvation ... ok
+test packet_expiry_source_gap_and_commit_expiry_all_fail_silent ... ok
+test mute_ticket_ack_never_waits_on_slow_cleanup_or_allows_new_old_commits ... ok
+test starvation_and_partial_callback_erase_are_separate_from_planned_silence ... ok
+test concurrent_spsc_non_power_of_two_wrap_order_and_reuse ... ok
+test phase_packet_advance_agrees_with_per_sample_interpolation ... ok
+CLOCK_B {"model":"packetized_spsc_metadata","drift_ppm":-500,"measured_consumption_ppm":-499.6650752314702,"simulated_seconds":28800,"callbacks":2880000,"output_frames":1382400000,"source_produced":1381709760,"source_consumed":1381709263,"source_fraction":0.002438996994555964,"min_occupancy_frames":497,"max_occupancy_frames":1440,"max_age_ns":20000000,"underflows":0,"overflows":0,"expired":0,"max_correction_ppm":1000,"final_correction_ppm":-35.56910569105691,"wall_seconds":0.4950511,"hardware":"NOT_RUN"}
+CLOCK_B {"model":"packetized_spsc_metadata","drift_ppm":-150,"measured_consumption_ppm":-149.67013888889102,"simulated_seconds":28800,"callbacks":2880000,"output_frames":1382400000,"source_produced":1382193600,"source_consumed":1382193096,"source_fraction":0.9980487747365601,"min_occupancy_frames":504,"max_occupancy_frames":1440,"max_age_ns":20000000,"underflows":0,"overflows":0,"expired":0,"max_correction_ppm":1000,"final_correction_ppm":0,"wall_seconds":0.4790166,"hardware":"NOT_RUN"}
+CLOCK_B {"model":"packetized_spsc_metadata","drift_ppm":150,"measured_consumption_ppm":149.9826388888792,"simulated_seconds":28800,"callbacks":2880000,"output_frames":1382400000,"source_produced":1382607840,"source_consumed":1382607336,"source_fraction":0.0004877928964788225,"min_occupancy_frames":984,"max_occupancy_frames":1464,"max_age_ns":30000000,"underflows":0,"overflows":0,"expired":0,"max_correction_ppm":1000,"final_correction_ppm":0,"wall_seconds":0.4823839,"hardware":"NOT_RUN"}
+CLOCK_B {"model":"packetized_spsc_metadata","drift_ppm":500,"measured_consumption_ppm":499.97757523145833,"simulated_seconds":28800,"callbacks":2880000,"output_frames":1382400000,"source_produced":1383091680,"source_consumed":1383091169,"source_fraction":0.99999996734158,"min_occupancy_frames":990,"max_occupancy_frames":1471,"max_age_ns":30000000,"underflows":0,"overflows":0,"expired":0,"max_correction_ppm":1000,"final_correction_ppm":35.56910569105691,"wall_seconds":0.5288378,"hardware":"NOT_RUN"}
+CLOCK_ALL_WALL_SECONDS=1.9853732
+test four_eight_hour_synthetic_clocks_keep_occupancy_and_source_monotonic ... ok
+
+test result: ok. 14 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.99s
+
+
+running 6 tests
+test change_before_commit_faults_without_wait_and_batch_drain_never_recovers ... ok
+test diagnostic_pair_never_substitutes_for_production_physical_source_validation ... ok
+test exact_saved_uid_removal_or_replacement_fails_gate_and_cannot_recover ... ok
+test route_change_erases_already_queued_processed_output_before_slow_cleanup ... ok
+test unchanged_candidate_still_has_no_start_or_continuity_authority ... ok
+test policy_rejects_unknown_physical_feedback_direction_and_format ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 3 tests
+test every_invalid_packet_erases_the_entire_destination ... ok
+test valid_capture_leaves_unused_tail_zero ... ok
+test silent_null_and_native_metadata_are_explicit ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 3 tests
+test route_marker::tests::active_and_process_deadlines_forbid_another_packet_at_the_boundary ... ok
+test route_marker::tests::early_prepare_report_retains_exact_size_and_never_claims_start_or_cleanup ... ok
+test route_marker::tests::delayed_scaled_marker_matches_but_silence_and_unrelated_audio_do_not ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.12s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 12 tests
+test negotiated_frames_and_unknown_source ... ok
+test node_exit_is_local_only_and_has_no_execution_arguments ... ok
+test local_and_peer_start_are_distinct ... ok
+test malformed_and_unbound_media_rejected ... ok
+test golden_header_and_pcm_endianness ... ok
+test pre_session_error_can_reject_handshake_without_media_permission ... ok
+test wrap_and_deadline_are_explicit ... ok
+test controls_reject_unknown_fields_versions_and_oversize ... ok
+test u64_json_precision_and_digest_validation ... ok
+test queue_limits_cannot_be_unbounded ... ok
+test safe_state_guards_and_failure_effects ... ok
+test prepared_requires_actual_matching_model_and_profile ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 6 tests
+test no_source_chunk_or_timeline_overflow_ambiguity ... ok
+test rejects_corruption_nonfinite_and_stale_before_any_pcm_use ... ok
+test control_version_fields_identity_and_length_are_strict ... ok
+test control_strings_require_unicode_scalars_and_accept_valid_pairs ... ok
+test golden_header_and_variable_converted_output ... ok
+test ready_event_rejects_unverified_backend_shape_and_empty_proof ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 16 tests
+test both_process_tree_and_lease_confirmation_are_required_for_restart ... ok
+test heartbeat_expiry_applies_during_warmup_and_ready ... ok
+test clock_regression_fails_closed_and_invalid_initial_deadlines_own_nothing ... ok
+test heartbeat_addition_overflow_never_wraps_to_a_live_deadline ... ok
+test maximum_media_sequence_needs_new_worker_binding_and_cannot_wrap ... ok
+test maximum_epoch_is_never_reused_or_wrapped_by_restart_or_user_reset ... ok
+test media_has_one_outstanding_task_and_sequence_cannot_replay ... ok
+test warmup_timeout_is_expired_at_equal_deadline_and_late_ready_cannot_reopen ... ok
+test old_binding_events_and_cleanup_cannot_touch_fresh_worker ... ok
+test rejects_zero_or_other_session_and_never_owns_resources_on_bad_begin ... ok
+test two_restarts_total_ready_does_not_reset_budget_and_third_fault_needs_user_reset ... ok
+test heartbeat_never_renews_inflight_media_deadline ... ok
+test unsolicited_or_wrong_sequence_result_is_protocol_failure ... ok
+test memory_eof_and_protocol_faults_immediately_require_cleanup_and_stay_muted ... ok
+test ready_requires_expected_manifest_digest_and_cleanup_after_mismatch ... ok
+test stop_cannot_claim_release_before_confirmed_cleanup_and_never_requests_restart ... ok
+
+test result: ok. 16 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 2 tests
+test failed_after_heartbeat_survives_next_native_write ... ok
+test memory_pressure_after_heartbeat_survives_next_native_write ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.29s
+
+
+running 10 tests
+test probe::tests::stage_propagation_preserves_os_number_and_error_class ... ok
+test probe::tests::cleanup_observation_does_not_overwrite_first_protocol_failure ... ok
+test warmup_diagnostics::tests::partial_header_and_partial_body_classify_eof_without_os_invention ... ok
+test warmup_diagnostics::tests::failure_age_does_not_replace_successful_gap_or_request_elapsed ... ok
+test warmup_diagnostics::tests::os_number_is_original_not_error_kind_or_guessed_thirteen ... ok
+test probe::tests::model_membership_requires_exact_authenticated_controller_and_child ... ok
+test warmup_diagnostics::tests::partial_then_deadline_is_not_eof ... ok
+test warmup_diagnostics::tests::write_partial_read_and_async_ready_share_original_deadline ... ok
+test warmup_diagnostics::tests::before_first_ack_age_and_gap_are_unknown ... ok
+test warmup_diagnostics::tests::saturated_and_regressed_clock_values_do_not_wrap ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 8 tests
+actual job members [(51240, "process-probe.exe")]
+reclaimed PID 51240
+actual helper 51240 reclaimed; same Runtime epoch2 FailedMuted; software PCM zero before Job cleanup
+test actual_owned_helper_death_retires_same_runtime_before_job_cleanup_and_pcm_is_zero ... ok
+actual job members [(54632, "process-probe.exe"), (57284, "process-probe.exe")]
+reclaimed PID 54632
+failed query-only assignment cleaned suspended child; trusted argv roundtripped
+reclaimed PID 57284
+test trusted_argv_roundtrips_and_failed_job_assignment_never_resumes_child ... ok
+independent Node PID 53444
+actual job members [(54668, "process-probe.exe")]
+reclaimed owner PID 21212
+reclaimed PID 54668
+reclaimed PID 53444
+reclaimed PID 54284
+reclaimed PID 55524
+actual job members [(55952, "process-probe.exe"), (54308, "process-probe.exe")]
+reclaimed PID 55952
+reclaimed PID 54308
+test closing_or_stopping_job_reclaims_real_worker_descendants ... ok
+reclaimed PID 52364
+reclaimed PID 53484
+reclaimed owner PID 52380
+denied breakaway; UI PID 51768, active job processes 0
+test denying_ui_job_breakaway_fails_without_children_or_endpoint ... ok
+independent Node PID 56868
+actual job members [(56824, "process-probe.exe")]
+reclaimed PID 56824
+reclaimed PID 56868
+reclaimed PID 51752
+reclaimed PID 53132
+reclaimed owner PID 53860
+test actual_ui_job_close_and_parent_death_leave_node_independent ... ok
+test node_owned_job_is_reclaimed_on_stop_exit_and_owner_kill ... ok
+reclaimed owner PID 53276
+reclaimed PID 49240
+reclaimed PID 57068
+test exit_conflict_full_history_and_lost_ack_use_runtime_authority ... ok
+reclaimed owner PID 49860
+reclaimed owner PID 49860
+reclaimed owner PID 57112
+test malformed_bootstrap_timeout_and_endpoint_failure_start_no_worker ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 3.25s
+
+
+running 3 tests
+test real_node_authentication_frames_and_fail_closed_lifecycle ... ok
+test first_instance_rejects_endpoint_takeover ... ok
+test client_death_and_partial_deadline_do_not_kill_node ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 3.38s
+
+
+running 19 tests
+test discovery::native::tests::callback_failure_capture_is_independent_of_full_or_contended_queue ... ok
+test discovery::native::tests::contended_queue_never_waits_or_loses_out_of_band_terminal_flag ... ok
+test discovery::native::tests::cancel_return_is_not_terminal_and_full_queue_cannot_drop_terminal_state ... ok
+test discovery::native::tests::every_text_field_distinguishes_null_bound_and_invalid_utf16 ... ok
+test discovery::native::tests::every_browse_structural_rejection_has_its_actual_reason ... ok
+test discovery::native::tests::instance_schema_lengths_interface_and_free_exactly_once ... ok
+test discovery::native::tests::fixed_context_budget_and_opaque_token_exhaustion ... ok
+test discovery::native::tests::record_link_budget_cycle_data_length_utf16_and_once_free ... ok
+test discovery::native::tests::native_status13_is_not_local_callback_zero_and_survives_clean ... ok
+test discovery::native::tests::immediate_callback_retains_call_reference_until_os_return ... ok
+test discovery::native::tests::queue_expiry_and_resolve_deadline_are_not_wall_clock_or_ttl_reset ... ok
+test discovery::native::tests::default_off_and_invalid_inputs_do_not_enter_os ... ok
+test discovery::native::tests::first_failure_is_one_coherent_atomic_publication_under_contention ... ok
+test discovery::native::tests::every_resolve_scalar_schema_rejection_has_its_actual_reason ... ok
+test discovery::native::tests::register_cancel_race_still_deregisters_same_request_and_retains_failure ... ok
+test discovery::native::tests::late_unknown_context_never_dereferences_token_and_frees_each_result_once ... ok
+test discovery::native::tests::register_and_deregister_callback_status_are_distinct_stages ... ok
+test discovery::native::tests::simultaneous_operation_caps_and_cancel_failure_quarantine ... ok
+test discovery::native::tests::panic_capture_keeps_actual_status_or_explicit_unknown ... ok
+
+test result: ok. 19 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 2 tests
+test only_fixed_dns_service_single_labels_are_accepted ... ok
+test actual_default_object_with_no_approval_never_starts_native_discovery ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 5 tests
+test reject_traversal_unc_device_and_non_directory_roots ... ok
+test corrupt_oversized_and_hard_link_files_rejected ... ok
+test real_local_junction_rejected_and_cleanup_does_not_follow_target ... ok
+test dpapi_real_roundtrip_fixed_file_no_overwrite_and_bounds ... ok
+test protected_current_user_dacl_is_actual_on_directory_and_key_file ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+
+running 1 test
+test python_model_style_descendant_stays_in_owned_job_after_controller_exit ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.06s
+
+
+running 13 tests
+test first_instance_and_local_endpoint_tag_guards_are_real ... ok
+test wrong_node_pid_is_denied_by_kernel_peer_identity_check ... ok
+test wrong_token_never_completes_client_authentication ... ok
+test wrong_worker_pid_is_denied_before_authenticated_connection ... ok
+test eof_mid_frame_closes_endpoint_without_waiting_for_deadline ... ok
+test raw_big_endian_frame_and_fragmented_body_decode_exactly ... ok
+test separate_control_pcm_connections_persist_across_multiple_bidirectional_frames ... ok
+test expired_or_excessive_deadline_never_starts_a_frame_and_closes_client ... ok
+test header_limits_are_rejected_without_waiting_for_or_allocating_payload ... ok
+test client_read_timeout_and_invalid_writes_close_the_connection ... ok
+test partial_header_and_body_share_one_absolute_frame_deadline ... ok
+test partial_token_uses_remaining_startup_budget_and_closes ... ok
+test startup_connection_wait_is_inside_absolute_deadline_and_cannot_reaccept ... ok
+
+test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.21s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 2 tests
+test tests::exhausted_counters_cannot_prevent_retirement_or_resource_cleanup ... ok
+test tests::exhausted_counters_retire_actual_gate_and_pending_exit_never_false_acks ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 3 tests
+test future_arrival_fault_cannot_open_a_source_bypass ... ok
+test bounded_processed_queue_rejects_wrong_binding_expired_duplicates_future_and_overflow ... ok
+test capture_identity_processed_real_playout_and_every_retirement_is_zero ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 7 tests
+test invalid_wire_does_not_change_owner_state ... ok
+test missing_resources_cannot_advertise_ready_or_start_audio ... ok
+test duplicate_mutation_is_idempotent_and_conflicting_id_is_rejected ... ok
+test duplicate_exit_replays_response_without_advancing_epoch ... ok
+test exit_is_authoritative_after_validation_and_conflicts_even_when_history_is_full ... ok
+test bounded_history_never_evicts_mutations_and_stop_remains_fail_closed ... ok
+test read_only_polling_does_not_exhaust_mutation_budget ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 8 tests
+test release_default_owner_still_cannot_prepare_or_start ... ok
+test validation_and_replay_do_not_retire_output_or_advance_epoch ... ok
+test fixture_requires_exact_binding_and_explicit_start_without_production_capability ... ok
+test wrong_start_and_stop_bindings_leave_valid_state_counters_and_pcm_unchanged ... ok
+test held_ticket_stop_never_false_acks_and_replay_remains_busy_after_quiescence ... ok
+test commit_ticket_prevents_quiescent_ack_and_fault_requires_fresh_prepare ... ok
+test prepare_busy_with_held_ticket_stays_blocked_until_explicit_stop_and_fresh_request_ids ... ok
+test saturated_history_cannot_suppress_mute_stop_or_exit_retirement ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 8 tests
+test discovery::native::tests::first_fault_and_typed_origin_survive_later_events_and_close ... ok
+test discovery::native::tests::closing_cannot_restart_resolution_or_repopulate_records_from_queued_results ... ok
+test discovery::native::tests::normal_stopped_clears_records_without_creating_a_fault ... ok
+test discovery::native::tests::failed_event_blocks_same_batch_later_success_and_native_reentry_without_metadata ... ok
+test discovery::native::tests::zero_and_max_event_codes_remain_faults_and_unknown_metadata_is_not_fabricated ... ok
+test discovery::native::tests::retained_snapshot_without_failed_event_clears_records_before_and_after_queue_drain ... ok
+test discovery::native::tests::untrusted_native_results_use_address_and_ttl_guards_without_pairing ... ok
+test trust::tests::generation_exhaustion_clears_pins_and_cannot_restore_trust ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 3 tests
+test manual_addresses_are_numeric_private_and_scoped_without_dns ... ok
+test invalid_advertisements_and_upstream_daemon_are_fail_closed ... ok
+test bounded_records_monotonic_expiry_and_overflow_rejection ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 6 tests
+test altered_certificate_with_recomputed_fingerprint_still_fails_standard_signature ... ok
+test changed_key_for_existing_node_requires_re_pair_and_preserves_old_pin ... ok
+test no_discovery_or_same_name_trust_and_revocation_invalidates_old_permits ... ok
+test public_roundtrip_strict_schema_versions_lengths_and_tampering ... ok
+test restart_load_preserves_real_public_identity_and_private_key_matching ... ok
+test trusted_peer_capacity_is_enforced_without_eviction ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s
+
+
+running 10 tests
+test probe::tests::registered_required_and_async_failure_is_sticky ... ok
+test probe::tests::early_stopped_and_post_close_evidence_cannot_be_success ... ok
+test probe::tests::drops_and_unconfirmed_cleanup_prevent_success ... ok
+test probe::tests::only_one_target_resolve_and_original_expiry_preserved ... ok
+test probe::tests::retained_diagnostic_blocks_success_without_a_queued_failed_event ... ok
+test probe::tests::strict_arguments_reject_unapproved_interfaces_public_addresses_and_unbounded_time ... ok
+test probe::tests::start_and_cleanup_errors_are_retained_not_overridden ... ok
+test probe::tests::wrong_endpoint_node_and_expiry_are_rejected ... ok
+test probe::tests::expired_found_and_prior_failure_never_start_target_resolution ... ok
+test probe::tests::foreign_discovery_never_resolves_or_matches ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

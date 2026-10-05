@@ -1,0 +1,30 @@
+{
+  "ANALYSIS.md": {
+    "bytes": 1919,
+    "sha256": "0c46d14a65248ed1c3adacc46906b7ea879676b9c35211e0b0dde796d60a08ef"
+  },
+  "config.json": {
+    "bytes": 14113,
+    "sha256": "9831f69ccfabe0e5197c3776b9f4a26693683e9794efa066c63529ac8e9e68dc"
+  },
+  "execute.ps1": {
+    "bytes": 7693,
+    "sha256": "50dc716b9150c9fcd2c6ac939ca8fd14f53729b022c1349f9f180d722fff5878"
+  },
+  "prepare-stages.ndjson": {
+    "bytes": 995,
+    "sha256": "2df584a141814f2af492fed189b06d91972c3da4b8a33980e8ce139bad2341b2"
+  },
+  "result.json": {
+    "bytes": 6513,
+    "sha256": "6dacc18f53785cbec47ee361dfd05bec486b851967851c2224883dbcc314a941"
+  },
+  "stderr.raw": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stdout.raw": {
+    "bytes": 953,
+    "sha256": "1431800f71083f9c057b6e0cd215d220433560a5e8b2814a68b567691ee24faf"
+  }
+}

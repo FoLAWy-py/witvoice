@@ -1,0 +1,43 @@
+{
+  "scope": "T011 S2 bounded terminal failure handoff software only",
+  "source_commit_before": "25b6fc9b577fc0f9bf8d931c925c13ff262b72e6",
+  "working_tree_changes": true,
+  "source_inputs": 118,
+  "source_all_equal": true,
+  "rust_effective_tests": 212,
+  "python_tests": 63,
+  "native_terminal_delivery_tests": 2,
+  "checks": {
+    "python-tests-terminal": {
+      "exit": 0,
+      "wall_seconds": 3.6713885
+    },
+    "compile-terminal": {
+      "exit": 0,
+      "wall_seconds": 0.1581955
+    },
+    "terminal-workspace-tests": {
+      "exit": 0,
+      "wall_seconds": 10.8806534
+    },
+    "terminal-fmt": {
+      "exit": 0,
+      "wall_seconds": 0.359238
+    },
+    "terminal-clippy": {
+      "exit": 0,
+      "wall_seconds": 0.3955874
+    },
+    "terminal-examples": {
+      "exit": 0,
+      "wall_seconds": 0.2351413
+    }
+  },
+  "actual_model": "NOT_RUN",
+  "GPU": "NOT_RUN",
+  "audio": "NOT_RUN",
+  "LAN": "NOT_RUN",
+  "formal_T011_review_attempts": 0,
+  "T011_complete": false,
+  "real_warmup_25b": "FAILED preserved; no automatic retry"
+}

@@ -1,3 +1,7 @@
+最新软件：T011终止事件S2窄修已冻结并实际通过212Rust/63Python及fmt/Clippy/examples/compile，2真实Windows鉴权管道交错test通过Job0；118raw每command相等。失败交接最长450ms/不续/只HB和Stop/无Ready恢复。独立复核中，未新跑模型，旧25bfinalize失败保留，actualresource数值未知。next_task=T011；GPU/audio/LAN无租约。
+
+最新实测：25b固定隔离once已消费FAILED13.2212875s/128HB/max104ms，heartbeat_write/ipc_failure；加载/placement/internalconversion phase AFTER，finalize BEFORE未完成，资源数值UNKNOWN/noReady。actualJob0、输出关、116source相等，GPU锁释放。next_task=T011，只继续有界terminalfault软件交接，不自动模型重跑。T009真实VBcaptureInitialize0x887c001a仍阻塞；T011/VC/M5/M6未通过。完整isolated-once归档保留。
+
 当前隔离软件整合：固定MeanVC2模型准备已移到一个固定base -I -S子进程，控制不加载Torch，scalar有界，无token/PCM进入child；控制+child private内存合计原门槛。116raw源码前后相等，210实际Windowsworkspace tests/fmt/strictClippy/examples和61Python/compile均0；finitePython子进程专属Job继承/清理0通过，真实model成员和Ready仍NOT_RUN。next_task=T011，独立有限审查中，不启动GPU/音频/LAN。历史7d真实失败/原CLR宿主失败均保留，causeUNKNOWN，当前结果非T011DONE/VC/M5/M6。
 
 当前恢复入口（2026-10-05 16:05Z / 本机10月6日）：next_task=T011。新phaseonce7d实际FAILED heartbeat_read/ipc_deadline/5.6459459s/49ACKs/最后ACK504ms/请求404ms，model_load仅before1437ms未完成；109source相等、Job实际0、输出关，GPU锁释放。诊断只缩小加载区间，不证明GIL/加载完成/实际CUDA，原失败保留，不自动下一GPU尝试。继续有限纯软件控制/模型加载隔离，未经新冻结整合+独立preflight不得运行模型。T009 capture Initialize0x887c001a仍阻塞，T010DONE，T011/VC/M5/M6未验。

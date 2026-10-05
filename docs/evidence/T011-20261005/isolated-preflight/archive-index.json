@@ -1,0 +1,30 @@
+{
+  "audit.json": {
+    "bytes": 812,
+    "sha256": "a8650c3cbfd9bee601ca2794ce24f7108cd5a1def36d1d0d333d4da949dbe7ca"
+  },
+  "config.json": {
+    "bytes": 14113,
+    "sha256": "9831f69ccfabe0e5197c3776b9f4a26693683e9794efa066c63529ac8e9e68dc"
+  },
+  "execute.ps1": {
+    "bytes": 7693,
+    "sha256": "50dc716b9150c9fcd2c6ac939ca8fd14f53729b022c1349f9f180d722fff5878"
+  },
+  "predicate-tests.json": {
+    "bytes": 2305,
+    "sha256": "679fb81de73911599e51f5bc13ab8bc976a495290ebf4bcba5868118cd636911"
+  },
+  "predicate-tests.ps1": {
+    "bytes": 2408,
+    "sha256": "b1e53e2c22a96a471d72114b7fa7c7a66f13e2a3946d4c6a16b0cc0dd1a9b9f2"
+  },
+  "reader-tests.json": {
+    "bytes": 2337,
+    "sha256": "e7186432664e4fd1683896144070bd05231e800e3e02105d5a45428bd9b9d033"
+  },
+  "reader-tests.ps1": {
+    "bytes": 3089,
+    "sha256": "4820a3de76095a3540d9112932b10c848f2271811a6b437b41db6c70c0f9123a"
+  }
+}

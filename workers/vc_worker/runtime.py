@@ -18,7 +18,7 @@ REFERENCE_ID = "00000000-0000-0000-0000-000000000011"
 
 
 class WarmupSession:
-    def __init__(self, loader):
+    def __init__(self, loader, clock=time.monotonic_ns):
         self._loader = loader
         self._result = queue.Queue(maxsize=1)
         self._stopped = threading.Event()
@@ -26,6 +26,8 @@ class WarmupSession:
         self._binding = None
         self._warmup_request = None
         self._phase = "NEW"
+        self._clock = clock
+        self._failure_deadline = None
 
     def _response(self, request, kind, args=None):
         event = {"kind": kind}
@@ -66,8 +68,13 @@ class WarmupSession:
         request = decode_control(payload, "WorkerRequest", self._binding)
         command = request["command"]
         kind = command["kind"]
-        if self._phase in ("STOPPED", "FAILED"):
+        if self._phase == "STOPPED":
             raise ValueError("retired worker")
+        if self._phase == "FAILED":
+            if self._clock() >= self._failure_deadline:
+                raise TimeoutError("terminal handoff deadline")
+            if kind not in ("Heartbeat", "Stop"):
+                raise ValueError("failed worker cannot recover")
         if kind == "Warmup":
             if self._phase != "NEW":
                 raise ValueError("duplicate warmup")
@@ -106,6 +113,9 @@ class WarmupSession:
             return []
         if not success:
             self._phase = "FAILED"
+            # Preserve the terminal frame while Node's next heartbeat write
+            # completes. This single lease never renews and cannot emit Ready.
+            self._failure_deadline = self._clock() + 450_000_000
             if result == "MemoryPressure":
                 return [self._response(self._warmup_request, result)]
             return [self._response(self._warmup_request, "Failed", {"code": "ENGINE_FAILED"})]
@@ -117,6 +127,14 @@ class WarmupSession:
     @property
     def retired(self):
         return self._phase in ("STOPPED", "FAILED")
+
+    @property
+    def control_open(self):
+        return self._phase != "STOPPED"
+
+    @property
+    def terminal_deadline_ns(self):
+        return self._failure_deadline if self._phase == "FAILED" else None
 
     def close(self):
         self._stopped.set()
@@ -144,10 +162,12 @@ def main():
             with PipeClient(args.media, args.node_pid, secret, startup):
                 secret = b""
                 expiry = time.monotonic_ns() + 120_000_000_000
-                while not session.retired:
+                while session.control_open:
                     if time.monotonic_ns() >= expiry:
                         raise TimeoutError("worker preparation deadline")
                     deadline = min(expiry, time.monotonic_ns() + 450_000_000)
+                    if session.terminal_deadline_ns is not None:
+                        deadline = min(deadline, session.terminal_deadline_ns)
                     responses = session.handle(control.read_frame(65536, deadline))
                     # Reply to heartbeat before emitting an asynchronous Ready.
                     responses.extend(session.poll_ready())

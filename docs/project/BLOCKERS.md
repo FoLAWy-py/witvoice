@@ -1,3 +1,5 @@
+当前T011（UTC2026-10-05 16:46，本机10月6日）：隔离模型已加载/设备placement和内部转换phase完成，但finalize无完成，worker连接退出，13.2212875s真实FAILED heartbeat_write/ipc_failure。内存数值/确切finalizer原因未知；128HB/max104ms，Job实际0/输出关，不盲重跑。下一有限软件动作是保证terminal错误在关闭前可读取；不会因异步包被close掩盖而降门槛或重探模型。
+
 当前 T011（2026-10-05 15:37Z）：固定模型启动鉴权后126heartbeat，13.4620318s实际ipc_deadline/noReady，完整warmup-direct-once证据；原因/加载阶段/CUDA实际执行UNKNOWN。真实warmup尚未通过；仅继续有限纯软件失败阶段/期限观测验证，不降门槛、不盲重试模型。GPU Job实际0、输出关、资源锁释放。B005 VB-CABLE capture初始化故障仍在。
 
 当前 B004（2026-10-05T14:59:29.633943+00:00）：对冻结ff754fd一次条件重链接的199软件tests/fmt/严格Clippy/examples通过，当前构建阻塞解除。原LNK1318、ICE/AV/PDB完整失败仍保存，原因UNKNOWN；仅对对应生成PDB作可逆归档，没有系统安全/依赖修改。B005 captureInitialize0x887c001a仍阻挡VB-CABLE路由，不扩称VC通过。

@@ -1,0 +1,19 @@
+{
+  "status": "NOT_RUN",
+  "source_commit": "25b6fc9b577fc0f9bf8d931c925c13ff262b72e6",
+  "sources_equal": 116,
+  "supervisor_sha256": "50dc716b9150c9fcd2c6ac939ca8fd14f53729b022c1349f9f180d722fff5878",
+  "config_sha256": "9831f69ccfabe0e5197c3776b9f4a26693683e9794efa066c63529ac8e9e68dc",
+  "binary_sha256": "67f7b8b9d5ad77cebc632e4721b30d3e7d3df698cbc2a7995da95d702db33ed0",
+  "reader_cases": 8,
+  "predicate_cases": 12,
+  "specific_job_required_for_success": true,
+  "real_model_lease": "NOT_ACQUIRED",
+  "audio": "NOT_RUN",
+  "network": "NOT_RUN",
+  "PCM_disk_upload": false,
+  "automatic_retry": false,
+  "model_memory_accounting": "controller+child same cap",
+  "formal_T011_review": false,
+  "source_raw_vs_git": "Raw bytes guarded; Git can normalize newlines, domains kept distinct"
+}

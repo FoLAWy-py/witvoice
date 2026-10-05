@@ -1,0 +1,145 @@
+{
+    "source_commit":  "25b6fc9b577fc0f9bf8d931c925c13ff262b72e6",
+    "binary_sha256":  "67f7b8b9d5ad77cebc632e4721b30d3e7d3df698cbc2a7995da95d702db33ed0",
+    "config_sha256":  "9831f69ccfabe0e5197c3776b9f4a26693683e9794efa066c63529ac8e9e68dc",
+    "owner":  "/root",
+    "host":  "5.1.26100.7462",
+    "started_utc":  "2026-10-05T16:46:11.5405778Z",
+    "status":  "FAIL_REAL_WARMUP",
+    "model":  "REAL_WARMUP_ATTEMPT",
+    "audio":  "NOT_RUN",
+    "network":  "NOT_RUN",
+    "pcm_saved":  false,
+    "exit":  1,
+    "timed_out":  false,
+    "owned_job_cleanup":  "CONFIRMED_BY_REAL_OWNER",
+    "report":  {
+                   "automatic_retries":  0,
+                   "backend":  "cuda",
+                   "chunk_samples":  2560,
+                   "cleanup_confirmed":  true,
+                   "cleanup_failure":  null,
+                   "cleanup_failure_os_error":  null,
+                   "device_budget_bytes":  4294967296,
+                   "diagnostic_stage_recording":  true,
+                   "duration_preserving":  false,
+                   "engine":  "meanvc2",
+                   "failure":  "ipc_failure",
+                   "failure_last_heartbeat_age_ms":  101,
+                   "failure_os_error":  null,
+                   "failure_request_elapsed_ms":  0,
+                   "failure_stage":  "heartbeat_write",
+                   "heartbeat_count":  128,
+                   "host_budget_bytes":  6442450944,
+                   "lookahead_is_total_delay":  false,
+                   "lookahead_samples":  640,
+                   "max_heartbeat_gap_ms":  104,
+                   "media_exchanged":  false,
+                   "model_job_membership_verified":  false,
+                   "model_ready":  false,
+                   "model_sha256":  "01caafec9a3991a5514df9412952d24ae3370406358a01e20e03df41f2f5d515",
+                   "native_rate":  16000,
+                   "output_open":  false,
+                   "owned_active_processes":  0,
+                   "policy_output_allowed_after_cleanup":  false,
+                   "ready_received":  false,
+                   "reference_id":  "00000000-0000-0000-0000-000000000011",
+                   "result":  "FAILED",
+                   "sink_present":  false,
+                   "stopped_ack":  false
+               },
+    "phase_diagnostic":  "VALID_BOUNDED_SCALARS",
+    "phase_complete":  false,
+    "phase_records":  [
+                          {
+                              "stage":  "imports_array_audio",
+                              "edge":  "before",
+                              "elapsed_ns":  0
+                          },
+                          {
+                              "stage":  "imports_array_audio",
+                              "edge":  "after",
+                              "elapsed_ns":  62000000
+                          },
+                          {
+                              "stage":  "imports_torch",
+                              "edge":  "before",
+                              "elapsed_ns":  62000000
+                          },
+                          {
+                              "stage":  "imports_torch",
+                              "edge":  "after",
+                              "elapsed_ns":  1609000000
+                          },
+                          {
+                              "stage":  "imports_adapter",
+                              "edge":  "before",
+                              "elapsed_ns":  1609000000
+                          },
+                          {
+                              "stage":  "imports_adapter",
+                              "edge":  "after",
+                              "elapsed_ns":  1609000000
+                          },
+                          {
+                              "stage":  "fixtures_check",
+                              "edge":  "before",
+                              "elapsed_ns":  1609000000
+                          },
+                          {
+                              "stage":  "fixtures_check",
+                              "edge":  "after",
+                              "elapsed_ns":  1625000000
+                          },
+                          {
+                              "stage":  "model_load",
+                              "edge":  "before",
+                              "elapsed_ns":  1625000000
+                          },
+                          {
+                              "stage":  "model_load",
+                              "edge":  "after",
+                              "elapsed_ns":  11344000000
+                          },
+                          {
+                              "stage":  "placement_validate",
+                              "edge":  "before",
+                              "elapsed_ns":  11344000000
+                          },
+                          {
+                              "stage":  "placement_validate",
+                              "edge":  "after",
+                              "elapsed_ns":  11344000000
+                          },
+                          {
+                              "stage":  "convert_warmup",
+                              "edge":  "before",
+                              "elapsed_ns":  11344000000
+                          },
+                          {
+                              "stage":  "convert_warmup",
+                              "edge":  "after",
+                              "elapsed_ns":  12390000000
+                          },
+                          {
+                              "stage":  "finalize",
+                              "edge":  "before",
+                              "elapsed_ns":  12390000000
+                          }
+                      ],
+    "phase_file":  {
+                       "bytes":  995,
+                       "sha256":  "2df584a141814f2af492fed189b06d91972c3da4b8a33980e8ce139bad2341b2"
+                   },
+    "finished_utc":  "2026-10-05T16:46:24.7601604Z",
+    "wall_seconds":  13.221287499999999,
+    "stdout":  {
+                   "bytes":  953,
+                   "sha256":  "1431800f71083f9c057b6e0cd215d220433560a5e8b2814a68b567691ee24faf"
+               },
+    "stderr":  {
+                   "bytes":  0,
+                   "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+               },
+    "source_after_all_equal":  true
+}
