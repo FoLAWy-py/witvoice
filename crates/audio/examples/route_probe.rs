@@ -48,12 +48,16 @@ fn main() -> Result<(), String> {
     if args.len() != 2
         || (args[1] != "--metadata-only"
             && args[1] != "--approve-route-probe"
-            && args[1] != "--approve-capture-mix-probe")
+            && args[1] != "--approve-capture-mix-probe"
+            && args[1] != "--approve-raw-capture-mix-probe")
     {
-        return Err("absolute PRIVATE_SCOPE_JSON --metadata-only|--approve-route-probe|--approve-capture-mix-probe; new permission and exclusive lease required".into());
+        return Err("absolute PRIVATE_SCOPE_JSON --metadata-only|--approve-route-probe|--approve-capture-mix-probe|--approve-raw-capture-mix-probe; authorization and exclusive lease required".into());
     }
     let capture_mix = args[1] == "--approve-capture-mix-probe";
-    let descriptor_mode = if capture_mix {
+    let raw_capture_mix = args[1] == "--approve-raw-capture-mix-probe";
+    let descriptor_mode = if raw_capture_mix {
+        "CAPTURE_RAW_EXACT_MIX_RENDER_BASIC"
+    } else if capture_mix {
         "CAPTURE_EXACT_MIX_RENDER_BASIC"
     } else {
         "BASIC"
@@ -156,7 +160,7 @@ fn main() -> Result<(), String> {
         );
         return Ok(());
     }
-    // All operations below require a NEW explicit user permission and audio lease.
+    // All operations below require scoped user authorization and audio lease.
     let signal = Arc::new(ChangeSignal::new());
     let mut watch =
         NotificationWatch::register(scope.render_uid.clone(), Flow::Render, Arc::clone(&signal))
@@ -205,7 +209,9 @@ fn main() -> Result<(), String> {
             }
         };
     within_total()?;
-    let capture_result = if capture_mix {
+    let capture_result = if raw_capture_mix {
+        SharedStream::prepare_raw_capture_mix(&scope.capture_uid, capture_format, 1440)
+    } else if capture_mix {
         SharedStream::prepare_exact_mix(&scope.capture_uid, Flow::Capture, capture_format, 1440)
     } else {
         SharedStream::prepare(&scope.capture_uid, Flow::Capture, capture_format, 1440)

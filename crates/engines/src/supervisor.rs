@@ -412,6 +412,7 @@ impl WorkerSupervisor {
         let media = WorkerPipeServer::bind(&media_tag, Secret::from_bytes(*credential.as_bytes()))
             .map_err(io_failure)?;
         let job = ProcessJob::new(false).map_err(io_failure)?;
+        job.track_lifetime_members().map_err(io_failure)?;
         let warmup_id = identifier(self.sequence)?;
         if !restarting {
             self.first_failure = None;
@@ -463,8 +464,10 @@ impl WorkerSupervisor {
                 .map_err(io_failure)?;
             let pid = process.id();
             own.process = Some(process);
+            own.job.retain_lifetime_members().map_err(io_failure)?;
             own.control.accept(pid, startup).map_err(io_failure)?;
             own.media.accept(pid, startup).map_err(io_failure)?;
+            own.job.retain_lifetime_members().map_err(io_failure)?;
             self.start_policy()?;
             let warmup = self.request(WorkerCommand::Warmup {
                 model_sha256: fixed_hash(),
@@ -544,6 +547,7 @@ impl WorkerSupervisor {
     fn poll_inner(&mut self) -> Result<()> {
         self.monitor()?;
         let own = self.owned.as_ref().expect("owner");
+        own.job.retain_lifetime_members().map_err(io_failure)?;
         if own
             .process
             .as_ref()
@@ -651,6 +655,9 @@ impl WorkerSupervisor {
             .owned
             .as_mut()
             .ok_or_else(|| failure(FailureKind::Cleanup, Fault::Protocol))?;
+        // Save live evidence before closing IPC can let a worker naturally exit.
+        // A frozen capture error is returned by strict termination after Job kill.
+        let _ = own.job.retain_lifetime_members();
         own.control.close();
         own.media.close();
         let clean = (|| {
@@ -693,6 +700,12 @@ impl WorkerSupervisor {
             return Ok(());
         }
         let stopped = (|| {
+            self.owned
+                .as_ref()
+                .expect("owner")
+                .job
+                .retain_lifetime_members()
+                .map_err(io_failure)?;
             let request = self.request(WorkerCommand::Stop)?;
             let deadline = Instant::now() + IO_WINDOW;
             self.send(&request, deadline)?;

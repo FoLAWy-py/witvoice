@@ -1,6 +1,7 @@
 //! Trusted in-process launch API. Never accepts executable paths from control IPC.
 use crate::Secret;
 use std::{
+    cell::RefCell,
     ffi::{OsStr, OsString},
     fs::File,
     io::{self, Write},
@@ -15,8 +16,9 @@ use std::{
 use windows::{
     Win32::{
         Foundation::{
-            CloseHandle, ERROR_ALREADY_EXISTS, GENERIC_READ, GENERIC_WRITE, GetLastError, HANDLE,
-            HANDLE_FLAG_INHERIT, SetHandleInformation, WAIT_OBJECT_0, WAIT_TIMEOUT,
+            CloseHandle, DUPLICATE_SAME_ACCESS, DuplicateHandle, ERROR_ALREADY_EXISTS, FILETIME,
+            GENERIC_READ, GENERIC_WRITE, GetLastError, HANDLE, HANDLE_FLAG_INHERIT,
+            SetHandleInformation, WAIT_OBJECT_0, WAIT_TIMEOUT,
         },
         Security::SECURITY_ATTRIBUTES,
         Storage::FileSystem::{
@@ -177,6 +179,51 @@ pub struct Process {
     output: Option<File>,
 }
 impl Process {
+    fn duplicate(&self) -> io::Result<Self> {
+        let mut handle = HANDLE::default();
+        // SAFETY: both pseudo handles identify this process. Duplicate only the
+        // retained kernel object, never reopen its PID; the new handle is private.
+        unsafe {
+            DuplicateHandle(
+                GetCurrentProcess(),
+                self.handle.0,
+                GetCurrentProcess(),
+                &mut handle,
+                0,
+                false,
+                DUPLICATE_SAME_ACCESS,
+            )
+            .map_err(fail)?;
+        }
+        Ok(Self {
+            handle: Owned(handle),
+            pid: self.pid,
+            output: None,
+        })
+    }
+    fn identity(&self) -> io::Result<MemberIdentity> {
+        let (mut created, mut exited, mut kernel, mut user) = (
+            FILETIME::default(),
+            FILETIME::default(),
+            FILETIME::default(),
+            FILETIME::default(),
+        );
+        // SAFETY: query the retained object with four live scalar destinations.
+        unsafe {
+            GetProcessTimes(
+                self.handle.0,
+                &mut created,
+                &mut exited,
+                &mut kernel,
+                &mut user,
+            )
+            .map_err(fail)?;
+        }
+        Ok(MemberIdentity {
+            pid: self.pid,
+            created: (u64::from(created.dwHighDateTime) << 32) | u64::from(created.dwLowDateTime),
+        })
+    }
     pub fn id(&self) -> u32 {
         self.pid
     }
@@ -270,6 +317,46 @@ impl Process {
 /// Private unnamed, non-inheritable owner handle. Closing it kills the complete tree.
 pub struct ProcessJob {
     handle: Owned,
+    members: RefCell<MemberLedger>,
+}
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+struct MemberIdentity {
+    pid: u32,
+    created: u64,
+}
+struct RetainedMember {
+    identity: MemberIdentity,
+    process: Process,
+}
+struct MemberLedger {
+    handles: Vec<RetainedMember>,
+    total: u32,
+    first_error: Option<io::Error>,
+    tracking: bool,
+}
+impl Default for MemberLedger {
+    fn default() -> Self {
+        Self {
+            handles: Vec::with_capacity(8),
+            total: 0,
+            first_error: None,
+            tracking: false,
+        }
+    }
+}
+impl MemberLedger {
+    fn freeze_error(&mut self, error: io::Error) -> io::Error {
+        repeat_member_error(self.first_error.get_or_insert(error))
+    }
+}
+fn repeat_member_error(error: &io::Error) -> io::Error {
+    if let Some(code) = error.raw_os_error() {
+        return io::Error::from_raw_os_error(code);
+    }
+    if let Some(native) = process_native_failure(error) {
+        return io::Error::other(NativeProcessError(native));
+    }
+    io::Error::new(error.kind(), "job lifetime member evidence unknown")
 }
 impl ProcessJob {
     /// Worker owners use false; true is for an explicitly breakaway-capable UI owner.
@@ -288,6 +375,7 @@ impl ProcessJob {
         };
         Ok(Self {
             handle: Owned(handle),
+            members: RefCell::new(MemberLedger::default()),
         })
     }
     fn create(allow_breakaway: bool, name: Option<&str>) -> io::Result<Self> {
@@ -325,7 +413,10 @@ impl ProcessJob {
             )
             .map_err(fail)?;
         }
-        Ok(Self { handle })
+        Ok(Self {
+            handle,
+            members: RefCell::new(MemberLedger::default()),
+        })
     }
     pub fn spawn(
         &self,
@@ -426,49 +517,140 @@ impl ProcessJob {
         }
         Ok(())
     }
-    fn capture_members(&self) -> io::Result<(u32, Vec<Process>)> {
-        let before = self.accounting()?;
-        let ids = self.process_ids()?;
-        let mut members = Vec::with_capacity(ids.len());
-        for id in &ids {
-            let process = Process::open_known(*id, false)?;
-            let mut in_job = BOOL(0);
-            // SAFETY: both retained handles remain live; verify the opened process
-            // against this exact Job, so a recycled PID cannot become evidence.
-            unsafe {
-                IsProcessInJob(process.handle.0, Some(self.handle.0), &mut in_job)
-                    .map_err(|error| fail_operation(ProcessOperation::VerifyJobMember, error))?;
-            }
-            require_owned_member(in_job.as_bool())?;
-            members.push(process);
+    fn verify_member(&self, process: &Process) -> io::Result<()> {
+        let mut in_job = BOOL(0);
+        // SAFETY: live retained process and exact private owner Job handles.
+        unsafe {
+            IsProcessInJob(process.handle.0, Some(self.handle.0), &mut in_job)
+                .map_err(|error| fail_operation(ProcessOperation::VerifyJobMember, error))?;
         }
-        let after = self.accounting()?;
-        let after_ids = self.process_ids()?;
-        validate_member_snapshot(
-            [before.TotalProcesses, after.TotalProcesses],
-            [before.ActiveProcesses, after.ActiveProcesses],
-            &ids,
-            &after_ids,
-        )?;
-        Ok((before.TotalProcesses, members))
+        require_owned_member(in_job.as_bool())
     }
-    /// Retain a bounded, stable current-member set after exact-Job verification.
-    /// Capturing an active set alone does not prove coverage of historical members.
+    /// Opt in on a fresh worker Job before its first spawn. Generic/UI Job launch
+    /// and termination retain their existing behavior and do not acquire a ledger.
+    pub fn track_lifetime_members(&self) -> io::Result<()> {
+        let mut ledger = self.members.borrow_mut();
+        if ledger.tracking || !ledger.handles.is_empty() || self.accounting()?.TotalProcesses != 0 {
+            return Err(io::Error::other("lifetime tracking requires a fresh job"));
+        }
+        ledger.tracking = true;
+        Ok(())
+    }
+    fn remember_spawned(&self, process: &Process) -> io::Result<()> {
+        let mut ledger = self.members.borrow_mut();
+        if !ledger.tracking {
+            return Ok(());
+        }
+        if let Some(error) = &ledger.first_error {
+            return Err(repeat_member_error(error));
+        }
+        let result = (|| {
+            self.verify_member(process)?;
+            let identity = process.identity()?;
+            let known: Vec<_> = ledger
+                .handles
+                .iter()
+                .map(|member| member.identity)
+                .collect();
+            validate_lifetime_members(&known, &[identity], known.len() as u32 + 1)?;
+            let retained = process.duplicate()?;
+            ledger.handles.push(RetainedMember {
+                identity,
+                process: retained,
+            });
+            Ok(())
+        })();
+        if let Err(error) = result {
+            return Err(ledger.freeze_error(error));
+        }
+        Ok(())
+    }
+    /// Retain at most eight lifetime members. Historical handles remain owned after
+    /// exit. New objects are opened once and verified; a reused PID is rejected.
+    /// Missed births/exits and unstable snapshots freeze a failure, never renew proof.
+    pub fn retain_lifetime_members(&self) -> io::Result<()> {
+        let mut ledger = self.members.borrow_mut();
+        if !ledger.tracking {
+            return Err(io::Error::other("worker lifetime tracking not enabled"));
+        }
+        if let Some(error) = &ledger.first_error {
+            return Err(repeat_member_error(error));
+        }
+        let result = (|| {
+            let before = self.accounting()?;
+            let ids = self.process_ids()?;
+            let mut added = Vec::with_capacity(8);
+            let mut active = Vec::with_capacity(8);
+            for pid in &ids {
+                if let Some(member) = ledger
+                    .handles
+                    .iter()
+                    .find(|member| member.identity.pid == *pid)
+                {
+                    // A PID listed active must still name the same retained live
+                    // object. Never reopen a historical PID to repair missing proof.
+                    if member.process.wait(Duration::ZERO)?.is_some() {
+                        return Err(io::Error::other(
+                            "historical PID is active again or snapshot changed",
+                        ));
+                    }
+                    active.push(member.identity);
+                } else {
+                    require_member_slot(ledger.handles.len(), added.len())?;
+                    let process = Process::open_known(*pid, false)?;
+                    self.verify_member(&process)?;
+                    let identity = process.identity()?;
+                    active.push(identity);
+                    added.push(RetainedMember { identity, process });
+                }
+            }
+            let after = self.accounting()?;
+            let after_ids = self.process_ids()?;
+            validate_member_snapshot(
+                [before.TotalProcesses, after.TotalProcesses],
+                [before.ActiveProcesses, after.ActiveProcesses],
+                &ids,
+                &after_ids,
+            )?;
+            let known: Vec<_> = ledger
+                .handles
+                .iter()
+                .map(|member| member.identity)
+                .collect();
+            validate_lifetime_members(&known, &active, before.TotalProcesses)?;
+            ledger.handles.extend(added);
+            ledger.total = before.TotalProcesses;
+            Ok(())
+        })();
+        if let Err(error) = result {
+            return Err(ledger.freeze_error(error));
+        }
+        Ok(())
+    }
+    /// Duplicate only verified lifetime handles, including naturally exited members.
+    /// No PID reopening; failed or missing history refuses the entire result.
     pub fn retained_member_handles(&self) -> io::Result<Vec<Process>> {
-        self.capture_members().map(|(_, handles)| handles)
+        self.retain_lifetime_members()?;
+        self.members
+            .borrow()
+            .handles
+            .iter()
+            .map(|member| member.process.duplicate())
+            .collect()
     }
     /// Strict worker cleanup: every lifetime member must be covered by a verified
     /// retained handle. Missing history or a new member means unknown, never clean.
-    /// Capture failure still triggers termination; all waits share caller deadline.
+    /// Frozen ledger failure still triggers termination; all waits share caller deadline.
     pub fn terminate_all_members_until(&self, deadline: Instant) -> io::Result<()> {
-        let captured = self.capture_members();
+        let captured = self.retain_lifetime_members();
         self.terminate_until(deadline)?;
-        let (created, handles) = captured?;
+        captured?;
+        let ledger = self.members.borrow();
         let after = self.accounting()?;
-        require_complete_members(created, handles.len(), after.TotalProcesses)?;
-        for process in &handles {
+        require_complete_members(ledger.total, ledger.handles.len(), after.TotalProcesses)?;
+        for member in &ledger.handles {
             let remaining = member_wait_budget(deadline, Instant::now())?;
-            if process.wait(remaining)?.is_none() {
+            if member.process.wait(remaining)?.is_none() {
                 return Err(io::Error::new(
                     io::ErrorKind::TimedOut,
                     "member cleanup deadline",
@@ -477,6 +659,45 @@ impl ProcessJob {
         }
         Ok(())
     }
+}
+
+fn require_member_slot(retained: usize, staged: usize) -> io::Result<()> {
+    if retained.checked_add(staged).is_none_or(|count| count >= 8) {
+        return Err(io::Error::other("job lifetime member limit"));
+    }
+    Ok(())
+}
+fn validate_lifetime_members(
+    known: &[MemberIdentity],
+    active: &[MemberIdentity],
+    total: u32,
+) -> io::Result<()> {
+    for group in [known, active] {
+        if group.len() > 8
+            || group.iter().any(|item| item.pid == 0 || item.created == 0)
+            || group.iter().enumerate().any(|(index, item)| {
+                group[..index]
+                    .iter()
+                    .any(|previous| previous.pid == item.pid)
+            })
+        {
+            return Err(io::Error::other("bounded member identities invalid"));
+        }
+    }
+    let mut combined = known.to_vec();
+    for item in active {
+        if let Some(previous) = combined.iter().find(|previous| previous.pid == item.pid) {
+            if previous != item {
+                return Err(io::Error::other("job member PID identity changed"));
+            }
+        } else {
+            if combined.len() == 8 {
+                return Err(io::Error::other("job lifetime member limit"));
+            }
+            combined.push(*item);
+        }
+    }
+    require_complete_members(total, combined.len(), total)
 }
 
 fn require_owned_member(verified: bool) -> io::Result<()> {
@@ -730,6 +951,9 @@ fn spawn(
                 if !in_job.as_bool() {
                     return Err(io::Error::other("worker job assignment unverified"));
                 }
+                // Retain the very process object before any child user code can
+                // exit. Natural controller exit must not erase lifetime evidence.
+                job.remember_spawned(&process)?;
             } else if detached {
                 IsProcessInJob(
                     process.handle.0,
@@ -776,6 +1000,87 @@ fn spawn(
 #[cfg(test)]
 mod member_snapshot_tests {
     use super::*;
+    fn identity(pid: u32) -> MemberIdentity {
+        MemberIdentity {
+            pid,
+            created: u64::from(pid) * 10,
+        }
+    }
+    #[test]
+    fn lifetime_retains_exact_historical_identities_after_natural_exit() {
+        let retained = [identity(1), identity(2), identity(3)];
+        validate_lifetime_members(&retained, &[identity(2)], 3).unwrap();
+        validate_lifetime_members(&retained, &[], 3).unwrap();
+        // A subsequently observed member extends the lifetime evidence once.
+        validate_lifetime_members(&retained, &[identity(2), identity(4)], 4).unwrap();
+    }
+    #[test]
+    fn lifetime_pid_match_never_substitutes_for_object_identity() {
+        let retained = [identity(1)];
+        let recycled = MemberIdentity {
+            pid: 1,
+            created: 999,
+        };
+        assert!(validate_lifetime_members(&retained, &[recycled], 2).is_err());
+        assert!(validate_lifetime_members(&retained, &[recycled], 1).is_err());
+        assert!(validate_lifetime_members(&[identity(1), recycled], &[], 2).is_err());
+    }
+    #[test]
+    fn lifetime_duplicate_zero_and_capacity_are_rejected() {
+        require_member_slot(7, 0).unwrap();
+        assert!(require_member_slot(8, 0).is_err());
+        assert!(require_member_slot(7, 1).is_err());
+        assert!(require_member_slot(usize::MAX, 1).is_err());
+        let full: Vec<_> = (1..=8).map(identity).collect();
+        validate_lifetime_members(&full, &full, 8).unwrap();
+        assert!(validate_lifetime_members(&full, &[identity(9)], 9).is_err());
+        assert!(validate_lifetime_members(&[], &[identity(1), identity(1)], 2).is_err());
+        assert!(validate_lifetime_members(&[identity(0)], &[], 1).is_err());
+        assert!(
+            validate_lifetime_members(&[MemberIdentity { pid: 1, created: 0 }], &[], 1).is_err()
+        );
+        let over: Vec<_> = (1..=9).map(identity).collect();
+        assert!(validate_lifetime_members(&over, &[], 9).is_err());
+    }
+    #[test]
+    fn lifetime_missing_or_new_history_never_becomes_complete_proof() {
+        let retained = [identity(1), identity(2)];
+        assert!(validate_lifetime_members(&retained, &[], 3).is_err());
+        assert!(validate_lifetime_members(&retained, &[identity(3)], 4).is_err());
+        assert!(validate_lifetime_members(&retained, &[], 1).is_err());
+        require_complete_members(2, retained.len(), 2).unwrap();
+        assert!(require_complete_members(2, retained.len(), 3).is_err());
+    }
+    #[test]
+    fn lifetime_error_replay_preserves_native_and_win32_domains() {
+        let native = fail_operation(
+            ProcessOperation::VerifyJobMember,
+            windows::core::Error::from_hresult(windows::core::HRESULT(0x80070005u32 as i32)),
+        );
+        let repeated = repeat_member_error(&native);
+        assert_eq!(
+            process_native_failure(&repeated),
+            process_native_failure(&native)
+        );
+        assert_eq!(repeated.raw_os_error(), None);
+        let win32 = repeat_member_error(&io::Error::from_raw_os_error(5));
+        assert_eq!(win32.raw_os_error(), Some(5));
+        assert_eq!(process_native_failure(&win32), None);
+        let unknown = repeat_member_error(&io::Error::new(io::ErrorKind::TimedOut, "fixed"));
+        assert_eq!(unknown.kind(), io::ErrorKind::TimedOut);
+        assert_eq!(unknown.raw_os_error(), None);
+        assert_eq!(process_native_failure(&unknown), None);
+    }
+    #[test]
+    fn lifetime_first_missing_proof_is_immutable() {
+        let mut ledger = MemberLedger::default();
+        let first = ledger.freeze_error(io::Error::from_raw_os_error(5));
+        let later = ledger.freeze_error(io::Error::new(io::ErrorKind::TimedOut, "later"));
+        assert_eq!(first.raw_os_error(), Some(5));
+        assert_eq!(later.raw_os_error(), Some(5));
+        assert!(ledger.handles.is_empty());
+        assert_eq!(ledger.total, 0);
+    }
     #[test]
     fn exact_membership_and_stable_bounded_identity_are_required() {
         assert_eq!(

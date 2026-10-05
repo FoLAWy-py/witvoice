@@ -15,7 +15,8 @@ use windows::{
         Foundation::{CloseHandle, HANDLE, RPC_S_CALLPENDING},
         Media::Audio::{
             AUDCLNT_BUFFERFLAGS_SILENT, AUDCLNT_SHAREMODE_SHARED,
-            AUDCLNT_STREAMFLAGS_EVENTCALLBACK, IAudioCaptureClient, IAudioClient,
+            AUDCLNT_STREAMFLAGS_EVENTCALLBACK, AUDCLNT_STREAMOPTIONS_RAW, AudioCategory_Other,
+            AudioClientProperties, IAudioCaptureClient, IAudioClient, IAudioClient2,
             IAudioRenderClient,
         },
         System::{
@@ -183,6 +184,27 @@ enum State {
     Retired,
 }
 
+#[derive(Clone, Copy)]
+enum Preparation {
+    Basic,
+    ExactMix,
+    RawCaptureMix,
+}
+impl Preparation {
+    fn properties(self, flow: Flow) -> Result<Option<AudioClientProperties>, StreamError> {
+        match self {
+            Self::Basic | Self::ExactMix => Ok(None),
+            Self::RawCaptureMix if flow == Flow::Capture => Ok(Some(AudioClientProperties {
+                cbSize: std::mem::size_of::<AudioClientProperties>() as u32,
+                bIsOffload: false.into(),
+                eCategory: AudioCategory_Other,
+                Options: AUDCLNT_STREAMOPTIONS_RAW,
+            })),
+            Self::RawCaptureMix => Err(StreamError::WrongFlow),
+        }
+    }
+}
+
 // Shared by actual owner methods and injected branch tests. Never drains a
 // notification or resets sticky state; no device query, wait or allocation.
 fn guard_change(signal: &ChangeSignal, state: &mut State) -> Result<(), StreamError> {
@@ -248,7 +270,7 @@ impl SharedStream {
         format: AudioFormat,
         maximum_frames: u32,
     ) -> Result<Self, StreamError> {
-        Self::prepare_descriptor(uid, flow, format, maximum_frames, false)
+        Self::prepare_descriptor(uid, flow, format, maximum_frames, Preparation::Basic)
     }
 
     /// Explicit diagnostic alternative, never an automatic fallback. Retains
@@ -261,7 +283,24 @@ impl SharedStream {
         format: AudioFormat,
         maximum_frames: u32,
     ) -> Result<Self, StreamError> {
-        Self::prepare_descriptor(uid, flow, format, maximum_frames, true)
+        Self::prepare_descriptor(uid, flow, format, maximum_frames, Preparation::ExactMix)
+    }
+
+    /// Explicit capture-only diagnostic: RAW disables optional processing on
+    /// this stream, not endpoint settings. No fallback or change to prepare().
+    /// Uses the complete exact mix and identical bounded shared event mode.
+    pub fn prepare_raw_capture_mix(
+        uid: &str,
+        format: AudioFormat,
+        maximum_frames: u32,
+    ) -> Result<Self, StreamError> {
+        Self::prepare_descriptor(
+            uid,
+            Flow::Capture,
+            format,
+            maximum_frames,
+            Preparation::RawCaptureMix,
+        )
     }
 
     fn prepare_descriptor(
@@ -269,8 +308,9 @@ impl SharedStream {
         flow: Flow,
         format: AudioFormat,
         maximum_frames: u32,
-        exact_mix: bool,
+        preparation: Preparation,
     ) -> Result<Self, StreamError> {
+        let properties = preparation.properties(flow)?;
         if maximum_frames == 0 || maximum_frames > format.sample_rate() / 5 {
             return Err(StreamError::Capacity);
         }
@@ -287,8 +327,15 @@ impl SharedStream {
         );
         let device = selected(&enumerator()?, uid, flow)?;
         let client = client(&device)?;
+        if let Some(properties) = properties {
+            let client2: IAudioClient2 = client
+                .cast()
+                .map_err(|e| failure("QueryIAudioClient2", e))?;
+            unsafe { client2.SetClientProperties(&properties) }
+                .map_err(|e| failure("SetClientPropertiesRawCapture", e))?;
+        }
         let descriptor = NativeDescriptor::new(format);
-        let mix_descriptor = if exact_mix {
+        let mix_descriptor = if !matches!(preparation, Preparation::Basic) {
             Some(owned_exact_mix(&client, format)?)
         } else {
             None
@@ -745,6 +792,29 @@ mod tests {
         Win32::Media::Audio::{IAudioCaptureClient_Impl, IAudioRenderClient_Impl},
         core::{HRESULT, implement},
     };
+
+    #[test]
+    fn raw_option_is_capture_only_and_never_added_to_default_modes() {
+        for flow in [Flow::Capture, Flow::Render] {
+            assert!(Preparation::Basic.properties(flow).unwrap().is_none());
+            assert!(Preparation::ExactMix.properties(flow).unwrap().is_none());
+        }
+        assert!(matches!(
+            Preparation::RawCaptureMix.properties(Flow::Render),
+            Err(StreamError::WrongFlow)
+        ));
+        let p = Preparation::RawCaptureMix
+            .properties(Flow::Capture)
+            .unwrap()
+            .unwrap();
+        assert_eq!(
+            p.cbSize as usize,
+            std::mem::size_of::<AudioClientProperties>()
+        );
+        assert!(!p.bIsOffload.as_bool());
+        assert_eq!(p.eCategory, AudioCategory_Other);
+        assert_eq!(p.Options, AUDCLNT_STREAMOPTIONS_RAW);
+    }
 
     #[implement(IAudioCaptureClient)]
     struct Capture {
