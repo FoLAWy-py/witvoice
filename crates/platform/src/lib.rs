@@ -8,4 +8,7 @@ pub use windows::*;
 #[cfg(windows)]
 mod process;
 #[cfg(windows)]
-pub use process::{Process, ProcessJob, launch_node, launch_node_from_ui_job};
+pub use process::{
+    Process, ProcessJob, ProcessNativeFailure, ProcessOperation, launch_node,
+    launch_node_from_ui_job, process_native_failure,
+};

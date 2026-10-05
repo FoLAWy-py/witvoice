@@ -38,12 +38,50 @@ impl Drop for Owned {
         }
     }
 }
+/// Fixed native operation identity, never caller paths or command arguments.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum ProcessOperation {
+    Unknown,
+    TerminateJob,
+    QueryJobActive,
+    QueryJobIds,
+    GetProcessExitCode,
+}
+
+/// HRESULT domain; this is deliberately separate from Win32 raw_os_error.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct ProcessNativeFailure {
+    pub operation: ProcessOperation,
+    pub hresult: i32,
+}
+#[derive(Debug)]
+struct NativeProcessError(ProcessNativeFailure);
+impl std::fmt::Display for NativeProcessError {
+    fn fmt(&self, output: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(
+            output,
+            "Windows process operation failed ({:#x})",
+            self.0.hresult
+        )
+    }
+}
+impl std::error::Error for NativeProcessError {}
+
+/// Only our typed native source is recognized; arbitrary error text is not parsed.
+pub fn process_native_failure(error: &io::Error) -> Option<ProcessNativeFailure> {
+    error
+        .get_ref()?
+        .downcast_ref::<NativeProcessError>()
+        .map(|source| source.0)
+}
+fn fail_operation(operation: ProcessOperation, error: windows::core::Error) -> io::Error {
+    io::Error::other(NativeProcessError(ProcessNativeFailure {
+        operation,
+        hresult: error.code().0,
+    }))
+}
 fn fail(error: windows::core::Error) -> io::Error {
-    // No caller paths, arguments or bootstrap credentials enter diagnostics.
-    io::Error::other(format!(
-        "Windows process operation failed ({:#x})",
-        error.code().0
-    ))
+    fail_operation(ProcessOperation::Unknown, error)
 }
 fn wide(value: &OsStr) -> io::Result<Vec<u16>> {
     let mut result: Vec<u16> = value.encode_wide().take(4097).collect();
@@ -153,7 +191,9 @@ impl Process {
             match WaitForSingleObject(self.handle.0, ms) {
                 WAIT_OBJECT_0 => {
                     let mut code = 0;
-                    GetExitCodeProcess(self.handle.0, &mut code).map_err(fail)?;
+                    GetExitCodeProcess(self.handle.0, &mut code).map_err(|error| {
+                        fail_operation(ProcessOperation::GetProcessExitCode, error)
+                    })?;
                     Ok(Some(code))
                 }
                 WAIT_TIMEOUT => Ok(None),
@@ -322,7 +362,7 @@ impl ProcessJob {
                 mem::size_of_val(&info) as u32,
                 None,
             )
-            .map_err(fail)?;
+            .map_err(|error| fail_operation(ProcessOperation::QueryJobActive, error))?;
         }
         Ok(info.ActiveProcesses)
     }
@@ -348,7 +388,7 @@ impl ProcessJob {
                 mem::size_of_val(&info) as u32,
                 None,
             )
-            .map_err(fail)?;
+            .map_err(|error| fail_operation(ProcessOperation::QueryJobIds, error))?;
         }
         if info.count > 8 {
             return Err(io::Error::other("job exceeded bounded process list"));
@@ -361,7 +401,8 @@ impl ProcessJob {
     pub fn terminate(&self) -> io::Result<()> {
         // SAFETY: private owner job, includes descendants (worker job disallows breakaway).
         unsafe {
-            TerminateJobObject(self.handle.0, 1).map_err(fail)?;
+            TerminateJobObject(self.handle.0, 1)
+                .map_err(|error| fail_operation(ProcessOperation::TerminateJob, error))?;
         }
         let deadline = Instant::now() + Duration::from_secs(3);
         while self.active_processes()? != 0 {
@@ -374,6 +415,58 @@ impl ProcessJob {
             std::thread::sleep(Duration::from_millis(5));
         }
         Ok(())
+    }
+}
+
+#[cfg(test)]
+mod native_error_tests {
+    use super::*;
+
+    #[test]
+    fn structured_native_error_keeps_hresult_and_operation_without_win32_alias() {
+        let code = 0x8007_0005_u32 as i32;
+        for operation in [
+            ProcessOperation::TerminateJob,
+            ProcessOperation::QueryJobActive,
+            ProcessOperation::QueryJobIds,
+            ProcessOperation::GetProcessExitCode,
+        ] {
+            let error = fail_operation(
+                operation,
+                windows::core::Error::from_hresult(windows::core::HRESULT(code)),
+            );
+            assert_eq!(
+                process_native_failure(&error),
+                Some(ProcessNativeFailure {
+                    operation,
+                    hresult: code
+                })
+            );
+            assert_eq!(error.raw_os_error(), None);
+            assert_eq!(
+                error.to_string(),
+                "Windows process operation failed (0x80070005)"
+            );
+        }
+        let raw = io::Error::from_raw_os_error(5);
+        assert_eq!(raw.raw_os_error(), Some(5));
+        assert_eq!(process_native_failure(&raw), None);
+        assert_eq!(
+            process_native_failure(&io::Error::other(
+                "Windows process operation failed (0x80070005)"
+            )),
+            None
+        );
+        let unknown = fail(windows::core::Error::from_hresult(windows::core::HRESULT(
+            0x8000_4005_u32 as i32,
+        )));
+        assert_eq!(
+            process_native_failure(&unknown),
+            Some(ProcessNativeFailure {
+                operation: ProcessOperation::Unknown,
+                hresult: 0x8000_4005_u32 as i32
+            })
+        );
     }
 }
 

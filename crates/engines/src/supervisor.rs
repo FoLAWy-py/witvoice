@@ -44,7 +44,127 @@ pub struct Failure {
     pub fault: Fault,
     pub raw_os_error: Option<i32>,
     pub wire_code: Option<ErrorCode>,
+    pub native_failure: Option<witvoice_platform::ProcessNativeFailure>,
 }
+
+/// Closed stage names and scalar observations; no paths, credentials or PID list.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum CleanupStage {
+    Precondition,
+    Terminate,
+    QueryActive,
+    QueryIds,
+    WaitController,
+    ConfirmPolicy,
+    Released,
+}
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct CleanupSnapshot {
+    pub stage: CleanupStage,
+    pub terminate_succeeded: Option<bool>,
+    pub active_processes: Option<u32>,
+    pub process_id_count: Option<u32>,
+    pub controller_signaled: Option<bool>,
+    pub controller_exit_code: Option<u32>,
+    pub policy_confirmed: Option<bool>,
+    pub stopped_ack: bool,
+    pub elapsed_ms: Option<u64>,
+    pub primary_failure: Option<Failure>,
+    pub cleanup_failure: Option<Failure>,
+}
+// The same closed predicates are driven by production native results and pure
+// observation tests. This value cannot release a Job or affect an output gate.
+pub(crate) struct CleanupObservation {
+    pub(crate) snapshot: CleanupSnapshot,
+}
+impl CleanupObservation {
+    pub(crate) fn new(primary_failure: Option<Failure>, stopped_ack: bool) -> Self {
+        Self {
+            snapshot: CleanupSnapshot {
+                stage: CleanupStage::Precondition,
+                terminate_succeeded: None,
+                active_processes: None,
+                process_id_count: None,
+                controller_signaled: None,
+                controller_exit_code: None,
+                policy_confirmed: None,
+                stopped_ack,
+                elapsed_ms: None,
+                primary_failure,
+                cleanup_failure: None,
+            },
+        }
+    }
+    pub(crate) fn reject(&mut self, error: Failure) -> Failure {
+        self.snapshot.cleanup_failure = Some(error);
+        error
+    }
+    pub(crate) fn terminate(&mut self, result: Result<()>) -> Result<()> {
+        self.snapshot.stage = CleanupStage::Terminate;
+        self.snapshot.terminate_succeeded = Some(result.is_ok());
+        result.map_err(|error| self.reject(error))
+    }
+    pub(crate) fn active(&mut self, result: Result<u32>) -> Result<()> {
+        self.snapshot.stage = CleanupStage::QueryActive;
+        let actual = result.map_err(|error| self.reject(error))?;
+        self.snapshot.active_processes = Some(actual);
+        if actual != 0 {
+            return Err(self.reject(failure(FailureKind::Cleanup, Fault::Protocol)));
+        }
+        Ok(())
+    }
+    pub(crate) fn ids(&mut self, result: Result<Vec<u32>>) -> Result<()> {
+        self.snapshot.stage = CleanupStage::QueryIds;
+        let actual = result.map_err(|error| self.reject(error))?;
+        let count = u32::try_from(actual.len())
+            .map_err(|_| self.reject(failure(FailureKind::Cleanup, Fault::Protocol)))?;
+        self.snapshot.process_id_count = Some(count);
+        if count != 0 {
+            return Err(self.reject(failure(FailureKind::Cleanup, Fault::Protocol)));
+        }
+        Ok(())
+    }
+    pub(crate) fn wait(&mut self, result: Result<Option<u32>>) -> Result<()> {
+        self.snapshot.stage = CleanupStage::WaitController;
+        let actual = result.map_err(|error| self.reject(error))?;
+        self.snapshot.controller_signaled = Some(actual.is_some());
+        self.snapshot.controller_exit_code = actual;
+        if actual.is_none() {
+            return Err(self.reject(failure(FailureKind::Cleanup, Fault::Protocol)));
+        }
+        Ok(())
+    }
+    pub(crate) fn confirm(
+        &mut self,
+        result: std::result::Result<Action, crate::lifecycle::Error>,
+    ) -> Result<()> {
+        self.snapshot.stage = CleanupStage::ConfirmPolicy;
+        self.snapshot.policy_confirmed = Some(result.is_ok());
+        policy(result)
+            .map(|_| ())
+            .map_err(|error| self.reject(error))
+    }
+    pub(crate) fn finish(mut self, elapsed_ms: Option<u64>, released: bool) -> CleanupSnapshot {
+        self.snapshot.elapsed_ms = elapsed_ms;
+        if released {
+            self.snapshot.stage = CleanupStage::Released;
+        }
+        self.snapshot
+    }
+}
+pub(crate) fn remember_cleanup(first: &mut Option<CleanupSnapshot>, actual: CleanupSnapshot) {
+    // First refusal remains immutable, including across cleanup attempts/Drop.
+    if first.is_none_or(|saved| saved.cleanup_failure.is_none()) {
+        *first = Some(actual);
+    }
+}
+pub(crate) fn cleanup_io_failure(error: io::Error) -> Failure {
+    Failure {
+        kind: FailureKind::Cleanup,
+        ..io_failure(error)
+    }
+}
+
 pub type Result<T> = std::result::Result<T, Failure>;
 fn failure(kind: FailureKind, fault: Fault) -> Failure {
     Failure {
@@ -52,6 +172,7 @@ fn failure(kind: FailureKind, fault: Fault) -> Failure {
         fault,
         raw_os_error: None,
         wire_code: None,
+        native_failure: None,
     }
 }
 fn io_failure(error: io::Error) -> Failure {
@@ -64,6 +185,7 @@ fn io_failure(error: io::Error) -> Failure {
     };
     Failure {
         raw_os_error: error.raw_os_error(),
+        native_failure: witvoice_platform::process_native_failure(&error),
         ..failure(FailureKind::Io, fault)
     }
 }
@@ -132,6 +254,7 @@ pub struct WorkerSupervisor {
     sequence: u64,
     capabilities: Option<PreparedCapabilities>,
     first_failure: Option<Failure>,
+    cleanup_snapshot: Option<CleanupSnapshot>,
     last_cleaned_pid: Option<u32>,
     stopped_ack: bool,
     #[cfg(test)]
@@ -151,6 +274,7 @@ impl WorkerSupervisor {
             sequence: 1,
             capabilities: None,
             first_failure: None,
+            cleanup_snapshot: None,
             last_cleaned_pid: None,
             stopped_ack: false,
             #[cfg(test)]
@@ -174,6 +298,9 @@ impl WorkerSupervisor {
     }
     pub fn first_failure(&self) -> Option<Failure> {
         self.first_failure
+    }
+    pub fn cleanup_snapshot(&self) -> Option<CleanupSnapshot> {
+        self.cleanup_snapshot
     }
     pub fn capabilities(&self) -> Option<&PreparedCapabilities> {
         self.capabilities.as_ref()
@@ -493,12 +620,19 @@ impl WorkerSupervisor {
     /// Cleanup is confirmed exclusively from retained native Job/process handles.
     /// On query/termination error the owner remains quarantined and cannot restart.
     pub fn cleanup(&mut self) -> Result<()> {
+        let started = Instant::now();
+        let mut observation = CleanupObservation::new(self.first_failure, self.stopped_ack);
         if self
             .owned
             .as_ref()
             .is_none_or(|own| own.policy_started && !self.lifecycle.cleanup_pending())
         {
-            return Err(failure(FailureKind::Policy, Fault::Protocol));
+            let error = observation.reject(failure(FailureKind::Policy, Fault::Protocol));
+            remember_cleanup(
+                &mut self.cleanup_snapshot,
+                observation.finish(u64::try_from(started.elapsed().as_millis()).ok(), false),
+            );
+            return Err(error);
         }
         self.capabilities = None;
         let own = self
@@ -508,27 +642,26 @@ impl WorkerSupervisor {
         own.control.close();
         own.media.close();
         let clean = (|| {
-            own.job.terminate().map_err(io_failure)?;
-            if own.job.active_processes().map_err(io_failure)? != 0
-                || !own.job.process_ids().map_err(io_failure)?.is_empty()
-            {
-                return Err(failure(FailureKind::Cleanup, Fault::Protocol));
+            observation.terminate(own.job.terminate().map_err(cleanup_io_failure))?;
+            observation.active(own.job.active_processes().map_err(cleanup_io_failure))?;
+            observation.ids(own.job.process_ids().map_err(cleanup_io_failure))?;
+            if let Some(process) = own.process.as_ref() {
+                observation.wait(process.wait(Duration::ZERO).map_err(cleanup_io_failure))?;
             }
-            if let Some(process) = own.process.as_ref()
-                && process.wait(Duration::ZERO).map_err(io_failure)?.is_none()
-            {
-                return Err(failure(FailureKind::Cleanup, Fault::Protocol));
+            if own.policy_started {
+                let binding = self.lifecycle.binding().expect("cleanup binding");
+                observation.confirm(self.lifecycle.cleanup_confirmed(binding, true, true))?;
             }
             Ok(())
         })();
-        if let Err(mut error) = clean {
-            error.kind = FailureKind::Cleanup;
+        let elapsed = u64::try_from(started.elapsed().as_millis()).ok();
+        remember_cleanup(
+            &mut self.cleanup_snapshot,
+            observation.finish(elapsed, clean.is_ok()),
+        );
+        if let Err(error) = clean {
             self.first_failure.get_or_insert(error);
             return Err(error);
-        }
-        if own.policy_started {
-            let binding = self.lifecycle.binding().expect("cleanup binding");
-            policy(self.lifecycle.cleanup_confirmed(binding, true, true))?;
         }
         self.last_cleaned_pid = self.worker_pid();
         self.owned = None;

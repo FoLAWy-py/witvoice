@@ -1,4 +1,229 @@
 #![cfg(windows)]
+
+use supervisor::{
+    CleanupObservation, CleanupSnapshot, CleanupStage, Failure, cleanup_io_failure,
+    remember_cleanup,
+};
+fn observed_primary() -> Failure {
+    Failure {
+        kind: FailureKind::Worker,
+        fault: Fault::MemoryPressure,
+        raw_os_error: None,
+        wire_code: None,
+        native_failure: None,
+    }
+}
+fn observation() -> CleanupObservation {
+    CleanupObservation::new(Some(observed_primary()), true)
+}
+fn through_active() -> CleanupObservation {
+    let mut observed = observation();
+    observed.terminate(Ok(())).unwrap();
+    observed.active(Ok(0)).unwrap();
+    observed
+}
+fn through_ids() -> CleanupObservation {
+    let mut observed = through_active();
+    observed.ids(Ok(Vec::new())).unwrap();
+    observed
+}
+fn all_released() -> CleanupSnapshot {
+    let mut observed = through_ids();
+    observed.wait(Ok(Some(19))).unwrap();
+    observed.confirm(Ok(lifecycle::Action::None)).unwrap();
+    observed.finish(Some(12), true)
+}
+#[test]
+fn cleanup_observation_nonzero_active_stops_before_ids_or_wait() {
+    let mut observed = observation();
+    observed.terminate(Ok(())).unwrap();
+    assert!(observed.active(Ok(3)).is_err());
+    let snapshot = observed.finish(Some(7), false);
+    assert_eq!(snapshot.stage, CleanupStage::QueryActive);
+    assert_eq!(snapshot.terminate_succeeded, Some(true));
+    assert_eq!(snapshot.active_processes, Some(3));
+    assert_eq!(snapshot.process_id_count, None);
+    assert_eq!(snapshot.controller_signaled, None);
+    assert_eq!(snapshot.policy_confirmed, None);
+    assert_eq!(snapshot.primary_failure, Some(observed_primary()));
+    assert!(snapshot.stopped_ack);
+}
+#[test]
+fn cleanup_observation_nonempty_ids_stops_before_controller_wait() {
+    let mut observed = through_active();
+    assert!(observed.ids(Ok(vec![37, 41])).is_err());
+    let snapshot = observed.finish(Some(8), false);
+    assert_eq!(snapshot.stage, CleanupStage::QueryIds);
+    assert_eq!(snapshot.active_processes, Some(0));
+    assert_eq!(snapshot.process_id_count, Some(2));
+    assert_eq!(snapshot.controller_signaled, None);
+    assert_eq!(snapshot.controller_exit_code, None);
+    assert_eq!(snapshot.cleanup_failure.unwrap().raw_os_error, None);
+}
+#[test]
+fn cleanup_observation_unsignaled_controller_retains_actual_zero_queries() {
+    let mut observed = through_ids();
+    assert!(observed.wait(Ok(None)).is_err());
+    let snapshot = observed.finish(Some(9), false);
+    assert_eq!(snapshot.stage, CleanupStage::WaitController);
+    assert_eq!(snapshot.active_processes, Some(0));
+    assert_eq!(snapshot.process_id_count, Some(0));
+    assert_eq!(snapshot.controller_signaled, Some(false));
+    assert_eq!(snapshot.controller_exit_code, None);
+    assert_eq!(snapshot.policy_confirmed, None);
+}
+#[test]
+fn cleanup_observation_all_zero_and_signaled_require_policy_confirmation() {
+    let snapshot = all_released();
+    assert_eq!(snapshot.stage, CleanupStage::Released);
+    assert_eq!(snapshot.terminate_succeeded, Some(true));
+    assert_eq!(snapshot.active_processes, Some(0));
+    assert_eq!(snapshot.process_id_count, Some(0));
+    assert_eq!(snapshot.controller_signaled, Some(true));
+    assert_eq!(snapshot.controller_exit_code, Some(19));
+    assert_eq!(snapshot.policy_confirmed, Some(true));
+    assert_eq!(snapshot.elapsed_ms, Some(12));
+    assert_eq!(snapshot.cleanup_failure, None);
+}
+#[test]
+fn cleanup_observation_native_stage_and_hresult_are_retained_separately() {
+    use witvoice_platform::{ProcessNativeFailure, ProcessOperation};
+    let code = 0x80070005u32 as i32;
+    for (operation, stage) in [
+        (ProcessOperation::TerminateJob, CleanupStage::Terminate),
+        (ProcessOperation::QueryJobActive, CleanupStage::QueryActive),
+        (ProcessOperation::QueryJobIds, CleanupStage::QueryIds),
+        (
+            ProcessOperation::GetProcessExitCode,
+            CleanupStage::WaitController,
+        ),
+        (ProcessOperation::Unknown, CleanupStage::Terminate),
+    ] {
+        // Pure normalized-result fixture, not a performed native API call.
+        let injected = Failure {
+            kind: FailureKind::Cleanup,
+            fault: Fault::Protocol,
+            raw_os_error: None,
+            wire_code: None,
+            native_failure: Some(ProcessNativeFailure {
+                operation,
+                hresult: code,
+            }),
+        };
+        let mut observed = observation();
+        let result = match stage {
+            CleanupStage::Terminate => observed.terminate(Err(injected)),
+            CleanupStage::QueryActive => {
+                observed.terminate(Ok(())).unwrap();
+                observed.active(Err(injected))
+            }
+            CleanupStage::QueryIds => {
+                observed = through_active();
+                observed.ids(Err(injected))
+            }
+            CleanupStage::WaitController => {
+                observed = through_ids();
+                observed.wait(Err(injected))
+            }
+            _ => unreachable!(),
+        };
+        assert_eq!(result, Err(injected));
+        let snapshot = observed.finish(Some(10), false);
+        assert_eq!(snapshot.stage, stage);
+        assert_eq!(snapshot.cleanup_failure, Some(injected));
+        assert_eq!(snapshot.cleanup_failure.unwrap().raw_os_error, None);
+        assert_eq!(snapshot.primary_failure, Some(observed_primary()));
+        match stage {
+            CleanupStage::Terminate => {
+                assert_eq!(snapshot.active_processes, None);
+                assert_eq!(snapshot.terminate_succeeded, Some(false));
+            }
+            CleanupStage::QueryActive => {
+                assert_eq!(snapshot.active_processes, None);
+                assert_eq!(snapshot.process_id_count, None);
+            }
+            CleanupStage::QueryIds => {
+                assert_eq!(snapshot.process_id_count, None);
+                assert_eq!(snapshot.controller_signaled, None);
+            }
+            CleanupStage::WaitController => {
+                assert_eq!(snapshot.controller_signaled, None);
+                assert_eq!(snapshot.controller_exit_code, None);
+            }
+            _ => unreachable!(),
+        }
+    }
+}
+#[test]
+fn cleanup_observation_raw_win32_and_unknown_text_do_not_become_hresult() {
+    let raw = cleanup_io_failure(std::io::Error::from_raw_os_error(5));
+    assert_eq!(raw.raw_os_error, Some(5));
+    assert_eq!(raw.native_failure, None);
+    let unknown = cleanup_io_failure(std::io::Error::other(
+        "Windows process operation failed (0x80070005)",
+    ));
+    assert_eq!(unknown.raw_os_error, None);
+    assert_eq!(unknown.native_failure, None);
+    let mut observed = observation();
+    observed.terminate(Ok(())).unwrap();
+    assert_eq!(observed.active(Err(unknown)), Err(unknown));
+    let snapshot = observed.finish(None, false);
+    assert_eq!(snapshot.active_processes, None);
+    assert_eq!(snapshot.elapsed_ms, None);
+}
+#[test]
+fn cleanup_observation_precondition_and_policy_refusal_keep_unexecuted_null() {
+    let mut observed = CleanupObservation::new(None, false);
+    let error = Failure {
+        kind: FailureKind::Policy,
+        fault: Fault::Protocol,
+        raw_os_error: None,
+        wire_code: None,
+        native_failure: None,
+    };
+    observed.reject(error);
+    let snapshot = observed.finish(Some(0), false);
+    assert_eq!(snapshot.stage, CleanupStage::Precondition);
+    assert_eq!(snapshot.terminate_succeeded, None);
+    assert_eq!(snapshot.active_processes, None);
+    assert_eq!(snapshot.process_id_count, None);
+    assert_eq!(snapshot.controller_signaled, None);
+    assert_eq!(snapshot.primary_failure, None);
+    assert!(!snapshot.stopped_ack);
+    let mut observed = through_ids();
+    observed.wait(Ok(Some(0))).unwrap();
+    assert!(
+        observed
+            .confirm(Err(lifecycle::Error::CleanupIncomplete))
+            .is_err()
+    );
+    let snapshot = observed.finish(Some(13), false);
+    assert_eq!(snapshot.stage, CleanupStage::ConfirmPolicy);
+    assert_eq!(snapshot.policy_confirmed, Some(false));
+    assert_eq!(snapshot.controller_exit_code, Some(0));
+    assert!(snapshot.cleanup_failure.is_some());
+}
+#[test]
+fn cleanup_observation_first_refusal_never_overwritten_by_later_success_or_failure() {
+    let mut saved = None;
+    remember_cleanup(&mut saved, all_released());
+    let mut observed = through_active();
+    observed.ids(Ok(vec![57])).unwrap_err();
+    let first = observed.finish(Some(14), false);
+    remember_cleanup(&mut saved, first);
+    remember_cleanup(&mut saved, all_released());
+    let mut second = observation();
+    second
+        .terminate(Err(cleanup_io_failure(std::io::Error::from_raw_os_error(
+            5,
+        ))))
+        .unwrap_err();
+    remember_cleanup(&mut saved, second.finish(Some(15), false));
+    assert_eq!(saved, Some(first));
+    assert_eq!(saved.unwrap().primary_failure, Some(observed_primary()));
+    assert!(saved.unwrap().stopped_ack);
+}
+
 // Compile exactly the production source with only its cfg(test) fixed-peer factory.
 pub use witvoice_engines::lifecycle;
 #[path = "../src/supervisor.rs"]
@@ -106,7 +331,15 @@ fn authenticated_dual_channels_ready_stop_ack_and_actual_tree_zero() {
         "actual controller/leaf and observed console helpers"
     );
     let pid = worker.worker_pid().unwrap();
-    worker.stop().unwrap();
+    let stopped = worker.stop();
+    println!("first cleanup observation: {:?}", worker.cleanup_snapshot());
+    println!(
+        "stop result: {stopped:?}; output_allowed: {}; resources_released: {}; stopped_ack: {}",
+        worker.output_allowed(),
+        worker.resources_released(),
+        worker.stopped_ack()
+    );
+    stopped.unwrap();
     assert!(worker.stopped_ack());
     assert_eq!(worker.last_cleaned_pid(), Some(pid));
     assert_eq!(worker.phase(), Phase::Stopped);
