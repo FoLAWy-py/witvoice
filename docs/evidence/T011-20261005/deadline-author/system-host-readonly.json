@@ -1,0 +1,25 @@
+{
+    "host":  "5.1.26100.7462",
+    "utc":  "2026-10-05T15:47:39.3802509Z",
+    "files":  [
+                  {
+                      "sha256":  "e33cfc782840cd1af663f9f2afc2d925e8630ddfca91bbf339de41d85e723967",
+                      "bytes":  22015,
+                      "has_fixed_flag":  false,
+                      "has_stage_test":  false,
+                      "path":  "D:\\Project\\witvoice\\crates\\engines\\examples\\worker_warmup_probe.rs",
+                      "has_faulty_cleanup_condition":  true,
+                      "has_cleanup_test":  false
+                  },
+                  {
+                      "sha256":  "09200c12a3de50dfc53631a7235136ae68b6ee4cb97bd5743413940ca63551f4",
+                      "bytes":  6857,
+                      "has_fixed_flag":  false,
+                      "has_stage_test":  false,
+                      "path":  "D:\\Project\\witvoice\\crates\\engines\\examples\\support\\warmup_diagnostics.rs",
+                      "has_faulty_cleanup_condition":  false,
+                      "has_cleanup_test":  false
+                  }
+              ],
+    "process":  "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+}

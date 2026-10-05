@@ -128,12 +128,17 @@ def main():
     parser.add_argument("--control", required=True)
     parser.add_argument("--media", required=True)
     parser.add_argument("--node-pid", required=True, type=int)
+    parser.add_argument("--prepare-diagnostic", action="store_true")
     args = parser.parse_args()
     secret = sys.stdin.buffer.read(33)
     if len(secret) != 32 or args.control == args.media:
         raise ValueError("invalid worker bootstrap")
     startup = time.monotonic_ns() + 2_500_000_000
-    session = WarmupSession(prepare_fixed)
+    loader = prepare_fixed
+    if args.prepare_diagnostic:
+        from prepare_diagnostics import prepare_with_diagnostics
+        loader = prepare_with_diagnostics
+    session = WarmupSession(loader)
     try:
         with PipeClient(args.control, args.node_pid, secret, startup) as control:
             with PipeClient(args.media, args.node_pid, secret, startup):

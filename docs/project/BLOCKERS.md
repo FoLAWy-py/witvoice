@@ -1,3 +1,5 @@
+当前 T011（2026-10-05 15:37Z）：固定模型启动鉴权后126heartbeat，13.4620318s实际ipc_deadline/noReady，完整warmup-direct-once证据；原因/加载阶段/CUDA实际执行UNKNOWN。真实warmup尚未通过；仅继续有限纯软件失败阶段/期限观测验证，不降门槛、不盲重试模型。GPU Job实际0、输出关、资源锁释放。B005 VB-CABLE capture初始化故障仍在。
+
 当前 B004（2026-10-05T14:59:29.633943+00:00）：对冻结ff754fd一次条件重链接的199软件tests/fmt/严格Clippy/examples通过，当前构建阻塞解除。原LNK1318、ICE/AV/PDB完整失败仍保存，原因UNKNOWN；仅对对应生成PDB作可逆归档，没有系统安全/依赖修改。B005 captureInitialize0x887c001a仍阻挡VB-CABLE路由，不扩称VC通过。
 
 当前14:07Z：B005 capture Initialize0x887c001a在basic与owned exactmix均实际失败。服务Audiosrv/AudioEndpointBuilder只读Running；这些状态不证明capture流能初始化。无PCM/Start/自动重试，清理UNKNOWN。最小解阻需查明当前CABLE capture端的独立原生初始化失败原因；不能根据未知HRESULT猜隐私/占用/重装，不获具体授权不改驱动或系统。T011独立软件继续。

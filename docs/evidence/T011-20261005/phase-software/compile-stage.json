@@ -1,0 +1,47 @@
+{
+    "owner":  "/root",
+    "host":  "5.1.26100.7462",
+    "executable":  "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "argv":  [
+                 "-m",
+                 "py_compile",
+                 "workers/vc_worker/runtime.py",
+                 "workers/vc_worker/warmup.py",
+                 "workers/vc_worker/test_runtime.py",
+                 "workers/vc_worker/prepare_diagnostics.py",
+                 "workers/vc_worker/test_prepare_diagnostics.py"
+             ],
+    "started_utc":  "2026-10-05T15:49:18.6441290Z",
+    "finished_utc":  "2026-10-05T15:49:18.7378606Z",
+    "exit":  0,
+    "wall_seconds":  0.0931021,
+    "source_before":  {
+                          "workers/vc_worker/runtime.py":  "ca51849a68f9bfccc4cc7c9156b1bf5be64ea53c594f003b663492adb920978a",
+                          "workers/vc_worker/warmup.py":  "13bd9f7fdfc4f9afe01a04faf4aae80d1a1a7e64a485f8a896bfbd9e466f73b2",
+                          "workers/vc_worker/test_runtime.py":  "bdd5900fe7a916dcefb714acd9424c5f2738bfe6d44ca90ae1dc16931ddd1224",
+                          "workers/vc_worker/prepare_diagnostics.py":  "f0d6cf7e1e7236679a3d205ed2fdc4b13764d31b124f217276b1028975aca104",
+                          "workers/vc_worker/test_prepare_diagnostics.py":  "df677269b80879279fce21bb35066623964c99373efafda333c45293bf6c3612",
+                          "crates/engines/Cargo.toml":  "7d61d17ae72189f61acbb632a67c70e047259a9bd87f10987b2a39a0abcd58c4",
+                          "Cargo.lock":  "8778443a13f48052cd3725f10a541f88b1fe8bb8e6209f415b55fac4a69af12b"
+                      },
+    "source_after":  {
+                         "workers/vc_worker/runtime.py":  "ca51849a68f9bfccc4cc7c9156b1bf5be64ea53c594f003b663492adb920978a",
+                         "workers/vc_worker/warmup.py":  "13bd9f7fdfc4f9afe01a04faf4aae80d1a1a7e64a485f8a896bfbd9e466f73b2",
+                         "workers/vc_worker/test_runtime.py":  "bdd5900fe7a916dcefb714acd9424c5f2738bfe6d44ca90ae1dc16931ddd1224",
+                         "workers/vc_worker/prepare_diagnostics.py":  "f0d6cf7e1e7236679a3d205ed2fdc4b13764d31b124f217276b1028975aca104",
+                         "workers/vc_worker/test_prepare_diagnostics.py":  "df677269b80879279fce21bb35066623964c99373efafda333c45293bf6c3612",
+                         "crates/engines/Cargo.toml":  "7d61d17ae72189f61acbb632a67c70e047259a9bd87f10987b2a39a0abcd58c4",
+                         "Cargo.lock":  "8778443a13f48052cd3725f10a541f88b1fe8bb8e6209f415b55fac4a69af12b"
+                     },
+    "model":  "NOT_RUN",
+    "GPU":  "NOT_RUN",
+    "audio":  "NOT_RUN",
+    "stdout":  {
+                   "bytes":  0,
+                   "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+               },
+    "stderr":  {
+                   "bytes":  0,
+                   "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+               }
+}

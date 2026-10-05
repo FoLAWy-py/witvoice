@@ -1,0 +1,14 @@
+
+running 9 tests
+test probe::tests::cleanup_observation_does_not_overwrite_first_protocol_failure ... ok
+test probe::tests::stage_propagation_preserves_os_number_and_error_class ... ok
+test warmup_diagnostics::tests::before_first_ack_age_and_gap_are_unknown ... ok
+test warmup_diagnostics::tests::failure_age_does_not_replace_successful_gap_or_request_elapsed ... ok
+test warmup_diagnostics::tests::partial_then_deadline_is_not_eof ... ok
+test warmup_diagnostics::tests::write_partial_read_and_async_ready_share_original_deadline ... ok
+test warmup_diagnostics::tests::partial_header_and_partial_body_classify_eof_without_os_invention ... ok
+test warmup_diagnostics::tests::os_number_is_original_not_error_kind_or_guessed_thirteen ... ok
+test warmup_diagnostics::tests::saturated_and_regressed_clock_values_do_not_wrap ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

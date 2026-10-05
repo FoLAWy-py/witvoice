@@ -1,0 +1,53 @@
+{
+    "uuid":  "01a10767-4ff5-7f21-881a-146d094fbc55",
+    "executable":  "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\cargo.exe",
+    "argv":  [
+                 "clippy",
+                 "--locked",
+                 "--offline",
+                 "-p",
+                 "witvoice-engines",
+                 "--example",
+                 "worker_warmup_probe",
+                 "--",
+                 "-D",
+                 "warnings"
+             ],
+    "cwd":  "D:\\Project\\witvoice",
+    "execution_host":  {
+                           "version":  "5.1.26100.7462",
+                           "process":  "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+                       },
+    "start_utc":  "2026-10-05T15:51:03.8250948Z",
+    "end_utc":  "2026-10-05T15:51:04.2032181Z",
+    "exit_code":  0,
+    "env":  {
+                "RUSTUP_HOME":  "D:\\Software\\WitvoiceToolchain\\Rust\\rustup",
+                "CARGO_INCREMENTAL":  "0",
+                "CARGO_BUILD_JOBS":  "1",
+                "CARGO_HOME":  "D:\\Software\\WitvoiceToolchain\\Rust\\cargo",
+                "CARGO_TARGET_DIR":  "D:\\Project\\witvoice\\.local\\t016-diagnostics-author\\target"
+            },
+    "present_overrides":  [
+
+                          ],
+    "source_before_sha256":  {
+                                 "probe":  "940427f001a6ea5e45700c9bb1dbedeb5f085246b82ba48f36d5efda5eedbb23",
+                                 "helper":  "31755aeb855e8fe4edc3fd0f79f9ed75b45050dbaa7e766bf84deeb8d466d48c"
+                             },
+    "source_after_sha256":  {
+                                "probe":  "940427f001a6ea5e45700c9bb1dbedeb5f085246b82ba48f36d5efda5eedbb23",
+                                "helper":  "31755aeb855e8fe4edc3fd0f79f9ed75b45050dbaa7e766bf84deeb8d466d48c"
+                            },
+    "lock_sha256":  "8778443a13f48052cd3725f10a541f88b1fe8bb8e6209f415b55fac4a69af12b",
+    "stdout":  {
+                   "bytes":  0,
+                   "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+               },
+    "stderr":  {
+                   "bytes":  146,
+                   "sha256":  "daebbb6ed8ea7c6dca45af80eba95cfda0e65d77380a1a33181c3b6654d2e464"
+               },
+    "capture":  "Complete redirected stream text UTF8 without BOM",
+    "scope":  "Software injected example tests/build/format/lint only. Probe main/worker/model/GPU/audio/network NOT_RUN"
+}

@@ -425,12 +425,18 @@
         "docs/evidence/T011-20261005/native-author/final-delivery-index.json",
         "docs/evidence/T011-20261005/native-interop/result.json",
         "docs/evidence/T011-20261005/native-integration/relink/result.json",
-        "docs/project/reviews/T011-native-limited.md"
+        "docs/project/reviews/T011-native-limited.md",
+        "docs/evidence/T011-20261005/warmup-once/result.json",
+        "docs/evidence/T011-20261005/bootstrap-integration/result.json",
+        "docs/evidence/T011-20261005/launcher-diagnostic/t011-bootstrap-check-result.json",
+        "docs/evidence/T011-20261005/warmup-direct-once/result.json",
+        "docs/evidence/T011-20261005/deadline-author/final-delivery-index.json",
+        "docs/evidence/T011-20261005/phase-software/result.json"
       ],
       "review": null,
       "attempts": 0,
       "blocked_reason": null,
-      "execution_note": "ff754fd199effectiveworkspace/fmt/strictClippy/examples0;101sourceguards equal; actualRust-Pythontransport+ownedJob PASS0.1238215s independentlyreviewedlimitedslice. Prepare-only realworker source underimplementation; actualwarmup/Nodeproduction/outputgate notyetverified."
+      "execution_note": "NativeIPCffPASS; firstc5warmuponceFAILED ipc_failure; strictPID launch mismatch fixed/directsoftwareequal. New8b directonceFAILED ipc_deadline13.4620318s/126heartbeats/max successfulgap115ms/noReady/actualJob0/outputfalse/106inputs equal; real model placement UNVERIFIED. Finite software-only closed failure stages/age instrumentation in progress, no automatic GPU retry/T011DONE/VC.; finite stage-only diagnostic source implemented:39Python/compile0,9Rustscoped/fmt/strictClippy/build0,8reader+10predicate tests0. SourcewritersSTOP; root integration pending; newGPUdiagnosticNOT_RUN."
     },
     {
       "id": "T012",

@@ -16,15 +16,25 @@ def finalize_preparation(runner, synchronize, host_bytes, device_bytes):
         raise MemoryError("warmup resource budget exceeded")
 
 
-def prepare_fixed(request):
+def prepare_fixed(request, observer=None):
+    def phase(stage, edge):
+        if observer is not None:
+            observer(stage, edge)
     # This function runs only on the single model task, never the control owner.
+    phase("imports_array_audio", "before")
     import numpy as np
     import soundfile as sf
+    phase("imports_array_audio", "after")
+    phase("imports_torch", "before")
     import torch
+    phase("imports_torch", "after")
+    phase("imports_adapter", "before")
     from audit_assets import sha256
     from evidence_checks import module_devices, require_safe_torch
     from feasibility import SOURCE, REFERENCE, load_runner, private_bytes
 
+    phase("imports_adapter", "after")
+    phase("fixtures_check", "before")
     args = request["command"]["args"]
     if (args["model_sha256"], args["reference_id"], args["backend"]) != (
             MODEL_SHA, REFERENCE_ID, "Cuda"):
@@ -42,7 +52,11 @@ def prepare_fixed(request):
             or len(source) < 3 * 2560 or not 10 <= len(reference) / ref_rate <= 30
             or not np.isfinite(source).all() or not np.isfinite(reference).all()):
         raise ValueError("fixed authorized fixture format")
+    phase("fixtures_check", "after")
+    phase("model_load", "before")
     runner, _audit = load_runner("cuda")
+    phase("model_load", "after")
+    phase("placement_validate", "before")
     for model in (runner.vc, runner.spk_model, runner.vocoder):
         if not module_devices(model)["actual"].startswith("cuda:"):
             raise RuntimeError("actual CUDA model placement not verified")
@@ -50,6 +64,8 @@ def prepare_fixed(request):
         raise RuntimeError("actual ASR placement changed")
     if (runner.CHUNK, runner.block_size, runner.upsample_factor) != (2560, 4, 160):
         raise RuntimeError("fixed runtime shape changed")
+    phase("placement_validate", "after")
+    phase("convert_warmup", "before")
     produced = 0
     for offset in range(0, 3 * 2560, 2560):
         result = runner.process_chunk(source[offset:offset + 2560])
@@ -60,8 +76,11 @@ def prepare_fixed(request):
                 produced += len(result)
     if not produced or not runner.vc.streaming_guard_calls:
         raise RuntimeError("real warmup did not execute conversion")
+    phase("convert_warmup", "after")
+    phase("finalize", "before")
     finalize_preparation(runner, torch.cuda.synchronize, private_bytes,
                          torch.cuda.memory_reserved)
+    phase("finalize", "after")
     capabilities = {
         "engine_id": "meanvc2", "model_sha256": MODEL_SHA, "backend": "cuda",
         "native_input_rate": 16000, "native_output_rate": 16000, "chunk_samples": 2560,

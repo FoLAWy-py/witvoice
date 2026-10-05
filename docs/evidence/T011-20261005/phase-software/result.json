@@ -1,0 +1,10 @@
+{
+  "gpu": "NOT_RUN",
+  "tests": 39,
+  "source_maps_equal": true,
+  "model": "NOT_RUN",
+  "status": "SOFTWARE_ONLY",
+  "audio": "NOT_RUN",
+  "compile_exit": 0,
+  "tests_exit": 0
+}

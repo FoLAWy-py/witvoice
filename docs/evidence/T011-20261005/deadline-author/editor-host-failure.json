@@ -1,0 +1,13 @@
+{
+  "tool_result": {
+    "chunk_id": "577b8c",
+    "wall_time_seconds": 6.9316498,
+    "exit_code": -1073741819,
+    "original_token_count": 12,
+    "output": "Fatal error.\r\nInternal CLR error. (0x80131506)\r\n"
+  },
+  "command_scope": "577b8c authorized static probe edit; completion UNKNOWN",
+  "original_start_utc": null,
+  "original_end_utc": null,
+  "application_or_cargo_executed": false
+}

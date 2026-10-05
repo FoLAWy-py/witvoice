@@ -7,33 +7,26 @@
   "active_milestone": "M1",
   "active_tasks": [
     {
+      "task_id": "T011",
+      "agent": "/root",
+      "thread_id": "01a10764-d851-7d02-ac79-365d2576a226",
+      "mode": "FROZEN_DIAGNOSTIC_INTEGRATION",
       "dependencies": [
         "T002",
         "T006",
         "T010"
       ],
-      "resources": [
-        "all product sourcewriters STOP; sole software validation; no GPU/audio/LAN"
-      ],
-      "task_id": "T011",
-      "mode": "FROZEN_SOFTWARE_INTEGRATION",
-      "thread_id": "01a10764-d851-7d02-ac79-365d2576a226",
       "path_whitelist": [
-        "workers/vc_worker/runtime.py",
-        "workers/vc_worker/warmup.py",
-        "workers/vc_worker/test_runtime.py",
-        "workers/vc_worker/README.md",
-        "crates/engines/Cargo.toml",
-        "Cargo.lock",
-        ".local/t011-warmup-root",
         "docs/project",
         "docs/evidence/T011-20261005",
-        ".local/t011-warmup-once",
-        ".local/t011-warmup-final"
+        ".local/t011-stage-final",
+        ".local/t011-warmup-stage-once"
       ],
-      "acceptance": "Python tests/compile; root frozen integration then limited preflight",
-      "agent": "/root",
-      "contract": "docs/project/T011-warmup-assignment.md"
+      "resources": [
+        "sourcewriters STOP; sole software integration; no GPU/audio/LAN"
+      ],
+      "contract": "docs/project/T011-deadline-assignment.md",
+      "acceptance": "Frozen root integration, fullraw/source/binary binding, independent finite preflight before one NEW model phase diagnostic"
     }
   ],
   "milestones": {
@@ -136,7 +129,7 @@
       "reviewer_t001": "/root/reviewer_t001"
     },
     "id_format": "canonical collaboration IDs plus actual UUID session metadata; see T005-thread-id-provenance.json; historical roles not all active",
-    "execution_limit": "Default shell/node fails before process creation: apply deny-read ACLs. Leader scoped commands and explicitly assigned backend/audio fixed-path relays work after auto-review require_escalated; audio authored T004 in disjoint whitelist. Reviewer never escalates or edits; no independent reviewer rerun. Exact disk config loading and sandbox enforcement remain unverified. No ACL/global settings modified. Current explicit audit a2a800: tool shell5.1 requested but actual host7.6.5 bundledpwsh; explicit systemchild version5.1.26100.7462/read-only0. Historical actualshell without measurementUNKNOWN; no globalsettings/ACLchanges. Allsourcewriters/relays/reviewerSTOP, no hardware/GPU/networklease.",
+    "execution_limit": "Default shell/node fails before process creation: apply deny-read ACLs. Leader scoped commands and explicitly assigned backend/audio fixed-path relays work after auto-review require_escalated; audio authored T004 in disjoint whitelist. Reviewer never escalates or edits; no independent reviewer rerun. Exact disk config loading and sandbox enforcement remain unverified. No ACL/global settings modified. Current explicit audit a2a800: tool shell5.1 requested but actual host7.6.5 bundledpwsh; explicit systemchild version5.1.26100.7462/read-only0. Historical actualshell without measurementUNKNOWN; no globalsettings/ACLchanges. Allsourcewriters/relays/reviewerSTOP, no hardware/GPU/networklease. New finite preflight reviewer 01a1077c-556d-7152-892c-d9f92346ec0f approved exact 8b direct configuration; root sole GPU lease before run.",
     "review_source": "leader_or_explicitly_authorized_agent_full_text_relay",
     "sandbox_enforcement_verified": false,
     "failed_redispatch": {
@@ -160,10 +153,10 @@
   },
   "completion_claim_allowed": false,
   "last_verified_scope": "T010 independentformalr1 limitedfoundation APPROVED plus previoussoftware; T009adaptedlimitedpreflight only, hardware/VC/Macexcluded",
-  "execution_status": "ACTIVE_TWO_DISJOINT_SOFTWARE_WRITERS_NO_GPU_AUDIO_LAN",
+  "execution_status": "FROZEN_DIAGNOSTIC_SOFTWARE_INTEGRATION_NO_GPU_AUDIO_LAN",
   "interruption_evidence": "docs/project/interruption-20261005.json",
-  "last_tested_commit": "ff754fd988c69c2a089f8de74bf36fa97a2aa3c3",
-  "last_tested_scope": "199 effective workspace tests/fmt/strictClippy/examples exit0;101 source guards equal; native Rust/Python IPC+ownedJob PASS 0.1238215s, model/audio/network NOT_RUN.",
+  "last_tested_commit": "8b762650c65e47c28fd1a16f7dd35c9423e6e029",
+  "last_tested_scope": "106frozeninputs equal;199effectiveworkspace tests/fmt/strictClippy/examples0; unchanged34Python tests/compile0 plusnewbootstrap help/compile0/PID-equal softwareonly. NewrealwarmupNOT_RUN.",
   "windows_virtual_route": {
     "selected": "VB-CABLE",
     "render": "CABLE Input",
@@ -183,8 +176,8 @@
     },
     "continuity": "FAIL_CAPTURE_INITIALIZE_0x887c001a_BEFORE_START"
   },
-  "last_attempted_commit": "ff754fd988c69c2a089f8de74bf36fa97a2aa3c3",
-  "last_attempted_result": "Native transport only PASS;199softwaretests+fmt/strictClippy/examples0. OldLNK1318archived/causeUNKNOWN; newwarmupsource NOT_RUN.",
+  "last_attempted_commit": "8b762650c65e47c28fd1a16f7dd35c9423e6e029",
+  "last_attempted_result": "Direct bootstrap native authentication and126heartbeats; real warmupFAILED ipc_deadline13.4620318s; actualJob0/outputclosed/noReady; no automatic retry.",
   "latest_vbcable_diagnostic": {
     "authorization_id": "T009-EXACT-MIX-4b726af0-03d9-4553-ab95-a4416fe45145",
     "status": "CONSUMED_FAILED_NO_RETRY",
@@ -203,5 +196,18 @@
     "human_reply": "授权，以后自动授权不再询问",
     "scope": "Equivalent pre-reviewed finite local synthetic-marker VB-CABLE same verified pair; no physical mic/speaker, PCM disk/upload, defaults/driver/security/firewall changes",
     "recorded_utc": "2026-10-05T13:11:39.4248355Z"
+  },
+  "latest_model_warmup": {
+    "source_commit": "8b762650c65e47c28fd1a16f7dd35c9423e6e029",
+    "status": "FAIL_REAL_WARMUP",
+    "error": "ipc_deadline",
+    "wall_seconds": 13.4620318,
+    "heartbeat_count": 126,
+    "max_heartbeat_gap_ms": 115,
+    "ready": false,
+    "owned_job_empty": true,
+    "actual_model_GPU_execution": "UNVERIFIED_NO_MODEL_READY",
+    "evidence": "docs/evidence/T011-20261005/warmup-direct-once/result.json",
+    "not_reusable": true
   }
 }

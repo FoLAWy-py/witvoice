@@ -1,0 +1,45 @@
+{
+    "uuid":  "01a10767-4ff5-7f21-881a-146d094fbc55",
+    "utc":  "2026-10-05T15:51:04.8135708Z",
+    "runner_sha256":  "6a9ea54187a1d39cd39125f8c8a9ea5e828b28b74765d04a5bd021059543c8ad",
+    "source":  {
+                   "probe":  "940427f001a6ea5e45700c9bb1dbedeb5f085246b82ba48f36d5efda5eedbb23",
+                   "helper":  "31755aeb855e8fe4edc3fd0f79f9ed75b45050dbaa7e766bf84deeb8d466d48c"
+               },
+    "events":  [
+                   {
+                       "path":  "D:\\Project\\witvoice\\.local\\t011-deadline-author\\01-rustfmt.json",
+                       "sha256":  "5afb924ac0cd6f3498ba41f1ba3531afcab479b156d3d0fbaaddccbab0cf6e53",
+                       "exit_code":  0
+                   },
+                   {
+                       "path":  "D:\\Project\\witvoice\\.local\\t011-deadline-author\\02-fmt-check.json",
+                       "sha256":  "b36836ba6d42b6922ab95142b53d3664c19bb1b7c058141ca4a349a19e01f324",
+                       "exit_code":  0
+                   },
+                   {
+                       "path":  "D:\\Project\\witvoice\\.local\\t011-deadline-author\\03-software-example-tests.json",
+                       "sha256":  "5324e9f6c235937e5807682228d3aaf16f031cb0be5c0b273199ec7cb3143208",
+                       "exit_code":  0
+                   },
+                   {
+                       "path":  "D:\\Project\\witvoice\\.local\\t011-deadline-author\\04-strict-example-clippy.json",
+                       "sha256":  "8485b8d60d2e9e7573299469f7cf7c3b4cb4daa35703476582a922b768b82264",
+                       "exit_code":  0
+                   },
+                   {
+                       "path":  "D:\\Project\\witvoice\\.local\\t011-deadline-author\\05-example-build.json",
+                       "sha256":  "3db89e76f684392b7de41f00a24d791e029eb516659c44fd1e46ad4cd6592c8b",
+                       "exit_code":  0
+                   }
+               ],
+    "not_run":  [
+                    "probe main",
+                    "GPU/model/warmup",
+                    "native worker startup",
+                    "audio",
+                    "LAN",
+                    "Mac"
+                ],
+    "writes":  "STOP_AFTER_DELIVERY"
+}

@@ -3,12 +3,7 @@
 //! No audio endpoint, output sink, media frames, or network API exists here.
 
 #[cfg(all(windows, debug_assertions))]
-#[path = "support/warmup_diagnostics.rs"]
-mod warmup_diagnostics;
-
-#[cfg(all(windows, debug_assertions))]
 mod probe {
-    use super::warmup_diagnostics::{RequestDeadline, Stage, Timing, classify_io};
     use std::{
         ffi::OsString,
         io,
@@ -40,14 +35,6 @@ mod probe {
     struct Failure {
         code: &'static str,
         fault: Fault,
-        stage: Stage,
-        raw_os_error: Option<i32>,
-    }
-    impl Failure {
-        fn at(mut self, stage: Stage) -> Self {
-            self.stage = stage;
-            self
-        }
     }
     type Result<T> = std::result::Result<T, Failure>;
 
@@ -55,21 +42,20 @@ mod probe {
         Failure {
             code,
             fault: Fault::Protocol,
-            stage: Stage::Preflight,
-            raw_os_error: None,
         }
     }
     fn io_failure(error: io::Error) -> Failure {
-        let detail = classify_io(&error);
         Failure {
-            code: detail.code,
-            fault: if detail.eof {
+            code: match error.kind() {
+                io::ErrorKind::TimedOut => "ipc_deadline",
+                io::ErrorKind::UnexpectedEof => "ipc_eof",
+                _ => "ipc_failure",
+            },
+            fault: if error.kind() == io::ErrorKind::UnexpectedEof {
                 Fault::Eof
             } else {
                 Fault::Protocol
             },
-            stage: Stage::Preflight,
-            raw_os_error: detail.raw_os_error,
         }
     }
     fn id(sequence: u64) -> Result<Id> {
@@ -145,8 +131,6 @@ mod probe {
             return Err(Failure {
                 code: "lifecycle_deadline",
                 fault: lifecycle.first_fault().unwrap_or(Fault::Protocol),
-                stage: Stage::Preflight,
-                raw_os_error: None,
             });
         }
         Ok(())
@@ -156,9 +140,8 @@ mod probe {
         ready: bool,
         stopped: bool,
         heartbeat_count: u64,
-        timing: Timing,
-        clock: Instant,
-        stage: Stage,
+        last_heartbeat_ms: u64,
+        max_gap_ms: u64,
     }
     impl Observations {
         fn new() -> Self {
@@ -166,18 +149,9 @@ mod probe {
                 ready: false,
                 stopped: false,
                 heartbeat_count: 0,
-                timing: Timing::default(),
-                clock: Instant::now(),
-                stage: Stage::Preflight,
+                last_heartbeat_ms: 0,
+                max_gap_ms: 0,
             }
-        }
-        fn now_ms(&self) -> u64 {
-            u64::try_from(self.clock.elapsed().as_millis()).unwrap_or(u64::MAX)
-        }
-        fn begin_request(&mut self, stage: Stage) -> Result<RequestDeadline> {
-            self.stage = stage;
-            self.timing.begin_request(self.now_ms());
-            RequestDeadline::new(Instant::now(), IO).ok_or_else(|| failure("clock_overflow"))
         }
     }
 
@@ -205,9 +179,7 @@ mod probe {
                 backend: WorkerBackend::Cuda,
             },
         )?;
-        let window = observations.begin_request(Stage::WarmupWrite)?;
-        send(control, &warmup, window.absolute())?;
-        observations.timing.complete_request();
+        send(control, &warmup, Instant::now() + IO)?;
         let mut sequence = 2u64;
         loop {
             live(lifecycle, clock)?;
@@ -217,11 +189,9 @@ mod probe {
                 .ok_or_else(|| failure("request_id_exhausted"))?;
             // One outstanding Heartbeat; its send and every asynchronous Ready
             // read share this SAME 400ms absolute deadline, never renewed.
-            let window = observations.begin_request(Stage::HeartbeatWrite)?;
-            let deadline = window.absolute();
+            let deadline = Instant::now() + IO;
             send(control, &heartbeat, deadline)?;
             loop {
-                observations.stage = Stage::HeartbeatRead;
                 let response = receive(control, binding, deadline)?;
                 live(lifecycle, clock)?;
                 match response.event {
@@ -236,9 +206,10 @@ mod probe {
                         if action != Action::None {
                             return Err(failure("lifecycle_heartbeat"));
                         }
-                        observations
-                            .timing
-                            .acknowledge_heartbeat(observations.now_ms());
+                        observations.max_gap_ms = observations
+                            .max_gap_ms
+                            .max(now - observations.last_heartbeat_ms);
+                        observations.last_heartbeat_ms = now;
                         observations.heartbeat_count = observations
                             .heartbeat_count
                             .checked_add(1)
@@ -246,7 +217,6 @@ mod probe {
                         break;
                     }
                     WorkerEvent::Ready { capabilities } => {
-                        observations.stage = Stage::ReadyValidate;
                         if observations.ready || response.request_id != warmup.request_id {
                             return Err(failure("ready_request_id_or_duplicate"));
                         }
@@ -269,8 +239,6 @@ mod probe {
                         return Err(Failure {
                             code: "memory_pressure",
                             fault: Fault::MemoryPressure,
-                            stage: Stage::HeartbeatRead,
-                            raw_os_error: None,
                         });
                     }
                     WorkerEvent::Failed { .. } => {
@@ -290,17 +258,14 @@ mod probe {
         // No sink exists. Invalidate policy permission BEFORE any Stop I/O.
         lifecycle.stop();
         let stop = request(binding, sequence, WorkerCommand::Stop)?;
-        let window = observations.begin_request(Stage::StopWrite)?;
-        let deadline = window.absolute();
+        let deadline = Instant::now() + IO;
         send(control, &stop, deadline)?;
-        observations.stage = Stage::StopRead;
         let response = receive(control, binding, deadline)?;
         if response.request_id != stop.request_id || !matches!(response.event, WorkerEvent::Stopped)
         {
             return Err(failure("stop_response"));
         }
         observations.stopped = true;
-        observations.timing.complete_request();
         // Stopped is protocol acknowledgement, never a resource-release proof.
         Ok(())
     }
@@ -309,27 +274,12 @@ mod probe {
         job: &ProcessJob,
         control: &mut WorkerPipeServer,
         media: &mut WorkerPipeServer,
-    ) -> (bool, Option<u32>, Option<Failure>) {
+    ) -> (bool, Option<u32>) {
         control.close();
         media.close();
         let termination = job.terminate();
-        let processes = job.active_processes();
-        let count = processes.as_ref().ok().copied();
-        let fault = termination
-            .err()
-            .or_else(|| processes.err())
-            .map(|error| io_failure(error).at(Stage::OwnedCleanup));
-        (fault.is_none() && count == Some(0), count, fault)
-    }
-    fn report_failure(report: &mut serde_json::Value, error: &Failure) {
-        report["failure_stage"] = error.stage.as_str().into();
-        report["failure_os_error"] = error.raw_os_error.into();
-    }
-    fn report_cleanup(report: &mut serde_json::Value, fault: Option<Failure>) {
-        if let Some(error) = fault {
-            report["cleanup_failure"] = error.code.into();
-            report["cleanup_failure_os_error"] = error.raw_os_error.into();
-        }
+        let count = job.active_processes().ok();
+        (termination.is_ok() && count == Some(0), count)
     }
     fn run() -> serde_json::Value {
         let mut report = serde_json::json!({
@@ -337,15 +287,11 @@ mod probe {
             "sink_present":false, "output_open":false, "media_exchanged":false,
             "automatic_retries":0, "cleanup_confirmed":false,
             "owned_active_processes":null, "heartbeat_count":0, "max_heartbeat_gap_ms":null,
-            "failure_stage":null, "failure_os_error":null,
-            "failure_last_heartbeat_age_ms":null, "failure_request_elapsed_ms":null,
-            "cleanup_failure":null, "cleanup_failure_os_error":null,
             "host_budget_bytes":HOST_BUDGET, "device_budget_bytes":DEVICE_BUDGET,
             "model_sha256":MODEL, "reference_id":REFERENCE,
             "lookahead_samples":640, "lookahead_is_total_delay":false,
             "native_rate":16000, "chunk_samples":2560, "duration_preserving":false,
-            "engine":"meanvc2", "backend":"cuda", "failure":"preflight",
-            "diagnostic_stage_recording":true
+            "engine":"meanvc2", "backend":"cuda", "failure":"preflight"
         });
         let setup = (|| {
             if current_process_is_elevated().map_err(io_failure)? {
@@ -386,7 +332,6 @@ mod probe {
             let job = ProcessJob::new(false).map_err(io_failure)?;
             let args = vec![
                 runtime.into_os_string(),
-                OsString::from("--prepare-diagnostic"),
                 OsString::from("--control"),
                 control_tag.into(),
                 OsString::from("--media"),
@@ -399,8 +344,7 @@ mod probe {
             let worker = match job.spawn_bootstrapped(python, &args, false, &credential) {
                 Ok(worker) => worker,
                 Err(error) => {
-                    let (zero, count, cleanup_fault) = cleanup_job(&job, &mut control, &mut media);
-                    report_cleanup(&mut report, cleanup_fault);
+                    let (zero, count) = cleanup_job(&job, &mut control, &mut media);
                     report["cleanup_confirmed"] = zero.into();
                     if let Some(count) = count {
                         report["owned_active_processes"] = count.into();
@@ -413,11 +357,8 @@ mod probe {
             let mut observations = Observations::new();
             let protocol = (|| {
                 let startup = Instant::now() + Duration::from_secs(3);
-                observations.stage = Stage::AuthenticateControl;
                 control.accept(worker.id(), startup).map_err(io_failure)?;
-                observations.stage = Stage::AuthenticateMedia;
                 media.accept(worker.id(), startup).map_err(io_failure)?;
-                observations.stage = Stage::Preflight;
                 let clock = Instant::now();
                 exchange(
                     &mut control,
@@ -427,18 +368,7 @@ mod probe {
                     &mut observations,
                     clock,
                 )
-            })()
-            .map_err(|error: Failure| error.at(observations.stage));
-            // Snapshot before fault handling and owned cleanup; their duration
-            // must not inflate the age at the original failure.
-            if let Err(error) = &protocol {
-                let now = observations.now_ms();
-                report_failure(&mut report, error);
-                report["failure_last_heartbeat_age_ms"] =
-                    observations.timing.failure_age_ms(now).into();
-                report["failure_request_elapsed_ms"] =
-                    observations.timing.pending_elapsed_ms(now).into();
-            }
+            })();
             if let Err(error) = &protocol
                 && lifecycle.binding().is_some()
                 && !lifecycle.resources_released()
@@ -447,24 +377,17 @@ mod probe {
             }
             // Always close channels and terminate/query this owned Job, even
             // on EOF, invalid response, timeout, MemoryPressure, or Stopped.
-            let (zero, active, cleanup_fault) = cleanup_job(&job, &mut control, &mut media);
-            report_cleanup(&mut report, cleanup_fault);
-
+            let (zero, active) = cleanup_job(&job, &mut control, &mut media);
             let policy_clean = if zero && lifecycle.binding().is_some() {
                 lifecycle.cleanup_confirmed(local, true, true).is_ok()
             } else {
                 zero
             };
-            if protocol.is_ok() && (!zero || !policy_clean) {
-                report_failure(
-                    &mut report,
-                    &cleanup_fault
-                        .unwrap_or_else(|| failure("owned_cleanup").at(Stage::OwnedCleanup)),
-                );
-            }
             report["ready_received"] = observations.ready.into();
             report["heartbeat_count"] = observations.heartbeat_count.into();
-            report["max_heartbeat_gap_ms"] = observations.timing.max_successful_gap_ms.into();
+            if observations.heartbeat_count > 0 {
+                report["max_heartbeat_gap_ms"] = observations.max_gap_ms.into();
+            }
             report["stopped_ack"] = observations.stopped.into();
             report["cleanup_confirmed"] = policy_clean.into();
             if let Some(count) = active {
@@ -488,42 +411,8 @@ mod probe {
         })();
         if let Err(error) = setup {
             report["failure"] = error.code.into();
-            report_failure(&mut report, &error);
         }
         report
-    }
-
-    #[cfg(test)]
-    mod tests {
-        use super::*;
-
-        #[test]
-        fn stage_propagation_preserves_os_number_and_error_class() {
-            let error = io_failure(io::Error::from_raw_os_error(5)).at(Stage::AuthenticateMedia);
-            assert_eq!(error.code, "ipc_failure");
-            assert_eq!(error.raw_os_error, Some(5));
-            assert_eq!(error.stage, Stage::AuthenticateMedia);
-            let partial =
-                io_failure(io::Error::from(io::ErrorKind::UnexpectedEof)).at(Stage::HeartbeatRead);
-            assert_eq!(partial.code, "ipc_eof");
-            assert_eq!(partial.raw_os_error, None);
-            assert_eq!(partial.stage, Stage::HeartbeatRead);
-        }
-
-        #[test]
-        fn cleanup_observation_does_not_overwrite_first_protocol_failure() {
-            let mut report = serde_json::json!({"failure":"ipc_deadline"});
-            let first = io_failure(io::Error::from(io::ErrorKind::TimedOut)).at(Stage::StopRead);
-            report_failure(&mut report, &first);
-            report_cleanup(
-                &mut report,
-                Some(io_failure(io::Error::from_raw_os_error(5)).at(Stage::OwnedCleanup)),
-            );
-            assert_eq!(report["failure"], "ipc_deadline");
-            assert_eq!(report["failure_stage"], "stop_read");
-            assert!(report["failure_os_error"].is_null());
-            assert_eq!(report["cleanup_failure_os_error"], 5);
-        }
     }
 
     pub fn main() {

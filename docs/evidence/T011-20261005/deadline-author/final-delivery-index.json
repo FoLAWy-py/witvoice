@@ -1,0 +1,177 @@
+{
+    "task":  "T011 finite software deadline diagnostics",
+    "uuid":  "01a10767-4ff5-7f21-881a-146d094fbc55",
+    "utc":  "2026-10-05T15:52:16.3904816Z",
+    "sources":  [
+                    {
+                        "path":  "D:\\Project\\witvoice\\crates\\engines\\examples\\worker_warmup_probe.rs",
+                        "sha256":  "940427f001a6ea5e45700c9bb1dbedeb5f085246b82ba48f36d5efda5eedbb23",
+                        "bytes":  23773,
+                        "lines":  556
+                    },
+                    {
+                        "path":  "D:\\Project\\witvoice\\crates\\engines\\examples\\support\\warmup_diagnostics.rs",
+                        "sha256":  "31755aeb855e8fe4edc3fd0f79f9ed75b45050dbaa7e766bf84deeb8d466d48c",
+                        "bytes":  6970,
+                        "lines":  200
+                    }
+                ],
+    "files":  [
+                  {
+                      "path":  "D:\\Project\\witvoice\\.local\\t011-deadline-author\\01-rustfmt.json",
+                      "sha256":  "5afb924ac0cd6f3498ba41f1ba3531afcab479b156d3d0fbaaddccbab0cf6e53",
+                      "bytes":  2484
+                  },
+                  {
+                      "path":  "D:\\Project\\witvoice\\.local\\t011-deadline-author\\01-rustfmt.stderr",
+                      "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                      "bytes":  0
+                  },
+                  {
+                      "path":  "D:\\Project\\witvoice\\.local\\t011-deadline-author\\01-rustfmt.stdout",
+                      "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                      "bytes":  0
+                  },
+                  {
+                      "path":  "D:\\Project\\witvoice\\.local\\t011-deadline-author\\02-fmt-check.json",
+                      "sha256":  "b36836ba6d42b6922ab95142b53d3664c19bb1b7c058141ca4a349a19e01f324",
+                      "bytes":  2301
+                  },
+                  {
+                      "path":  "D:\\Project\\witvoice\\.local\\t011-deadline-author\\02-fmt-check.stderr",
+                      "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                      "bytes":  0
+                  },
+                  {
+                      "path":  "D:\\Project\\witvoice\\.local\\t011-deadline-author\\02-fmt-check.stdout",
+                      "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                      "bytes":  0
+                  },
+                  {
+                      "path":  "D:\\Project\\witvoice\\.local\\t011-deadline-author\\03-software-example-tests.json",
+                      "sha256":  "5324e9f6c235937e5807682228d3aaf16f031cb0be5c0b273199ec7cb3143208",
+                      "bytes":  2410
+                  },
+                  {
+                      "path":  "D:\\Project\\witvoice\\.local\\t011-deadline-author\\03-software-example-tests.stderr",
+                      "sha256":  "3e5fa025c0cf86b1d00aec32d87313f729a2a49483686e05ec17d28889d58fa8",
+                      "bytes":  298
+                  },
+                  {
+                      "path":  "D:\\Project\\witvoice\\.local\\t011-deadline-author\\03-software-example-tests.stdout",
+                      "sha256":  "c269401c46cf8c67e5386065d22f68c45854fc004eccb7ed0f931e7b325f47e8",
+                      "bytes":  922
+                  },
+                  {
+                      "path":  "D:\\Project\\witvoice\\.local\\t011-deadline-author\\04-strict-example-clippy.json",
+                      "sha256":  "8485b8d60d2e9e7573299469f7cf7c3b4cb4daa35703476582a922b768b82264",
+                      "bytes":  2488
+                  },
+                  {
+                      "path":  "D:\\Project\\witvoice\\.local\\t011-deadline-author\\04-strict-example-clippy.stderr",
+                      "sha256":  "daebbb6ed8ea7c6dca45af80eba95cfda0e65d77380a1a33181c3b6654d2e464",
+                      "bytes":  146
+                  },
+                  {
+                      "path":  "D:\\Project\\witvoice\\.local\\t011-deadline-author\\04-strict-example-clippy.stdout",
+                      "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                      "bytes":  0
+                  },
+                  {
+                      "path":  "D:\\Project\\witvoice\\.local\\t011-deadline-author\\05-example-build.json",
+                      "sha256":  "3db89e76f684392b7de41f00a24d791e029eb516659c44fd1e46ad4cd6592c8b",
+                      "bytes":  2409
+                  },
+                  {
+                      "path":  "D:\\Project\\witvoice\\.local\\t011-deadline-author\\05-example-build.stderr",
+                      "sha256":  "c0f72e89f8e58c99693177504b4140c9d3e87b3746a3412cf67b4674ea06ef10",
+                      "bytes":  146
+                  },
+                  {
+                      "path":  "D:\\Project\\witvoice\\.local\\t011-deadline-author\\05-example-build.stdout",
+                      "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                      "bytes":  0
+                  },
+                  {
+                      "path":  "D:\\Project\\witvoice\\.local\\t011-deadline-author\\delivery-index.json",
+                      "sha256":  "db26d3461c34f158bed34c852bc8a72e2c5c15f48b5c168ab48e3ed1f7a23d56",
+                      "bytes":  2249
+                  },
+                  {
+                      "path":  "D:\\Project\\witvoice\\.local\\t011-deadline-author\\editor-host-failure.json",
+                      "sha256":  "673a60ef535e99fa3f2810670303766c3119381d8e8e19a692c5df8ce4eaa49d",
+                      "bytes":  397
+                  },
+                  {
+                      "path":  "D:\\Project\\witvoice\\.local\\t011-deadline-author\\editor-host-failure.tool-output.txt",
+                      "sha256":  "f4ee0d7974f2460cd92c34715beb2c2a5dc2e7dcc78ed18eec19996b190e77fe",
+                      "bytes":  48
+                  },
+                  {
+                      "path":  "D:\\Project\\witvoice\\.local\\t011-deadline-author\\probe-before.rs",
+                      "sha256":  "cfb3b34b3a9c8fb1fa88b7ba33c2facb2f563a7ce4aa5ad6e7afaa07f5953f5a",
+                      "bytes":  18667
+                  },
+                  {
+                      "path":  "D:\\Project\\witvoice\\.local\\t011-deadline-author\\runner.ps1",
+                      "sha256":  "6a9ea54187a1d39cd39125f8c8a9ea5e828b28b74765d04a5bd021059543c8ad",
+                      "bytes":  4571
+                  },
+                  {
+                      "path":  "D:\\Project\\witvoice\\.local\\t011-deadline-author\\system-host-readonly.json",
+                      "sha256":  "02a6157a53b470a027139fa8f83601b3842b6f9b20962107a0f5bca400063ea8",
+                      "bytes":  1211
+                  }
+              ],
+    "binary":  {
+                   "path":  "D:\\Project\\witvoice\\.local\\t016-diagnostics-author\\target\\debug\\examples\\worker_warmup_probe.exe",
+                   "sha256":  "f5b40360aa19b577b5c0588c09c3603bc140880e1be3125f6ca2a6b4e1c96790",
+                   "executed":  false
+               },
+    "lock_sha256":  "8778443a13f48052cd3725f10a541f88b1fe8bb8e6209f415b55fac4a69af12b",
+    "final_checks":  {
+                         "software_tests":  0,
+                         "strict_example_clippy":  0,
+                         "example_build":  0,
+                         "rustfmt":  0,
+                         "fmt_check":  0,
+                         "software_tests_count":  9
+                     },
+    "unexpected_host_failure":  {
+                                    "exit_code":  -1073741819,
+                                    "start_utc":  null,
+                                    "end_utc":  null,
+                                    "raw_stream":  "Tool combined output, no original split stream recording",
+                                    "cargo_or_application_executed":  false,
+                                    "completion":  "UNKNOWN immediately; SystemPS5.1 readonly7eb364 proved final flag/test edit absent",
+                                    "command_provenance":  "Full exact exec_command cmd in backend thread tool item577b8c; no reconstructed command/start time",
+                                    "tool_item":  "577b8c"
+                                },
+    "recovery":  {
+                     "cause":  "UNKNOWN",
+                     "different_host":  "Explicit child SystemPS5.1 5.1.26100.7462",
+                     "leader_authorized":  true,
+                     "checks_tool":  "98ab9b exit0; five native commands all0",
+                     "readonly_tool":  "7eb364 exit0",
+                     "narrow_edit_tool":  "3f675d exit0"
+                 },
+    "not_run":  [
+                    "warmup main",
+                    "worker startup",
+                    "real model load/warmup",
+                    "GPU",
+                    "audio",
+                    "network/LAN",
+                    "Mac",
+                    "release example"
+                ],
+    "limits":  [
+                   "Diagnostic stages instrument future failures, do not establish cause of old ipc_deadline",
+                   "No deadline/auth/budget/retry/model/thread changes",
+                   "First ACK max-successful-gap is UNKNOWN; next ACK yields first measured interval",
+                   "OS numeric code absent remains null; no error message/path/token/frame output",
+                   "Kernel cancellation wallclock not universally proven"
+               ],
+    "writer_state":  "STOP_WRITES",
+    "self_approved":  false
+}

@@ -1,3 +1,7 @@
+当前恢复入口（2026-10-05 15:37Z）：next_task=T011。8b新directonce实际FAILED ipc_deadline/13.4620318s/126heartbeats/max已成功gap115ms/noReady/noStopped/actualJob0/outputfalse/106源相等；音频/网络/PCM文件均无。独立reviewer有限签收失败，原因/模型实际GPU执行UNKNOWN。唯一GPU锁已释放，不重用旧once、不自动重跑、不降低400msIO/500msheartbeat。当前backend只写probe及support纯软件故障阶段/请求年龄诊断，root只整合docs；契约T011-deadline-assignment，最多1codewriter，无hardware。VB-CABLE capture Initialize0x887c001a仍阻塞，T010DONE，T011未完成/生产VC/M5/M6未通过。下列旧进行中和未执行为历史，以STATE为准。
+
+当前恢复入口（2026-10-05 15:30Z）：next_task=T011。第一次真实预热诊断c5实际0.633212s/child1/ipc_failure，Heartbeat0/Readyfalse/Job实际0/许可关，模型/GPU是否执行UNVERIFIED，原once永存warmup-once且不复用。纯导入0，真实venvlauncher PID51688 vs实际Python51844不同，与严格Pipe PID期望不兼容。leader窄修直接固定base解释器+model_bootstrap固定site目录（不.pth/shell/auth放宽），软件PID同52924/noTorch/依赖来源正确，独立S2关闭。新8b76265冻结106源，199tests/fmt/strictClippy/examples0，bootstrap help/compile0。新directonce尚未执行，必须独立新预检+唯一GPU租约；无音频端点/媒体/PCM文件/网络。当前旧GPU租约已释放，所有sourcewriter STOP，不声称后台继续。
+
 当前整合（2026-10-05T14:59:29.633943+00:00）：ff754fd 固定 native Rust↔Python 双管道鉴权/内存帧交换及真实 Job 所有者清理已实际通过：0.1238215s/child0/2560合成样本/101源相等；独立 reviewer 有限签收，未独立复跑，未批准 T011 DONE。证据 native-interop 与 reviews/T011-native-limited.md。没有模型、音频、网络或 PCM 文件。
 
 原 MSVC LNK1318 与完整日志保留；只将对应生成 PDB 逐字节归档到私有.local，随后一次条件重链接实际199有效tests/fmt/strictClippy/examples全0，101源逐命令前后相等。原因UNKNOWN，不声称工具链普遍修复。证据 native-integration/relink。

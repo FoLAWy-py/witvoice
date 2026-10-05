@@ -1,0 +1,32 @@
+{
+  "files": [
+    {
+      "sha256": "c4951ac49bf5abd562921326c85552ec5b59b191841a855802fc625f4d9bbeb1",
+      "file": "config.json",
+      "bytes": 12520
+    },
+    {
+      "sha256": "2bf0aa5a5bd0acc0426f6f6c945ac744756f33a493f08a09549ae05bc1f6ed40",
+      "file": "execute.ps1",
+      "bytes": 4914
+    },
+    {
+      "sha256": "8c6577514e2f2a9238f4ed2ebe6bbfde665cfad042d3a22b054541ee3c05b8cc",
+      "file": "result.json",
+      "bytes": 2387
+    },
+    {
+      "sha256": "44dde1901ef901b06564403013df606a9502171bcf3732c5ffaafefa3d03afa3",
+      "file": "stdout.raw",
+      "bytes": 702
+    },
+    {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "file": "stderr.raw",
+      "bytes": 0
+    }
+  ],
+  "source_commit": "8b762650c65e47c28fd1a16f7dd35c9423e6e029",
+  "owner": "/root",
+  "actual_execution_chunk": "4b7b73/session52018/d468b0"
+}
