@@ -88,6 +88,14 @@ impl Lifecycle for AudioAdapter {
             .as_ref()
             .is_none_or(|gate| gate.ack_ready())
     }
+    fn output_is_muted(&self) -> bool {
+        self.0
+            .lock()
+            .unwrap()
+            .gate
+            .as_ref()
+            .is_none_or(|gate| !gate.is_live())
+    }
 }
 pub fn fixture() -> (Runtime, AudioAdapter) {
     let adapter = AudioAdapter::default();

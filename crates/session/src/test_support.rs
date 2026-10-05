@@ -21,4 +21,9 @@ pub trait Lifecycle: Send {
     fn activate(&mut self, binding: &Binding) -> Result<(), ErrorCode>;
     fn invalidate_first(&mut self, reason: Retirement);
     fn ack_ready(&self) -> bool;
+    /// Observe actual output permission on the control thread, independently of FSM.
+    /// Missing/unknown resources stay muted; implementations must not infer this from state.
+    fn output_is_muted(&self) -> bool {
+        true
+    }
 }

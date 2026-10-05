@@ -33,3 +33,7 @@ cargo clippy --locked -p witvoice-session -p witvoice-platform -p witvoice-node 
 `process-probe` 有 required-features，默认构建不含该 bin。其固定模式启动 UI-like 父进程、Node 控制所有者和 worker 子树；所有参数均由开发测试内部构造。`tests/supervision.rs` 实测 UI Job 关闭/父被杀后 Node 存活可查询、拒绝 breakaway 后无端点、挂起归属失败回收、worker 子孙在 Job 关闭/显式 Stop/Exit/owner 被杀后回收、满历史及丢 ACK 退出、bootstrap 不完整/超时/端点抢占不启动 worker。它不进入能力列表，不加载模型或音频。测试记录实际 PID/镜像基名及结束观察，不记录令牌/用户路径。
 
 T006固定基础验收已获独立r1批准，见docs/project/reviews/T006-r1.md；这不等于完整产品/REQ-07/23验收。后续NOT_RUN：T011 真实 Python worker warmup/心跳/PCM/重启、T025 Tauri 启动器组合、实际音频资源/lease/睡眠故障与停止后不录音、不同 Windows 用户实际连接拒绝、Mac 真机。SID、ACL、PID 与启动令牌不能保证抵抗已完全控制同用户进程/管理员的攻击者；令牌及 idempotency 历史仅驻留本次 Node 内存。
+
+T010 的 `test-support` 生命周期仅用于 debug 测试目标，生产默认 Runtime 仍因没有真实 worker/profile/audio 资源而拒绝 Start。测试 IdentityEngine 和软件音频 adapter 不进入发行能力列表；release 开启 test-support 会被编译拒绝。本轮新增源码尚待实际编译/测试，不沿用 T006 结果，也不以软件 PCM 测试宣称设备或模型通过。
+
+测试资源恢复沿用冻结状态机：Running 时重新 Prepare 会先退休旧 gate/epoch；若旧提交 ticket 未结束，资源准备返回 Busy 并进入 Blocked。Blocked 不允许 Reset/Unmute 重试恢复，必须显式 Stop。提交仍在途时 Stop 返回 Busy，输出已静音，但不能宣称提交已清零；旧 request_id 的 Busy 响应永久重放，不在提交结束后改成 Ack。提交结束后，以新的 request_id 执行 Stop、Prepare、Start，分配新 epoch/gate；迟到旧 worker 绑定必须被拒绝，不能退休当前有效输出。静音状态查询同时观察实际 gate 权限与 FSM，即使计数耗尽使 FSM 保持 Running，已失效 gate 仍报告静音。

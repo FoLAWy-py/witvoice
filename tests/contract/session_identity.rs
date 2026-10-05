@@ -3,6 +3,141 @@ mod support;
 use support::*;
 use witvoice_contracts::{ErrorCode, control::Outcome, state::SessionState};
 
+fn unchanged_playback(
+    runtime: &witvoice_session::Runtime,
+    adapter: &AudioAdapter,
+    epoch: u32,
+    version: u64,
+    retirements: usize,
+) {
+    assert_eq!(runtime.state(), SessionState::Running);
+    assert_eq!(runtime.epoch(), epoch);
+    assert_eq!(runtime.state_version(), version);
+    assert_eq!(adapter.retirements(), retirements);
+    assert!(!runtime.output_is_muted());
+    let gate = adapter.gate();
+    assert!(gate.is_live());
+    let (pcm, result) = identity_render(&gate);
+    result.unwrap();
+    assert!(pcm.iter().all(|value| (*value - 0.25).abs() < 0.00001));
+}
+
+#[test]
+fn wrong_start_and_stop_bindings_leave_valid_state_counters_and_pcm_unchanged() {
+    let (mut runtime, adapter) = fixture();
+    running(&mut runtime);
+    let epoch = runtime.epoch();
+    let version = runtime.state_version();
+    let retirements = adapter.retirements();
+    let wrong = request(
+        3,
+        serde_json::json!({"kind":"StartSession","args":{"session_id":"00000000-0000-0000-0000-000000000def","epoch":epoch}}),
+    );
+    assert_eq!(
+        code(runtime.handle(&wrong).unwrap()),
+        ErrorCode::SessionMismatch
+    );
+    unchanged_playback(&runtime, &adapter, epoch, version, retirements);
+    assert_eq!(
+        code(runtime.handle(&start(4, epoch + 1)).unwrap()),
+        ErrorCode::EpochMismatch
+    );
+    unchanged_playback(&runtime, &adapter, epoch, version, retirements);
+    let wrong = request(
+        5,
+        serde_json::json!({"kind":"StopSession","args":{"session_id":"00000000-0000-0000-0000-000000000def"}}),
+    );
+    assert_eq!(
+        code(runtime.handle(&wrong).unwrap()),
+        ErrorCode::SessionMismatch
+    );
+    unchanged_playback(&runtime, &adapter, epoch, version, retirements);
+}
+
+#[test]
+fn prepare_busy_with_held_ticket_stays_blocked_until_explicit_stop_and_fresh_request_ids() {
+    let (mut runtime, adapter) = fixture();
+    running(&mut runtime);
+    let old_binding = runtime.test_binding().unwrap().clone();
+    let old_gate = adapter.gate();
+    let ticket = old_gate.begin_commit().unwrap();
+    let busy_prepare = prepare(3);
+    let busy_stop = stop(4);
+    assert_eq!(
+        code(runtime.handle(&busy_prepare).unwrap()),
+        ErrorCode::Busy
+    );
+    assert_eq!(runtime.state(), SessionState::Blocked);
+    assert_eq!(runtime.epoch(), 2);
+    assert!(runtime.output_is_muted());
+    assert!(!ticket.is_live());
+    assert_zero(&old_gate);
+    assert_eq!(
+        code(runtime.handle(&mute(5, 2, false)).unwrap()),
+        ErrorCode::InvalidState
+    );
+    assert_eq!(code(runtime.handle(&busy_stop).unwrap()), ErrorCode::Busy);
+    assert_eq!(runtime.state(), SessionState::Idle);
+    assert_eq!(runtime.epoch(), 3);
+    assert!(!old_gate.ack_ready());
+    assert_zero(&old_gate);
+    drop(ticket);
+    assert!(old_gate.ack_ready());
+    let epoch = runtime.epoch();
+    let version = runtime.state_version();
+    assert_eq!(
+        code(runtime.handle(&busy_prepare).unwrap()),
+        ErrorCode::Busy
+    );
+    assert_eq!(code(runtime.handle(&busy_stop).unwrap()), ErrorCode::Busy);
+    assert_eq!(runtime.epoch(), epoch);
+    assert_eq!(runtime.state_version(), version);
+    ack(runtime.handle(&stop(6)).unwrap());
+    ack(runtime.handle(&prepare(7)).unwrap());
+    assert_eq!(runtime.epoch(), 4);
+    ack(runtime.handle(&start(8, 4)).unwrap());
+    let version = runtime.state_version();
+    let retirements = adapter.retirements();
+    assert_eq!(
+        runtime.test_worker_failed(&old_binding),
+        Err(ErrorCode::EpochMismatch)
+    );
+    unchanged_playback(&runtime, &adapter, 4, version, retirements);
+    assert_zero(&old_gate);
+}
+
+#[test]
+fn held_ticket_stop_never_false_acks_and_replay_remains_busy_after_quiescence() {
+    let (mut runtime, adapter) = fixture();
+    running(&mut runtime);
+    let old_gate = adapter.gate();
+    let ticket = old_gate.begin_commit().unwrap();
+    let pending = stop(3);
+    assert_eq!(code(runtime.handle(&pending).unwrap()), ErrorCode::Busy);
+    assert!(runtime.output_is_muted());
+    assert_zero(&old_gate);
+    assert!(!old_gate.ack_ready());
+    assert!(runtime.take_resource_cleanup());
+    drop(ticket);
+    assert!(old_gate.ack_ready());
+    let epoch = runtime.epoch();
+    let version = runtime.state_version();
+    assert_eq!(code(runtime.handle(&pending).unwrap()), ErrorCode::Busy);
+    assert_eq!(runtime.epoch(), epoch);
+    assert_eq!(runtime.state_version(), version);
+    ack(runtime.handle(&stop(4)).unwrap());
+    ack(runtime.handle(&prepare(5)).unwrap());
+    ack(runtime.handle(&start(6, runtime.epoch())).unwrap());
+    unchanged_playback(
+        &runtime,
+        &adapter,
+        runtime.epoch(),
+        runtime.state_version(),
+        adapter.retirements(),
+    );
+    assert_zero(&old_gate);
+}
+
 #[test]
 fn fixture_requires_exact_binding_and_explicit_start_without_production_capability() {
     let (mut runtime, adapter) = fixture();

@@ -33,33 +33,6 @@
       "execution_note": "Prepare runner only, wait audioSTOP before freeze/run. Root+audio max2writers, no hardware/GPU/LAN; fullargv/raw/UTC/source beforeafter/exit preserved."
     },
     {
-      "task_id": "T010",
-      "agent_instance_id": "/root/backend",
-      "allowed_paths": [
-        "crates/session/src/lib.rs",
-        "crates/session/src/test_support.rs",
-        "tests/contract/session_identity.rs",
-        "tests/integration/identity_pipeline.rs",
-        "tests/integration/support/mod.rs",
-        "apps/voice-node/tests/supervision.rs",
-        "apps/voice-node/README.md",
-        ".local/t010-static-fix/"
-      ],
-      "resource_leases": [
-        "code-writer:backend-t010-static"
-      ],
-      "depends_on": [
-        "T006",
-        "T008"
-      ],
-      "contract": "Static known muted getter defect and targeted negative coverage; singlecanonicalFSM unchanged, document explicit Stop recovery forBlocked busy, no root/sharedaudio/platform changes",
-      "acceptance_commands": [
-        "rustfmt affectedsources --check",
-        "Leader conditional workspace27featurecache tests after authorSTOP; not blind prior coldtargetretry"
-      ],
-      "execution_note": "Root+backend max2writers; edit/format only, no cargo/compiler/hardware/network; preserve originalICE"
-    },
-    {
       "task_id": "T009",
       "agent_instance_id": "/root/reviewer_t001",
       "allowed_paths": [

@@ -100,8 +100,9 @@ impl Runtime {
     /// No audio resources exist in this slice. It cannot authorize audio output.
     pub fn output_is_muted(&self) -> bool {
         #[cfg(feature = "test-support")]
-        if self.fixture.is_some() {
-            return !matches!(self.state, SessionState::Running | SessionState::Degraded);
+        if let Some(resources) = self.fixture.as_ref() {
+            return resources.output_is_muted()
+                || !matches!(self.state, SessionState::Running | SessionState::Degraded);
         }
         true
     }
@@ -482,11 +483,18 @@ mod tests {
             fn activate(&mut self, _: &Binding) -> Result<(), ErrorCode> {
                 Ok(())
             }
-            fn invalidate_first(&mut self, _: Retirement) {
-                self.0.invalidate();
+            fn invalidate_first(&mut self, reason: Retirement) {
+                if reason == Retirement::Fault {
+                    self.0.fail();
+                } else {
+                    self.0.invalidate();
+                }
             }
             fn ack_ready(&self) -> bool {
                 self.0.ack_ready()
+            }
+            fn output_is_muted(&self) -> bool {
+                !self.0.is_live()
             }
         }
         for (epoch, version) in [(u32::MAX, 0), (1, u64::MAX)] {
@@ -505,6 +513,7 @@ mod tests {
             runtime.state = SessionState::Running;
             runtime.epoch = epoch;
             runtime.state_version = version;
+            assert!(!runtime.output_is_muted());
             let ticket = gate.begin_commit().unwrap();
             let payload=br#"{"protocol_version":1,"request_id":"00000000-0000-0000-0000-000000000001","command":{"kind":"ExitNode"}}"#;
             assert!(matches!(
@@ -512,6 +521,9 @@ mod tests {
                 Outcome::Error { .. }
             ));
             assert!(!gate.is_live());
+            assert!(gate.is_faulted());
+            assert!(runtime.output_is_muted());
+            assert_eq!(runtime.state(), SessionState::Running);
             assert!(!gate.ack_ready());
             assert!(!ticket.is_live());
             let other=br#"{"protocol_version":1,"request_id":"00000000-0000-0000-0000-000000000002","command":{"kind":"ExitNode"}}"#;
