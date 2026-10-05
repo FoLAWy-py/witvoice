@@ -168,6 +168,16 @@ impl WorkerLifecycle {
         self.inflight.map(|task| task.deadline_ms)
     }
 
+    /// The native control owner caps one I/O operation by the existing policy
+    /// deadlines; no new event or I/O completion renews either deadline.
+    pub fn control_deadline_ms(&self) -> Option<u64> {
+        match self.phase {
+            Phase::Warming => Some(self.heartbeat_deadline_ms.min(self.warmup_deadline_ms)),
+            Phase::Ready => Some(self.heartbeat_deadline_ms),
+            _ => None,
+        }
+    }
+
     /// Pending cleanup remains observable if a caller loses an earlier action.
     pub fn cleanup_action(&self) -> Action {
         match (self.binding, self.cleanup_reason) {

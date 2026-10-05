@@ -5,7 +5,7 @@ edition.workspace = true
 rust-version.workspace = true
 publish.workspace = true
 
-[dev-dependencies]
+[dependencies]
 witvoice-contracts = { path = '../contracts' }
 witvoice-platform = { path = '../platform' }
 serde_json.workspace = true
