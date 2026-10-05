@@ -36,14 +36,21 @@ def main():
                 process = subprocess.Popen(argv, cwd=ROOT, stdin=subprocess.DEVNULL, stdout=out, stderr=err, creationflags=subprocess.CREATE_NO_WINDOW)
             except BaseException:
                 out.close();err.close();raise
-            processes.append(dict(operation=operation, process=process, launched=launched, argv=argv, out=out, err=err, timed_out=False))
-        while any(x['process'].poll() is None for x in processes):
+            processes.append(dict(operation=operation, process=process, launched=launched, observed_end=None, argv=argv, out=out, err=err, timed_out=False))
+        while True:
             now = time.monotonic()
+            active = False
             for item in processes:
                 process = item['process']
-                if process.poll() is None and (now-item['launched'] >= 9.5 or now-started >= 13.5):
-                    item['timed_out'] = True
-                    process.kill()
+                if process.poll() is None:
+                    active = True
+                    if now-item['launched'] >= 9.5 or now-started >= 13.5:
+                        item['timed_out'] = True
+                        process.kill()
+                elif item['observed_end'] is None:
+                    item['observed_end'] = now
+            if not active:
+                break
             time.sleep(0.01)
     except BaseException as exc:
         error = type(exc).__name__ + ': ' + str(exc)
@@ -57,6 +64,8 @@ def main():
                 process.wait(timeout=0.5)
             except subprocess.TimeoutExpired:
                 error = 'Own probe termination unconfirmed'
+            if item['observed_end'] is None:
+                item['observed_end'] = time.monotonic()
             item['out'].close();item['err'].close()
     result = dict(authorization=once['authorization'], node_id=node, interface_index=19, executable_sha256=config['executable_sha256'], source_sha256=config['source_sha256'], start_utc=once['started_utc'], end_utc=utc(), elapsed_seconds=time.monotonic()-started, error=error, probes=[])
     for item in processes:
@@ -67,13 +76,13 @@ def main():
         raw_err = err.read_text(encoding='utf-8',errors='replace')
         (PUBLIC / f'{operation}.stdout.redacted').write_text(raw_out.replace(expected,'<private-endpoint>').replace(str(address),'<private-ipv4>'),encoding='utf-8')
         (PUBLIC / f'{operation}.stderr.redacted').write_text(raw_err.replace(expected,'<private-endpoint>').replace(str(address),'<private-ipv4>'),encoding='utf-8')
-        result['probes'].append(dict(operation=operation, pid=item['process'].pid, argv=item['argv'], exit_code=item['process'].returncode, timed_out=item['timed_out'], raw_stdout_sha256=sha(out), raw_stderr_sha256=sha(err), stdout_bytes=out.stat().st_size, stderr_bytes=err.stat().st_size))
+        result['probes'].append(dict(operation=operation, pid=item['process'].pid, argv=item['argv'], exit_code=item['process'].returncode, timed_out=item['timed_out'], observed_runtime_upper_bound_seconds=item['observed_end']-item['launched'], raw_stdout_sha256=sha(out), raw_stderr_sha256=sha(err), stdout_bytes=out.stat().st_size, stderr_bytes=err.stat().st_size))
     (OWN / 'result.raw.json').write_text(json.dumps(result,indent=2)+'\n',encoding='utf-8')
     public = json.dumps(result,indent=2).replace(expected,'<private-endpoint>').replace(str(address),'<private-ipv4>')
     (PUBLIC / 'supervisor.json').write_text(public+'\n',encoding='utf-8')
     once.update(status='EXECUTED_NOT_REUSABLE', ended_utc=result['end_utc'])
     once_path.write_text(json.dumps(once,indent=2)+'\n',encoding='utf-8')
     print(json.dumps(dict(elapsed_seconds=result['elapsed_seconds'], error=error, probes=[{k:x[k] for k in ('operation','exit_code','timed_out')} for x in result['probes']])))
-    return int(bool(error) or len(processes)!=2 or any(x['timed_out'] or x['exit_code']!=0 for x in result['probes']))
+    return int(bool(error) or len(processes)!=2 or result['elapsed_seconds']>15 or any(x['timed_out'] or x['exit_code']!=0 or x['observed_runtime_upper_bound_seconds']>10 for x in result['probes']))
 if __name__ == '__main__':
     raise SystemExit(main())
