@@ -1,4 +1,28 @@
 use super::*;
+fn expect_failure(
+    d: &NativeDiscovery,
+    stage: FailureStage,
+    origin: FailureOrigin,
+    status: Option<u32>,
+    reason: Option<ValidationReason>,
+    text_error: Option<TextFailure>,
+) {
+    assert_eq!(
+        d.first_failure(),
+        Some(FailureSnapshot {
+            stage,
+            origin,
+            callback_status: status,
+            reported_status: if origin == FailureOrigin::OsCallback {
+                status.unwrap()
+            } else {
+                INVALID
+            },
+            reason,
+            text_error,
+        })
+    );
+}
 static SERIAL: Mutex<()> = Mutex::new(());
 static STARTS: AtomicUsize = AtomicUsize::new(0);
 static FREED_RECORDS: AtomicUsize = AtomicUsize::new(0);
@@ -507,4 +531,489 @@ fn queue_expiry_and_resolve_deadline_are_not_wall_clock_or_ttl_reset() {
     MODE.store(1, Ordering::Relaxed);
     detached.poll();
     assert_eq!(detached.pending_contexts(), 0);
+}
+
+#[test]
+fn native_status13_is_not_local_callback_zero_and_survives_clean() {
+    let _guard = guard();
+    let mut d = adapter();
+    d.resolve(true, 19, NAME, 10).unwrap();
+    let fixture = instance();
+    unsafe {
+        resolve_callback(13, context(&d), &fixture.dns);
+    }
+    assert_eq!(d.poll(), vec![Event::Failed(13)]);
+    expect_failure(
+        &d,
+        FailureStage::Resolve,
+        FailureOrigin::OsCallback,
+        Some(13),
+        None,
+        None,
+    );
+    assert_eq!(d.pending_contexts(), 0);
+    assert_eq!(d.close(), Ok(true));
+    assert_eq!(FREED_INSTANCES.load(Ordering::Relaxed), 1);
+    // Later local callback0 failure and a valid result cannot overwrite the original OS status.
+    d.resolve(true, 19, NAME, 10).unwrap();
+    unsafe {
+        resolve_callback(0, context(&d), std::ptr::null());
+    }
+    d.poll();
+    d.resolve(true, 19, NAME, 10).unwrap();
+    unsafe {
+        resolve_callback(0, context(&d), &fixture.dns);
+    }
+    assert!(matches!(d.poll().as_slice(), [Event::Resolved { .. }]));
+    expect_failure(
+        &d,
+        FailureStage::Resolve,
+        FailureOrigin::OsCallback,
+        Some(13),
+        None,
+        None,
+    );
+}
+
+#[test]
+fn callback_failure_capture_is_independent_of_full_or_contended_queue() {
+    let _guard = guard();
+    for contended in [false, true] {
+        let mut d = adapter();
+        d.resolve(true, 19, NAME, 10).unwrap();
+        let fixture = instance();
+        if !contended {
+            for _ in 0..QUEUE_LIMIT {
+                d.queue.push(Event::Registered);
+            }
+        }
+        let lock = if contended {
+            Some(d.queue.items.lock().unwrap())
+        } else {
+            None
+        };
+        unsafe {
+            resolve_callback(13, context(&d), &fixture.dns);
+        }
+        expect_failure(
+            &d,
+            FailureStage::Resolve,
+            FailureOrigin::OsCallback,
+            Some(13),
+            None,
+            None,
+        );
+        assert_eq!(d.dropped_events(), 1);
+        drop(lock);
+        assert_eq!(d.close(), Ok(true));
+        assert_eq!(d.pending_contexts(), 0);
+        expect_failure(
+            &d,
+            FailureStage::Resolve,
+            FailureOrigin::OsCallback,
+            Some(13),
+            None,
+            None,
+        );
+    }
+    assert_eq!(FREED_INSTANCES.load(Ordering::Relaxed), 2);
+}
+
+#[test]
+fn panic_capture_keeps_actual_status_or_explicit_unknown() {
+    let _guard = guard();
+    for status in [Some(77), None] {
+        let mut d = adapter();
+        d.browse(true, 19).unwrap();
+        let token = context(&d);
+        callback_guard(token, FailureStage::Browse, status, || {
+            panic!("injected callback panic")
+        });
+        expect_failure(
+            &d,
+            FailureStage::Browse,
+            FailureOrigin::Panic,
+            status,
+            None,
+            None,
+        );
+        assert_eq!(d.poll(), vec![Event::Failed(INVALID)]);
+        unsafe {
+            browse_callback(CANCELLED, token, std::ptr::null());
+        }
+        d.clean();
+        assert_eq!(d.pending_contexts(), 0);
+        expect_failure(
+            &d,
+            FailureStage::Browse,
+            FailureOrigin::Panic,
+            status,
+            None,
+            None,
+        );
+    }
+}
+
+#[test]
+fn register_and_deregister_callback_status_are_distinct_stages() {
+    let _guard = guard();
+    for deregister in [false, true] {
+        let mut d = adapter();
+        d.advertise(true, 19, &id(), "192.168.1.4:4000".parse().unwrap())
+            .unwrap();
+        let token = context(&d);
+        if deregister {
+            unsafe {
+                register_callback(0, token, std::ptr::null());
+            }
+            assert_eq!(d.close(), Ok(false));
+        }
+        unsafe {
+            register_callback(13, token, std::ptr::null());
+        }
+        expect_failure(
+            &d,
+            if deregister {
+                FailureStage::Deregister
+            } else {
+                FailureStage::Register
+            },
+            FailureOrigin::OsCallback,
+            Some(13),
+            None,
+            None,
+        );
+        if deregister {
+            unsafe {
+                register_callback(0, token, std::ptr::null());
+            }
+            d.clean();
+        } else {
+            assert_eq!(d.close(), Ok(true));
+        }
+        assert_eq!(d.pending_contexts(), 0);
+    }
+}
+
+#[test]
+fn first_failure_is_one_coherent_atomic_publication_under_contention() {
+    let queue = Arc::new(Queue::default());
+    let barrier = Arc::new(std::sync::Barrier::new(8));
+    let threads: Vec<_> = (0..8)
+        .map(|index| {
+            let queue = queue.clone();
+            let barrier = barrier.clone();
+            std::thread::spawn(move || {
+                barrier.wait();
+                queue.failure(
+                    FailureStage::Resolve,
+                    FailureOrigin::OsCallback,
+                    Some(u32::MAX - index),
+                    None,
+                );
+            })
+        })
+        .collect();
+    for thread in threads {
+        thread.join().unwrap();
+    }
+    let first = queue.first_failure().unwrap();
+    assert_eq!(first.stage, FailureStage::Resolve);
+    assert_eq!(first.origin, FailureOrigin::OsCallback);
+    assert!((u32::MAX - 7..=u32::MAX).contains(&first.callback_status.unwrap()));
+    assert_eq!(first.reported_status, first.callback_status.unwrap());
+    assert_eq!(first.reason, None);
+    assert_eq!(first.text_error, None);
+    queue.failure(
+        FailureStage::Browse,
+        FailureOrigin::LocalValidation,
+        Some(0),
+        Some(ValidationReason::RecordOwner.into()),
+    );
+    assert_eq!(queue.first_failure(), Some(first));
+}
+
+#[test]
+fn every_resolve_scalar_schema_rejection_has_its_actual_reason() {
+    let _guard = guard();
+    use ValidationReason::*;
+    for reason in [
+        NullInstance,
+        InterfaceMismatch,
+        PropertyCount,
+        NullKeys,
+        NullValues,
+        ZeroPort,
+        InstanceName,
+        ExpectedName,
+        QueryMismatch,
+        DuplicateNodeId,
+        DuplicateProtocol,
+        UnknownProperty,
+        ProtocolVersion,
+        NodeId,
+        MissingAddress,
+        Expired,
+    ] {
+        let mut d = adapter();
+        d.resolve(true, 19, NAME, 30).unwrap();
+        let mut fixture = instance();
+        let mut query = wide("invalid.example.com");
+        match reason {
+            NullInstance => (),
+            InterfaceMismatch => fixture.dns.dwInterfaceIndex = 0,
+            PropertyCount => fixture.dns.dwPropertyCount = 3,
+            NullKeys => fixture.dns.keys = std::ptr::null_mut(),
+            NullValues => fixture.dns.values = std::ptr::null_mut(),
+            ZeroPort => fixture.dns.wPort = 0,
+            InstanceName => fixture.name = wide("invalid.example.com"),
+            ExpectedName => {
+                // The injected API does not own/read buffers asynchronously. SERIAL excludes other tests.
+                unsafe {
+                    (*d.operations[0].storage.get()).resolve.QueryName = PWSTR(query.as_mut_ptr());
+                }
+            }
+            QueryMismatch => fixture.name = wide("another._voice-node._udp.local"),
+            DuplicateNodeId => fixture.keys_text[1] = wide("node_id"),
+            DuplicateProtocol => fixture.keys_text[0] = wide("protocol"),
+            UnknownProperty => fixture.keys_text[0] = wide("unknown"),
+            ProtocolVersion => fixture.values_text[1] = wide("2"),
+            NodeId => fixture.values_text[0] = wide("not-a-uuid"),
+            MissingAddress => fixture.dns.ip4Address = std::ptr::null_mut(),
+            Expired => {
+                // Fake calls have returned; prepare the immutable expired value before republishing.
+                let mut op = d.operations.pop().unwrap();
+                pool().lock().unwrap().clear();
+                Arc::get_mut(&mut op).unwrap().expires = Instant::now() - Duration::from_secs(1);
+                pool().lock().unwrap().push(op.clone());
+                d.operations.push(op);
+            }
+            _ => unreachable!(),
+        }
+        fixture.dns.pszInstanceName = PWSTR(fixture.name.as_mut_ptr());
+        for index in 0..2 {
+            fixture.keys[index] = PWSTR(fixture.keys_text[index].as_mut_ptr());
+            fixture.values[index] = PWSTR(fixture.values_text[index].as_mut_ptr());
+        }
+        let freed = FREED_INSTANCES.load(Ordering::Relaxed);
+        unsafe {
+            resolve_callback(
+                0,
+                context(&d),
+                if reason == NullInstance {
+                    std::ptr::null()
+                } else {
+                    &fixture.dns
+                },
+            );
+        }
+        assert_eq!(d.poll(), vec![Event::Failed(INVALID)], "{reason:?}");
+        expect_failure(
+            &d,
+            FailureStage::Resolve,
+            FailureOrigin::LocalValidation,
+            Some(0),
+            Some(reason),
+            None,
+        );
+        assert_eq!(
+            FREED_INSTANCES.load(Ordering::Relaxed) - freed,
+            usize::from(reason != NullInstance)
+        );
+        assert_eq!(d.close(), Ok(true));
+        expect_failure(
+            &d,
+            FailureStage::Resolve,
+            FailureOrigin::LocalValidation,
+            Some(0),
+            Some(reason),
+            None,
+        );
+    }
+    // Exactly two distinct approved keys already imply a node entry; retain/test this defensive helper guard.
+    assert_eq!(parse_node_id(None), Err(MissingNodeId.into()));
+}
+
+#[test]
+fn every_browse_structural_rejection_has_its_actual_reason() {
+    let _guard = guard();
+    use ValidationReason::*;
+    for reason in [
+        RecordCycle,
+        RecordLength,
+        RecordOwner,
+        RecordTargetName,
+        RecordBudget,
+    ] {
+        let mut d = adapter();
+        d.browse(true, 19).unwrap();
+        let mut owner = wide(if reason == RecordOwner {
+            "_http._tcp.local"
+        } else {
+            SERVICE_TYPE
+        });
+        let mut target = wide(if reason == RecordTargetName {
+            "invalid.example.com"
+        } else {
+            NAME
+        });
+        let mut record = Box::new(DNS_RECORDW {
+            pName: PWSTR(owner.as_mut_ptr()),
+            wType: DNS_TYPE_PTR.0,
+            wDataLength: if reason == RecordLength {
+                0
+            } else {
+                std::mem::size_of::<DNS_PTR_DATAW>() as u16
+            },
+            Data: DNS_RECORDW_1 {
+                PTR: DNS_PTR_DATAW {
+                    pNameHost: PWSTR(target.as_mut_ptr()),
+                },
+            },
+            dwTtl: 30,
+            ..Default::default()
+        });
+        if reason == RecordCycle {
+            record.pNext = &mut *record;
+        }
+        let mut chain: Vec<Box<DNS_RECORDW>> = (0..RECORD_LIMIT + 1)
+            .map(|_| Box::new(DNS_RECORDW::default()))
+            .collect();
+        for index in 0..chain.len() - 1 {
+            let (before, after) = chain.split_at_mut(index + 1);
+            before[index].pNext = &mut *after[0];
+        }
+        let freed = FREED_RECORDS.load(Ordering::Relaxed);
+        unsafe {
+            browse_callback(
+                0,
+                context(&d),
+                if reason == RecordBudget {
+                    &*chain[0]
+                } else {
+                    &*record
+                },
+            );
+        }
+        assert!(d.poll().contains(&Event::Failed(INVALID)), "{reason:?}");
+        expect_failure(
+            &d,
+            FailureStage::Browse,
+            FailureOrigin::LocalValidation,
+            Some(0),
+            Some(reason),
+            None,
+        );
+        assert_eq!(FREED_RECORDS.load(Ordering::Relaxed) - freed, 1);
+        MODE.store(1, Ordering::Relaxed);
+        assert_eq!(d.close(), Ok(true));
+    }
+}
+
+#[test]
+fn every_text_field_distinguishes_null_bound_and_invalid_utf16() {
+    let _guard = guard();
+    use ValidationReason::*;
+    for reason in [
+        RecordOwnerText,
+        RecordTargetText,
+        InstanceNameText,
+        ExpectedNameText,
+        PropertyKeyText,
+        PropertyValueText,
+    ] {
+        for text_error in [
+            TextFailure::NullPointer,
+            TextFailure::Length,
+            TextFailure::InvalidUtf16,
+        ] {
+            let mut d = adapter();
+            let browse = matches!(reason, RecordOwnerText | RecordTargetText);
+            if browse {
+                d.browse(true, 19).unwrap();
+            } else {
+                d.resolve(true, 19, NAME, 30).unwrap();
+            }
+            let cap = match reason {
+                PropertyKeyText => 32,
+                PropertyValueText => 64,
+                _ => 128,
+            };
+            let mut bad = if text_error == TextFailure::Length {
+                vec![65u16; cap + 1]
+            } else {
+                vec![0xd800, 0]
+            };
+            let pointer = if text_error == TextFailure::NullPointer {
+                PWSTR::null()
+            } else {
+                PWSTR(bad.as_mut_ptr())
+            };
+            let mut fixture = instance();
+            let mut owner = wide(SERVICE_TYPE);
+            let mut target = wide(NAME);
+            let mut record = DNS_RECORDW {
+                pName: PWSTR(owner.as_mut_ptr()),
+                wType: DNS_TYPE_PTR.0,
+                wDataLength: std::mem::size_of::<DNS_PTR_DATAW>() as u16,
+                Data: DNS_RECORDW_1 {
+                    PTR: DNS_PTR_DATAW {
+                        pNameHost: PWSTR(target.as_mut_ptr()),
+                    },
+                },
+                dwTtl: 30,
+                ..Default::default()
+            };
+            match reason {
+                RecordOwnerText => record.pName = pointer,
+                RecordTargetText => record.Data.PTR.pNameHost = pointer,
+                InstanceNameText => fixture.dns.pszInstanceName = pointer,
+                ExpectedNameText => unsafe {
+                    (*d.operations[0].storage.get()).resolve.QueryName = pointer;
+                },
+                PropertyKeyText => fixture.keys[0] = pointer,
+                PropertyValueText => fixture.values[0] = pointer,
+                _ => unreachable!(),
+            }
+            let freed = if browse {
+                FREED_RECORDS.load(Ordering::Relaxed)
+            } else {
+                FREED_INSTANCES.load(Ordering::Relaxed)
+            };
+            unsafe {
+                if browse {
+                    browse_callback(0, context(&d), &record);
+                } else {
+                    resolve_callback(0, context(&d), &fixture.dns);
+                }
+            }
+            assert_eq!(
+                d.poll(),
+                vec![Event::Failed(INVALID)],
+                "{reason:?}/{text_error:?}"
+            );
+            expect_failure(
+                &d,
+                if browse {
+                    FailureStage::Browse
+                } else {
+                    FailureStage::Resolve
+                },
+                FailureOrigin::LocalValidation,
+                Some(0),
+                Some(reason),
+                Some(text_error),
+            );
+            assert_eq!(
+                (if browse {
+                    FREED_RECORDS.load(Ordering::Relaxed)
+                } else {
+                    FREED_INSTANCES.load(Ordering::Relaxed)
+                }) - freed,
+                1
+            );
+            MODE.store(1, Ordering::Relaxed);
+            assert_eq!(d.close(), Ok(true));
+        }
+    }
 }

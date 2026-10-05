@@ -8,54 +8,46 @@
   "active_tasks": [
     {
       "task_id": "T008",
-      "agent_instance_id": "/root/audio_runtime",
+      "agent_instance_id": "/root",
       "allowed_paths": [
-        "crates/audio/src/notifications.rs",
-        "crates/audio/tests/allocation.rs",
-        "crates/audio/README.md",
-        ".local/t008-r1-fix-author/"
+        ".local/t008-t016-r2-leader/"
       ],
       "resource_leases": [
-        "code-writer:audio-t008-r1-fix"
+        "validation:root-frozen-integration"
       ],
       "depends_on": [
         "T007"
       ],
-      "contract": "docs/project/T008-r1-fix-assignment.md: repair actual r1 S2 with proved atomic publication handshake and deterministic production-branch interleaving; callback zero allocation/no wait",
+      "contract": "Authors stopped; verify new frozen T008 repair and T016 diagnostics whole Windows workspace, no hardware/network/model",
       "acceptance_commands": [
-        "cargo test --locked -p witvoice-audio -- --nocapture",
-        "cargo fmt --package witvoice-audio --check",
-        "cargo clippy --locked -p witvoice-audio --all-targets -- -D warnings",
-        "cargo build --locked -p witvoice-audio --examples"
+        "cargo test --locked --workspace --all-targets --features witvoice-node/process-tests -- --nocapture",
+        "cargo fmt --all --check",
+        "cargo clippy --locked --workspace --all-targets --features witvoice-node/process-tests -- -D warnings",
+        "cargo build --locked --workspace --examples"
       ],
-      "execution_note": "Author repair only, formalr1 REVISE attempt1, r2 pending. No hardware/GPU/LAN; root/backend files disjoint. Prior tests preserved, new source untested."
+      "execution_note": "New source rootchecks NOT_RUN until actual command exit; source/metadata/raw artifacts frozen."
     },
     {
       "task_id": "T016",
-      "agent_instance_id": "/root/backend",
+      "agent_instance_id": "/root",
       "allowed_paths": [
-        "crates/platform/src/discovery.rs",
-        "crates/platform/src/discovery/native.rs",
-        "crates/platform/src/discovery/native/tests.rs",
-        "crates/platform/tests/discovery.rs",
-        "crates/transport/examples/native_discovery_probe.rs",
-        ".local/t016-diagnostics-author/"
+        ".local/t008-t016-r2-leader/"
       ],
       "resource_leases": [
-        "code-writer:backend-native-diagnosis"
+        "validation:root-frozen-integration"
       ],
       "depends_on": [
         "T003",
         "T006"
       ],
-      "contract": "docs/project/T016-diagnostics-assignment.md: fixed atomic immutable firstfault phase/origin/rawstatus/reason; no guard relaxation or prodNativePeers fix yet",
+      "contract": "Authors stopped; verify new frozen T008 repair and T016 diagnostics whole Windows workspace, no hardware/network/model",
       "acceptance_commands": [
-        "cargo test --locked -p witvoice-platform -p witvoice-transport --all-targets",
-        "cargo fmt packages --check",
-        "cargo clippy --locked platform+transport --all-targets -- -D warnings",
-        "cargo build --locked transport native_discovery_probe"
+        "cargo test --locked --workspace --all-targets --features witvoice-node/process-tests -- --nocapture",
+        "cargo fmt --all --check",
+        "cargo clippy --locked --workspace --all-targets --features witvoice-node/process-tests -- -D warnings",
+        "cargo build --locked --workspace --examples"
       ],
-      "execution_note": "Actual once-trialFAILED/consumed, prior13 sourceUNKNOWN. Newsource purediagnosis tests only; no actualnetwork/audio/GPU. Exact whitelist disjoint frozenT008."
+      "execution_note": "New source rootchecks NOT_RUN until actual command exit; source/metadata/raw artifacts frozen."
     }
   ],
   "milestones": {

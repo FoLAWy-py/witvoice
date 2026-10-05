@@ -1,0 +1,86 @@
+{
+  "auditor": "/root",
+  "author_index_raw_sha256": "5762abfcc3bcd6c47b349c428e396e61d7818f0748f5d99e12d0b86e40d6c49b",
+  "five_source_match": true,
+  "runs": [
+    {
+      "metadata": "01-rustfmt.json",
+      "metadata_raw_sha256": "b1213049d64c3f1b858df9a2e3334cc60bb75f67e419de74f511ad9d8be8ec68",
+      "exit": 0,
+      "raw": {
+        "stdout": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    },
+    {
+      "metadata": "02-all-target-tests.json",
+      "metadata_raw_sha256": "92153b0b3b82302c042aed5e180fed1e086ebb0eb1458ab52f393b80854aaebb",
+      "exit": 0,
+      "raw": {
+        "stdout": {
+          "bytes": 4962,
+          "sha256": "65981f7579ea46e1a7c1aa74115617fbe2812c64275e8b0ac9ac46251c13219b"
+        },
+        "stderr": {
+          "bytes": 3165,
+          "sha256": "e2ee7c46c0f0eeb3e33293c817dd584401f9492ad27cf4f3b3c798aa94430e5a"
+        }
+      }
+    },
+    {
+      "metadata": "03-fmt-check.json",
+      "metadata_raw_sha256": "f0d8533add2073d9a4acb7f97cc2120fda7d27a7e7a23cb0a39e4bc4fa37b130",
+      "exit": 0,
+      "raw": {
+        "stdout": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    },
+    {
+      "metadata": "04-clippy.json",
+      "metadata_raw_sha256": "39cecdf284ed02fbd1e281e23b08b5af074ed63d37bb996a04ac6840b8e320de",
+      "exit": 0,
+      "raw": {
+        "stdout": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stderr": {
+          "bytes": 1683,
+          "sha256": "6ff3c12b626aee0facad0b610492d13929c89844566788c756484fbec734dc70"
+        }
+      }
+    },
+    {
+      "metadata": "05-example-build.json",
+      "metadata_raw_sha256": "9b704d766302496387827bf1d887a651ad9f386325c307dd7849a147ea9e4cac",
+      "exit": 0,
+      "raw": {
+        "stdout": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stderr": {
+          "bytes": 150,
+          "sha256": "6ec7a0a5ec5c81e84d0aa5eac96a738b53fb77e9edab4aac115e575dc8abc71e"
+        }
+      }
+    }
+  ],
+  "binary_hash_match": true,
+  "network": "NOT_RUN",
+  "old13": "UNKNOWN_NOT_RETROFITTED",
+  "scope": "48 author tests, not root rerun"
+}

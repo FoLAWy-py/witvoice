@@ -1,0 +1,77 @@
+{
+  "executable": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\cargo.exe",
+  "argv": [
+    "fmt",
+    "--package",
+    "witvoice-platform",
+    "--package",
+    "witvoice-transport",
+    "--check"
+  ],
+  "cwd": "D:\\Project\\witvoice",
+  "start_utc": "2026-10-05T09:18:38.5165667Z",
+  "end_utc": "2026-10-05T09:18:39.0725742Z",
+  "exit_code": 0,
+  "env": {
+    "CARGO_TARGET_DIR": "D:\\Project\\witvoice\\.local\\t016-diagnostics-author\\target",
+    "CARGO_BUILD_JOBS": "1",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo",
+    "RUSTUP_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\rustup"
+  },
+  "override_preflight": "absent",
+  "source_before": [
+    {
+      "path": "crates/platform/src/discovery.rs",
+      "sha256": "3836e16550d54829b682b1cbd08fff04b1de7df18c980605ebcd7b9795b77ad1"
+    },
+    {
+      "path": "crates/platform/src/discovery/native.rs",
+      "sha256": "70b944ea63224eb15518e14d29e3c480a9e65d8d4b0119d9453ae88e3a281f78"
+    },
+    {
+      "path": "crates/platform/src/discovery/native/tests.rs",
+      "sha256": "df97e07cc4d1e712fa0bf90b339285ad103560897c98184e080a0486571a6350"
+    },
+    {
+      "path": "crates/platform/tests/discovery.rs",
+      "sha256": "db4a99805410cf852dc62f1cd83251e94ca7e6c83db5e7b67696cfdddda44618"
+    },
+    {
+      "path": "crates/transport/examples/native_discovery_probe.rs",
+      "sha256": "41fc709c7f7fa45b10a70a6490a8ab09b9cabdf7c718b7a569d4419018669e24"
+    }
+  ],
+  "source_after": [
+    {
+      "path": "crates/platform/src/discovery.rs",
+      "sha256": "3836e16550d54829b682b1cbd08fff04b1de7df18c980605ebcd7b9795b77ad1"
+    },
+    {
+      "path": "crates/platform/src/discovery/native.rs",
+      "sha256": "70b944ea63224eb15518e14d29e3c480a9e65d8d4b0119d9453ae88e3a281f78"
+    },
+    {
+      "path": "crates/platform/src/discovery/native/tests.rs",
+      "sha256": "df97e07cc4d1e712fa0bf90b339285ad103560897c98184e080a0486571a6350"
+    },
+    {
+      "path": "crates/platform/tests/discovery.rs",
+      "sha256": "db4a99805410cf852dc62f1cd83251e94ca7e6c83db5e7b67696cfdddda44618"
+    },
+    {
+      "path": "crates/transport/examples/native_discovery_probe.rs",
+      "sha256": "41fc709c7f7fa45b10a70a6490a8ab09b9cabdf7c718b7a569d4419018669e24"
+    }
+  ],
+  "stdout": {
+    "path": "D:\\Project\\witvoice\\.local\\t016-diagnostics-author\\03-fmt-check.stdout",
+    "length": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stderr": {
+    "path": "D:\\Project\\witvoice\\.local\\t016-diagnostics-author\\03-fmt-check.stderr",
+    "length": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

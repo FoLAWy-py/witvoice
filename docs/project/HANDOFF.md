@@ -1,5 +1,7 @@
 # 当前交接
 
+两个作者已实际STOP WRITES，audio3修复源/54作者tests，backend5诊断源/48作者tests全部四检查0。root完整10cmd raw/meta/indexSHA及before/after逐字节核验通过，旧20audio source原SHA同；严格仅8白名单源变更。归档r1-fix-author、diagnostics-author。已释放两作者lease并登记root仅独立.local整合验证，下一冻结后全workspace/alltargets/process-tests、fmt、Clippy、examples build（新root NOT_RUN），再T008正式r2/T016正式r1。无硬件/GPU/LAN；旧13UNKNOWN/once已消费；next_task=T008。
+
 T009待派发契约已保存T009-assignment.md，仍TODO/未激活；仅在T008独立DONE后登记新lease。既有Steam软件render/capture只是候选，需真实闭环；先源实现/编译/静态审查再向用户请求新的最小marker硬件验证，旧5秒授权已消费，无默认替换/driver安装。当前仍audio修T008 r1、backend修T016定长诊断两不重叠作者，新source检查进行中不可预标PASS。next_task=T008。
 
 T008正式r1独立REVISE/attempt1已归档reviews/T008-r1.md：1项必须修复S2，publish先get后changed导致bind交错遗漏gate失效；不声称实际原声/native泄漏。已登记audio仅notifications.rs/allocator测试/README及独立.local修复lease，握手需内存序证明与确定生产交错/零输出/ticket拒绝回归，再四检查/leader新冻结/r2；尚未复验新源。backend继续T016定长首错诊断，最多2作者且路径不重叠，无hardware/GPU/LAN。账本只读validator实际exit0（fd29c4），不代表应用验收。next_task=T008。

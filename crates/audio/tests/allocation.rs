@@ -32,6 +32,24 @@ unsafe impl GlobalAlloc for CountingAllocator {
 static ALLOCATOR: CountingAllocator = CountingAllocator;
 
 #[test]
+fn unbound_notification_handshake_and_batching_allocate_zero() {
+    use witvoice_audio::notifications::{ChangeKind, ChangeSignal};
+    let signal = ChangeSignal::new();
+    ALLOCATIONS.with(|count| count.set(0));
+    COUNTING.with(|flag| flag.set(true));
+    signal.publish(ChangeKind::InitialValidation);
+    assert!(!signal.has_changed());
+    signal.publish(ChangeKind::Closed);
+    signal.publish(ChangeKind::Property);
+    signal.publish(ChangeKind::Removed);
+    assert!(signal.has_changed());
+    assert!(signal.take_batch().unwrap().contains(ChangeKind::Closed));
+    assert!(signal.has_changed());
+    COUNTING.with(|flag| flag.set(false));
+    assert_eq!(ALLOCATIONS.with(Cell::get), 0);
+}
+
+#[test]
 fn conversion_success_and_failure_paths_allocate_zero() {
     let formats = [
         Encoding::Pcm8,

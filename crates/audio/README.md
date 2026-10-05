@@ -262,3 +262,22 @@ They do not run billions of PCM sample interpolations or prove real hardware
 latency, real2h stability, two-machine LAN, Mac, model quality or virtual routing.
 No hardware/GPU/LAN lease is held and no native Start is run by these tests.
 Current validation status is pending the actual commands and independent review.
+
+The T008 r1 repair uses one sticky `AtomicU32` publication handshake, independent
+of notification batching. Real reasons occupy low bits; the gate-published bit is
+set only after the control thread successfully completes `OnceLock::set`.
+Both sides use AcqRel `fetch_or` on this same atomic. Its RMW modification order
+ensures the later operation acquires the earlier operation's bits: if the change
+is first, bind observes its reason and invalidates; if bind is first, the callback
+observes publication and the preceding initialized gate, then invalidates.
+Intervening RMWs retain both markers. The two operations cannot both miss; a
+callback does not wait for a concurrent binder. After both complete, a changed
+selection cannot retain a live bound gate. A bind that completes before the
+notification's RMW may succeed, but that notification invalidates before it ends.
+Closed-only reasons perform planned invalidation; any accumulated ordinary real
+reason faults the gate. InitialValidation and taking a batch never clear or set
+real-change permission. Failed/double binds cannot replace the retained gate.
+Callbacks use nonwaiting `get`, borrow the retained Arc and never clone or drop
+ownership. Test-only pause hooks exercise both RMW orders in the actual publish
+branch; no waiting hook is reachable from a production native callback. Existing
+in-flight tickets still prevent ACK until release; each monitor remains separate.

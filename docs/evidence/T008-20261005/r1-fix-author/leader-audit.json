@@ -1,0 +1,85 @@
+{
+  "auditor": "/root",
+  "author_index_raw_sha256": "88fad1c1bddb0d6f3968d4f0acb99c8844eee038f470f1a3f136a1e613983bb0",
+  "all_23_source_match": true,
+  "changed_only_three_whitelisted": true,
+  "unchanged20_equal_prior_root_source_map": true,
+  "runs": [
+    {
+      "metadata": "01-rustfmt-20261005T0915473690060.json",
+      "metadata_raw_sha256": "b4239875b8a9c2936f215d53b964242af9e6b930c23e666674408083c9fb34e7",
+      "exit": 0,
+      "raw": {
+        "stdout": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    },
+    {
+      "metadata": "02-test-20261005T0916004924802.json",
+      "metadata_raw_sha256": "43f0de3e88738be8f8845b768b135c48d9f609cacb2961e6cd541ab3f5cf58b1",
+      "exit": 0,
+      "raw": {
+        "stdout": {
+          "bytes": 7126,
+          "sha256": "e6a67e15f3fdb894dcc6c228d757d3ab278b9c1d2de1b11655bbc1bd9c6e7d79"
+        },
+        "stderr": {
+          "bytes": 1460,
+          "sha256": "845b1d81a8485d8dc268e33a418f2485c699a117c368be1912f6f35042448558"
+        }
+      }
+    },
+    {
+      "metadata": "03-fmt-check-20261005T0917347912577.json",
+      "metadata_raw_sha256": "cd3762a60f43d8a1bb8fc69dc5adc3bd8fda6e7d4c3e3e5f0dde27488c72f268",
+      "exit": 0,
+      "raw": {
+        "stdout": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    },
+    {
+      "metadata": "04-clippy-20261005T0917496578309.json",
+      "metadata_raw_sha256": "7eb8022b96dc891b5edc574c75b48bc6c3eb248628a0d301c428fc47e77b7567",
+      "exit": 0,
+      "raw": {
+        "stdout": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stderr": {
+          "bytes": 632,
+          "sha256": "8947069b7244e565449a2c76fe82a9aa27780f87f9a9b774d5962e3d109c14d0"
+        }
+      }
+    },
+    {
+      "metadata": "05-examples-20261005T0918462704477.json",
+      "metadata_raw_sha256": "343a6e0fb27043002b64bec6572ba46f3109a26f586868b757126da8c5f3a811",
+      "exit": 0,
+      "raw": {
+        "stdout": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stderr": {
+          "bytes": 72,
+          "sha256": "32d47f791eadf1ea833d9f8c84fbfea5cab1f438e113e93be05bd5b908e1c2ac"
+        }
+      }
+    }
+  ],
+  "scope": "author execution, not root rerun; native/GPU/LAN/Mac NOT_RUN"
+}

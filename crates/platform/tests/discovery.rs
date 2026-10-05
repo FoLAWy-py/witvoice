@@ -21,6 +21,7 @@ fn only_fixed_dns_service_single_labels_are_accepted() {
 #[test]
 fn actual_default_object_with_no_approval_never_starts_native_discovery() {
     let mut adapter = NativeDiscovery::default();
+    assert_eq!(adapter.first_failure(), None);
     assert_eq!(
         adapter.browse(false, 19),
         Err(DiscoveryError::ApprovalRequired)
@@ -31,4 +32,5 @@ fn actual_default_object_with_no_approval_never_starts_native_discovery() {
     );
     assert!(adapter.poll().is_empty());
     assert_eq!(adapter.close(), Ok(true));
+    assert_eq!(adapter.first_failure(), None);
 }

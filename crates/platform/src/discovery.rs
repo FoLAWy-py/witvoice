@@ -4,6 +4,45 @@ pub const SERVICE_TYPE: &str = "_voice-node._udp.local";
 pub const QUEUE_LIMIT: usize = 32;
 pub const CONTEXT_LIMIT: usize = 16;
 pub const RESOLVE_LIMIT: usize = 8;
+// Closed scalar-only diagnostics: no record text, addresses, context pointers or identities.
+macro_rules! diagnostic_enum {
+    ($name:ident { $($variant:ident = $code:literal),+ $(,)? }) => {
+        #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+        #[repr(u8)]
+        pub enum $name { $($variant = $code),+ }
+        impl $name {
+            #[cfg(windows)]
+            fn from_code(code: u8) -> Option<Self> {
+                match code { $($code => Some(Self::$variant),)+ _ => None }
+            }
+        }
+    };
+}
+diagnostic_enum!(FailureStage { Browse = 1, Resolve = 2, Register = 3, Deregister = 4 });
+diagnostic_enum!(FailureOrigin { OsCallback = 1, LocalValidation = 2, Panic = 3 });
+diagnostic_enum!(TextFailure { NullPointer = 1, Length = 2, InvalidUtf16 = 3 });
+diagnostic_enum!(ValidationReason {
+    RecordCycle = 1, RecordLength = 2, RecordOwnerText = 3, RecordOwner = 4,
+    RecordTargetText = 5, RecordTargetName = 6, RecordBudget = 7,
+    NullInstance = 8, InterfaceMismatch = 9, PropertyCount = 10,
+    NullKeys = 11, NullValues = 12, ZeroPort = 13, InstanceNameText = 14,
+    InstanceName = 15, ExpectedNameText = 16, ExpectedName = 17,
+    QueryMismatch = 18, PropertyKeyText = 19, PropertyValueText = 20,
+    DuplicateNodeId = 21, DuplicateProtocol = 22, UnknownProperty = 23,
+    ProtocolVersion = 24, MissingNodeId = 25, NodeId = 26,
+    MissingAddress = 27, Expired = 28,
+});
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct FailureSnapshot {
+    pub stage: FailureStage,
+    pub origin: FailureOrigin,
+    /// Actual callback input; None means unknown, never a fabricated Win32 code.
+    pub callback_status: Option<u32>,
+    /// Compatibility Event::Failed code; local validation/panic retains 13.
+    pub reported_status: u32,
+    pub reason: Option<ValidationReason>,
+    pub text_error: Option<TextFailure>,
+}
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum DiscoveryError {
     ApprovalRequired,
@@ -58,6 +97,9 @@ pub use native::NativeDiscovery;
 pub struct NativeDiscovery;
 #[cfg(not(windows))]
 impl NativeDiscovery {
+    pub fn first_failure(&self) -> Option<FailureSnapshot> {
+        None
+    }
     pub fn browse(&mut self, _: bool, _: u32) -> Result<(), DiscoveryError> {
         Err(DiscoveryError::Unsupported)
     }

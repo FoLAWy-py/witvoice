@@ -1,0 +1,477 @@
+{
+  "task": "T008",
+  "repair": "r1 S2 bind/publish",
+  "author": "/root/audio_runtime",
+  "agent_uuid": "01a10767-80de-7e02-b3b0-73d1273a70bd",
+  "base_source_commit": "2fa911521466433380d273da15c8e9396342026e",
+  "captured_utc": "2026-10-05T09:20:04.208631+00:00",
+  "hash_domain": "raw working file bytes; no claim normalized Git JSON hash equals raw metadata hash",
+  "changed_files": {
+    "crates/audio/src/notifications.rs": "b4d8cf94973a6c8138013a19928c8724fac7a10eefc350087cdb6af992f7bf3a",
+    "crates/audio/tests/allocation.rs": "29380b33dd06a2250bda91756f23af62c43e08062e828c4fe023857309444bdd",
+    "crates/audio/README.md": "0199ab7d6e7bf43ddb2c37486d7b24a7fb65776c2c83fb5fa4230f32b9885174"
+  },
+  "all_audio_source_sha256": {
+    "crates/audio/examples/format_support_probe.rs": "642dd87273231593cb03fc2a617bb2082a847f2fdefd5d837ae3b388ba838ccb",
+    "crates/audio/examples/list_endpoints.rs": "48de663138c39cf1eb1d19a58902a699ff6b02830d2493950ecf18a0b745600c",
+    "crates/audio/examples/notification_probe.rs": "83a9e7a7afdc3efb3faa78a4fee171b07ea0d4e2d7fca63f35c3ffd92e883f3d",
+    "crates/audio/examples/removal_probe.rs": "3f79293103daf44372577c81bfa008b895964c74bb1d821a101f9fe5c846ce2c",
+    "crates/audio/examples/stream_smoke.rs": "32d96e2be6843cc8caaf24c67a9f23ea499fbbd0042dd2593394860531c1846c",
+    "crates/audio/examples/support/mod.rs": "cecf33cb705b319895f37e62f707ad1b9717893af417ef4a1ed37335af0287b9",
+    "crates/audio/README.md": "0199ab7d6e7bf43ddb2c37486d7b24a7fb65776c2c83fb5fa4230f32b9885174",
+    "crates/audio/src/format.rs": "28adc5bdda089561d7091d8612b0bcc80a623ef9d7075e9e5fa9c506d9b817a7",
+    "crates/audio/src/lib.rs": "e5b6851e90c18eafa6f810cf2828989b730266eec927e059a0fd85638d60736c",
+    "crates/audio/src/notifications/native.rs": "2126b4602f9188861038c2e6f15a77c70d116a11799d5e00371b4c077de23e64",
+    "crates/audio/src/notifications.rs": "b4d8cf94973a6c8138013a19928c8724fac7a10eefc350087cdb6af992f7bf3a",
+    "crates/audio/src/realtime/clock.rs": "4de324bddd7b517a873080eefc97dfb9a68923adbe2f867b1fbd35fd9bd7e9ff",
+    "crates/audio/src/realtime/pipeline.rs": "c9b60fb4971867012b114f4897f0cfa7b4896889c65f452fd2bf04d419598cda",
+    "crates/audio/src/realtime/spsc.rs": "94b9cdd6ab4c76381c44495dc71f83121fc1fe4bb7b8395fd8e5310dfb729a8d",
+    "crates/audio/src/realtime.rs": "2221f43bdf6e16ce16650630c8e1ca0a7fe08f4128c3bb95f0299b2d5c3bcce8",
+    "crates/audio/src/stream/native.rs": "a080879e5da2af378b98b73b6f9412dfa874d2cff59654a43c2548ebb824cab4",
+    "crates/audio/src/stream/raw_tests.rs": "aad7c07404f24fe27780c947944b47ea3472b6e6da8a9625ca1d943ed2b84509",
+    "crates/audio/src/stream.rs": "6b4902eb727e9aa063e15204877e40493cf541979b3236209f0a30b76d7f2674",
+    "crates/audio/src/wasapi.rs": "80bd3c5b26fd6589f24650f3b1a0bd3b143912a0bfc64ce460f4dfeeee1e8c20",
+    "crates/audio/tests/allocation.rs": "29380b33dd06a2250bda91756f23af62c43e08062e828c4fe023857309444bdd",
+    "crates/audio/tests/conversion.rs": "0d3e0b7f9fcda66bdb9189e8f46214454ad1a661cc2d8ae8586e64163987f220",
+    "crates/audio/tests/realtime.rs": "f356f1d3265898d03fc181d9e0cfae36ecd6bf1f425e43bd5398485915ab5da7",
+    "crates/audio/tests/stream_packets.rs": "343d9d02853ccc3a7b118d5c445e2ad8bb165e19e03e9e284c8ac295a03fd6d1"
+  },
+  "commands": [
+    {
+      "metadata_file": "01-rustfmt-20261005T0915473690060.json",
+      "metadata_raw_sha256": "b4239875b8a9c2936f215d53b964242af9e6b930c23e666674408083c9fb34e7",
+      "argv": [
+        "--edition",
+        "2024",
+        "crates/audio/src/notifications.rs",
+        "crates/audio/tests/allocation.rs"
+      ],
+      "executable": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\rustfmt.exe",
+      "started_utc": "2026-10-05T09:15:47.5560148Z",
+      "finished_utc": "2026-10-05T09:15:47.7545919Z",
+      "exit": 0,
+      "wall_seconds": 0.1985771,
+      "before_after_source_equal": false,
+      "final_source_equal": true,
+      "environment": {
+        "CARGO_INCREMENTAL": "0",
+        "present_overrides": [],
+        "CARGO_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo",
+        "CARGO_TARGET_DIR": "D:\\Project\\witvoice\\.local\\t008-r1-fix-author\\target",
+        "CARGO_BUILD_JOBS": "1",
+        "audited_override_names": [
+          "RUSTFLAGS",
+          "CARGO_ENCODED_RUSTFLAGS",
+          "RUSTC",
+          "RUSTDOC",
+          "RUSTC_WRAPPER",
+          "RUSTC_WORKSPACE_WRAPPER",
+          "CARGO_BUILD_RUSTFLAGS",
+          "CARGO_BUILD_RUSTC_WRAPPER",
+          "CARGO_BUILD_RUSTC_WORKSPACE_WRAPPER",
+          "RUSTUP_TOOLCHAIN",
+          "CARGO_BUILD_RUSTC",
+          "CARGO_BUILD_RUSTDOC",
+          "CARGO_TARGET_X86_64_PC_WINDOWS_MSVC_RUSTFLAGS"
+        ],
+        "RUSTUP_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\rustup"
+      },
+      "logs": {
+        "stdout": {
+          "file": "01-rustfmt-20261005T0915473690060.stdout.txt",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "metadata_hash_match": true
+        },
+        "stderr": {
+          "file": "01-rustfmt-20261005T0915473690060.stderr.txt",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "metadata_hash_match": true
+        }
+      }
+    },
+    {
+      "metadata_file": "02-test-20261005T0916004924802.json",
+      "metadata_raw_sha256": "43f0de3e88738be8f8845b768b135c48d9f609cacb2961e6cd541ab3f5cf58b1",
+      "argv": [
+        "test",
+        "--locked",
+        "-p",
+        "witvoice-audio",
+        "--",
+        "--nocapture"
+      ],
+      "executable": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\cargo.exe",
+      "started_utc": "2026-10-05T09:16:00.6164530Z",
+      "finished_utc": "2026-10-05T09:16:57.4256483Z",
+      "exit": 0,
+      "wall_seconds": 56.8091953,
+      "before_after_source_equal": true,
+      "final_source_equal": true,
+      "environment": {
+        "present_overrides": [],
+        "RUSTUP_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\rustup",
+        "CARGO_INCREMENTAL": "0",
+        "audited_override_names": [
+          "RUSTFLAGS",
+          "CARGO_ENCODED_RUSTFLAGS",
+          "RUSTC",
+          "RUSTDOC",
+          "RUSTC_WRAPPER",
+          "RUSTC_WORKSPACE_WRAPPER",
+          "CARGO_BUILD_RUSTFLAGS",
+          "CARGO_BUILD_RUSTC_WRAPPER",
+          "CARGO_BUILD_RUSTC_WORKSPACE_WRAPPER",
+          "RUSTUP_TOOLCHAIN",
+          "CARGO_BUILD_RUSTC",
+          "CARGO_BUILD_RUSTDOC",
+          "CARGO_TARGET_X86_64_PC_WINDOWS_MSVC_RUSTFLAGS"
+        ],
+        "CARGO_TARGET_DIR": "D:\\Project\\witvoice\\.local\\t008-r1-fix-author\\target",
+        "CARGO_BUILD_JOBS": "1",
+        "CARGO_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo"
+      },
+      "logs": {
+        "stdout": {
+          "file": "02-test-20261005T0916004924802.stdout.txt",
+          "bytes": 7126,
+          "sha256": "e6a67e15f3fdb894dcc6c228d757d3ab278b9c1d2de1b11655bbc1bd9c6e7d79",
+          "metadata_hash_match": true
+        },
+        "stderr": {
+          "file": "02-test-20261005T0916004924802.stderr.txt",
+          "bytes": 1460,
+          "sha256": "845b1d81a8485d8dc268e33a418f2485c699a117c368be1912f6f35042448558",
+          "metadata_hash_match": true
+        }
+      }
+    },
+    {
+      "metadata_file": "03-fmt-check-20261005T0917347912577.json",
+      "metadata_raw_sha256": "cd3762a60f43d8a1bb8fc69dc5adc3bd8fda6e7d4c3e3e5f0dde27488c72f268",
+      "argv": [
+        "fmt",
+        "--package",
+        "witvoice-audio",
+        "--check"
+      ],
+      "executable": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\cargo.exe",
+      "started_utc": "2026-10-05T09:17:34.8888011Z",
+      "finished_utc": "2026-10-05T09:17:35.2369706Z",
+      "exit": 0,
+      "wall_seconds": 0.3481695,
+      "before_after_source_equal": true,
+      "final_source_equal": true,
+      "environment": {
+        "audited_override_names": [
+          "RUSTFLAGS",
+          "CARGO_ENCODED_RUSTFLAGS",
+          "RUSTC",
+          "RUSTDOC",
+          "RUSTC_WRAPPER",
+          "RUSTC_WORKSPACE_WRAPPER",
+          "CARGO_BUILD_RUSTFLAGS",
+          "CARGO_BUILD_RUSTC_WRAPPER",
+          "CARGO_BUILD_RUSTC_WORKSPACE_WRAPPER",
+          "RUSTUP_TOOLCHAIN",
+          "CARGO_BUILD_RUSTC",
+          "CARGO_BUILD_RUSTDOC",
+          "CARGO_TARGET_X86_64_PC_WINDOWS_MSVC_RUSTFLAGS"
+        ],
+        "CARGO_TARGET_DIR": "D:\\Project\\witvoice\\.local\\t008-r1-fix-author\\target",
+        "CARGO_INCREMENTAL": "0",
+        "CARGO_BUILD_JOBS": "1",
+        "RUSTUP_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\rustup",
+        "present_overrides": [],
+        "CARGO_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo"
+      },
+      "logs": {
+        "stdout": {
+          "file": "03-fmt-check-20261005T0917347912577.stdout.txt",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "metadata_hash_match": true
+        },
+        "stderr": {
+          "file": "03-fmt-check-20261005T0917347912577.stderr.txt",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "metadata_hash_match": true
+        }
+      }
+    },
+    {
+      "metadata_file": "04-clippy-20261005T0917496578309.json",
+      "metadata_raw_sha256": "7eb8022b96dc891b5edc574c75b48bc6c3eb248628a0d301c428fc47e77b7567",
+      "argv": [
+        "clippy",
+        "--locked",
+        "-p",
+        "witvoice-audio",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "executable": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\cargo.exe",
+      "started_utc": "2026-10-05T09:17:49.7573595Z",
+      "finished_utc": "2026-10-05T09:18:08.5618321Z",
+      "exit": 0,
+      "wall_seconds": 18.8044726,
+      "before_after_source_equal": true,
+      "final_source_equal": true,
+      "environment": {
+        "present_overrides": [],
+        "CARGO_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo",
+        "audited_override_names": [
+          "RUSTFLAGS",
+          "CARGO_ENCODED_RUSTFLAGS",
+          "RUSTC",
+          "RUSTDOC",
+          "RUSTC_WRAPPER",
+          "RUSTC_WORKSPACE_WRAPPER",
+          "CARGO_BUILD_RUSTFLAGS",
+          "CARGO_BUILD_RUSTC_WRAPPER",
+          "CARGO_BUILD_RUSTC_WORKSPACE_WRAPPER",
+          "RUSTUP_TOOLCHAIN",
+          "CARGO_BUILD_RUSTC",
+          "CARGO_BUILD_RUSTDOC",
+          "CARGO_TARGET_X86_64_PC_WINDOWS_MSVC_RUSTFLAGS"
+        ],
+        "CARGO_INCREMENTAL": "0",
+        "CARGO_BUILD_JOBS": "1",
+        "RUSTUP_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\rustup",
+        "CARGO_TARGET_DIR": "D:\\Project\\witvoice\\.local\\t008-r1-fix-author\\target"
+      },
+      "logs": {
+        "stdout": {
+          "file": "04-clippy-20261005T0917496578309.stdout.txt",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "metadata_hash_match": true
+        },
+        "stderr": {
+          "file": "04-clippy-20261005T0917496578309.stderr.txt",
+          "bytes": 632,
+          "sha256": "8947069b7244e565449a2c76fe82a9aa27780f87f9a9b774d5962e3d109c14d0",
+          "metadata_hash_match": true
+        }
+      }
+    },
+    {
+      "metadata_file": "05-examples-20261005T0918462704477.json",
+      "metadata_raw_sha256": "343a6e0fb27043002b64bec6572ba46f3109a26f586868b757126da8c5f3a811",
+      "argv": [
+        "build",
+        "--locked",
+        "-p",
+        "witvoice-audio",
+        "--examples"
+      ],
+      "executable": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\cargo.exe",
+      "started_utc": "2026-10-05T09:18:46.4130207Z",
+      "finished_utc": "2026-10-05T09:18:46.9048425Z",
+      "exit": 0,
+      "wall_seconds": 0.4918218,
+      "before_after_source_equal": true,
+      "final_source_equal": true,
+      "environment": {
+        "CARGO_INCREMENTAL": "0",
+        "RUSTUP_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\rustup",
+        "CARGO_BUILD_JOBS": "1",
+        "present_overrides": [],
+        "CARGO_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo",
+        "audited_override_names": [
+          "RUSTFLAGS",
+          "CARGO_ENCODED_RUSTFLAGS",
+          "RUSTC",
+          "RUSTDOC",
+          "RUSTC_WRAPPER",
+          "RUSTC_WORKSPACE_WRAPPER",
+          "CARGO_BUILD_RUSTFLAGS",
+          "CARGO_BUILD_RUSTC_WRAPPER",
+          "CARGO_BUILD_RUSTC_WORKSPACE_WRAPPER",
+          "RUSTUP_TOOLCHAIN",
+          "CARGO_BUILD_RUSTC",
+          "CARGO_BUILD_RUSTDOC",
+          "CARGO_TARGET_X86_64_PC_WINDOWS_MSVC_RUSTFLAGS"
+        ],
+        "CARGO_TARGET_DIR": "D:\\Project\\witvoice\\.local\\t008-r1-fix-author\\target"
+      },
+      "logs": {
+        "stdout": {
+          "file": "05-examples-20261005T0918462704477.stdout.txt",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "metadata_hash_match": true
+        },
+        "stderr": {
+          "file": "05-examples-20261005T0918462704477.stderr.txt",
+          "bytes": 72,
+          "sha256": "32d47f791eadf1ea833d9f8c84fbfea5cab1f438e113e93be05bd5b908e1c2ac",
+          "metadata_hash_match": true
+        }
+      }
+    }
+  ],
+  "command_count": 5,
+  "nonzero_commands": [],
+  "final_test_partitions": [
+    24,
+    3,
+    10,
+    14,
+    3,
+    0
+  ],
+  "final_actual_test_count": 54,
+  "clock_simulations": [
+    {
+      "model": "packetized_spsc_metadata",
+      "drift_ppm": -500,
+      "measured_consumption_ppm": -499.6650752314702,
+      "simulated_seconds": 28800,
+      "callbacks": 2880000,
+      "output_frames": 1382400000,
+      "source_produced": 1381709760,
+      "source_consumed": 1381709263,
+      "source_fraction": 0.002438996994555964,
+      "min_occupancy_frames": 497,
+      "max_occupancy_frames": 1440,
+      "max_age_ns": 20000000,
+      "underflows": 0,
+      "overflows": 0,
+      "expired": 0,
+      "max_correction_ppm": 1000,
+      "final_correction_ppm": -35.56910569105691,
+      "wall_seconds": 0.7936682,
+      "hardware": "NOT_RUN"
+    },
+    {
+      "model": "packetized_spsc_metadata",
+      "drift_ppm": -150,
+      "measured_consumption_ppm": -149.67013888889102,
+      "simulated_seconds": 28800,
+      "callbacks": 2880000,
+      "output_frames": 1382400000,
+      "source_produced": 1382193600,
+      "source_consumed": 1382193096,
+      "source_fraction": 0.9980487747365601,
+      "min_occupancy_frames": 504,
+      "max_occupancy_frames": 1440,
+      "max_age_ns": 20000000,
+      "underflows": 0,
+      "overflows": 0,
+      "expired": 0,
+      "max_correction_ppm": 1000,
+      "final_correction_ppm": 0,
+      "wall_seconds": 0.7924983,
+      "hardware": "NOT_RUN"
+    },
+    {
+      "model": "packetized_spsc_metadata",
+      "drift_ppm": 150,
+      "measured_consumption_ppm": 149.9826388888792,
+      "simulated_seconds": 28800,
+      "callbacks": 2880000,
+      "output_frames": 1382400000,
+      "source_produced": 1382607840,
+      "source_consumed": 1382607336,
+      "source_fraction": 0.0004877928964788225,
+      "min_occupancy_frames": 984,
+      "max_occupancy_frames": 1464,
+      "max_age_ns": 30000000,
+      "underflows": 0,
+      "overflows": 0,
+      "expired": 0,
+      "max_correction_ppm": 1000,
+      "final_correction_ppm": 0,
+      "wall_seconds": 0.7815525,
+      "hardware": "NOT_RUN"
+    },
+    {
+      "model": "packetized_spsc_metadata",
+      "drift_ppm": 500,
+      "measured_consumption_ppm": 499.97757523145833,
+      "simulated_seconds": 28800,
+      "callbacks": 2880000,
+      "output_frames": 1382400000,
+      "source_produced": 1383091680,
+      "source_consumed": 1383091169,
+      "source_fraction": 0.99999996734158,
+      "min_occupancy_frames": 990,
+      "max_occupancy_frames": 1471,
+      "max_age_ns": 30000000,
+      "underflows": 0,
+      "overflows": 0,
+      "expired": 0,
+      "max_correction_ppm": 1000,
+      "final_correction_ppm": 35.56910569105691,
+      "wall_seconds": 0.7698858,
+      "hardware": "NOT_RUN"
+    }
+  ],
+  "clock_total_wall_line": [
+    "CLOCK_ALL_WALL_SECONDS=3.1377558"
+  ],
+  "readonly_git_checks": [
+    {
+      "argv": [
+        "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\git\\cmd\\git.exe",
+        "diff",
+        "--name-only",
+        "2fa911521466433380d273da15c8e9396342026e",
+        "--",
+        "crates/audio"
+      ],
+      "started_utc": "2026-10-05T09:20:04.054435+00:00",
+      "finished_utc": "2026-10-05T09:20:04.137862+00:00",
+      "exit": 0,
+      "stdout": "crates/audio/README.md\ncrates/audio/src/notifications.rs\ncrates/audio/tests/allocation.rs\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\git\\cmd\\git.exe",
+        "diff",
+        "--check",
+        "--",
+        "crates/audio/src/notifications.rs",
+        "crates/audio/tests/allocation.rs",
+        "crates/audio/README.md"
+      ],
+      "started_utc": "2026-10-05T09:20:04.137862+00:00",
+      "finished_utc": "2026-10-05T09:20:04.208631+00:00",
+      "exit": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "proof": "Gate publication bit is set only after successful OnceLock.set. Each real notification and binding use AcqRel fetch_or on one sticky AtomicU32. Atomic RMW modification order makes the later RMW read all earlier bits; acquire/release synchronizes the earlier reason or preceding initialized gate, including intervening RMW release sequences. Notification-first forces bind to invalidate; bind-first forces notification to observe initialized gate and invalidate. Both cannot miss. Closed-only reasons invalidate; any ordinary cumulative reason fails. InitialValidation/batch never erase these bits. Failed or double bind cannot replace retained gate; each monitor has distinct gate. cfg(test) pause parameters/waits are absent in non-test callback build.",
+  "tests_added": [
+    "paused_first_notification_and_first_bind_cannot_both_miss_invalidation",
+    "prebind_reasons_and_failed_second_bind_preserve_sticky_exact_gate",
+    "unbound_notification_handshake_and_batching_allocate_zero"
+  ],
+  "risk_notes": [
+    "After both operations complete, changed selection cannot retain live bound gate; notification completion is not a transaction revoking OS already queued audio.",
+    "Callback never allocates/waits/clones/drops final ownership. Control OnceLock.set and normal teardown remain non-realtime. Test-only pauses do not prove OS callback internals.",
+    "Tickets/ACK, typed model-result boundary and limited ASRC are unchanged; trusted caller must still supply real converted PCM.",
+    "T016 compiler/tool failure cause remains UNKNOWN despite this independent successful audio build."
+  ],
+  "unexecuted": [
+    "native Start/hardware capture/render",
+    "real Stop/Mute latency and OS tail",
+    "T009 virtual routing",
+    "T014 Node/worker/model provenance",
+    "T026 real2h",
+    "GPU",
+    "LAN",
+    "Mac"
+  ],
+  "native_hardware": "NOT_RUN",
+  "independent_review": "PENDING_r2",
+  "tool_crash_observed": false,
+  "status": "AUTHOR_DELIVERED_STOP_WRITES"
+}

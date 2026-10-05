@@ -1,0 +1,30 @@
+   Compiling proc-macro2 v1.0.107
+   Compiling unicode-ident v1.0.26
+   Compiling quote v1.0.47
+   Compiling syn v2.0.119
+   Compiling windows-link v0.2.1
+   Compiling windows-result v0.4.1
+   Compiling windows-strings v0.5.1
+   Compiling windows-interface v0.59.3
+   Compiling windows-implement v0.60.2
+   Compiling windows-core v0.62.2
+   Compiling serde_core v1.0.228
+   Compiling windows-threading v0.2.1
+   Compiling serde_json v1.0.145
+   Compiling serde v1.0.228
+   Compiling windows-future v0.3.2
+   Compiling windows-collections v0.3.2
+   Compiling windows-numerics v0.3.1
+   Compiling serde_derive v1.0.228
+   Compiling memchr v2.8.3
+   Compiling ryu v1.0.23
+   Compiling itoa v1.0.18
+   Compiling windows v0.62.2
+   Compiling witvoice-audio v0.1.0 (D:\Project\witvoice\crates\audio)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 53.23s
+     Running unittests src\lib.rs (.local\t008-r1-fix-author\target\debug\deps\witvoice_audio-a6861adfe6cf6ffa.exe)
+     Running tests\allocation.rs (.local\t008-r1-fix-author\target\debug\deps\allocation-e3718341890c4e1c.exe)
+     Running tests\conversion.rs (.local\t008-r1-fix-author\target\debug\deps\conversion-65e676c1958b9e1c.exe)
+     Running tests\realtime.rs (.local\t008-r1-fix-author\target\debug\deps\realtime-1337b27ac1ae0501.exe)
+     Running tests\stream_packets.rs (.local\t008-r1-fix-author\target\debug\deps\stream_packets-ad482ae59b2bfda1.exe)
+   Doc-tests witvoice_audio

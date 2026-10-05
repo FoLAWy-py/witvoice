@@ -285,16 +285,17 @@
         "tests/integration/"
       ],
       "acceptance": "无常规callback分配/阻塞；队列最大年龄可验证；mute先于慢停机；故障填零与underflow计数分开。",
-      "agent_instance_id": "/root/audio_runtime",
+      "agent_instance_id": "/root",
       "resource_leases": [
-        "code-writer:audio-t008-r1-fix"
+        "validation:root-frozen-integration"
       ],
       "evidence": [
         "docs/evidence/T008-20261005/author/leader-audit.json",
         "docs/evidence/T008-20261005/leader-integration/result.json",
         "docs/evidence/T016-20261005/native-dns/final-integration/result.json",
         "docs/project/reviews/T008-r1.md",
-        "docs/project/T008-r1-fix-assignment.md"
+        "docs/project/T008-r1-fix-assignment.md",
+        "docs/evidence/T008-20261005/r1-fix-author/leader-audit.json"
       ],
       "review": "docs/project/reviews/T008-r1.md",
       "attempts": 1,
@@ -512,9 +513,9 @@
         "tests/security/"
       ],
       "acceptance": "默认监听关闭；mDNS不建立信任；双端身份字符串导入、pin验证与撤销；陌生端无音频权限。",
-      "agent_instance_id": "/root/backend",
+      "agent_instance_id": "/root",
       "resource_leases": [
-        "code-writer:backend-native-diagnosis"
+        "validation:root-frozen-integration"
       ],
       "evidence": [
         "docs/evidence/T016-20261005/dependency-metadata.json",
@@ -548,7 +549,8 @@
         "docs/evidence/T016-20261005/native-dns/leader-integration/result.json",
         "docs/evidence/T016-20261005/native-dns/probe-author/leader-audit.json",
         "docs/evidence/T016-20261005/native-dns/final-integration/result.json",
-        "docs/evidence/T016-20261005/native-dns/native-smoke/result.json"
+        "docs/evidence/T016-20261005/native-dns/native-smoke/result.json",
+        "docs/evidence/T016-20261005/native-dns/diagnostics-author/leader-audit.json"
       ],
       "review": null,
       "attempts": 0,

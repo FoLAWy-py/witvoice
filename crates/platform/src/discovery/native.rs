@@ -87,16 +87,78 @@ const OS: Api = Api {
 struct Queue {
     items: Mutex<VecDeque<Event>>,
     dropped: AtomicU64,
+    first_failure: AtomicU64,
 }
 impl Default for Queue {
     fn default() -> Self {
         Self {
             items: Mutex::new(VecDeque::with_capacity(QUEUE_LIMIT)),
             dropped: AtomicU64::new(0),
+            first_failure: AtomicU64::new(0),
         }
     }
 }
 impl Queue {
+    fn failure(
+        &self,
+        stage: FailureStage,
+        origin: FailureOrigin,
+        status: Option<u32>,
+        rejection: Option<Rejection>,
+    ) {
+        // One coherent scalar publication, no lock, allocation or retry loop. Bit63 is validity.
+        let packed = (1u64 << 63)
+            | u64::from(status.unwrap_or(0))
+            | (u64::from(status.is_some()) << 32)
+            | (u64::from(rejection.map_or(0, |value| value.reason as u8)) << 33)
+            | (u64::from(origin as u8) << 41)
+            | (u64::from(stage as u8) << 49)
+            | (u64::from(
+                rejection
+                    .and_then(|value| value.text_error)
+                    .map_or(0, |value| value as u8),
+            ) << 57);
+        let _ =
+            self.first_failure
+                .compare_exchange(0, packed, Ordering::Release, Ordering::Relaxed);
+        self.push(Event::Failed(if origin == FailureOrigin::OsCallback {
+            status.unwrap_or(0)
+        } else {
+            INVALID
+        }));
+    }
+    fn first_failure(&self) -> Option<FailureSnapshot> {
+        let packed = self.first_failure.load(Ordering::Acquire);
+        if packed == 0 {
+            return None;
+        }
+        let origin = FailureOrigin::from_code(((packed >> 41) & 255) as u8)?;
+        let callback_status = (packed & (1u64 << 32) != 0).then_some(packed as u32);
+        let code = ((packed >> 33) & 255) as u8;
+        let reason = if code == 0 {
+            None
+        } else {
+            Some(ValidationReason::from_code(code)?)
+        };
+        let text_code = ((packed >> 57) & 63) as u8;
+        let text_error = if text_code == 0 {
+            None
+        } else {
+            Some(TextFailure::from_code(text_code)?)
+        };
+        Some(FailureSnapshot {
+            stage: FailureStage::from_code(((packed >> 49) & 255) as u8)?,
+            origin,
+            callback_status,
+            reported_status: if origin == FailureOrigin::OsCallback {
+                callback_status?
+            } else {
+                INVALID
+            },
+            reason,
+            text_error,
+        })
+    }
     fn push(&self, event: Event) {
         if let Ok(mut items) = self.items.try_lock()
             && items.len() < QUEUE_LIMIT
@@ -184,9 +246,22 @@ impl Drop for Instance<'_> {
         }
     }
 }
-unsafe fn text(pointer: *const u16, cap: usize) -> Option<String> {
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+struct Rejection {
+    reason: ValidationReason,
+    text_error: Option<TextFailure>,
+}
+impl From<ValidationReason> for Rejection {
+    fn from(reason: ValidationReason) -> Self {
+        Self {
+            reason,
+            text_error: None,
+        }
+    }
+}
+unsafe fn text(pointer: *const u16, cap: usize) -> Result<String, TextFailure> {
     if pointer.is_null() {
-        return None;
+        return Err(TextFailure::NullPointer);
     }
     let mut count = 0;
     // SAFETY: WinDNS owns a valid terminated UTF16 allocation. Scan/copy at most cap+1.
@@ -194,35 +269,50 @@ unsafe fn text(pointer: *const u16, cap: usize) -> Option<String> {
         count += 1;
     }
     if count > cap {
-        return None;
+        return Err(TextFailure::Length);
     }
-    String::from_utf16(unsafe { std::slice::from_raw_parts(pointer, count) }).ok()
+    String::from_utf16(unsafe { std::slice::from_raw_parts(pointer, count) })
+        .map_err(|_| TextFailure::InvalidUtf16)
 }
-unsafe fn browse_records(
-    op: &Operation,
-    mut record: *const DNS_RECORDW,
-) -> Result<(), DiscoveryError> {
+unsafe fn field_text(
+    pointer: *const u16,
+    cap: usize,
+    reason: ValidationReason,
+) -> Result<String, Rejection> {
+    unsafe { text(pointer, cap) }.map_err(|text_error| Rejection {
+        reason,
+        text_error: Some(text_error),
+    })
+}
+unsafe fn browse_records(op: &Operation, mut record: *const DNS_RECORDW) -> Result<(), Rejection> {
     let mut visited = [0usize; RECORD_LIMIT];
     for index in 0..RECORD_LIMIT {
         if record.is_null() {
             return Ok(());
         }
         if visited[..index].contains(&(record as usize)) {
-            return Err(DiscoveryError::InvalidInput);
+            return Err(ValidationReason::RecordCycle.into());
         }
         visited[index] = record as usize;
         let value = unsafe { &*record };
         if value.wType == DNS_TYPE_PTR.0 {
             if value.wDataLength < std::mem::size_of::<DNS_PTR_DATAW>() as u16 {
-                return Err(DiscoveryError::InvalidInput);
+                return Err(ValidationReason::RecordLength.into());
             }
-            let name = unsafe { text(value.pName.0, 128) }.ok_or(DiscoveryError::InvalidInput)?;
+            let name =
+                unsafe { field_text(value.pName.0, 128, ValidationReason::RecordOwnerText) }?;
             if name.trim_end_matches('.') != SERVICE_TYPE {
-                return Err(DiscoveryError::InvalidInput);
+                return Err(ValidationReason::RecordOwner.into());
             }
-            let full = unsafe { text(value.Data.PTR.pNameHost.0, 128) }
-                .ok_or(DiscoveryError::InvalidInput)?;
-            validate_full_name(&full)?;
+            let full = unsafe {
+                field_text(
+                    value.Data.PTR.pNameHost.0,
+                    128,
+                    ValidationReason::RecordTargetText,
+                )
+            }?;
+            validate_full_name(&full)
+                .map_err(|_| Rejection::from(ValidationReason::RecordTargetName))?;
             if value.dwTtl == 0 {
                 op.queue.push(Event::Removed { full_name: full });
             } else {
@@ -237,7 +327,7 @@ unsafe fn browse_records(
     if record.is_null() {
         Ok(())
     } else {
-        Err(DiscoveryError::Capacity)
+        Err(ValidationReason::RecordBudget.into())
     }
 }
 unsafe fn browse_dispatch(
@@ -258,60 +348,100 @@ unsafe fn browse_dispatch(
         return;
     }
     if status != 0 {
-        op.queue.push(Event::Failed(status));
+        op.queue.failure(
+            FailureStage::Browse,
+            FailureOrigin::OsCallback,
+            Some(status),
+            None,
+        );
         return;
     }
     if op.closing.load(Ordering::Acquire) {
         return;
     }
-    if unsafe { browse_records(op, records) }.is_err() {
-        op.queue.push(Event::Failed(INVALID));
+    if let Err(rejection) = unsafe { browse_records(op, records) } {
+        op.queue.failure(
+            FailureStage::Browse,
+            FailureOrigin::LocalValidation,
+            Some(status),
+            Some(rejection),
+        );
     }
 }
 unsafe fn resolved(
     op: &Operation,
     pointer: *const DNS_SERVICE_INSTANCE,
-) -> Result<Event, DiscoveryError> {
+) -> Result<Event, Rejection> {
     if pointer.is_null() {
-        return Err(DiscoveryError::InvalidInput);
+        return Err(ValidationReason::NullInstance.into());
     }
     let instance = unsafe { &*pointer };
-    if instance.dwInterfaceIndex != op.interface
-        || instance.dwPropertyCount != 2
-        || instance.keys.is_null()
-        || instance.values.is_null()
-        || instance.wPort == 0
-    {
-        return Err(DiscoveryError::InvalidInput);
+    if instance.dwInterfaceIndex != op.interface {
+        return Err(ValidationReason::InterfaceMismatch.into());
     }
-    let name =
-        unsafe { text(instance.pszInstanceName.0, 128) }.ok_or(DiscoveryError::InvalidInput)?;
-    let label = validate_full_name(&name)?.to_owned();
-    let expected = unsafe { text((*op.storage.get()).resolve.QueryName.0, 128) }
-        .ok_or(DiscoveryError::InvalidInput)?;
-    if validate_full_name(&expected)? != label {
-        return Err(DiscoveryError::InvalidInput);
+    if instance.dwPropertyCount != 2 {
+        return Err(ValidationReason::PropertyCount.into());
+    }
+    if instance.keys.is_null() {
+        return Err(ValidationReason::NullKeys.into());
+    }
+    if instance.values.is_null() {
+        return Err(ValidationReason::NullValues.into());
+    }
+    if instance.wPort == 0 {
+        return Err(ValidationReason::ZeroPort.into());
+    }
+    let name = unsafe {
+        field_text(
+            instance.pszInstanceName.0,
+            128,
+            ValidationReason::InstanceNameText,
+        )
+    }?;
+    let label = validate_full_name(&name)
+        .map_err(|_| Rejection::from(ValidationReason::InstanceName))?
+        .to_owned();
+    let expected = unsafe {
+        field_text(
+            (*op.storage.get()).resolve.QueryName.0,
+            128,
+            ValidationReason::ExpectedNameText,
+        )
+    }?;
+    if validate_full_name(&expected).map_err(|_| Rejection::from(ValidationReason::ExpectedName))?
+        != label
+    {
+        return Err(ValidationReason::QueryMismatch.into());
     }
     let mut node = None;
     let mut protocol = None;
     for index in 0..2 {
-        let key = unsafe { text((*instance.keys.add(index)).0, 32) }
-            .ok_or(DiscoveryError::InvalidInput)?;
-        let value = unsafe { text((*instance.values.add(index)).0, 64) }
-            .ok_or(DiscoveryError::InvalidInput)?;
+        let key = unsafe {
+            field_text(
+                (*instance.keys.add(index)).0,
+                32,
+                ValidationReason::PropertyKeyText,
+            )
+        }?;
+        let value = unsafe {
+            field_text(
+                (*instance.values.add(index)).0,
+                64,
+                ValidationReason::PropertyValueText,
+            )
+        }?;
         match key.as_str() {
             "node_id" if node.is_none() => node = Some(value),
             "protocol" if protocol.is_none() => protocol = Some(value),
-            _ => return Err(DiscoveryError::InvalidInput),
+            "node_id" => return Err(ValidationReason::DuplicateNodeId.into()),
+            "protocol" => return Err(ValidationReason::DuplicateProtocol.into()),
+            _ => return Err(ValidationReason::UnknownProperty.into()),
         }
     }
     if protocol.as_deref() != Some("1") {
-        return Err(DiscoveryError::InvalidInput);
+        return Err(ValidationReason::ProtocolVersion.into());
     }
-    let node_id = node
-        .ok_or(DiscoveryError::InvalidInput)?
-        .try_into()
-        .map_err(|_| DiscoveryError::InvalidInput)?;
+    let node_id = parse_node_id(node)?;
     let address = if !instance.ip4Address.is_null() {
         SocketAddr::from((
             Ipv4Addr::from(unsafe { *instance.ip4Address }.to_ne_bytes()),
@@ -326,10 +456,10 @@ unsafe fn resolved(
         };
         SocketAddr::V6(SocketAddrV6::new(ip, instance.wPort, 0, scope))
     } else {
-        return Err(DiscoveryError::InvalidInput);
+        return Err(ValidationReason::MissingAddress.into());
     };
     if op.expires <= Instant::now() {
-        return Err(DiscoveryError::InvalidInput);
+        return Err(ValidationReason::Expired.into());
     }
     Ok(Event::Resolved {
         instance: label,
@@ -337,6 +467,11 @@ unsafe fn resolved(
         address,
         expires_at: op.expires,
     })
+}
+fn parse_node_id(node: Option<String>) -> Result<witvoice_contracts::values::Id, Rejection> {
+    node.ok_or(Rejection::from(ValidationReason::MissingNodeId))?
+        .try_into()
+        .map_err(|_| Rejection::from(ValidationReason::NodeId))
 }
 unsafe fn resolve_dispatch(
     status: u32,
@@ -352,10 +487,20 @@ unsafe fn resolve_dispatch(
             if status == 0 {
                 match unsafe { resolved(op, instance) } {
                     Ok(event) => op.queue.push(event),
-                    Err(_) => op.queue.push(Event::Failed(INVALID)),
+                    Err(rejection) => op.queue.failure(
+                        FailureStage::Resolve,
+                        FailureOrigin::LocalValidation,
+                        Some(status),
+                        Some(rejection),
+                    ),
                 }
             } else {
-                op.queue.push(Event::Failed(status));
+                op.queue.failure(
+                    FailureStage::Resolve,
+                    FailureOrigin::OsCallback,
+                    Some(status),
+                    None,
+                );
             }
         }
         op.terminal.store(true, Ordering::Release);
@@ -377,7 +522,12 @@ unsafe fn register_dispatch(
                 op.queue.push(Event::Stopped);
             } else {
                 op.failure.store(status, Ordering::Release);
-                op.queue.push(Event::Failed(status));
+                op.queue.failure(
+                    FailureStage::Deregister,
+                    FailureOrigin::OsCallback,
+                    Some(status),
+                    None,
+                );
             }
         } else if status == 0 {
             op.registered.store(true, Ordering::Release);
@@ -388,19 +538,34 @@ unsafe fn register_dispatch(
             }
         } else {
             op.terminal.store(true, Ordering::Release);
-            op.queue.push(Event::Failed(status));
+            op.queue.failure(
+                FailureStage::Register,
+                FailureOrigin::OsCallback,
+                Some(status),
+                None,
+            );
         }
     }
 }
 fn wide(text: &str) -> Vec<u16> {
     text.encode_utf16().chain(Some(0)).collect()
 }
-fn callback_guard(context: *const c_void, call: impl FnOnce()) {
+fn callback_guard(
+    context: *const c_void,
+    stage: FailureStage,
+    status: Option<u32>,
+    call: impl FnOnce(),
+) {
     if std::panic::catch_unwind(std::panic::AssertUnwindSafe(call)).is_err()
         && let Some(op) = callback_operation(context)
     {
         op.failure.store(INVALID, Ordering::Release);
-        op.queue.push(Event::Failed(INVALID));
+        let stage = if stage == FailureStage::Register && op.deregistering.load(Ordering::Acquire) {
+            FailureStage::Deregister
+        } else {
+            stage
+        };
+        op.queue.failure(stage, FailureOrigin::Panic, status, None);
     }
 }
 unsafe extern "system" fn browse_callback(
@@ -408,7 +573,7 @@ unsafe extern "system" fn browse_callback(
     context: *const c_void,
     records: *const DNS_RECORDW,
 ) {
-    callback_guard(context, || unsafe {
+    callback_guard(context, FailureStage::Browse, Some(status), || unsafe {
         browse_dispatch(status, context, records, &OS)
     });
 }
@@ -417,7 +582,7 @@ unsafe extern "system" fn resolve_callback(
     context: *const c_void,
     instance: *const DNS_SERVICE_INSTANCE,
 ) {
-    callback_guard(context, || unsafe {
+    callback_guard(context, FailureStage::Resolve, Some(status), || unsafe {
         resolve_dispatch(status, context, instance, &OS)
     });
 }
@@ -426,7 +591,7 @@ unsafe extern "system" fn register_callback(
     context: *const c_void,
     instance: *const DNS_SERVICE_INSTANCE,
 ) {
-    callback_guard(context, || unsafe {
+    callback_guard(context, FailureStage::Register, Some(status), || unsafe {
         register_dispatch(status, context, instance, &OS)
     });
 }
@@ -744,6 +909,10 @@ impl NativeDiscovery {
     }
     pub fn dropped_events(&self) -> u64 {
         self.queue.dropped.load(Ordering::Relaxed)
+    }
+    /// Immutable first callback failure, independent of event drops and operation cleanup.
+    pub fn first_failure(&self) -> Option<FailureSnapshot> {
+        self.queue.first_failure()
     }
     pub fn pending_contexts(&self) -> usize {
         self.operations.len()

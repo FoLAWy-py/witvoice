@@ -7,6 +7,7 @@ mod probe {
         time::{Duration, Instant},
     };
     use witvoice_contracts::values::Id;
+    use witvoice_platform::discovery::FailureSnapshot;
     use witvoice_platform::discovery::{DiscoveryError, Event, NativeDiscovery, SERVICE_TYPE};
     use witvoice_transport::discovery::manual_address;
 
@@ -66,6 +67,7 @@ mod probe {
         failures: u64,
         first_failure: Option<String>,
         dropped: u64,
+        failure_detail: Option<FailureSnapshot>,
     }
     impl Observer {
         fn new(config: Config) -> Self {
@@ -83,6 +85,7 @@ mod probe {
                 failures: 0,
                 first_failure: None,
                 dropped: 0,
+                failure_detail: None,
             }
         }
         fn fail(&mut self, message: String) {
@@ -106,6 +109,7 @@ mod probe {
                 } if !self.closing
                     && self.failures == 0
                     && self.dropped == 0
+                    && self.failure_detail.is_none()
                     && self.config.mode == Mode::Browse =>
                 {
                     if full_name.strip_suffix('.').unwrap_or(&full_name) == self.full_name {
@@ -153,6 +157,11 @@ mod probe {
         fn note_dropped(&mut self, dropped: u64) {
             self.dropped = self.dropped.max(dropped);
         }
+        fn note_failure(&mut self, failure: Option<FailureSnapshot>) {
+            if self.failure_detail.is_none() {
+                self.failure_detail = failure;
+            }
+        }
         fn close_result(&mut self, result: Result<bool, DiscoveryError>) -> bool {
             match result {
                 Ok(complete) => complete,
@@ -167,6 +176,7 @@ mod probe {
                 && pending == 0
                 && self.failures == 0
                 && self.dropped == 0
+                && self.failure_detail.is_none()
                 && match self.config.mode {
                     Mode::Advertise => self.registered,
                     Mode::Browse => self.matched_expiry.is_some_and(|expiry| expiry > now),
@@ -174,6 +184,7 @@ mod probe {
         }
     }
     fn poll(native: &mut NativeDiscovery, observer: &mut Observer) {
+        observer.note_failure(native.first_failure());
         for event in native.poll() {
             if let Some((name, expiry)) = observer.observe(event, Instant::now())
                 && let Err(error) =
@@ -183,6 +194,7 @@ mod probe {
             }
         }
         observer.note_dropped(native.dropped_events());
+        observer.note_failure(native.first_failure());
     }
     pub fn run() -> Result<(), Box<dyn std::error::Error>> {
         let args: Vec<String> = std::env::args().skip(1).take(7).collect();
@@ -204,7 +216,11 @@ mod probe {
         if let Err(error) = request {
             observer.fail(format!("native start {error:?}"));
         }
-        while Instant::now() < end && observer.failures == 0 && observer.dropped == 0 {
+        while Instant::now() < end
+            && observer.failures == 0
+            && observer.dropped == 0
+            && observer.failure_detail.is_none()
+        {
             poll(&mut native, &mut observer);
             std::thread::sleep(
                 end.saturating_duration_since(Instant::now())
@@ -229,6 +245,16 @@ mod probe {
         let pending = native.pending_contexts();
         let now = Instant::now();
         let success = observer.success(complete, pending, now) && now <= hard_end;
+        let failure_detail = observer.failure_detail.map(|failure| {
+            serde_json::json!({
+                "stage": format!("{:?}", failure.stage),
+                "origin": format!("{:?}", failure.origin),
+                "callback_status": failure.callback_status,
+                "reported_status": failure.reported_status,
+                "reason": failure.reason.map(|reason| format!("{reason:?}")),
+                "text_error": failure.text_error.map(|reason| format!("{reason:?}")),
+            })
+        });
         println!(
             "{}",
             serde_json::json!({
@@ -238,8 +264,10 @@ mod probe {
                 "registered": observer.registered, "matched": observer.matched_expiry.is_some(),
                 "matched_remaining_ttl_ms": observer.matched_expiry.map(|expiry| expiry.saturating_duration_since(now).as_millis()),
                 "actual_once": observer.actual_once, "resolve_attempted": observer.resolve_attempted,
-                "ignored_foreign_events": observer.ignored, "failure_first": observer.first_failure,
-                "failure_count": observer.failures, "dropped": observer.dropped,
+                "ignored_foreign_events": observer.ignored,
+                "failure_first": observer.first_failure.or_else(|| observer.failure_detail.map(|failure| format!("native retained failure {}", failure.reported_status))),
+                "failure_count": observer.failures.max(u64::from(observer.failure_detail.is_some())), "dropped": observer.dropped,
+                "failure_detail": failure_detail,
                 "pending": pending, "cleanup_confirmed": complete,
                 "elapsed_ms": now.duration_since(started).as_millis(), "success": success,
             })
@@ -473,6 +501,42 @@ mod probe {
                 args[index] = value.into();
                 assert!(Config::parse(&args).is_err());
             }
+        }
+        #[test]
+        fn retained_diagnostic_blocks_success_without_a_queued_failed_event() {
+            use witvoice_platform::discovery::{FailureOrigin, FailureStage, ValidationReason};
+            let now = Instant::now();
+            let mut o = observer(Mode::Advertise);
+            let first = FailureSnapshot {
+                stage: FailureStage::Resolve,
+                origin: FailureOrigin::LocalValidation,
+                callback_status: Some(0),
+                reported_status: 13,
+                reason: Some(ValidationReason::InterfaceMismatch),
+                text_error: None,
+            };
+            o.note_failure(Some(first));
+            o.observe(Event::Registered, now);
+            o.note_failure(None);
+            o.note_failure(Some(FailureSnapshot {
+                callback_status: Some(5),
+                ..first
+            }));
+            assert_eq!(o.failure_detail, Some(first));
+            assert!(!o.success(true, 0, now));
+            let mut o = observer(Mode::Browse);
+            o.note_failure(Some(first));
+            assert!(
+                o.observe(
+                    Event::Found {
+                        full_name: o.full_name.clone(),
+                        expires_at: now + Duration::from_secs(5)
+                    },
+                    now
+                )
+                .is_none()
+            );
+            assert!(!o.resolve_attempted);
         }
     }
 }

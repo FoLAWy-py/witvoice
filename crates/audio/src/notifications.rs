@@ -7,6 +7,9 @@ use std::sync::{
     atomic::{AtomicBool, AtomicI32, AtomicU32, Ordering},
 };
 
+const GATE_PUBLISHED: u32 = 1 << 31;
+const REAL_CHANGES: u32 = 31 | ChangeKind::Closed as u32;
+
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 #[repr(u32)]
 pub enum ChangeKind {
@@ -37,9 +40,9 @@ impl ChangeBatch {
 pub struct ChangeSignal {
     pending: AtomicU32,
     invalidated: AtomicBool,
-    // Independent of batching/baseline: once a real callback begins, a stream
-    // cannot regain authority even if a control consumer drains pending bits.
-    changed: AtomicBool,
+    // Single RMW modification order pairs gate publication with sticky real
+    // reasons. Batching/baseline never clears these bits.
+    gate_events: AtomicU32,
     #[cfg(windows)]
     registration_claimed: AtomicBool,
     unregister_hresult: AtomicI32,
@@ -54,18 +57,42 @@ impl ChangeSignal {
     /// Callback path: bounded atomics and nonwaiting OnceLock::get, no allocation
     /// or ownership destruction. Binding is an ordinary control operation.
     pub fn publish(&self, kind: ChangeKind) {
+        #[cfg(test)]
+        self.publish_inner(kind, || {}, || {});
+        #[cfg(not(test))]
+        self.publish_inner(kind);
+    }
+    // The identical production branch has pause hooks only in cfg(test).
+    // No hook parameter or waiting code exists in the non-test callback build.
+    fn publish_inner(
+        &self,
+        kind: ChangeKind,
+        #[cfg(test)] before: impl FnOnce(),
+        #[cfg(test)] after: impl FnOnce(),
+    ) {
         if kind != ChangeKind::InitialValidation {
-            if let Some(gate) = self.output_gate.get() {
-                if kind == ChangeKind::Closed {
-                    gate.invalidate();
-                } else {
-                    gate.fail();
+            #[cfg(test)]
+            before();
+            let prior = self.gate_events.fetch_or(kind as u32, Ordering::AcqRel);
+            #[cfg(test)]
+            after();
+            if prior & GATE_PUBLISHED != 0 {
+                // Acquire of the publication RMW makes the completed OnceLock
+                // set visible. get never waits or clones the retained Arc.
+                if let Some(gate) = self.output_gate.get() {
+                    Self::invalidate_gate(gate, prior | kind as u32);
                 }
             }
-            self.changed.store(true, Ordering::Release);
         }
         self.invalidated.store(true, Ordering::Release);
         self.pending.fetch_or(kind as u32, Ordering::Release);
+    }
+    fn invalidate_gate(gate: &OutputGate, reasons: u32) {
+        if reasons & (REAL_CHANGES & !(ChangeKind::Closed as u32)) != 0 {
+            gate.fail();
+        } else if reasons & ChangeKind::Closed as u32 != 0 {
+            gate.invalidate();
+        }
     }
     /// Control thread only. One gate may belong to exactly one native stream;
     /// notification teardown cannot accidentally mute a different monitor.
@@ -79,8 +106,16 @@ impl ChangeSignal {
             return false;
         }
         let gate = self.output_gate.get().expect("completed OnceLock set");
-        if self.has_changed() {
-            gate.fail();
+        // The two AcqRel fetch_or operations are in ONE atomic modification
+        // order. If notification is first, this RMW acquires its reason and
+        // invalidates. If publication is first, the callback acquires this RMW
+        // (and the preceding OnceLock set) and invalidates. RMWs retain all
+        // earlier bits, including intervening callbacks; both cannot miss.
+        // A later callback may overlap this return, but on completion the bound
+        // gate is invalid. No callback waits for a control thread to bind.
+        let prior = self.gate_events.fetch_or(GATE_PUBLISHED, Ordering::AcqRel);
+        if prior & REAL_CHANGES != 0 {
+            Self::invalidate_gate(gate, prior);
             return false;
         }
         true
@@ -103,7 +138,7 @@ impl ChangeSignal {
         self.pending.load(Ordering::Acquire) != 0
     }
     pub fn has_changed(&self) -> bool {
-        self.changed.load(Ordering::Acquire)
+        self.gate_events.load(Ordering::Acquire) & REAL_CHANGES != 0
     }
 
     /// One normal-thread consumer may accept the initial registration marker.
@@ -142,6 +177,128 @@ pub use native::{NotificationWatch, SelectionRevalidation, WatchError};
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn paused_first_notification_and_first_bind_cannot_both_miss_invalidation() {
+        use crate::realtime::*;
+        use std::sync::Barrier;
+        for pause_after_rmw in [false, true] {
+            for kind in [ChangeKind::Removed, ChangeKind::Closed] {
+                let binding = Binding::new(7, 4).unwrap();
+                let mut gate = OutputGate::new(binding).unwrap();
+                gate.arm().unwrap();
+                let mut gate = Arc::new(gate);
+                let signal = ChangeSignal::new();
+                signal.publish(ChangeKind::InitialValidation);
+                assert!(signal.accept_initial_baseline());
+                let mut monitor = OutputGate::new(binding).unwrap();
+                monitor.arm().unwrap();
+                {
+                    let mut ring = Ring::<ProcessedBlock>::new(8).unwrap();
+                    let (mut writer, mut sink) =
+                        processed_endpoints(&mut ring, &gate, QueueConfig::output()).unwrap();
+                    for start in [0, 480] {
+                        writer
+                            .push(
+                                ProcessedBlock::from_model_result(
+                                    binding,
+                                    start,
+                                    0,
+                                    60_000_000,
+                                    &[0.5; 480],
+                                )
+                                .unwrap(),
+                                0,
+                            )
+                            .unwrap();
+                    }
+                    let ticket = gate.begin_commit().unwrap();
+                    let reached = Barrier::new(2);
+                    let resume = Barrier::new(2);
+                    std::thread::scope(|scope| {
+                        scope.spawn(|| {
+                            let pause = || {
+                                reached.wait();
+                                resume.wait();
+                            };
+                            signal.publish_inner(
+                                kind,
+                                || {
+                                    if !pause_after_rmw {
+                                        pause();
+                                    }
+                                },
+                                || {
+                                    if pause_after_rmw {
+                                        pause();
+                                    }
+                                },
+                            );
+                        });
+                        reached.wait();
+                        // After-RMW case is the old get(None)/bind/resume race:
+                        // notification decided it did not see a published gate.
+                        assert_eq!(signal.bind_output_gate(Arc::clone(&gate)), !pause_after_rmw);
+                        if pause_after_rmw {
+                            assert!(!gate.is_live()); // binder already invalidated
+                        }
+                        resume.wait();
+                    });
+                    assert!(signal.has_changed());
+                    assert!(!gate.is_live());
+                    assert_eq!(gate.is_faulted(), kind != ChangeKind::Closed);
+                    assert!(!ticket.is_live());
+                    assert!(!gate.ack_ready()); // prior commit still outstanding
+                    assert!(gate.begin_commit().is_none());
+                    let mut output = [0.9; 480];
+                    assert_eq!(sink.render(&mut output, 0), Err(BlockError::Muted));
+                    assert_eq!(output, [0.0; 480]);
+                    assert!(monitor.is_live());
+                    drop(ticket);
+                    assert!(gate.ack_ready());
+                    signal.take_batch();
+                    signal.publish(ChangeKind::InitialValidation);
+                    assert!(signal.has_changed());
+                    assert!(gate.begin_commit().is_none());
+                }
+                drop(signal); // ordinary control teardown, not callback Drop
+                assert!(Arc::get_mut(&mut gate).unwrap().arm().is_err());
+            }
+        }
+    }
+
+    #[test]
+    fn prebind_reasons_and_failed_second_bind_preserve_sticky_exact_gate() {
+        use crate::realtime::Binding;
+        for reasons in [
+            vec![ChangeKind::Closed],
+            vec![ChangeKind::Closed, ChangeKind::Property],
+            vec![ChangeKind::Property, ChangeKind::Closed],
+        ] {
+            let signal = ChangeSignal::new();
+            for reason in reasons.iter().copied() {
+                signal.publish(reason);
+            }
+            signal.take_batch(); // cannot erase the publication handshake
+            let mut gate = OutputGate::new(Binding::new(7, 4).unwrap()).unwrap();
+            gate.arm().unwrap();
+            let gate = Arc::new(gate);
+            assert!(!signal.bind_output_gate(Arc::clone(&gate)));
+            assert!(!gate.is_live());
+            assert_eq!(gate.is_faulted(), reasons.contains(&ChangeKind::Property));
+            assert!(gate.begin_commit().is_none());
+            let mut other = OutputGate::new(Binding::new(7, 4).unwrap()).unwrap();
+            other.arm().unwrap();
+            let other = Arc::new(other);
+            assert!(!signal.bind_output_gate(Arc::clone(&other)));
+            assert!(other.is_faulted());
+            assert!(std::ptr::eq(
+                signal.output_gate().unwrap().as_ref(),
+                gate.as_ref()
+            ));
+            assert!(!gate.is_live());
+        }
+    }
 
     #[test]
     fn bound_notification_invalidates_exact_output_before_cleanup_and_keeps_monitor_independent() {
