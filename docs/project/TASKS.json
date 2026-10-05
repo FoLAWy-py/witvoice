@@ -286,13 +286,14 @@
       ],
       "acceptance": "无常规callback分配/阻塞；队列最大年龄可验证；mute先于慢停机；故障填零与underflow计数分开。",
       "agent_instance_id": "/root/audio_runtime",
-      "resource_leases": [
-        "code-writer:audio-t008"
+      "resource_leases": [],
+      "evidence": [
+        "docs/evidence/T008-20261005/author/leader-audit.json"
       ],
-      "evidence": [],
       "review": null,
       "attempts": 0,
-      "blocked_reason": null
+      "blocked_reason": null,
+      "execution_note": "Author stopped; final51 tests/fmt/strictClippy/examples0, 25 raw command records including5 failures archived and SHA validated. Root frozen integration/reviewer pending; simulations do not replace hardware."
     },
     {
       "id": "T009",

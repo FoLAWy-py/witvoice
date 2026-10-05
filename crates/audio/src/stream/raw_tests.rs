@@ -168,6 +168,122 @@ static RENDER: IAudioRenderClient_Vtbl = IAudioRenderClient_Vtbl {
     GetBuffer: render_get,
     ReleaseBuffer: render_release,
 };
+
+#[repr(C)]
+struct GovernedRender {
+    vtable: &'static IAudioRenderClient_Vtbl,
+    gate: *const crate::realtime::OutputGate,
+    step: u32,
+    gets: Cell<u32>,
+    releases: Cell<u32>,
+    flags: Cell<u32>,
+    ack_during_release: Cell<bool>,
+    data: [u8; 8],
+}
+unsafe extern "system" fn governed_get(this: *mut c_void, _: u32, out: *mut *mut u8) -> HRESULT {
+    let mock = unsafe { &mut *this.cast::<GovernedRender>() };
+    mock.gets.set(mock.gets.get() + 1);
+    if mock.step == 1 {
+        return FAILED;
+    }
+    unsafe {
+        *out = if mock.step == 3 {
+            ptr::null_mut()
+        } else {
+            mock.data.as_mut_ptr()
+        };
+    }
+    if mock.step == 4 {
+        unsafe { &*mock.gate }.invalidate();
+    }
+    HRESULT(0)
+}
+unsafe extern "system" fn governed_release(this: *mut c_void, _: u32, flags: u32) -> HRESULT {
+    let mock = unsafe { &*this.cast::<GovernedRender>() };
+    mock.releases.set(mock.releases.get() + 1);
+    mock.flags.set(flags);
+    if mock.step == 5 {
+        unsafe { &*mock.gate }.invalidate();
+    }
+    mock.ack_during_release
+        .set(unsafe { &*mock.gate }.ack_ready());
+    if mock.step == 2 { FAILED } else { HRESULT(0) }
+}
+static GOVERNED: IAudioRenderClient_Vtbl = IAudioRenderClient_Vtbl {
+    base__: UNKNOWN,
+    GetBuffer: governed_get,
+    ReleaseBuffer: governed_release,
+};
+#[test]
+fn governed_native_commit_pairs_errors_and_mute_ticket_covers_release_without_allocating() {
+    use crate::realtime::{Binding, OutputGate};
+    for step in 0..=7 {
+        let mut gate = OutputGate::new(Binding::new(5, 9).unwrap()).unwrap();
+        gate.arm().unwrap();
+        let mut mock = GovernedRender {
+            vtable: &GOVERNED,
+            gate: &gate,
+            step,
+            gets: Cell::new(0),
+            releases: Cell::new(0),
+            flags: Cell::new(99),
+            ack_during_release: Cell::new(true),
+            data: [99; 8],
+        };
+        let render = ManuallyDrop::new(unsafe {
+            IAudioRenderClient::from_raw(ptr::from_mut(&mut mock).cast())
+        });
+        let calls = Cell::new(0);
+        let format = AudioFormat::new(48_000, 2, Encoding::Pcm16).unwrap();
+        let samples = if step == 7 { [f32::NAN; 2] } else { [0.5; 2] };
+        let (result, allocations) = count_allocations(|| {
+            let ticket = gate.begin_commit().unwrap();
+            let result = render_governed(&render, format, 2, &samples, || {
+                calls.set(calls.get() + 1);
+                if step == 6 && calls.get() == 2 {
+                    gate.invalidate();
+                }
+                ticket.is_live()
+            });
+            if result.is_err() {
+                gate.fail();
+            }
+            if !gate.is_live() {
+                assert!(!gate.ack_ready());
+            }
+            drop(ticket);
+            result
+        });
+        assert_eq!(allocations, 0);
+        assert_eq!(mock.gets.get(), 1);
+        assert_eq!(mock.releases.get(), u32::from(step != 1));
+        if step != 1 {
+            assert!(!mock.ack_during_release.get());
+        }
+        if [1, 2, 3, 7].contains(&step) {
+            assert!(result.is_err());
+            assert!(gate.is_faulted());
+        }
+        if [3, 4, 6, 7].contains(&step) {
+            assert_eq!(mock.flags.get(), 2);
+        }
+        if [0, 2, 5].contains(&step) {
+            assert_eq!(mock.flags.get(), 0);
+            assert_eq!(mock.data, [0, 64, 0, 64, 0, 64, 0, 64]);
+        }
+        if [6, 7].contains(&step) {
+            assert_eq!(mock.data, [0; 8]);
+        }
+        if step == 5 {
+            assert!(result.unwrap());
+            assert!(gate.ack_ready());
+            assert!(gate.begin_commit().is_none());
+        }
+        if !gate.is_live() {
+            assert!(gate.ack_ready());
+        }
+    }
+}
 #[test]
 fn raw_render_get_and_release_failures_allocate_zero_and_never_submit_pcm() {
     for failure_step in [0, 1, 2] {

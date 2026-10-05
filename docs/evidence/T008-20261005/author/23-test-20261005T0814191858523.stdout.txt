@@ -1,0 +1,86 @@
+
+running 22 tests
+test notifications::native::tests::registration_owner_cannot_be_reused_even_after_failure ... ok
+test notifications::tests::baseline_does_not_clear_sticky_or_hide_a_real_change ... ok
+test stream::native::raw_tests::raw_render_get_and_release_failures_allocate_zero_and_never_submit_pcm ... ok
+test stream::native::tests::timeout_and_successful_operations_cannot_restore_changed_owner ... ok
+test wasapi::tests::refuses_reduced_valid_bits_and_unexpected_channel_mask ... ok
+test notifications::tests::change_during_or_after_baseline_cannot_be_acknowledged_away ... ok
+test notifications::tests::notification_arriving_during_control_check_remains_pending ... ok
+test notifications::tests::multiple_notifications_coalesce_without_clearing_invalidation ... ok
+test stream::native::raw_tests::raw_padding_failure_ignores_written_value_and_retires_without_allocation ... ok
+test stream::native::raw_tests::raw_capture_get_and_release_failures_allocate_zero_and_pair_correctly ... ok
+test stream::native::raw_tests::governed_native_commit_pairs_errors_and_mute_ticket_covers_release_without_allocating ... ok
+test stream::native::tests::capture_pairs_every_nonempty_acquisition_and_retains_metadata ... ok
+test stream::native::tests::changes_during_acquire_or_release_erase_entire_packet_and_forbid_retry ... ok
+test stream::native::tests::render_never_dereferences_data_and_releases_all_frames_silent ... ok
+test wasapi::tests::basic_pcm_and_float_descriptors_keep_documented_tags_and_roundtrip ... ok
+test wasapi::tests::validates_native_layout_and_rejects_short_extension ... ok
+test notifications::native::tests::all_native_callback_methods_publish_without_uid_reads_or_allocations ... ok
+test wasapi::tests::high_precision_pcm_descriptors_own_complete_extension_and_roundtrip ... ok
+test notifications::native::tests::teardown_failure_keeps_reference_then_success_releases_once ... ok
+test notifications::tests::bound_notification_invalidates_exact_output_before_cleanup_and_keeps_monitor_independent ... ok
+test notifications::tests::concurrent_producers_cannot_overwrite_other_reasons ... ok
+test realtime::clock::tests::phase_extreme_batch_and_counter_overflow_leave_state_unchanged ... ok
+
+test result: ok. 22 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 2 tests
+test conversion_success_and_failure_paths_allocate_zero ... ok
+test queued_governor_success_rejections_expiry_underflow_and_tickets_allocate_zero ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 10 tests
+test malformed_buffers_and_gain_are_silent ... ok
+test late_nonfinite_frame_silences_entire_destination ... ok
+test render_limits_then_duplicates_channels ... ok
+test gain_zero_and_empty_buffers_are_safe ... ok
+test pcm24_sign_extension_and_endpoints ... ok
+test float_downmix_large_finite_values_is_bounded ... ok
+test signed_encodings_roundtrip_and_clamp_edges ... ok
+test rejects_unimplemented_channels_and_rates ... ok
+test pcm16_downmix_does_not_overflow ... ok
+test pcm8_midpoint_is_silence ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 14 tests
+test backward_arrival_clock_and_future_timestamp_fault_requires_new_gate ... ok
+test disabled_or_disconnected_monitor_has_no_virtual_queue_or_clock_dependency ... ok
+test final_requested_sample_does_not_prefetch_future_callback_or_repeat_on_starvation ... ok
+test packet_expiry_source_gap_and_commit_expiry_all_fail_silent ... ok
+test invalid_queue_config_and_checked_sample_interval_fail_closed ... ok
+test rejected_overflow_duplicate_and_foreign_epoch_preserve_live_source_order ... ok
+test interpolation_preserves_ramp_and_source_indices_across_packet_boundary ... ok
+test sustained_correction_outside_range_retires_clock_without_widening ... ok
+test starvation_and_partial_callback_erase_are_separate_from_planned_silence ... ok
+test mute_ticket_ack_never_waits_on_slow_cleanup_or_allows_new_old_commits ... ok
+test capture_deadline_equals_now_erases_tail_and_counts_expired_not_underflow ... ok
+test concurrent_spsc_non_power_of_two_wrap_order_and_reuse ... ok
+test phase_packet_advance_agrees_with_per_sample_interpolation ... ok
+CLOCK_B {"model":"packetized_spsc_metadata","drift_ppm":-500,"measured_consumption_ppm":-499.6650752314702,"simulated_seconds":28800,"callbacks":2880000,"output_frames":1382400000,"source_produced":1381709760,"source_consumed":1381709263,"source_fraction":0.002438996994555964,"min_occupancy_frames":497,"max_occupancy_frames":1440,"max_age_ns":20000000,"underflows":0,"overflows":0,"expired":0,"max_correction_ppm":1000,"final_correction_ppm":-35.56910569105691,"wall_seconds":0.782212,"hardware":"NOT_RUN"}
+CLOCK_B {"model":"packetized_spsc_metadata","drift_ppm":-150,"measured_consumption_ppm":-149.67013888889102,"simulated_seconds":28800,"callbacks":2880000,"output_frames":1382400000,"source_produced":1382193600,"source_consumed":1382193096,"source_fraction":0.9980487747365601,"min_occupancy_frames":504,"max_occupancy_frames":1440,"max_age_ns":20000000,"underflows":0,"overflows":0,"expired":0,"max_correction_ppm":1000,"final_correction_ppm":0,"wall_seconds":0.8908946,"hardware":"NOT_RUN"}
+CLOCK_B {"model":"packetized_spsc_metadata","drift_ppm":150,"measured_consumption_ppm":149.9826388888792,"simulated_seconds":28800,"callbacks":2880000,"output_frames":1382400000,"source_produced":1382607840,"source_consumed":1382607336,"source_fraction":0.0004877928964788225,"min_occupancy_frames":984,"max_occupancy_frames":1464,"max_age_ns":30000000,"underflows":0,"overflows":0,"expired":0,"max_correction_ppm":1000,"final_correction_ppm":0,"wall_seconds":1.0512689,"hardware":"NOT_RUN"}
+CLOCK_B {"model":"packetized_spsc_metadata","drift_ppm":500,"measured_consumption_ppm":499.97757523145833,"simulated_seconds":28800,"callbacks":2880000,"output_frames":1382400000,"source_produced":1383091680,"source_consumed":1383091169,"source_fraction":0.99999996734158,"min_occupancy_frames":990,"max_occupancy_frames":1471,"max_age_ns":30000000,"underflows":0,"overflows":0,"expired":0,"max_correction_ppm":1000,"final_correction_ppm":35.56910569105691,"wall_seconds":0.9359486,"hardware":"NOT_RUN"}
+CLOCK_ALL_WALL_SECONDS=3.6605447
+test four_eight_hour_synthetic_clocks_keep_occupancy_and_source_monotonic ... ok
+
+test result: ok. 14 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 3.66s
+
+
+running 3 tests
+test every_invalid_packet_erases_the_entire_destination ... ok
+test valid_capture_leaves_unused_tail_zero ... ok
+test silent_null_and_native_metadata_are_explicit ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

@@ -62,3 +62,49 @@ fn conversion_success_and_failure_paths_allocate_zero() {
     COUNTING.with(|enabled| enabled.set(false));
     assert_eq!(ALLOCATIONS.with(Cell::get), 0);
 }
+
+#[test]
+fn queued_governor_success_rejections_expiry_underflow_and_tickets_allocate_zero() {
+    use witvoice_audio::realtime::*;
+    let binding = Binding::new(5, 9).unwrap();
+    let mut gate = OutputGate::new(binding).unwrap();
+    gate.arm().unwrap();
+    let mut ring = Ring::<ProcessedBlock>::new(8).unwrap();
+    let (mut writer, mut sink) =
+        processed_endpoints(&mut ring, &gate, QueueConfig::output()).unwrap();
+    let a = ProcessedBlock::from_model_result(binding, 0, 0, 60_000_000, &[0.7; 480]).unwrap();
+    let b = ProcessedBlock::from_model_result(binding, 480, 0, 60_000_000, &[0.7; 480]).unwrap();
+    let mut out = [0.0; 480];
+    ALLOCATIONS.with(|count| count.set(0));
+    COUNTING.with(|flag| flag.set(true));
+    writer.push(a, 0).unwrap();
+    writer.push(b, 0).unwrap();
+    assert_eq!(writer.push(a, 0), Err(BlockError::Stale));
+    let ticket = gate.begin_commit().unwrap();
+    sink.render(&mut out, 0).unwrap();
+    assert!(sink.commit_valid(1));
+    assert_eq!(sink.render(&mut out, 60_000_000), Err(BlockError::Expired));
+    assert_eq!(out, [0.0; 480]);
+    assert!(!ticket.is_live());
+    assert!(!gate.ack_ready());
+    drop(ticket);
+    assert!(gate.ack_ready());
+    assert!(gate.begin_commit().is_none());
+    assert_eq!(sink.render(&mut out, 60_000_001), Err(BlockError::Muted));
+    assert!(ProcessedBlock::from_model_result(binding, 960, 0, 1, &[f32::NAN; 480]).is_err());
+    COUNTING.with(|flag| flag.set(false));
+    assert_eq!(ALLOCATIONS.with(Cell::get), 0);
+    let mut capture = Ring::<CaptureBlock>::new(4).unwrap();
+    let (mut writer, mut worker) =
+        capture_endpoints(&mut capture, binding, QueueConfig::capture()).unwrap();
+    let c = CaptureBlock::from_capture(binding, 0, 0, 20_000_000, &[0.5; 480]).unwrap();
+    let mut out = [0.9; 480];
+    ALLOCATIONS.with(|count| count.set(0));
+    COUNTING.with(|flag| flag.set(true));
+    writer.push(c, 0).unwrap();
+    worker.read(&mut out, 1).unwrap();
+    assert_eq!(worker.read(&mut out, 2), Err(BlockError::Underflow));
+    assert_eq!(out, [0.0; 480]);
+    COUNTING.with(|flag| flag.set(false));
+    assert_eq!(ALLOCATIONS.with(Cell::get), 0);
+}

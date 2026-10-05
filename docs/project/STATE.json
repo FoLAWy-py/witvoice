@@ -7,33 +7,6 @@
   "active_milestone": "M1",
   "active_tasks": [
     {
-      "task_id": "T008",
-      "agent_instance_id": "/root/audio_runtime",
-      "allowed_paths": [
-        "crates/audio/src/",
-        "crates/audio/tests/",
-        "crates/audio/examples/",
-        "crates/audio/README.md",
-        "tests/integration/",
-        ".local/t008-author/"
-      ],
-      "resource_leases": [
-        "code-writer:audio-t008"
-      ],
-      "depends_on": [
-        "T007"
-      ],
-      "contract": "docs/project/T008-assignment.md + SPEC02/07 + fresh session/epoch deadline; capture and processed types distinct; failmute",
-      "acceptance_commands": [
-        "cargo test --locked -p witvoice-audio",
-        "cargo fmt --package witvoice-audio --check",
-        "cargo clippy --locked -p witvoice-audio --all-targets -- -D warnings",
-        "cargo build --locked -p witvoice-audio --examples"
-      ],
-      "reviewer": "/root/reviewer_t001",
-      "execution_note": "Native T007 r3 approved; new T008 implementation only. T016 compiler failures not assumed global; one scoped real audio build with process jobs1/inc0, if compiler fails stop no blind retries. No hardware/network/GPU."
-    },
-    {
       "task_id": "T016",
       "agent_instance_id": "/root/backend",
       "allowed_paths": [
@@ -55,6 +28,28 @@
         "cargo build --locked -p witvoice-transport --example native_discovery_probe"
       ],
       "execution_note": "No actual network run; one approved interface19 trial reserved for root after freeze. No retry of real trial."
+    },
+    {
+      "task_id": "T008",
+      "agent_instance_id": "/root",
+      "allowed_paths": [
+        ".local/t008-leader-integration/",
+        "docs/evidence/T008-20261005/leader-integration/"
+      ],
+      "resource_leases": [
+        "verification-writer:t008-leader"
+      ],
+      "depends_on": [
+        "T007"
+      ],
+      "contract": "Frozen all23 audio sources exactly match final author51-test source; callback noalloc/failmute/epoch/deadline; no source changes",
+      "acceptance_commands": [
+        "cargo test --locked -p witvoice-audio -- --nocapture",
+        "cargo fmt --package witvoice-audio --check",
+        "cargo clippy --locked -p witvoice-audio --all-targets -- -D warnings",
+        "cargo build --locked -p witvoice-audio --examples"
+      ],
+      "execution_note": "D target process jobs1/inc0, no native Start/audio/GPU/LAN. Stop on ICE/AV."
     }
   ],
   "milestones": {

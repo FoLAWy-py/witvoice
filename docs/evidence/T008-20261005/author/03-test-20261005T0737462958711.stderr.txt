@@ -1,0 +1,8 @@
+   Compiling witvoice-audio v0.1.0 (D:\Project\witvoice\crates\audio)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 4.53s
+     Running unittests src\lib.rs (.local\t008-cargo-target\debug\deps\witvoice_audio-a6861adfe6cf6ffa.exe)
+     Running tests\allocation.rs (.local\t008-cargo-target\debug\deps\allocation-e3718341890c4e1c.exe)
+     Running tests\conversion.rs (.local\t008-cargo-target\debug\deps\conversion-65e676c1958b9e1c.exe)
+     Running tests\realtime.rs (.local\t008-cargo-target\debug\deps\realtime-1337b27ac1ae0501.exe)
+     Running tests\stream_packets.rs (.local\t008-cargo-target\debug\deps\stream_packets-ad482ae59b2bfda1.exe)
+   Doc-tests witvoice_audio

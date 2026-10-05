@@ -1,7 +1,11 @@
 //! Fixed-size notification invalidation, with exactly one control consumer.
 //! This state never grants playback authority or acknowledges an audio epoch.
 
-use std::sync::atomic::{AtomicBool, AtomicI32, AtomicU32, Ordering};
+use crate::realtime::OutputGate;
+use std::sync::{
+    Arc, OnceLock,
+    atomic::{AtomicBool, AtomicI32, AtomicU32, Ordering},
+};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 #[repr(u32)]
@@ -39,6 +43,7 @@ pub struct ChangeSignal {
     #[cfg(windows)]
     registration_claimed: AtomicBool,
     unregister_hresult: AtomicI32,
+    output_gate: OnceLock<Arc<OutputGate>>,
 }
 
 impl ChangeSignal {
@@ -46,13 +51,42 @@ impl ChangeSignal {
         Self::default()
     }
 
-    /// Callback path: at most three bounded atomics, no pointer reads or panic.
+    /// Callback path: bounded atomics and nonwaiting OnceLock::get, no allocation
+    /// or ownership destruction. Binding is an ordinary control operation.
     pub fn publish(&self, kind: ChangeKind) {
         if kind != ChangeKind::InitialValidation {
+            if let Some(gate) = self.output_gate.get() {
+                if kind == ChangeKind::Closed {
+                    gate.invalidate();
+                } else {
+                    gate.fail();
+                }
+            }
             self.changed.store(true, Ordering::Release);
         }
         self.invalidated.store(true, Ordering::Release);
         self.pending.fetch_or(kind as u32, Ordering::Release);
+    }
+    /// Control thread only. One gate may belong to exactly one native stream;
+    /// notification teardown cannot accidentally mute a different monitor.
+    pub(crate) fn bind_output_gate(&self, gate: Arc<OutputGate>) -> bool {
+        if self.output_gate.get().is_some() || !gate.claim_native_owner() {
+            gate.fail();
+            return false;
+        }
+        if let Err(gate) = self.output_gate.set(gate) {
+            gate.fail();
+            return false;
+        }
+        let gate = self.output_gate.get().expect("completed OnceLock set");
+        if self.has_changed() {
+            gate.fail();
+            return false;
+        }
+        true
+    }
+    pub(crate) fn output_gate(&self) -> Option<&Arc<OutputGate>> {
+        self.output_gate.get()
     }
 
     /// Control-thread only, single consumer. Events linearized after the swap
@@ -108,6 +142,41 @@ pub use native::{NotificationWatch, SelectionRevalidation, WatchError};
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn bound_notification_invalidates_exact_output_before_cleanup_and_keeps_monitor_independent() {
+        use crate::realtime::Binding;
+        let mut virtual_gate = OutputGate::new(Binding::new(7, 4).unwrap()).unwrap();
+        virtual_gate.arm().unwrap();
+        let mut monitor_gate = OutputGate::new(Binding::new(7, 4).unwrap()).unwrap();
+        monitor_gate.arm().unwrap();
+        let virtual_gate = Arc::new(virtual_gate);
+        let monitor_gate = Arc::new(monitor_gate);
+        let virtual_signal = ChangeSignal::new();
+        let monitor_signal = ChangeSignal::new();
+        assert!(virtual_signal.bind_output_gate(Arc::clone(&virtual_gate)));
+        assert!(monitor_signal.bind_output_gate(Arc::clone(&monitor_gate)));
+        let ticket = monitor_gate.begin_commit().unwrap();
+        #[cfg(windows)]
+        {
+            let (_, allocations) =
+                super::count_allocations(|| monitor_signal.publish(ChangeKind::Removed));
+            assert_eq!(allocations, 0);
+        }
+        #[cfg(not(windows))]
+        monitor_signal.publish(ChangeKind::Removed);
+        assert!(monitor_gate.is_faulted());
+        assert!(!ticket.is_live());
+        assert!(!monitor_gate.ack_ready());
+        assert!(virtual_gate.is_live());
+        drop(ticket);
+        assert!(monitor_gate.ack_ready());
+        virtual_signal.publish(ChangeKind::Closed);
+        assert!(!virtual_gate.is_live());
+        assert!(!virtual_gate.is_faulted());
+        assert!(virtual_gate.ack_ready());
+        assert!(!ChangeSignal::new().bind_output_gate(Arc::clone(&virtual_gate)));
+    }
 
     #[test]
     fn baseline_does_not_clear_sticky_or_hide_a_real_change() {

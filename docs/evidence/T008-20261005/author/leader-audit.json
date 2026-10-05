@@ -1,0 +1,210 @@
+{
+  "auditor": "/root",
+  "utc": "2026-10-05T08:21:01.820360+00:00",
+  "index_sha256": "19a0f560a06e36d20cdc19a95d4a38bef1dce6eedc0ed6a7b47088f77a75a90a",
+  "source_hashes": {
+    "crates/audio/examples/format_support_probe.rs": "642dd87273231593cb03fc2a617bb2082a847f2fdefd5d837ae3b388ba838ccb",
+    "crates/audio/examples/list_endpoints.rs": "48de663138c39cf1eb1d19a58902a699ff6b02830d2493950ecf18a0b745600c",
+    "crates/audio/examples/notification_probe.rs": "83a9e7a7afdc3efb3faa78a4fee171b07ea0d4e2d7fca63f35c3ffd92e883f3d",
+    "crates/audio/examples/removal_probe.rs": "3f79293103daf44372577c81bfa008b895964c74bb1d821a101f9fe5c846ce2c",
+    "crates/audio/examples/stream_smoke.rs": "32d96e2be6843cc8caaf24c67a9f23ea499fbbd0042dd2593394860531c1846c",
+    "crates/audio/examples/support/mod.rs": "cecf33cb705b319895f37e62f707ad1b9717893af417ef4a1ed37335af0287b9",
+    "crates/audio/README.md": "9bfc20428843224cbb1e156205ed66d13011fdf7ad6629af8937aba4aa341498",
+    "crates/audio/src/format.rs": "28adc5bdda089561d7091d8612b0bcc80a623ef9d7075e9e5fa9c506d9b817a7",
+    "crates/audio/src/lib.rs": "e5b6851e90c18eafa6f810cf2828989b730266eec927e059a0fd85638d60736c",
+    "crates/audio/src/notifications.rs": "6c2be41fde73d8f70d038b4ff0c002be4471ba7ef21d58cf7901a5e04eb7b8c5",
+    "crates/audio/src/notifications/native.rs": "2126b4602f9188861038c2e6f15a77c70d116a11799d5e00371b4c077de23e64",
+    "crates/audio/src/realtime.rs": "2221f43bdf6e16ce16650630c8e1ca0a7fe08f4128c3bb95f0299b2d5c3bcce8",
+    "crates/audio/src/realtime/clock.rs": "4de324bddd7b517a873080eefc97dfb9a68923adbe2f867b1fbd35fd9bd7e9ff",
+    "crates/audio/src/realtime/pipeline.rs": "c9b60fb4971867012b114f4897f0cfa7b4896889c65f452fd2bf04d419598cda",
+    "crates/audio/src/realtime/spsc.rs": "94b9cdd6ab4c76381c44495dc71f83121fc1fe4bb7b8395fd8e5310dfb729a8d",
+    "crates/audio/src/stream.rs": "6b4902eb727e9aa063e15204877e40493cf541979b3236209f0a30b76d7f2674",
+    "crates/audio/src/stream/native.rs": "a080879e5da2af378b98b73b6f9412dfa874d2cff59654a43c2548ebb824cab4",
+    "crates/audio/src/stream/raw_tests.rs": "aad7c07404f24fe27780c947944b47ea3472b6e6da8a9625ca1d943ed2b84509",
+    "crates/audio/src/wasapi.rs": "80bd3c5b26fd6589f24650f3b1a0bd3b143912a0bfc64ce460f4dfeeee1e8c20",
+    "crates/audio/tests/allocation.rs": "2fe19596d3e3089b685e436b1dc7ec4de67b07540ac4711beed16eadf67778a9",
+    "crates/audio/tests/conversion.rs": "0d3e0b7f9fcda66bdb9189e8f46214454ad1a661cc2d8ae8586e64163987f220",
+    "crates/audio/tests/realtime.rs": "f356f1d3265898d03fc181d9e0cfae36ecd6bf1f425e43bd5398485915ab5da7",
+    "crates/audio/tests/stream_packets.rs": "343d9d02853ccc3a7b118d5c445e2ad8bb165e19e03e9e284c8ac295a03fd6d1"
+  },
+  "changed_files": [
+    {
+      "raw_file_sha256": "e5b6851e90c18eafa6f810cf2828989b730266eec927e059a0fd85638d60736c",
+      "path": "crates/audio/src/lib.rs"
+    },
+    {
+      "raw_file_sha256": "2221f43bdf6e16ce16650630c8e1ca0a7fe08f4128c3bb95f0299b2d5c3bcce8",
+      "path": "crates/audio/src/realtime.rs"
+    },
+    {
+      "raw_file_sha256": "94b9cdd6ab4c76381c44495dc71f83121fc1fe4bb7b8395fd8e5310dfb729a8d",
+      "path": "crates/audio/src/realtime/spsc.rs"
+    },
+    {
+      "raw_file_sha256": "4de324bddd7b517a873080eefc97dfb9a68923adbe2f867b1fbd35fd9bd7e9ff",
+      "path": "crates/audio/src/realtime/clock.rs"
+    },
+    {
+      "raw_file_sha256": "c9b60fb4971867012b114f4897f0cfa7b4896889c65f452fd2bf04d419598cda",
+      "path": "crates/audio/src/realtime/pipeline.rs"
+    },
+    {
+      "raw_file_sha256": "6c2be41fde73d8f70d038b4ff0c002be4471ba7ef21d58cf7901a5e04eb7b8c5",
+      "path": "crates/audio/src/notifications.rs"
+    },
+    {
+      "raw_file_sha256": "a080879e5da2af378b98b73b6f9412dfa874d2cff59654a43c2548ebb824cab4",
+      "path": "crates/audio/src/stream/native.rs"
+    },
+    {
+      "raw_file_sha256": "aad7c07404f24fe27780c947944b47ea3472b6e6da8a9625ca1d943ed2b84509",
+      "path": "crates/audio/src/stream/raw_tests.rs"
+    },
+    {
+      "raw_file_sha256": "f356f1d3265898d03fc181d9e0cfae36ecd6bf1f425e43bd5398485915ab5da7",
+      "path": "crates/audio/tests/realtime.rs"
+    },
+    {
+      "raw_file_sha256": "2fe19596d3e3089b685e436b1dc7ec4de67b07540ac4711beed16eadf67778a9",
+      "path": "crates/audio/tests/allocation.rs"
+    },
+    {
+      "raw_file_sha256": "9bfc20428843224cbb1e156205ed66d13011fdf7ad6629af8937aba4aa341498",
+      "path": "crates/audio/README.md"
+    }
+  ],
+  "runs": [
+    {
+      "metadata": "01-test-20261005T0734310318815.json",
+      "exit": 101,
+      "metadata_sha256": "23a96b68b49801afe9b818089bfc56523583a40ab76a8a24026e5bd946861b1d"
+    },
+    {
+      "metadata": "02-rustfmt-20261005T0737324202793.json",
+      "exit": 0,
+      "metadata_sha256": "ff1cc2e86445f3caad6d29cf3885b5ef4daa4e530c6aea24ea80c3f79ed3bea4"
+    },
+    {
+      "metadata": "03-test-20261005T0737462958711.json",
+      "exit": 0,
+      "metadata_sha256": "27e0a62d9b3e6b7f9cff31ad759cb1c07146a193edcf1a5189eef62d60045694"
+    },
+    {
+      "metadata": "04-fmt-check-20261005T0738321020548.json",
+      "exit": 0,
+      "metadata_sha256": "ef283b227a2a6ccfc7b788d64077152a60c39a518c0c7917b329db6d47db831f"
+    },
+    {
+      "metadata": "05-clippy-20261005T0739022351624.json",
+      "exit": 101,
+      "metadata_sha256": "a5c9856c85d82e791b5015a114649ade35e58644f9b7585be2436c9ea5ed08c8"
+    },
+    {
+      "metadata": "06-rustfmt-20261005T0746556290191.json",
+      "exit": 0,
+      "metadata_sha256": "892838cc1cbabd80ba56959e402930dda93990b9a4c1396c68a646b7421b5cd6"
+    },
+    {
+      "metadata": "07-test-20261005T0747123689817.json",
+      "exit": 101,
+      "metadata_sha256": "ec9d753ca0589268c31b04c7cdf8e6237f3374d037575720e9dbf8d9170c8724"
+    },
+    {
+      "metadata": "08-rustfmt-20261005T0753561135867.json",
+      "exit": 0,
+      "metadata_sha256": "b662595009acf8177f75bf2a3d540e8773b6e42ddf61a8ef3f1522912ed22733"
+    },
+    {
+      "metadata": "09-test-20261005T0754111009574.json",
+      "exit": 0,
+      "metadata_sha256": "04b70975ee86d868a84f9d574bea88409c354476abe2f67a5c3b088e49c93533"
+    },
+    {
+      "metadata": "10-fmt-check-20261005T0755154695564.json",
+      "exit": 0,
+      "metadata_sha256": "d4a30ca3c14724ef18c52d3479696353a47375efa739a3b4460b2e1128a6607c"
+    },
+    {
+      "metadata": "11-clippy-20261005T0755354176686.json",
+      "exit": 101,
+      "metadata_sha256": "09c1efc74af9548b817f4f9d42f33fae2b192f34f33e1e00203a93d8e12ad127"
+    },
+    {
+      "metadata": "12-rustfmt-20261005T0757426456963.json",
+      "exit": 0,
+      "metadata_sha256": "6c1754c96449009600a5f9dd8843277420ccc9ebd2b8373c1984fdb70190cf73"
+    },
+    {
+      "metadata": "13-test-20261005T0758031167975.json",
+      "exit": 0,
+      "metadata_sha256": "bca9cab415f8c2d3b7dc1dd3309d9d9bd4a8fe17d764cc7aa318beb3e882b004"
+    },
+    {
+      "metadata": "14-fmt-check-20261005T0758255833790.json",
+      "exit": 0,
+      "metadata_sha256": "2776c9ded31daf5df5b5b154a8989f48d64157288a27a56f2d0b75446b4fe69b"
+    },
+    {
+      "metadata": "15-clippy-20261005T0758450465435.json",
+      "exit": 0,
+      "metadata_sha256": "58f09b19bce086a751636e5915e55ad67cdf85564baab162d3b8cc660153d126"
+    },
+    {
+      "metadata": "16-examples-20261005T0759050422992.json",
+      "exit": 0,
+      "metadata_sha256": "b56170f044315541c1924af0afa6cbb55b4884a09d25601434b9302d1d4bd50d"
+    },
+    {
+      "metadata": "18-rustfmt-20261005T0810096797824.json",
+      "exit": 0,
+      "metadata_sha256": "867a35c720ed47d5618c80ba83663d0de61df9e54db2917e1508863a71c8d119"
+    },
+    {
+      "metadata": "19-test-20261005T0810288579280.json",
+      "exit": 0,
+      "metadata_sha256": "8ad398d2a7bee88cf942ade81c98ae04c3b3d8012ee34d420354017546739fc2"
+    },
+    {
+      "metadata": "20-fmt-check-20261005T0811165438198.json",
+      "exit": 0,
+      "metadata_sha256": "c0bae53bdf1542eb208e58319bf57325d0dbaa3f4ab5605b60863fc1c5f5e320"
+    },
+    {
+      "metadata": "21-clippy-20261005T0811362599984.json",
+      "exit": 101,
+      "metadata_sha256": "21f48a749ae2085b56210acbae66df3ebc2e71d62a4bcbc02b018ecbaa4ceca1"
+    },
+    {
+      "metadata": "22-rustfmt-20261005T0814018631198.json",
+      "exit": 0,
+      "metadata_sha256": "747d29f9e341e7129fab92af3005f1fe9da127af28510d3ce9a6645c58ef69b4"
+    },
+    {
+      "metadata": "23-test-20261005T0814191858523.json",
+      "exit": 0,
+      "metadata_sha256": "cf075a2c89fd1e4e925c9e3d3cf2ef16bf838025b71fa78dda92a85990a89b97"
+    },
+    {
+      "metadata": "24-fmt-check-20261005T0814551565049.json",
+      "exit": 0,
+      "metadata_sha256": "030e62ae4d297dea60e72e2790477ca7beec52eeee9504a4ac3b2217578d288d"
+    },
+    {
+      "metadata": "25-clippy-20261005T0815146326601.json",
+      "exit": 0,
+      "metadata_sha256": "575e2abf1c3113afbc894500e45f0402a3e52bad86ca34e9a39ccc13bc9a7cc6"
+    },
+    {
+      "metadata": "26-examples-20261005T0815341624272.json",
+      "exit": 0,
+      "metadata_sha256": "245d1a555cc3a66ad1bba314631a2ed2533f61e3fb3ab1ee5125e83de180090c"
+    }
+  ],
+  "source_current_match": true,
+  "raw_stream_hashes_match": true,
+  "final_four_command_source_match": true,
+  "count": 51,
+  "failed_commands": 5,
+  "hardware": "NOT_RUN",
+  "formal_review": "PENDING"
+}

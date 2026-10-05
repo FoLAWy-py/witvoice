@@ -1,0 +1,43 @@
+    Checking windows-link v0.2.1
+    Checking windows-result v0.4.1
+    Checking windows-strings v0.5.1
+    Checking windows-core v0.62.2
+    Checking serde_core v1.0.228
+    Checking windows-threading v0.2.1
+    Checking windows-future v0.3.2
+    Checking windows-numerics v0.3.1
+    Checking windows-collections v0.3.2
+    Checking memchr v2.8.3
+    Checking ryu v1.0.23
+    Checking itoa v1.0.18
+    Checking serde_json v1.0.145
+    Checking serde v1.0.228
+    Checking windows v0.62.2
+    Checking witvoice-audio v0.1.0 (D:\Project\witvoice\crates\audio)
+error: unnecessary closure used to substitute value for `Result::Err`
+   --> crates\audio\src\realtime\pipeline.rs:367:22
+    |
+367 |           let result = self.validate.check(b, now_ns).and_then(|_| {
+    |  ______________________^
+368 | |             if output.len() < b.count as usize {
+369 | |                 Err(BlockError::Capacity)
+370 | |             } else {
+...   |
+373 | |         });
+    | |__________^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.99.0/index.html#unnecessary_lazy_evaluations
+    = note: `-D clippy::unnecessary-lazy-evaluations` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[allow(clippy::unnecessary_lazy_evaluations)]`
+help: use `and` instead
+    |
+367 ~         let result = self.validate.check(b, now_ns).and({
+368 +             if output.len() < b.count as usize {
+369 +                 Err(BlockError::Capacity)
+370 +             } else {
+371 +                 Ok(())
+372 +             }
+373 ~         });
+    |
+
+error: could not compile `witvoice-audio` (lib) due to 1 previous error

@@ -1,0 +1,150 @@
+{
+  "owner": "/root/audio_runtime",
+  "wall_seconds": 0.1195785,
+  "started_utc": "2026-10-05T07:37:32.4679282Z",
+  "argv": [
+    "--edition",
+    "2024",
+    "--config",
+    "skip_children=true",
+    "crates/audio/src/lib.rs",
+    "crates/audio/src/realtime.rs",
+    "crates/audio/src/realtime/spsc.rs",
+    "crates/audio/src/realtime/clock.rs",
+    "crates/audio/src/realtime/pipeline.rs",
+    "crates/audio/src/stream/native.rs",
+    "crates/audio/src/stream/raw_tests.rs",
+    "crates/audio/tests/realtime.rs",
+    "crates/audio/tests/allocation.rs"
+  ],
+  "source_sha256": [
+    {
+      "path": "crates/audio/examples/format_support_probe.rs",
+      "sha256": "642dd87273231593cb03fc2a617bb2082a847f2fdefd5d837ae3b388ba838ccb"
+    },
+    {
+      "path": "crates/audio/examples/list_endpoints.rs",
+      "sha256": "48de663138c39cf1eb1d19a58902a699ff6b02830d2493950ecf18a0b745600c"
+    },
+    {
+      "path": "crates/audio/examples/notification_probe.rs",
+      "sha256": "83a9e7a7afdc3efb3faa78a4fee171b07ea0d4e2d7fca63f35c3ffd92e883f3d"
+    },
+    {
+      "path": "crates/audio/examples/removal_probe.rs",
+      "sha256": "3f79293103daf44372577c81bfa008b895964c74bb1d821a101f9fe5c846ce2c"
+    },
+    {
+      "path": "crates/audio/examples/stream_smoke.rs",
+      "sha256": "32d96e2be6843cc8caaf24c67a9f23ea499fbbd0042dd2593394860531c1846c"
+    },
+    {
+      "path": "crates/audio/examples/support/mod.rs",
+      "sha256": "cecf33cb705b319895f37e62f707ad1b9717893af417ef4a1ed37335af0287b9"
+    },
+    {
+      "path": "crates/audio/README.md",
+      "sha256": "82caf807763503a5a97c398e1af4db95809c743ec038e04dc1a9d28bfae9f113"
+    },
+    {
+      "path": "crates/audio/src/format.rs",
+      "sha256": "28adc5bdda089561d7091d8612b0bcc80a623ef9d7075e9e5fa9c506d9b817a7"
+    },
+    {
+      "path": "crates/audio/src/lib.rs",
+      "sha256": "db7992bc375cef70b2f7895f15d8a2f75efcb559f198cd808ebadc140ab08d4b"
+    },
+    {
+      "path": "crates/audio/src/notifications.rs",
+      "sha256": "d2b01ec17543ab4291eb9b13cf76293f08b9501a77444027ccd69b61ce173b14"
+    },
+    {
+      "path": "crates/audio/src/notifications/native.rs",
+      "sha256": "2126b4602f9188861038c2e6f15a77c70d116a11799d5e00371b4c077de23e64"
+    },
+    {
+      "path": "crates/audio/src/realtime.rs",
+      "sha256": "e974466927e6e6de01ffbdccaf19fe66351aaefdbaba5f2c8ad4bbbc4f3411f4"
+    },
+    {
+      "path": "crates/audio/src/realtime/clock.rs",
+      "sha256": "6120b89370f0e3073d1941e3abbd618793ab191905fec0512ef265e4c8988748"
+    },
+    {
+      "path": "crates/audio/src/realtime/pipeline.rs",
+      "sha256": "b17cc21b4610439850237dffe58fea83e9f16ac00f20d60468ccb734b54242f1"
+    },
+    {
+      "path": "crates/audio/src/realtime/spsc.rs",
+      "sha256": "d74047d6faacc66b790d8cf9b54e15798742d33574aad3b76f9a0e6793628b0b"
+    },
+    {
+      "path": "crates/audio/src/stream.rs",
+      "sha256": "6b4902eb727e9aa063e15204877e40493cf541979b3236209f0a30b76d7f2674"
+    },
+    {
+      "path": "crates/audio/src/stream/native.rs",
+      "sha256": "37cfe3201addd39eae9dbb5f92bf53a881b778b81e4270423ff0a88b23b8c027"
+    },
+    {
+      "path": "crates/audio/src/stream/raw_tests.rs",
+      "sha256": "7f66331ad4dc02b9171fb729f14d7abc66b694f2fb3abd231ca0f2da260efbe0"
+    },
+    {
+      "path": "crates/audio/src/wasapi.rs",
+      "sha256": "80bd3c5b26fd6589f24650f3b1a0bd3b143912a0bfc64ce460f4dfeeee1e8c20"
+    },
+    {
+      "path": "crates/audio/tests/allocation.rs",
+      "sha256": "0e5c027a874c8d628553f2ceb10cb3686c6ed80deed8449d82709e97144a8ca9"
+    },
+    {
+      "path": "crates/audio/tests/conversion.rs",
+      "sha256": "0d3e0b7f9fcda66bdb9189e8f46214454ad1a661cc2d8ae8586e64163987f220"
+    },
+    {
+      "path": "crates/audio/tests/realtime.rs",
+      "sha256": "318cedbdbb02fca938a81d70a3cdb2e1d0795aee05c029556930fd6c425c0203"
+    },
+    {
+      "path": "crates/audio/tests/stream_packets.rs",
+      "sha256": "343d9d02853ccc3a7b118d5c445e2ad8bb165e19e03e9e284c8ac295a03fd6d1"
+    }
+  ],
+  "cwd": "D:\\Project\\witvoice",
+  "executable": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\rustfmt.exe",
+  "stdout": {
+    "path": "D:\\Project\\witvoice\\.local\\t008-author\\02-rustfmt-20261005T0737324202793.stdout.txt",
+    "characters": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "task": "T008",
+  "exit": 0,
+  "environment": {
+    "CARGO_TARGET_DIR": "D:\\Project\\witvoice\\.local\\t008-cargo-target",
+    "CARGO_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo",
+    "RUSTUP_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\rustup",
+    "audited_override_names": [
+      "RUSTFLAGS",
+      "CARGO_ENCODED_RUSTFLAGS",
+      "RUSTC",
+      "RUSTDOC",
+      "RUSTC_WRAPPER",
+      "RUSTC_WORKSPACE_WRAPPER",
+      "CARGO_BUILD_RUSTFLAGS",
+      "CARGO_BUILD_RUSTC_WRAPPER",
+      "CARGO_BUILD_RUSTC_WORKSPACE_WRAPPER",
+      "RUSTUP_TOOLCHAIN"
+    ],
+    "CARGO_BUILD_JOBS": "1",
+    "CARGO_INCREMENTAL": "0",
+    "present_overrides": []
+  },
+  "finished_utc": "2026-10-05T07:37:32.5875067Z",
+  "agent_uuid": "01a10767-80de-7e02-b3b0-73d1273a70bd",
+  "stderr": {
+    "path": "D:\\Project\\witvoice\\.local\\t008-author\\02-rustfmt-20261005T0737324202793.stderr.txt",
+    "characters": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

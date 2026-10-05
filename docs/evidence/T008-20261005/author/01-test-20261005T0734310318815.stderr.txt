@@ -1,0 +1,36 @@
+   Compiling proc-macro2 v1.0.107
+   Compiling unicode-ident v1.0.26
+   Compiling quote v1.0.47
+   Compiling syn v2.0.119
+   Compiling windows-link v0.2.1
+   Compiling windows-result v0.4.1
+   Compiling windows-strings v0.5.1
+   Compiling windows-implement v0.60.2
+   Compiling windows-interface v0.59.3
+   Compiling windows-core v0.62.2
+   Compiling serde_core v1.0.228
+   Compiling windows-threading v0.2.1
+   Compiling serde v1.0.228
+   Compiling serde_json v1.0.145
+   Compiling windows-future v0.3.2
+   Compiling windows-collections v0.3.2
+   Compiling windows-numerics v0.3.1
+   Compiling serde_derive v1.0.228
+   Compiling ryu v1.0.23
+   Compiling memchr v2.8.3
+   Compiling itoa v1.0.18
+   Compiling windows v0.62.2
+   Compiling witvoice-audio v0.1.0 (D:\Project\witvoice\crates\audio)
+error[E0689]: can't call method `round` on ambiguous numeric type `{float}`
+   --> crates\audio\tests\realtime.rs:224:46
+    |
+224 |             let ratio=clock.update(available.round() as u32).unwrap();
+    |                                              ^^^^^
+    |
+help: you must specify a type for this binding, like `f32`
+    |
+221 |         let mut available: f32=960.0;let mut maxq=0.0_f64;let mut minq=f64::MAX;let mut maxppm=0.0_f64;
+    |                          +++++
+
+For more information about this error, try `rustc --explain E0689`.
+error: could not compile `witvoice-audio` (test "realtime") due to 1 previous error

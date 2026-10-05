@@ -187,3 +187,78 @@ synthetic clock test and 2h Windows wall-clock audio gate remain distinct.
 No Mac backend or cross-machine result is claimed. T007 cannot be closed from
 metadata and unit tests alone; complete input/output/removal hardware evidence
 and independent review are required. No GPU/audio hardware lease is held here.
+
+## T008 implementation and evidence boundary
+
+The preceding T007 description is historical. `realtime` now contains a
+control-preallocated bounded SPSC with exclusive borrowed producer/consumer
+endpoints. Its slots live on the control owner; callbacks cannot clone or drop
+the final shared allocation. Cursor publication/acquisition and exact unsafe
+slot-ownership invariants are documented in `spsc.rs`. Saturation rejects the
+newest block and counts overflow; callbacks never drain-until-empty or wait to
+fill capacity. Capacity, target occupancy, maximum age and policy are separate
+configuration fields. Capture defaults to 10ms target / 20ms maximum age;
+output defaults to 984 frames (20.5ms) target / 60ms maximum age / 80ms capacity.
+Its explicit 24-frame margin covers interpolation lookahead at discrete packet
+boundaries. The interpolator never prefetches beyond the final requested sample.
+
+Opaque `CaptureBlock` and `ProcessedBlock` are separate paths. The trusted model
+assembler must supply genuine converted 48k mono results in 480-frame blocks;
+there is no CaptureBlock-to-playout adapter or identity production route. This
+crate validates finite PCM, session/epoch, checked source intervals, monotonic
+local timestamps, deadlines and ordering. It cannot authenticate the semantic
+origin of a slice supplied by a trusted caller; T014 supplies the Node/worker
+binding. Non-48k model or device rates require their explicit boundary adapter,
+and are not capabilities granted by this same-rate drift corrector.
+
+Every output/monitor has its own queue, interpolation state and occupancy clock.
+Monitor permission starts muted and no monitor disconnect affects the virtual
+gate. Linear interpolation preserves the source sample index with correction
+limited to ±1000ppm. A backlog beyond twice the target for 100 consecutive callbacks
+faults the owner; excessive negative drift faults on sustained underflow. Clipped
+proportional feedback at packet boundaries is not a measured hardware drift.
+This is limited drift correction, not general resampler quality
+evidence. Underflow erases the entire callback (including partial PCM), is counted
+separately from planned silence, and 30ms of consecutive missing output faults
+the gate. No VAD timeline deletion, noise suppression or routine normal-block
+eviction is used. Assembly counts and actual successful native sink commits are
+separate diagnostics; saturating diagnostic counters never wrap.
+
+`OutputGate` starts muted; explicit `arm` requires exclusive control ownership
+before sharing. Mute/Stop first atomically and irreversibly invalidate this epoch,
+before slow cleanup. Native `SharedStream::submit_processed` accepts a processed
+playout owner, not arbitrary source PCM. Ordinary `bind_output_gate` must bind an
+Arc-owned gate once before Start; submission rejects any unbound/different gate.
+The notification signal holds the same gate in a OnceLock. Actual changes
+atomically fault it without a blocking lookup, clone or final Arc drop in the
+callback. Close invalidates it before Stop/Reset/unregister. One gate cannot
+bind to multiple native owners, so monitor teardown cannot share the virtual
+native gate. Construct/share/arm ordering is a trusted control operation; no
+implicit Start/arm or renewed authorization is added. It acquires a bounded in-flight ticket
+before assembly, rechecks permission/notifications/deadlines before commit,
+and keeps the ticket through the raw-HRESULT `ReleaseBuffer`. Muted or failed
+assembly submits SILENT. Callback operations do not query COM error information,
+wait, allocate, format logs or destroy a COM owner. Construct/close/Drop remain
+ordinary STA control operations. Control-thread `ack_ready` must be true before
+reporting successful local Mute ACK; otherwise its bounded polling deadline is a
+failure, not an ACK. There is no callback spin for this handshake. New prepare
+requires new queues/gate and a fresh epoch; the old gate cannot re-arm.
+
+Invalidate during an already-entered native commit may precede that commit's
+exit; ACK waits for its ticket. OS audio already queued before ACK remains an
+independent, UNKNOWN hardware tail. The software handshake does not revoke it.
+Native submission uses the caller's same local monotonic clock for assembly and
+precommit expiry; caller-provided wall clocks or arbitrary timestamps are invalid.
+
+Pure tests cover queue concurrency/order/reuse, allocator counts on success and
+failure, interval/counter extremes, expiry/gaps, separate starvation/planned
+silence, independent disabled monitor, and injected native commit/mute failures.
+The 8h tests use the production occupancy controller and source phase planner
+at 10ms callback granularity with real SPSC metadata slots and discrete 480-frame
+arrivals; finite startup inventory is 30ms. Separate ramp tests exercise real interpolation.
+Each ±150/±500ppm report records 2,880,000 synthetic callbacks, 28,800 simulated
+seconds, source/output counts, occupancy/correction bounds and actual wall time.
+They do not run billions of PCM sample interpolations or prove real hardware
+latency, real2h stability, two-machine LAN, Mac, model quality or virtual routing.
+No hardware/GPU/LAN lease is held and no native Start is run by these tests.
+Current validation status is pending the actual commands and independent review.

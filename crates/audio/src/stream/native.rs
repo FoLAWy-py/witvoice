@@ -3,6 +3,7 @@ use super::{CapturePacket, PacketError, decode_packet};
 use crate::{
     format::AudioFormat,
     notifications::{ChangeSignal, NotificationWatch, WatchError},
+    realtime::{BUS_RATE, BlockError, OutputGate, Playout},
     wasapi::{
         Apartment, Flow, MetadataError, MixFormat, NativeDescriptor, TaskMem, client, enumerator,
         read_format, selected,
@@ -44,6 +45,7 @@ pub enum StreamError {
     Packet(PacketError),
     Watch(WatchError),
     DeviceChanged,
+    Governance(BlockError),
 }
 fn failure(operation: &'static str, error: windows::core::Error) -> StreamError {
     StreamError::Com {
@@ -259,13 +261,36 @@ impl SharedStream {
         self.state == State::Retired || self.signal.has_changed()
     }
     fn retire<T>(&mut self, result: Result<T, StreamError>) -> Result<T, StreamError> {
-        finish_operation(&self.signal, &mut self.state, result)
+        let result = finish_operation(&self.signal, &mut self.state, result);
+        if result.is_err()
+            && let Some(gate) = self.signal.output_gate()
+        {
+            gate.fail();
+        }
+        result
+    }
+    /// Ordinary control thread, before Start; never clone shared ownership in
+    /// the packet path. Once bound, close and actual notifications invalidate
+    /// the exact same gate, before slow COM cleanup. A new stream needs a new
+    /// gate/epoch. Source capture and silence-only owners need no output gate.
+    pub fn bind_output_gate(&mut self, gate: Arc<OutputGate>) -> Result<(), StreamError> {
+        if self.state != State::Prepared
+            || self.closed
+            || !matches!(self.service, Service::Silence(_))
+        {
+            gate.fail();
+            return self.retire(Err(StreamError::State));
+        }
+        if !self.signal.bind_output_gate(gate) {
+            return self.retire(Err(StreamError::State));
+        }
+        Ok(())
     }
     pub fn start(&mut self, _authorization: ExplicitStart) -> Result<(), StreamError> {
         guard_change(&self.signal, &mut self.state)?;
         if self.state != State::Prepared {
             self.state = State::Retired;
-            return Err(StreamError::State);
+            return self.retire(Err(StreamError::State));
         }
         let result = unsafe { self.client.Start() }.map_err(|e| failure("Start", e));
         self.retire(result)?;
@@ -277,7 +302,7 @@ impl SharedStream {
         guard_change(&self.signal, &mut self.state)?;
         if self.state != State::Running || timeout > Duration::from_millis(100) {
             self.state = State::Retired;
-            return Err(StreamError::State);
+            return self.retire(Err(StreamError::State));
         }
         // Ordinary STA scheduler dispatches notification COM calls while waiting.
         // Packet operations remain non-waiting. Even timeout checks sticky change.
@@ -303,19 +328,20 @@ impl SharedStream {
         guard_change(&self.signal, &mut self.state)?;
         if self.state != State::Running {
             self.state = State::Retired;
-            return Err(StreamError::State);
+            return self.retire(Err(StreamError::State));
         }
-        watched_packet(
-            &self.signal,
-            &mut self.state,
-            output,
-            |output| match &self.service {
-                Service::Capture(capture) => {
-                    read_packet(capture, self.format, self.capacity, output)
-                }
-                Service::Silence(_) => Err(StreamError::WrongFlow),
-            },
-        )
+        let result = watched_packet(&self.signal, &mut self.state, output, |output| match &self
+            .service
+        {
+            Service::Capture(capture) => read_packet(capture, self.format, self.capacity, output),
+            Service::Silence(_) => Err(StreamError::WrongFlow),
+        });
+        if result.is_err()
+            && let Some(gate) = self.signal.output_gate()
+        {
+            gate.fail();
+        }
+        result
     }
     /// No data parameter: this slice has no original/converted PCM output path.
     pub fn submit_silence(&mut self) -> Result<u32, StreamError> {
@@ -346,8 +372,102 @@ impl SharedStream {
         };
         self.retire(result)
     }
+    /// Only a processed playout owner can supply PCM; no naked source buffer
+    /// API. Same-rate drift correction requires explicitly negotiated 48k.
+    /// The caller preallocates scratch; the gate ticket covers ReleaseBuffer.
+    pub fn submit_processed(
+        &mut self,
+        playout: &mut Playout<'_>,
+        scratch: &mut [f32],
+        clock_ns: impl Fn() -> u64,
+    ) -> Result<u32, StreamError> {
+        scratch.fill(0.0);
+        let gate = playout.gate();
+        if self
+            .signal
+            .output_gate()
+            .is_none_or(|bound| !std::ptr::eq(bound.as_ref(), gate))
+        {
+            gate.fail();
+            return self.retire(Err(StreamError::State));
+        }
+        if let Err(error) = guard_change(&self.signal, &mut self.state) {
+            gate.fail();
+            return Err(error);
+        }
+        if self.state != State::Running || self.format.sample_rate() != BUS_RATE {
+            gate.fail();
+            self.state = State::Retired;
+            return Err(StreamError::State);
+        }
+        let result = match &self.service {
+            Service::Capture(_) => Err(StreamError::WrongFlow),
+            Service::Silence(render) => (|| {
+                let padding = padding_with(|out| unsafe {
+                    (Interface::vtable(&self.client).GetCurrentPadding)(
+                        Interface::as_raw(&self.client),
+                        out,
+                    )
+                })?;
+                let frames = self
+                    .capacity
+                    .checked_sub(padding)
+                    .ok_or(StreamError::Capacity)?;
+                if frames == 0 {
+                    return Ok(0);
+                }
+                if frames > 960 || frames as usize > scratch.len() {
+                    return Err(StreamError::Capacity);
+                }
+                let ticket = gate.begin_commit();
+                let assembled = if ticket.is_some() {
+                    playout.render(&mut scratch[..frames as usize], clock_ns())
+                } else {
+                    Err(BlockError::Muted)
+                };
+                // A muted callback still submits SILENT without an old PCM
+                // ticket. Tickets are acquired before assembly and release only
+                // after the actual native sink commit exits (including failure).
+                let pcm = render_governed(
+                    render,
+                    self.format,
+                    frames,
+                    &scratch[..frames as usize],
+                    || {
+                        let valid = assembled.is_ok()
+                            && ticket.as_ref().is_some_and(|t| t.is_live())
+                            && !self.signal.has_changed()
+                            && playout.commit_valid(clock_ns());
+                        if assembled.is_ok() && !valid {
+                            gate.fail();
+                        }
+                        valid
+                    },
+                )?;
+                playout.record_sink(frames, pcm);
+                drop(ticket);
+                if self.signal.has_changed() {
+                    gate.fail();
+                }
+                if !gate.is_live() {
+                    scratch.fill(0.0);
+                }
+                Ok(frames)
+            })(),
+        };
+        let result = self.retire(result);
+        if result.is_err() {
+            gate.fail();
+            playout.record_sink_failure();
+            scratch.fill(0.0);
+        }
+        result
+    }
     /// Irreversible stop/reset. A new explicit prepare is needed for any restart.
     pub fn close(&mut self) -> Result<(), StreamError> {
+        if let Some(gate) = self.signal.output_gate() {
+            gate.invalidate();
+        }
         if self.closed {
             return match self.close_error {
                 Some((operation, hresult)) => Err(StreamError::Com { operation, hresult }),
@@ -366,6 +486,11 @@ impl SharedStream {
             other => StreamError::Watch(other),
         });
         let result = stopped.and(reset).and(unregistered);
+        if result.is_err()
+            && let Some(gate) = self.signal.output_gate()
+        {
+            gate.fail();
+        }
         if let Err(StreamError::Com { operation, hresult }) = &result {
             self.close_error = Some((*operation, *hresult));
         }
@@ -473,6 +598,56 @@ fn render_silence(render: &IAudioRenderClient, frames: u32) -> Result<(), Stream
             AUDCLNT_BUFFERFLAGS_SILENT.0 as u32,
         )
     })
+}
+
+fn render_governed(
+    render: &IAudioRenderClient,
+    format: AudioFormat,
+    frames: u32,
+    samples: &[f32],
+    live: impl Fn() -> bool,
+) -> Result<bool, StreamError> {
+    let mut pointer = ptr::null_mut();
+    packet_status("RenderGetBuffer", unsafe {
+        (Interface::vtable(render).GetBuffer)(Interface::as_raw(render), frames, &mut pointer)
+    })?;
+    // Every successful acquire has one release, including null/format/gate
+    // errors. The flag silences all frames without dereferencing a null pointer.
+    let length = (frames as usize).checked_mul(format.frame_bytes());
+    let mut error = None;
+    let mut silent = !live();
+    if !silent {
+        if pointer.is_null() || length.is_none() {
+            error = Some(StreamError::Capacity);
+            silent = true;
+        } else {
+            let output = unsafe { std::slice::from_raw_parts_mut(pointer, length.unwrap_or(0)) };
+            if let Err(failure) = crate::format::mono_to_render(format, samples, 1.0, output) {
+                error = Some(StreamError::Packet(PacketError::Format(failure)));
+                silent = true;
+            }
+            if !live() {
+                format.silence(output);
+                silent = true;
+            }
+        }
+    }
+    let released = packet_status("RenderReleaseBuffer", unsafe {
+        (Interface::vtable(render).ReleaseBuffer)(
+            Interface::as_raw(render),
+            frames,
+            if silent {
+                AUDCLNT_BUFFERFLAGS_SILENT.0 as u32
+            } else {
+                0
+            },
+        )
+    });
+    released?;
+    if let Some(error) = error {
+        return Err(error);
+    }
+    Ok(!silent)
 }
 
 #[cfg(test)]

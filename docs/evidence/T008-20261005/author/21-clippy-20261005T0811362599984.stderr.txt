@@ -1,0 +1,61 @@
+    Checking witvoice-audio v0.1.0 (D:\Project\witvoice\crates\audio)
+error: this `if` statement can be collapsed
+   --> crates\audio\src\stream\native.rs:265:9
+    |
+265 | /         if result.is_err() {
+266 | |             if let Some(gate) = self.signal.output_gate() {
+267 | |                 gate.fail();
+268 | |             }
+269 | |         }
+    | |_________^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.99.0/index.html#collapsible_if
+    = note: `-D clippy::collapsible-if` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[allow(clippy::collapsible_if)]`
+help: collapse nested if block
+    |
+265 ~         if result.is_err()
+266 ~             && let Some(gate) = self.signal.output_gate() {
+267 |                 gate.fail();
+268 ~             }
+    |
+
+error: this `if` statement can be collapsed
+   --> crates\audio\src\stream\native.rs:339:9
+    |
+339 | /         if result.is_err() {
+340 | |             if let Some(gate) = self.signal.output_gate() {
+341 | |                 gate.fail();
+342 | |             }
+343 | |         }
+    | |_________^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.99.0/index.html#collapsible_if
+help: collapse nested if block
+    |
+339 ~         if result.is_err()
+340 ~             && let Some(gate) = self.signal.output_gate() {
+341 |                 gate.fail();
+342 ~             }
+    |
+
+error: this `if` statement can be collapsed
+   --> crates\audio\src\stream\native.rs:489:9
+    |
+489 | /         if result.is_err() {
+490 | |             if let Some(gate) = self.signal.output_gate() {
+491 | |                 gate.fail();
+492 | |             }
+493 | |         }
+    | |_________^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.99.0/index.html#collapsible_if
+help: collapse nested if block
+    |
+489 ~         if result.is_err()
+490 ~             && let Some(gate) = self.signal.output_gate() {
+491 |                 gate.fail();
+492 ~             }
+    |
+
+error: could not compile `witvoice-audio` (lib) due to 3 previous errors
