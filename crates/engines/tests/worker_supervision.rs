@@ -343,6 +343,16 @@ fn fault(owner: &mut WorkerSupervisor) -> supervisor::Failure {
     let limit = Instant::now() + Duration::from_secs(3);
     loop {
         if let Err(error) = owner.poll() {
+            println!(
+                "fault returned={error:?} first_failure={:?} cleanup_snapshot={:?} member_failure={:?} phase={:?} output_allowed={} resources_released={} stopped_ack={}",
+                owner.first_failure(),
+                owner.cleanup_snapshot(),
+                owner.test_member_failure_snapshot(),
+                owner.phase(),
+                owner.output_allowed(),
+                owner.resources_released(),
+                owner.stopped_ack()
+            );
             return error;
         }
         assert!(Instant::now() < limit, "finite fault wait");
@@ -433,6 +443,7 @@ fn bad_ready_request_binding_and_complete_capability_are_fail_closed() {
     ] {
         let mut worker = owner(mode);
         initial(&mut worker);
+        println!("fault mode={mode}");
         let error = fault(&mut worker);
         assert_eq!(error.kind, FailureKind::Protocol);
         assert_eq!(worker.phase(), Phase::RetryPending);
@@ -452,6 +463,7 @@ fn eof_partial_frame_heartbeat_timeout_and_memory_pressure_retire_actual_job() {
     ] {
         let mut worker = owner(mode);
         initial(&mut worker);
+        println!("fault mode={mode}");
         let error = fault(&mut worker);
         assert_eq!(error.fault, expected, "{mode}");
         assert!(worker.last_cleaned_pid().is_some());

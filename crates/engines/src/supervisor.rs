@@ -16,7 +16,8 @@ use witvoice_contracts::{
     worker::{WorkerBinding, WorkerCommand, WorkerEvent, WorkerRequest, decode_worker_response},
 };
 use witvoice_platform::{
-    Process, ProcessJob, Secret, WorkerPipeServer, current_process_is_elevated,
+    MemberFailureSnapshot, Process, ProcessJob, Secret, WorkerPipeServer,
+    current_process_is_elevated,
 };
 
 const MODEL: &str = "01caafec9a3991a5514df9412952d24ae3370406358a01e20e03df41f2f5d515";
@@ -274,6 +275,7 @@ pub struct WorkerSupervisor {
     capabilities: Option<PreparedCapabilities>,
     first_failure: Option<Failure>,
     cleanup_snapshot: Option<CleanupSnapshot>,
+    member_failure_snapshot: Option<MemberFailureSnapshot>,
     last_cleaned_pid: Option<u32>,
     stopped_ack: bool,
     #[cfg(test)]
@@ -294,6 +296,7 @@ impl WorkerSupervisor {
             capabilities: None,
             first_failure: None,
             cleanup_snapshot: None,
+            member_failure_snapshot: None,
             last_cleaned_pid: None,
             stopped_ack: false,
             #[cfg(test)]
@@ -679,6 +682,9 @@ impl WorkerSupervisor {
             }
             Ok(())
         })();
+        if let Some(snapshot) = own.job.lifetime_failure_snapshot() {
+            self.member_failure_snapshot.get_or_insert(snapshot);
+        }
         let elapsed = u64::try_from(started.elapsed().as_millis()).ok();
         remember_cleanup(
             &mut self.cleanup_snapshot,
@@ -738,6 +744,14 @@ impl WorkerSupervisor {
         policy(self.lifecycle.explicit_user_reset())?;
         self.first_failure = None;
         Ok(())
+    }
+    #[cfg(test)]
+    pub fn test_member_failure_snapshot(&self) -> Option<MemberFailureSnapshot> {
+        self.member_failure_snapshot.or_else(|| {
+            self.owned
+                .as_ref()
+                .and_then(|own| own.job.lifetime_failure_snapshot())
+        })
     }
     #[cfg(test)]
     pub fn test_owned_member_handles(&self) -> Result<Vec<Process>> {
