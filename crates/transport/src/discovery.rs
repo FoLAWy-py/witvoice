@@ -89,8 +89,7 @@ impl DiscoveryRecords {
     }
 }
 
-/// Fail closed BEFORE constructing mdns-sd's socket-owning ServiceDaemon.
-/// Its 0.21.4 DNS cache has unbounded HashMap/Vec inserts despite bounded channels.
-pub fn enable_mdns(_explicit_lan_approval: bool) -> Result<(), Error> {
-    Err(Error::MdnsCacheUnbounded)
-}
+#[cfg(windows)]
+mod native;
+#[cfg(windows)]
+pub use native::NativePeers;

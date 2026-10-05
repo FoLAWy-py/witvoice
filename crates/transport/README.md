@@ -8,6 +8,8 @@ T016 当前切片实现公开身份、显式本机信任表、严格数字局域
 
 手动输入仅RFC1918/IPv4 link-local、IPv6 ULA或带非零数字scope的link-local，非零端口；不解析DNS，不接受WAN/loopback/multicast/mappedIPv6。同接口/同子网及绑定监听仍由T017显式LAN授权负责。发现表名称63bytes、最多128条、TTL最多120s、单调时间倒退拒绝，超限拒绝不驱逐；只接收固定公开字段，无任意TXT/路径/token。它尚未接到生产发现后端。
 
-**mDNS adapter BLOCKED，T016保持IN_PROGRESS。** mdns-sd0.21.4 `src/dns_cache.rs:59`起有六个HashMap；`:226` add_or_update在`:277–281` entry().or_default、`:306` record_vec.insert无总容量上限，subtype也插入；其他派生entry不能证明总体上限。service_daemon.rs new_with_port先bindsocket，100/10/100频道容量不限制cache。`enable_mdns`在构造daemon前返回MdnsCacheUnbounded，不能把下游128条记录当上游资源界。最小候选解阻（由leader决定，未实现）：有严格容量/期限的标准原生DNS adapter；或经既有监督独立进程加硬内存界、溢出退出并清空发现。没有fork/改写上游或试开listener。
+原mdns-sd0.21.4的六个cache HashMap及record vectors没有总量证明；历史身份片段因此未构造daemon。ADR0003改用现有Windows DNS-SD API，移除该未使用依赖；不fork上游，不把下游128表当上游容量证据。`NativePeers::default()`不浏览、注册或解析；显式LAN批准与非零interface才调用真实平台adapter。只广播node UUID、protocol和监听信息；发现及手动地址仍不能授权任何peer。平台queue最多32、上下文16、browser/advertiser各1、resolve同时8且3s截止；发现记录仍128/TTL120s，绝对单调expiry贯穿回调/队列/resolve，不因poll刷新。未知取消/注销保留有界quarantine并拒绝新操作；close返回false或错误不得标cleanup PASS。Windows OS DNS cache和API临时分配不属于app-owned资源界证明。
+
+`native_discovery_probe`仅显式`--allow-lan INTERFACE NODE_UUID browse|advertise|resolve ADDRESS_OR_SERVICE DURATION_MS`，固定本项目服务、1..9000ms操作与总计10s取消观察，未收到终态则失败；它不监听QUIC/音频或配对。当前只允许编译，真实运行需leader进一步指定接口/操作。原生代码/注入测试结果以本轮日志为准；T016仍待独立review及实际DNS-SD门，Mac Bonjour/双向LAN仍必需且未执行。
 
 实际验收命令：`cargo test --locked -p witvoice-transport -p witvoice-platform`、`cargo fmt --package witvoice-transport --package witvoice-platform --check`、`cargo clippy --locked -p witvoice-transport -p witvoice-platform --all-targets -- -D warnings`。真实LAN/mDNS、QUIC/mTLS、Windows↔Mac、Mac Keychain、Node命令和撤销session集成未执行；无音频/GPU权限。

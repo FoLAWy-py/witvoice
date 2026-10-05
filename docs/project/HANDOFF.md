@@ -1,5 +1,11 @@
 # 当前交接
 
+T007正式r3已由独立reviewer批准DONE（3/3，边界见reviews/T007-r3.md）；next_task=T008。T016原生11源码冻结但BLOCKED B004，两个完整compiler101保留；官方stable1.99.0/33 compiler bin/lib/两syn+windows源码摘要全MATCH，原因UNKNOWN，无同系列补丁/不降级。audio已登记T008独立路径写入锁，即将真实followup；实际pure audio构建不先假定全Rust不可用，compiler再失败停止。当前无硬件/GPU/LAN锁。
+
+官方stable清单经SHA256核查仍为1.99.0（2026-10-01）；第二次完整ICE原结果已保存。backend已交付并停止，代码锁释放；leader在独立.local路径做同版本官方archive与已安装文件字节核查，只检验安装损坏假设，不安装/降级/重复编译。T007同r3审查继续。
+
+T016真正应用检查仍被工具链阻塞：isolatedtarget/jobs1/inc0下Syn2.0.119编译触发Rust1.99内部assert ICE，cargo101，在编到应用源/tests前失败。backend已停止cargo/源码更改，保存11文件SHA；固定failure2缓存路径授权，旧failure1不覆盖。root停止相同条件重试，仅查官方补丁与最小工具链解阻可能；T007冻结r3审查继续，不移用诊断compile0作应用PASS。
+
 编译诊断结果已实际exit0（23.40s）：同windows0.62.2/原16feature、离线15registry版本/摘要沿用主lock、独立D target/jobs1/inc0。原因仍UNKNOWN（组合改变不能归因），不是T016应用tests或LAN通过。root诊断写入锁已释放；backend恢复在同target/jobs1/inc0跑实际pure tests/fmt/clippy/examples，保留原101失败并禁真实网络/硬件。
 
 编译诊断root独立.local白名单已登记（与backend两写入者、不重叠）：固定同windows0.62.2/原16feature，仅隔离target/jobs1/incremental0做一次compile-only复测；复制原lock并离线裁剪核所有retained版本/摘要，不改主lock/依赖。audio另恢复只读56f历史identity11日志中继给reviewer，不是T016正式批准；最多4子agent，无hardware/GPU。

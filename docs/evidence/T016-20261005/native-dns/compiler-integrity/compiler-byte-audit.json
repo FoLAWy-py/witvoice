@@ -1,0 +1,244 @@
+{
+  "start_utc": "2026-10-05T07:08:33.060154+00:00",
+  "end_utc": "2026-10-05T07:08:42.877954+00:00",
+  "url": "https://static.rust-lang.org/dist/2026-10-01/rustc-1.99.0-x86_64-pc-windows-msvc.tar.xz",
+  "archive_bytes": 77093924,
+  "archive_sha256": "20fed82e629c1ed145f9e9bdee9aad65e790d4237a49bcfc61221eda69e35b14",
+  "installed_root": "D:\\Software\\WitvoiceToolchain\\Rust\\rustup\\toolchains\\1.99.0-x86_64-pc-windows-msvc",
+  "files": [
+    {
+      "path": "bin/rust-gdb",
+      "bytes": 1413,
+      "official_sha256": "7054a508ece38b5bb81860e8ddbcd62021fab6432026789970ebbba8b84f6163",
+      "installed_sha256": "7054a508ece38b5bb81860e8ddbcd62021fab6432026789970ebbba8b84f6163",
+      "match": true
+    },
+    {
+      "path": "bin/rust-lldb",
+      "bytes": 961,
+      "official_sha256": "a82c91ccb285aa4a1dbcf08cda68ba4e8c36082af0adfefdee514673113815da",
+      "installed_sha256": "a82c91ccb285aa4a1dbcf08cda68ba4e8c36082af0adfefdee514673113815da",
+      "match": true
+    },
+    {
+      "path": "bin/rustc_main-d31c6813d35ee100.pdb",
+      "bytes": 3657728,
+      "official_sha256": "6687fc476b4e7e096b7fa756312d086f2e59daa1a565924fdcb17d83acb55849",
+      "installed_sha256": "6687fc476b4e7e096b7fa756312d086f2e59daa1a565924fdcb17d83acb55849",
+      "match": true
+    },
+    {
+      "path": "bin/rustdoc.pdb",
+      "bytes": 6893568,
+      "official_sha256": "b66ef377f7c2962183bc290161b8ca6b9955be4580213dc0ef701d389b7b1bd9",
+      "installed_sha256": "b66ef377f7c2962183bc290161b8ca6b9955be4580213dc0ef701d389b7b1bd9",
+      "match": true
+    },
+    {
+      "path": "bin/rustc.pdb",
+      "bytes": 3657728,
+      "official_sha256": "6687fc476b4e7e096b7fa756312d086f2e59daa1a565924fdcb17d83acb55849",
+      "installed_sha256": "6687fc476b4e7e096b7fa756312d086f2e59daa1a565924fdcb17d83acb55849",
+      "match": true
+    },
+    {
+      "path": "lib/rustlib/x86_64-pc-windows-msvc/bin/gcc-ld/wasm-ld.pdb",
+      "bytes": 4648960,
+      "official_sha256": "f2e8c380c502721c3301eddb6719d8add7be761840ba3bafa65403a514d0fce1",
+      "installed_sha256": "f2e8c380c502721c3301eddb6719d8add7be761840ba3bafa65403a514d0fce1",
+      "match": true
+    },
+    {
+      "path": "lib/rustlib/x86_64-pc-windows-msvc/bin/wasm-component-ld.pdb",
+      "bytes": 5959680,
+      "official_sha256": "5d9a8e5727f7afd53b703eb6e896de7383ce54b8da812c817b54f28e247e5fe7",
+      "installed_sha256": "5d9a8e5727f7afd53b703eb6e896de7383ce54b8da812c817b54f28e247e5fe7",
+      "match": true
+    },
+    {
+      "path": "lib/rustlib/x86_64-pc-windows-msvc/bin/gcc-ld/ld64.lld.pdb",
+      "bytes": 4648960,
+      "official_sha256": "f2e8c380c502721c3301eddb6719d8add7be761840ba3bafa65403a514d0fce1",
+      "installed_sha256": "f2e8c380c502721c3301eddb6719d8add7be761840ba3bafa65403a514d0fce1",
+      "match": true
+    },
+    {
+      "path": "lib/rustlib/x86_64-pc-windows-msvc/bin/gcc-ld/ld.lld.pdb",
+      "bytes": 4648960,
+      "official_sha256": "f2e8c380c502721c3301eddb6719d8add7be761840ba3bafa65403a514d0fce1",
+      "installed_sha256": "f2e8c380c502721c3301eddb6719d8add7be761840ba3bafa65403a514d0fce1",
+      "match": true
+    },
+    {
+      "path": "bin/rustc_driver-9cc664dca72b379e.pdb",
+      "bytes": 44077056,
+      "official_sha256": "90a6231d23816b0cbecec7af3462be41f2a357ff9412529aff58f67fbc319946",
+      "installed_sha256": "90a6231d23816b0cbecec7af3462be41f2a357ff9412529aff58f67fbc319946",
+      "match": true
+    },
+    {
+      "path": "lib/rustlib/x86_64-pc-windows-msvc/bin/gcc-ld/lld-link.pdb",
+      "bytes": 4648960,
+      "official_sha256": "f2e8c380c502721c3301eddb6719d8add7be761840ba3bafa65403a514d0fce1",
+      "installed_sha256": "f2e8c380c502721c3301eddb6719d8add7be761840ba3bafa65403a514d0fce1",
+      "match": true
+    },
+    {
+      "path": "bin/rust-windbg.cmd",
+      "bytes": 265,
+      "official_sha256": "42607991c8f3040a5e7bbf222272007e741ea96e97499a16bc6ab2fc77ab10f5",
+      "installed_sha256": "42607991c8f3040a5e7bbf222272007e741ea96e97499a16bc6ab2fc77ab10f5",
+      "match": true
+    },
+    {
+      "path": "bin/rustdoc.exe",
+      "bytes": 10897920,
+      "official_sha256": "b2efc6d05723fb258f743fdd3d8e5c0883635c54595ff75fb8623ac344cbe52e",
+      "installed_sha256": "b2efc6d05723fb258f743fdd3d8e5c0883635c54595ff75fb8623ac344cbe52e",
+      "match": true
+    },
+    {
+      "path": "bin/rustc.exe",
+      "bytes": 110592,
+      "official_sha256": "fc40f1c8b65095a22a48c111aadc279c26a049b7e4161e8b99ffe3eb23873e86",
+      "installed_sha256": "fc40f1c8b65095a22a48c111aadc279c26a049b7e4161e8b99ffe3eb23873e86",
+      "match": true
+    },
+    {
+      "path": "lib/rustlib/x86_64-pc-windows-msvc/bin/gcc-ld/wasm-ld.exe",
+      "bytes": 332800,
+      "official_sha256": "dafc965162fb6135b4589ea455f8558b45e2255dabb162fbd8ee04be80d21ecd",
+      "installed_sha256": "dafc965162fb6135b4589ea455f8558b45e2255dabb162fbd8ee04be80d21ecd",
+      "match": true
+    },
+    {
+      "path": "lib/rustlib/x86_64-pc-windows-msvc/bin/wasm-component-ld.exe",
+      "bytes": 5347840,
+      "official_sha256": "1f5e61fe191de2fccef10069fd54b713225049cf33a91a433afb8665eb7229ab",
+      "installed_sha256": "1f5e61fe191de2fccef10069fd54b713225049cf33a91a433afb8665eb7229ab",
+      "match": true
+    },
+    {
+      "path": "lib/rustlib/x86_64-pc-windows-msvc/bin/rust-lld.exe",
+      "bytes": 122606592,
+      "official_sha256": "b4b3a7e91505e6ab40f97493bebe398908f63582d686b72111e8ca8b08351bf5",
+      "installed_sha256": "b4b3a7e91505e6ab40f97493bebe398908f63582d686b72111e8ca8b08351bf5",
+      "match": true
+    },
+    {
+      "path": "lib/rustlib/x86_64-pc-windows-msvc/bin/gcc-ld/ld64.lld.exe",
+      "bytes": 332800,
+      "official_sha256": "dafc965162fb6135b4589ea455f8558b45e2255dabb162fbd8ee04be80d21ecd",
+      "installed_sha256": "dafc965162fb6135b4589ea455f8558b45e2255dabb162fbd8ee04be80d21ecd",
+      "match": true
+    },
+    {
+      "path": "lib/rustlib/x86_64-pc-windows-msvc/bin/gcc-ld/ld.lld.exe",
+      "bytes": 332800,
+      "official_sha256": "dafc965162fb6135b4589ea455f8558b45e2255dabb162fbd8ee04be80d21ecd",
+      "installed_sha256": "dafc965162fb6135b4589ea455f8558b45e2255dabb162fbd8ee04be80d21ecd",
+      "match": true
+    },
+    {
+      "path": "lib/rustlib/x86_64-pc-windows-msvc/bin/gcc-ld/lld-link.exe",
+      "bytes": 332800,
+      "official_sha256": "dafc965162fb6135b4589ea455f8558b45e2255dabb162fbd8ee04be80d21ecd",
+      "installed_sha256": "dafc965162fb6135b4589ea455f8558b45e2255dabb162fbd8ee04be80d21ecd",
+      "match": true
+    },
+    {
+      "path": "lib/rustlib/x86_64-pc-windows-msvc/bin/rust-objcopy.exe",
+      "bytes": 4666368,
+      "official_sha256": "82695f1363a1d050fd79253f70d490448df8a4b53d0d207af6d999f7aad8f8ee",
+      "installed_sha256": "82695f1363a1d050fd79253f70d490448df8a4b53d0d207af6d999f7aad8f8ee",
+      "match": true
+    },
+    {
+      "path": "bin/rust-gdbgui",
+      "bytes": 2160,
+      "official_sha256": "bc60613775a098e59b49fa4584cea73631697fe1456c44284c337d6700340315",
+      "installed_sha256": "bc60613775a098e59b49fa4584cea73631697fe1456c44284c337d6700340315",
+      "match": true
+    },
+    {
+      "path": "bin/rustc_driver-9cc664dca72b379e.dll",
+      "bytes": 206020096,
+      "official_sha256": "6e0929ce2af23442bd04d9a03e9311e8f6806dafd54af8f6a85c3cee535bfa73",
+      "installed_sha256": "6e0929ce2af23442bd04d9a03e9311e8f6806dafd54af8f6a85c3cee535bfa73",
+      "match": true
+    },
+    {
+      "path": "lib/rustlib/etc/intrinsic.natvis",
+      "bytes": 30319,
+      "official_sha256": "b02c8ed02c876061d2ff782fb1517c10c83bf09dd4e7503dcd528515c04e4c62",
+      "installed_sha256": "b02c8ed02c876061d2ff782fb1517c10c83bf09dd4e7503dcd528515c04e4c62",
+      "match": true
+    },
+    {
+      "path": "lib/rustlib/etc/liballoc.natvis",
+      "bytes": 8033,
+      "official_sha256": "aa59eb147bedcc03a7596e4b08ff386290d824dbd6b60a4076b9c593d84749c6",
+      "installed_sha256": "aa59eb147bedcc03a7596e4b08ff386290d824dbd6b60a4076b9c593d84749c6",
+      "match": true
+    },
+    {
+      "path": "lib/rustlib/etc/libstd.natvis",
+      "bytes": 4773,
+      "official_sha256": "2752f6eb93700921f0a08881c8abd9aa6a7354e1c962825070ebe7410dd7f16a",
+      "installed_sha256": "2752f6eb93700921f0a08881c8abd9aa6a7354e1c962825070ebe7410dd7f16a",
+      "match": true
+    },
+    {
+      "path": "lib/rustlib/etc/libcore.natvis",
+      "bytes": 4461,
+      "official_sha256": "840c5d32034d0881337a749a371fda83090a6e871c73c79fce30addf74f72c7a",
+      "installed_sha256": "840c5d32034d0881337a749a371fda83090a6e871c73c79fce30addf74f72c7a",
+      "match": true
+    },
+    {
+      "path": "lib/rustlib/etc/gdb_lookup.py",
+      "bytes": 3833,
+      "official_sha256": "e0b68235a6c2874ef24922e2cd903baf91b258b9590a60ab8779b989d84927ae",
+      "installed_sha256": "e0b68235a6c2874ef24922e2cd903baf91b258b9590a60ab8779b989d84927ae",
+      "match": true
+    },
+    {
+      "path": "lib/rustlib/etc/lldb_lookup.py",
+      "bytes": 17524,
+      "official_sha256": "183b7ad0118b2f27e713dfaf4052908ddc6bd50544e724725112d1ae4291fa4b",
+      "installed_sha256": "183b7ad0118b2f27e713dfaf4052908ddc6bd50544e724725112d1ae4291fa4b",
+      "match": true
+    },
+    {
+      "path": "lib/rustlib/etc/rust_types.py",
+      "bytes": 4232,
+      "official_sha256": "e1bb4a46461b943999c9e2346c71808168a982cbf812587622d9c807f32d5bb5",
+      "installed_sha256": "e1bb4a46461b943999c9e2346c71808168a982cbf812587622d9c807f32d5bb5",
+      "match": true
+    },
+    {
+      "path": "lib/rustlib/etc/gdb_providers.py",
+      "bytes": 16984,
+      "official_sha256": "cb65879ac99f0b654035e3d8ba7504608c00f428db495dad517876a6f9b05034",
+      "installed_sha256": "cb65879ac99f0b654035e3d8ba7504608c00f428db495dad517876a6f9b05034",
+      "match": true
+    },
+    {
+      "path": "lib/rustlib/etc/lldb_providers.py",
+      "bytes": 54408,
+      "official_sha256": "79b6372863088b358db4a386655cedfad77c6d7af4abbc91d280fea7f6ecff20",
+      "installed_sha256": "79b6372863088b358db4a386655cedfad77c6d7af4abbc91d280fea7f6ecff20",
+      "match": true
+    },
+    {
+      "path": "lib/rustlib/etc/gdb_load_rust_pretty_printers.py",
+      "bytes": 504,
+      "official_sha256": "a32e7857651bc7ed7c52dfc71131cbbea01a5cd1886399876032c4de60fa4886",
+      "installed_sha256": "a32e7857651bc7ed7c52dfc71131cbbea01a5cd1886399876032c4de60fa4886",
+      "match": true
+    }
+  ],
+  "file_count": 33,
+  "all_match": true,
+  "scope": "Downloaded official rustc compiler only; no install/extract/build/system change; compiler bin/lib bytes only, not std/cargo/full machine diagnosis"
+}

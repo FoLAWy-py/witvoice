@@ -1,0 +1,62 @@
+{
+  "utc": "2026-10-05T07:12:55.063749+00:00",
+  "author": "/root/backend",
+  "files": [
+    {
+      "path": "crates/platform/src/lib.rs",
+      "sha256": "88dde884c45af794447de33beb77352b18787072b54e35184ad643e7e88b7528",
+      "bytes": 302
+    },
+    {
+      "path": "crates/platform/src/discovery.rs",
+      "sha256": "2b9c68dc2a726701564f01e7f66f9b8eda743affef811e1ec5a8b18467a7eca4",
+      "bytes": 1631
+    },
+    {
+      "path": "crates/platform/src/discovery/native.rs",
+      "sha256": "2f944aae66bb7620779670a564ecf832f631ec6cb7cfe2daa77b3db375b6e528",
+      "bytes": 21028
+    },
+    {
+      "path": "crates/platform/src/discovery/native/tests.rs",
+      "sha256": "1aa0eb1e1bf943a82199b50aa94807aba3296199ab204d2de7b561d1a3ed048f",
+      "bytes": 14116
+    },
+    {
+      "path": "crates/platform/tests/discovery.rs",
+      "sha256": "f7abb5d101cae1a1891cead5e959d1889c0af67b0add5a34d6dc0b2867ad4dc1",
+      "bytes": 836
+    },
+    {
+      "path": "crates/platform/README.md",
+      "sha256": "e74467e00702ac549b4ce2b118dac17033afe6382bb38408c06f44c6c4de1665",
+      "bytes": 5056
+    },
+    {
+      "path": "crates/transport/src/discovery.rs",
+      "sha256": "2cb608a6e8fa670b5ff653d4350a0e0c6fa37d7946b235fc46a203d404e8e66c",
+      "bytes": 3054
+    },
+    {
+      "path": "crates/transport/src/discovery/native.rs",
+      "sha256": "52a46892ee75c8629fecf954c65d8dc4ab94fc519fe638097841a181b75fbb0e",
+      "bytes": 5469
+    },
+    {
+      "path": "crates/transport/tests/discovery.rs",
+      "sha256": "79043ed776b47d2ea1e44ac372c03b316f4ce8d8bc66f8ced64efe43d152f42d",
+      "bytes": 3336
+    },
+    {
+      "path": "crates/transport/examples/native_discovery_probe.rs",
+      "sha256": "5eaf74f2663e6d76f271d708d08b068a547a3d3b93b6e5f64dfc21a72c7fd7dd",
+      "bytes": 2817
+    },
+    {
+      "path": "crates/transport/README.md",
+      "sha256": "2a687a60970531ea5b149bbab1a817bd63f33ca3cc4bfd702510e717bd611105",
+      "bytes": 3230
+    }
+  ],
+  "validation": "NEW APPLICATION SOURCE NOT COMPILED; tests/fmt/clippy/examples NOT_RUN; two compiler failures preserved"
+}

@@ -7,73 +7,31 @@
   "active_milestone": "M1",
   "active_tasks": [
     {
-      "task_id": "T007",
-      "agent_instance_id": "/root/reviewer_t001",
-      "allowed_paths": [],
-      "resource_leases": [
-        "review-readonly:T007-r3"
-      ],
-      "depends_on": [
-        "T003"
-      ],
-      "contract": "fixed T007 acceptance + SPEC02/07, source3af/evidence56f; no T008 inverted deps",
-      "acceptance_commands": [
-        "readonly full frozen source/evidence relay; no independent test rerun"
-      ],
-      "reviewer": "/root/reviewer_t001",
-      "execution_note": "Resume interrupted same r3/attempt3, source3af/evidence56f/126; final result absent. Reviewer readonly, frontend fixed fulltext relay no edits/rerun."
-    },
-    {
-      "task_id": "T016",
-      "agent_instance_id": "/root/backend",
-      "allowed_paths": [
-        "crates/platform/src/discovery.rs",
-        "crates/platform/src/discovery/",
-        "crates/platform/src/lib.rs",
-        "crates/platform/tests/discovery.rs",
-        "crates/platform/README.md",
-        "crates/transport/src/discovery.rs",
-        "crates/transport/src/discovery/",
-        "crates/transport/tests/discovery.rs",
-        "crates/transport/examples/native_discovery_probe.rs",
-        "crates/transport/README.md",
-        ".local/t016-native-author/compile-failure1.json"
-      ],
-      "resource_leases": [
-        "code-writer:backend-native-dns"
-      ],
-      "depends_on": [
-        "T003",
-        "T006"
-      ],
-      "contract": "ADR0003 + T016-assignment native addendum + SPEC04/06",
-      "acceptance_commands": [
-        "cargo test/fmt/clippy platform+transport locked",
-        "cargo build -p witvoice-transport --locked --examples; no native network probe run"
-      ],
-      "reviewer": "/root/reviewer_t001",
-      "execution_note": "SameWindows16feature diagnostic compile0; root writer released. Backend may run locked tests/fmt/clippy/examples on isolatedtarget jobs1/inc0, no network/hardware; cause unknown."
-    },
-    {
-      "task_id": "T007",
+      "task_id": "T008",
       "agent_instance_id": "/root/audio_runtime",
-      "allowed_paths": [],
-      "read_paths": [
-        "56f41682:docs/evidence/T016-20261005/identity/author-event-index.json",
-        "56f41682:docs/evidence/T016-20261005/identity/author-events/"
+      "allowed_paths": [
+        "crates/audio/src/",
+        "crates/audio/tests/",
+        "crates/audio/examples/",
+        "crates/audio/README.md",
+        "tests/integration/",
+        ".local/t008-author/"
       ],
       "resource_leases": [
-        "readonly-relay:audio-historical-identity-logs"
+        "code-writer:audio-t008"
       ],
       "depends_on": [
-        "T003"
+        "T007"
       ],
-      "contract": "full frozen public log relay for T007 review, not T016 approval",
+      "contract": "docs/project/T008-assignment.md + SPEC02/07 + fresh session/epoch deadline; capture and processed types distinct; failmute",
       "acceptance_commands": [
-        "fixed git show read only; no tests/edits/hardware"
+        "cargo test --locked -p witvoice-audio",
+        "cargo fmt --package witvoice-audio --check",
+        "cargo clippy --locked -p witvoice-audio --all-targets -- -D warnings",
+        "cargo build --locked -p witvoice-audio --examples"
       ],
       "reviewer": "/root/reviewer_t001",
-      "execution_note": "relay11 historical events including two101 failures; not own formal approval"
+      "execution_note": "Native T007 r3 approved; new T008 implementation only. T016 compiler failures not assumed global; one scoped real audio build with process jobs1/inc0, if compiler fails stop no blind retries. No hardware/network/GPU."
     }
   ],
   "milestones": {
@@ -121,7 +79,7 @@
     }
   },
   "last_verified_commit": "6e9e7c5588a8ee07a3f04e46427f27d58f5e117b",
-  "next_task": "T007",
+  "next_task": "T008",
   "blockers": [
     {
       "id": "B001",
@@ -129,6 +87,13 @@
       "status": "BLOCKED_LICENSE_CHAIN",
       "evidence": "docs/evidence/model-feasibility/M0-20261004/RESULTS.md",
       "note": "lawlict-derived code and separate speaker checkpoint terms not closed; local experimental result does not authorize bundling"
+    },
+    {
+      "id": "B004",
+      "scope": "T016 native DNS source validation",
+      "status": "BLOCKED_TOOLCHAIN",
+      "evidence": "docs/evidence/T016-20261005/native-dns/compile-failure2.json",
+      "note": "Two compiler failures; current official stable1.99.0 exact compiler+dependency bytes match, causeUNKNOWN; needs fixed compatible toolchain or independently verified safe environment, no silent downgrade or system changes."
     }
   ],
   "distribution_status": "BLOCKED_LICENSE_CHAIN_NOT_BUILT",

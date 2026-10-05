@@ -10,3 +10,5 @@
 后续实际前置门仍未执行：T009/T015虚拟设备与物理采集、T026真实2h、T029完整24/3质量与owner试听、T031–T035 Mac真机及有线LAN双向。状态NOT_RUN/UNTESTED，不能标成失败或PASS，也不能提前代用户授权录音/装驱动。当前缺少完整质量素材的validator结果为BLOCKED，这不阻止T004测量计划本身被独立验收。
 
 B003（T002安全运行时，RESOLVED_EXPERIMENT_ONLY）：原Torch2.5.1落在两官方weights_only漏洞范围；固定摘要不等于安全解析。新入口阻断<2.10.0/未知，14纯回归通过；官方固定2.10.0+cu126同输入file PASS，首次paced FAIL保留，唯一隔离复测PASS（RTF0.594341/p99149.388ms）。独立/root/reviewer_t001正式r2已读完整修复/14tests/750steps/新33metadata/byte-provenance与真实离线命令，批准限定T002 C实验DONE，无新增S0/S1。仍非普遍安全认证；不复用旧429成绩，不运行恶意checkpoint/PoC。完整s3prl生产依赖pip check exit1缺3项，留固定T024安装闭合；许可B001及质量/硬件门继续生效。
+
+B004（T016 native DNS validation，BLOCKED_TOOLCHAIN）：新11文件已保存但未编译/测试。cargo第一例windows0.62.2 rustc访问异常c0000005；隔离compile-only成功后实际应用检查syn2.0.119 MIR assert ICE101。完整failure1/2及compiler-diagnostic、compiler-integrity在docs/evidence/T016-20261005/native-dns/。官方stable清单摘要核查仍1.99.0，官方77,093,924字节编译器包SHA匹配，33已安装bin/lib文件逐字节SHA一致；syn2/syn3/windows缓存包锁摘要和解包源一致。原因UNKNOWN，当前数据不能归因硬件或证明修复。最小解阻：可修复该ICE的兼容正式工具链/独立稳定环境验证；任何降级最低Rust、改BIOS/安全设置或外传bug材料先走具体变更/授权。T008独立作用域继续，若同样compiler失败只记录，不盲试。

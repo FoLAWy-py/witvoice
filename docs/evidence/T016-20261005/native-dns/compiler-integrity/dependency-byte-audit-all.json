@@ -1,0 +1,32 @@
+{
+  "utc": "2026-10-05T07:10:34.008183+00:00",
+  "source": "cached crate vs pinned Cargo.lock checksum, then unpacked source vs verified archive",
+  "packages": [
+    {
+      "name": "syn",
+      "version": "2.0.119",
+      "archive_sha256": "872831b642d1a07999a962a351ed35b955ea2cfc8f3862091e2a240a84f17297",
+      "files": 105,
+      "all_match": true,
+      "mismatches": []
+    },
+    {
+      "name": "syn",
+      "version": "3.0.6",
+      "archive_sha256": "8593e8e72159ed2257d083c7a454a85cbf854f37a0966d8d483aff8c8a3ebcee",
+      "files": 104,
+      "all_match": true,
+      "mismatches": []
+    },
+    {
+      "name": "windows",
+      "version": "0.62.2",
+      "archive_sha256": "527fadee13e0c05939a6a05d5bd6eec6cd2e3dbd648b9f8e447c6518133d8580",
+      "files": 701,
+      "all_match": true,
+      "mismatches": []
+    }
+  ],
+  "scope": "file integrity only; no cargo/rustc/app tests",
+  "prior_partial_read": "c13c64 only checked syn3/windows because duplicate-name mapping; archive-copy collision stopped exit1. This checks both syn2/syn3. No test PASS claim"
+}

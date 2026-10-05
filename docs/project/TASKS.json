@@ -216,7 +216,7 @@
       "milestone": "M1",
       "title": "Windows原生输入输出与格式协商",
       "owner_role": "audio_runtime",
-      "status": "IN_PROGRESS",
+      "status": "DONE",
       "requirements": [
         "REQ-06",
         "REQ-08"
@@ -271,7 +271,7 @@
       "milestone": "M1",
       "title": "有界缓冲、时钟、静音与回调安全",
       "owner_role": "audio_runtime",
-      "status": "TODO",
+      "status": "IN_PROGRESS",
       "requirements": [
         "REQ-08",
         "REQ-09",
@@ -285,8 +285,10 @@
         "tests/integration/"
       ],
       "acceptance": "无常规callback分配/阻塞；队列最大年龄可验证；mute先于慢停机；故障填零与underflow计数分开。",
-      "agent_instance_id": null,
-      "resource_leases": [],
+      "agent_instance_id": "/root/audio_runtime",
+      "resource_leases": [
+        "code-writer:audio-t008"
+      ],
       "evidence": [],
       "review": null,
       "attempts": 0,
@@ -488,7 +490,7 @@
       "milestone": "M3",
       "title": "LAN发现、手动寻址与双向身份信任",
       "owner_role": "backend",
-      "status": "IN_PROGRESS",
+      "status": "BLOCKED",
       "requirements": [
         "REQ-13",
         "REQ-14"
@@ -526,11 +528,14 @@
         "docs/evidence/T016-20261005/native-dns/compiler-diagnostic/preflight.json",
         "docs/evidence/T016-20261005/native-dns/compiler-diagnostic/lock-audit.json",
         "docs/evidence/T016-20261005/native-dns/compiler-diagnostic/build-command.json",
-        "docs/evidence/T016-20261005/native-dns/compiler-diagnostic/result.json"
+        "docs/evidence/T016-20261005/native-dns/compiler-diagnostic/result.json",
+        "docs/evidence/T016-20261005/native-dns/compile-failure2.json",
+        "docs/evidence/T016-20261005/native-dns/compiler-integrity/compiler-byte-audit.json",
+        "docs/evidence/T016-20261005/native-dns/compiler-integrity/dependency-byte-audit-all.json"
       ],
       "review": null,
       "attempts": 0,
-      "blocked_reason": null,
+      "blocked_reason": "B004: two compiler failures before new native source/tests, rustc access violation then syn ICE; no same-series official patch; compiler/dependency file integrity matches. Cause UNKNOWN.",
       "execution_note": "Controlled samewindows16feature clean target jobs1/inc0 compile0 in23.40s; causeUNKNOWN, first101 preserved. Production source still untested, backend authorized actual pure tests/builds in isolatedtarget, no API/network/hardware."
     },
     {

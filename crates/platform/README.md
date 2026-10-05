@@ -1,5 +1,7 @@
 # crates/platform
 
+T016原生DNS-SD使用固定Windows API和选定interface，Default无OS查询。稳定heap请求/字符串/cancel直到已知终态与调用/回调引用释放；opaque递增token注册表不会解引用未知或复用旧token。browse取消返回0不是终态，只有ERROR_CANCELLED callback；register完成与注销完成分别处理，注册取消竞态中的成功仍请求注销；注销错误保留context/quarantine。结果record-set/instance由RAII按各回调所有权释放一次，处理最多64records、128UTF16单元名称、两项固定TXT，queue32且try_lock失败/满则丢弃，终态flag独立于queue。最多16个全进程context/1browser/1advertiser/8resolve，3s解析截止，未知completion保持预算不扩容。OS内部cache/临时数据及释放操作耗时不声称有完整上限。测试只注入函数/owned raw buffers，生产没有fake selector；真实browse/register/resolve探针未获执行授权。
+
 T016 `identity::IdentityStore` 使用可信启动器给定的已存在绝对本地目录，固定文件 `identity.v1.dpapi`；不接受IPC任意路径。Windows current-user DPAPI，显式UI_FORBIDDEN，固定应用域entropy，不使用LOCAL_MACHINE。根目录及文件只赋当前用户SID protected DACL，handle不继承；目录及每级祖先持有不共享删除的handle，拒绝UNC/device/parent路径、reparse目录和文件、hardlink及超64KiB密文。首次CREATE_NEW独占写入并sync；失败或损坏不自动换钥/覆盖，用户应显式重新配对。明文上限32KiB，无Debug/Clone；临时缓冲best-effort清零，不声称锁页或抵御已控制同用户桌面。普通Windows API测试使用仓库.local独立owned临时目录，不使用真实用户AppData或私钥。生产目录定位与Node接线留后续；非Windows明确Unsupported，Mac Keychain未实现/未测。单测包括实际DPAPI、ACL和junction拒绝，测试记录需以真实运行结果为准。
 
 T006 首个 Windows IPC/凭据切片，音频 API 仍属 audio_runtime。仅依赖已锁定 Windows API crate 与权威 contracts，无 Node 网络端口、驱动或系统服务。

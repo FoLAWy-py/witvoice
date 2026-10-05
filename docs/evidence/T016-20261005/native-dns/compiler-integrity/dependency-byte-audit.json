@@ -1,0 +1,23 @@
+{
+  "utc": "2026-10-05T07:09:46.044217+00:00",
+  "source": "cached crate vs pinned Cargo.lock checksum, then unpacked source vs verified archive",
+  "packages": [
+    {
+      "name": "syn",
+      "version": "3.0.6",
+      "archive_sha256": "8593e8e72159ed2257d083c7a454a85cbf854f37a0966d8d483aff8c8a3ebcee",
+      "files": 104,
+      "all_match": true,
+      "mismatches": []
+    },
+    {
+      "name": "windows",
+      "version": "0.62.2",
+      "archive_sha256": "527fadee13e0c05939a6a05d5bd6eec6cd2e3dbd648b9f8e447c6518133d8580",
+      "files": 701,
+      "all_match": true,
+      "mismatches": []
+    }
+  ],
+  "scope": "file integrity only; no cargo/rustc/app tests"
+}

@@ -1,0 +1,16 @@
+{
+  "utc": "2026-10-05T07:06:55.385128+00:00",
+  "official_url": "https://static.rust-lang.org/dist/channel-rust-stable.toml",
+  "manifest_sha256": "ce6dddc886364f8d786514771212cebe9b731ba82d6b859951c6b0ccc516b6a2",
+  "date": "2026-10-01",
+  "rust": "1.99.0 (b940084d7 2026-09-28)",
+  "rustc": "1.99.0 (b940084d7 2026-09-28)",
+  "windows_rustc": {
+    "available": true,
+    "url": "https://static.rust-lang.org/dist/2026-10-01/rustc-1.99.0-x86_64-pc-windows-msvc.tar.gz",
+    "hash": "4d05087fd7786cceb9460f573df54d1c0511ff3aa121e8e8da346c325b9fc3f6",
+    "xz_url": "https://static.rust-lang.org/dist/2026-10-01/rustc-1.99.0-x86_64-pc-windows-msvc.tar.xz",
+    "xz_hash": "20fed82e629c1ed145f9e9bdee9aad65e790d4237a49bcfc61221eda69e35b14"
+  },
+  "scope": "official metadata only; no install or application test"
+}
