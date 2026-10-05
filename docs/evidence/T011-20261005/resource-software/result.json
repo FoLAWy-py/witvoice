@@ -1,0 +1,39 @@
+{
+  "scope": "T011 closed bounded final resource diagnostics software only",
+  "source_commit_before": "8c3481418e62a48bbeb75a0b61f4e4ab61c1fe6d",
+  "working_tree_changes": true,
+  "source_inputs": 118,
+  "source_equal": true,
+  "rust_effective_tests": 212,
+  "python_tests": 65,
+  "checks": {
+    "python-tests-resource": {
+      "exit": 0,
+      "wall_seconds": 3.4566246
+    },
+    "compile-resource": {
+      "exit": 0,
+      "wall_seconds": 0.133077
+    },
+    "resource-workspace-tests": {
+      "exit": 0,
+      "wall_seconds": 10.4845714
+    },
+    "resource-fmt": {
+      "exit": 0,
+      "wall_seconds": 0.36919389999999996
+    },
+    "resource-clippy": {
+      "exit": 0,
+      "wall_seconds": 0.46569859999999996
+    },
+    "resource-examples": {
+      "exit": 0,
+      "wall_seconds": 0.7668707
+    }
+  },
+  "budgets_unchanged": true,
+  "memory_accounting": "actual controller+model child private bytes, final CUDA reserved; not peak",
+  "model_GPU_audio_LAN": "NOT_RUN",
+  "T011_complete": false
+}

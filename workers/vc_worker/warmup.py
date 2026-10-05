@@ -5,18 +5,23 @@ HOST_BUDGET = 6 * 1024 ** 3
 DEVICE_BUDGET = 4 * 1024 ** 3
 
 
-def finalize_preparation(runner, synchronize, host_bytes, device_bytes):
+def finalize_preparation(runner, synchronize, host_bytes, device_bytes, resource_observer=None):
     # Cache reset itself allocates. The Ready check must follow the final reset.
     runner._init_cache()
     synchronize()
     host = host_bytes()
+    device = device_bytes()
+    if resource_observer is not None:
+        resource_observer(host, device)  # scalar diagnostics on model task only
     if host is None:
         raise RuntimeError("memory budget cannot be checked")
-    if host > HOST_BUDGET or device_bytes() > DEVICE_BUDGET:
+    if type(host) is not int or type(device) is not int or host < 0 or device < 0:
+        raise RuntimeError("memory budget measurement invalid")
+    if host > HOST_BUDGET or device > DEVICE_BUDGET:
         raise MemoryError("warmup resource budget exceeded")
 
 
-def prepare_fixed(request, observer=None):
+def prepare_fixed(request, observer=None, resource_observer=None):
     def phase(stage, edge):
         if observer is not None:
             observer(stage, edge)
@@ -80,7 +85,7 @@ def prepare_fixed(request, observer=None):
     phase("convert_warmup", "after")
     phase("finalize", "before")
     finalize_preparation(runner, torch.cuda.synchronize, model_tree_private_bytes,
-                         torch.cuda.memory_reserved)
+                         torch.cuda.memory_reserved, resource_observer)
     phase("finalize", "after")
     capabilities = {
         "engine_id": "meanvc2", "model_sha256": MODEL_SHA, "backend": "cuda",

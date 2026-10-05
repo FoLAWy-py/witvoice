@@ -25,7 +25,7 @@ class StageJournal:
     @classmethod
     def fixed(cls):
         root = Path(__file__).resolve().parents[2]
-        return cls(root / ".local/t011-isolated-warmup-once/prepare-stages.ndjson")
+        return cls(root / ".local/t011-finalize-warmup-once/prepare-stages.ndjson")
 
     def record(self, stage, edge):
         if stage not in STAGES or edge not in ("before", "after"):
@@ -56,11 +56,29 @@ class StageJournal:
         self._file.close()
 
 
+def write_resources(path, host, device):
+    from warmup import HOST_BUDGET, DEVICE_BUDGET
+    if any(value is not None and (type(value) is not int or not 0 <= value < 2 ** 64)
+           for value in (host, device)):
+        raise ValueError("diagnostic invalid resource scalar")
+    payload = json.dumps({"host_private_bytes": host, "device_reserved_bytes": device,
+                          "host_budget_bytes": HOST_BUDGET, "device_budget_bytes": DEVICE_BUDGET},
+                         separators=(",", ":"), allow_nan=False).encode("ascii")
+    if len(payload) > 512:
+        raise ValueError("diagnostic resource byte limit")
+    with Path(path).open("xb", buffering=0) as output:
+        if output.write(payload) != len(payload):
+            raise OSError("diagnostic resource incomplete")
+
+
 def prepare_with_diagnostics(request):
     from warmup import prepare_fixed
     root = Path(__file__).resolve().parents[2]
-    identity = root / ".local/t011-isolated-warmup-once/model-process-private.json"
+    base = root / ".local/t011-finalize-warmup-once"
+    identity = base / "model-process-private.json"
     with identity.open("x", encoding="ascii") as output:
         json.dump({"controller_pid": os.getppid(), "model_pid": os.getpid()}, output, separators=(",", ":"))
     with StageJournal.fixed() as journal:
-        return prepare_fixed(request, observer=journal.record)
+        return prepare_fixed(request, observer=journal.record,
+                             resource_observer=lambda host, device:
+                             write_resources(base / "resources.json", host, device))

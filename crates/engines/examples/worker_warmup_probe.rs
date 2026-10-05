@@ -177,7 +177,7 @@ mod probe {
         fn verify(&self) -> Result<bool> {
             let path = self
                 .root
-                .join(".local/t011-isolated-warmup-once/model-process-private.json");
+                .join(".local/t011-finalize-warmup-once/model-process-private.json");
             let mut bytes = Vec::with_capacity(513);
             File::open(path)
                 .map_err(io_failure)?

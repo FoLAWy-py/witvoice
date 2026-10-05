@@ -1,3 +1,5 @@
+最新T011：独立S2终止交付竞态CLOSED，新增defaultoff最终resource数值诊断已软件验证212Rust/65Python及适用checks0，118raw相等，预算未变。真实资源数值仍UNKNOWN；未新跑模型，必须新冻结配置与独立preflight再仅一次。GPU/audio/LAN/源码writer当前无lease，nextT011，T009外部capture初始化阻塞继续，VC/M5/M6未过。
+
 最新软件：T011终止事件S2窄修已冻结并实际通过212Rust/63Python及fmt/Clippy/examples/compile，2真实Windows鉴权管道交错test通过Job0；118raw每command相等。失败交接最长450ms/不续/只HB和Stop/无Ready恢复。独立复核中，未新跑模型，旧25bfinalize失败保留，actualresource数值未知。next_task=T011；GPU/audio/LAN无租约。
 
 最新实测：25b固定隔离once已消费FAILED13.2212875s/128HB/max104ms，heartbeat_write/ipc_failure；加载/placement/internalconversion phase AFTER，finalize BEFORE未完成，资源数值UNKNOWN/noReady。actualJob0、输出关、116source相等，GPU锁释放。next_task=T011，只继续有界terminalfault软件交接，不自动模型重跑。T009真实VBcaptureInitialize0x887c001a仍阻塞；T011/VC/M5/M6未通过。完整isolated-once归档保留。

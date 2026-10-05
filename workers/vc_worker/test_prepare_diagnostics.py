@@ -7,9 +7,43 @@ import tempfile
 from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
-from prepare_diagnostics import MAX_BYTES, STAGES, StageJournal
+from prepare_diagnostics import MAX_BYTES, STAGES, StageJournal, write_resources
 
 class DiagnosticTests(unittest.TestCase):
+    def test_resources_are_closed_bounded_unknown_and_never_overwritten(self):
+        from warmup import HOST_BUDGET, DEVICE_BUDGET
+        with tempfile.TemporaryDirectory() as d:
+            path = Path(d) / "resources.json"
+            write_resources(path, None, DEVICE_BUDGET)
+            self.assertLessEqual(path.stat().st_size, 512)
+            self.assertEqual(json.loads(path.read_bytes()), {
+                "host_private_bytes": None, "device_reserved_bytes": DEVICE_BUDGET,
+                "host_budget_bytes": HOST_BUDGET, "device_budget_bytes": DEVICE_BUDGET})
+            original = path.read_bytes()
+            with self.assertRaises(FileExistsError):
+                write_resources(path, HOST_BUDGET, DEVICE_BUDGET)
+            self.assertEqual(path.read_bytes(), original)
+            for invalid in (True, -1, 1.5, 2 ** 64):
+                new = Path(d) / "invalid.json"
+                with self.assertRaises(ValueError):
+                    write_resources(new, invalid, 0)
+                self.assertFalse(new.exists())
+
+    def test_final_resource_observation_follows_reset_and_keeps_budget_gate(self):
+        from warmup import HOST_BUDGET, finalize_preparation
+        steps = []
+        class Model:
+            def _init_cache(self): steps.append("reset")
+        def sync(): steps.append("sync")
+        def observe(host, device): steps.append((host, device))
+        with self.assertRaises(MemoryError):
+            finalize_preparation(Model(), sync, lambda: HOST_BUDGET + 1,
+                                 lambda: 0, observe)
+        self.assertEqual(steps, ["reset", "sync", (HOST_BUDGET + 1, 0)])
+        with self.assertRaises(RuntimeError):
+            finalize_preparation(Model(), sync, lambda: None, lambda: 0, observe)
+        self.assertEqual(steps[-1], (None, 0))
+
     def test_closed_order_exact_16_and_no_overwrite(self):
         with tempfile.TemporaryDirectory() as d:
             path = Path(d) / "phase.ndjson"
