@@ -271,7 +271,7 @@
       "milestone": "M1",
       "title": "有界缓冲、时钟、静音与回调安全",
       "owner_role": "audio_runtime",
-      "status": "REVIEW",
+      "status": "DONE",
       "requirements": [
         "REQ-08",
         "REQ-09",
@@ -286,9 +286,7 @@
       ],
       "acceptance": "无常规callback分配/阻塞；队列最大年龄可验证；mute先于慢停机；故障填零与underflow计数分开。",
       "agent_instance_id": "/root/reviewer_t001",
-      "resource_leases": [
-        "readonly-review:t008-r2"
-      ],
+      "resource_leases": [],
       "evidence": [
         "docs/evidence/T008-20261005/author/leader-audit.json",
         "docs/evidence/T008-20261005/leader-integration/result.json",
@@ -297,19 +295,20 @@
         "docs/project/T008-r1-fix-assignment.md",
         "docs/evidence/T008-20261005/r1-fix-author/leader-audit.json",
         "docs/evidence/integration/20261005-T008-T016-r2/result.json",
-        "docs/evidence/integration/20261005-T008-T016-r2/leader-audit.json"
+        "docs/evidence/integration/20261005-T008-T016-r2/leader-audit.json",
+        "docs/project/reviews/T008-r2.md"
       ],
       "review": "docs/project/reviews/T008-r2.md",
       "attempts": 2,
       "blocked_reason": null,
-      "execution_note": "Actual mandatory r1 S2 atomic handshake fixed/frozen6c68c5d; 54 author and132 root effective tests0 plus strict checks. Independent r2 registered, no conclusion yet."
+      "execution_note": "Independent r2 APPROVED fixed software scope, r1 S2 closed. 54 author/132 root effective tests0; hardware/VC/virtual route/OS tail/Mac NOT_RUN."
     },
     {
       "id": "T009",
       "milestone": "M1",
       "title": "虚拟电缆路由与原声隔离",
       "owner_role": "audio_runtime",
-      "status": "TODO",
+      "status": "IN_PROGRESS",
       "requirements": [
         "REQ-06",
         "REQ-10"
@@ -323,19 +322,22 @@
         "tests/hardware/"
       ],
       "acceptance": "真实render→virtual capture验证；清楚区分CABLE Input与Output；设备缺失阻塞且不降级至物理原声。",
-      "agent_instance_id": null,
-      "resource_leases": [],
+      "agent_instance_id": "/root/audio_runtime",
+      "resource_leases": [
+        "code-writer:audio-t009-route"
+      ],
       "evidence": [],
       "review": null,
       "attempts": 0,
-      "blocked_reason": null
+      "blocked_reason": null,
+      "execution_note": "Dependencies now T007/T008 DONE. New writer assigned narrow route policy/probe/software tests; actual hardware operation requires new specific approval after compiled review. No prior5s reuse."
     },
     {
       "id": "T010",
       "milestone": "M1",
       "title": "测试引擎、状态契约与崩溃基础测试",
       "owner_role": "backend",
-      "status": "TODO",
+      "status": "IN_PROGRESS",
       "requirements": [
         "REQ-07",
         "REQ-23",
@@ -351,12 +353,13 @@
         "crates/session/"
       ],
       "acceptance": "测试构建IdentityEngine贯通；UI被杀、损坏IPC、非法消息、退出均正确；发行配置不暴露FakeEngine。",
-      "agent_instance_id": null,
+      "agent_instance_id": "/root/backend",
       "resource_leases": [],
       "evidence": [],
       "review": null,
       "attempts": 0,
-      "blocked_reason": null
+      "blocked_reason": null,
+      "execution_note": "Deps T006/T008 now DONE. Completed readonly preparation da9614/f7414b/6e6e33 exit0 before code; source hooks/manifest contract pending leader integration. No source/test/hardware started."
     },
     {
       "id": "T011",
@@ -500,7 +503,7 @@
       "milestone": "M3",
       "title": "LAN发现、手动寻址与双向身份信任",
       "owner_role": "backend",
-      "status": "IN_PROGRESS",
+      "status": "REVIEW",
       "requirements": [
         "REQ-13",
         "REQ-14"
@@ -515,8 +518,10 @@
         "tests/security/"
       ],
       "acceptance": "默认监听关闭；mDNS不建立信任；双端身份字符串导入、pin验证与撤销；陌生端无音频权限。",
-      "agent_instance_id": "/root/backend",
-      "resource_leases": [],
+      "agent_instance_id": "/root/reviewer_t001",
+      "resource_leases": [
+        "readonly-review:t016-r1"
+      ],
       "evidence": [
         "docs/evidence/T016-20261005/dependency-metadata.json",
         "docs/evidence/T016-20261005/fetch-command.json",
@@ -554,10 +559,10 @@
         "docs/evidence/integration/20261005-T008-T016-r2/result.json",
         "docs/evidence/integration/20261005-T008-T016-r2/leader-audit.json"
       ],
-      "review": null,
-      "attempts": 0,
+      "review": "docs/project/reviews/T016-r1.md",
+      "attempts": 1,
       "blocked_reason": null,
-      "execution_note": "Stopped fixed firstfault diagnosis5source; author48/root132 checks0. Formalr1 queued/attempt0; NativePeers S2 untouched; actual once nativeFAIL13 unknown/consumed, new native NOT_RUN."
+      "execution_note": "First formal task review registered frozen6c68/8fe evidence; earlier nativepreflight attempt0. New diagnostics tested48/root132, actual native oldFAIL13 unknown. NativePeers S2 intentionally pending. No new LAN approval or execution."
     },
     {
       "id": "T017",

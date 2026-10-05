@@ -7,28 +7,64 @@
   "active_milestone": "M1",
   "active_tasks": [
     {
-      "task_id": "T008",
+      "task_id": "T009",
+      "agent_instance_id": "/root/audio_runtime",
+      "allowed_paths": [
+        "crates/audio/src/route.rs",
+        "crates/audio/src/lib.rs",
+        "crates/audio/tests/route.rs",
+        "crates/audio/examples/route_probe.rs",
+        "crates/audio/examples/support/",
+        "crates/audio/README.md",
+        ".local/t009-author/"
+      ],
+      "resource_leases": [
+        "code-writer:audio-t009-route"
+      ],
+      "depends_on": [
+        "T007",
+        "T008"
+      ],
+      "contract": "docs/project/T009-assignment.md now activated: saved UID/flow strict virtual-pair policy, feedback/raw-source isolation, bounded candidate probe; no physical substitution",
+      "acceptance_commands": [
+        "cargo test --locked -p witvoice-audio --all-targets",
+        "cargo fmt --package witvoice-audio --check",
+        "cargo clippy --locked -p witvoice-audio --all-targets -- -D warnings",
+        "cargo build --locked -p witvoice-audio --example route_probe"
+      ],
+      "execution_note": "Software implementation/metadata only. Native Start/render/capture need NEW concrete approval and exclusive lease after compiled source review."
+    },
+    {
+      "task_id": "T016",
       "agent_instance_id": "/root/reviewer_t001",
       "allowed_paths": [
-        "crates/audio/",
-        "docs/project/T008-r1-fix-assignment.md",
-        "docs/project/reviews/T008-r1.md",
-        "docs/evidence/T008-20261005/",
+        "crates/platform/src/discovery.rs",
+        "crates/platform/src/discovery/",
+        "crates/platform/src/identity.rs",
+        "crates/platform/src/lib.rs",
+        "crates/platform/tests/",
+        "crates/transport/",
+        "docs/project/T016-review-assignment.md",
+        "docs/project/T016-diagnostics-assignment.md",
+        "docs/evidence/T016-20261005/",
         "docs/evidence/integration/20261005-T008-T016-r2/",
-        "docs/spec/02-audio-engine.md",
+        "docs/spec/01-architecture.md",
+        "docs/spec/04-lan-protocol.md",
+        "docs/spec/06-security-distribution.md",
         "docs/spec/07-tests-acceptance.md"
       ],
       "resource_leases": [
-        "readonly-review:t008-r2"
+        "readonly-review:t016-r1"
       ],
       "depends_on": [
-        "T007"
+        "T003",
+        "T006"
       ],
-      "contract": "Independent formalr2 frozen6c68c5d repaired three source files, unchanged20 exact Git byte proof to r1. Root132 checks0, no independent reviewer rerun. Fix exact r1 S2 only; do not inherit new hardware proof.",
+      "contract": "docs/project/T016-review-assignment.md: first formalr1 source6c68, raw author48/root132, actual consumed onceFAIL/unknown13, observable failures required; source remains frozen despite disjoint T009",
       "acceptance_commands": [
-        "Review exact frozen repair/negative/atomic proof/full author and root actual logs then issue S0-S3 or fixed T008 approval"
+        "Independent exact frozen source/evidence read and precise S0-S3/minimum reproduction or limited fixed task approval"
       ],
-      "execution_note": "Formal attempt2/3 registered. T016 source review queued separately; no active code/hardware/GPU/network lease."
+      "execution_note": "Only first formalattempt1/3; no escalation/rerun/network/hardware/Mac. Earlier preflight not formalapproval."
     }
   ],
   "milestones": {
@@ -75,8 +111,8 @@
       "review": null
     }
   },
-  "last_verified_commit": "3af8a6f1ecc87e643413c1d6539dd1be16c3c6fc",
-  "next_task": "T008",
+  "last_verified_commit": "6c68c5dd3501da0681c27d57baa8ade694910468",
+  "next_task": "T009",
   "blockers": [
     {
       "id": "B001",
@@ -140,9 +176,9 @@
     }
   },
   "completion_claim_allowed": false,
-  "last_verified_scope": "Frozen M0/T006/T007 Windows API + T021 design; T007 review r3 approved. Excludes subsequent native DNS source, current T008 changes and whole hardware/UI/production VC/Mac.",
+  "last_verified_scope": "Independent T008 r2 approved audio software slice plus prior frozen M0/T006/T007 API/T021. Excludes T016 diagnosis/discovery formal approval, new hardware/virtual route/whole VC/Mac.",
   "execution_status": "RUNNING_SCOPED_TASKS",
   "interruption_evidence": "docs/project/interruption-20261005.json",
   "last_tested_commit": "6c68c5dd3501da0681c27d57baa8ade694910468",
-  "last_tested_scope": "Frozen repaired T008 + new T016 diagnosis: 132 effective workspace alltargets/process-tests, fmt/alltargetClippy/all examples0; all source/rootdeps unchanged. No formal approvals/new native Start/model/GPU/audio/LAN/Mac."
+  "last_tested_scope": "Frozen repaired T008 + T016 diagnosis:132 effective workspace alltargets/process-tests, fmt/alltargetClippy/all examples0; 64 captured Rust/manifest/audioREADME hash entries unchanged. No native Start/model/GPU/audio/LAN/Mac."
 }
