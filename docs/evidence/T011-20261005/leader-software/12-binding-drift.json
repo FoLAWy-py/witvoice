@@ -1,0 +1,26 @@
+{
+    "task":  "T011",
+    "owner":  "/root",
+    "name":  "12-binding-drift",
+    "exe":  "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "argv":  [
+                 "crates/contracts/bindings/generate.py",
+                 "--check"
+             ],
+    "cwd":  "D:\\Project\\witvoice",
+    "host":  "5.1.26100.7462",
+    "started_utc":  "2026-10-05T13:32:08.5416612Z",
+    "finished_utc":  "2026-10-05T13:32:08.6714048Z",
+    "wall_seconds":  0.12988929999999999,
+    "exit":  0,
+    "hardware":  "NOT_RUN",
+    "model":  "NOT_RUN",
+    "stdout":  {
+                   "bytes":  34,
+                   "sha256":  "5148d3840c0eb1fcc4eea70a3cde495eb3989e09e143272189d18d9311549641"
+               },
+    "stderr":  {
+                   "bytes":  0,
+                   "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+               }
+}

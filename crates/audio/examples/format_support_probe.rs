@@ -4,16 +4,17 @@ mod support;
 fn main() -> Result<(), String> {
     use witvoice_audio::{
         format::{AudioFormat, Encoding},
-        wasapi::probe_format,
+        wasapi::{probe_exact_mix, probe_format},
     };
     let args: Vec<_> = std::env::args_os().skip(1).collect();
-    if !(2..=4).contains(&args.len()) {
+    let mix_query = args.len() == 3 && args[1] == "--mix-query";
+    if !mix_query && !(2..=4).contains(&args.len()) {
         return Err(
-            "PRIVATE_SELECTION_JSON RATE:CHANNELS:ENCODING [up to 3 explicit candidates]".into(),
+            "PRIVATE_SELECTION_JSON [--mix-query] RATE:CHANNELS:ENCODING [up to 3 basic candidates]".into(),
         );
     }
     let (uid, flow) = support::selection(&args[0])?;
-    let candidates = args[1..]
+    let candidates = args[if mix_query { 2 } else { 1 }..]
         .iter()
         .map(|arg| {
             let text = arg.to_str().ok_or("candidate must be UTF8")?;
@@ -38,6 +39,18 @@ fn main() -> Result<(), String> {
         })
         .collect::<Result<Vec<_>, String>>()?;
     // Validate every explicit candidate before touching COM. No fallback loop.
+    if mix_query {
+        let result = probe_exact_mix(&uid, flow, candidates[0]);
+        println!(
+            "{}",
+            serde_json::json!({"mix_query":result,"initialize_start":"NOT_RUN"})
+        );
+        return if result.is_ok() {
+            Ok(())
+        } else {
+            Err("exact mix query failed; no fallback".into())
+        };
+    }
     let mut results = Vec::new();
     let mut rejected = false;
     for candidate in candidates {

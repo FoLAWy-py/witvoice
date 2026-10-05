@@ -6,7 +6,7 @@ use crate::{
     realtime::{BUS_RATE, BlockError, OutputGate, Playout},
     wasapi::{
         Apartment, Flow, MetadataError, MixFormat, NativeDescriptor, TaskMem, client, enumerator,
-        read_format, selected,
+        owned_exact_mix, read_format, selected,
     },
 };
 use std::{ptr, sync::Arc, time::Duration};
@@ -248,6 +248,29 @@ impl SharedStream {
         format: AudioFormat,
         maximum_frames: u32,
     ) -> Result<Self, StreamError> {
+        Self::prepare_descriptor(uid, flow, format, maximum_frames, false)
+    }
+
+    /// Explicit diagnostic alternative, never an automatic fallback. Retains
+    /// the complete engine mix descriptor, and requires exact Float32 shape.
+    /// This initializes a device but does not Start; hardware authorization is
+    /// required separately. Default prepare continues using its old descriptor.
+    pub fn prepare_exact_mix(
+        uid: &str,
+        flow: Flow,
+        format: AudioFormat,
+        maximum_frames: u32,
+    ) -> Result<Self, StreamError> {
+        Self::prepare_descriptor(uid, flow, format, maximum_frames, true)
+    }
+
+    fn prepare_descriptor(
+        uid: &str,
+        flow: Flow,
+        format: AudioFormat,
+        maximum_frames: u32,
+        exact_mix: bool,
+    ) -> Result<Self, StreamError> {
         if maximum_frames == 0 || maximum_frames > format.sample_rate() / 5 {
             return Err(StreamError::Capacity);
         }
@@ -265,12 +288,20 @@ impl SharedStream {
         let device = selected(&enumerator()?, uid, flow)?;
         let client = client(&device)?;
         let descriptor = NativeDescriptor::new(format);
+        let mix_descriptor = if exact_mix {
+            Some(owned_exact_mix(&client, format)?)
+        } else {
+            None
+        };
+        let descriptor_pointer = mix_descriptor
+            .as_ref()
+            .map_or_else(|| descriptor.as_wave_ptr(), |mix| mix.as_wave_ptr());
         // S_FALSE is deliberately not success; no implicit closest/resampler.
         let mut closest = ptr::null_mut();
         let status = unsafe {
             client.IsFormatSupported(
                 AUDCLNT_SHAREMODE_SHARED,
-                descriptor.as_wave_ptr(),
+                descriptor_pointer,
                 Some(&mut closest),
             )
         };
@@ -294,7 +325,7 @@ impl SharedStream {
                 AUDCLNT_STREAMFLAGS_EVENTCALLBACK,
                 0,
                 0,
-                descriptor.as_wave_ptr(),
+                descriptor_pointer,
                 None,
             )
         }

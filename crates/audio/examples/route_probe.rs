@@ -45,9 +45,19 @@ fn main() -> Result<(), String> {
         }
     };
     let args: Vec<_> = std::env::args_os().skip(1).collect();
-    if args.len() != 2 || (args[1] != "--metadata-only" && args[1] != "--approve-route-probe") {
-        return Err("absolute PRIVATE_SCOPE_JSON --metadata-only|--approve-route-probe; new permission and exclusive lease required".into());
+    if args.len() != 2
+        || (args[1] != "--metadata-only"
+            && args[1] != "--approve-route-probe"
+            && args[1] != "--approve-capture-mix-probe")
+    {
+        return Err("absolute PRIVATE_SCOPE_JSON --metadata-only|--approve-route-probe|--approve-capture-mix-probe; new permission and exclusive lease required".into());
     }
+    let capture_mix = args[1] == "--approve-capture-mix-probe";
+    let descriptor_mode = if capture_mix {
+        "CAPTURE_EXACT_MIX_RENDER_BASIC"
+    } else {
+        "BASIC"
+    };
     let path = PathBuf::from(&args[0]);
     if !path.is_absolute() {
         return Err("explicit absolute private scope required".into());
@@ -185,26 +195,33 @@ fn main() -> Result<(), String> {
             Ok(owner) => owner,
             Err(error) => {
                 gate.invalidate();
-                println!(
-                    "{}",
-                    route_marker::prepare_failure_report("render_prepare", &error, 1440)
-                );
+                let mut report =
+                    route_marker::prepare_failure_report("render_prepare", &error, 1440);
+                report["descriptor_mode"] = serde_json::json!(descriptor_mode);
+                report["render_capacity_frames"] = serde_json::Value::Null;
+                report["capture_capacity_frames"] = serde_json::Value::Null;
+                println!("{}", report);
                 return Err(format!("render prepare; no fallback: {error:?}"));
             }
         };
     within_total()?;
-    let mut capture =
-        match SharedStream::prepare(&scope.capture_uid, Flow::Capture, capture_format, 1440) {
-            Ok(owner) => owner,
-            Err(error) => {
-                gate.invalidate();
-                println!(
-                    "{}",
-                    route_marker::prepare_failure_report("capture_prepare", &error, 1440)
-                );
-                return Err(format!("capture prepare; no fallback: {error:?}"));
-            }
-        };
+    let capture_result = if capture_mix {
+        SharedStream::prepare_exact_mix(&scope.capture_uid, Flow::Capture, capture_format, 1440)
+    } else {
+        SharedStream::prepare(&scope.capture_uid, Flow::Capture, capture_format, 1440)
+    };
+    let mut capture = match capture_result {
+        Ok(owner) => owner,
+        Err(error) => {
+            gate.invalidate();
+            let mut report = route_marker::prepare_failure_report("capture_prepare", &error, 1440);
+            report["descriptor_mode"] = serde_json::json!(descriptor_mode);
+            report["render_capacity_frames"] = serde_json::json!(render.capacity_frames());
+            report["capture_capacity_frames"] = serde_json::Value::Null;
+            println!("{}", report);
+            return Err(format!("capture prepare; no fallback: {error:?}"));
+        }
+    };
     within_total()?;
     render
         .bind_output_gate(Arc::clone(&gate))
@@ -339,7 +356,7 @@ fn main() -> Result<(), String> {
             && gate.ack_ready()
             && within_total().is_ok();
         let report = serde_json::json!({"status":if passed {"ROUTE_MARKER_OBSERVED"} else {"FAILED_MUTED"},
-        "route_profile":"VB_CABLE","requested_seconds":2,"maximum_marker_seconds":5,"maximum_process_seconds":15,
+        "route_profile":"VB_CABLE","descriptor_mode":descriptor_mode,"requested_seconds":2,"maximum_marker_seconds":5,"maximum_process_seconds":15,
         "requested_maximum_frames":1440,"render_capacity_frames":render.capacity_frames(),"capture_capacity_frames":capture.capacity_frames(),
         "process_wall_seconds":total_started.elapsed().as_secs_f64(),"active_wall_seconds":active_wall,"wall_including_close_seconds":start.elapsed().as_secs_f64(),
         "marker_amplitude":route_marker::AMPLITUDE,"marker_frames":sent,"capture_frames":received,"capture_packets":capture_packets,

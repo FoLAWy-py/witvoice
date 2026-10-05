@@ -1,0 +1,32 @@
+{
+    "task":  "T011",
+    "owner":  "/root",
+    "name":  "18-worker-wire",
+    "exe":  "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\cargo.exe",
+    "argv":  [
+                 "test",
+                 "--locked",
+                 "-p",
+                 "witvoice-contracts",
+                 "--test",
+                 "worker_wire",
+                 "--",
+                 "--nocapture"
+             ],
+    "cwd":  "D:\\Project\\witvoice",
+    "host":  "5.1.26100.7462",
+    "started_utc":  "2026-10-05T13:35:24.9753607Z",
+    "finished_utc":  "2026-10-05T13:35:25.8101908Z",
+    "wall_seconds":  0.8350628,
+    "exit":  0,
+    "hardware":  "NOT_RUN",
+    "model":  "NOT_RUN",
+    "stdout":  {
+                   "bytes":  437,
+                   "sha256":  "26abc2e839d5b6c3dd79aff84c82a39d3911550e4cba61147a52f57055cffe5a"
+               },
+    "stderr":  {
+                   "bytes":  265,
+                   "sha256":  "3acfac700cec0930b4e6ba79c4842664f01dfcb2a42df54be9da10a840fd34d1"
+               }
+}

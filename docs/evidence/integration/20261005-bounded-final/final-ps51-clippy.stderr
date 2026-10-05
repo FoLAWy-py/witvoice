@@ -1,0 +1,4 @@
+    Checking witvoice-audio v0.1.0 (D:\Project\witvoice\crates\audio)
+    Checking witvoice-node v0.1.0 (D:\Project\witvoice\apps\voice-node)
+    Checking witvoice-session v0.1.0 (D:\Project\witvoice\crates\session)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 2.45s

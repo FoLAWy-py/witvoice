@@ -331,19 +331,22 @@
         "docs/evidence/T009-20261005/capacity-author/leader-audit.json",
         "docs/project/reviews/T009-preflight.md",
         "docs/project/reviews/T009-capacity-limited.md",
-        "docs/evidence/T009-20261005/capacity-once/result.json"
+        "docs/evidence/T009-20261005/capacity-once/result.json",
+        "docs/project/reviews/T009-adapted-preflight.md",
+        "docs/evidence/T009-20261005/bounded-author/leader-audit.json",
+        "docs/evidence/T009-20261005/adapted-once/result.json"
       ],
-      "review": "docs/project/reviews/T009-capacity-limited.md",
+      "review": "docs/project/reviews/T009-adapted-preflight.md",
       "attempts": 0,
-      "blocked_reason": "Fresh explicitlyapprovedonce consumedFAILED renderactual1056=22ms>960 beforeStart; noPCM/capture,cleanupUNKNOWN. Bounded<=30ms adaptation underway softwareonly; nexthardware requires newscope.",
-      "execution_note": "64puretests/fmt/Clippy/probe build0; independentlimited softwarediagnostic recognition, formalattempt0/noDONE. NewbinaryNOT_RUN; oldonceconsumedCapacitybeforeStart, actualcount/cleanupUNKNOWN; fullroot78 integrationcompilerAVnoapp tests. AllSTOP."
+      "blocked_reason": "Boundedcapacityadaptation passedrenderPrepare; capture InitializeHRESULT0x887c001a beforeStart, capturecapacity/cleanupUNKNOWN; no routepass, no retry",
+      "execution_note": "67author+163root software0, independentlimitedadapted preflightapproved; freshhuman approvedonce pending execution; no positiveHWyet."
     },
     {
       "id": "T010",
       "milestone": "M1",
       "title": "测试引擎、状态契约与崩溃基础测试",
       "owner_role": "backend",
-      "status": "IN_PROGRESS",
+      "status": "DONE",
       "requirements": [
         "REQ-07",
         "REQ-23",
@@ -371,19 +374,21 @@
         "docs/evidence/T010-20261005/static-fix/leader-audit.json",
         "docs/evidence/integration/20261005-T009-T010-T016/result.json",
         "docs/evidence/T010-20261005/system-host/system-ps51-workspace-tests.json",
-        "docs/evidence/T010-20261005/system-host/system-ps51-clippy.json"
+        "docs/evidence/T010-20261005/system-host/system-ps51-clippy.json",
+        "docs/project/reviews/T010-r1.md",
+        "docs/evidence/integration/20261005-bounded-final/result.json"
       ],
-      "review": null,
-      "attempts": 0,
+      "review": "docs/project/reviews/T010-r1.md",
+      "attempts": 1,
       "blocked_reason": null,
-      "execution_note": "Explicit actualSystemPS5.1 nativepath guard; source78c18 frozen72 pre/post equal;160workspace tests/fmt0. Strictclippy101 ordinary unusedmut/nonDrop lifetime errors; narrow authorfix underway. PriorICE/AV raw retained causeUNKNOWN; examplesNOTRUN; formalapprovalpending."
+      "execution_note": "Independentformalr1 APPROVED fixed1a85:163effectiveworkspace tests/fmt/strictClippy/examples/defaultcheck0; nondebugtestsupport actual101 expectedcompileerror. No realworker/VC/Mac; originalICE/AVunknown."
     },
     {
       "id": "T011",
       "milestone": "M2",
       "title": "实现Python worker协议与warmup生命周期",
       "owner_role": "ml_engine",
-      "status": "TODO",
+      "status": "IN_PROGRESS",
       "requirements": [
         "REQ-07",
         "REQ-19",
@@ -399,12 +404,19 @@
         "crates/engines/"
       ],
       "acceptance": "真实worker仅推理；独立控制/PCM通道、鉴权、长度限制、预热/ready、超时和最多两次重启。",
-      "agent_instance_id": null,
+      "agent_instance_id": "/root",
       "resource_leases": [],
-      "evidence": [],
+      "evidence": [
+        "docs/evidence/T011-20261005/leader-software/18-worker-wire.json",
+        "docs/evidence/T011-20261005/leader-software/16-worker-lifecycle.json",
+        "docs/evidence/T011-20261005/leader-software/19-python-control.json",
+        "docs/evidence/T011-20261005/leader-software/13-python-protocol.json",
+        "docs/evidence/T011-20261005/leader-software/jsonschema-install-report.json"
+      ],
       "review": null,
       "attempts": 0,
-      "blocked_reason": null
+      "blocked_reason": null,
+      "execution_note": "ImplementedRustauthoritative worker control+separatebinarycodec/PythonRustschema validation, 5Rustwire+16lifecycle+6PythonPCM+4Pythoncontrol+1existingnetworkgolden actual0. TaskIN_PROGRESS: native authenticated pipe/processowner/realmodelwarmup/heartbeat/media/kill/lease integration stillNOT_IMPLEMENTED/NOT_RUN; no new model exploration or hardware."
     },
     {
       "id": "T012",

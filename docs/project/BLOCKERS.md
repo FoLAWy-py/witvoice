@@ -1,3 +1,5 @@
+当前状态（2026-10-05 13:11Z 后）：B004 对当前冻结1a85软件验证已解除，163 tests/fmt/strictClippy/examples/defaultcheck均0，旧ICE/AV原因UNKNOWN。B005 当前为 capture Initialize 0x887c001a，非容量超限；来源未获官方精确符号确认。用户已授予同范围有限VB合成测试持续授权；先做basic/exactMix只读对照与单变量预检，不安装驱动/改安全设置，不盲重试。B006 仅真实native DNS正例缺失，当前软件整合0。下列旧状态为保留历史。
+
 # 阻塞与前置条件
 
 只登记实际事实。模型本机实验已通过，不能由此批准再分发或宣布M0/M5完整通过。

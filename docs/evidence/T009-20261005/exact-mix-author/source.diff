@@ -1,0 +1,394 @@
+diff --git a/crates/audio/README.md b/crates/audio/README.md
+index 245b5f9..55ea742 100644
+--- a/crates/audio/README.md
++++ b/crates/audio/README.md
+@@ -375,3 +375,24 @@ two-second activity, 15-second process budget, amplitude and strict underflow
+ criterion have not changed. No hardware operation was authorized or performed
+ for this adaptation; it cannot establish continuity, model quality, OS tail or
+ successful native cleanup. A future probe requires new specific permission.
++### Explicit exact-mix diagnostic (not executed by the author)
++
++`format_support_probe PRIVATE_SELECTION_JSON --mix-query 48000:2:float32`
++queries the explicit saved UID/flow: owned full GetMixFormat, GetDevicePeriod,
++and Basic versus exact-engine-descriptor IsFormatSupported results. It never
++Initialize/Starts, adopts closest formats, or proves stream initialization.
++Only validated mono/stereo Float32, exact expected adapter shape, and recognized
++basic/extensible layout are accepted. The WASAPI allocation and any closest
++allocation use CoTaskMemFree guards on every return path.
++
++`route_probe PRIVATE_SCOPE_JSON --approve-capture-mix-probe` is a separate,
++explicitly authorized device diagnostic: only capture uses `prepare_exact_mix`;
++render keeps basic `prepare`. The full engine descriptor remains alive through
++support query and Initialize. Default Prepare, share mode, event flag, zero
++period/duration, session GUID, STA, 1440-frame bounds, gate/tickets, queue/age,
++2-second active marker and 15-second process deadline remain unchanged.
++Reports identify descriptor mode and both capacities (unknown values are null).
++Prepare failure remains before Start with cleanup UNKNOWN. No automatic retry,
++fallback, driver fix, Initialize success, route continuity or latency is claimed.
++Pure descriptor tests do not execute Windows audio APIs. Fresh read-only query,
++independent source review and leader's concrete lease precede future device use.
+diff --git a/crates/audio/examples/format_support_probe.rs b/crates/audio/examples/format_support_probe.rs
+index a4c046d..9706c28 100644
+--- a/crates/audio/examples/format_support_probe.rs
++++ b/crates/audio/examples/format_support_probe.rs
+@@ -4,16 +4,17 @@ mod support;
+ fn main() -> Result<(), String> {
+     use witvoice_audio::{
+         format::{AudioFormat, Encoding},
+-        wasapi::probe_format,
++        wasapi::{probe_exact_mix, probe_format},
+     };
+     let args: Vec<_> = std::env::args_os().skip(1).collect();
+-    if !(2..=4).contains(&args.len()) {
++    let mix_query = args.len() == 3 && args[1] == "--mix-query";
++    if !mix_query && !(2..=4).contains(&args.len()) {
+         return Err(
+-            "PRIVATE_SELECTION_JSON RATE:CHANNELS:ENCODING [up to 3 explicit candidates]".into(),
++            "PRIVATE_SELECTION_JSON [--mix-query] RATE:CHANNELS:ENCODING [up to 3 basic candidates]".into(),
+         );
+     }
+     let (uid, flow) = support::selection(&args[0])?;
+-    let candidates = args[1..]
++    let candidates = args[if mix_query { 2 } else { 1 }..]
+         .iter()
+         .map(|arg| {
+             let text = arg.to_str().ok_or("candidate must be UTF8")?;
+@@ -38,6 +39,18 @@ fn main() -> Result<(), String> {
+         })
+         .collect::<Result<Vec<_>, String>>()?;
+     // Validate every explicit candidate before touching COM. No fallback loop.
++    if mix_query {
++        let result = probe_exact_mix(&uid, flow, candidates[0]);
++        println!(
++            "{}",
++            serde_json::json!({"mix_query":result,"initialize_start":"NOT_RUN"})
++        );
++        return if result.is_ok() {
++            Ok(())
++        } else {
++            Err("exact mix query failed; no fallback".into())
++        };
++    }
+     let mut results = Vec::new();
+     let mut rejected = false;
+     for candidate in candidates {
+diff --git a/crates/audio/examples/route_probe.rs b/crates/audio/examples/route_probe.rs
+index 771856a..6b280c1 100644
+--- a/crates/audio/examples/route_probe.rs
++++ b/crates/audio/examples/route_probe.rs
+@@ -45,9 +45,19 @@ fn main() -> Result<(), String> {
+         }
+     };
+     let args: Vec<_> = std::env::args_os().skip(1).collect();
+-    if args.len() != 2 || (args[1] != "--metadata-only" && args[1] != "--approve-route-probe") {
+-        return Err("absolute PRIVATE_SCOPE_JSON --metadata-only|--approve-route-probe; new permission and exclusive lease required".into());
++    if args.len() != 2
++        || (args[1] != "--metadata-only"
++            && args[1] != "--approve-route-probe"
++            && args[1] != "--approve-capture-mix-probe")
++    {
++        return Err("absolute PRIVATE_SCOPE_JSON --metadata-only|--approve-route-probe|--approve-capture-mix-probe; new permission and exclusive lease required".into());
+     }
++    let capture_mix = args[1] == "--approve-capture-mix-probe";
++    let descriptor_mode = if capture_mix {
++        "CAPTURE_EXACT_MIX_RENDER_BASIC"
++    } else {
++        "BASIC"
++    };
+     let path = PathBuf::from(&args[0]);
+     if !path.is_absolute() {
+         return Err("explicit absolute private scope required".into());
+@@ -185,26 +195,33 @@ fn main() -> Result<(), String> {
+             Ok(owner) => owner,
+             Err(error) => {
+                 gate.invalidate();
+-                println!(
+-                    "{}",
+-                    route_marker::prepare_failure_report("render_prepare", &error, 1440)
+-                );
++                let mut report =
++                    route_marker::prepare_failure_report("render_prepare", &error, 1440);
++                report["descriptor_mode"] = serde_json::json!(descriptor_mode);
++                report["render_capacity_frames"] = serde_json::Value::Null;
++                report["capture_capacity_frames"] = serde_json::Value::Null;
++                println!("{}", report);
+                 return Err(format!("render prepare; no fallback: {error:?}"));
+             }
+         };
+     within_total()?;
+-    let mut capture =
+-        match SharedStream::prepare(&scope.capture_uid, Flow::Capture, capture_format, 1440) {
+-            Ok(owner) => owner,
+-            Err(error) => {
+-                gate.invalidate();
+-                println!(
+-                    "{}",
+-                    route_marker::prepare_failure_report("capture_prepare", &error, 1440)
+-                );
+-                return Err(format!("capture prepare; no fallback: {error:?}"));
+-            }
+-        };
++    let capture_result = if capture_mix {
++        SharedStream::prepare_exact_mix(&scope.capture_uid, Flow::Capture, capture_format, 1440)
++    } else {
++        SharedStream::prepare(&scope.capture_uid, Flow::Capture, capture_format, 1440)
++    };
++    let mut capture = match capture_result {
++        Ok(owner) => owner,
++        Err(error) => {
++            gate.invalidate();
++            let mut report = route_marker::prepare_failure_report("capture_prepare", &error, 1440);
++            report["descriptor_mode"] = serde_json::json!(descriptor_mode);
++            report["render_capacity_frames"] = serde_json::json!(render.capacity_frames());
++            report["capture_capacity_frames"] = serde_json::Value::Null;
++            println!("{}", report);
++            return Err(format!("capture prepare; no fallback: {error:?}"));
++        }
++    };
+     within_total()?;
+     render
+         .bind_output_gate(Arc::clone(&gate))
+@@ -339,7 +356,7 @@ fn main() -> Result<(), String> {
+             && gate.ack_ready()
+             && within_total().is_ok();
+         let report = serde_json::json!({"status":if passed {"ROUTE_MARKER_OBSERVED"} else {"FAILED_MUTED"},
+-        "route_profile":"VB_CABLE","requested_seconds":2,"maximum_marker_seconds":5,"maximum_process_seconds":15,
++        "route_profile":"VB_CABLE","descriptor_mode":descriptor_mode,"requested_seconds":2,"maximum_marker_seconds":5,"maximum_process_seconds":15,
+         "requested_maximum_frames":1440,"render_capacity_frames":render.capacity_frames(),"capture_capacity_frames":capture.capacity_frames(),
+         "process_wall_seconds":total_started.elapsed().as_secs_f64(),"active_wall_seconds":active_wall,"wall_including_close_seconds":start.elapsed().as_secs_f64(),
+         "marker_amplitude":route_marker::AMPLITUDE,"marker_frames":sent,"capture_frames":received,"capture_packets":capture_packets,
+diff --git a/crates/audio/src/stream/native.rs b/crates/audio/src/stream/native.rs
+index b56f0fc..d3c71d9 100644
+--- a/crates/audio/src/stream/native.rs
++++ b/crates/audio/src/stream/native.rs
+@@ -6,7 +6,7 @@ use crate::{
+     realtime::{BUS_RATE, BlockError, OutputGate, Playout},
+     wasapi::{
+         Apartment, Flow, MetadataError, MixFormat, NativeDescriptor, TaskMem, client, enumerator,
+-        read_format, selected,
++        owned_exact_mix, read_format, selected,
+     },
+ };
+ use std::{ptr, sync::Arc, time::Duration};
+@@ -247,6 +247,29 @@ impl SharedStream {
+         flow: Flow,
+         format: AudioFormat,
+         maximum_frames: u32,
++    ) -> Result<Self, StreamError> {
++        Self::prepare_descriptor(uid, flow, format, maximum_frames, false)
++    }
++
++    /// Explicit diagnostic alternative, never an automatic fallback. Retains
++    /// the complete engine mix descriptor, and requires exact Float32 shape.
++    /// This initializes a device but does not Start; hardware authorization is
++    /// required separately. Default prepare continues using its old descriptor.
++    pub fn prepare_exact_mix(
++        uid: &str,
++        flow: Flow,
++        format: AudioFormat,
++        maximum_frames: u32,
++    ) -> Result<Self, StreamError> {
++        Self::prepare_descriptor(uid, flow, format, maximum_frames, true)
++    }
++
++    fn prepare_descriptor(
++        uid: &str,
++        flow: Flow,
++        format: AudioFormat,
++        maximum_frames: u32,
++        exact_mix: bool,
+     ) -> Result<Self, StreamError> {
+         if maximum_frames == 0 || maximum_frames > format.sample_rate() / 5 {
+             return Err(StreamError::Capacity);
+@@ -265,12 +288,20 @@ impl SharedStream {
+         let device = selected(&enumerator()?, uid, flow)?;
+         let client = client(&device)?;
+         let descriptor = NativeDescriptor::new(format);
++        let mix_descriptor = if exact_mix {
++            Some(owned_exact_mix(&client, format)?)
++        } else {
++            None
++        };
++        let descriptor_pointer = mix_descriptor
++            .as_ref()
++            .map_or_else(|| descriptor.as_wave_ptr(), |mix| mix.as_wave_ptr());
+         // S_FALSE is deliberately not success; no implicit closest/resampler.
+         let mut closest = ptr::null_mut();
+         let status = unsafe {
+             client.IsFormatSupported(
+                 AUDCLNT_SHAREMODE_SHARED,
+-                descriptor.as_wave_ptr(),
++                descriptor_pointer,
+                 Some(&mut closest),
+             )
+         };
+@@ -294,7 +325,7 @@ impl SharedStream {
+                 AUDCLNT_STREAMFLAGS_EVENTCALLBACK,
+                 0,
+                 0,
+-                descriptor.as_wave_ptr(),
++                descriptor_pointer,
+                 None,
+             )
+         }
+diff --git a/crates/audio/src/wasapi.rs b/crates/audio/src/wasapi.rs
+index d77cded..293450d 100644
+--- a/crates/audio/src/wasapi.rs
++++ b/crates/audio/src/wasapi.rs
+@@ -273,6 +273,109 @@ pub struct FormatProbe {
+     pub closest: Option<MixFormat>,
+ }
+ 
++/// Ordinary-thread metadata only. Neither status implies Initialize succeeded.
++#[derive(Debug, Serialize)]
++pub struct ExactMixProbe {
++    pub mix: MixFormat,
++    pub default_period_100ns: i64,
++    pub minimum_period_100ns: i64,
++    pub basic: Result<FormatProbe, MetadataError>,
++    pub exact_mix: Result<FormatProbe, MetadataError>,
++}
++
++pub(crate) struct OwnedMixDescriptor {
++    memory: TaskMem<WAVEFORMATEX>,
++    pub(crate) metadata: MixFormat,
++}
++impl OwnedMixDescriptor {
++    pub(crate) fn as_wave_ptr(&self) -> *const WAVEFORMATEX {
++        self.memory.0
++    }
++}
++
++// Only WASAPI-owned memory, or a complete owned native descriptor in pure tests.
++// Do not reconstruct the mix format from its adapter projection: retain every
++// byte returned by GetMixFormat until both synchronous native calls finish.
++unsafe fn validate_exact_mix(
++    pointer: *const WAVEFORMATEX,
++    expected: AudioFormat,
++) -> Result<MixFormat, MetadataError> {
++    let mix = unsafe { read_format(pointer) }?;
++    if expected.encoding() != Encoding::Float32
++        || mix.adapter_format != Some(expected)
++        || !matches!((mix.format_tag, mix.extra_bytes), (3, 0) | (0xfffe, 22))
++    {
++        return Err(format_error(FormatError::Layout));
++    }
++    Ok(mix)
++}
++
++pub(crate) fn owned_exact_mix(
++    client: &IAudioClient,
++    expected: AudioFormat,
++) -> Result<OwnedMixDescriptor, MetadataError> {
++    let memory = TaskMem(unsafe { client.GetMixFormat() }.map_err(|e| com("GetMixFormat", e))?);
++    let metadata = unsafe { validate_exact_mix(memory.0, expected) }?;
++    Ok(OwnedMixDescriptor { memory, metadata })
++}
++
++fn query_supported(
++    client: &IAudioClient,
++    pointer: *const WAVEFORMATEX,
++    requested: AudioFormat,
++) -> Result<FormatProbe, MetadataError> {
++    let mut closest = ptr::null_mut();
++    let status =
++        unsafe { client.IsFormatSupported(AUDCLNT_SHAREMODE_SHARED, pointer, Some(&mut closest)) };
++    let memory = TaskMem(closest);
++    match status.0 {
++        0 => Ok(FormatProbe {
++            requested,
++            hresult: 0,
++            exact_supported: true,
++            closest: None,
++        }),
++        1 if !memory.0.is_null() => Ok(FormatProbe {
++            requested,
++            hresult: 1,
++            exact_supported: false,
++            closest: Some(unsafe { read_format(memory.0) }?),
++        }),
++        code if code < 0 => Err(MetadataError::Com {
++            operation: "IsFormatSupported",
++            hresult: code,
++        }),
++        code => Err(MetadataError::UnexpectedFormatStatus(code)),
++    }
++}
++
++/// Explicit UID/flow; owned exact engine descriptor and two support queries.
++/// No Initialize, Start, closest adoption or default-device selection.
++pub fn probe_exact_mix(
++    uid: &str,
++    flow: Flow,
++    expected: AudioFormat,
++) -> Result<ExactMixProbe, MetadataError> {
++    let _apartment = Apartment::enter()?;
++    let device = selected(&enumerator()?, uid, flow)?;
++    let client = client(&device)?;
++    let exact = owned_exact_mix(&client, expected)?;
++    let mut default_period = 0;
++    let mut minimum_period = 0;
++    unsafe { client.GetDevicePeriod(Some(&mut default_period), Some(&mut minimum_period)) }
++        .map_err(|e| com("GetDevicePeriod", e))?;
++    let basic = NativeDescriptor::new(expected);
++    let basic_result = query_supported(&client, basic.as_wave_ptr(), expected);
++    let exact_result = query_supported(&client, exact.as_wave_ptr(), expected);
++    Ok(ExactMixProbe {
++        mix: exact.metadata.clone(),
++        default_period_100ns: default_period,
++        minimum_period_100ns: minimum_period,
++        basic: basic_result,
++        exact_mix: exact_result,
++    })
++}
++
+ // Own the complete native descriptor through the synchronous WASAPI call.
+ // PCM precision above 16 bits requires the extension rather than tag 1.
+ pub(crate) enum NativeDescriptor {
+@@ -368,6 +471,46 @@ pub fn probe_format(
+ mod tests {
+     use super::*;
+ 
++    #[test]
++    fn exact_mix_validation_checks_complete_float_shape_without_native_calls() {
++        for channels in [1, 2] {
++            let expected = AudioFormat::new(48_000, channels, Encoding::Float32).unwrap();
++            let basic = NativeDescriptor::new(expected);
++            let mut native = WAVEFORMATEXTENSIBLE {
++                Format: unsafe { ptr::read_unaligned(basic.as_wave_ptr()) },
++                Samples: WAVEFORMATEXTENSIBLE_0 {
++                    wValidBitsPerSample: 32,
++                },
++                dwChannelMask: if channels == 1 { 4 } else { 3 },
++                SubFormat: IEEE_FLOAT,
++            };
++            native.Format.wFormatTag = 0xfffe;
++            native.Format.cbSize = 22;
++            let pointer = ptr::addr_of!(native.Format);
++            assert!(unsafe { validate_exact_mix(basic.as_wave_ptr(), expected) }.is_ok());
++            let parsed = unsafe { validate_exact_mix(pointer, expected) }.unwrap();
++            assert_eq!(parsed.adapter_format, Some(expected));
++            assert_eq!(parsed.channel_mask, Some(if channels == 1 { 4 } else { 3 }));
++            let other = AudioFormat::new(44_100, channels, Encoding::Float32).unwrap();
++            assert!(unsafe { validate_exact_mix(pointer, other) }.is_err());
++            let pcm = AudioFormat::new(48_000, channels, Encoding::Pcm32).unwrap();
++            assert!(unsafe { validate_exact_mix(pointer, pcm) }.is_err());
++            native.Format.cbSize = 21;
++            assert!(unsafe { validate_exact_mix(ptr::addr_of!(native.Format), expected) }.is_err());
++            native.Format.cbSize = 22;
++            native.Samples.wValidBitsPerSample = 24;
++            assert!(unsafe { validate_exact_mix(ptr::addr_of!(native.Format), expected) }.is_err());
++            native.Samples.wValidBitsPerSample = 32;
++            native.dwChannelMask = 8;
++            assert!(unsafe { validate_exact_mix(ptr::addr_of!(native.Format), expected) }.is_err());
++            native.dwChannelMask = if channels == 1 { 4 } else { 3 };
++            native.SubFormat = KSDATAFORMAT_SUBTYPE_PCM;
++            assert!(unsafe { validate_exact_mix(ptr::addr_of!(native.Format), expected) }.is_err());
++        }
++        let expected = AudioFormat::new(48_000, 2, Encoding::Float32).unwrap();
++        assert!(unsafe { validate_exact_mix(ptr::null(), expected) }.is_err());
++    }
++
+     #[test]
+     fn high_precision_pcm_descriptors_own_complete_extension_and_roundtrip() {
+         for encoding in [Encoding::Pcm24, Encoding::Pcm32] {

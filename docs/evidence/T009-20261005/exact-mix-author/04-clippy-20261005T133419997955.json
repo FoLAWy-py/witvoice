@@ -1,0 +1,53 @@
+{
+  "actor_uuid": "01a10767-80de-7e02-b3b0-73d1273a70bd",
+  "argv": [
+    "cargo",
+    "clippy",
+    "--locked",
+    "-p",
+    "witvoice-audio",
+    "--all-targets",
+    "--",
+    "-D",
+    "warnings"
+  ],
+  "executor": [
+    "C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe",
+    "-NoProfile",
+    "-Command",
+    ". 'tools/dev/toolchain-env.ps1'; & 'cargo' 'clippy' '--locked' '-p' 'witvoice-audio' '--all-targets' '--' '-D' 'warnings'; exit $LASTEXITCODE"
+  ],
+  "env": {
+    "CARGO_BUILD_JOBS": "1",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_TARGET_DIR": "D:\\Project\\witvoice\\.local\\t009-author\\target"
+  },
+  "source_before": {
+    "crates/audio/src/wasapi.rs": "1588c289f9a7d89ef4c7539cc0f348b670ec39b95feeb3959bef7c54a8d4f32f",
+    "crates/audio/src/stream/native.rs": "af294d0a19ff94bd0b3a61c339d6b4f81a2fade7638ed2f68f742b757ce6f573",
+    "crates/audio/examples/format_support_probe.rs": "e3dd34e09ac352f41eed3d43b26b62b96b57c2303f8d19f70cbc7327b5db7324",
+    "crates/audio/examples/route_probe.rs": "10054c51af4d71f1eb7ce26a31fbe6da9b7ea4938ba1781c0b1ca6a582db0e3b",
+    "crates/audio/README.md": "b636b01200337dc17e4c1fb5734adba0b8cb82d46966363e0f3ee6c120634f75"
+  },
+  "started_utc": "2026-10-05T13:34:19.999996+00:00",
+  "hardware": "NOT_RUN",
+  "finished_utc": "2026-10-05T13:34:24.120787+00:00",
+  "exit_code": 0,
+  "source_after": {
+    "crates/audio/src/wasapi.rs": "1588c289f9a7d89ef4c7539cc0f348b670ec39b95feeb3959bef7c54a8d4f32f",
+    "crates/audio/src/stream/native.rs": "af294d0a19ff94bd0b3a61c339d6b4f81a2fade7638ed2f68f742b757ce6f573",
+    "crates/audio/examples/format_support_probe.rs": "e3dd34e09ac352f41eed3d43b26b62b96b57c2303f8d19f70cbc7327b5db7324",
+    "crates/audio/examples/route_probe.rs": "10054c51af4d71f1eb7ce26a31fbe6da9b7ea4938ba1781c0b1ca6a582db0e3b",
+    "crates/audio/README.md": "b636b01200337dc17e4c1fb5734adba0b8cb82d46966363e0f3ee6c120634f75"
+  },
+  "stdout": {
+    "path": "D:\\Project\\witvoice\\.local\\t009-exact-mix-author\\04-clippy-20261005T133419997955.stdout.raw",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stderr": {
+    "path": "D:\\Project\\witvoice\\.local\\t009-exact-mix-author\\04-clippy-20261005T133419997955.stderr.raw",
+    "bytes": 142,
+    "sha256": "ae56abe24138698672cff461cc9e7fb9299636c37f40452aaff81980962181dd"
+  }
+}

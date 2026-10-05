@@ -1,3 +1,7 @@
+最新整合：T010 formalr1 APPROVED/DONE，冻结1a85ef04，163项有效软件tests/fmt/严格Clippy/examples/defaultcheck全部0；非debug testsupport guard实际101命中预期编译拒绝（不是应用PASS）。完整证据integration/20261005-bounded-final，旧ICE/AV原因UNKNOWN。
+
+VB-CABLE适配once 1d11fbf7用户授权后已消费，实际0.348161s/child1，无timeout；renderPrepare通过1440界限，capture Initialize失败HRESULT -2005139430/0x887c001a，Start/marker/capture read均false，cleanup/capture容量UNKNOWN。原始result/raw归档adapted-once，不重试/换设备。用户已授予同范围有限VB合成测试持续授权；不扩大物理录音/真实语音播放/系统设置/PCM外传。硬件锁已释放，next_task=T011，继续已有MeanVC2 worker协议，M5/M6未过。
+
 当前推进（2026-10-05，覆盖以下历史）：新VB授权a656851f已实际消费，render GetBufferSize=1056（22ms），max960拒绝 beforeStart，capture未知/cleanupUNKNOWN/无PCM。初次supervisor字段缺失未Start/未消费，保存prelaunch-failure，仅补consumed_utc null后执行唯一设备测试；没有硬件retry。
 
 T010唯一实测SystemPS5.1宿主对照：160workspace tests0/fmt0，Clippy普通unusedmut/nonDrop3warnings101，examples停止；首次Get-FileHash初始化错误在Cargo前，原raw保存，改.NETSHA无全局设置。旧ICE/AV causeUNKNOWN，不归因宿主。backend仅identity_pipeline lifetimefix，audio仅native/probe<=30ms1440 OS容量+<=960单次commit/有界capture适配，两writers无hardware/GPU/LAN；依赖及正式review未闭合。next_task=T010，后续从冻结软件验证/正式review推进，不重复模型探索。

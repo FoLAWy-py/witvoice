@@ -1,0 +1,30 @@
+{
+    "task":  "T011",
+    "owner":  "/root",
+    "name":  "10-export-schema",
+    "exe":  "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\cargo.exe",
+    "argv":  [
+                 "run",
+                 "--locked",
+                 "-p",
+                 "witvoice-contracts",
+                 "--bin",
+                 "export_schema"
+             ],
+    "cwd":  "D:\\Project\\witvoice",
+    "host":  "5.1.26100.7462",
+    "started_utc":  "2026-10-05T13:32:08.0820713Z",
+    "finished_utc":  "2026-10-05T13:32:08.3791994Z",
+    "wall_seconds":  0.2960292,
+    "exit":  0,
+    "hardware":  "NOT_RUN",
+    "model":  "NOT_RUN",
+    "stdout":  {
+                   "bytes":  49892,
+                   "sha256":  "3ee200e25410b3a9a3dd23d170c97b074f7c7a0a8ad0748ad6f6f7abfb318a86"
+               },
+    "stderr":  {
+                   "bytes":  145,
+                   "sha256":  "57e01a60b8857bc8d119ae04be5847737884c11e09843bebafb841d0c9794d7e"
+               }
+}

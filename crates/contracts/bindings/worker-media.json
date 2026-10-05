@@ -1,0 +1,12 @@
+{
+  "backend_label": "cuda",
+  "chunk_samples": 2560,
+  "control_max_bytes": 65536,
+  "engine_id": "meanvc2",
+  "golden_header_hex": "01010000010203040506070800000009fffffffe0000000000000a0000003e8000000a0000000000",
+  "header_bytes": 40,
+  "header_format": ">BBHQIIQIII",
+  "maximum_samples": 4096,
+  "native_rate": 16000,
+  "pcm_format": "mono_f32le"
+}

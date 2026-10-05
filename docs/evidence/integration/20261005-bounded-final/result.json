@@ -1,0 +1,113 @@
+{
+  "source_commit": "1a85ef04ef6337e29a24562e05ec5d80d287cbb0",
+  "task_scope": [
+    "T009 software only",
+    "T010 foundation",
+    "T016 software only"
+  ],
+  "effective_tests": 163,
+  "root_commands": {
+    "workspace": 0,
+    "examples": 0,
+    "fmt": 0,
+    "strictclippy": 0
+  },
+  "all_files_byte_equal": true,
+  "files": [
+    {
+      "bytes": 22204,
+      "sha256": "01219ecb07023da3a536cf461228d13077c41319ffb90dac9832cf862caa19f2",
+      "name": "final-ps51-clippy.json"
+    },
+    {
+      "bytes": 288,
+      "sha256": "d2168c0c22d6cf6b48113d13f4858344ee307ba771bdbc18abd8073367ea2c24",
+      "name": "final-ps51-clippy.stderr"
+    },
+    {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "name": "final-ps51-clippy.stdout"
+    },
+    {
+      "bytes": 22011,
+      "sha256": "188fade4312bfaf4556cbf3b326170109ff28d3a3d6bbb40d46fbbe4c1576a05",
+      "name": "final-ps51-examples.json"
+    },
+    {
+      "bytes": 220,
+      "sha256": "0919050e941578206eedb474f9b66d744407e3269c921125aa90110b589b341c",
+      "name": "final-ps51-examples.stderr"
+    },
+    {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "name": "final-ps51-examples.stdout"
+    },
+    {
+      "bytes": 21968,
+      "sha256": "0099ce65f8e0759fe58a57c2eb304e4e41716c11a1e7cf560a640bcc3299e588",
+      "name": "final-ps51-fmt.json"
+    },
+    {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "name": "final-ps51-fmt.stderr"
+    },
+    {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "name": "final-ps51-fmt.stdout"
+    },
+    {
+      "bytes": 22219,
+      "sha256": "2ab3046499d1e11947b357228f7662baf02a42345f39d23cfa3fe9779bd068af",
+      "name": "final-ps51-workspace-tests.json"
+    },
+    {
+      "bytes": 36457,
+      "sha256": "c033628244b2fbee82178c6d0472b2e9185049db93c5fc773c6ab5e59843fdcf",
+      "name": "final-ps51-workspace-tests.stderr"
+    },
+    {
+      "bytes": 20202,
+      "sha256": "620cabea760b4de95c93a29384ae809c553ca81cc70b7572b8e3faf4fe33b181",
+      "name": "final-ps51-workspace-tests.stdout"
+    },
+    {
+      "bytes": 8372,
+      "sha256": "d3b741bce90cbb57429cff9a9a46b9b3d2e3d5181c0be87a8707446e27abb0af",
+      "name": "frozen-inputs.json"
+    },
+    {
+      "bytes": 285,
+      "sha256": "cf8eef3a6e15dc234bae95a91cac1a9d8e42bae3de749327e21c542026b4c0cc",
+      "name": "host.json"
+    },
+    {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "name": "host.stderr"
+    },
+    {
+      "bytes": 129,
+      "sha256": "9eb3d66b678125cc4af2466311c2f470519607e9ea39ad3dd6cfd50a2c41353a",
+      "name": "host.stdout"
+    },
+    {
+      "bytes": 1443,
+      "sha256": "eb56113abb6e70cf41662588b332f92759f99629e45933abf456069cfc380ee7",
+      "name": "launch.ps1"
+    },
+    {
+      "bytes": 4351,
+      "sha256": "ccde19fa606a9d5a7c68c4a6c1ecb000c8fd93438fc65b29aaee185fe319f424",
+      "name": "verify.ps1"
+    }
+  ],
+  "context": "Finalvalidation of new boundedcapacity and lifetimefix source. Inheritedmetadata host.hypothesis string describes earlier controlledhostcomparison; this run changedsource and does NOT test crashcausality. ActualSystemPS5.1 asserted/measured; earlierICE/AV retained causeUNKNOWN.",
+  "hardware": "NOT_RUN",
+  "mac": "UNTESTED",
+  "vc": "NOT_TESTED",
+  "production_guard": "Defaultfeatures cargo check exit0; test-support/debugassertionsoff rustc actual101 with exact compile_error observed; notfullreleaseinstaller"
+}

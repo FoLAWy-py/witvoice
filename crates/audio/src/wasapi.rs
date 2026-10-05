@@ -273,6 +273,109 @@ pub struct FormatProbe {
     pub closest: Option<MixFormat>,
 }
 
+/// Ordinary-thread metadata only. Neither status implies Initialize succeeded.
+#[derive(Debug, Serialize)]
+pub struct ExactMixProbe {
+    pub mix: MixFormat,
+    pub default_period_100ns: i64,
+    pub minimum_period_100ns: i64,
+    pub basic: Result<FormatProbe, MetadataError>,
+    pub exact_mix: Result<FormatProbe, MetadataError>,
+}
+
+pub(crate) struct OwnedMixDescriptor {
+    memory: TaskMem<WAVEFORMATEX>,
+    pub(crate) metadata: MixFormat,
+}
+impl OwnedMixDescriptor {
+    pub(crate) fn as_wave_ptr(&self) -> *const WAVEFORMATEX {
+        self.memory.0
+    }
+}
+
+// Only WASAPI-owned memory, or a complete owned native descriptor in pure tests.
+// Do not reconstruct the mix format from its adapter projection: retain every
+// byte returned by GetMixFormat until both synchronous native calls finish.
+unsafe fn validate_exact_mix(
+    pointer: *const WAVEFORMATEX,
+    expected: AudioFormat,
+) -> Result<MixFormat, MetadataError> {
+    let mix = unsafe { read_format(pointer) }?;
+    if expected.encoding() != Encoding::Float32
+        || mix.adapter_format != Some(expected)
+        || !matches!((mix.format_tag, mix.extra_bytes), (3, 0) | (0xfffe, 22))
+    {
+        return Err(format_error(FormatError::Layout));
+    }
+    Ok(mix)
+}
+
+pub(crate) fn owned_exact_mix(
+    client: &IAudioClient,
+    expected: AudioFormat,
+) -> Result<OwnedMixDescriptor, MetadataError> {
+    let memory = TaskMem(unsafe { client.GetMixFormat() }.map_err(|e| com("GetMixFormat", e))?);
+    let metadata = unsafe { validate_exact_mix(memory.0, expected) }?;
+    Ok(OwnedMixDescriptor { memory, metadata })
+}
+
+fn query_supported(
+    client: &IAudioClient,
+    pointer: *const WAVEFORMATEX,
+    requested: AudioFormat,
+) -> Result<FormatProbe, MetadataError> {
+    let mut closest = ptr::null_mut();
+    let status =
+        unsafe { client.IsFormatSupported(AUDCLNT_SHAREMODE_SHARED, pointer, Some(&mut closest)) };
+    let memory = TaskMem(closest);
+    match status.0 {
+        0 => Ok(FormatProbe {
+            requested,
+            hresult: 0,
+            exact_supported: true,
+            closest: None,
+        }),
+        1 if !memory.0.is_null() => Ok(FormatProbe {
+            requested,
+            hresult: 1,
+            exact_supported: false,
+            closest: Some(unsafe { read_format(memory.0) }?),
+        }),
+        code if code < 0 => Err(MetadataError::Com {
+            operation: "IsFormatSupported",
+            hresult: code,
+        }),
+        code => Err(MetadataError::UnexpectedFormatStatus(code)),
+    }
+}
+
+/// Explicit UID/flow; owned exact engine descriptor and two support queries.
+/// No Initialize, Start, closest adoption or default-device selection.
+pub fn probe_exact_mix(
+    uid: &str,
+    flow: Flow,
+    expected: AudioFormat,
+) -> Result<ExactMixProbe, MetadataError> {
+    let _apartment = Apartment::enter()?;
+    let device = selected(&enumerator()?, uid, flow)?;
+    let client = client(&device)?;
+    let exact = owned_exact_mix(&client, expected)?;
+    let mut default_period = 0;
+    let mut minimum_period = 0;
+    unsafe { client.GetDevicePeriod(Some(&mut default_period), Some(&mut minimum_period)) }
+        .map_err(|e| com("GetDevicePeriod", e))?;
+    let basic = NativeDescriptor::new(expected);
+    let basic_result = query_supported(&client, basic.as_wave_ptr(), expected);
+    let exact_result = query_supported(&client, exact.as_wave_ptr(), expected);
+    Ok(ExactMixProbe {
+        mix: exact.metadata.clone(),
+        default_period_100ns: default_period,
+        minimum_period_100ns: minimum_period,
+        basic: basic_result,
+        exact_mix: exact_result,
+    })
+}
+
 // Own the complete native descriptor through the synchronous WASAPI call.
 // PCM precision above 16 bits requires the extension rather than tag 1.
 pub(crate) enum NativeDescriptor {
@@ -367,6 +470,46 @@ pub fn probe_format(
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn exact_mix_validation_checks_complete_float_shape_without_native_calls() {
+        for channels in [1, 2] {
+            let expected = AudioFormat::new(48_000, channels, Encoding::Float32).unwrap();
+            let basic = NativeDescriptor::new(expected);
+            let mut native = WAVEFORMATEXTENSIBLE {
+                Format: unsafe { ptr::read_unaligned(basic.as_wave_ptr()) },
+                Samples: WAVEFORMATEXTENSIBLE_0 {
+                    wValidBitsPerSample: 32,
+                },
+                dwChannelMask: if channels == 1 { 4 } else { 3 },
+                SubFormat: IEEE_FLOAT,
+            };
+            native.Format.wFormatTag = 0xfffe;
+            native.Format.cbSize = 22;
+            let pointer = ptr::addr_of!(native.Format);
+            assert!(unsafe { validate_exact_mix(basic.as_wave_ptr(), expected) }.is_ok());
+            let parsed = unsafe { validate_exact_mix(pointer, expected) }.unwrap();
+            assert_eq!(parsed.adapter_format, Some(expected));
+            assert_eq!(parsed.channel_mask, Some(if channels == 1 { 4 } else { 3 }));
+            let other = AudioFormat::new(44_100, channels, Encoding::Float32).unwrap();
+            assert!(unsafe { validate_exact_mix(pointer, other) }.is_err());
+            let pcm = AudioFormat::new(48_000, channels, Encoding::Pcm32).unwrap();
+            assert!(unsafe { validate_exact_mix(pointer, pcm) }.is_err());
+            native.Format.cbSize = 21;
+            assert!(unsafe { validate_exact_mix(ptr::addr_of!(native.Format), expected) }.is_err());
+            native.Format.cbSize = 22;
+            native.Samples.wValidBitsPerSample = 24;
+            assert!(unsafe { validate_exact_mix(ptr::addr_of!(native.Format), expected) }.is_err());
+            native.Samples.wValidBitsPerSample = 32;
+            native.dwChannelMask = 8;
+            assert!(unsafe { validate_exact_mix(ptr::addr_of!(native.Format), expected) }.is_err());
+            native.dwChannelMask = if channels == 1 { 4 } else { 3 };
+            native.SubFormat = KSDATAFORMAT_SUBTYPE_PCM;
+            assert!(unsafe { validate_exact_mix(ptr::addr_of!(native.Format), expected) }.is_err());
+        }
+        let expected = AudioFormat::new(48_000, 2, Encoding::Float32).unwrap();
+        assert!(unsafe { validate_exact_mix(ptr::null(), expected) }.is_err());
+    }
 
     #[test]
     fn high_precision_pcm_descriptors_own_complete_extension_and_roundtrip() {

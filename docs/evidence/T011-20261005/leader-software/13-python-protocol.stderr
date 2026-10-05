@@ -1,0 +1,11 @@
+test_converted_bounds_and_source_chunk (test_protocol.ProtocolTests.test_converted_bounds_and_source_chunk) ... ok
+test_corruption_stale_nonfinite_length (test_protocol.ProtocolTests.test_corruption_stale_nonfinite_length) ... ok
+test_deadline_partial_eof_and_zero_write (test_protocol.ProtocolTests.test_deadline_partial_eof_and_zero_write) ... ok
+test_oversized_length_rejected_before_payload_read (test_protocol.ProtocolTests.test_oversized_length_rejected_before_payload_read) ... ok
+test_partial_io_uses_one_absolute_deadline (test_protocol.ProtocolTests.test_partial_io_uses_one_absolute_deadline) ... ok
+test_rust_golden_and_float_endian (test_protocol.ProtocolTests.test_rust_golden_and_float_endian) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.003s
+
+OK

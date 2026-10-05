@@ -1,0 +1,18 @@
+{
+  "authorization_id": "T009-ADAPTED-1d11fbf7-eb8d-4c9a-9e89-ebb25fd38b21",
+  "status": "PENDING_HUMAN_AUTHORIZATION",
+  "created_utc": "2026-10-05T13:06:43.0464943Z",
+  "human_authority": null,
+  "approved_utc": null,
+  "consumed_utc": null,
+  "requested_marker_seconds": 2,
+  "max_marker_seconds": 5,
+  "max_total_seconds": 15,
+  "amplitude": 0.01,
+  "maximum_frames": 1440,
+  "allowed": "Only same identity-verified CABLE Input(render)->CABLE Output(capture), one bounded adapted marker probe; no retry",
+  "physical_capture": false,
+  "physical_render": false,
+  "pcm_disk_upload": false,
+  "default_device_changes": false
+}

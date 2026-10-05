@@ -7,24 +7,24 @@
   "active_milestone": "M1",
   "active_tasks": [
     {
-      "task_id": "T010",
+      "task_id": "T011",
       "agent": "/root",
       "thread_id": "01a10764-d851-7d02-ac79-365d2576a226",
-      "mode": "LEADER_FROZEN_INTEGRATION",
+      "mode": "FROZEN_SOFTWARE_INTEGRATION",
       "path_whitelist": [
-        ".local/t009-t010-final",
-        "docs/evidence/integration/20261005-bounded-final",
+        ".local/t011-final",
+        "docs/evidence/T011-20261005/integration",
         "docs/project"
       ],
       "dependencies": [
+        "T002",
         "T006",
-        "T008"
+        "T010"
       ],
-      "contract": "AllauthorsSTOP. Current67audio plusfixedidentity_pipeline; frozen72 aftersourcecommit; actualsystemPS5.1; sameargv/cache; first nonzero stops; nohardware",
-      "acceptance": "Actual workspace/fmt/strictClippy/examples plus scopedproductionguard, rawexits/source maps; nounexecutedPASS",
+      "contract": "Allauthors STOP; frozenT011partial+T009explicitmix; actualPS5.1 sameexistingtarget/jobs1; no hardware/model",
+      "acceptance": "workspace all-target tests/fmt/strictClippy/examples/sourceguards; no taskDONE untilremainingnative/model evidence",
       "resources": [
-        "sole codewriter",
-        "exclusive software validation"
+        "sole software validator"
       ]
     }
   ],
@@ -72,8 +72,8 @@
       "review": null
     }
   },
-  "last_verified_commit": "6c68c5dd3501da0681c27d57baa8ade694910468",
-  "next_task": "T010",
+  "last_verified_commit": "1a85ef04ef6337e29a24562e05ec5d80d287cbb0",
+  "next_task": "T011",
   "blockers": [
     {
       "id": "B001",
@@ -86,22 +86,22 @@
       "id": "B004",
       "scope": "T010 application verification and toolchain reliability",
       "status": "RESOLVED_FOR_CURRENT_TEST_RUN_ROOT_CAUSE_UNKNOWN",
-      "evidence": "docs/evidence/integration/20261005-T009-T010-T016/result.json",
-      "note": "One explicitmeasuredSystemPS5.1 run completed160tests/fmt0; originalICE/AV preserved, no causalinference/stabilityclaim. Clippy needs ordinary sourcefix and rootfinalchecks."
+      "evidence": "docs/evidence/integration/20261005-bounded-final/result.json",
+      "note": "Current163tests/fmt/strictClippy/examples/defaultcheck0 actualSystemPS5.1; oldICE/AV retained UNKNOWN, no causal or generalstability claim"
     },
     {
       "id": "B005",
       "scope": "T009 VB-CABLE continuity",
-      "status": "BLOCKED_CONSUMED_HARDWARE_AUTHORIZATION",
-      "evidence": "docs/evidence/T009-20261005/once/result.json",
-      "note": "Oncefailed beforeStart Capacity/actualcount0or>960UNKNOWN/cleanupUNKNOWN. Diagnostic64tests0 independently limitedreview, no boundwidening/newdeviceexecution; need stableintegration then fresh specificauthorization."
+      "status": "BLOCKED_CAPTURE_INITIALIZE",
+      "evidence": "docs/evidence/T009-20261005/adapted-once/result.json",
+      "note": "Onceadaptedcapture InitializeHRESULT0x887c001a, overall0.348161s/child1/notimeout/noStart/marker/read; exactmeaning/capturecapacity/cleanupunknown. No automaticretry; equivalentfiniteVBtests standinghumanapproval subject newconcretefix/preflight."
     },
     {
       "id": "B006",
       "scope": "T016 realnative discovery plus integration",
-      "status": "BLOCKED_NATIVE_POSITIVE_AND_COMPILER",
+      "status": "BLOCKED_NATIVE_POSITIVE",
       "evidence": "docs/project/reviews/T016-r2.md",
-      "note": "Formalr2 S2closed/no newmustfix; author8purechecks0, rootAVbeforetests, oldactualonceFAIL13unknown consumed. Need stable nativeintegration and separatelyapproved finiteLANpositive, nofirewallchanges."
+      "note": "T016 r2softwareS2closed/currentrootintegration0; nativeonceFailed13UNKNOWN consumed, realpositive stillmissing"
     }
   ],
   "distribution_status": "BLOCKED_LICENSE_CHAIN_NOT_BUILT",
@@ -151,11 +151,11 @@
     }
   },
   "completion_claim_allowed": false,
-  "last_verified_scope": "Independent T008 r2 approved audio software slice plus prior frozen M0/T006/T007 API/T021. Excludes T016 diagnosis/discovery formal approval, new hardware/virtual route/whole VC/Mac.",
-  "execution_status": "ACTIVE_FROZEN_INTEGRATION",
+  "last_verified_scope": "T010 independentformalr1 limitedfoundation APPROVED plus previoussoftware; T009adaptedlimitedpreflight only, hardware/VC/Macexcluded",
+  "execution_status": "ACTIVE_SOFTWARE_NO_HARDWARE_LEASE",
   "interruption_evidence": "docs/project/interruption-20261005.json",
-  "last_tested_commit": "78c18c163e31dfdc36457088b90ee25c83534a2b",
-  "last_tested_scope": "160actualworkspace all-targettests exit0 andfmt0; strictclippyordinary3warnings exit101, examplesnotrun. Host5.1 observed, earliercompilercrashes unknown.",
+  "last_tested_commit": "1a85ef04ef6337e29a24562e05ec5d80d287cbb0",
+  "last_tested_scope": "163workspace effective tests/fmt/strictClippy/examples/defaultcheck0; nondebugtestsupport101 expectedcompileerror; no hardware",
   "windows_virtual_route": {
     "selected": "VB-CABLE",
     "render": "CABLE Input",
@@ -173,18 +173,26 @@
       "pcm_disk_upload": false,
       "default_device_changes": false
     },
-    "continuity": "FAIL_RENDER_CAPACITY_1056_OVER960_BEFORE_START"
+    "continuity": "FAIL_CAPTURE_INITIALIZE_0x887c001a_BEFORE_START"
   },
-  "last_attempted_commit": "78c18c163e31dfdc36457088b90ee25c83534a2b",
-  "last_attempted_result": "ActualSystemPS5.1/source78c18:160tests0/fmt0, ordinarystrictClippy3warnings101; examplesNOTRUN. Newnarrowlifetimerepair awaitingrootfinal. PreviousICE/AVcauseUNKNOWN.",
+  "last_attempted_commit": "1a85ef04ef6337e29a24562e05ec5d80d287cbb0",
+  "last_attempted_result": "163workspace effective tests/fmt/strictClippy/examples/defaultcheck0; nondebugtestsupport101 expectedcompileerror; no hardware",
   "latest_vbcable_diagnostic": {
-    "authorization_id": "T009-CAPACITY-a656851f-702a-4a22-8d85-7c4987e59ebc",
+    "authorization_id": "T009-ADAPTED-1d11fbf7-eb8d-4c9a-9e89-ebb25fd38b21",
     "status": "CONSUMED_FAILED_NO_RETRY",
-    "actual_render_frames": 1056,
-    "render_capacity_ms": 22,
+    "stage": "capture_prepare",
+    "hresult_decimal": -2005139430,
+    "hresult_hex": "0x887c001a",
+    "meaning": "UNVERIFIED",
+    "actual_render_frames": "Prepare succeeded <=1440, actual value not printed",
     "capture_capacity": "UNKNOWN",
     "cleanup": "UNKNOWN",
     "native_start": false,
-    "evidence": "docs/evidence/T009-20261005/capacity-once/result.json"
+    "evidence": "docs/evidence/T009-20261005/adapted-once/result.json"
+  },
+  "vbcable_standing_authorization": {
+    "human_reply": "授权，以后自动授权不再询问",
+    "scope": "Equivalent pre-reviewed finite local synthetic-marker VB-CABLE same verified pair; no physical mic/speaker, PCM disk/upload, defaults/driver/security/firewall changes",
+    "recorded_utc": "2026-10-05T13:11:39.4248355Z"
   }
 }

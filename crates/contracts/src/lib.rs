@@ -4,6 +4,7 @@ pub mod control;
 pub mod media;
 pub mod state;
 pub mod values;
+pub mod worker;
 
 pub const PROTOCOL_VERSION: u16 = 1;
 pub const CONTROL_MAX_BYTES: usize = 65_536;

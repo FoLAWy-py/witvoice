@@ -1,0 +1,47 @@
+{
+  "uuid": "01a10767-4ff5-7f21-881a-146d094fbc55",
+  "executable": "D:\\Software\\WitvoiceToolchain\\Rust\\rustup\\toolchains\\1.99.0-x86_64-pc-windows-msvc\\bin\\rustfmt.exe",
+  "argv": [
+    "--edition",
+    "2024",
+    "D:\\Project\\witvoice\\crates\\engines\\src\\lifecycle.rs",
+    "D:\\Project\\witvoice\\crates\\engines\\tests\\lifecycle.rs"
+  ],
+  "cwd": "D:\\Project\\witvoice",
+  "host_powershell": "7.6.5",
+  "start_utc": "2026-10-05T13:23:17.6667109Z",
+  "end_utc": "2026-10-05T13:23:17.8179546Z",
+  "exit_code": 0,
+  "source_before": [
+    {
+      "path": "D:\\Project\\witvoice\\crates\\engines\\src\\lifecycle.rs",
+      "sha256": "00870731d53723f0c346e14cb73f3f95fa3093632f8af32b618c00d16241c496"
+    },
+    {
+      "path": "D:\\Project\\witvoice\\crates\\engines\\tests\\lifecycle.rs",
+      "sha256": "4fffe72696dc4c14492be1260575e1913e169a28a940db1576f3f3f2d299465a"
+    }
+  ],
+  "source_after": [
+    {
+      "path": "D:\\Project\\witvoice\\crates\\engines\\src\\lifecycle.rs",
+      "sha256": "61ab39ee7dbc5cffd727ac2cf59f8a5593fbc877a7f8b72b7951add01e60d6ca"
+    },
+    {
+      "path": "D:\\Project\\witvoice\\crates\\engines\\tests\\lifecycle.rs",
+      "sha256": "acdc29b22b4cd24845d41e57e103f036075674605b3b4f794374f865ca8c81b0"
+    }
+  ],
+  "stdout": {
+    "path": "D:\\Project\\witvoice\\.local\\t011-backend\\01-rustfmt.stdout",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "stderr": {
+    "path": "D:\\Project\\witvoice\\.local\\t011-backend\\01-rustfmt.stderr",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "capture": "Complete redirected stream text saved UTF8 without BOM; no truncation",
+  "scope": "Standalone formatter only; Cargo/tests/model/HW/network NOT_RUN"
+}

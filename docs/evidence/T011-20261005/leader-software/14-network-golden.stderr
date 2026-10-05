@@ -1,0 +1,6 @@
+test_rust_export_matches_python_network_header (test_golden.GoldenTests.test_rust_export_matches_python_network_header) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK

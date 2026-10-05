@@ -1,0 +1,32 @@
+{
+    "task":  "T011",
+    "owner":  "/root",
+    "name":  "19-python-control",
+    "exe":  "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "argv":  [
+                 "-m",
+                 "unittest",
+                 "discover",
+                 "-s",
+                 "workers/vc_worker",
+                 "-p",
+                 "test_control.py",
+                 "-v"
+             ],
+    "cwd":  "D:\\Project\\witvoice",
+    "host":  "5.1.26100.7462",
+    "started_utc":  "2026-10-05T13:35:25.8152354Z",
+    "finished_utc":  "2026-10-05T13:35:26.3715316Z",
+    "wall_seconds":  0.5563602,
+    "exit":  0,
+    "hardware":  "NOT_RUN",
+    "model":  "NOT_RUN",
+    "stdout":  {
+                   "bytes":  0,
+                   "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+               },
+    "stderr":  {
+                   "bytes":  561,
+                   "sha256":  "0563e8ffc5b0005e37fb444feeb868d60013b2462b47d1d1fff19792533196f3"
+               }
+}

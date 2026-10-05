@@ -1,0 +1,368 @@
+{
+  "task": "T009 exact-mix single-variable preparation",
+  "actor_uuid": "01a10767-80de-7e02-b3b0-73d1273a70bd",
+  "status": "STOP_WRITES",
+  "created_utc": "2026-10-05T13:35:43.688497+00:00",
+  "commands": [
+    {
+      "actor_uuid": "01a10767-80de-7e02-b3b0-73d1273a70bd",
+      "argv": [
+        "rustfmt",
+        "--edition",
+        "2024",
+        "crates/audio/src/wasapi.rs",
+        "crates/audio/src/stream/native.rs",
+        "crates/audio/examples/format_support_probe.rs",
+        "crates/audio/examples/route_probe.rs"
+      ],
+      "executor": [
+        "C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe",
+        "-NoProfile",
+        "-Command",
+        ". 'tools/dev/toolchain-env.ps1'; & 'rustfmt' '--edition' '2024' 'crates/audio/src/wasapi.rs' 'crates/audio/src/stream/native.rs' 'crates/audio/examples/format_support_probe.rs' 'crates/audio/examples/route_probe.rs'; exit $LASTEXITCODE"
+      ],
+      "env": {
+        "CARGO_BUILD_JOBS": "1",
+        "CARGO_INCREMENTAL": "0",
+        "CARGO_TARGET_DIR": "D:\\Project\\witvoice\\.local\\t009-author\\target"
+      },
+      "source_before": {
+        "crates/audio/src/wasapi.rs": "80dfb3a2a0450557bef5356732c6c926a13ad88ae7157e27ae33d3edf194f158",
+        "crates/audio/src/stream/native.rs": "d29d94bebad23038583473068b0b007553b1984de9192f2f5620e1105f52848a",
+        "crates/audio/examples/format_support_probe.rs": "2d03c9bc086efe2ae359695a2dafacdb2c47bfc1638a5602dbb528390147dd33",
+        "crates/audio/examples/route_probe.rs": "e36360533d18f6c972ba591c13ae2403eb6d125c4d36e4366c8f35c0f70443db",
+        "crates/audio/README.md": "b636b01200337dc17e4c1fb5734adba0b8cb82d46966363e0f3ee6c120634f75"
+      },
+      "started_utc": "2026-10-05T13:33:14.511380+00:00",
+      "hardware": "NOT_RUN",
+      "finished_utc": "2026-10-05T13:33:14.987768+00:00",
+      "exit_code": 0,
+      "source_after": {
+        "crates/audio/src/wasapi.rs": "1588c289f9a7d89ef4c7539cc0f348b670ec39b95feeb3959bef7c54a8d4f32f",
+        "crates/audio/src/stream/native.rs": "af294d0a19ff94bd0b3a61c339d6b4f81a2fade7638ed2f68f742b757ce6f573",
+        "crates/audio/examples/format_support_probe.rs": "e3dd34e09ac352f41eed3d43b26b62b96b57c2303f8d19f70cbc7327b5db7324",
+        "crates/audio/examples/route_probe.rs": "10054c51af4d71f1eb7ce26a31fbe6da9b7ea4938ba1781c0b1ca6a582db0e3b",
+        "crates/audio/README.md": "b636b01200337dc17e4c1fb5734adba0b8cb82d46966363e0f3ee6c120634f75"
+      },
+      "stdout": {
+        "path": "D:\\Project\\witvoice\\.local\\t009-exact-mix-author\\01-format-20261005T133314510374.stdout.raw",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "D:\\Project\\witvoice\\.local\\t009-exact-mix-author\\01-format-20261005T133314510374.stderr.raw",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "metadata_path": "D:\\Project\\witvoice\\.local\\t009-exact-mix-author\\01-format-20261005T133314510374.json",
+      "metadata_sha256": "41f16a0975b7da07f22d088f6810a1c5c9fa26fdc584062a253c10b59b2a8e8a"
+    },
+    {
+      "actor_uuid": "01a10767-80de-7e02-b3b0-73d1273a70bd",
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "witvoice-audio",
+        "--all-targets"
+      ],
+      "executor": [
+        "C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe",
+        "-NoProfile",
+        "-Command",
+        ". 'tools/dev/toolchain-env.ps1'; & 'cargo' 'test' '--locked' '-p' 'witvoice-audio' '--all-targets'; exit $LASTEXITCODE"
+      ],
+      "env": {
+        "CARGO_BUILD_JOBS": "1",
+        "CARGO_INCREMENTAL": "0",
+        "CARGO_TARGET_DIR": "D:\\Project\\witvoice\\.local\\t009-author\\target"
+      },
+      "source_before": {
+        "crates/audio/src/wasapi.rs": "1588c289f9a7d89ef4c7539cc0f348b670ec39b95feeb3959bef7c54a8d4f32f",
+        "crates/audio/src/stream/native.rs": "af294d0a19ff94bd0b3a61c339d6b4f81a2fade7638ed2f68f742b757ce6f573",
+        "crates/audio/examples/format_support_probe.rs": "e3dd34e09ac352f41eed3d43b26b62b96b57c2303f8d19f70cbc7327b5db7324",
+        "crates/audio/examples/route_probe.rs": "10054c51af4d71f1eb7ce26a31fbe6da9b7ea4938ba1781c0b1ca6a582db0e3b",
+        "crates/audio/README.md": "b636b01200337dc17e4c1fb5734adba0b8cb82d46966363e0f3ee6c120634f75"
+      },
+      "started_utc": "2026-10-05T13:33:26.766240+00:00",
+      "hardware": "NOT_RUN",
+      "finished_utc": "2026-10-05T13:33:40.032870+00:00",
+      "exit_code": 0,
+      "source_after": {
+        "crates/audio/src/wasapi.rs": "1588c289f9a7d89ef4c7539cc0f348b670ec39b95feeb3959bef7c54a8d4f32f",
+        "crates/audio/src/stream/native.rs": "af294d0a19ff94bd0b3a61c339d6b4f81a2fade7638ed2f68f742b757ce6f573",
+        "crates/audio/examples/format_support_probe.rs": "e3dd34e09ac352f41eed3d43b26b62b96b57c2303f8d19f70cbc7327b5db7324",
+        "crates/audio/examples/route_probe.rs": "10054c51af4d71f1eb7ce26a31fbe6da9b7ea4938ba1781c0b1ca6a582db0e3b",
+        "crates/audio/README.md": "b636b01200337dc17e4c1fb5734adba0b8cb82d46966363e0f3ee6c120634f75"
+      },
+      "stdout": {
+        "path": "D:\\Project\\witvoice\\.local\\t009-exact-mix-author\\02-test-20261005T133326763614.stdout.raw",
+        "bytes": 7157,
+        "sha256": "8b4ead7bb020054614c33ccc7c1d757d2fb12c864df6ecb47593f0b37c222afa"
+      },
+      "stderr": {
+        "path": "D:\\Project\\witvoice\\.local\\t009-exact-mix-author\\02-test-20261005T133326763614.stderr.raw",
+        "bytes": 1548,
+        "sha256": "174a6bbb15ca8f74ed6291a1c73ee276e733608b14065f09a6ee90dbb590df77"
+      },
+      "metadata_path": "D:\\Project\\witvoice\\.local\\t009-exact-mix-author\\02-test-20261005T133326763614.json",
+      "metadata_sha256": "677df80b051ff0a6763aface6c2c19d8a196078ead5dabfa2f0526c1750a8fd6"
+    },
+    {
+      "actor_uuid": "01a10767-80de-7e02-b3b0-73d1273a70bd",
+      "argv": [
+        "cargo",
+        "fmt",
+        "--package",
+        "witvoice-audio",
+        "--check"
+      ],
+      "executor": [
+        "C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe",
+        "-NoProfile",
+        "-Command",
+        ". 'tools/dev/toolchain-env.ps1'; & 'cargo' 'fmt' '--package' 'witvoice-audio' '--check'; exit $LASTEXITCODE"
+      ],
+      "env": {
+        "CARGO_BUILD_JOBS": "1",
+        "CARGO_INCREMENTAL": "0",
+        "CARGO_TARGET_DIR": "D:\\Project\\witvoice\\.local\\t009-author\\target"
+      },
+      "source_before": {
+        "crates/audio/src/wasapi.rs": "1588c289f9a7d89ef4c7539cc0f348b670ec39b95feeb3959bef7c54a8d4f32f",
+        "crates/audio/src/stream/native.rs": "af294d0a19ff94bd0b3a61c339d6b4f81a2fade7638ed2f68f742b757ce6f573",
+        "crates/audio/examples/format_support_probe.rs": "e3dd34e09ac352f41eed3d43b26b62b96b57c2303f8d19f70cbc7327b5db7324",
+        "crates/audio/examples/route_probe.rs": "10054c51af4d71f1eb7ce26a31fbe6da9b7ea4938ba1781c0b1ca6a582db0e3b",
+        "crates/audio/README.md": "b636b01200337dc17e4c1fb5734adba0b8cb82d46966363e0f3ee6c120634f75"
+      },
+      "started_utc": "2026-10-05T13:34:06.550625+00:00",
+      "hardware": "NOT_RUN",
+      "finished_utc": "2026-10-05T13:34:07.359633+00:00",
+      "exit_code": 0,
+      "source_after": {
+        "crates/audio/src/wasapi.rs": "1588c289f9a7d89ef4c7539cc0f348b670ec39b95feeb3959bef7c54a8d4f32f",
+        "crates/audio/src/stream/native.rs": "af294d0a19ff94bd0b3a61c339d6b4f81a2fade7638ed2f68f742b757ce6f573",
+        "crates/audio/examples/format_support_probe.rs": "e3dd34e09ac352f41eed3d43b26b62b96b57c2303f8d19f70cbc7327b5db7324",
+        "crates/audio/examples/route_probe.rs": "10054c51af4d71f1eb7ce26a31fbe6da9b7ea4938ba1781c0b1ca6a582db0e3b",
+        "crates/audio/README.md": "b636b01200337dc17e4c1fb5734adba0b8cb82d46966363e0f3ee6c120634f75"
+      },
+      "stdout": {
+        "path": "D:\\Project\\witvoice\\.local\\t009-exact-mix-author\\03-fmt-20261005T133406548559.stdout.raw",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "D:\\Project\\witvoice\\.local\\t009-exact-mix-author\\03-fmt-20261005T133406548559.stderr.raw",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "metadata_path": "D:\\Project\\witvoice\\.local\\t009-exact-mix-author\\03-fmt-20261005T133406548559.json",
+      "metadata_sha256": "264f1642b73ea9ab478cd8079be8820a09930af6d2826a81464647dc6a7d8437"
+    },
+    {
+      "actor_uuid": "01a10767-80de-7e02-b3b0-73d1273a70bd",
+      "argv": [
+        "cargo",
+        "clippy",
+        "--locked",
+        "-p",
+        "witvoice-audio",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "executor": [
+        "C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe",
+        "-NoProfile",
+        "-Command",
+        ". 'tools/dev/toolchain-env.ps1'; & 'cargo' 'clippy' '--locked' '-p' 'witvoice-audio' '--all-targets' '--' '-D' 'warnings'; exit $LASTEXITCODE"
+      ],
+      "env": {
+        "CARGO_BUILD_JOBS": "1",
+        "CARGO_INCREMENTAL": "0",
+        "CARGO_TARGET_DIR": "D:\\Project\\witvoice\\.local\\t009-author\\target"
+      },
+      "source_before": {
+        "crates/audio/src/wasapi.rs": "1588c289f9a7d89ef4c7539cc0f348b670ec39b95feeb3959bef7c54a8d4f32f",
+        "crates/audio/src/stream/native.rs": "af294d0a19ff94bd0b3a61c339d6b4f81a2fade7638ed2f68f742b757ce6f573",
+        "crates/audio/examples/format_support_probe.rs": "e3dd34e09ac352f41eed3d43b26b62b96b57c2303f8d19f70cbc7327b5db7324",
+        "crates/audio/examples/route_probe.rs": "10054c51af4d71f1eb7ce26a31fbe6da9b7ea4938ba1781c0b1ca6a582db0e3b",
+        "crates/audio/README.md": "b636b01200337dc17e4c1fb5734adba0b8cb82d46966363e0f3ee6c120634f75"
+      },
+      "started_utc": "2026-10-05T13:34:19.999996+00:00",
+      "hardware": "NOT_RUN",
+      "finished_utc": "2026-10-05T13:34:24.120787+00:00",
+      "exit_code": 0,
+      "source_after": {
+        "crates/audio/src/wasapi.rs": "1588c289f9a7d89ef4c7539cc0f348b670ec39b95feeb3959bef7c54a8d4f32f",
+        "crates/audio/src/stream/native.rs": "af294d0a19ff94bd0b3a61c339d6b4f81a2fade7638ed2f68f742b757ce6f573",
+        "crates/audio/examples/format_support_probe.rs": "e3dd34e09ac352f41eed3d43b26b62b96b57c2303f8d19f70cbc7327b5db7324",
+        "crates/audio/examples/route_probe.rs": "10054c51af4d71f1eb7ce26a31fbe6da9b7ea4938ba1781c0b1ca6a582db0e3b",
+        "crates/audio/README.md": "b636b01200337dc17e4c1fb5734adba0b8cb82d46966363e0f3ee6c120634f75"
+      },
+      "stdout": {
+        "path": "D:\\Project\\witvoice\\.local\\t009-exact-mix-author\\04-clippy-20261005T133419997955.stdout.raw",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "D:\\Project\\witvoice\\.local\\t009-exact-mix-author\\04-clippy-20261005T133419997955.stderr.raw",
+        "bytes": 142,
+        "sha256": "ae56abe24138698672cff461cc9e7fb9299636c37f40452aaff81980962181dd"
+      },
+      "metadata_path": "D:\\Project\\witvoice\\.local\\t009-exact-mix-author\\04-clippy-20261005T133419997955.json",
+      "metadata_sha256": "fdda04fed3d818ff8b422b5ca150b5e21b6fce4d8dd3e446f6dfb5e00630059d"
+    },
+    {
+      "actor_uuid": "01a10767-80de-7e02-b3b0-73d1273a70bd",
+      "argv": [
+        "cargo",
+        "build",
+        "--locked",
+        "-p",
+        "witvoice-audio",
+        "--examples"
+      ],
+      "executor": [
+        "C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe",
+        "-NoProfile",
+        "-Command",
+        ". 'tools/dev/toolchain-env.ps1'; & 'cargo' 'build' '--locked' '-p' 'witvoice-audio' '--examples'; exit $LASTEXITCODE"
+      ],
+      "env": {
+        "CARGO_BUILD_JOBS": "1",
+        "CARGO_INCREMENTAL": "0",
+        "CARGO_TARGET_DIR": "D:\\Project\\witvoice\\.local\\t009-author\\target"
+      },
+      "source_before": {
+        "crates/audio/src/wasapi.rs": "1588c289f9a7d89ef4c7539cc0f348b670ec39b95feeb3959bef7c54a8d4f32f",
+        "crates/audio/src/stream/native.rs": "af294d0a19ff94bd0b3a61c339d6b4f81a2fade7638ed2f68f742b757ce6f573",
+        "crates/audio/examples/format_support_probe.rs": "e3dd34e09ac352f41eed3d43b26b62b96b57c2303f8d19f70cbc7327b5db7324",
+        "crates/audio/examples/route_probe.rs": "10054c51af4d71f1eb7ce26a31fbe6da9b7ea4938ba1781c0b1ca6a582db0e3b",
+        "crates/audio/README.md": "b636b01200337dc17e4c1fb5734adba0b8cb82d46966363e0f3ee6c120634f75"
+      },
+      "started_utc": "2026-10-05T13:34:37.298043+00:00",
+      "hardware": "NOT_RUN",
+      "finished_utc": "2026-10-05T13:34:42.273017+00:00",
+      "exit_code": 0,
+      "source_after": {
+        "crates/audio/src/wasapi.rs": "1588c289f9a7d89ef4c7539cc0f348b670ec39b95feeb3959bef7c54a8d4f32f",
+        "crates/audio/src/stream/native.rs": "af294d0a19ff94bd0b3a61c339d6b4f81a2fade7638ed2f68f742b757ce6f573",
+        "crates/audio/examples/format_support_probe.rs": "e3dd34e09ac352f41eed3d43b26b62b96b57c2303f8d19f70cbc7327b5db7324",
+        "crates/audio/examples/route_probe.rs": "10054c51af4d71f1eb7ce26a31fbe6da9b7ea4938ba1781c0b1ca6a582db0e3b",
+        "crates/audio/README.md": "b636b01200337dc17e4c1fb5734adba0b8cb82d46966363e0f3ee6c120634f75"
+      },
+      "stdout": {
+        "path": "D:\\Project\\witvoice\\.local\\t009-exact-mix-author\\05-build-20261005T133437296761.stdout.raw",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "D:\\Project\\witvoice\\.local\\t009-exact-mix-author\\05-build-20261005T133437296761.stderr.raw",
+        "bytes": 142,
+        "sha256": "f880ea9bf948d67e1406bc92e5607d5794dca6caa7c26d9366bbbf558c024a75"
+      },
+      "metadata_path": "D:\\Project\\witvoice\\.local\\t009-exact-mix-author\\05-build-20261005T133437296761.json",
+      "metadata_sha256": "2e9c25ae6eede3ffc7baf0ca8e12cec64da3be98f3e92dbadafa30551fc34fe6"
+    }
+  ],
+  "source_final": {
+    "crates/audio/Cargo.toml": "be414a9546397db1e62d7c883eb5ee8b40f3a50476ced6a51d362e891ce3840a",
+    "crates/audio/examples/format_support_probe.rs": "e3dd34e09ac352f41eed3d43b26b62b96b57c2303f8d19f70cbc7327b5db7324",
+    "crates/audio/examples/list_endpoints.rs": "48de663138c39cf1eb1d19a58902a699ff6b02830d2493950ecf18a0b745600c",
+    "crates/audio/examples/notification_probe.rs": "83a9e7a7afdc3efb3faa78a4fee171b07ea0d4e2d7fca63f35c3ffd92e883f3d",
+    "crates/audio/examples/removal_probe.rs": "3f79293103daf44372577c81bfa008b895964c74bb1d821a101f9fe5c846ce2c",
+    "crates/audio/examples/route_probe.rs": "10054c51af4d71f1eb7ce26a31fbe6da9b7ea4938ba1781c0b1ca6a582db0e3b",
+    "crates/audio/examples/stream_smoke.rs": "32d96e2be6843cc8caaf24c67a9f23ea499fbbd0042dd2593394860531c1846c",
+    "crates/audio/examples/support/mod.rs": "cecf33cb705b319895f37e62f707ad1b9717893af417ef4a1ed37335af0287b9",
+    "crates/audio/examples/support/route_marker.rs": "e89c6bd2a98640add471dfed64dc6c9c701145ef6198c8493543c90c32a5aba5",
+    "crates/audio/README.md": "b636b01200337dc17e4c1fb5734adba0b8cb82d46966363e0f3ee6c120634f75",
+    "crates/audio/src/format.rs": "28adc5bdda089561d7091d8612b0bcc80a623ef9d7075e9e5fa9c506d9b817a7",
+    "crates/audio/src/lib.rs": "bfcf8dd9063a6fc5115b0f0b2f91ca0da65d2458c8527c64665063eb5de6807b",
+    "crates/audio/src/notifications/native.rs": "2126b4602f9188861038c2e6f15a77c70d116a11799d5e00371b4c077de23e64",
+    "crates/audio/src/notifications.rs": "b4d8cf94973a6c8138013a19928c8724fac7a10eefc350087cdb6af992f7bf3a",
+    "crates/audio/src/realtime/clock.rs": "4de324bddd7b517a873080eefc97dfb9a68923adbe2f867b1fbd35fd9bd7e9ff",
+    "crates/audio/src/realtime/pipeline.rs": "c9b60fb4971867012b114f4897f0cfa7b4896889c65f452fd2bf04d419598cda",
+    "crates/audio/src/realtime/spsc.rs": "94b9cdd6ab4c76381c44495dc71f83121fc1fe4bb7b8395fd8e5310dfb729a8d",
+    "crates/audio/src/realtime.rs": "2221f43bdf6e16ce16650630c8e1ca0a7fe08f4128c3bb95f0299b2d5c3bcce8",
+    "crates/audio/src/route.rs": "8be6b672cb5e62f1f0a08f41d9177d00c164f83dd8ed8f5c64f5ce55c679707f",
+    "crates/audio/src/stream/native.rs": "af294d0a19ff94bd0b3a61c339d6b4f81a2fade7638ed2f68f742b757ce6f573",
+    "crates/audio/src/stream/raw_tests.rs": "7b3a749a6fd9fb304fc81c912d37a1bcb9c1f3d53c5fbacdb002db8946781ffb",
+    "crates/audio/src/stream.rs": "6b4902eb727e9aa063e15204877e40493cf541979b3236209f0a30b76d7f2674",
+    "crates/audio/src/wasapi.rs": "1588c289f9a7d89ef4c7539cc0f348b670ec39b95feeb3959bef7c54a8d4f32f",
+    "crates/audio/tests/allocation.rs": "29380b33dd06a2250bda91756f23af62c43e08062e828c4fe023857309444bdd",
+    "crates/audio/tests/conversion.rs": "0d3e0b7f9fcda66bdb9189e8f46214454ad1a661cc2d8ae8586e64163987f220",
+    "crates/audio/tests/realtime.rs": "f356f1d3265898d03fc181d9e0cfae36ecd6bf1f425e43bd5398485915ab5da7",
+    "crates/audio/tests/route.rs": "83185f65b9dab7ca84f12b5f5cc8f4246c9fbd52cb4daf04e51157ba7378c729",
+    "crates/audio/tests/stream_packets.rs": "343d9d02853ccc3a7b118d5c445e2ad8bb165e19e03e9e284c8ac295a03fd6d1"
+  },
+  "changed_source_final": {
+    "crates/audio/src/wasapi.rs": "1588c289f9a7d89ef4c7539cc0f348b670ec39b95feeb3959bef7c54a8d4f32f",
+    "crates/audio/src/stream/native.rs": "af294d0a19ff94bd0b3a61c339d6b4f81a2fade7638ed2f68f742b757ce6f573",
+    "crates/audio/examples/format_support_probe.rs": "e3dd34e09ac352f41eed3d43b26b62b96b57c2303f8d19f70cbc7327b5db7324",
+    "crates/audio/examples/route_probe.rs": "10054c51af4d71f1eb7ce26a31fbe6da9b7ea4938ba1781c0b1ca6a582db0e3b",
+    "crates/audio/README.md": "b636b01200337dc17e4c1fb5734adba0b8cb82d46966363e0f3ee6c120634f75"
+  },
+  "diff": {
+    "path": "D:\\Project\\witvoice\\.local\\t009-exact-mix-author\\source.diff",
+    "bytes": 17931,
+    "sha256": "97120e8970da8c7ccdcbf23edd4567095b4aded9b60d03b02ba52a17a763b70b",
+    "command_exit": 0
+  },
+  "binaries": {
+    "route_probe": {
+      "path": "D:\\Project\\witvoice\\.local\\t009-author\\target\\debug\\examples\\route_probe.exe",
+      "bytes": 902144,
+      "sha256": "b02976ae65da5c6c374420c8e8cbd417cab256bc5ab752bb0d93e06238a2e023",
+      "execution": "NOT_RUN",
+      "build_metadata": "D:\\Project\\witvoice\\.local\\t009-exact-mix-author\\05-build-20261005T133437296761.json"
+    },
+    "format_support_probe": {
+      "path": "D:\\Project\\witvoice\\.local\\t009-author\\target\\debug\\examples\\format_support_probe.exe",
+      "bytes": 641024,
+      "sha256": "1b8e90b8d1664ead28438e647e0cf59a533d8a7f5f2b00b99de19fe3aed50e3e",
+      "execution": "NOT_RUN",
+      "build_metadata": "D:\\Project\\witvoice\\.local\\t009-exact-mix-author\\05-build-20261005T133437296761.json"
+    }
+  },
+  "tests_passed": 68,
+  "all_command_exit_codes": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "final_four_source_maps_equal": true,
+  "not_run": [
+    "native metadata query",
+    "Initialize",
+    "Start",
+    "render marker",
+    "capture",
+    "GPU",
+    "LAN"
+  ],
+  "risks": [
+    "HRESULT exact symbol and root cause remain UNKNOWN; no driver attribution",
+    "Exact mix layout is restricted to validated mono/stereo Float32 basic3/cb0 or extensible65534/cb22",
+    "Prepare failure cleanup is UNKNOWN; no RAII-to-hardware cleanup PASS",
+    "Early failure preserves structured actual_frames when known; capacity convenience fields may be null before successful owner construction",
+    "Source and binaries require independent review and fresh leader metadata before future device diagnostic"
+  ],
+  "bounds_unchanged": [
+    "1440 negotiated maximum",
+    "960 single commit",
+    "2s active marker",
+    "15s total",
+    "8 queue slots",
+    "480 block",
+    "epoch/gate/ticket",
+    "flags and strict underflow",
+    "STA/shared/event/zero periodicity/GUID_NULL"
+  ],
+  "default_prepare": "unchanged basic descriptor path; no GetMixFormat on default",
+  "mix_mode": "explicit --approve-capture-mix-probe changes capture descriptor only; render remains basic"
+}

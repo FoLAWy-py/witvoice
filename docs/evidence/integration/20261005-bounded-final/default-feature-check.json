@@ -1,0 +1,20 @@
+{
+    "source_commit":  "1a85ef04ef6337e29a24562e05ec5d80d287cbb0",
+    "argv":  [
+                 "check",
+                 "--locked",
+                 "--workspace",
+                 "--all-targets"
+             ],
+    "exit":  0,
+    "expected_exit":  0,
+    "expected_rejection_recognized":  true,
+    "actual_host_version":  "5.1.26100.7462",
+    "actual_host_path":  "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+    "started_utc":  "2026-10-05T12:54:02.2263374Z",
+    "finished_utc":  "2026-10-05T12:54:11.7938137Z",
+    "source_all72_equal":  true,
+    "stdout_sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_sha256":  "456d7b9329b623b61eaa19e1233ebd8ca9f531cc14647eb282fc068c10da4e25",
+    "scope":  "Compile defaultfeatures and test-support rejection with debugassertionsoff; NOT a full release installer or hardware test"
+}

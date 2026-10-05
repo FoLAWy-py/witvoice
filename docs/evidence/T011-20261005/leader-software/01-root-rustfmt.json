@@ -1,0 +1,29 @@
+{
+    "task":  "T011",
+    "owner":  "/root",
+    "name":  "01-root-rustfmt",
+    "exe":  "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\rustfmt.exe",
+    "argv":  [
+                 "--edition",
+                 "2024",
+                 "crates/contracts/src/worker.rs",
+                 "crates/contracts/tests/worker_wire.rs",
+                 "crates/contracts/src/bin/export_schema.rs"
+             ],
+    "cwd":  "D:\\Project\\witvoice",
+    "host":  "5.1.26100.7462",
+    "started_utc":  "2026-10-05T13:23:41.5132340Z",
+    "finished_utc":  "2026-10-05T13:23:41.7390825Z",
+    "wall_seconds":  0.2267175,
+    "exit":  0,
+    "hardware":  "NOT_RUN",
+    "model":  "NOT_RUN",
+    "stdout":  {
+                   "bytes":  0,
+                   "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+               },
+    "stderr":  {
+                   "bytes":  0,
+                   "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+               }
+}

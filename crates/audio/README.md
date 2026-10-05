@@ -375,3 +375,24 @@ two-second activity, 15-second process budget, amplitude and strict underflow
 criterion have not changed. No hardware operation was authorized or performed
 for this adaptation; it cannot establish continuity, model quality, OS tail or
 successful native cleanup. A future probe requires new specific permission.
+### Explicit exact-mix diagnostic (not executed by the author)
+
+`format_support_probe PRIVATE_SELECTION_JSON --mix-query 48000:2:float32`
+queries the explicit saved UID/flow: owned full GetMixFormat, GetDevicePeriod,
+and Basic versus exact-engine-descriptor IsFormatSupported results. It never
+Initialize/Starts, adopts closest formats, or proves stream initialization.
+Only validated mono/stereo Float32, exact expected adapter shape, and recognized
+basic/extensible layout are accepted. The WASAPI allocation and any closest
+allocation use CoTaskMemFree guards on every return path.
+
+`route_probe PRIVATE_SCOPE_JSON --approve-capture-mix-probe` is a separate,
+explicitly authorized device diagnostic: only capture uses `prepare_exact_mix`;
+render keeps basic `prepare`. The full engine descriptor remains alive through
+support query and Initialize. Default Prepare, share mode, event flag, zero
+period/duration, session GUID, STA, 1440-frame bounds, gate/tickets, queue/age,
+2-second active marker and 15-second process deadline remain unchanged.
+Reports identify descriptor mode and both capacities (unknown values are null).
+Prepare failure remains before Start with cleanup UNKNOWN. No automatic retry,
+fallback, driver fix, Initialize success, route continuity or latency is claimed.
+Pure descriptor tests do not execute Windows audio APIs. Fresh read-only query,
+independent source review and leader's concrete lease precede future device use.

@@ -1,0 +1,48 @@
+{
+  "uuid": "01a10767-4ff5-7f21-881a-146d094fbc55",
+  "utc": "2026-10-05T13:26:29.2655191Z",
+  "source": [
+    {
+      "sha256": "7a7dc9170df13daf7cdda8f0b337ccfd3159a8ade301d55c4fa583fb9ab6bdc5",
+      "bytes": 13815,
+      "path": "D:\\Project\\witvoice\\crates\\engines\\src\\lifecycle.rs"
+    },
+    {
+      "sha256": "1ddf6f5211d211f785f3463ef487b9971dbb6791b268eff069b384a59f32f0cb",
+      "bytes": 14339,
+      "path": "D:\\Project\\witvoice\\crates\\engines\\tests\\lifecycle.rs"
+    }
+  ],
+  "commands": [
+    {
+      "sha256": "ee2aa8206c545b24d70c5230bc09e4f1d9ca82cb35dadc0e49bd30c1bffc0dc1",
+      "exit": 0,
+      "path": "D:\\Project\\witvoice\\.local\\t011-backend\\03-sequence-rustfmt.json"
+    },
+    {
+      "sha256": "8d59ab415cefa0e8c9b152c67ecfb7f55099d760458888794d5f843752d8a8e9",
+      "exit": 0,
+      "path": "D:\\Project\\witvoice\\.local\\t011-backend\\04-sequence-rustfmt-check.json"
+    }
+  ],
+  "previous_index": {
+    "path": "D:\\Project\\witvoice\\.local\\t011-backend\\delivery-index.json",
+    "sha256": "2cd3bfa4cfd544d69732fd0936dce7d7727e02fbfbdc54c18e62c90d6ba984a2"
+  },
+  "edit": {
+    "path": "D:\\Project\\witvoice\\.local\\t011-backend\\sequence-edit.json",
+    "sha256": "91e9cc1a999ad0f63d5ae256b881a82a0d61bd0c009cab2e943e7b5b2a507e7c"
+  },
+  "tests": 16,
+  "not_run": [
+    "Cargo",
+    "Clippy",
+    "tests",
+    "model",
+    "Job",
+    "audio",
+    "GPU",
+    "network"
+  ],
+  "writer_status": "STOP_AFTER_DELIVERY"
+}

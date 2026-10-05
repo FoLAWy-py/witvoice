@@ -1,0 +1,32 @@
+{
+    "task":  "T011",
+    "owner":  "/root",
+    "name":  "07-network-golden",
+    "exe":  "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "argv":  [
+                 "-m",
+                 "unittest",
+                 "discover",
+                 "-s",
+                 "crates/contracts/bindings",
+                 "-p",
+                 "test_golden.py",
+                 "-v"
+             ],
+    "cwd":  "D:\\Project\\witvoice",
+    "host":  "5.1.26100.7462",
+    "started_utc":  "2026-10-05T13:23:48.1653011Z",
+    "finished_utc":  "2026-10-05T13:23:48.3331932Z",
+    "wall_seconds":  0.1683636,
+    "exit":  0,
+    "hardware":  "NOT_RUN",
+    "model":  "NOT_RUN",
+    "stdout":  {
+                   "bytes":  0,
+                   "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+               },
+    "stderr":  {
+                   "bytes":  230,
+                   "sha256":  "3fd71e1040612db0d33e61a13cae82dbcc52e23ed90e1334895ca0369bc3f844"
+               }
+}

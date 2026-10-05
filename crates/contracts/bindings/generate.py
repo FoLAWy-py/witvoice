@@ -54,7 +54,8 @@ def generate(bundle):
     for key in ("protocol_version", "control_max_bytes", "profile_max_bytes"):
         python += key.upper() + " = " + str(bundle[key]) + "\n"
     return {"contracts.ts": content, "wire_constants.py": python,
-            "media-golden.json": json.dumps(bundle["golden_media"], indent=2) + "\n"}
+            "media-golden.json": json.dumps(bundle["golden_media"], indent=2) + "\n",
+            "worker-media.json": json.dumps(bundle["worker_media"], indent=2) + "\n"}
 
 
 def main():

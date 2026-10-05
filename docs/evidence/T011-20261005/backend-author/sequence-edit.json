@@ -1,0 +1,25 @@
+{
+  "uuid": "01a10767-4ff5-7f21-881a-146d094fbc55",
+  "utc": "2026-10-05T13:25:34.3164840Z",
+  "reason": "Sequence domain only matches authoritative WorkerEvent Progress u32; all time fields remain u64",
+  "before": [
+    {
+      "path": "D:\\Project\\witvoice\\crates\\engines\\src\\lifecycle.rs",
+      "sha256": "61ab39ee7dbc5cffd727ac2cf59f8a5593fbc877a7f8b72b7951add01e60d6ca"
+    },
+    {
+      "path": "D:\\Project\\witvoice\\crates\\engines\\tests\\lifecycle.rs",
+      "sha256": "acdc29b22b4cd24845d41e57e103f036075674605b3b4f794374f865ca8c81b0"
+    }
+  ],
+  "after": [
+    {
+      "path": "D:\\Project\\witvoice\\crates\\engines\\src\\lifecycle.rs",
+      "sha256": "7a7dc9170df13daf7cdda8f0b337ccfd3159a8ade301d55c4fa583fb9ab6bdc5"
+    },
+    {
+      "path": "D:\\Project\\witvoice\\crates\\engines\\tests\\lifecycle.rs",
+      "sha256": "1ddf6f5211d211f785f3463ef487b9971dbb6791b268eff069b384a59f32f0cb"
+    }
+  ]
+}

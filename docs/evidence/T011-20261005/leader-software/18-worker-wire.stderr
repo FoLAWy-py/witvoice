@@ -1,0 +1,3 @@
+   Compiling witvoice-contracts v0.1.0 (D:\Project\witvoice\crates\contracts)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.69s
+     Running tests\worker_wire.rs (.local\t008-t016-r2-leader\target\debug\deps\worker_wire-902c7a74103cdcfc.exe)

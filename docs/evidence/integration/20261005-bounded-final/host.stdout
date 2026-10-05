@@ -1,0 +1,4 @@
+workspace-tests exit=0 wall=17.3055251
+fmt exit=0 wall=0.2949481
+clippy exit=0 wall=2.5857815
+examples exit=0 wall=3.1381826

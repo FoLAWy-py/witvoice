@@ -1,0 +1,41 @@
+{
+  "uuid": "01a10767-4ff5-7f21-881a-146d094fbc55",
+  "utc": "2026-10-05T13:23:18.0221617Z",
+  "source": [
+    {
+      "path": "D:\\Project\\witvoice\\crates\\engines\\src\\lifecycle.rs",
+      "sha256": "61ab39ee7dbc5cffd727ac2cf59f8a5593fbc877a7f8b72b7951add01e60d6ca",
+      "bytes": 13815
+    },
+    {
+      "path": "D:\\Project\\witvoice\\crates\\engines\\tests\\lifecycle.rs",
+      "sha256": "acdc29b22b4cd24845d41e57e103f036075674605b3b4f794374f865ca8c81b0",
+      "bytes": 14339
+    }
+  ],
+  "test_count": 16,
+  "commands": [
+    {
+      "path": "D:\\Project\\witvoice\\.local\\t011-backend\\01-rustfmt.json",
+      "sha256": "1f69a97117d7cc8027bca7a0826507f97f70b453db98f67ad14dfec3f42d1b81",
+      "exit": 0
+    },
+    {
+      "path": "D:\\Project\\witvoice\\.local\\t011-backend\\02-rustfmt-check.json",
+      "sha256": "51e34880a4d0781851c947b7df4f6846cfa28c75517c10a3b03dd0b0f00ef231",
+      "exit": 0
+    }
+  ],
+  "not_run": [
+    "Cargo",
+    "Clippy",
+    "tests",
+    "native worker",
+    "model load/warmup",
+    "Job cleanup",
+    "audio",
+    "GPU",
+    "network"
+  ],
+  "writer_status": "STOP_AFTER_DELIVERY"
+}

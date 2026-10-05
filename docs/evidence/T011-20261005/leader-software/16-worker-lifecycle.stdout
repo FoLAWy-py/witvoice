@@ -1,0 +1,21 @@
+
+running 16 tests
+test both_process_tree_and_lease_confirmation_are_required_for_restart ... ok
+test clock_regression_fails_closed_and_invalid_initial_deadlines_own_nothing ... ok
+test heartbeat_addition_overflow_never_wraps_to_a_live_deadline ... ok
+test heartbeat_expiry_applies_during_warmup_and_ready ... ok
+test heartbeat_never_renews_inflight_media_deadline ... ok
+test maximum_epoch_is_never_reused_or_wrapped_by_restart_or_user_reset ... ok
+test stop_cannot_claim_release_before_confirmed_cleanup_and_never_requests_restart ... ok
+test maximum_media_sequence_needs_new_worker_binding_and_cannot_wrap ... ok
+test unsolicited_or_wrong_sequence_result_is_protocol_failure ... ok
+test memory_eof_and_protocol_faults_immediately_require_cleanup_and_stay_muted ... ok
+test old_binding_events_and_cleanup_cannot_touch_fresh_worker ... ok
+test ready_requires_expected_manifest_digest_and_cleanup_after_mismatch ... ok
+test two_restarts_total_ready_does_not_reset_budget_and_third_fault_needs_user_reset ... ok
+test rejects_zero_or_other_session_and_never_owns_resources_on_bad_begin ... ok
+test warmup_timeout_is_expired_at_equal_deadline_and_late_ready_cannot_reopen ... ok
+test media_has_one_outstanding_task_and_sequence_cannot_replay ... ok
+
+test result: ok. 16 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
