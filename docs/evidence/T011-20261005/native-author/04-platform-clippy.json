@@ -1,0 +1,71 @@
+{
+    "uuid":  "01a10767-4ff5-7f21-881a-146d094fbc55",
+    "executable":  "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\cargo.exe",
+    "argv":  [
+                 "clippy",
+                 "--locked",
+                 "--offline",
+                 "-p",
+                 "witvoice-platform",
+                 "--all-targets",
+                 "--",
+                 "-D",
+                 "warnings"
+             ],
+    "cwd":  "D:\\Project\\witvoice",
+    "execution_host":  {
+                           "version":  "5.1.26100.7462",
+                           "process":  "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+                       },
+    "start_utc":  "2026-10-05T14:14:40.2844610Z",
+    "end_utc":  "2026-10-05T14:14:46.6833682Z",
+    "exit_code":  0,
+    "env":  {
+                "RUSTUP_HOME":  "D:\\Software\\WitvoiceToolchain\\Rust\\rustup",
+                "CARGO_INCREMENTAL":  "0",
+                "CARGO_BUILD_JOBS":  "1",
+                "CARGO_HOME":  "D:\\Software\\WitvoiceToolchain\\Rust\\cargo",
+                "CARGO_TARGET_DIR":  "D:\\Project\\witvoice\\.local\\t016-diagnostics-author\\target"
+            },
+    "present_overrides":  [
+
+                          ],
+    "source_before":  [
+                          {
+                              "sha256":  "bb14bdf91fc43ed1b5da92c5b78cf106f8e028e84132bae2532fa4cbb23e24bf",
+                              "path":  "crates/platform/src/windows.rs"
+                          },
+                          {
+                              "sha256":  "fc4df3a0c62bdcd25dc6b67cdaffe22af699239bc4689129deb914f81a0ad2bb",
+                              "path":  "crates/platform/tests/worker_pipe.rs"
+                          },
+                          {
+                              "sha256":  "144a18f1334533d097378222bcd277493cab93e10f48569edd8eab85563f331a",
+                              "path":  "crates/platform/README.md"
+                          }
+                      ],
+    "source_after":  [
+                         {
+                             "sha256":  "bb14bdf91fc43ed1b5da92c5b78cf106f8e028e84132bae2532fa4cbb23e24bf",
+                             "path":  "crates/platform/src/windows.rs"
+                         },
+                         {
+                             "sha256":  "fc4df3a0c62bdcd25dc6b67cdaffe22af699239bc4689129deb914f81a0ad2bb",
+                             "path":  "crates/platform/tests/worker_pipe.rs"
+                         },
+                         {
+                             "sha256":  "144a18f1334533d097378222bcd277493cab93e10f48569edd8eab85563f331a",
+                             "path":  "crates/platform/README.md"
+                         }
+                     ],
+    "stdout":  {
+                   "bytes":  0,
+                   "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+               },
+    "stderr":  {
+                   "bytes":  459,
+                   "sha256":  "300defc44478f3f5b9e497253097a94ae384ea13eb05fe1d8fca14688af11317"
+               },
+    "capture":  "Complete redirected stream text saved UTF8 without BOM",
+    "scope":  "Ordinary-current-user local kernel IPC only; model/Job/audio/GPU/LAN/Mac NOT_RUN"
+}

@@ -1,0 +1,18 @@
+
+running 13 tests
+test client_read_timeout_and_invalid_writes_close_the_connection ... ok
+test eof_mid_frame_closes_endpoint_without_waiting_for_deadline ... ok
+test expired_or_excessive_deadline_never_starts_a_frame_and_closes_client ... ok
+test first_instance_and_local_endpoint_tag_guards_are_real ... ok
+test header_limits_are_rejected_without_waiting_for_or_allocating_payload ... ok
+test partial_header_and_body_share_one_absolute_frame_deadline ... ok
+test partial_token_uses_remaining_startup_budget_and_closes ... ok
+test raw_big_endian_frame_and_fragmented_body_decode_exactly ... ok
+test separate_control_pcm_connections_persist_across_multiple_bidirectional_frames ... ok
+test startup_connection_wait_is_inside_absolute_deadline_and_cannot_reaccept ... ok
+test wrong_node_pid_is_denied_by_kernel_peer_identity_check ... ok
+test wrong_token_never_completes_client_authentication ... ok
+test wrong_worker_pid_is_denied_before_authenticated_connection ... ok
+
+test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.63s
+

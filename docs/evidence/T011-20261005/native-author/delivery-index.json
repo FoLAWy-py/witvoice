@@ -1,0 +1,52 @@
+{
+    "uuid":  "01a10767-4ff5-7f21-881a-146d094fbc55",
+    "utc":  "2026-10-05T14:14:46.6859943Z",
+    "runner_sha256":  "bf2df79c7bd10494fb1868a510ff7d0dcbfd8085a37e16a19c79d51f1af97ca1",
+    "source":  [
+                   {
+                       "sha256":  "bb14bdf91fc43ed1b5da92c5b78cf106f8e028e84132bae2532fa4cbb23e24bf",
+                       "path":  "crates/platform/src/windows.rs"
+                   },
+                   {
+                       "sha256":  "fc4df3a0c62bdcd25dc6b67cdaffe22af699239bc4689129deb914f81a0ad2bb",
+                       "path":  "crates/platform/tests/worker_pipe.rs"
+                   },
+                   {
+                       "sha256":  "144a18f1334533d097378222bcd277493cab93e10f48569edd8eab85563f331a",
+                       "path":  "crates/platform/README.md"
+                   }
+               ],
+    "events":  [
+                   {
+                       "path":  "D:\\Project\\witvoice\\.local\\t011-native-author\\01-rustfmt.json",
+                       "sha256":  "f2bb30b9b37415d70d2bdc04154cc6aeefab2ca9ae560ef00ed0d842eaa3408f",
+                       "exit_code":  0
+                   },
+                   {
+                       "path":  "D:\\Project\\witvoice\\.local\\t011-native-author\\02-worker-pipe-tests.json",
+                       "sha256":  "4ed24404332b0c39bca9c404f66e48dd86031b4da0aa8c85d62c9177bbbd3fc8",
+                       "exit_code":  0
+                   },
+                   {
+                       "path":  "D:\\Project\\witvoice\\.local\\t011-native-author\\03-platform-fmt-check.json",
+                       "sha256":  "3fe07ce63c139e0754376adfa08b51f12548093d46990392c961d1d926b15aea",
+                       "exit_code":  0
+                   },
+                   {
+                       "path":  "D:\\Project\\witvoice\\.local\\t011-native-author\\04-platform-clippy.json",
+                       "sha256":  "20b4ae79926e2a289b8ee0009eb178d99436671249e5d469e1c387a9df6a4089",
+                       "exit_code":  0
+                   }
+               ],
+    "not_run":  [
+                    "Python bootstrap",
+                    "Node Job/output-gate integration",
+                    "real model/warmup",
+                    "different-user boundary",
+                    "audio",
+                    "GPU",
+                    "LAN",
+                    "Mac"
+                ],
+    "writer_status":  "STOP_AFTER_DELIVERY"
+}

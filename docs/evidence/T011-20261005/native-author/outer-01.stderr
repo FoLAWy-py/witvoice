@@ -1,0 +1,8 @@
+ForEach-Object : �޷�����Get-FileHash����ʶ��Ϊ cmdlet���������ű��ļ�������г�������ơ��������Ƶ�ƴд���������·������
+ȷ��·����ȷ��Ȼ������һ�Ρ�
+����λ�� D:\Project\witvoice\.local\t011-native-author\runner.ps1:11 �ַ�: 125
++ ... EADME.md') | ForEach-Object { @{path=$_;sha256=(Hash "$repo\$_")} } }
++                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (Get-FileHash:String) [ForEach-Object], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException,Microsoft.PowerShell.Commands.ForEachObjectCommand
+ 

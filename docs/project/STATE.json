@@ -10,7 +10,7 @@
       "task_id": "T011",
       "agent": "/root",
       "thread_id": "01a10764-d851-7d02-ac79-365d2576a226",
-      "mode": "PYTHON_WORKER_NATIVE_CLIENT_AUTHOR",
+      "mode": "ROOT_NATIVE_INTEROP_BUILD_PREFLIGHT",
       "path_whitelist": [
         "crates/contracts/src/worker.rs",
         "workers/vc_worker/control.py",
@@ -33,40 +33,39 @@
         "workers/vc_worker/native_interop_probe.py",
         ".local/t011-native-client",
         "docs/evidence/T011-20261005/native-client",
-        "docs/project/reviews/T011-software-limited.md"
+        "docs/project/reviews/T011-software-limited.md",
+        "crates/platform/examples/worker_python_probe.rs"
       ],
       "dependencies": [
         "T002",
         "T006",
         "T010"
       ],
-      "contract": "Python bounded authenticatedWin32client, sameBE frames/32bytebootstrap/ACKa5/exactNodePID+SID, no model/audio/nativeexecution beforebuildreview; platform concurrentbackend owner",
+      "contract": "Root ownsPythonclient plus disjoint explicit debug-only nativeIPC/Job probe; backendowns windows.rs/worker_pipe.rs; max2writers, no audio/GPU/LAN",
       "acceptance": "workspace all-target tests/fmt/strictClippy/examples/sourceguards; no taskDONE untilremainingnative/model evidence",
       "resources": [
-        "root code writer 1; no hardware/GPU/LAN"
+        "root validator only; no hardware/GPU/LAN"
       ]
     },
     {
       "task_id": "T011",
-      "agent": "/root/backend",
-      "thread_id": "01a10767-4ff5-7f21-881a-146d094fbc55",
-      "mode": "BOUNDED_AUTHENTICATED_WORKER_PIPE_AUTHOR",
+      "agent": "/root/reviewer_t001",
+      "thread_id": "01a1077c-556d-7152-892c-d9f92346ec0f",
+      "mode": "READ_ONLY_NATIVE_CLIENT_PREFLIGHT",
       "path_whitelist": [
-        "crates/platform/src/windows.rs",
-        "crates/platform/tests/worker_pipe.rs",
-        "crates/platform/README.md",
-        ".local/t011-native-author"
+        "workers/vc_worker/windows_pipe.py",
+        "workers/vc_worker/native_interop_probe.py",
+        "crates/platform/examples/worker_python_probe.rs",
+        "docs/evidence/T011-20261005/native-client"
       ],
       "dependencies": [
         "T002",
         "T006",
         "T010"
       ],
-      "contract": "Reuse currentUserACL/remoteReject/overlapped/constanttimeSecret, separate persistentchannels, expectedworkerPID and absolutestartup/frame deadlines; no existingUI-RPC behaviorchange",
-      "acceptance": "Native currentuser tests startup timeout/identity/token/partialIO/EOF/oversize/deadline; fmt strictClippy; actual raw/SHA/sourceguards; STOP at delivery",
-      "resources": [
-        "code writer 2, disjoint platform paths; no GPU/audio/network"
-      ]
+      "contract": "Read frozenPython947b source androotprobe delta; limited nativeprocess preflight only, nohardware/model/ownwrite/escalation",
+      "acceptance": "No mandatoryS0-S3 beforecontrolled nativeinterop; wholeT011notDONE",
+      "resources": []
     }
   ],
   "milestones": {

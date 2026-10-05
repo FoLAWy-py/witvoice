@@ -273,22 +273,36 @@ fn write_all(handle: HANDLE, mut bytes: &[u8], deadline: Instant) -> io::Result<
     Ok(())
 }
 fn read_frame(handle: HANDLE, deadline: Instant) -> io::Result<Vec<u8>> {
+    read_frame_maximum(handle, CONTROL_MAX_BYTES, deadline)
+}
+fn read_frame_maximum(handle: HANDLE, maximum: usize, deadline: Instant) -> io::Result<Vec<u8>> {
+    worker_maximum(maximum)?;
     let mut header = [0; 4];
     read_exact(handle, &mut header, deadline)?;
     let length = u32::from_be_bytes(header) as usize;
-    if length == 0 || length > CONTROL_MAX_BYTES {
+    if length == 0 || length > maximum {
         return Err(io::Error::new(
             io::ErrorKind::InvalidData,
             "IPC frame size limit",
         ));
     }
+    // Validate the bounded header before allocating any payload.
     let mut payload = vec![0; length];
     read_exact(handle, &mut payload, deadline)?;
     check_deadline(deadline)?;
     Ok(payload)
 }
 fn write_frame(handle: HANDLE, payload: &[u8], deadline: Instant) -> io::Result<()> {
-    if payload.is_empty() || payload.len() > CONTROL_MAX_BYTES {
+    write_frame_maximum(handle, payload, CONTROL_MAX_BYTES, deadline)
+}
+fn write_frame_maximum(
+    handle: HANDLE,
+    payload: &[u8],
+    maximum: usize,
+    deadline: Instant,
+) -> io::Result<()> {
+    worker_maximum(maximum)?;
+    if payload.is_empty() || payload.len() > maximum {
         return Err(io::Error::new(
             io::ErrorKind::InvalidInput,
             "IPC frame size limit",
@@ -297,7 +311,6 @@ fn write_frame(handle: HANDLE, payload: &[u8], deadline: Instant) -> io::Result<
     write_all(handle, &(payload.len() as u32).to_be_bytes(), deadline)?;
     write_all(handle, payload, deadline)
 }
-
 /// Exactly one instance/client. Remote clients rejected in the kernel.
 pub struct PipeServer {
     handle: Handle,
@@ -442,45 +455,7 @@ impl PipeClient {
             ));
         }
         let deadline = Instant::now() + timeout;
-        let sid = current_user_sid()?;
-        let name = pipe_name(tag, &sid)?;
-        let handle = loop {
-            check_deadline(deadline)?;
-            // SAFETY: private namespace, non-inheritable overlapped client, identification-only SQOS.
-            let opened = unsafe {
-                CreateFileW(
-                    PCWSTR(name.as_ptr()),
-                    GENERIC_READ.0 | GENERIC_WRITE.0,
-                    FILE_SHARE_MODE(0),
-                    None,
-                    OPEN_EXISTING,
-                    FILE_FLAG_OVERLAPPED | SECURITY_SQOS_PRESENT | SECURITY_IDENTIFICATION,
-                    None,
-                )
-            };
-            match opened {
-                Ok(handle) => break Handle(handle),
-                Err(error) if is_code(&error, 2) || is_code(&error, 231) => {
-                    unsafe {
-                        let _ = WaitNamedPipeW(PCWSTR(name.as_ptr()), 10);
-                    }
-                    std::thread::sleep(Duration::from_millis(2));
-                }
-                Err(error) => return Err(os_error(error)),
-            }
-        };
-        let mut pid = 0;
-        // SAFETY: connected pipe handle; expected PID came from the launcher's child object.
-        unsafe {
-            GetNamedPipeServerProcessId(handle.0, &mut pid).map_err(os_error)?;
-        }
-        if pid != expected_server_pid {
-            return Err(io::Error::new(
-                io::ErrorKind::PermissionDenied,
-                "IPC server process mismatch",
-            ));
-        }
-        peer_is_current_user(pid, &sid)?;
+        let handle = open_current_user_pipe(tag, expected_server_pid, deadline)?;
         Ok(Self { handle, deadline })
     }
     pub fn authenticate(&mut self, secret: &Secret) -> io::Result<()> {
@@ -504,5 +479,299 @@ impl PipeClient {
         let response = read_frame(self.handle.0, self.deadline)?;
         write_all(self.handle.0, &[0xa5], self.deadline)?;
         Ok(response)
+    }
+}
+
+// Shared client opener for UI RPC and persistent worker channels. No secret/logging.
+fn open_current_user_pipe(
+    tag: &str,
+    expected_server_pid: u32,
+    deadline: Instant,
+) -> io::Result<Handle> {
+    let sid = current_user_sid()?;
+    let name = pipe_name(tag, &sid)?;
+    let handle = loop {
+        check_deadline(deadline)?;
+        // SAFETY: local name, non-inheritable handle, identification-only SQOS.
+        let opened = unsafe {
+            CreateFileW(
+                PCWSTR(name.as_ptr()),
+                GENERIC_READ.0 | GENERIC_WRITE.0,
+                FILE_SHARE_MODE(0),
+                None,
+                OPEN_EXISTING,
+                FILE_FLAG_OVERLAPPED | SECURITY_SQOS_PRESENT | SECURITY_IDENTIFICATION,
+                None,
+            )
+        };
+        match opened {
+            Ok(handle) => break Handle(handle),
+            Err(error) if is_code(&error, 2) || is_code(&error, 231) => {
+                let remaining = deadline.saturating_duration_since(Instant::now());
+                let wait_ms = remaining.as_millis().min(10) as u32;
+                // Zero means NMPWAIT_USE_DEFAULT_WAIT, not a zero timeout.
+                if wait_ms > 0 {
+                    // SAFETY: live name; each wait is within the absolute budget.
+                    unsafe {
+                        let _ = WaitNamedPipeW(PCWSTR(name.as_ptr()), wait_ms);
+                    }
+                }
+                let remaining = deadline.saturating_duration_since(Instant::now());
+                std::thread::sleep(remaining.min(Duration::from_millis(2)));
+            }
+            Err(error) => return Err(os_error(error)),
+        }
+    };
+    let mut pid = 0;
+    // SAFETY: kernel supplies the connected peer PID, not any payload.
+    unsafe {
+        GetNamedPipeServerProcessId(handle.0, &mut pid).map_err(os_error)?;
+    }
+    if pid != expected_server_pid {
+        return Err(io::Error::new(
+            io::ErrorKind::PermissionDenied,
+            "IPC server process mismatch",
+        ));
+    }
+    peer_is_current_user(pid, &sid)?;
+    check_deadline(deadline)?;
+    Ok(handle)
+}
+
+fn worker_deadline(deadline: Instant) -> io::Result<()> {
+    check_deadline(deadline)?;
+    if deadline.saturating_duration_since(Instant::now()) > MAX_CONNECTION_TIME {
+        return Err(io::Error::new(
+            io::ErrorKind::InvalidInput,
+            "worker IPC deadline limit",
+        ));
+    }
+    Ok(())
+}
+
+fn worker_maximum(maximum: usize) -> io::Result<()> {
+    if maximum == 0 || maximum > CONTROL_MAX_BYTES {
+        return Err(io::Error::new(
+            io::ErrorKind::InvalidInput,
+            "worker IPC size limit",
+        ));
+    }
+    Ok(())
+}
+
+fn read_worker_frame(handle: HANDLE, maximum: usize, deadline: Instant) -> io::Result<Vec<u8>> {
+    worker_deadline(deadline)?;
+    read_frame_maximum(handle, maximum, deadline)
+}
+
+fn write_worker_frame(
+    handle: HANDLE,
+    payload: &[u8],
+    maximum: usize,
+    deadline: Instant,
+) -> io::Result<()> {
+    worker_deadline(deadline)?;
+    write_frame_maximum(handle, payload, maximum, deadline)?;
+    check_deadline(deadline)
+}
+/// One persistent authenticated worker channel. Use distinct tags/instances for
+/// control and PCM. Node supplies its actual owned worker PID; no peer-selected PID.
+/// Any failed operation closes this endpoint. No automatic reconnect or queue.
+/// Blocking methods belong on a Node I/O thread, never an audio callback.
+pub struct WorkerPipeServer {
+    server: Option<PipeServer>,
+    connected: bool,
+}
+
+impl WorkerPipeServer {
+    pub fn bind(tag: &str, secret: Secret) -> io::Result<Self> {
+        Ok(Self {
+            server: Some(PipeServer::bind(tag, secret)?),
+            connected: false,
+        })
+    }
+
+    /// Connection, SID/PID check, token read and auth ACK share one absolute
+    /// deadline (at most three seconds). Cancellation is drained before close.
+    pub fn accept(&mut self, expected_worker_pid: u32, deadline: Instant) -> io::Result<()> {
+        let result = (|| {
+            if self.connected {
+                return Err(io::Error::new(
+                    io::ErrorKind::AlreadyExists,
+                    "worker IPC already connected",
+                ));
+            }
+            worker_deadline(deadline)?;
+            if expected_worker_pid == 0 {
+                return Err(io::Error::new(
+                    io::ErrorKind::InvalidInput,
+                    "invalid worker PID",
+                ));
+            }
+            let server = self.server.as_ref().ok_or_else(worker_closed)?;
+            let (_event, mut overlapped) = operation()?;
+            // SAFETY: event/OVERLAPPED live until finish drains the request.
+            let started = unsafe { ConnectNamedPipe(server.handle.0, Some(&mut overlapped)) };
+            match started {
+                Err(error) if is_code(&error, ERROR_PIPE_CONNECTED.0) => {}
+                started => {
+                    finish(server.handle.0, &mut overlapped, started, deadline)?;
+                }
+            }
+            check_deadline(deadline)?;
+            let mut pid = 0;
+            // SAFETY: connected server handle; actual client PID comes from kernel.
+            unsafe {
+                GetNamedPipeClientProcessId(server.handle.0, &mut pid).map_err(os_error)?;
+            }
+            if pid != expected_worker_pid {
+                return Err(io::Error::new(
+                    io::ErrorKind::PermissionDenied,
+                    "worker IPC client process mismatch",
+                ));
+            }
+            peer_is_current_user(pid, &server.sid)?;
+            check_deadline(deadline)?;
+            let mut presented = [0; 32];
+            read_exact(server.handle.0, &mut presented, deadline)?;
+            let matched = server.secret.matches(&presented);
+            presented.fill(0);
+            if !matched {
+                return Err(io::Error::new(
+                    io::ErrorKind::PermissionDenied,
+                    "worker IPC authentication failed",
+                ));
+            }
+            write_all(server.handle.0, &[0xa5], deadline)?;
+            check_deadline(deadline)?;
+            Ok(())
+        })();
+        if result.is_err() {
+            self.close();
+        } else {
+            self.connected = true;
+        }
+        result
+    }
+
+    pub fn is_connected(&self) -> bool {
+        self.connected && self.server.is_some()
+    }
+
+    pub fn read_frame(&mut self, maximum: usize, deadline: Instant) -> io::Result<Vec<u8>> {
+        let result = match self.server.as_ref().filter(|_| self.connected) {
+            Some(server) => read_worker_frame(server.handle.0, maximum, deadline),
+            None => Err(worker_closed()),
+        };
+        if result.is_err() {
+            self.close();
+        }
+        result
+    }
+
+    pub fn write_frame(
+        &mut self,
+        payload: &[u8],
+        maximum: usize,
+        deadline: Instant,
+    ) -> io::Result<()> {
+        let result = match self.server.as_ref().filter(|_| self.connected) {
+            Some(server) => write_worker_frame(server.handle.0, payload, maximum, deadline),
+            None => Err(worker_closed()),
+        };
+        if result.is_err() {
+            self.close();
+        }
+        result
+    }
+
+    pub fn close(&mut self) {
+        self.connected = false;
+        if let Some(mut server) = self.server.take() {
+            server.disconnect();
+            // Close the uniquely owned handle too: this endpoint cannot reaccept.
+        }
+    }
+}
+
+impl Drop for WorkerPipeServer {
+    fn drop(&mut self) {
+        self.close();
+    }
+}
+
+fn worker_closed() -> io::Error {
+    io::Error::new(io::ErrorKind::NotConnected, "worker IPC closed")
+}
+
+/// Peer PID/SID validation, fixed token and server-auth ACK are completed inside
+/// connect's absolute deadline. It never exposes handles or accepts remote paths.
+pub struct WorkerPipeClient {
+    handle: Option<Handle>,
+}
+
+impl WorkerPipeClient {
+    pub fn connect(
+        tag: &str,
+        expected_server_pid: u32,
+        secret: &Secret,
+        deadline: Instant,
+    ) -> io::Result<Self> {
+        worker_deadline(deadline)?;
+        if expected_server_pid == 0 {
+            return Err(io::Error::new(
+                io::ErrorKind::InvalidInput,
+                "invalid Node PID",
+            ));
+        }
+        let handle = open_current_user_pipe(tag, expected_server_pid, deadline)?;
+        write_all(handle.0, secret.as_bytes(), deadline)?;
+        let mut ack = [0];
+        read_exact(handle.0, &mut ack, deadline)?;
+        check_deadline(deadline)?;
+        if ack != [0xa5] {
+            return Err(io::Error::new(
+                io::ErrorKind::PermissionDenied,
+                "worker IPC auth ACK invalid",
+            ));
+        }
+        Ok(Self {
+            handle: Some(handle),
+        })
+    }
+
+    pub fn is_connected(&self) -> bool {
+        self.handle.is_some()
+    }
+
+    pub fn read_frame(&mut self, maximum: usize, deadline: Instant) -> io::Result<Vec<u8>> {
+        let result = match &self.handle {
+            Some(handle) => read_worker_frame(handle.0, maximum, deadline),
+            None => Err(worker_closed()),
+        };
+        if result.is_err() {
+            self.close();
+        }
+        result
+    }
+
+    pub fn write_frame(
+        &mut self,
+        payload: &[u8],
+        maximum: usize,
+        deadline: Instant,
+    ) -> io::Result<()> {
+        let result = match &self.handle {
+            Some(handle) => write_worker_frame(handle.0, payload, maximum, deadline),
+            None => Err(worker_closed()),
+        };
+        if result.is_err() {
+            self.close();
+        }
+        result
+    }
+
+    pub fn close(&mut self) {
+        self.handle = None;
     }
 }

@@ -1,0 +1,6 @@
+{
+  "before_sha256": "8c8b9118c7c5273412055946dc5fcadcae6e9db32d3ad4483c832e158a67ccc4",
+  "utc": "2026-10-05T14:04:55.4796507Z",
+  "after_sha256": "56b5e90006bc3a7a9cbdcc05b50de640b2fd3a6add95efc5763f9367aed7c4f3",
+  "scope": "Worker channel plus shared current-user client opener; UI receive idle unchanged"
+}

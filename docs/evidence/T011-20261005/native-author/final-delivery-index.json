@@ -1,0 +1,147 @@
+{
+  "uuid": "01a10767-4ff5-7f21-881a-146d094fbc55",
+  "utc": "2026-10-05T14:16:44.2265640Z",
+  "source": [
+    {
+      "path": "crates/platform/src/windows.rs",
+      "sha256": "bb14bdf91fc43ed1b5da92c5b78cf106f8e028e84132bae2532fa4cbb23e24bf",
+      "bytes": 28051
+    },
+    {
+      "path": "crates/platform/tests/worker_pipe.rs",
+      "sha256": "fc4df3a0c62bdcd25dc6b67cdaffe22af699239bc4689129deb914f81a0ad2bb",
+      "bytes": 13899
+    },
+    {
+      "path": "crates/platform/README.md",
+      "sha256": "144a18f1334533d097378222bcd277493cab93e10f48569edd8eab85563f331a",
+      "bytes": 7297
+    }
+  ],
+  "files": [
+    {
+      "name": "edit-01.json",
+      "sha256": "85b686e87ea534060807e1cdd71b64868ee8d38b63b54f67e022dbb3fe2baf7f",
+      "bytes": 316
+    },
+    {
+      "name": "runner.ps1",
+      "sha256": "d6a241b13b1931463d1379cfbd367d472649cf0991f791e8970bc7c535fe8107",
+      "bytes": 4323
+    },
+    {
+      "name": "runner2.ps1",
+      "sha256": "bf2df79c7bd10494fb1868a510ff7d0dcbfd8085a37e16a19c79d51f1af97ca1",
+      "bytes": 4507
+    },
+    {
+      "name": "outer-01.json",
+      "sha256": "0eb5883f2960cb09387b9f499ea9992f6992c6989f051ac3ffb536884ae4ab22",
+      "bytes": 525
+    },
+    {
+      "name": "outer-01.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "name": "outer-01.stderr",
+      "sha256": "b09362f05f138e479b49ebcd9cd20db19f6b9b09abe7fbf4d71a4b88a013dd65",
+      "bytes": 775
+    },
+    {
+      "name": "outer-02.json",
+      "sha256": "8e56efc6d5a9c2077d2f5d7debf31acb00c8515a3d2c8907846edd81a37db67b",
+      "bytes": 526
+    },
+    {
+      "name": "outer-02.stdout",
+      "sha256": "fe052238552ce346225fe1e5768a9d25d414ca6f94dcda333d0a8abc8614edaa",
+      "bytes": 7582
+    },
+    {
+      "name": "outer-02.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "name": "01-rustfmt.json",
+      "sha256": "f2bb30b9b37415d70d2bdc04154cc6aeefab2ca9ae560ef00ed0d842eaa3408f",
+      "bytes": 3308
+    },
+    {
+      "name": "01-rustfmt.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "name": "01-rustfmt.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "name": "02-worker-pipe-tests.json",
+      "sha256": "4ed24404332b0c39bca9c404f66e48dd86031b4da0aa8c85d62c9177bbbd3fc8",
+      "bytes": 3354
+    },
+    {
+      "name": "02-worker-pipe-tests.stdout",
+      "sha256": "1278e7cc99a533ed5e32c726bfab4906868955b61cefd8626b23904d56a0204a",
+      "bytes": 1065
+    },
+    {
+      "name": "02-worker-pipe-tests.stderr",
+      "sha256": "8ec54dd1e79e0769ddcf69fb9419380147a7388ec81e426592bc57b627b68d91",
+      "bytes": 799
+    },
+    {
+      "name": "03-platform-fmt-check.json",
+      "sha256": "3fe07ce63c139e0754376adfa08b51f12548093d46990392c961d1d926b15aea",
+      "bytes": 3160
+    },
+    {
+      "name": "03-platform-fmt-check.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "name": "03-platform-fmt-check.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "name": "04-platform-clippy.json",
+      "sha256": "20b4ae79926e2a289b8ee0009eb178d99436671249e5d469e1c387a9df6a4089",
+      "bytes": 3310
+    },
+    {
+      "name": "04-platform-clippy.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "name": "04-platform-clippy.stderr",
+      "sha256": "300defc44478f3f5b9e497253097a94ae384ea13eb05fe1d8fca14688af11317",
+      "bytes": 459
+    },
+    {
+      "name": "delivery-index.json",
+      "sha256": "7ee986bce28c564d342333b6823bab7eb40b88131ea8bea8b966365d31653d4d",
+      "bytes": 2487
+    }
+  ],
+  "result": "13 real kernel IPC tests exit0; fmt0; strictClippy0",
+  "first_failure": "outer-01 exit1 before any formatter/Cargo due Get-FileHash unavailable. Cause UNKNOWN. Redirected stderr text retained without reconstruction, some legacy-encoding Chinese text decoded with replacement; not a byte-identical native stderr claim.",
+  "read_failure": "d1cd0d exit1 solely final rg nonexistent evidence directory; no application/compile command in that read.",
+  "not_run": [
+    "Python",
+    "Node Job/output-gate integration",
+    "actual different-user rejection",
+    "model warmup",
+    "audio",
+    "GPU",
+    "LAN",
+    "Mac"
+  ],
+  "writes": "STOP_WRITES"
+}

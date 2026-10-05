@@ -1,0 +1,10 @@
+{
+  "start_utc": "2026-10-05T14:12:45.6535956Z",
+  "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+  "stderr_sha256": "b09362f05f138e479b49ebcd9cd20db19f6b9b09abe7fbf4d71a4b88a013dd65",
+  "actual_outer_host": "7.6.5",
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "end_utc": "2026-10-05T14:12:46.2448059Z",
+  "exit_code": 1,
+  "argv": "-NoLogo -NoProfile -NonInteractive -File D:\\Project\\witvoice\\.local\\t011-native-author\\runner.ps1"
+}
