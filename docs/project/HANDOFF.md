@@ -1,5 +1,7 @@
 # 当前交接
 
+T007同r3补充父实际20项字节proof生成命令与execution元数据（UTC/完整argv/exit0），AST字节常量实际0d0a→0a，不是字符串转义替换；只提取原记录不重跑。T016第一次实际构建cargo101：rustc_driver访问异常c0000005，应用tests未开始。保留失败，root读到对应WER及当前内存/无build进程，正在有假设隔离复测诊断；当前内存不是故障峰值。允许backend保存原缓存到唯一.local raw日志白名单，不允许盲重跑/网络/硬件。
+
 恢复继续（2026-10-05，用户“继续推进”）：三个T016部分源码及私有备份逐字节/摘要MATCH；T00710冻结Git blob与当前工作源码逐路径一致。重新登记T007同一r3只读审查和T016/backend窄白名单代码lease，尚未新增测试成绩；即将真实followup恢复既有线程。next_task=T007，T008依赖仍未批准，禁止开工。原中断记录保留供溯源，执行状态以本段与STATE为准。
 
 中断恢复点（2026-10-05）：四个实际子agent均interrupted，STATE.active_tasks已清空，代码/审查/硬件/GPU租约释放。next_task=T007，T007第三/最后正式审查无最终结论，恢复同一r3，不增第4轮也不标DONE。T016新增平台lib/discovery/native三个文件未提交，保持原样并另存.local私有字节备份；摘要和可见进程观测见interruption-20261005.json。新原生DNS片段尚未验证，不移用旧身份15测试/旧工作区78测试作为该片段PASS；transport probe/适配/测试尚未交付。无后台继续承诺。

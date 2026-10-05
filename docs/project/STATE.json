@@ -36,7 +36,8 @@
         "crates/transport/src/discovery/",
         "crates/transport/tests/discovery.rs",
         "crates/transport/examples/native_discovery_probe.rs",
-        "crates/transport/README.md"
+        "crates/transport/README.md",
+        ".local/t016-native-author/compile-failure1.json"
       ],
       "resource_leases": [
         "code-writer:backend-native-dns"

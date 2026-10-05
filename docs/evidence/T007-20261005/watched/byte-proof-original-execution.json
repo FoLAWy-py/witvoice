@@ -1,0 +1,33 @@
+{
+  "root_thread_id": "01a10764-d851-7d02-ac79-365d2576a226",
+  "original_session_line": 4292,
+  "event_id": "exec-cd8b6710-7272-4793-9add-198d61f9296b",
+  "timestamp": "2026-10-04T20:48:20.503Z",
+  "started_at_ms": 1791146899364,
+  "completed_at_ms": 1791146900503,
+  "command_argv_prefix": [
+    "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+    "-Command"
+  ],
+  "command_file": "docs/evidence/T007-20261005/watched/byte-proof-original-command.txt",
+  "command_utf8_sha256": "371a02313e15082a878e60e49b04764fb5ffd367c2f229c6d11b16a21eefcfc9",
+  "cwd": "file:///D:/Project/witvoice",
+  "exit_code": 0,
+  "stdout": "20 event byte comparisons saved\r\nwarning: in the working copy of 'docs/evidence/T007-20261005/watched/PROVENANCE.md', CRLF will be replaced by LF the next time Git touches it\nwarning: in the working copy of 'docs/evidence/T007-20261005/watched/author-byte-proof.json', CRLF will be replaced by LF the next time Git touches it\nwarning: in the working copy of 'docs/evidence/T007-20261005/watched/environment.json', CRLF will be replaced by LF the next time Git touches it\n[master 126ac24] Bind final audio review to environment, authorization and exact event bytes\n 3 files changed, 185 insertions(+)\n create mode 100644 docs/evidence/T007-20261005/watched/PROVENANCE.md\n create mode 100644 docs/evidence/T007-20261005/watched/author-byte-proof.json\n create mode 100644 docs/evidence/T007-20261005/watched/environment.json\n126ac24caf3ce28141e0c249ff40e622827eeb43\n",
+  "stderr": "",
+  "duration": {
+    "secs": 1,
+    "nanos": 137999800
+  },
+  "ast_replace_hex": [
+    [
+      "0d0a",
+      "0a"
+    ],
+    [
+      "0d0a",
+      "0a"
+    ]
+  ],
+  "boundary": "original command and outcome extracted, not rerun; no other session text exported"
+}

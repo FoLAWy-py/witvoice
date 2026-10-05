@@ -257,7 +257,9 @@
         "docs/evidence/T016-20261005/identity/workspace-count.json",
         "docs/evidence/T007-20261005/watched/PROVENANCE.md",
         "docs/evidence/T007-20261005/watched/environment.json",
-        "docs/evidence/T007-20261005/watched/author-byte-proof.json"
+        "docs/evidence/T007-20261005/watched/author-byte-proof.json",
+        "docs/evidence/T007-20261005/watched/byte-proof-original-command.txt",
+        "docs/evidence/T007-20261005/watched/byte-proof-original-execution.json"
       ],
       "review": "docs/project/reviews/T007-r3.md",
       "attempts": 3,
@@ -524,7 +526,7 @@
       "review": null,
       "attempts": 0,
       "blocked_reason": null,
-      "execution_note": "Registered resumption of native DNS addendum; preserved3files and byte backup match. New source not tested yet; no actual LAN/DNS API or hardware authorization."
+      "execution_note": "Native source implementation continuing; first cargo101 compiler AV in windows0.62.2 before tests. Root diagnosing one controlled isolation retry, no fakePASS. Backend fixed.local rawfailed-result archive allowed, no new network/hardware."
     },
     {
       "id": "T017",
