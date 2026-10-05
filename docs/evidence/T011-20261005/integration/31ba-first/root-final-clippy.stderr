@@ -1,0 +1,12 @@
+    Checking witvoice-contracts v0.1.0 (D:\Project\witvoice\crates\contracts)
+error: using `chunks_exact` with a constant chunk size
+   --> crates\contracts\src\worker.rs:229:53
+    |
+229 |         for sample in packet[WORKER_HEADER_BYTES..].chunks_exact(4) {
+    |                                                     ^^^^^^^^^^^^^^^ help: consider using `as_chunks` instead: `as_chunks::<4>().0`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.99.0/index.html#chunks_exact_to_as_chunks
+    = note: `-D clippy::chunks-exact-to-as-chunks` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[allow(clippy::chunks_exact_to_as_chunks)]`
+
+error: could not compile `witvoice-contracts` (lib) due to 1 previous error

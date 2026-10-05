@@ -21,6 +21,9 @@ class ControlTests(unittest.TestCase):
     def test_json_ambiguity_limits_and_nonfinite(self):
         for bad in (b"", b" "*65537, b'{"x":1,"x":2}', b'{"x":NaN}', b"\xff", b"{", b"[]"):
             with self.subTest(bad=bad[:20]), self.assertRaises(ValueError): decode_control(bad, "WorkerRequest")
+        for encoding in ("utf-16", "utf-32", "utf-8-sig"):
+            bad=json.dumps(self.base()).encode(encoding)
+            with self.subTest(encoding=encoding), self.assertRaises(ValueError): decode_control(bad,"WorkerRequest")
 
     def test_schema_and_rust_integer_semantics(self):
         for key, value in (("epoch", 0), ("epoch", 1<<32), ("epoch", True),

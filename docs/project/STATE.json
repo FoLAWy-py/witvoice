@@ -10,9 +10,13 @@
       "task_id": "T011",
       "agent": "/root",
       "thread_id": "01a10764-d851-7d02-ac79-365d2576a226",
-      "mode": "FROZEN_SOFTWARE_INTEGRATION",
+      "mode": "NARROW_CHECK_FIX_AND_VALIDATION",
       "path_whitelist": [
+        "crates/contracts/src/worker.rs",
+        "workers/vc_worker/control.py",
+        "workers/vc_worker/test_control.py",
         ".local/t011-final",
+        ".local/t011-fixed-final",
         "docs/evidence/T011-20261005/integration",
         "docs/project"
       ],
@@ -21,11 +25,57 @@
         "T006",
         "T010"
       ],
-      "contract": "Allauthors STOP; frozenT011partial+T009explicitmix; actualPS5.1 sameexistingtarget/jobs1; no hardware/model",
+      "contract": "Root sole writer: preserve31ba ordinaryClippy101; as_chunks mechanicalfix and strictUTF8 parity; all other sources frozen; no hardware/model",
       "acceptance": "workspace all-target tests/fmt/strictClippy/examples/sourceguards; no taskDONE untilremainingnative/model evidence",
       "resources": [
         "sole software validator"
       ]
+    },
+    {
+      "task_id": "T009",
+      "agent": "/root/reviewer_t001",
+      "thread_id": "01a1077c-556d-7152-892c-d9f92346ec0f",
+      "mode": "READ_ONLY_EXPLICIT_MIX_AND_T011_PARTIAL_REVIEW",
+      "path_whitelist": [
+        "crates/audio",
+        "crates/contracts/src/worker.rs",
+        "crates/contracts/tests/worker_wire.rs",
+        "crates/engines",
+        "workers/vc_worker/control.py",
+        "workers/vc_worker/protocol.py",
+        "workers/vc_worker/test_control.py",
+        "workers/vc_worker/test_protocol.py",
+        "docs/evidence/T009-20261005/exact-mix-author",
+        "docs/evidence/T011-20261005"
+      ],
+      "dependencies": [
+        "T007",
+        "T008",
+        "T002",
+        "T006",
+        "T010"
+      ],
+      "contract": "Frozen31ba5c4 limitedsoftware preflight/partialreview; oldT009base alreadyreviewed, allunique delta/evidence actualread; no selfapproval/rerun/escalation/device",
+      "acceptance": "No unresolvedmandatoryS0-S3 before specificcapture-mix once; T011cannotDONE native/modelacceptance absent",
+      "resources": []
+    },
+    {
+      "task_id": "T009",
+      "agent": "/root/audio_runtime",
+      "thread_id": "01a10767-80de-7e02-b3b0-73d1273a70bd",
+      "mode": "READ_ONLY_FROZEN_RELAY",
+      "path_whitelist": [
+        "crates/audio",
+        "docs/evidence/T009-20261005/exact-mix-author",
+        ".local/t009-exact-mix-author"
+      ],
+      "dependencies": [
+        "T007",
+        "T008"
+      ],
+      "contract": "Frozen31ba five-source diff and complete authorlogs to independentreviewer, no edits/test/hardware/spawn",
+      "acceptance": "Actual bounded stdout relay plus SHA/git binding",
+      "resources": []
     }
   ],
   "milestones": {

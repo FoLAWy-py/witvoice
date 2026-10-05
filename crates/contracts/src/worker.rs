@@ -226,10 +226,8 @@ impl WorkerMediaHeader {
         if header.epoch != expected.epoch {
             return Err(ErrorCode::EpochMismatch);
         }
-        for sample in packet[WORKER_HEADER_BYTES..].chunks_exact(4) {
-            if !f32::from_le_bytes(sample.try_into().map_err(|_| ErrorCode::InvalidMedia)?)
-                .is_finite()
-            {
+        for sample in packet[WORKER_HEADER_BYTES..].as_chunks::<4>().0 {
+            if !f32::from_le_bytes(*sample).is_finite() {
                 return Err(ErrorCode::InvalidMedia);
             }
         }

@@ -68,7 +68,7 @@ def decode_control(payload: bytes, schema_name: str, expected_binding=None):
         raise ValueError("worker control bound or direction")
     try:
         def invalid_constant(_): raise ValueError("nonfinite worker JSON")
-        value = json.loads(payload, object_pairs_hook=_object, parse_constant=invalid_constant)
+        value = json.loads(payload.decode("utf-8"), object_pairs_hook=_object, parse_constant=invalid_constant)
         if not VALIDATORS[schema_name].is_valid(value):
             raise ValueError("invalid worker control shape")
         _semantic(SCHEMAS[schema_name], value, SCHEMAS[schema_name].get("definitions", {}))
