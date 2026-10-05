@@ -1,0 +1,45 @@
+{
+  "executable": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\cargo.exe",
+  "argv": [
+    "test",
+    "--locked",
+    "-p",
+    "witvoice-transport",
+    "--example",
+    "native_discovery_probe"
+  ],
+  "cwd": "D:\\Project\\witvoice",
+  "start_utc": "2026-10-05T08:25:36.6457949Z",
+  "end_utc": "2026-10-05T08:25:38.1899286Z",
+  "exit_code": 0,
+  "env": {
+    "CARGO_TARGET_DIR": "D:\\Project\\witvoice\\.local\\t016-syn-reproducer\\target",
+    "CARGO_BUILD_JOBS": "1",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo",
+    "RUSTUP_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\rustup"
+  },
+  "override_preflight": "absent",
+  "source_before": [
+    {
+      "path": "crates/transport/examples/native_discovery_probe.rs",
+      "sha256": "5125940b62e9cd0ae5cd98c86da9eafb5bf8b577953e136492a54396607e6ddc"
+    }
+  ],
+  "source_after": [
+    {
+      "path": "crates/transport/examples/native_discovery_probe.rs",
+      "sha256": "5125940b62e9cd0ae5cd98c86da9eafb5bf8b577953e136492a54396607e6ddc"
+    }
+  ],
+  "stdout": {
+    "path": "D:\\Project\\witvoice\\.local\\t016-probe-author\\02-example-tests.stdout",
+    "length": 748,
+    "sha256": "ee0a71493a59d4bc0ce438d92574963387c5527144c1a9c8d2fb761cebf7d722"
+  },
+  "stderr": {
+    "path": "D:\\Project\\witvoice\\.local\\t016-probe-author\\02-example-tests.stderr",
+    "length": 304,
+    "sha256": "385db82b4d2cc6ecdcda93d87de1925b16da9ae593c0b72981150835eb404ae5"
+  }
+}

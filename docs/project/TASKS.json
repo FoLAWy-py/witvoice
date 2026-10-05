@@ -508,9 +508,7 @@
       ],
       "acceptance": "默认监听关闭；mDNS不建立信任；双端身份字符串导入、pin验证与撤销；陌生端无音频权限。",
       "agent_instance_id": "/root/backend",
-      "resource_leases": [
-        "code-writer:backend-probe-evidence"
-      ],
+      "resource_leases": [],
       "evidence": [
         "docs/evidence/T016-20261005/dependency-metadata.json",
         "docs/evidence/T016-20261005/fetch-command.json",
@@ -540,12 +538,13 @@
         "docs/evidence/T016-20261005/native-dns/conditional-check/01-tests.json",
         "docs/evidence/T016-20261005/native-dns/author-final/12-delivery-index.json",
         "docs/evidence/T016-20261005/native-dns/author-final/leader-audit.json",
-        "docs/evidence/T016-20261005/native-dns/leader-integration/result.json"
+        "docs/evidence/T016-20261005/native-dns/leader-integration/result.json",
+        "docs/evidence/T016-20261005/native-dns/probe-author/leader-audit.json"
       ],
       "review": null,
       "attempts": 0,
       "blocked_reason": null,
-      "execution_note": "Frozen92d6a25 full integration30 tests/fmt/alltargetsClippy/examples0. Default networkOFF. One explicit interface19 probe authorized, not run; strengthen probe evidence before one run; formal attempts0."
+      "execution_note": "Probe author stopped; only probe source changed, 9 meaningful pure tests/fmt/clippy/build0 byte-audited. Production native unchanged. One authorized interface19 trial NOT_RUN; full frozen integration/static preflight pending."
     },
     {
       "id": "T017",

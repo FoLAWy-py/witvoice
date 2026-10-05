@@ -1,0 +1,13 @@
+
+running 8 tests
+test probe::tests::drops_and_unconfirmed_cleanup_prevent_success ... ok
+test probe::tests::only_one_target_resolve_and_original_expiry_preserved ... ok
+test probe::tests::early_stopped_and_post_close_evidence_cannot_be_success ... ok
+test probe::tests::start_and_cleanup_errors_are_retained_not_overridden ... ok
+test probe::tests::wrong_endpoint_node_and_expiry_are_rejected ... ok
+test probe::tests::registered_required_and_async_failure_is_sticky ... ok
+test probe::tests::foreign_discovery_never_resolves_or_matches ... ok
+test probe::tests::strict_arguments_reject_unapproved_interfaces_public_addresses_and_unbounded_time ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s
+

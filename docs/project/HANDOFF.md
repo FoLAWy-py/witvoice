@@ -1,5 +1,7 @@
 # 当前交接
 
+T016增强探针已交付停止（仅probe.rs，SHAe37c8882…），7完整命令raw/SHA及最后4源前后MATCH，9纯例测试/fmt/clippy/build0；真实LAN仍0次。backend lease释放。root已创建仅自己两个进程的once监督器/AST解析，无config不执行；总限15s、单进程9.5s监督余量、超时FAIL/no重试。将冻结整棵workspace后test-alltargets/process-tests、fmt、Clippy、probe build；独立原生寿命/新probe预检到齐再只运行用户授权一次。T008r1登记排队待审，next_task=T008。
+
 T008冻结2fa9115整合复跑51非空测试/fmt/alltargets Clippy/examples exit0；每次23audio源码before/afterSHA同作者最终，日志完整。已登记独立reviewer_t001正式r1（attempt1/3、只读中继/no复跑），尚无结论，不标DONE；root验证lease释放。backend继续T016仅探针证据修订/noLAN实际运行；next_task=T008。
 
 T008实际audio作者停止，最终11改变/23全部audio源码SHA及25命令完整raw日志已归档leader-audit全部MATCH。最终51tests/fmt/clippy/examples0，保留五ordinary失败；四组8h是SPSC metadata+真实clock phase模拟，非每样本PCM或硬件。root仅登记独立验证目录lease，接下来冻结整合复跑/独立r1；backend仅T016 probe另一路径writer，最多2，无audio/GPU/LAN运行。next_task=T008。

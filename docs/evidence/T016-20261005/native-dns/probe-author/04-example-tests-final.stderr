@@ -1,0 +1,3 @@
+   Compiling witvoice-transport v0.1.0 (D:\Project\witvoice\crates\transport)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.44s
+     Running unittests examples\native_discovery_probe.rs (.local\t016-syn-reproducer\target\debug\examples\native_discovery_probe-c75821fec810e28d.exe)

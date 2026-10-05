@@ -1,0 +1,43 @@
+{
+  "executable": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\cargo.exe",
+  "argv": [
+    "fmt",
+    "--package",
+    "witvoice-transport",
+    "--check"
+  ],
+  "cwd": "D:\\Project\\witvoice",
+  "start_utc": "2026-10-05T08:26:58.7413775Z",
+  "end_utc": "2026-10-05T08:26:59.1708069Z",
+  "exit_code": 0,
+  "env": {
+    "CARGO_TARGET_DIR": "D:\\Project\\witvoice\\.local\\t016-syn-reproducer\\target",
+    "CARGO_BUILD_JOBS": "1",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\cargo",
+    "RUSTUP_HOME": "D:\\Software\\WitvoiceToolchain\\Rust\\rustup"
+  },
+  "override_preflight": "absent",
+  "source_before": [
+    {
+      "path": "crates/transport/examples/native_discovery_probe.rs",
+      "sha256": "e37c8882bd1bb5f22efb845c573b88db4a26d84414e04065c6ee9ed89e8ebe4e"
+    }
+  ],
+  "source_after": [
+    {
+      "path": "crates/transport/examples/native_discovery_probe.rs",
+      "sha256": "e37c8882bd1bb5f22efb845c573b88db4a26d84414e04065c6ee9ed89e8ebe4e"
+    }
+  ],
+  "stdout": {
+    "path": "D:\\Project\\witvoice\\.local\\t016-probe-author\\05-fmt-check.stdout",
+    "length": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stderr": {
+    "path": "D:\\Project\\witvoice\\.local\\t016-probe-author\\05-fmt-check.stderr",
+    "length": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

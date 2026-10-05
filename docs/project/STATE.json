@@ -7,29 +7,6 @@
   "active_milestone": "M1",
   "active_tasks": [
     {
-      "task_id": "T016",
-      "agent_instance_id": "/root/backend",
-      "allowed_paths": [
-        "crates/transport/examples/native_discovery_probe.rs",
-        ".local/t016-probe-author/"
-      ],
-      "resource_leases": [
-        "code-writer:backend-probe-evidence"
-      ],
-      "depends_on": [
-        "T003",
-        "T006"
-      ],
-      "contract": "Only compiled probe evidence criteria: actualRegistered, exact UUID/private endpoint/expiry, sticky failures/drop, complete terminal cleanup; production native API/source/deps unchanged",
-      "acceptance_commands": [
-        "cargo test --locked -p witvoice-transport --example native_discovery_probe",
-        "cargo fmt --package witvoice-transport --check",
-        "cargo clippy --locked -p witvoice-transport --all-targets -- -D warnings",
-        "cargo build --locked -p witvoice-transport --example native_discovery_probe"
-      ],
-      "execution_note": "No actual network run; one approved interface19 trial reserved for root after freeze. No retry of real trial."
-    },
-    {
       "task_id": "T008",
       "agent_instance_id": "/root/reviewer_t001",
       "allowed_paths": [
@@ -56,7 +33,9 @@
       "agent_instance_id": "/root",
       "allowed_paths": [
         ".local/t016-authorized-native/",
-        "docs/evidence/T016-20261005/native-dns/native-smoke/"
+        "docs/evidence/T016-20261005/native-dns/native-smoke/",
+        ".local/t016-leader-integration/target/",
+        "docs/evidence/T016-20261005/native-dns/final-integration/"
       ],
       "resource_leases": [
         "verification-writer:t016-probe-supervisor"
@@ -67,7 +46,11 @@
       ],
       "contract": "Human once-only interface19 two-proc DNS trial, each10s total15s; prepare supervisor first, run only compiled frozen positive evidence probe and static preflight",
       "acceptance_commands": [
-        "CreateProcessNoWindow bounded selected own probes; rawprivate results and redacted public hashes; exactRegistered/exactUUID+endpoint/expiry/terminalcleanup required"
+        "cargo test --locked --workspace --all-targets --features witvoice-node/process-tests -- --nocapture",
+        "cargo fmt --all --check",
+        "cargo clippy --locked --workspace --all-targets --features witvoice-node/process-tests -- -D warnings",
+        "cargo build --locked -p witvoice-transport --example native_discovery_probe",
+        "One selected own two-process DNS probe, each<10s overall<15s, only after frozen static preflight"
       ],
       "execution_note": "Current NOT_RUN; preserve consumed authorization even failure. No retry/no firewall/audio/GPU/model/keys. Only leader supervisor/evidence writes."
     }
