@@ -1,0 +1,108 @@
+{
+  "utc": "2026-10-05T07:27:12.988064+00:00",
+  "source_before": "5160b97",
+  "files_after": [
+    {
+      "path": "crates/platform/src/lib.rs",
+      "sha256": "38e087b23847cd1fd9033fbaba0ebf44b83075ba6c37b9226a691ba3b7553957",
+      "bytes": 302
+    },
+    {
+      "path": "crates/platform/src/discovery.rs",
+      "sha256": "9e0a574687c5deb60ba4185459cfbb19d1c8ffae50628f8f9369a36ca963467b",
+      "bytes": 1819
+    },
+    {
+      "path": "crates/platform/src/discovery/native.rs",
+      "sha256": "e0ba72dd978868a79ff02c526da244d1947a5223cb00d6a9c9a0568f86396859",
+      "bytes": 25869
+    },
+    {
+      "path": "crates/platform/src/discovery/native/tests.rs",
+      "sha256": "5bb10eb72cf39f7fc030a7aa7f81e8b2cb77c3c28bd445d403782b88b08d0721",
+      "bytes": 16703
+    },
+    {
+      "path": "crates/platform/tests/discovery.rs",
+      "sha256": "e9143602a1dd082101f6a8b4ffd0a7ecab6db53ae7d66ff15a1de28572e0690c",
+      "bytes": 997
+    },
+    {
+      "path": "crates/platform/README.md",
+      "sha256": "e74467e00702ac549b4ce2b118dac17033afe6382bb38408c06f44c6c4de1665",
+      "bytes": 5056
+    },
+    {
+      "path": "crates/transport/src/discovery.rs",
+      "sha256": "2cb608a6e8fa670b5ff653d4350a0e0c6fa37d7946b235fc46a203d404e8e66c",
+      "bytes": 3054
+    },
+    {
+      "path": "crates/transport/src/discovery/native.rs",
+      "sha256": "73879b9546577e036b121c6d8e16921365424d11a9d3e14e73f451eb959cd37f",
+      "bytes": 7833
+    },
+    {
+      "path": "crates/transport/tests/discovery.rs",
+      "sha256": "b6ea153f66334e74f97f5c43cda23559c823bfa3e52eb01d22f90608b0b8732c",
+      "bytes": 3411
+    },
+    {
+      "path": "crates/transport/examples/native_discovery_probe.rs",
+      "sha256": "6ad5769b4dd13c7fe806a0ca816fb5a4634222e0b58cd2d60d72ebce1bb9e21b",
+      "bytes": 3133
+    },
+    {
+      "path": "crates/transport/README.md",
+      "sha256": "2a687a60970531ea5b149bbab1a817bd63f33ca3cc4bfd702510e717bd611105",
+      "bytes": 3230
+    }
+  ],
+  "protected_12_match": true,
+  "executions": [
+    {
+      "chunk": "9b9f8e",
+      "command": "cargo fmt --package witvoice-platform --package witvoice-transport --check",
+      "exit": 1,
+      "output": "first-tool-result-partial.json",
+      "completeness": "tool-returned display truncated, not full raw"
+    },
+    {
+      "command": "save oversized partial result via exec",
+      "result": "OS error206 before process start; no mutation; fixed by four small data-only writes"
+    },
+    {
+      "chunk": "031daa",
+      "command": "cargo fmt check before format",
+      "exit": 101,
+      "output": "before-full.txt",
+      "result": "cargo-fmt TOML parser unreachable panic, causeUNKNOWN"
+    },
+    {
+      "chunk": "031daa",
+      "command": "rustfmt --edition 2024 eight explicit files",
+      "exit": 0,
+      "output": "apply.txt"
+    },
+    {
+      "chunk": "031daa",
+      "command": "cargo fmt package check after eight",
+      "exit": 1,
+      "output": "after-full.txt",
+      "result": "platform lib module order diff"
+    },
+    {
+      "chunk": "86017c",
+      "command": "rustfmt --edition 2024 crates/platform/src/lib.rs",
+      "exit": 0,
+      "output": "apply-lib.txt"
+    },
+    {
+      "chunk": "86017c",
+      "command": "rustfmt --edition 2024 --check nine explicit files",
+      "exit": 0,
+      "output": "standalone-check.txt"
+    }
+  ],
+  "scope": "FORMAT ONLY. No native tests/clippy/examples build/LAN executed; B004 remains; standalone formatting success not compiler fix."
+}

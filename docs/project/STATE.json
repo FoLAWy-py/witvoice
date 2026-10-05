@@ -32,29 +32,6 @@
       ],
       "reviewer": "/root/reviewer_t001",
       "execution_note": "Native T007 r3 approved; new T008 implementation only. T016 compiler failures not assumed global; one scoped real audio build with process jobs1/inc0, if compiler fails stop no blind retries. No hardware/network/GPU."
-    },
-    {
-      "task_id": "T016",
-      "agent_instance_id": "/root/frontend",
-      "allowed_paths": [],
-      "read_paths": [
-        "5160b97:crates/platform/src/discovery/native.rs",
-        "5160b97:crates/platform/src/discovery/native/tests.rs",
-        "5160b97:crates/transport/src/discovery/native.rs"
-      ],
-      "resource_leases": [
-        "readonly-preflight:native-callback-lifetime"
-      ],
-      "depends_on": [
-        "T003",
-        "T006"
-      ],
-      "contract": "Bounded static callback lifetime preflight on frozen source; not formal task approval and no execution PASS; compiler blocker remains",
-      "acceptance_commands": [
-        "fixed git show reads only; no cargo, LAN, edits or hardware"
-      ],
-      "reviewer": "/root/reviewer_t001",
-      "execution_note": "Source may be uncompiled; inspect raw token registry, cancel/terminal/deallocation races only. No formal attempt added."
     }
   ],
   "milestones": {
@@ -101,7 +78,7 @@
       "review": null
     }
   },
-  "last_verified_commit": "6e9e7c5588a8ee07a3f04e46427f27d58f5e117b",
+  "last_verified_commit": "3af8a6f1ecc87e643413c1d6539dd1be16c3c6fc",
   "next_task": "T008",
   "blockers": [
     {
@@ -166,7 +143,7 @@
     }
   },
   "completion_claim_allowed": false,
-  "last_verified_scope": "M0 + T006 foundation + reviewed T007 metadata/conversion/notifications + T021 design; not hardware/UI/real production VC/whole product",
+  "last_verified_scope": "Frozen M0/T006/T007 Windows API + T021 design; T007 review r3 approved. Excludes subsequent native DNS source, current T008 changes and whole hardware/UI/production VC/Mac.",
   "execution_status": "RUNNING_SCOPED_TASKS",
   "interruption_evidence": "docs/project/interruption-20261005.json"
 }

@@ -1,0 +1,10 @@
+{
+  "before_end_utc": "2026-10-05T07:24:11.9013330Z",
+  "start_utc": "2026-10-05T07:24:11.8472165Z",
+  "source_before": "5160b97",
+  "before_exit": 101,
+  "end_utc": "2026-10-05T07:24:12.1592548Z",
+  "apply_exit": 0,
+  "after_exit": 1,
+  "scope": "format only; no compile/test/LAN"
+}

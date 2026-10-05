@@ -1,0 +1,6 @@
+{
+  "end_utc": "2026-10-05T07:25:49.2296194Z",
+  "scope": "rustfmt only; no Cargo parser/build/test/LAN",
+  "apply_lib_exit": 0,
+  "standalone_check_exit": 0
+}

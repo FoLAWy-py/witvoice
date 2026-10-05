@@ -1,6 +1,6 @@
 //! Windows user-process controls. No audio, model, network or UI ownership.
-pub mod identity;
 pub mod discovery;
+pub mod identity;
 #[cfg(windows)]
 mod windows;
 #[cfg(windows)]

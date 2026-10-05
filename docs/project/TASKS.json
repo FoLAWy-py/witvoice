@@ -531,7 +531,9 @@
         "docs/evidence/T016-20261005/native-dns/compiler-diagnostic/result.json",
         "docs/evidence/T016-20261005/native-dns/compile-failure2.json",
         "docs/evidence/T016-20261005/native-dns/compiler-integrity/compiler-byte-audit.json",
-        "docs/evidence/T016-20261005/native-dns/compiler-integrity/dependency-byte-audit-all.json"
+        "docs/evidence/T016-20261005/native-dns/compiler-integrity/dependency-byte-audit-all.json",
+        "docs/evidence/T016-20261005/native-dns/format/result.json",
+        "docs/evidence/T016-20261005/native-dns/static-preflight.md"
       ],
       "review": null,
       "attempts": 0,

@@ -1,5 +1,7 @@
 # 当前交接
 
+T016窄静态回调寿命检查已由实际frontend完成（非formal批准/attempts0）；固定5160b97三文件全文未观察具体UAF或关闭后重启。root仅九源码rustfmt整合：首次package fmt差异1（显示partial）；保存完整的新check遇cargo-fmt TOML parser panic101，standalone八文件format0、package剩lib顺序diff1；补lib顺序并standalone九文件check0，其他12冻结文件SHA不变。源码formatter-only变更、全部失败保留format/result.json；未编译新DNS/未tests，不证明工具链恢复。root锁释放，只有audio T008写入、无hardware/GPU/LAN。
+
 T007正式r3已由独立reviewer批准DONE（3/3，边界见reviews/T007-r3.md）；next_task=T008。T016原生11源码冻结但BLOCKED B004，两个完整compiler101保留；官方stable1.99.0/33 compiler bin/lib/两syn+windows源码摘要全MATCH，原因UNKNOWN，无同系列补丁/不降级。audio已登记T008独立路径写入锁，即将真实followup；实际pure audio构建不先假定全Rust不可用，compiler再失败停止。当前无硬件/GPU/LAN锁。
 
 官方stable清单经SHA256核查仍为1.99.0（2026-10-01）；第二次完整ICE原结果已保存。backend已交付并停止，代码锁释放；leader在独立.local路径做同版本官方archive与已安装文件字节核查，只检验安装损坏假设，不安装/降级/重复编译。T007同r3审查继续。

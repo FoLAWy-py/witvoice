@@ -98,10 +98,16 @@ fn invalid_advertisements_and_upstream_daemon_are_fail_closed() {
     assert!(records.snapshot(Duration::ZERO).unwrap().is_empty());
     #[cfg(windows)]
     {
-        let mut peers=NativePeers::default();
-        assert_eq!(peers.browse(false,19),Err(witvoice_platform::discovery::DiscoveryError::ApprovalRequired));
-        assert_eq!(peers.browse(true,0),Err(witvoice_platform::discovery::DiscoveryError::InterfaceRequired));
+        let mut peers = NativePeers::default();
+        assert_eq!(
+            peers.browse(false, 19),
+            Err(witvoice_platform::discovery::DiscoveryError::ApprovalRequired)
+        );
+        assert_eq!(
+            peers.browse(true, 0),
+            Err(witvoice_platform::discovery::DiscoveryError::InterfaceRequired)
+        );
         assert!(peers.poll().unwrap().is_empty());
-        assert_eq!(peers.close(),Ok(true));
+        assert_eq!(peers.close(), Ok(true));
     }
 }
