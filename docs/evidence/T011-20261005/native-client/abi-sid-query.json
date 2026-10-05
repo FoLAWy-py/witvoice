@@ -1,0 +1,25 @@
+{
+    "task":  "T011",
+    "owner":  "/root",
+    "name":  "abi-sid-query",
+    "exe":  "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "argv":  [
+                 ".local/t011-native-client/abi.py"
+             ],
+    "cwd":  "D:\\Project\\witvoice",
+    "host":  "5.1.26100.7462",
+    "started_utc":  "2026-10-05T14:14:37.8432716Z",
+    "finished_utc":  "2026-10-05T14:14:37.9225050Z",
+    "wall_seconds":  0.078611199999999992,
+    "exit":  0,
+    "hardware":  "NOT_RUN",
+    "model":  "NOT_RUN",
+    "stdout":  {
+                   "bytes":  103,
+                   "sha256":  "2278cdd92863fdebf3d6d403d893d05d9b4b34507717abc742461e992c2572b1"
+               },
+    "stderr":  {
+                   "bytes":  0,
+                   "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+               }
+}

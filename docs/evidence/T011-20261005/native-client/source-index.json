@@ -1,0 +1,4 @@
+{
+  "workers/vc_worker/windows_pipe.py": "2a50fb9e694d534dd87e41784daac5aa9d5e7a30195e957b97fc12197975fd06",
+  "workers/vc_worker/native_interop_probe.py": "bc41f78cc44ef49a510a1a5ee06eb9184e5c32940005eee4cfee9888063e8506"
+}

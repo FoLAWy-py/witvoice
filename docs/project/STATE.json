@@ -10,7 +10,7 @@
       "task_id": "T011",
       "agent": "/root",
       "thread_id": "01a10764-d851-7d02-ac79-365d2576a226",
-      "mode": "T011_CONTROL_PARITY_FIX_AND_INTEGRATION",
+      "mode": "PYTHON_WORKER_NATIVE_CLIENT_AUTHOR",
       "path_whitelist": [
         "crates/contracts/src/worker.rs",
         "workers/vc_worker/control.py",
@@ -28,67 +28,23 @@
         "workers/vc_worker/test_control.py",
         ".local/t011-control-parity",
         "docs/evidence/T011-20261005/control-parity",
-        "crates/contracts/tests/worker_wire.rs"
+        "crates/contracts/tests/worker_wire.rs",
+        "workers/vc_worker/windows_pipe.py",
+        "workers/vc_worker/native_interop_probe.py",
+        ".local/t011-native-client",
+        "docs/evidence/T011-20261005/native-client",
+        "docs/project/reviews/T011-software-limited.md"
       ],
       "dependencies": [
         "T002",
         "T006",
         "T010"
       ],
-      "contract": "Root sole writer: preserve31ba ordinaryClippy101; as_chunks mechanicalfix and strictUTF8 parity; all other sources frozen; no hardware/model",
+      "contract": "Python bounded authenticatedWin32client, sameBE frames/32bytebootstrap/ACKa5/exactNodePID+SID, no model/audio/nativeexecution beforebuildreview; platform concurrentbackend owner",
       "acceptance": "workspace all-target tests/fmt/strictClippy/examples/sourceguards; no taskDONE untilremainingnative/model evidence",
       "resources": [
         "root code writer 1; no hardware/GPU/LAN"
       ]
-    },
-    {
-      "task_id": "T009",
-      "agent": "/root/reviewer_t001",
-      "thread_id": "01a1077c-556d-7152-892c-d9f92346ec0f",
-      "mode": "READ_ONLY_EXPLICIT_MIX_AND_T011_PARTIAL_REVIEW",
-      "path_whitelist": [
-        "crates/audio",
-        "crates/contracts/src/worker.rs",
-        "crates/contracts/tests/worker_wire.rs",
-        "crates/engines",
-        "workers/vc_worker/control.py",
-        "workers/vc_worker/protocol.py",
-        "workers/vc_worker/test_control.py",
-        "workers/vc_worker/test_protocol.py",
-        "docs/evidence/T009-20261005/exact-mix-author",
-        "docs/evidence/T011-20261005"
-      ],
-      "dependencies": [
-        "T007",
-        "T008",
-        "T002",
-        "T006",
-        "T010"
-      ],
-      "contract": "Frozen31ba5c4 limitedsoftware preflight/partialreview; oldT009base alreadyreviewed, allunique delta/evidence actualread; no selfapproval/rerun/escalation/device",
-      "acceptance": "No unresolvedmandatoryS0-S3 before specificcapture-mix once; T011cannotDONE native/modelacceptance absent",
-      "resources": []
-    },
-    {
-      "task_id": "T011",
-      "agent": "/root/frontend",
-      "thread_id": "01a10768-e2d1-75f3-8131-5a1bfeb73deb",
-      "mode": "READ_ONLY_T011_RELAY",
-      "path_whitelist": [
-        "crates/contracts/src/worker.rs",
-        "crates/contracts/tests/worker_wire.rs",
-        "crates/engines",
-        "workers/vc_worker",
-        "docs/evidence/T011-20261005"
-      ],
-      "dependencies": [
-        "T002",
-        "T006",
-        "T010"
-      ],
-      "contract": "Read fixed7ea5 source fulltext and actual complete prior/current raw toreviewer only; no mutation/deps/hardware/spawn",
-      "acceptance": "bounded actual stdout and frozenbyte binding; STOP whenrelayed",
-      "resources": []
     },
     {
       "task_id": "T011",
