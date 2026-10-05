@@ -68,6 +68,29 @@
         "Independent exact frozen source/evidence read and precise S0-S3/minimum reproduction or limited fixed task approval"
       ],
       "execution_note": "Only first formalattempt1/3; no escalation/rerun/network/hardware/Mac. Earlier preflight not formalapproval."
+    },
+    {
+      "task_id": "T010",
+      "agent_instance_id": "/root",
+      "allowed_paths": [
+        "crates/session/Cargo.toml",
+        "apps/voice-node/Cargo.toml",
+        "Cargo.lock",
+        ".local/t010-leader/"
+      ],
+      "resource_leases": [
+        "code-writer:leader-t010-manifests"
+      ],
+      "depends_on": [
+        "T006",
+        "T008"
+      ],
+      "contract": "docs/project/T010-assignment.md; default-off erased test hooks; audio devdeps and explicit integration targets; backend architecture answer pending before manifest edit",
+      "acceptance_commands": [
+        "cargo metadata --locked --offline --no-deps --format-version 1 after author test files exist",
+        "leader inspect exact local-only lock delta; no registry version changes"
+      ],
+      "execution_note": "Manifest lease registered before code; audio T009 + leader at most2 writers. No backend source lease yet."
     }
   ],
   "milestones": {

@@ -350,16 +350,22 @@
       "allowed_paths": [
         "tests/contract/",
         "tests/integration/",
-        "crates/session/"
+        "crates/session/",
+        "apps/voice-node/src/lib.rs",
+        "apps/voice-node/src/bin/process-probe.rs",
+        "apps/voice-node/tests/supervision.rs",
+        "apps/voice-node/README.md"
       ],
       "acceptance": "测试构建IdentityEngine贯通；UI被杀、损坏IPC、非法消息、退出均正确；发行配置不暴露FakeEngine。",
       "agent_instance_id": "/root/backend",
-      "resource_leases": [],
+      "resource_leases": [
+        "code-writer:leader-t010-manifests"
+      ],
       "evidence": [],
       "review": null,
       "attempts": 0,
       "blocked_reason": null,
-      "execution_note": "Deps T006/T008 now DONE. Completed readonly preparation da9614/f7414b/6e6e33 exit0 before code; source hooks/manifest contract pending leader integration. No source/test/hardware started."
+      "execution_note": "Readonly preparation completed. Leader manifest lease registered first; erased test hooks contract pending exact author answer, backend writer not dispatched. Three Node paths scoped for genuine helper-crash/software PCM fault coverage; no new model/contract or hardware."
     },
     {
       "id": "T011",
