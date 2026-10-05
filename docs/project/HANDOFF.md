@@ -1,5 +1,7 @@
 # 当前交接
 
+编译诊断root独立.local白名单已登记（与backend两写入者、不重叠）：固定同windows0.62.2/原16feature，仅隔离target/jobs1/incremental0做一次compile-only复测；复制原lock并离线裁剪核所有retained版本/摘要，不改主lock/依赖。audio另恢复只读56f历史identity11日志中继给reviewer，不是T016正式批准；最多4子agent，无hardware/GPU。
+
 T007同r3补充父实际20项字节proof生成命令与execution元数据（UTC/完整argv/exit0），AST字节常量实际0d0a→0a，不是字符串转义替换；只提取原记录不重跑。T016第一次实际构建cargo101：rustc_driver访问异常c0000005，应用tests未开始。保留失败，root读到对应WER及当前内存/无build进程，正在有假设隔离复测诊断；当前内存不是故障峰值。允许backend保存原缓存到唯一.local raw日志白名单，不允许盲重跑/网络/硬件。
 
 恢复继续（2026-10-05，用户“继续推进”）：三个T016部分源码及私有备份逐字节/摘要MATCH；T00710冻结Git blob与当前工作源码逐路径一致。重新登记T007同一r3只读审查和T016/backend窄白名单代码lease，尚未新增测试成绩；即将真实followup恢复既有线程。next_task=T007，T008依赖仍未批准，禁止开工。原中断记录保留供溯源，执行状态以本段与STATE为准。

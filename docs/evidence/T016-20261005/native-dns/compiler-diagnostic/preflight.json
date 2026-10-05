@@ -1,0 +1,30 @@
+{
+  "hypothesis": "one same-version isolated target/single job/no incremental attempt to distinguish cache/job scheduling from repeatable dependency compiler AV; no cause concluded",
+  "actual_failed_cfg_features": [
+    "Win32",
+    "Win32_Foundation",
+    "Win32_NetworkManagement",
+    "Win32_NetworkManagement_Dns",
+    "Win32_Security",
+    "Win32_Security_Authorization",
+    "Win32_Security_Cryptography",
+    "Win32_Storage",
+    "Win32_Storage_FileSystem",
+    "Win32_System",
+    "Win32_System_IO",
+    "Win32_System_JobObjects",
+    "Win32_System_Memory",
+    "Win32_System_Pipes",
+    "Win32_System_SystemServices",
+    "Win32_System_Threading"
+  ],
+  "manifest_text": "[package]\nname = \"witvoice-dns-compiler-isolation\"\nversion = \"0.0.0\"\nedition = \"2024\"\nrust-version = \"1.99\"\npublish = false\n\n[workspace]\nresolver = \"3\"\n\n[lib]\npath = \"probe.rs\"\n\n[dependencies]\nwindows = { version = \"=0.62.2\", default-features = false, features = [\"Win32\", \"Win32_Foundation\", \"Win32_NetworkManagement\", \"Win32_NetworkManagement_Dns\", \"Win32_Security\", \"Win32_Security_Authorization\", \"Win32_Security_Cryptography\", \"Win32_Storage\", \"Win32_Storage_FileSystem\", \"Win32_System\", \"Win32_System_IO\", \"Win32_System_JobObjects\", \"Win32_System_Memory\", \"Win32_System_Pipes\", \"Win32_System_SystemServices\", \"Win32_System_Threading\"] }\n",
+  "source_text": "// Compiler isolation only. This function never calls a DNS or network API.\npub fn browse_request_layout_size() -> usize {\n    core::mem::size_of::<windows::Win32::NetworkManagement::Dns::DNS_SERVICE_BROWSE_REQUEST>()\n}\n",
+  "main_lock_sha256_before": "f199d7be816b5185bedd17598d6c387a43707e7168235e5ad18129aa569d8e92",
+  "probe_kind": "compile-only upstream dependency diagnostic, no app/audio/network tests",
+  "planned_compile_attempt_limit": 1,
+  "official_references": [
+    "https://doc.rust-lang.org/cargo/reference/environment-variables.html",
+    "https://learn.microsoft.com/en-us/shows/inside/c0000005"
+  ]
+}

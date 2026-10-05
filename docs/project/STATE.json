@@ -53,6 +53,49 @@
       ],
       "reviewer": "/root/reviewer_t001",
       "execution_note": "3 interrupted source byte backups MATCH. Resume native addendum exact whitelist; rootdeps released; no actual network/hardware/GPU or rootfiles."
+    },
+    {
+      "task_id": "T007",
+      "agent_instance_id": "/root/audio_runtime",
+      "allowed_paths": [],
+      "read_paths": [
+        "56f41682:docs/evidence/T016-20261005/identity/author-event-index.json",
+        "56f41682:docs/evidence/T016-20261005/identity/author-events/"
+      ],
+      "resource_leases": [
+        "readonly-relay:audio-historical-identity-logs"
+      ],
+      "depends_on": [
+        "T003"
+      ],
+      "contract": "full frozen public log relay for T007 review, not T016 approval",
+      "acceptance_commands": [
+        "fixed git show read only; no tests/edits/hardware"
+      ],
+      "reviewer": "/root/reviewer_t001",
+      "execution_note": "relay11 historical events including two101 failures; not own formal approval"
+    },
+    {
+      "task_id": "T016",
+      "agent_instance_id": "/root",
+      "allowed_paths": [
+        ".local/t016-compiler-isolation/",
+        "docs/evidence/T016-20261005/native-dns/compiler-diagnostic/"
+      ],
+      "resource_leases": [
+        "code-writer:leader-compiler-isolation"
+      ],
+      "depends_on": [
+        "T003",
+        "T006"
+      ],
+      "contract": "one compile-only sameWindows0.62.2/16features target isolation, no production source or main deps changed",
+      "acceptance_commands": [
+        "cargo generate-lockfile --offline --manifest-path .local/t016-compiler-isolation/Cargo.toml",
+        "cargo build --locked --offline --manifest-path .local/t016-compiler-isolation/Cargo.toml --lib -j1; CARGO_INCREMENTAL=0"
+      ],
+      "reviewer": "/root/reviewer_t001",
+      "execution_note": "root+backend2 writers disjoint; 0hardware/GPU; diagnostic notapplicationPASS"
     }
   ],
   "milestones": {
