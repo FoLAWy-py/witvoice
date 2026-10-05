@@ -8,46 +8,27 @@
   "active_tasks": [
     {
       "task_id": "T008",
-      "agent_instance_id": "/root",
+      "agent_instance_id": "/root/reviewer_t001",
       "allowed_paths": [
-        ".local/t008-t016-r2-leader/"
+        "crates/audio/",
+        "docs/project/T008-r1-fix-assignment.md",
+        "docs/project/reviews/T008-r1.md",
+        "docs/evidence/T008-20261005/",
+        "docs/evidence/integration/20261005-T008-T016-r2/",
+        "docs/spec/02-audio-engine.md",
+        "docs/spec/07-tests-acceptance.md"
       ],
       "resource_leases": [
-        "validation:root-frozen-integration"
+        "readonly-review:t008-r2"
       ],
       "depends_on": [
         "T007"
       ],
-      "contract": "Authors stopped; verify new frozen T008 repair and T016 diagnostics whole Windows workspace, no hardware/network/model",
+      "contract": "Independent formalr2 frozen6c68c5d repaired three source files, unchanged20 exact Git byte proof to r1. Root132 checks0, no independent reviewer rerun. Fix exact r1 S2 only; do not inherit new hardware proof.",
       "acceptance_commands": [
-        "cargo test --locked --workspace --all-targets --features witvoice-node/process-tests -- --nocapture",
-        "cargo fmt --all --check",
-        "cargo clippy --locked --workspace --all-targets --features witvoice-node/process-tests -- -D warnings",
-        "cargo build --locked --workspace --examples"
+        "Review exact frozen repair/negative/atomic proof/full author and root actual logs then issue S0-S3 or fixed T008 approval"
       ],
-      "execution_note": "New source rootchecks NOT_RUN until actual command exit; source/metadata/raw artifacts frozen."
-    },
-    {
-      "task_id": "T016",
-      "agent_instance_id": "/root",
-      "allowed_paths": [
-        ".local/t008-t016-r2-leader/"
-      ],
-      "resource_leases": [
-        "validation:root-frozen-integration"
-      ],
-      "depends_on": [
-        "T003",
-        "T006"
-      ],
-      "contract": "Authors stopped; verify new frozen T008 repair and T016 diagnostics whole Windows workspace, no hardware/network/model",
-      "acceptance_commands": [
-        "cargo test --locked --workspace --all-targets --features witvoice-node/process-tests -- --nocapture",
-        "cargo fmt --all --check",
-        "cargo clippy --locked --workspace --all-targets --features witvoice-node/process-tests -- -D warnings",
-        "cargo build --locked --workspace --examples"
-      ],
-      "execution_note": "New source rootchecks NOT_RUN until actual command exit; source/metadata/raw artifacts frozen."
+      "execution_note": "Formal attempt2/3 registered. T016 source review queued separately; no active code/hardware/GPU/network lease."
     }
   ],
   "milestones": {
@@ -162,6 +143,6 @@
   "last_verified_scope": "Frozen M0/T006/T007 Windows API + T021 design; T007 review r3 approved. Excludes subsequent native DNS source, current T008 changes and whole hardware/UI/production VC/Mac.",
   "execution_status": "RUNNING_SCOPED_TASKS",
   "interruption_evidence": "docs/project/interruption-20261005.json",
-  "last_tested_commit": "3a2574cbcee34282b92c895d7980004a12be90eb",
-  "last_tested_scope": "120 nonempty Windows workspace alltargets/process-tests, fmt/alltargetClippy/probe build0 on identical before/after source. Includes currentT008/newDNS pure tests, no final formal approvals/native Start/model/GPU/LAN/Mac."
+  "last_tested_commit": "6c68c5dd3501da0681c27d57baa8ade694910468",
+  "last_tested_scope": "Frozen repaired T008 + new T016 diagnosis: 132 effective workspace alltargets/process-tests, fmt/alltargetClippy/all examples0; all source/rootdeps unchanged. No formal approvals/new native Start/model/GPU/audio/LAN/Mac."
 }

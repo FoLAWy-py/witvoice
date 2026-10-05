@@ -1,0 +1,105 @@
+   Compiling proc-macro2 v1.0.107
+   Compiling quote v1.0.47
+   Compiling unicode-ident v1.0.26
+   Compiling syn v2.0.119
+   Compiling memchr v2.8.3
+   Compiling serde_core v1.0.228
+   Compiling serde_json v1.0.145
+   Compiling serde v1.0.228
+   Compiling serde_derive v1.0.228
+   Compiling ryu v1.0.23
+   Compiling itoa v1.0.18
+   Compiling windows-link v0.2.1
+   Compiling windows-strings v0.5.1
+   Compiling windows-result v0.4.1
+   Compiling windows-implement v0.60.2
+   Compiling windows-interface v0.59.3
+   Compiling windows-core v0.62.2
+   Compiling windows-threading v0.2.1
+   Compiling windows-future v0.3.2
+   Compiling windows-numerics v0.3.1
+   Compiling windows-collections v0.3.2
+   Compiling windows v0.62.2
+   Compiling serde_derive_internals v0.29.1
+   Compiling schemars v0.8.22
+   Compiling schemars_derive v0.8.22
+   Compiling dyn-clone v1.0.20
+   Compiling witvoice-contracts v0.1.0 (D:\Project\witvoice\crates\contracts)
+   Compiling witvoice-platform v0.1.0 (D:\Project\witvoice\crates\platform)
+   Compiling autocfg v1.5.1
+   Compiling num-traits v0.2.19
+   Compiling num-conv v0.2.2
+   Compiling time-core v0.1.9
+   Compiling time-macros v0.2.32
+   Compiling syn v3.0.6
+   Compiling powerfmt v0.2.0
+   Compiling deranged v0.5.8
+   Compiling time v0.3.55
+   Compiling witvoice-session v0.1.0 (D:\Project\witvoice\crates\session)
+   Compiling shlex v2.0.1
+   Compiling find-msvc-tools v0.1.14
+   Compiling thiserror v2.0.21
+   Compiling minimal-lexical v0.2.1
+   Compiling nom v7.1.3
+   Compiling cc v1.6.0
+   Compiling thiserror-impl v2.0.21
+   Compiling synstructure v0.13.2
+   Compiling asn1-rs-derive v0.6.0
+   Compiling ring v0.17.14
+   Compiling rusticata-macros v4.1.0
+   Compiling displaydoc v0.2.7
+   Compiling witvoice-audio v0.1.0 (D:\Project\witvoice\crates\audio)
+   Compiling asn1-rs-impl v0.2.0
+   Compiling cfg-if v1.0.5
+   Compiling getrandom v0.2.17
+   Compiling asn1-rs v0.7.2
+   Compiling witvoice-node v0.1.0 (D:\Project\witvoice\apps\voice-node)
+   Compiling num-integer v0.1.47
+   Compiling oid-registry v0.8.1
+   Compiling untrusted v0.9.0
+   Compiling num-bigint v0.4.8
+   Compiling zeroize v1.9.0
+   Compiling rustls-pki-types v1.15.1
+   Compiling der-parser v10.0.0
+   Compiling yasna v0.6.0
+   Compiling data-encoding v2.11.1
+   Compiling lazy_static v1.5.1
+   Compiling x509-parser v0.18.1
+   Compiling rcgen v0.14.10
+   Compiling witvoice-transport v0.1.0 (D:\Project\witvoice\crates\transport)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2m 37s
+     Running unittests src\lib.rs (.local\t008-t016-r2-leader\target\debug\deps\witvoice_audio-7d7890efffab862e.exe)
+     Running tests\allocation.rs (.local\t008-t016-r2-leader\target\debug\deps\allocation-6868499f27ad3dbe.exe)
+     Running tests\conversion.rs (.local\t008-t016-r2-leader\target\debug\deps\conversion-9654af611442d653.exe)
+     Running tests\realtime.rs (.local\t008-t016-r2-leader\target\debug\deps\realtime-b05544c5d5f1b3ae.exe)
+     Running tests\stream_packets.rs (.local\t008-t016-r2-leader\target\debug\deps\stream_packets-61454096036df5f9.exe)
+     Running unittests examples\format_support_probe.rs (.local\t008-t016-r2-leader\target\debug\examples\format_support_probe-e70599d51fba2678.exe)
+     Running unittests examples\list_endpoints.rs (.local\t008-t016-r2-leader\target\debug\examples\list_endpoints-318a93a3d796693c.exe)
+     Running unittests examples\notification_probe.rs (.local\t008-t016-r2-leader\target\debug\examples\notification_probe-a1365d3aec31e4e7.exe)
+     Running unittests examples\removal_probe.rs (.local\t008-t016-r2-leader\target\debug\examples\removal_probe-5e7741a6c01e4588.exe)
+     Running unittests examples\stream_smoke.rs (.local\t008-t016-r2-leader\target\debug\examples\stream_smoke-d72fd5349e586143.exe)
+     Running unittests src\lib.rs (.local\t008-t016-r2-leader\target\debug\deps\witvoice_contracts-9f1f2c6215c3b1d9.exe)
+     Running unittests src\bin\export_schema.rs (.local\t008-t016-r2-leader\target\debug\deps\export_schema-34767560d4c10172.exe)
+     Running tests\wire.rs (.local\t008-t016-r2-leader\target\debug\deps\wire-87e96d2fd22dc591.exe)
+     Running unittests src\lib.rs (.local\t008-t016-r2-leader\target\debug\deps\witvoice_node-f7ff64f21f842114.exe)
+     Running unittests src\bin\ipc-probe.rs (.local\t008-t016-r2-leader\target\debug\deps\ipc_probe-6242343bc5e5df64.exe)
+     Running unittests src\bin\process-probe.rs (.local\t008-t016-r2-leader\target\debug\deps\process_probe-0e90684fa52cccda.exe)
+     Running unittests src\main.rs (.local\t008-t016-r2-leader\target\debug\deps\witvoice_node-574b05fa8a930313.exe)
+     Running tests\supervision.rs (.local\t008-t016-r2-leader\target\debug\deps\supervision-eb0fba7752c8f149.exe)
+     Running tests\windows_process.rs (.local\t008-t016-r2-leader\target\debug\deps\windows_process-5609c284774a3753.exe)
+     Running unittests src\lib.rs (.local\t008-t016-r2-leader\target\debug\deps\witvoice_platform-428bbbe40c90341f.exe)
+
+thread 'discovery::native::tests::panic_capture_keeps_actual_status_or_explicit_unknown' (105984) panicked at crates\platform\src\discovery\native\tests.rs:630:13:
+injected callback panic
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'discovery::native::tests::panic_capture_keeps_actual_status_or_explicit_unknown' (105984) panicked at crates\platform\src\discovery\native\tests.rs:630:13:
+injected callback panic
+     Running tests\discovery.rs (.local\t008-t016-r2-leader\target\debug\deps\discovery-038b02a27236e4a7.exe)
+     Running tests\identity.rs (.local\t008-t016-r2-leader\target\debug\deps\identity-d43d0469405ed41a.exe)
+     Running unittests src\lib.rs (.local\t008-t016-r2-leader\target\debug\deps\witvoice_session-3d414291dd7d93b0.exe)
+     Running tests\lifecycle.rs (.local\t008-t016-r2-leader\target\debug\deps\lifecycle-522dc5d5f8ecdae8.exe)
+     Running unittests src\lib.rs (.local\t008-t016-r2-leader\target\debug\deps\witvoice_transport-96fb95844fbf38b7.exe)
+     Running tests\discovery.rs (.local\t008-t016-r2-leader\target\debug\deps\discovery-97ed75bc111af175.exe)
+     Running tests\identity.rs (.local\t008-t016-r2-leader\target\debug\deps\identity-f673295866f56754.exe)
+     Running unittests examples\native_discovery_probe.rs (.local\t008-t016-r2-leader\target\debug\examples\native_discovery_probe-e911cf209ba15164.exe)

@@ -271,7 +271,7 @@
       "milestone": "M1",
       "title": "有界缓冲、时钟、静音与回调安全",
       "owner_role": "audio_runtime",
-      "status": "IN_PROGRESS",
+      "status": "REVIEW",
       "requirements": [
         "REQ-08",
         "REQ-09",
@@ -285,9 +285,9 @@
         "tests/integration/"
       ],
       "acceptance": "无常规callback分配/阻塞；队列最大年龄可验证；mute先于慢停机；故障填零与underflow计数分开。",
-      "agent_instance_id": "/root",
+      "agent_instance_id": "/root/reviewer_t001",
       "resource_leases": [
-        "validation:root-frozen-integration"
+        "readonly-review:t008-r2"
       ],
       "evidence": [
         "docs/evidence/T008-20261005/author/leader-audit.json",
@@ -295,12 +295,14 @@
         "docs/evidence/T016-20261005/native-dns/final-integration/result.json",
         "docs/project/reviews/T008-r1.md",
         "docs/project/T008-r1-fix-assignment.md",
-        "docs/evidence/T008-20261005/r1-fix-author/leader-audit.json"
+        "docs/evidence/T008-20261005/r1-fix-author/leader-audit.json",
+        "docs/evidence/integration/20261005-T008-T016-r2/result.json",
+        "docs/evidence/integration/20261005-T008-T016-r2/leader-audit.json"
       ],
-      "review": "docs/project/reviews/T008-r1.md",
-      "attempts": 1,
+      "review": "docs/project/reviews/T008-r2.md",
+      "attempts": 2,
       "blocked_reason": null,
-      "execution_note": "Formal r1 REVISE: one mandatory S2 notification publish/bind race; fresh narrow author repair lease. Prior51 tests0 do not close race; new source NOT_RUN until actually checked."
+      "execution_note": "Actual mandatory r1 S2 atomic handshake fixed/frozen6c68c5d; 54 author and132 root effective tests0 plus strict checks. Independent r2 registered, no conclusion yet."
     },
     {
       "id": "T009",
@@ -513,10 +515,8 @@
         "tests/security/"
       ],
       "acceptance": "默认监听关闭；mDNS不建立信任；双端身份字符串导入、pin验证与撤销；陌生端无音频权限。",
-      "agent_instance_id": "/root",
-      "resource_leases": [
-        "validation:root-frozen-integration"
-      ],
+      "agent_instance_id": "/root/backend",
+      "resource_leases": [],
       "evidence": [
         "docs/evidence/T016-20261005/dependency-metadata.json",
         "docs/evidence/T016-20261005/fetch-command.json",
@@ -550,12 +550,14 @@
         "docs/evidence/T016-20261005/native-dns/probe-author/leader-audit.json",
         "docs/evidence/T016-20261005/native-dns/final-integration/result.json",
         "docs/evidence/T016-20261005/native-dns/native-smoke/result.json",
-        "docs/evidence/T016-20261005/native-dns/diagnostics-author/leader-audit.json"
+        "docs/evidence/T016-20261005/native-dns/diagnostics-author/leader-audit.json",
+        "docs/evidence/integration/20261005-T008-T016-r2/result.json",
+        "docs/evidence/integration/20261005-T008-T016-r2/leader-audit.json"
       ],
       "review": null,
       "attempts": 0,
       "blocked_reason": null,
-      "execution_note": "Once authorized real interface19 two-process native trial executed 8.094s: actualRegistered true, targetFound/resolveAttempted true, target resolve rejected value13 (OS vs synthetic decode reasonUNKNOWN); overallFAIL, both terminalcleanup true/pending0/no timeout. No retry authorized. Keep IN_PROGRESS for source diagnosis; formalr1 not yet begun, S2 native error visibility pending."
+      "execution_note": "Stopped fixed firstfault diagnosis5source; author48/root132 checks0. Formalr1 queued/attempt0; NativePeers S2 untouched; actual once nativeFAIL13 unknown/consumed, new native NOT_RUN."
     },
     {
       "id": "T017",

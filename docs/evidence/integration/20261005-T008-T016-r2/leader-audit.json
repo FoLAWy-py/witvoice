@@ -1,0 +1,43 @@
+{
+  "auditor": "/root",
+  "audit_utc": "2026-10-05T09:32:42.906002+00:00",
+  "frozen_commit": "6c68c5dd3501da0681c27d57baa8ade694910468",
+  "effective_tests": 132,
+  "metadata": [
+    {
+      "file": "01-workspace-tests.json",
+      "raw_bytes": 15887,
+      "raw_sha256": "2de4e4e1f71e1ff3d29768d9add7f2c7a5fa134dc63057d5434aa3db807f2fb4",
+      "git_lf_sha256": "c3f391517478ab6f626795d4b07e4b0292d8a6ecab2cbd3501116074efe31649",
+      "transform": "only 0d0a -> 0a bytes; JSON semantics unchanged"
+    },
+    {
+      "file": "02-fmt.json",
+      "raw_bytes": 15454,
+      "raw_sha256": "04ba6d34f6ff3824cbd43c566ec279af08d3b24ca8ca780c597e385416b870c7",
+      "git_lf_sha256": "1241757eb6e603c61ea30370c96aaf0575eb5bebe858b4b7cff4187dc176dd3a",
+      "transform": "only 0d0a -> 0a bytes; JSON semantics unchanged"
+    },
+    {
+      "file": "03-clippy.json",
+      "raw_bytes": 15589,
+      "raw_sha256": "9158aee94ba99fd58e302a8cc317dff926e0e37db92816fb79de02f82bff30f3",
+      "git_lf_sha256": "61623bc55e50c0786afb3e9809adb34327c81991e54565aa48e421545db6f4be",
+      "transform": "only 0d0a -> 0a bytes; JSON semantics unchanged"
+    },
+    {
+      "file": "04-examples.json",
+      "raw_bytes": 15494,
+      "raw_sha256": "dbcb742d8ededc92efb76078b2ba9dc5bb94c918ed69198d05e2f6db128f88d8",
+      "git_lf_sha256": "058fb02011e061bfa59984b0a461e43ec97a9c9109f051fb039b739fd1386b0f",
+      "transform": "only 0d0a -> 0a bytes; JSON semantics unchanged"
+    }
+  ],
+  "all_raw_logs_byte_verified": true,
+  "all_source_before_after_current_equal": true,
+  "root_exec_start_chunk": "2ef667",
+  "root_completion_chunk": "daa5b9",
+  "root_session_id": 82727,
+  "actual_overall_exit": 0,
+  "scope": "Windows software checks incl local IPC/DPAPI tests; no native Start, model/GPU/audio/LAN/Mac. Formal approval pending."
+}

@@ -1,0 +1,35 @@
+{
+  "status": "PASS_SOURCE_CHECKS_ONLY",
+  "frozen_commit": "6c68c5dd3501da0681c27d57baa8ade694910468",
+  "effective_tests": 132,
+  "runs": [
+    {
+      "metadata": "01-workspace-tests.json",
+      "exit_code": 0,
+      "source_equal": true,
+      "effective_tests": 132
+    },
+    {
+      "metadata": "02-fmt.json",
+      "exit_code": 0,
+      "source_equal": true,
+      "effective_tests": null
+    },
+    {
+      "metadata": "03-clippy.json",
+      "exit_code": 0,
+      "source_equal": true,
+      "effective_tests": null
+    },
+    {
+      "metadata": "04-examples.json",
+      "exit_code": 0,
+      "source_equal": true,
+      "effective_tests": null
+    }
+  ],
+  "audio_tests_subset": 54,
+  "platform_transport_tests_subset": 48,
+  "hardware_network_model_mac": "NOT_RUN",
+  "formal_review": "PENDING"
+}
