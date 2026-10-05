@@ -32,6 +32,29 @@
       ],
       "reviewer": "/root/reviewer_t001",
       "execution_note": "Native T007 r3 approved; new T008 implementation only. T016 compiler failures not assumed global; one scoped real audio build with process jobs1/inc0, if compiler fails stop no blind retries. No hardware/network/GPU."
+    },
+    {
+      "task_id": "T016",
+      "agent_instance_id": "/root/frontend",
+      "allowed_paths": [],
+      "read_paths": [
+        "5160b97:crates/platform/src/discovery/native.rs",
+        "5160b97:crates/platform/src/discovery/native/tests.rs",
+        "5160b97:crates/transport/src/discovery/native.rs"
+      ],
+      "resource_leases": [
+        "readonly-preflight:native-callback-lifetime"
+      ],
+      "depends_on": [
+        "T003",
+        "T006"
+      ],
+      "contract": "Bounded static callback lifetime preflight on frozen source; not formal task approval and no execution PASS; compiler blocker remains",
+      "acceptance_commands": [
+        "fixed git show reads only; no cargo, LAN, edits or hardware"
+      ],
+      "reviewer": "/root/reviewer_t001",
+      "execution_note": "Source may be uncompiled; inspect raw token registry, cancel/terminal/deallocation races only. No formal attempt added."
     }
   ],
   "milestones": {

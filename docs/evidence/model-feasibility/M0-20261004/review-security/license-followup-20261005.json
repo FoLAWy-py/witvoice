@@ -1,0 +1,31 @@
+{
+  "utc": "2026-10-05T07:19:07.235858+00:00",
+  "sources": [
+    {
+      "url": "https://api.github.com/repos/lawlict/ECAPA-TDNN",
+      "http": 200,
+      "bytes": 5033,
+      "sha256": "b2b1991d92493bc3e7c004467f5b38780eae77637ec0bc207c26a39dc5a15150",
+      "license_metadata": null,
+      "default_branch": "master",
+      "pushed_at": "2021-09-02T03:16:48Z"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/lawlict/ECAPA-TDNN/master/README.md",
+      "http": 200,
+      "bytes": 634,
+      "sha256": "947f4c2bdc3aee2620e2bcc40531962a5a32092b4a9826323c882e9e7ab8f828",
+      "contains_license_word": false,
+      "contains_speaker_download_id": false
+    },
+    {
+      "url": "https://raw.githubusercontent.com/microsoft/UniSpeech/main/downstreams/speaker_verification/README.md",
+      "http": 200,
+      "bytes": 3691,
+      "sha256": "8ae618eaa39e1177ec224504fb8770dbef09a36733f14da9237dc5eef21dc27e",
+      "contains_license_word": false,
+      "contains_speaker_download_id": true
+    }
+  ],
+  "conclusion": "B001 unchanged: repository metadata/readmes do not establish separate binary redistribution terms or close derived component license. No email/contact, weight download, execution or data upload."
+}

@@ -1,6 +1,6 @@
-# T008 / M1 / REQ-08, REQ-09, REQ-10 — pending dependency
+# T008 / M1 / REQ-08, REQ-09, REQ-10 — active after T007 r3 approval
 
-This is a prepared assignment, not an active lease or execution proof. Do not edit implementation until T007 r3 is independently approved and leader registers STATE/TASKS. Actual intended author /root/audio_runtime UUID01a10767-80de-7e02-b3b0-73d1273a70bd. Shared tree, no new worktree claim; backend T016 owns separate platform/transport paths. You are not alone: preserve other edits, no recursive agents.
+Leader activated this assignment at 5160b97 after independent T007 r3 approval; STATE/TASKS carry the actual audio writer lease. Execution and tests still require new evidence. Actual intended author /root/audio_runtime UUID01a10767-80de-7e02-b3b0-73d1273a70bd. Shared tree, no new worktree claim; backend T016 owns separate platform/transport paths. You are not alone: preserve other edits, no recursive agents.
 
 ## Scope and paths
 
@@ -25,3 +25,9 @@ Use actual cargo test --locked -p witvoice-audio, cargo fmt --package witvoice-a
 Meaningful tests: SPSC concurrent capacity/order/reuse and callback allocation0; expired/old-epoch/injected packet errors erase output; starvation distinctly counted; blocked slow cleanup cannot delay local mute gate; independent monitor failure; checked counters/timestamp faults; +/-150 and +/-500ppm each8h accelerated virtual-clock simulation, monotonic source time, bounded buffers/correction and actual simulated vs wall duration. Preserve parameters, sample counts, raw outputs and failed commands. Synthetic clocks are B evidence, not hardware latency, real2h or Mac. Do not include empty harnesses as counts.
 
 No mic/render/GPU/hardware/LAN lease; all real tests remain NOT_RUN unless separately authorized and leased by leader. If a new minimal opt-in native probe is needed, create/compile it only, then deliver exact scope for leader authorization; no actual Start. Deliver exact files/source hashes, UTC/argv/exit/full stdout-stderr for each command including failures, risks and unexecuted items; stop writes. Leader freezes, reruns relevant integration and dispatches independent reviewer (max3 formal attempts, currently0). Do not mark DONE/whole REQ/M1 yourself.
+
+## Active clarification: acknowledged mute and compiler boundary
+
+Immediate invalidate happens by lightweight atomics before slow cleanup. A callback commit ticket must cover actual native ReleaseBuffer; ACK must wait on the control side until all old commit tickets exit. Poll/wait has a deadline on the control thread only; callback does not wait. An outstanding old ticket forbids success ACK. Old generations cannot submit new PCM after acknowledged mute, while already queued OS tail remains unknown. Test pause-before-commit, invalidate-during-commit and ACK ordering. No global OS transaction claim.
+
+T016 was blocked before new source/tests by rustc1.99 Windows access violation then syn2.0.119 ICE. Official current stable remains1.99.0; compiler33bin/lib and both syn versions/windows source integrity match; causeUNKNOWN. Audio has a separate real build scope, not an assumed PASS/failure. Process-only D target.local/t008-cargo-target, jobs1/incremental0; if actual compiler ICE/AV occurs, preserve original output and stop all cargo rather than same-condition retries or silent downgrade. Ordinary application errors may be fixed and actually verified.
