@@ -25,7 +25,7 @@ class StageJournal:
     @classmethod
     def fixed(cls):
         root = Path(__file__).resolve().parents[2]
-        return cls(root / ".local/t011-finalize-warmup-once/prepare-stages.ndjson")
+        return cls(root / ".local/t011-budget8-warmup-once/prepare-stages.ndjson")
 
     def record(self, stage, edge):
         if stage not in STAGES or edge not in ("before", "after"):
@@ -74,7 +74,7 @@ def write_resources(path, host, device):
 def prepare_with_diagnostics(request):
     from warmup import prepare_fixed
     root = Path(__file__).resolve().parents[2]
-    base = root / ".local/t011-finalize-warmup-once"
+    base = root / ".local/t011-budget8-warmup-once"
     identity = base / "model-process-private.json"
     with identity.open("x", encoding="ascii") as output:
         json.dump({"controller_pid": os.getppid(), "model_pid": os.getpid()}, output, separators=(",", ":"))

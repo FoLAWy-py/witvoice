@@ -31,7 +31,7 @@ mod probe {
     const MODEL: &str = "01caafec9a3991a5514df9412952d24ae3370406358a01e20e03df41f2f5d515";
     const REFERENCE: &str = "00000000-0000-0000-0000-000000000011";
     const SCHEMA: &str = "meanvc2-reference-local-v1";
-    const HOST_BUDGET: u64 = 6 * 1024 * 1024 * 1024;
+    const HOST_BUDGET: u64 = 8 * 1024 * 1024 * 1024;
     const DEVICE_BUDGET: u64 = 4 * 1024 * 1024 * 1024;
     const WARMUP_MS: u64 = 120_000;
     const IO: Duration = Duration::from_millis(400);
@@ -177,7 +177,7 @@ mod probe {
         fn verify(&self) -> Result<bool> {
             let path = self
                 .root
-                .join(".local/t011-finalize-warmup-once/model-process-private.json");
+                .join(".local/t011-budget8-warmup-once/model-process-private.json");
             let mut bytes = Vec::with_capacity(513);
             File::open(path)
                 .map_err(io_failure)?

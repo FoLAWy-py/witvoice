@@ -130,6 +130,7 @@ def response_payload(request, kind, capabilities=None):
 
 def decode_result(payload, request):
     from control import decode_control
+    from warmup import HOST_BUDGET, DEVICE_BUDGET
     response = decode_control(payload, "WorkerResponse", request["binding"])
     if response["request_id"] != request["request_id"]:
         raise ValueError("model request mismatch")
@@ -148,8 +149,8 @@ def decode_result(payload, request):
         "conditioning_schema": "meanvc2-reference-local-v1",
         "duration_preserving": False,
         "capability_test_run_id": "T011-warmup-" + request["request_id"],
-        "model_memory_budget_bytes": str(6 * 1024 ** 3),
-        "device_memory_budget_bytes": str(4 * 1024 ** 3),
+        "model_memory_budget_bytes": str(HOST_BUDGET),
+        "device_memory_budget_bytes": str(DEVICE_BUDGET),
     }
     if cap != expected:
         raise ValueError("unverified model capability")

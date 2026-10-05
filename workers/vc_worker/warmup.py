@@ -1,7 +1,7 @@
 """Real fixed MeanVC2 preparation; no endpoints, downloads or PCM files written."""
 from runtime import MODEL_SHA, REFERENCE_ID
 
-HOST_BUDGET = 6 * 1024 ** 3
+HOST_BUDGET = 8 * 1024 ** 3  # CR-0006: explicit human-approved warmup host gate
 DEVICE_BUDGET = 4 * 1024 ** 3
 
 

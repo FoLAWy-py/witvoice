@@ -44,6 +44,23 @@ class DiagnosticTests(unittest.TestCase):
             finalize_preparation(Model(), sync, lambda: None, lambda: 0, observe)
         self.assertEqual(steps[-1], (None, 0))
 
+    def test_authorized_host_boundary_preserves_device_and_unknown_gates(self):
+        from warmup import HOST_BUDGET, DEVICE_BUDGET, finalize_preparation
+        class Model:
+            def _init_cache(self): pass
+        # Prior actually rejected snapshot is now eligible; no model/quality change.
+        for host in (6671941632, 8 * 1024 ** 3):
+            finalize_preparation(Model(), lambda: None, lambda: host, lambda: 1853882368)
+        with self.assertRaises(MemoryError):
+            finalize_preparation(Model(), lambda: None, lambda: 8 * 1024 ** 3 + 1,
+                                 lambda: 0)
+        with self.assertRaises(MemoryError):
+            finalize_preparation(Model(), lambda: None, lambda: 6671941632,
+                                 lambda: DEVICE_BUDGET + 1)
+        with self.assertRaises(RuntimeError):
+            finalize_preparation(Model(), lambda: None, lambda: None, lambda: 0)
+        self.assertEqual(HOST_BUDGET, 8589934592)
+
     def test_closed_order_exact_16_and_no_overwrite(self):
         with tempfile.TemporaryDirectory() as d:
             path = Path(d) / "phase.ndjson"

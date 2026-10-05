@@ -1,0 +1,9 @@
+# CR-0006 / ADR-0006: authorized 8GiB warmup host gate
+
+Status: APPROVED_BY_HUMAN for one new bounded validation on 2026-10-06 Asia/Shanghai. Exact human instruction: “上调至8GiB尝试，继续推进”. Scope is T011 final-reset/sync controller+model-child private-memory Ready gate, from6442450944 (6GiB) to8589934592 (8GiB). This supersedes only ADR0005 diagnostic host cap; historical 6GiB failures stay FAILED and immutable.
+
+Actual trigger: frozen e03 once host6671941632>6442450944, device1853882368; memory_pressure, noReady/Job0/outputclosed. This change accepts greater memory headroom; it is not a memory optimization and does not prove peak/steady/leak or application resource targets. SPEC07 Windows model target4GiB and GPU target3GiB remain unchanged and must show deviation with sources/user impact. On16GiB machines an8GiB model+controller allowance leaves less headroom for other applications; actual usage must be recorded, not hidden.
+
+Python gate, strict model-result advertised budget, native probe gate, closed resource record and supervisor parser must all agree on8589934592. Device4GiB diagnostic gate, model/weights/backend/precision/profile/quality, time/deadline/queue/epoch/auth/mute controls remain unchanged. Unknown/invalid/over8GiB host/over4GiBdevice fails closed. No physical mic/speaker/system/defaults/driver/firewall/upload/publication authorization is added.
+
+New attempt uses fresh budget8 directory, frozen application hashes/binary/config/supervisor, boundary/strict-capability/negative supervisor tests and independent preflight before soleGPU lease. One actual fixed MeanVC2 preparation only, <=130s; failure preserved/no automatic retry. No reused consumed once or new model exploration; compatibility2/2 remains. Passing warmup is not fullT011/VC/VB-CABLE/third-party/M5/M6 completion.

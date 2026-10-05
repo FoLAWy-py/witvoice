@@ -25,7 +25,7 @@ CAP = {
     "lookahead_samples": 640, "conditioning_schema": "meanvc2-reference-local-v1",
     "duration_preserving": False,
     "capability_test_run_id": "T011-warmup-" + REQUEST["request_id"],
-    "model_memory_budget_bytes": str(6 * 1024 ** 3),
+    "model_memory_budget_bytes": str(8 * 1024 ** 3),
     "device_memory_budget_bytes": str(4 * 1024 ** 3),
 }
 
