@@ -1,0 +1,29 @@
+{
+  "uuid": "01a10767-4ff5-7f21-881a-146d094fbc55",
+  "executable": "D:\\Software\\WitvoiceToolchain\\Rust\\rustup\\toolchains\\1.99.0-x86_64-pc-windows-msvc\\bin\\rustfmt.exe",
+  "argv": [
+    "--edition",
+    "2024",
+    "--check",
+    "D:\\Project\\witvoice\\tests\\integration\\identity_pipeline.rs"
+  ],
+  "cwd": "D:\\Project\\witvoice",
+  "host_powershell": "7.6.5",
+  "start_utc": "2026-10-05T12:33:39.3570586Z",
+  "end_utc": "2026-10-05T12:33:39.3886198Z",
+  "exit_code": 0,
+  "source_before_sha256": "1355ca05c61b5cf7b8a0c1f0c94083f9c34ef5b3096d54d7caed95cc08181891",
+  "source_after_sha256": "1355ca05c61b5cf7b8a0c1f0c94083f9c34ef5b3096d54d7caed95cc08181891",
+  "stdout": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0,
+    "path": "D:\\Project\\witvoice\\.local\\t010-clippy-fix\\02-rustfmt-check.stdout"
+  },
+  "stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0,
+    "path": "D:\\Project\\witvoice\\.local\\t010-clippy-fix\\02-rustfmt-check.stderr"
+  },
+  "capture": "Complete redirected stream text saved UTF8 without BOM; no truncation",
+  "scope": "standalone rustfmt only; Cargo/tests/HW/network NOT_RUN"
+}

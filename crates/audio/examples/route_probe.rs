@@ -181,26 +181,26 @@ fn main() -> Result<(), String> {
         .check_changes(&signal, &gate)
         .map_err(|_| "route changed")?;
     let mut render =
-        match SharedStream::prepare(&scope.render_uid, Flow::Render, render_format, 960) {
+        match SharedStream::prepare(&scope.render_uid, Flow::Render, render_format, 1440) {
             Ok(owner) => owner,
             Err(error) => {
                 gate.invalidate();
                 println!(
                     "{}",
-                    route_marker::prepare_failure_report("render_prepare", &error, 960)
+                    route_marker::prepare_failure_report("render_prepare", &error, 1440)
                 );
                 return Err(format!("render prepare; no fallback: {error:?}"));
             }
         };
     within_total()?;
     let mut capture =
-        match SharedStream::prepare(&scope.capture_uid, Flow::Capture, capture_format, 960) {
+        match SharedStream::prepare(&scope.capture_uid, Flow::Capture, capture_format, 1440) {
             Ok(owner) => owner,
             Err(error) => {
                 gate.invalidate();
                 println!(
                     "{}",
-                    route_marker::prepare_failure_report("capture_prepare", &error, 960)
+                    route_marker::prepare_failure_report("capture_prepare", &error, 1440)
                 );
                 return Err(format!("capture prepare; no fallback: {error:?}"));
             }
@@ -217,7 +217,7 @@ fn main() -> Result<(), String> {
         route_marker::marker(&mut marker);
         let mut captured = vec![0.0; route_marker::FRAMES];
         let mut scratch = [0.0; 960];
-        let mut packet = [0.0; 960];
+        let mut packet = [0.0; 1440];
         let mut sent = 0usize;
         let mut received = 0usize;
         let mut capture_packets = 0u64;
@@ -340,6 +340,7 @@ fn main() -> Result<(), String> {
             && within_total().is_ok();
         let report = serde_json::json!({"status":if passed {"ROUTE_MARKER_OBSERVED"} else {"FAILED_MUTED"},
         "route_profile":"VB_CABLE","requested_seconds":2,"maximum_marker_seconds":5,"maximum_process_seconds":15,
+        "requested_maximum_frames":1440,"render_capacity_frames":render.capacity_frames(),"capture_capacity_frames":capture.capacity_frames(),
         "process_wall_seconds":total_started.elapsed().as_secs_f64(),"active_wall_seconds":active_wall,"wall_including_close_seconds":start.elapsed().as_secs_f64(),
         "marker_amplitude":route_marker::AMPLITUDE,"marker_frames":sent,"capture_frames":received,"capture_packets":capture_packets,
         "sink_pcm_frames":counters.sink_pcm_frames,"sink_silence_frames":counters.sink_silence_frames,"underflow_frames":counters.underflow_frames,

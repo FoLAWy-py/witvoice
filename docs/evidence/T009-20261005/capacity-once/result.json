@@ -1,0 +1,47 @@
+{
+    "task":  "T009",
+    "authorization_id":  "T009-CAPACITY-a656851f-702a-4a22-8d85-7c4987e59ebc",
+    "status":  "FAIL_ROUTE_PROBE",
+    "child_exit":  1,
+    "timed_out":  false,
+    "child_terminated":  false,
+    "error":  "NegotiatedCapacity { actual_frames: 1056, maximum_frames: 960 }",
+    "report":  {
+                   "actual_frames":  1056,
+                   "capture_read":  false,
+                   "cleanup":  "UNKNOWN",
+                   "error":  "NegotiatedCapacity { actual_frames: 1056, maximum_frames: 960 }",
+                   "error_kind":  "NegotiatedCapacity",
+                   "marker_rendered":  false,
+                   "maximum_frames":  960,
+                   "native_start":  false,
+                   "pcm_saved":  false,
+                   "requested_maximum_frames":  960,
+                   "retry":  false,
+                   "route_profile":  "VB_CABLE",
+                   "stage":  "render_prepare",
+                   "status":  "FAILED_MUTED"
+               },
+    "cleanup":  "UNKNOWN",
+    "pcm_saved":  false,
+    "physical_capture":  "NEVER_STARTED",
+    "physical_render":  "NEVER_STARTED",
+    "os_buffer_erasure":  "UNKNOWN",
+    "source_commit":  "d88d6a1437391f1b2596eeab971a166faa17e6b2",
+    "executable_sha256":  "fffc85218b1b5d09c165dafeaed2685f601c7fce285c741fb4f18692c9db8ccb",
+    "scope_sha256":  "f1b3241fdd3e887e5cef6d60d152320f7b6aeca2ed4c06adc156b6cd519baeca",
+    "supervisor_sha256":  "734b824e07e599b1175cc2aa97805031b26e34bc012edff80450cce8dfc0cbdd",
+    "config_sha256":  "3a13c037cf77b53437b85f1f66d4d53f6150f2b9bb5f6378fec5f5d8dcf6b255",
+    "started_utc":  "2026-10-05T12:27:46.2240937Z",
+    "process_id":  44020,
+    "finished_utc":  "2026-10-05T12:27:46.3321231Z",
+    "wall_seconds":  0.10865559999999999,
+    "stdout":  {
+                   "bytes":  377,
+                   "sha256":  "2b79a1f882f5db12acb0452496c9b2898b1e5d6c117086e9f083de96fa8e7c12"
+               },
+    "stderr":  {
+                   "bytes":  102,
+                   "sha256":  "237d0d2f529b6ec587dc10a1dbd86d29c25b60260e9e1af609061a2880fffbd9"
+               }
+}

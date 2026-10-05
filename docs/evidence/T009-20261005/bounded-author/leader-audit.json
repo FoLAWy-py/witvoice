@@ -1,0 +1,181 @@
+{
+  "owner": "/root",
+  "utc": "2026-10-05T12:48:31.5248139Z",
+  "files": [
+    {
+      "name": "build-20261005T124413641683.json",
+      "bytes": 7729,
+      "sha256": "88760b4f8aeb556f21a1511faf1678b19c5cb5b421a978cc937a83782054829d"
+    },
+    {
+      "name": "build-20261005T124413641683.stderr.txt",
+      "bytes": 142,
+      "sha256": "d6de7825668d5d13a6450a06f02c0ded73ed91561e05bfed865bb2b92c0d126d"
+    },
+    {
+      "name": "build-20261005T124413641683.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "clippy-20261005T124154911923.json",
+      "bytes": 7756,
+      "sha256": "76daf428341e2004d08c3dd2c439d4e158c1d787dbdefd8d62efb235f595f249"
+    },
+    {
+      "name": "clippy-20261005T124154911923.stderr.txt",
+      "bytes": 1240,
+      "sha256": "a1b5c5867b1561aa47dd3ae37ad2b3695b250e7e252489ef93949959ea8b41c1"
+    },
+    {
+      "name": "clippy-20261005T124154911923.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "clippy-20261005T124406067236.json",
+      "bytes": 7753,
+      "sha256": "8888f439df35872bad991b328e3fdd9ebfde6d1a3919d75859d9bf9d4a83cd63"
+    },
+    {
+      "name": "clippy-20261005T124406067236.stderr.txt",
+      "bytes": 142,
+      "sha256": "5b39ff1ddd429c60846f6f9a967c5a9e8c40cb0ec20738cded03f1cb8d32dc4d"
+    },
+    {
+      "name": "clippy-20261005T124406067236.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "delivery-20261005T124555898297.json",
+      "bytes": 91529,
+      "sha256": "cf3673e4229394d0e9a905397491374b6ccc7af4fbe38a57ebb8d1f6cdad885c"
+    },
+    {
+      "name": "finalize.py",
+      "bytes": 6312,
+      "sha256": "ac50cd79916f4ab727b3b7ed0a0bcdeffad3874296a14f4541e0f7fb4642630d"
+    },
+    {
+      "name": "fmt-check-20261005T124139862170.json",
+      "bytes": 7704,
+      "sha256": "3cffe8d94cbea7f36fba605dae979b045ae27ceb2216e0942fe004415296786e"
+    },
+    {
+      "name": "fmt-check-20261005T124139862170.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "fmt-check-20261005T124139862170.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "fmt-check-20261005T124401348598.json",
+      "bytes": 7703,
+      "sha256": "64cf12731009312d21260f513a1c73ae60ebcdfa50eb0efbed76212d87c61f65"
+    },
+    {
+      "name": "fmt-check-20261005T124401348598.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "fmt-check-20261005T124401348598.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "format-source-20261005T123907623615.json",
+      "bytes": 7860,
+      "sha256": "67928abf25b3b51ebde6fdfb08f384799a7d4422a01c472c25b0501d0e9bb877"
+    },
+    {
+      "name": "format-source-20261005T123907623615.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "format-source-20261005T123907623615.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "run-check.py",
+      "bytes": 3463,
+      "sha256": "7f4a7c677166d4ee8a91605951e2855e05a31b484c96f5803180c03acd554028"
+    },
+    {
+      "name": "test-20261005T123926282992.json",
+      "bytes": 7699,
+      "sha256": "0e2786771d4f09ef72f88361cac8eb13f461a31435529adb15857ab80af08e1d"
+    },
+    {
+      "name": "test-20261005T123926282992.stderr.txt",
+      "bytes": 191,
+      "sha256": "a0aaf73a320f0067dce1649b618c7df706d1101a6bf95e5c49ec8882c9e89520"
+    },
+    {
+      "name": "test-20261005T123926282992.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "test-20261005T124104425730.json",
+      "bytes": 7715,
+      "sha256": "aa81953d51e023382b34c24fa343d673d7e3145162a8df24fa303892005988e7"
+    },
+    {
+      "name": "test-20261005T124104425730.stderr.txt",
+      "bytes": 1548,
+      "sha256": "f6f386471a48b87e8350a53a63fca1547e539160e581aa7190a63cc19c8a9c81"
+    },
+    {
+      "name": "test-20261005T124104425730.stdout.txt",
+      "bytes": 7060,
+      "sha256": "54ea850c036914979bad6d015a9d5033bef46fbe4ac821fd10054684e0ddc3cd"
+    },
+    {
+      "name": "test-20261005T124248457380.json",
+      "bytes": 7714,
+      "sha256": "0818a04dd2499de459b114df79e39b8110f85b715d88b78be2e4b4cc6f8afc6f"
+    },
+    {
+      "name": "test-20261005T124248457380.stderr.txt",
+      "bytes": 1141,
+      "sha256": "ea7f4b1e0036e2a6fd9fa837f48882e686dd20bbb7cb6df73dc6356aaf18d1e8"
+    },
+    {
+      "name": "test-20261005T124248457380.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "test-20261005T124328426070.json",
+      "bytes": 7714,
+      "sha256": "210ca5a5088a7aaca7b4e0e1785d007a66f4bfebcba10ce39a7531ffbb3cecd3"
+    },
+    {
+      "name": "test-20261005T124328426070.stderr.txt",
+      "bytes": 1548,
+      "sha256": "9beb699254545eb2e8dbc101697cccca87ec8a05db78be717522c4eec68aca5f"
+    },
+    {
+      "name": "test-20261005T124328426070.stdout.txt",
+      "bytes": 7060,
+      "sha256": "71efea34206591ba76f15559994be329e76793bef92c4c34930ee34c62eade0f"
+    }
+  ],
+  "raw_copy_all_equal": true,
+  "audio_source_count": 27,
+  "final_four_source_maps_all_equal": true,
+  "hardware": "NOT_RUN",
+  "author_effective_tests": 67,
+  "ordinary_failures_preserved": [
+    "CLI missingtest subcommand1",
+    "test-only Clippy101",
+    "E0277 testreference101"
+  ]
+}

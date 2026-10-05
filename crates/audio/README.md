@@ -318,7 +318,9 @@ audio lease, checked by the trusted leader/operator, not granted by a CLI flag.
 It synthesizes a fixed two-second, amplitude 0.01 marker in the example only,
 through the existing typed processed queue and ticket-governed native sink. This
 diagnostic is not converted voice or IdentityEngine production capability.
-Native buffers and scratch are bounded at 960 frames, the queue at eight 480-frame
+Negotiated native buffers and capture scratch are bounded at 1440 mono frames
+(30ms at 48k); each processed render commit and its scratch remain at most 960
+frames (20ms), the queue at eight 480-frame
 blocks, target 1440 frames during feeding, with production expiry/underflow rules.
 Each scheduled capture is checked against the remaining two-second window; no
 loop retries failed Start, format, queue, device change or capture. Any failure
@@ -350,9 +352,26 @@ old generic `Capacity`; it did not reach any Start or capture Prepare. That resu
 does not distinguish a zero OS buffer from a buffer above 960 frames, and does not
 prove a driver fault. The diagnostic repair retains `GetBufferSize` as
 `NegotiatedCapacity { actual_frames, maximum_frames }`, with pure injected 0/960/961
-tests. Prepare's 200ms parameter bound, the probe's maximum 960 frames and the
-packet submission limit all remain unchanged. A future early Prepare failure
+tests. That diagnostic repair kept Prepare's 200ms parameter bound, the probe's
+maximum 960 frames and the packet submission limit unchanged. An early Prepare failure
 prints its exact stage/requested/known actual capacity and native error, with
 `native_start=false`, `cleanup=UNKNOWN` and no retry; RAII teardown is not a real
 close measurement. No new probe, Initialize, Start, render or capture was executed
 for this repair. The original executed binary and evidence remain historical.
+
+The later single diagnostic run measured render capacity 1056 frames (22ms),
+rejected before Start; capture capacity remains unknown. Its permission is spent.
+The bounded software adaptation now permits at most 1440 negotiated frames for
+this probe, rejects zero/over-bound capacity, and reports both actual capacities
+when the owners are prepared. Capacity is separate from queue target and age.
+Each `submit_processed` checks capacity minus padding and commits only the minimum
+of available frames, 960, and nonempty caller scratch. It performs one native
+GetBuffer/ReleaseBuffer pair, retains its gate ticket through release, and does
+not loop to fill a larger OS buffer. Padding above capacity or empty scratch is
+an error. Capture has a preallocated 1440-frame mono buffer; existing channel
+extraction, flags, discontinuity/timestamp rejection and full failure zeroing
+are preserved. The eight-slot queue, 480-frame blocks, deadlines, epoch checks,
+two-second activity, 15-second process budget, amplitude and strict underflow
+criterion have not changed. No hardware operation was authorized or performed
+for this adaptation; it cannot establish continuity, model quality, OS tail or
+successful native cleanup. A future probe requires new specific permission.

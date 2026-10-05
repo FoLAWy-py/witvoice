@@ -5,7 +5,29 @@
   "project_status": "IN_PROGRESS",
   "authorized_target": "WINDOWS_DELIVERED",
   "active_milestone": "M1",
-  "active_tasks": [],
+  "active_tasks": [
+    {
+      "task_id": "T010",
+      "agent": "/root",
+      "thread_id": "01a10764-d851-7d02-ac79-365d2576a226",
+      "mode": "LEADER_FROZEN_INTEGRATION",
+      "path_whitelist": [
+        ".local/t009-t010-final",
+        "docs/evidence/integration/20261005-bounded-final",
+        "docs/project"
+      ],
+      "dependencies": [
+        "T006",
+        "T008"
+      ],
+      "contract": "AllauthorsSTOP. Current67audio plusfixedidentity_pipeline; frozen72 aftersourcecommit; actualsystemPS5.1; sameargv/cache; first nonzero stops; nohardware",
+      "acceptance": "Actual workspace/fmt/strictClippy/examples plus scopedproductionguard, rawexits/source maps; nounexecutedPASS",
+      "resources": [
+        "sole codewriter",
+        "exclusive software validation"
+      ]
+    }
+  ],
   "milestones": {
     "M0": {
       "status": "DONE",
@@ -63,9 +85,9 @@
     {
       "id": "B004",
       "scope": "T010 application verification and toolchain reliability",
-      "status": "BLOCKED_COMPILER_ICE_AND_ACCESS_VIOLATION",
+      "status": "RESOLVED_FOR_CURRENT_TEST_RUN_ROOT_CAUSE_UNKNOWN",
       "evidence": "docs/evidence/integration/20261005-T009-T010-T016/result.json",
-      "note": "ColdT010 windows invalidOnce ICE101 retained. One distinct validated27featurecache conditional source78c18:Freshwindows hit, then session_identity rustc AV0xc0000005/cargo101 before all app tests. Entire subsequent checkset stopped, causeUNKNOWN/no globalchanges or retry."
+      "note": "One explicitmeasuredSystemPS5.1 run completed160tests/fmt0; originalICE/AV preserved, no causalinference/stabilityclaim. Clippy needs ordinary sourcefix and rootfinalchecks."
     },
     {
       "id": "B005",
@@ -130,10 +152,10 @@
   },
   "completion_claim_allowed": false,
   "last_verified_scope": "Independent T008 r2 approved audio software slice plus prior frozen M0/T006/T007 API/T021. Excludes T016 diagnosis/discovery formal approval, new hardware/virtual route/whole VC/Mac.",
-  "execution_status": "STOPPED_AT_EXTERNAL_BLOCKERS",
+  "execution_status": "ACTIVE_FROZEN_INTEGRATION",
   "interruption_evidence": "docs/project/interruption-20261005.json",
-  "last_tested_commit": "2ed6346416343970218f517ddda6731ceee5e809",
-  "last_tested_scope": "Last fully passing scope remains6c68 workspace132 and2ed T00962. Current78c18 workspace compilation failed101/AV before tests; author754T00964/T0168 local pure checks passed, no root aftermerge PASS.",
+  "last_tested_commit": "78c18c163e31dfdc36457088b90ee25c83534a2b",
+  "last_tested_scope": "160actualworkspace all-targettests exit0 andfmt0; strictclippyordinary3warnings exit101, examplesnotrun. Host5.1 observed, earliercompilercrashes unknown.",
   "windows_virtual_route": {
     "selected": "VB-CABLE",
     "render": "CABLE Input",
@@ -151,8 +173,18 @@
       "pcm_disk_upload": false,
       "default_device_changes": false
     },
-    "continuity": "FAIL_PREPARE_CAPACITY_BEFORE_START"
+    "continuity": "FAIL_RENDER_CAPACITY_1056_OVER960_BEFORE_START"
   },
   "last_attempted_commit": "78c18c163e31dfdc36457088b90ee25c83534a2b",
-  "last_attempted_result": "CompilerAV0xc0000005/cargo101 beforeapp tests, raw28041B stderr saved; all laterchecksSTOPPED"
+  "last_attempted_result": "ActualSystemPS5.1/source78c18:160tests0/fmt0, ordinarystrictClippy3warnings101; examplesNOTRUN. Newnarrowlifetimerepair awaitingrootfinal. PreviousICE/AVcauseUNKNOWN.",
+  "latest_vbcable_diagnostic": {
+    "authorization_id": "T009-CAPACITY-a656851f-702a-4a22-8d85-7c4987e59ebc",
+    "status": "CONSUMED_FAILED_NO_RETRY",
+    "actual_render_frames": 1056,
+    "render_capacity_ms": 22,
+    "capture_capacity": "UNKNOWN",
+    "cleanup": "UNKNOWN",
+    "native_start": false,
+    "evidence": "docs/evidence/T009-20261005/capacity-once/result.json"
+  }
 }

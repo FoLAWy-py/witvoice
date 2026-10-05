@@ -1,0 +1,30 @@
+{
+  "uuid": "01a10767-4ff5-7f21-881a-146d094fbc55",
+  "utc": "2026-10-05T12:33:39.3913300Z",
+  "source": {
+    "path": "D:\\Project\\witvoice\\tests\\integration\\identity_pipeline.rs",
+    "sha256": "1355ca05c61b5cf7b8a0c1f0c94083f9c34ef5b3096d54d7caed95cc08181891"
+  },
+  "commands": [
+    {
+      "sha256": "9d082329659985d4a87ef429c7ef4bb0b2cff222c211f0d21d4e283070ac3e39",
+      "exit_code": 0,
+      "path": "D:\\Project\\witvoice\\.local\\t010-clippy-fix\\01-rustfmt.json"
+    },
+    {
+      "sha256": "a7e968a3a6d7246e32f2bbc5769d728f4c2f1273bc8fc6cbb6aa958d6ecd603f",
+      "exit_code": 0,
+      "path": "D:\\Project\\witvoice\\.local\\t010-clippy-fix\\02-rustfmt-check.json"
+    }
+  ],
+  "runner_sha256": "c49971318f0b1edeb7aab3edb687abb49e006d100e19af5829653c38c6641bc7",
+  "not_run": [
+    "Cargo",
+    "Clippy",
+    "tests",
+    "audio",
+    "network",
+    "GPU"
+  ],
+  "writes": "STOP_AFTER_DELIVERY"
+}

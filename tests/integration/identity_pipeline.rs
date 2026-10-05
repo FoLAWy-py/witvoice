@@ -37,28 +37,28 @@ fn bounded_processed_queue_rejects_wrong_binding_expired_duplicates_future_and_o
     running(&mut runtime);
     let gate = adapter.gate();
     let mut ring = Ring::new(8).unwrap();
-    let (mut producer, mut sink) =
-        processed_endpoints(&mut ring, &gate, QueueConfig::output()).unwrap();
     let binding = gate.binding();
     let block = |binding, start, arrival, deadline| {
         ProcessedBlock::from_model_result(binding, start, arrival, deadline, &[0.25; BLOCK_FRAMES])
             .unwrap()
     };
-    assert_eq!(
-        producer.push(block(Binding::new(18, 1).unwrap(), 0, 1000, 2000), 1000),
-        Err(BlockError::Stale)
-    );
-    assert_eq!(
-        producer.push(block(Binding::new(17, 0).unwrap(), 0, 1000, 2000), 1000),
-        Err(BlockError::Stale)
-    );
-    assert_eq!(
-        producer.push(block(binding, 0, 1000, 2000), 2000),
-        Err(BlockError::Expired)
-    );
+    {
+        let (mut producer, _sink) =
+            processed_endpoints(&mut ring, &gate, QueueConfig::output()).unwrap();
+        assert_eq!(
+            producer.push(block(Binding::new(18, 1).unwrap(), 0, 1000, 2000), 1000),
+            Err(BlockError::Stale)
+        );
+        assert_eq!(
+            producer.push(block(Binding::new(17, 0).unwrap(), 0, 1000, 2000), 1000),
+            Err(BlockError::Stale)
+        );
+        assert_eq!(
+            producer.push(block(binding, 0, 1000, 2000), 2000),
+            Err(BlockError::Expired)
+        );
+    }
     // Use fresh queue after nonmonotonic time would independently be an error.
-    drop(producer);
-    drop(sink);
     let (mut producer, mut sink) =
         processed_endpoints(&mut ring, &gate, QueueConfig::output()).unwrap();
     for index in 0..8 {

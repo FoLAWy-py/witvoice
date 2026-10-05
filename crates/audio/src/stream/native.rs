@@ -86,6 +86,72 @@ fn negotiated_capacity(actual_frames: u32, maximum_frames: u32) -> Result<u32, S
         Ok(actual_frames)
     }
 }
+// OS capacity and one commit's scratch budget are distinct. Never request all
+// available OS frames merely because the negotiated buffer exceeds one packet.
+fn render_packet_frames(
+    capacity: u32,
+    padding: u32,
+    scratch_len: usize,
+) -> Result<u32, StreamError> {
+    let available = capacity.checked_sub(padding).ok_or(StreamError::Capacity)?;
+    if capacity == 0 || scratch_len == 0 {
+        return Err(StreamError::Capacity);
+    }
+    Ok((available as usize).min(960).min(scratch_len) as u32)
+}
+
+// The production single-packet branch; injected ABI tests call this same path.
+// No allocation, waiting, COM ErrorInfo construction or multiple native commits.
+struct RenderWindow {
+    capacity: u32,
+    padding: u32,
+}
+fn render_processed_packet(
+    render: &IAudioRenderClient,
+    format: AudioFormat,
+    window: RenderWindow,
+    playout: &mut Playout<'_>,
+    scratch: &mut [f32],
+    clock_ns: impl Fn() -> u64,
+    signal: &ChangeSignal,
+) -> Result<u32, StreamError> {
+    scratch.fill(0.0);
+    let gate = playout.gate();
+    if signal.has_changed() {
+        gate.fail();
+        return Err(StreamError::DeviceChanged);
+    }
+    let frames = render_packet_frames(window.capacity, window.padding, scratch.len())?;
+    if frames == 0 {
+        return Ok(0);
+    }
+    let ticket = gate.begin_commit();
+    let assembled = if ticket.is_some() {
+        playout.render(&mut scratch[..frames as usize], clock_ns())
+    } else {
+        Err(BlockError::Muted)
+    };
+    let pcm = render_governed(render, format, frames, &scratch[..frames as usize], || {
+        let valid = assembled.is_ok()
+            && ticket.as_ref().is_some_and(|t| t.is_live())
+            && !signal.has_changed()
+            && playout.commit_valid(clock_ns());
+        if assembled.is_ok() && !valid {
+            gate.fail();
+        }
+        valid
+    })?;
+    playout.record_sink(frames, pcm);
+    // Ticket remains alive through the actual ReleaseBuffer, including errors.
+    drop(ticket);
+    if signal.has_changed() {
+        gate.fail();
+    }
+    if !gate.is_live() {
+        scratch.fill(0.0);
+    }
+    Ok(frames)
+}
 impl From<MetadataError> for StreamError {
     fn from(error: MetadataError) -> Self {
         Self::Metadata(error)
@@ -423,50 +489,18 @@ impl SharedStream {
                         out,
                     )
                 })?;
-                let frames = self
-                    .capacity
-                    .checked_sub(padding)
-                    .ok_or(StreamError::Capacity)?;
-                if frames == 0 {
-                    return Ok(0);
-                }
-                if frames > 960 || frames as usize > scratch.len() {
-                    return Err(StreamError::Capacity);
-                }
-                let ticket = gate.begin_commit();
-                let assembled = if ticket.is_some() {
-                    playout.render(&mut scratch[..frames as usize], clock_ns())
-                } else {
-                    Err(BlockError::Muted)
-                };
-                // A muted callback still submits SILENT without an old PCM
-                // ticket. Tickets are acquired before assembly and release only
-                // after the actual native sink commit exits (including failure).
-                let pcm = render_governed(
+                render_processed_packet(
                     render,
                     self.format,
-                    frames,
-                    &scratch[..frames as usize],
-                    || {
-                        let valid = assembled.is_ok()
-                            && ticket.as_ref().is_some_and(|t| t.is_live())
-                            && !self.signal.has_changed()
-                            && playout.commit_valid(clock_ns());
-                        if assembled.is_ok() && !valid {
-                            gate.fail();
-                        }
-                        valid
+                    RenderWindow {
+                        capacity: self.capacity,
+                        padding,
                     },
-                )?;
-                playout.record_sink(frames, pcm);
-                drop(ticket);
-                if self.signal.has_changed() {
-                    gate.fail();
-                }
-                if !gate.is_live() {
-                    scratch.fill(0.0);
-                }
-                Ok(frames)
+                    playout,
+                    scratch,
+                    &clock_ns,
+                    &self.signal,
+                )
             })(),
         };
         let result = self.retire(result);

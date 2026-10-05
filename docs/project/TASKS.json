@@ -330,11 +330,12 @@
         "docs/evidence/T009-20261005/once/result.json",
         "docs/evidence/T009-20261005/capacity-author/leader-audit.json",
         "docs/project/reviews/T009-preflight.md",
-        "docs/project/reviews/T009-capacity-limited.md"
+        "docs/project/reviews/T009-capacity-limited.md",
+        "docs/evidence/T009-20261005/capacity-once/result.json"
       ],
       "review": "docs/project/reviews/T009-capacity-limited.md",
       "attempts": 0,
-      "blocked_reason": "Stable native compilerintegration required; thereafter fresh specifichardware authorization for diagnostic/continuity. Current once consumed failedCapacity; no automaticretry/newUID/maxbound relaxation.",
+      "blocked_reason": "Fresh explicitlyapprovedonce consumedFAILED renderactual1056=22ms>960 beforeStart; noPCM/capture,cleanupUNKNOWN. Bounded<=30ms adaptation underway softwareonly; nexthardware requires newscope.",
       "execution_note": "64puretests/fmt/Clippy/probe build0; independentlimited softwarediagnostic recognition, formalattempt0/noDONE. NewbinaryNOT_RUN; oldonceconsumedCapacitybeforeStart, actualcount/cleanupUNKNOWN; fullroot78 integrationcompilerAVnoapp tests. AllSTOP."
     },
     {
@@ -342,7 +343,7 @@
       "milestone": "M1",
       "title": "测试引擎、状态契约与崩溃基础测试",
       "owner_role": "backend",
-      "status": "BLOCKED",
+      "status": "IN_PROGRESS",
       "requirements": [
         "REQ-07",
         "REQ-23",
@@ -368,12 +369,14 @@
         "docs/evidence/T010-20261005/author-ice/02-session-tests.json",
         "docs/evidence/T010-20261005/author-ice/leader-log-byte-audit.json",
         "docs/evidence/T010-20261005/static-fix/leader-audit.json",
-        "docs/evidence/integration/20261005-T009-T010-T016/result.json"
+        "docs/evidence/integration/20261005-T009-T010-T016/result.json",
+        "docs/evidence/T010-20261005/system-host/system-ps51-workspace-tests.json",
+        "docs/evidence/T010-20261005/system-host/system-ps51-clippy.json"
       ],
       "review": null,
       "attempts": 0,
-      "blocked_reason": "Original coldwindows invalidOnce ICE retained. Conditional known27featurecache hit then actualsession_identity compiler AV0xc0000005/cargo101; app tests notstarted/all subsequentchecks STOPPED. Exactsource78c18 frozen; stable native compiler execution required.",
-      "execution_note": "Staticgetter+3negative cases implemented, standaloneformat0; no successful app test, defaultproduction/release guard check NOT_RUN. All sourceauthorsSTOP; formalT010attempt0."
+      "blocked_reason": null,
+      "execution_note": "Explicit actualSystemPS5.1 nativepath guard; source78c18 frozen72 pre/post equal;160workspace tests/fmt0. Strictclippy101 ordinary unusedmut/nonDrop lifetime errors; narrow authorfix underway. PriorICE/AV raw retained causeUNKNOWN; examplesNOTRUN; formalapprovalpending."
     },
     {
       "id": "T011",

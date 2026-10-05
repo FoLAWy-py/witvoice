@@ -21,3 +21,5 @@ B004 当前重新BLOCKED_COMPILER_ICE（2026-10-05 10:54:12Z，T010）：rustc1.
 B004 当前更新（2026-10-05 11:45:06Z）：条件性 workspace27feature缓存检查确认Fresh windows0.62.2；随后 session_identity 的 rustc 访问异常0xc0000005，cargo101、应用tests尚未开始，完整28041B stderr保留integration/20261005-T009-T010-T016/。停止其余fmt/Clippy/examples及所有额外Cargo；原invalidOnce ICE不删，原因UNKNOWN。固定source78c18c1，只能在稳定原生Windows执行环境重新验收；不能将已生成部分二进制或作者局部checks当root整合PASS。
 B005（T009）：用户一次VB-CABLE授权已消费；renderPrepare Capacity beforeStart，child1/0.11946s，真实GetBufferSize为0或>960但actualcount未记，cleanupUNKNOWN。最小结构化容量诊断已实现/64purechecks0，无上限放宽/无重试；新硬件诊断须另获具体授权并通过稳定编译器整合检查，设备安装不等于闭环。
 B006（T016）：r1 S2已修复/8puretests0，r2独立材料审查中；一次原native发现仍注册成功/Found后resolve失败13来源UNKNOWN，无positiveDNS证明、授权消费。新探针编译NOT_RUN，重新有限指定有线接口验证须独立审查/稳定编译器及新具体LAN授权；不改防火墙、不扩到Mac。
+
+当前更新（2026-10-05）：B004由实测系统PS5.1宿主运行160应用tests0/fmt0解除当前应用测试阻塞，Clippy普通unusedmut/nonDrop101正在窄修；旧ICE/AV、唯一WER ReportId及causeUNKNOWN保留，未证明宿主因果/普遍稳定。B005新授权a656851f已消费，actualrender1056=22ms、max960拒绝beforeStart/无PCM/capture未知/cleanupUNKNOWN；<=30ms1440适配软件正在实现，后续设备测试需要新许可。B006r2已S2closed，现T016软件已随160tests实测通过，真实DNS正例/新有限有线授权仍缺，旧失败13来源UNKNOWN不能追认。

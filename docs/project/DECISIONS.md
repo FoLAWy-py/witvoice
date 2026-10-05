@@ -13,3 +13,5 @@ M0将实现细节写入带编号ADR；不能将尚未实施的决定记作测试
 - ADR0003: T016标准WindowsDNS-SD替代未证明cache界的mdnsdaemon；默认关闭、显式接口/用户LANopt-in、有界自有队列/异步寿命，无新模型/驱动/服务或Mac实测claim。见 docs/adr/0003-native-dns-sd.md。
 
 - 2026-10-05 用户明确固定本轮Windows VB-CABLE；Steam候选撤回保留历史；不自建驱动。一次<=5s marker/<=15s双端闭环授权未执行，见 ADR0004 与 vbcable-metadata。
+
+- 2026-10-05 当前VB-CABLE两次独立真实once均已消费；最新获实际render1056frames/22ms但beforeStart拒绝，不是闭环。采用<=30ms1440 OS容量、单次提交<=960的有界软件适配；旧未执行文字为历史，硬件再次执行另获具体许可。

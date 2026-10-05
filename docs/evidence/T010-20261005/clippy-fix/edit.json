@@ -1,0 +1,8 @@
+{
+  "uuid": "01a10767-4ff5-7f21-881a-146d094fbc55",
+  "utc": "2026-10-05T12:32:34.9323315Z",
+  "path": "D:\\Project\\witvoice\\tests\\integration\\identity_pipeline.rs",
+  "before_sha256": "11daebbebe5075872bdd7df13e177b38ac3165b7f02923f4a3e224aabb021af3",
+  "after_edit_sha256": "1355ca05c61b5cf7b8a0c1f0c94083f9c34ef5b3096d54d7caed95cc08181891",
+  "scope": "Only lexical scope/no assertions removed/no Cargo/HW/network"
+}

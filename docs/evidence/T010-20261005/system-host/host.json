@@ -1,0 +1,9 @@
+{
+  "requested_child": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+  "outer_host_version": "7.6.5",
+  "started_utc": "2026-10-05T12:29:48.5840537Z",
+  "finished_utc": "2026-10-05T12:30:06.6178365Z",
+  "exit": 101,
+  "no_hardware": true,
+  "no_retry": true
+}

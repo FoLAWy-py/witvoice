@@ -1,0 +1,20 @@
+    Checking witvoice-audio v0.1.0 (D:\Project\witvoice\crates\audio)
+error: using `chunks_exact_mut` with a constant chunk size
+   --> crates\audio\src\stream\raw_tests.rs:217:33
+    |
+217 |         for sample in mock.data.chunks_exact_mut(2) {
+    |                                 ^^^^^^^^^^^^^^^^^^^ help: consider using `as_chunks_mut` instead: `as_chunks_mut::<2>().0`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.99.0/index.html#chunks_exact_to_as_chunks
+    = note: `-D clippy::chunks-exact-to-as-chunks` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[allow(clippy::chunks_exact_to_as_chunks)]`
+
+error: using `chunks_exact` with a constant chunk size
+   --> crates\audio\src\stream\raw_tests.rs:394:64
+    |
+394 |                 for sample in mock.data[..frames as usize * 8].chunks_exact(4) {
+    |                                                                ^^^^^^^^^^^^^^^ help: consider using `as_chunks` instead: `as_chunks::<4>().0`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.99.0/index.html#chunks_exact_to_as_chunks
+
+error: could not compile `witvoice-audio` (lib test) due to 2 previous errors

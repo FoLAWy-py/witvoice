@@ -1,3 +1,7 @@
+当前推进（2026-10-05，覆盖以下历史）：新VB授权a656851f已实际消费，render GetBufferSize=1056（22ms），max960拒绝 beforeStart，capture未知/cleanupUNKNOWN/无PCM。初次supervisor字段缺失未Start/未消费，保存prelaunch-failure，仅补consumed_utc null后执行唯一设备测试；没有硬件retry。
+
+T010唯一实测SystemPS5.1宿主对照：160workspace tests0/fmt0，Clippy普通unusedmut/nonDrop3warnings101，examples停止；首次Get-FileHash初始化错误在Cargo前，原raw保存，改.NETSHA无全局设置。旧ICE/AV causeUNKNOWN，不归因宿主。backend仅identity_pipeline lifetimefix，audio仅native/probe<=30ms1440 OS容量+<=960单次commit/有界capture适配，两writers无hardware/GPU/LAN；依赖及正式review未闭合。next_task=T010，后续从冻结软件验证/正式review推进，不重复模型探索。
+
 当前交接（2026-10-05）：全部作者、只读中继和独立reviewer已STOP，active_tasks清空，无代码/音频/GPU/LAN锁，无后台继续。next_task=T010；IN_PROGRESS，授权终点仍M5/WINDOWS_DELIVERED，M6真Mac/双向必需且未验，completion_claim_allowed=false。
 
 本轮已采用用户自行安装VB-CABLE；Steam停止当前候选、历史保留，无自建驱动CR发现/不创建假撤回。metadata确切PnP实例suffix=WASAPI UID、共同VB-Audio父/驱动3.3.1.7/oem95，CABLE Input render→CABLE Output capture，两active48k2chFloat32；私有UID在.local/t009-vbcable-once/verified-pair-private.json，公开证据脱敏，外观不代表闭环。

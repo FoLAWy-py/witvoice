@@ -1,0 +1,12 @@
+{
+  "tool_chunk": "ff5721",
+  "exit": 1,
+  "stage": "Supervisor before consume flush and Process.Start",
+  "error": "Exception setting consumed_utc: property cannot be found",
+  "child_exit": null,
+  "native_execution": "NOT_LAUNCHED",
+  "once_disk_state": "AUTHORIZED_NOT_EXECUTED",
+  "hardware_attempt_count": 0,
+  "source_of_facts": "Actual tool output plus unchanged once, absent result, zero-byte child logs; source assignment precedes Process.Start",
+  "continued_authorization": "Same human authorized single device execution remains unused"
+}

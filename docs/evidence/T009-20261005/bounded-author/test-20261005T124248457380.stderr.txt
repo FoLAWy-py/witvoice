@@ -1,0 +1,21 @@
+   Compiling witvoice-audio v0.1.0 (D:\Project\witvoice\crates\audio)
+error[E0277]: can't compare `&[u8; 4]` with `[u8; 4]`
+   --> crates\audio\src\stream\raw_tests.rs:395:21
+    |
+395 |                     assert_eq!(sample, 0.25_f32.to_le_bytes());
+    |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no implementation for `&[u8; 4] == [u8; 4]`
+    |
+    = help: the trait `PartialEq<[u8; 4]>` is not implemented for `&[u8; 4]`
+    = help: the following other types implement trait `PartialEq<Rhs>`:
+              `&[T]` implements `PartialEq<Vec<U, A>>`
+              `&[T]` implements `PartialEq<[U; N]>`
+              `&[u8; N]` implements `PartialEq<ByteStr>`
+              `&[u8; N]` implements `PartialEq<ByteString>`
+              `&[u8]` implements `PartialEq<ByteStr>`
+              `&[u8]` implements `PartialEq<ByteString>`
+              `&mut [T]` implements `PartialEq<Vec<U, A>>`
+              `&mut [T]` implements `PartialEq<[U; N]>`
+            and 11 others
+
+For more information about this error, try `rustc --explain E0277`.
+error: could not compile `witvoice-audio` (lib test) due to 1 previous error

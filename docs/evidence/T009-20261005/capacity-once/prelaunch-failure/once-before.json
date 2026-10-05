@@ -1,0 +1,16 @@
+{
+  "authorization_id": "T009-CAPACITY-a656851f-702a-4a22-8d85-7c4987e59ebc",
+  "status": "AUTHORIZED_NOT_EXECUTED",
+  "created_utc": "2026-10-05T12:21:10.6133239Z",
+  "human_authority": "Human explicit reply: 允许这一次新诊断",
+  "requested_marker_seconds": 2,
+  "max_marker_seconds": 5,
+  "max_total_seconds": 15,
+  "amplitude": 0.01,
+  "allowed": "Only previously identity-verified CABLE Input render and CABLE Output capture; report exact buffer capacity; retain960 limit; no retry",
+  "physical_capture": false,
+  "physical_render": false,
+  "pcm_disk_upload": false,
+  "default_device_changes": false,
+  "approved_utc": "2026-10-05T12:24:14.4694142Z"
+}
