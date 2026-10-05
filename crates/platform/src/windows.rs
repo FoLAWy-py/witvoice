@@ -85,8 +85,28 @@ impl Drop for LocalAllocation {
         }
     }
 }
+/// HRESULT domain only; never an alias for a Win32 raw_os_error.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct WindowsApiFailure {
+    pub hresult: i32,
+}
+impl std::fmt::Display for WindowsApiFailure {
+    fn fmt(&self, output: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(output, "Windows API error {:#x}", self.hresult)
+    }
+}
+impl std::error::Error for WindowsApiFailure {}
 fn os_error(error: windows::core::Error) -> io::Error {
-    io::Error::other(format!("Windows API error {:#x}", error.code().0))
+    let hresult = error.code().0;
+    let bits = hresult as u32;
+    // HRESULT_FROM_WIN32 encodes a nonzero 16-bit code as exactly 0x8007XXXX.
+    // Reject other facilities/flags and 0x80070000: zero maps to S_OK, not this value.
+    let code = bits & 0xffff;
+    if bits & 0xffff_0000 == 0x8007_0000 && code != 0 {
+        io::Error::from_raw_os_error(code as i32)
+    } else {
+        io::Error::other(WindowsApiFailure { hresult })
+    }
 }
 fn wide(text: &str) -> Vec<u16> {
     text.encode_utf16().chain(Some(0)).collect()
@@ -773,5 +793,72 @@ impl WorkerPipeClient {
 
     pub fn close(&mut self) {
         self.handle = None;
+    }
+}
+
+#[cfg(test)]
+mod error_conversion_tests {
+    use super::*;
+
+    #[test]
+    fn pipe_win32_errors_preserve_code_and_system_kind() {
+        for code in [109u32, 232, 233] {
+            let converted = os_error(windows::core::Error::from_hresult(HRESULT::from_win32(
+                code,
+            )));
+            let canonical = io::Error::from_raw_os_error(code as i32);
+            assert_eq!(converted.raw_os_error(), Some(code as i32));
+            assert_eq!(converted.kind(), canonical.kind());
+            assert!(converted.get_ref().is_none());
+        }
+        let broken = os_error(windows::core::Error::from_hresult(HRESULT::from_win32(109)));
+        assert_eq!(broken.kind(), io::ErrorKind::BrokenPipe);
+    }
+
+    #[test]
+    fn other_win32_errors_preserve_their_own_semantics() {
+        for code in [5u32, 1460] {
+            let converted = os_error(windows::core::Error::from_hresult(HRESULT::from_win32(
+                code,
+            )));
+            assert_eq!(converted.raw_os_error(), Some(code as i32));
+            assert_eq!(
+                converted.kind(),
+                io::Error::from_raw_os_error(code as i32).kind()
+            );
+        }
+        let denied = os_error(windows::core::Error::from_hresult(HRESULT::from_win32(5)));
+        assert_eq!(denied.kind(), io::ErrorKind::PermissionDenied);
+    }
+
+    #[test]
+    fn non_win32_hresult_is_typed_and_never_reinterpreted_by_text() {
+        for bits in [
+            0x8000_4005u32,
+            0x8004_006d,
+            0xa007_006d,
+            0x9007_006d,
+            0x8007_0000,
+        ] {
+            let hresult = bits as i32;
+            let converted = os_error(windows::core::Error::from_hresult(HRESULT(hresult)));
+            assert_eq!(converted.raw_os_error(), None);
+            assert_eq!(converted.kind(), io::ErrorKind::Other);
+            assert_eq!(
+                converted
+                    .get_ref()
+                    .unwrap()
+                    .downcast_ref::<WindowsApiFailure>(),
+                Some(&WindowsApiFailure { hresult })
+            );
+        }
+        let text = io::Error::other("Windows API error 0x8007006d");
+        assert_eq!(text.raw_os_error(), None);
+        assert!(
+            text.get_ref()
+                .unwrap()
+                .downcast_ref::<WindowsApiFailure>()
+                .is_none()
+        );
     }
 }

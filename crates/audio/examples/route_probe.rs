@@ -1,5 +1,8 @@
 //! Explicit bounded route diagnostic. Never run as an unattended test.
 #[cfg(windows)]
+#[path = "support/route_drain.rs"]
+mod route_drain;
+#[cfg(windows)]
 #[path = "support/route_marker.rs"]
 mod route_marker;
 #[cfg(windows)]
@@ -53,14 +56,18 @@ fn main() -> Result<(), String> {
             && args[1] != "--approve-route-probe"
             && args[1] != "--approve-capture-mix-probe"
             && args[1] != "--approve-raw-capture-mix-probe"
-            && args[1] != "--approve-primed-raw-capture-mix-probe")
+            && args[1] != "--approve-primed-raw-capture-mix-probe"
+            && args[1] != "--approve-drained-primed-raw-capture-mix-probe")
     {
-        return Err("absolute PRIVATE_SCOPE_JSON --metadata-only|--approve-route-probe|--approve-capture-mix-probe|--approve-raw-capture-mix-probe|--approve-primed-raw-capture-mix-probe; authorization and exclusive lease required".into());
+        return Err("absolute PRIVATE_SCOPE_JSON --metadata-only|--approve-route-probe|--approve-capture-mix-probe|--approve-raw-capture-mix-probe|--approve-primed-raw-capture-mix-probe|--approve-drained-primed-raw-capture-mix-probe; authorization and exclusive lease required".into());
     }
     let capture_mix = args[1] == "--approve-capture-mix-probe";
-    let primed = args[1] == "--approve-primed-raw-capture-mix-probe";
+    let drained = args[1] == "--approve-drained-primed-raw-capture-mix-probe";
+    let primed = args[1] == "--approve-primed-raw-capture-mix-probe" || drained;
     let raw_capture_mix = args[1] == "--approve-raw-capture-mix-probe" || primed;
-    let descriptor_mode = if primed {
+    let descriptor_mode = if drained {
+        "CAPTURE_RAW_EXACT_MIX_PRIMED_DRAINED_RENDER_BASIC"
+    } else if primed {
         "CAPTURE_RAW_EXACT_MIX_PRIMED_RENDER_BASIC"
     } else if raw_capture_mix {
         "CAPTURE_RAW_EXACT_MIX_RENDER_BASIC"
@@ -326,6 +333,7 @@ fn main() -> Result<(), String> {
         let mut capture_packets = 0u64;
         let mut discontinuities = 0u64;
         let mut timestamp_errors = 0u64;
+        let mut drain_stats = route_drain::Stats::default();
         let start = if primed { active_start } else { Instant::now() };
         // Leave ordinary scheduler bookkeeping inside the same two-second cap.
         let requested = if primed {
@@ -362,6 +370,46 @@ fn main() -> Result<(), String> {
                 route
                     .check_changes(&signal, &gate)
                     .map_err(|_| "route changed")?;
+                // This NEW explicit diagnostic polls pending capture before any
+                // wait. A full finite pass yields to render/watch/deadline work.
+                // Old modes retain their consumed, single-packet behavior.
+                let drain_end = if drained {
+                    route_drain::drain(
+                        &mut drain_stats,
+                        &mut packet,
+                        requested.as_nanos() as u64,
+                        clock,
+                        || {
+                            within_total()?;
+                            watch
+                                .dispatch(Duration::ZERO)
+                                .map_err(|e| format!("capture drain dispatch: {e:?}"))?;
+                            route
+                                .check_changes(&signal, &gate)
+                                .map_err(|_| "capture drain route changed".into())
+                        },
+                        |storage| {
+                            capture
+                                .capture_packet(storage)
+                                .map_err(|e| format!("capture packet: {e:?}"))
+                        },
+                        |meta, samples| {
+                            let count = meta.frames as usize;
+                            let end = received
+                                .checked_add(count)
+                                .filter(|end| *end <= captured.len())
+                                .ok_or("bounded capture exhausted")?;
+                            captured[received..end].copy_from_slice(samples);
+                            received = end;
+                            Ok(())
+                        },
+                    )?
+                } else {
+                    route_drain::End::Empty
+                };
+                if drain_end == route_drain::End::Deadline {
+                    break;
+                }
                 let now = clock();
                 while playout.queued_frames() < 1440 && sent + 480 <= marker.len() {
                     let block = ProcessedBlock::from_model_result(
@@ -391,7 +439,22 @@ fn main() -> Result<(), String> {
                 else {
                     break;
                 };
-                if capture
+                if drained {
+                    // A budget-exhausted pass must never wait for another event:
+                    // already queued packets remain readable on the next pass.
+                    if drain_end.may_wait() {
+                        let Some(marker_remaining) = requested.checked_sub(start.elapsed()) else {
+                            break;
+                        };
+                        let _ = capture
+                            .wait_event(
+                                wait_remaining
+                                    .min(marker_remaining)
+                                    .min(Duration::from_millis(2)),
+                            )
+                            .map_err(|e| format!("capture wait: {e:?}"))?;
+                    }
+                } else if capture
                     .wait_event(wait_remaining.min(Duration::from_millis(2)))
                     .map_err(|e| format!("capture wait: {e:?}"))?
                     && start.elapsed() < requested
@@ -421,6 +484,11 @@ fn main() -> Result<(), String> {
             }
             Ok::<(), String>(())
         })();
+        if drained {
+            capture_packets = drain_stats.observed_packets;
+            discontinuities = drain_stats.discontinuity_packets;
+            timestamp_errors = drain_stats.timestamp_error_packets;
+        }
         // Invalidate before slow cleanup, even on failed Start/notification/timeout.
         gate.invalidate();
         route_marker::erase(&mut scratch);
@@ -455,6 +523,7 @@ fn main() -> Result<(), String> {
         "marker_amplitude":route_marker::AMPLITUDE,"marker_frames":sent,"capture_frames":received,"capture_packets":capture_packets,
         "sink_pcm_frames":counters.sink_pcm_frames,"sink_silence_frames":counters.sink_silence_frames,"underflow_frames":counters.underflow_frames,
         "match":matched,"run_ok":run.is_ok(),"run_error":run.err(),"discontinuity_packets":discontinuities,"timestamp_error_packets":timestamp_errors,
+        "capture_drain":if drained {serde_json::json!(drain_stats)} else {serde_json::Value::Null},
         "capture_closed":capture_closed,"render_closed":render_closed,"watch_closed":watch_closed,
         "capture_close_error":capture_close_error,"render_close_error":render_close_error,"watch_close_error":watch_close_error,
         "ack_ready":gate.ack_ready(),"physical_capture":"NEVER_STARTED","pcm_saved":false,"model_quality":"NOT_TESTED","os_tail":"UNKNOWN"});
