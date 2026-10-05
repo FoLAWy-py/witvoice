@@ -8,25 +8,27 @@
   "active_tasks": [
     {
       "task_id": "T008",
-      "agent_instance_id": "/root/reviewer_t001",
+      "agent_instance_id": "/root/audio_runtime",
       "allowed_paths": [
-        "crates/audio/",
-        "docs/spec/02-audio-engine.md",
-        "docs/spec/07-tests-acceptance.md",
-        "docs/project/T008-assignment.md",
-        "docs/evidence/T008-20261005/"
+        "crates/audio/src/notifications.rs",
+        "crates/audio/tests/allocation.rs",
+        "crates/audio/README.md",
+        ".local/t008-r1-fix-author/"
       ],
       "resource_leases": [
-        "readonly-review:t008-r1"
+        "code-writer:audio-t008-r1-fix"
       ],
       "depends_on": [
         "T007"
       ],
-      "contract": "Independent formalr1 frozen2fa911521466433380d273da15c8e9396342026e source; 23 audio SHA identical in root integration01–04. Fulltext authorized relay, no independent rerun claim",
+      "contract": "docs/project/T008-r1-fix-assignment.md: repair actual r1 S2 with proved atomic publication handshake and deterministic production-branch interleaving; callback zero allocation/no wait",
       "acceptance_commands": [
-        "Read exact frozen source/test/negative/fault evidence; issue precise S0–S3 or approve fixed T008 only"
+        "cargo test --locked -p witvoice-audio -- --nocapture",
+        "cargo fmt --package witvoice-audio --check",
+        "cargo clippy --locked -p witvoice-audio --all-targets -- -D warnings",
+        "cargo build --locked -p witvoice-audio --examples"
       ],
-      "execution_note": "Readonly/no escalation/no sourcewrites; actual51tests/fmt/clippy/examples0 author+leader; hardware/Mac/Node binding NOT_RUN"
+      "execution_note": "Author repair only, formalr1 REVISE attempt1, r2 pending. No hardware/GPU/LAN; root/backend files disjoint. Prior tests preserved, new source untested."
     },
     {
       "task_id": "T016",

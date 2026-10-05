@@ -264,7 +264,7 @@
       "review": "docs/project/reviews/T007-r3.md",
       "attempts": 3,
       "blocked_reason": null,
-      "execution_note": "Same formal r3 resumed after interruption, attempts3 unchanged; not approved. Reviewer and frontend readonly frozen relay."
+      "execution_note": "Independent formal r3 APPROVED/attempt3; frozen API scope and historical hardware limits per T007-r3.md. Subsequent T008 source not covered."
     },
     {
       "id": "T008",
@@ -286,16 +286,20 @@
       ],
       "acceptance": "无常规callback分配/阻塞；队列最大年龄可验证；mute先于慢停机；故障填零与underflow计数分开。",
       "agent_instance_id": "/root/audio_runtime",
-      "resource_leases": [],
+      "resource_leases": [
+        "code-writer:audio-t008-r1-fix"
+      ],
       "evidence": [
         "docs/evidence/T008-20261005/author/leader-audit.json",
         "docs/evidence/T008-20261005/leader-integration/result.json",
-        "docs/evidence/T016-20261005/native-dns/final-integration/result.json"
+        "docs/evidence/T016-20261005/native-dns/final-integration/result.json",
+        "docs/project/reviews/T008-r1.md",
+        "docs/project/T008-r1-fix-assignment.md"
       ],
       "review": "docs/project/reviews/T008-r1.md",
       "attempts": 1,
       "blocked_reason": null,
-      "execution_note": "Frozen2fa9115 integration51tests/fmt/alltargetClippy/examples0 with all23 source hashes before/after identical. Formalr1 registered/running readonly reviewer_t001; no final conclusion, IN_PROGRESS."
+      "execution_note": "Formal r1 REVISE: one mandatory S2 notification publish/bind race; fresh narrow author repair lease. Prior51 tests0 do not close race; new source NOT_RUN until actually checked."
     },
     {
       "id": "T009",

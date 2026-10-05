@@ -1,5 +1,7 @@
 # 当前交接
 
+T008正式r1独立REVISE/attempt1已归档reviews/T008-r1.md：1项必须修复S2，publish先get后changed导致bind交错遗漏gate失效；不声称实际原声/native泄漏。已登记audio仅notifications.rs/allocator测试/README及独立.local修复lease，握手需内存序证明与确定生产交错/零输出/ticket拒绝回归，再四检查/leader新冻结/r2；尚未复验新源。backend继续T016定长首错诊断，最多2作者且路径不重叠，无hardware/GPU/LAN。账本只读validator实际exit0（fd29c4），不代表应用验收。next_task=T008。
+
 一次原生FAIL13的最小可证明问题是错误诊断合并，不能猜具体字段/OS故障。已先登记backend仅platform discovery/native/tests+probe诊断补充lease，契约T016-diagnostics-assignment：闭集stage/origin/reason/原status定长首错独立队列保存，保持所有校验/容量/生命周期/默认OFF，纯注入复核；新LAN完全NOT_RUN且旧once已消费。NativePeers吞Failed S2不在此诊断phase越界修复，正式T016待冻结review；T008r1继续，next_task=T008。
 
 T016用户一次网卡19 mDNS已执行（exec32240e，08:46:22–30Z，8.094s）；advertise真实Registered/cleanup成功exit0，browse命中本次UUID并resolveAttempted但收到Failed13，exit1/整体FAIL。两proc实测≤10s总≤15s、无timeout、cleanuptrue/pending0，原rawSHA已核/公网证据脱敏；once状态EXECUTED_NOT_REUSABLE，禁止自动重试。13来源未知（OS原status或adapter合成INVALID，旧探针未记录原callback/reason），不能归因防火墙/硬件或放宽校验；先做只读源/官方API诊断，再具体修复/编译/审查/必要新授权。独立NativePeers吞Failed状态S2未修。root代码/网络lease释放，仅T008已登记r1（正在完整读源，已观察publish/bind并发不变量缺口，正式最终尚待）。next_task=T008，M5/M6未过。
