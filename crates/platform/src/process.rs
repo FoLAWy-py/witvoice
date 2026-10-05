@@ -418,58 +418,6 @@ impl ProcessJob {
     }
 }
 
-#[cfg(test)]
-mod native_error_tests {
-    use super::*;
-
-    #[test]
-    fn structured_native_error_keeps_hresult_and_operation_without_win32_alias() {
-        let code = 0x8007_0005_u32 as i32;
-        for operation in [
-            ProcessOperation::TerminateJob,
-            ProcessOperation::QueryJobActive,
-            ProcessOperation::QueryJobIds,
-            ProcessOperation::GetProcessExitCode,
-        ] {
-            let error = fail_operation(
-                operation,
-                windows::core::Error::from_hresult(windows::core::HRESULT(code)),
-            );
-            assert_eq!(
-                process_native_failure(&error),
-                Some(ProcessNativeFailure {
-                    operation,
-                    hresult: code
-                })
-            );
-            assert_eq!(error.raw_os_error(), None);
-            assert_eq!(
-                error.to_string(),
-                "Windows process operation failed (0x80070005)"
-            );
-        }
-        let raw = io::Error::from_raw_os_error(5);
-        assert_eq!(raw.raw_os_error(), Some(5));
-        assert_eq!(process_native_failure(&raw), None);
-        assert_eq!(
-            process_native_failure(&io::Error::other(
-                "Windows process operation failed (0x80070005)"
-            )),
-            None
-        );
-        let unknown = fail(windows::core::Error::from_hresult(windows::core::HRESULT(
-            0x8000_4005_u32 as i32,
-        )));
-        assert_eq!(
-            process_native_failure(&unknown),
-            Some(ProcessNativeFailure {
-                operation: ProcessOperation::Unknown,
-                hresult: 0x8000_4005_u32 as i32
-            })
-        );
-    }
-}
-
 /// Fixed Node argv and private 32-byte stdin bootstrap; no shell or credential argv/env.
 pub fn launch_node(program: &Path, endpoint: &str, secret: &Secret) -> io::Result<Process> {
     launch_node_inner(program, endpoint, secret, None)
@@ -715,4 +663,56 @@ fn spawn(
         process.output = Some(into_file(reader));
     }
     Ok(process)
+}
+
+#[cfg(test)]
+mod native_error_tests {
+    use super::*;
+
+    #[test]
+    fn structured_native_error_keeps_hresult_and_operation_without_win32_alias() {
+        let code = 0x8007_0005_u32 as i32;
+        for operation in [
+            ProcessOperation::TerminateJob,
+            ProcessOperation::QueryJobActive,
+            ProcessOperation::QueryJobIds,
+            ProcessOperation::GetProcessExitCode,
+        ] {
+            let error = fail_operation(
+                operation,
+                windows::core::Error::from_hresult(windows::core::HRESULT(code)),
+            );
+            assert_eq!(
+                process_native_failure(&error),
+                Some(ProcessNativeFailure {
+                    operation,
+                    hresult: code
+                })
+            );
+            assert_eq!(error.raw_os_error(), None);
+            assert_eq!(
+                error.to_string(),
+                "Windows process operation failed (0x80070005)"
+            );
+        }
+        let raw = io::Error::from_raw_os_error(5);
+        assert_eq!(raw.raw_os_error(), Some(5));
+        assert_eq!(process_native_failure(&raw), None);
+        assert_eq!(
+            process_native_failure(&io::Error::other(
+                "Windows process operation failed (0x80070005)"
+            )),
+            None
+        );
+        let unknown = fail(windows::core::Error::from_hresult(windows::core::HRESULT(
+            0x8000_4005_u32 as i32,
+        )));
+        assert_eq!(
+            process_native_failure(&unknown),
+            Some(ProcessNativeFailure {
+                operation: ProcessOperation::Unknown,
+                hresult: 0x8000_4005_u32 as i32
+            })
+        );
+    }
 }
