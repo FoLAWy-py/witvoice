@@ -11,7 +11,9 @@
   "broadcast": "Random test node UUID, protocol1, private local endpoint hint:40000",
   "privacy": "No audio/model/key/profile/identity-string data; raw address local only, public evidence redacted",
   "firewall_changes": false,
-  "execution_status": "NOT_RUN",
+  "execution_status": "EXECUTED_NOT_REUSABLE",
   "source_requirement": "Concrete compiled reviewed probe; positive Registered and exact expected test node evidence required, exit0 insufficient",
-  "utc_recorded": "2026-10-05T08:17:20.266110+00:00"
+  "utc_recorded": "2026-10-05T08:17:20.266110+00:00",
+  "result": "FAIL_NATIVE_DISCOVERY_RESOLVE",
+  "evidence": "docs/evidence/T016-20261005/native-dns/native-smoke/result.json"
 }

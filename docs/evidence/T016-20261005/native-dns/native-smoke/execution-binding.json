@@ -7,17 +7,19 @@
   "archive_is_data_not_execution": true,
   "execution_ROOT_parents_2_equals_workspace": true,
   "config_file": "D:\\Project\\witvoice\\.local\\t016-authorized-native\\frozen-config.json",
-  "config_raw_sha256": "df335864e8d4003a448c9a8feb3d24bedc21ae87ed57e0727fab6fd4ee071349",
+  "config_raw_sha256": "4618d2b05b41b56d4725b83a97299d5b14ca0bc0b1ec752b255732cb2c9118e0",
   "configuration": {
     "executable": "D:\\Project\\witvoice\\.local\\t016-leader-integration\\target\\debug\\examples\\native_discovery_probe.exe",
     "executable_sha256": "a21e2e48052f5228fdd75e74afaf6f6f3e755d588a2ce46ae8eec89975294b50",
     "source_sha256": "e37c8882bd1bb5f22efb845c573b88db4a26d84414e04065c6ee9ed89e8ebe4e",
     "interface_index": 19,
-    "static_preflight_complete": false
+    "static_preflight_complete": true
   },
   "endpoint": "<private-ipv4>:40000",
   "exact_interface": 19,
   "authorization": "call_EgHe1WXg0JyX0Gc0ObFTgUGx/0",
-  "status": "NOT_RUN_WAITING_STATIC_PREFLIGHT",
-  "native_probe_binary_sha256": "a21e2e48052f5228fdd75e74afaf6f6f3e755d588a2ce46ae8eec89975294b50"
+  "status": "READY_TO_EXECUTE_ONCE",
+  "native_probe_binary_sha256": "a21e2e48052f5228fdd75e74afaf6f6f3e755d588a2ce46ae8eec89975294b50",
+  "preflight": "static-preflight.json",
+  "updated_utc": "2026-10-05T08:46:22.364628+00:00"
 }

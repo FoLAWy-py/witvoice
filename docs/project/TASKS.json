@@ -541,12 +541,13 @@
         "docs/evidence/T016-20261005/native-dns/author-final/leader-audit.json",
         "docs/evidence/T016-20261005/native-dns/leader-integration/result.json",
         "docs/evidence/T016-20261005/native-dns/probe-author/leader-audit.json",
-        "docs/evidence/T016-20261005/native-dns/final-integration/result.json"
+        "docs/evidence/T016-20261005/native-dns/final-integration/result.json",
+        "docs/evidence/T016-20261005/native-dns/native-smoke/result.json"
       ],
       "review": null,
       "attempts": 0,
       "blocked_reason": null,
-      "execution_note": "Probe author stopped; only probe source changed, 9 meaningful pure tests/fmt/clippy/build0 byte-audited. Production native unchanged. One authorized interface19 trial NOT_RUN; full frozen integration/static preflight pending."
+      "execution_note": "Once authorized real interface19 two-process native trial executed 8.094s: actualRegistered true, targetFound/resolveAttempted true, target resolve rejected value13 (OS vs synthetic decode reasonUNKNOWN); overallFAIL, both terminalcleanup true/pending0/no timeout. No retry authorized. Keep IN_PROGRESS for source diagnosis; formalr1 not yet begun, S2 native error visibility pending."
     },
     {
       "id": "T017",

@@ -27,32 +27,6 @@
         "Read exact frozen source/test/negative/fault evidence; issue precise S0–S3 or approve fixed T008 only"
       ],
       "execution_note": "Readonly/no escalation/no sourcewrites; actual51tests/fmt/clippy/examples0 author+leader; hardware/Mac/Node binding NOT_RUN"
-    },
-    {
-      "task_id": "T016",
-      "agent_instance_id": "/root",
-      "allowed_paths": [
-        ".local/t016-authorized-native/",
-        "docs/evidence/T016-20261005/native-dns/native-smoke/",
-        ".local/t016-leader-integration/target/",
-        "docs/evidence/T016-20261005/native-dns/final-integration/"
-      ],
-      "resource_leases": [
-        "verification-writer:t016-probe-supervisor"
-      ],
-      "depends_on": [
-        "T003",
-        "T006"
-      ],
-      "contract": "Human once-only interface19 two-proc DNS trial, each10s total15s; prepare supervisor first, run only compiled frozen positive evidence probe and static preflight",
-      "acceptance_commands": [
-        "cargo test --locked --workspace --all-targets --features witvoice-node/process-tests -- --nocapture",
-        "cargo fmt --all --check",
-        "cargo clippy --locked --workspace --all-targets --features witvoice-node/process-tests -- -D warnings",
-        "cargo build --locked -p witvoice-transport --example native_discovery_probe",
-        "One selected own two-process DNS probe, each<10s overall<15s, only after frozen static preflight"
-      ],
-      "execution_note": "Current NOT_RUN; preserve consumed authorization even failure. No retry/no firewall/audio/GPU/model/keys. Only leader supervisor/evidence writes."
     }
   ],
   "milestones": {

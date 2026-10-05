@@ -1,0 +1,26 @@
+{
+  "reviewer": "/root/reviewer_t001",
+  "thread_uuid": "01a1077c-556d-7152-892c-d9f92346ec0f",
+  "type": "STATIC_PREFLIGHT_NOT_FORMAL",
+  "source_commit": "3a2574cbcee34282b92c895d7980004a12be90eb",
+  "verdict": "No concrete S0/S1 blocking authorized once-only interface19 trial",
+  "binding_files": [
+    "production-source-equality.json",
+    "supervisor-byte-proof.json",
+    "execution-binding.json"
+  ],
+  "received_source": "native759, discovery64, transport domain95/NativePeers250, updatedprobe487, injected tests510, supervisor88, exact frozen specs/ADR/assignment",
+  "rerun_by_reviewer": false,
+  "scope": "Start only the existing two own probes, source/binary/hash bound; 9.5s kill each/13.5s overall, >10each or15overall timeout/nonzero FAIL; raw logs retained; unknown cleanup not PASS",
+  "nonblocking_findings": [
+    {
+      "severity": "S2",
+      "path": "crates/transport/src/discovery/native.rs",
+      "issue": "apply Stopped|Failed(_) clears records but discards original native error; production caller cannot distinguish empty discovery from failure",
+      "minimum_repro": "Valid record then Failed(5), require observable fault with original status",
+      "required_before_task_done": true
+    }
+  ],
+  "formal_attempts": 0,
+  "actual_network_before_run": "NOT_RUN"
+}

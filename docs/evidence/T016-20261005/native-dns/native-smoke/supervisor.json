@@ -1,0 +1,53 @@
+{
+  "authorization": "call_EgHe1WXg0JyX0Gc0ObFTgUGx/0",
+  "node_id": "a0ad7482-e514-453e-bb32-6914b42cda59",
+  "interface_index": 19,
+  "executable_sha256": "a21e2e48052f5228fdd75e74afaf6f6f3e755d588a2ce46ae8eec89975294b50",
+  "source_sha256": "e37c8882bd1bb5f22efb845c573b88db4a26d84414e04065c6ee9ed89e8ebe4e",
+  "start_utc": "2026-10-05T08:46:22.510293+00:00",
+  "end_utc": "2026-10-05T08:46:30.606043+00:00",
+  "elapsed_seconds": 8.09399999998277,
+  "error": null,
+  "probes": [
+    {
+      "operation": "browse",
+      "pid": 110224,
+      "argv": [
+        "D:\\Project\\witvoice\\.local\\t016-leader-integration\\target\\debug\\examples\\native_discovery_probe.exe",
+        "--allow-lan",
+        "19",
+        "a0ad7482-e514-453e-bb32-6914b42cda59",
+        "browse",
+        "<private-endpoint>",
+        "6500"
+      ],
+      "exit_code": 1,
+      "timed_out": false,
+      "observed_runtime_upper_bound_seconds": 0.9219999999913853,
+      "raw_stdout_sha256": "c87f559d835b4b2788ea79bd280746e808160d458204523c6fe7f785307c6177",
+      "raw_stderr_sha256": "8f4725a43fccb490a7c49a71f1a2a82e13b188efbd68f46883c65c5f2a038c8f",
+      "stdout_bytes": 415,
+      "stderr_bytes": 76
+    },
+    {
+      "operation": "advertise",
+      "pid": 75276,
+      "argv": [
+        "D:\\Project\\witvoice\\.local\\t016-leader-integration\\target\\debug\\examples\\native_discovery_probe.exe",
+        "--allow-lan",
+        "19",
+        "a0ad7482-e514-453e-bb32-6914b42cda59",
+        "advertise",
+        "<private-endpoint>",
+        "8000"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "observed_runtime_upper_bound_seconds": 8.078000000008615,
+      "raw_stdout_sha256": "6cfb0cfb5c47accfdd63fe5164b53b5850590d78f93bc9ba8740c733c95a4722",
+      "raw_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 391,
+      "stderr_bytes": 0
+    }
+  ]
+}
