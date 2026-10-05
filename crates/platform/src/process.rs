@@ -45,6 +45,7 @@ pub enum ProcessOperation {
     TerminateJob,
     QueryJobActive,
     QueryJobIds,
+    VerifyJobMember,
     GetProcessExitCode,
 }
 
@@ -352,6 +353,9 @@ impl ProcessJob {
         )
     }
     pub fn active_processes(&self) -> io::Result<u32> {
+        Ok(self.accounting()?.ActiveProcesses)
+    }
+    fn accounting(&self) -> io::Result<JOBOBJECT_BASIC_ACCOUNTING_INFORMATION> {
         let mut info = JOBOBJECT_BASIC_ACCOUNTING_INFORMATION::default();
         // SAFETY: correctly typed writable destination, exact structure size.
         unsafe {
@@ -364,7 +368,7 @@ impl ProcessJob {
             )
             .map_err(|error| fail_operation(ProcessOperation::QueryJobActive, error))?;
         }
-        Ok(info.ActiveProcesses)
+        Ok(info)
     }
     /// Bounded by this owner's eight-process limit; used for explicit cleanup evidence.
     pub fn process_ids(&self) -> io::Result<Vec<u32>> {
@@ -422,6 +426,104 @@ impl ProcessJob {
         }
         Ok(())
     }
+    fn capture_members(&self) -> io::Result<(u32, Vec<Process>)> {
+        let before = self.accounting()?;
+        let ids = self.process_ids()?;
+        let mut members = Vec::with_capacity(ids.len());
+        for id in &ids {
+            let process = Process::open_known(*id, false)?;
+            let mut in_job = BOOL(0);
+            // SAFETY: both retained handles remain live; verify the opened process
+            // against this exact Job, so a recycled PID cannot become evidence.
+            unsafe {
+                IsProcessInJob(process.handle.0, Some(self.handle.0), &mut in_job)
+                    .map_err(|error| fail_operation(ProcessOperation::VerifyJobMember, error))?;
+            }
+            require_owned_member(in_job.as_bool())?;
+            members.push(process);
+        }
+        let after = self.accounting()?;
+        let after_ids = self.process_ids()?;
+        validate_member_snapshot(
+            [before.TotalProcesses, after.TotalProcesses],
+            [before.ActiveProcesses, after.ActiveProcesses],
+            &ids,
+            &after_ids,
+        )?;
+        Ok((before.TotalProcesses, members))
+    }
+    /// Retain a bounded, stable current-member set after exact-Job verification.
+    /// Capturing an active set alone does not prove coverage of historical members.
+    pub fn retained_member_handles(&self) -> io::Result<Vec<Process>> {
+        self.capture_members().map(|(_, handles)| handles)
+    }
+    /// Strict worker cleanup: every lifetime member must be covered by a verified
+    /// retained handle. Missing history or a new member means unknown, never clean.
+    /// Capture failure still triggers termination; all waits share caller deadline.
+    pub fn terminate_all_members_until(&self, deadline: Instant) -> io::Result<()> {
+        let captured = self.capture_members();
+        self.terminate_until(deadline)?;
+        let (created, handles) = captured?;
+        let after = self.accounting()?;
+        require_complete_members(created, handles.len(), after.TotalProcesses)?;
+        for process in &handles {
+            let remaining = member_wait_budget(deadline, Instant::now())?;
+            if process.wait(remaining)?.is_none() {
+                return Err(io::Error::new(
+                    io::ErrorKind::TimedOut,
+                    "member cleanup deadline",
+                ));
+            }
+        }
+        Ok(())
+    }
+}
+
+fn require_owned_member(verified: bool) -> io::Result<()> {
+    if !verified {
+        return Err(io::Error::new(
+            io::ErrorKind::PermissionDenied,
+            "job member not verified",
+        ));
+    }
+    Ok(())
+}
+fn validate_member_snapshot(
+    total: [u32; 2],
+    active: [u32; 2],
+    before: &[u32],
+    after: &[u32],
+) -> io::Result<()> {
+    if before.len() > 8
+        || after.len() > 8
+        || total[0] != total[1]
+        || active[0] as usize != before.len()
+        || active[1] as usize != after.len()
+    {
+        return Err(io::Error::other(
+            "job membership changed during bounded capture",
+        ));
+    }
+    let mut first = before.to_vec();
+    let mut second = after.to_vec();
+    first.sort_unstable();
+    second.sort_unstable();
+    if first != second || first.contains(&0) || first.windows(2).any(|pair| pair[0] == pair[1]) {
+        return Err(io::Error::other("job member identity set not verified"));
+    }
+    Ok(())
+}
+fn require_complete_members(created: u32, captured: usize, after_created: u32) -> io::Result<()> {
+    if captured > 8 || created as usize != captured || created != after_created {
+        return Err(io::Error::other("job lifetime member coverage unknown"));
+    }
+    Ok(())
+}
+fn member_wait_budget(deadline: Instant, now: Instant) -> io::Result<Duration> {
+    deadline
+        .checked_duration_since(now)
+        .filter(|left| !left.is_zero())
+        .ok_or_else(|| io::Error::new(io::ErrorKind::TimedOut, "member cleanup deadline"))
 }
 
 /// Fixed Node argv and private 32-byte stdin bootstrap; no shell or credential argv/env.
@@ -672,6 +774,56 @@ fn spawn(
 }
 
 #[cfg(test)]
+mod member_snapshot_tests {
+    use super::*;
+    #[test]
+    fn exact_membership_and_stable_bounded_identity_are_required() {
+        assert_eq!(
+            require_owned_member(false).unwrap_err().kind(),
+            io::ErrorKind::PermissionDenied
+        );
+        require_owned_member(true).unwrap();
+        validate_member_snapshot([4, 4], [4, 4], &[1, 2, 3, 4], &[4, 3, 2, 1]).unwrap();
+        for (total, active, before, after) in [
+            ([4, 5], [4, 4], vec![1, 2, 3, 4], vec![1, 2, 3, 4]),
+            ([4, 4], [4, 4], vec![1, 2, 3, 4], vec![1, 2, 3, 5]),
+            ([4, 4], [4, 3], vec![1, 2, 3, 4], vec![1, 2, 3, 4]),
+            ([4, 4], [4, 4], vec![1, 2, 3, 3], vec![1, 2, 3, 3]),
+            ([4, 4], [4, 4], vec![0, 2, 3, 4], vec![0, 2, 3, 4]),
+            ([9, 9], [9, 9], (1..=9).collect(), (1..=9).collect()),
+        ] {
+            assert!(validate_member_snapshot(total, active, &before, &after).is_err());
+        }
+    }
+    #[test]
+    fn historical_or_new_members_never_become_complete_coverage() {
+        require_complete_members(4, 4, 4).unwrap();
+        assert!(require_complete_members(4, 3, 4).is_err());
+        assert!(require_complete_members(4, 4, 5).is_err());
+        assert!(require_complete_members(9, 9, 9).is_err());
+    }
+    #[test]
+    fn member_waits_share_remaining_deadline_without_renewal() {
+        let start = Instant::now();
+        let deadline = start + Duration::from_secs(3);
+        assert_eq!(
+            member_wait_budget(deadline, start + Duration::from_millis(1200)).unwrap(),
+            Duration::from_millis(1800)
+        );
+        assert_eq!(
+            member_wait_budget(deadline, start + Duration::from_millis(2950)).unwrap(),
+            Duration::from_millis(50)
+        );
+        for now in [deadline, deadline + Duration::from_millis(1)] {
+            assert_eq!(
+                member_wait_budget(deadline, now).unwrap_err().kind(),
+                io::ErrorKind::TimedOut
+            );
+        }
+    }
+}
+
+#[cfg(test)]
 mod native_error_tests {
     use super::*;
 
@@ -682,6 +834,7 @@ mod native_error_tests {
             ProcessOperation::TerminateJob,
             ProcessOperation::QueryJobActive,
             ProcessOperation::QueryJobIds,
+            ProcessOperation::VerifyJobMember,
             ProcessOperation::GetProcessExitCode,
         ] {
             let error = fail_operation(

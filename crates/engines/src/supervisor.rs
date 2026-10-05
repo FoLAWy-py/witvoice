@@ -338,14 +338,6 @@ impl WorkerSupervisor {
             .as_ref()
             .is_some_and(|own| own.control.is_connected() && own.media.is_connected())
     }
-    pub fn owned_process_ids(&self) -> Result<Vec<u32>> {
-        self.owned
-            .as_ref()
-            .ok_or_else(|| failure(FailureKind::Policy, Fault::Protocol))?
-            .job
-            .process_ids()
-            .map_err(io_failure)
-    }
     fn now_ms(&self) -> Result<u64> {
         u64::try_from(self.clock.elapsed().as_millis())
             .map_err(|_| failure(FailureKind::Policy, Fault::ClockOverflow))
@@ -664,7 +656,7 @@ impl WorkerSupervisor {
         let clean = (|| {
             observation.terminate(
                 own.job
-                    .terminate_until(deadline)
+                    .terminate_all_members_until(deadline)
                     .map_err(cleanup_io_failure),
             )?;
             observation.active(own.job.active_processes().map_err(cleanup_io_failure))?;
@@ -733,6 +725,14 @@ impl WorkerSupervisor {
         policy(self.lifecycle.explicit_user_reset())?;
         self.first_failure = None;
         Ok(())
+    }
+    #[cfg(test)]
+    pub fn test_owned_member_handles(&self) -> Result<Vec<Process>> {
+        let own = self
+            .owned
+            .as_ref()
+            .ok_or_else(|| failure(FailureKind::Policy, Fault::Protocol))?;
+        own.job.retained_member_handles().map_err(io_failure)
     }
     #[cfg(test)]
     pub fn test_peer_identity(&self) -> Result<[u32; 2]> {

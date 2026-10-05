@@ -354,24 +354,22 @@ fn reclaimed(owner: &WorkerSupervisor, handles: &[Process]) {
     assert!(!owner.output_allowed());
     assert!(!owner.channels_authenticated());
     for process in handles {
-        assert!(
-            process.wait(Duration::ZERO).unwrap().is_some(),
-            "owned process not exited"
-        );
+        let exited = process.wait(Duration::ZERO);
+        println!("retained owned member {} waitZERO={exited:?}", process.id());
+        assert!(exited.unwrap().is_some(), "owned process not exited");
     }
 }
 fn handles(owner: &WorkerSupervisor) -> Vec<Process> {
     owner
-        .owned_process_ids()
+        .test_owned_member_handles()
         .unwrap()
         .into_iter()
-        .map(|pid| {
-            let process = Process::observe(pid).unwrap();
+        .inspect(|process| {
             println!(
-                "owned native member {pid}: {}",
+                "owned native member {}: {}",
+                process.id(),
                 process.image_filename().unwrap()
             );
-            process
         })
         .collect()
 }
