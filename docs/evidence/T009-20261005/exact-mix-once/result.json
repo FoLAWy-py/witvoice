@@ -1,0 +1,50 @@
+{
+    "task":  "T009",
+    "authorization_id":  "T009-EXACT-MIX-4b726af0-03d9-4553-ab95-a4416fe45145",
+    "status":  "FAIL_ROUTE_PROBE",
+    "child_exit":  1,
+    "timed_out":  false,
+    "child_terminated":  false,
+    "error":  "Com { operation: \"Initialize\", hresult: -2005139430 }",
+    "report":  {
+                   "actual_frames":  null,
+                   "capture_capacity_frames":  null,
+                   "capture_read":  false,
+                   "cleanup":  "UNKNOWN",
+                   "descriptor_mode":  "CAPTURE_EXACT_MIX_RENDER_BASIC",
+                   "error":  "Com { operation: \"Initialize\", hresult: -2005139430 }",
+                   "error_kind":  "NativePrepareError",
+                   "marker_rendered":  false,
+                   "maximum_frames":  1440,
+                   "native_start":  false,
+                   "pcm_saved":  false,
+                   "render_capacity_frames":  1056,
+                   "requested_maximum_frames":  1440,
+                   "retry":  false,
+                   "route_profile":  "VB_CABLE",
+                   "stage":  "capture_prepare",
+                   "status":  "FAILED_MUTED"
+               },
+    "cleanup":  "UNKNOWN",
+    "pcm_saved":  false,
+    "physical_capture":  "NEVER_STARTED",
+    "physical_render":  "NEVER_STARTED",
+    "os_buffer_erasure":  "UNKNOWN",
+    "source_commit":  "7ea5bd743d50c4a586cb0ab94b3b88866772ab59",
+    "executable_sha256":  "2022f4a42ab770d64bca8bf27281830df5db81215b80e7ce5a647361654842c0",
+    "scope_sha256":  "f1b3241fdd3e887e5cef6d60d152320f7b6aeca2ed4c06adc156b6cd519baeca",
+    "supervisor_sha256":  "08dcef3d3a4a6d154b6659659b053b8a113cac5ab6ef7aa365141e04ca3d19ff",
+    "config_sha256":  "e5d9ebd95ce3d9388a7cec59eb6b5c97778f64612396dc8272e40d1604029137",
+    "started_utc":  "2026-10-05T13:57:27.7491669Z",
+    "process_id":  43980,
+    "finished_utc":  "2026-10-05T13:57:28.0678960Z",
+    "wall_seconds":  0.32001799999999997,
+    "stdout":  {
+                   "bytes":  484,
+                   "sha256":  "1646578ce340713dd5a7b50171b9953e4224c84eacc9b7b8feeef1ee905d01d1"
+               },
+    "stderr":  {
+                   "bytes":  95,
+                   "sha256":  "6d906aeba1e827c1206f9cc22e5949687f93470837179737a63905d2be653772"
+               }
+}

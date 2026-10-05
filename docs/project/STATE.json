@@ -10,7 +10,7 @@
       "task_id": "T011",
       "agent": "/root",
       "thread_id": "01a10764-d851-7d02-ac79-365d2576a226",
-      "mode": "NARROW_CHECK_FIX_AND_VALIDATION",
+      "mode": "T011_CONTROL_PARITY_FIX_AND_INTEGRATION",
       "path_whitelist": [
         "crates/contracts/src/worker.rs",
         "workers/vc_worker/control.py",
@@ -18,7 +18,17 @@
         ".local/t011-final",
         ".local/t011-fixed-final",
         "docs/evidence/T011-20261005/integration",
-        "docs/project"
+        "docs/project",
+        ".local/t009-mix-metadata",
+        ".local/t009-exact-mix-once",
+        "docs/evidence/T009-20261005/mix-metadata",
+        "docs/evidence/T009-20261005/exact-mix-preflight",
+        "docs/evidence/T011-20261005/integration/fixed",
+        "workers/vc_worker/control.py",
+        "workers/vc_worker/test_control.py",
+        ".local/t011-control-parity",
+        "docs/evidence/T011-20261005/control-parity",
+        "crates/contracts/tests/worker_wire.rs"
       ],
       "dependencies": [
         "T002",
@@ -28,7 +38,7 @@
       "contract": "Root sole writer: preserve31ba ordinaryClippy101; as_chunks mechanicalfix and strictUTF8 parity; all other sources frozen; no hardware/model",
       "acceptance": "workspace all-target tests/fmt/strictClippy/examples/sourceguards; no taskDONE untilremainingnative/model evidence",
       "resources": [
-        "sole software validator"
+        "root code writer 1; no hardware/GPU/LAN"
       ]
     },
     {
@@ -60,22 +70,47 @@
       "resources": []
     },
     {
-      "task_id": "T009",
-      "agent": "/root/audio_runtime",
-      "thread_id": "01a10767-80de-7e02-b3b0-73d1273a70bd",
-      "mode": "READ_ONLY_FROZEN_RELAY",
+      "task_id": "T011",
+      "agent": "/root/frontend",
+      "thread_id": "01a10768-e2d1-75f3-8131-5a1bfeb73deb",
+      "mode": "READ_ONLY_T011_RELAY",
       "path_whitelist": [
-        "crates/audio",
-        "docs/evidence/T009-20261005/exact-mix-author",
-        ".local/t009-exact-mix-author"
+        "crates/contracts/src/worker.rs",
+        "crates/contracts/tests/worker_wire.rs",
+        "crates/engines",
+        "workers/vc_worker",
+        "docs/evidence/T011-20261005"
       ],
       "dependencies": [
-        "T007",
-        "T008"
+        "T002",
+        "T006",
+        "T010"
       ],
-      "contract": "Frozen31ba five-source diff and complete authorlogs to independentreviewer, no edits/test/hardware/spawn",
-      "acceptance": "Actual bounded stdout relay plus SHA/git binding",
+      "contract": "Read fixed7ea5 source fulltext and actual complete prior/current raw toreviewer only; no mutation/deps/hardware/spawn",
+      "acceptance": "bounded actual stdout and frozenbyte binding; STOP whenrelayed",
       "resources": []
+    },
+    {
+      "task_id": "T011",
+      "agent": "/root/backend",
+      "thread_id": "01a10767-4ff5-7f21-881a-146d094fbc55",
+      "mode": "BOUNDED_AUTHENTICATED_WORKER_PIPE_AUTHOR",
+      "path_whitelist": [
+        "crates/platform/src/windows.rs",
+        "crates/platform/tests/worker_pipe.rs",
+        "crates/platform/README.md",
+        ".local/t011-native-author"
+      ],
+      "dependencies": [
+        "T002",
+        "T006",
+        "T010"
+      ],
+      "contract": "Reuse currentUserACL/remoteReject/overlapped/constanttimeSecret, separate persistentchannels, expectedworkerPID and absolutestartup/frame deadlines; no existingUI-RPC behaviorchange",
+      "acceptance": "Native currentuser tests startup timeout/identity/token/partialIO/EOF/oversize/deadline; fmt strictClippy; actual raw/SHA/sourceguards; STOP at delivery",
+      "resources": [
+        "code writer 2, disjoint platform paths; no GPU/audio/network"
+      ]
     }
   ],
   "milestones": {
@@ -143,8 +178,8 @@
       "id": "B005",
       "scope": "T009 VB-CABLE continuity",
       "status": "BLOCKED_CAPTURE_INITIALIZE",
-      "evidence": "docs/evidence/T009-20261005/adapted-once/result.json",
-      "note": "Onceadaptedcapture InitializeHRESULT0x887c001a, overall0.348161s/child1/notimeout/noStart/marker/read; exactmeaning/capturecapacity/cleanupunknown. No automaticretry; equivalentfiniteVBtests standinghumanapproval subject newconcretefix/preflight."
+      "evidence": "docs/evidence/T009-20261005/exact-mix-once/result.json",
+      "note": "Exact owned mix descriptor also captureInitialize0x887c001a; render1056 <=1440. 0.320018s/child1/no timeout/noStart/marker/read. Descriptordifference not sufficientfix; no blindretry, capacity/cleanupunknown."
     },
     {
       "id": "B006",
@@ -204,8 +239,8 @@
   "last_verified_scope": "T010 independentformalr1 limitedfoundation APPROVED plus previoussoftware; T009adaptedlimitedpreflight only, hardware/VC/Macexcluded",
   "execution_status": "ACTIVE_SOFTWARE_NO_HARDWARE_LEASE",
   "interruption_evidence": "docs/project/interruption-20261005.json",
-  "last_tested_commit": "1a85ef04ef6337e29a24562e05ec5d80d287cbb0",
-  "last_tested_scope": "163workspace effective tests/fmt/strictClippy/examples/defaultcheck0; nondebugtestsupport101 expectedcompileerror; no hardware",
+  "last_tested_commit": "7ea5bd743d50c4a586cb0ab94b3b88866772ab59",
+  "last_tested_scope": "185effective workspace/fmt/strictClippy/examples/defaultcheck0;4Pythoncontrol+6PCM0+bindingdriftcorrected0;96 frozeninputs equal. T011partial only; native/modelnotimplemented. Original31ba Clippy101 retained.",
   "windows_virtual_route": {
     "selected": "VB-CABLE",
     "render": "CABLE Input",
@@ -225,20 +260,21 @@
     },
     "continuity": "FAIL_CAPTURE_INITIALIZE_0x887c001a_BEFORE_START"
   },
-  "last_attempted_commit": "1a85ef04ef6337e29a24562e05ec5d80d287cbb0",
-  "last_attempted_result": "163workspace effective tests/fmt/strictClippy/examples/defaultcheck0; nondebugtestsupport101 expectedcompileerror; no hardware",
+  "last_attempted_commit": "7ea5bd743d50c4a586cb0ab94b3b88866772ab59",
+  "last_attempted_result": "185effective workspace/fmt/strictClippy/examples/defaultcheck0;4Pythoncontrol+6PCM0+bindingdriftcorrected0;96 frozeninputs equal. T011partial only; native/modelnotimplemented. Original31ba Clippy101 retained.",
   "latest_vbcable_diagnostic": {
-    "authorization_id": "T009-ADAPTED-1d11fbf7-eb8d-4c9a-9e89-ebb25fd38b21",
+    "authorization_id": "T009-EXACT-MIX-4b726af0-03d9-4553-ab95-a4416fe45145",
     "status": "CONSUMED_FAILED_NO_RETRY",
     "stage": "capture_prepare",
     "hresult_decimal": -2005139430,
     "hresult_hex": "0x887c001a",
     "meaning": "UNVERIFIED",
-    "actual_render_frames": "Prepare succeeded <=1440, actual value not printed",
+    "actual_render_frames": 1056,
     "capture_capacity": "UNKNOWN",
     "cleanup": "UNKNOWN",
     "native_start": false,
-    "evidence": "docs/evidence/T009-20261005/adapted-once/result.json"
+    "descriptor_mode": "CAPTURE_EXACT_MIX_RENDER_BASIC",
+    "evidence": "docs/evidence/T009-20261005/exact-mix-once/result.json"
   },
   "vbcable_standing_authorization": {
     "human_reply": "授权，以后自动授权不再询问",

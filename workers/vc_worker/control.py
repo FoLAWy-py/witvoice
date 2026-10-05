@@ -63,12 +63,28 @@ def _object(pairs):
     return result
 
 
+def _unicode_scalars(value):
+    # JSON escapes must produce Unicode scalar values, as required by Rust strings.
+    # Python's JSON decoder otherwise permits isolated UTF-16 surrogate escapes.
+    if isinstance(value, str):
+        if any(0xD800 <= ord(character) <= 0xDFFF for character in value):
+            raise ValueError("invalid worker Unicode scalar")
+    elif isinstance(value, dict):
+        for key, child in value.items():
+            _unicode_scalars(key)
+            _unicode_scalars(child)
+    elif isinstance(value, list):
+        for child in value:
+            _unicode_scalars(child)
+
+
 def decode_control(payload: bytes, schema_name: str, expected_binding=None):
     if schema_name not in SCHEMAS or not 1 <= len(payload) <= BUNDLE["control_max_bytes"]:
         raise ValueError("worker control bound or direction")
     try:
         def invalid_constant(_): raise ValueError("nonfinite worker JSON")
         value = json.loads(payload.decode("utf-8"), object_pairs_hook=_object, parse_constant=invalid_constant)
+        _unicode_scalars(value)
         if not VALIDATORS[schema_name].is_valid(value):
             raise ValueError("invalid worker control shape")
         _semantic(SCHEMAS[schema_name], value, SCHEMAS[schema_name].get("definitions", {}))

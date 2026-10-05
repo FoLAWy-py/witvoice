@@ -1,0 +1,25 @@
+{
+    "task":  "T011",
+    "owner":  "/root",
+    "name":  "binding-drift",
+    "exe":  "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "argv":  [
+                 "tools/contracts/check_drift.py"
+             ],
+    "cwd":  "D:\\Project\\witvoice",
+    "host":  "5.1.26100.7462",
+    "started_utc":  "2026-10-05T13:55:24.2295532Z",
+    "finished_utc":  "2026-10-05T13:55:24.2884468Z",
+    "wall_seconds":  0.0592459,
+    "exit":  2,
+    "hardware":  "NOT_RUN",
+    "model":  "NOT_RUN",
+    "stdout":  {
+                   "bytes":  0,
+                   "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+               },
+    "stderr":  {
+                   "bytes":  203,
+                   "sha256":  "8d88be0101fba8a0d1d0a792c4b698329f49f7979e2089609bb566658ebe303a"
+               }
+}

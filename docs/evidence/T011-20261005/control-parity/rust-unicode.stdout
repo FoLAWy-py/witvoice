@@ -1,0 +1,11 @@
+
+running 6 tests
+test no_source_chunk_or_timeline_overflow_ambiguity ... ok
+test control_strings_require_unicode_scalars_and_accept_valid_pairs ... ok
+test golden_header_and_variable_converted_output ... ok
+test control_version_fields_identity_and_length_are_strict ... ok
+test rejects_corruption_nonfinite_and_stale_before_any_pcm_use ... ok
+test ready_event_rejects_unverified_backend_shape_and_empty_proof ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

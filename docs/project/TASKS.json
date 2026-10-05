@@ -334,12 +334,15 @@
         "docs/evidence/T009-20261005/capacity-once/result.json",
         "docs/project/reviews/T009-adapted-preflight.md",
         "docs/evidence/T009-20261005/bounded-author/leader-audit.json",
-        "docs/evidence/T009-20261005/adapted-once/result.json"
+        "docs/evidence/T009-20261005/adapted-once/result.json",
+        "docs/evidence/T009-20261005/exact-mix-author/leader-audit.json",
+        "docs/evidence/T009-20261005/mix-metadata/Capture.json",
+        "docs/evidence/T009-20261005/exact-mix-once/result.json"
       ],
-      "review": "docs/project/reviews/T009-adapted-preflight.md",
+      "review": "docs/project/reviews/T009-exact-mix-preflight.md",
       "attempts": 0,
-      "blocked_reason": "Boundedcapacityadaptation passedrenderPrepare; capture InitializeHRESULT0x887c001a beforeStart, capturecapacity/cleanupUNKNOWN; no routepass, no retry",
-      "execution_note": "67author+163root software0, independentlimitedadapted preflightapproved; freshhuman approvedonce pending execution; no positiveHWyet."
+      "blocked_reason": "Capture Initialize same0x887c001a even exact owned mix; render1056<=1440, noStart/marker/read; descriptorhypothesis not sufficient. No blindretry, hardwarecauseunknown.",
+      "execution_note": "Independentlimitednewonce APPROVED; actual0.320018s/child1/noTimeout, immutablefailurearchived. NotVBroutepass/VC/thirdparty."
     },
     {
       "id": "T010",
@@ -401,7 +404,10 @@
       ],
       "allowed_paths": [
         "workers/vc_worker/",
-        "crates/engines/"
+        "crates/engines/",
+        "crates/platform/src/windows.rs",
+        "crates/platform/tests/worker_pipe.rs",
+        "crates/platform/README.md"
       ],
       "acceptance": "真实worker仅推理；独立控制/PCM通道、鉴权、长度限制、预热/ready、超时和最多两次重启。",
       "agent_instance_id": "/root",
@@ -411,12 +417,15 @@
         "docs/evidence/T011-20261005/leader-software/16-worker-lifecycle.json",
         "docs/evidence/T011-20261005/leader-software/19-python-control.json",
         "docs/evidence/T011-20261005/leader-software/13-python-protocol.json",
-        "docs/evidence/T011-20261005/leader-software/jsonschema-install-report.json"
+        "docs/evidence/T011-20261005/leader-software/jsonschema-install-report.json",
+        "docs/evidence/T011-20261005/integration/31ba-first/root-final-clippy.json",
+        "docs/evidence/T011-20261005/integration/fixed/result.json",
+        "docs/evidence/T011-20261005/control-parity/delivery-index.json"
       ],
       "review": null,
       "attempts": 0,
       "blocked_reason": null,
-      "execution_note": "ImplementedRustauthoritative worker control+separatebinarycodec/PythonRustschema validation, 5Rustwire+16lifecycle+6PythonPCM+4Pythoncontrol+1existingnetworkgolden actual0. TaskIN_PROGRESS: native authenticated pipe/processowner/realmodelwarmup/heartbeat/media/kill/lease integration stillNOT_IMPLEMENTED/NOT_RUN; no new model exploration or hardware."
+      "execution_note": "Frozen7ea5:185workspace/fmt/strictClippy/examples/default0;4control+6PCM0,96inputs equal. Native authenticatedpersistentpipe slice nowauthorized; remainingactualPython/modelwarmup/Nodeowner integration notdone."
     },
     {
       "id": "T012",

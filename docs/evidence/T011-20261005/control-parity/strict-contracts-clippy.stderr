@@ -1,0 +1,4 @@
+    Checking serde v1.0.228
+    Checking schemars v0.8.22
+    Checking witvoice-contracts v0.1.0 (D:\Project\witvoice\crates\contracts)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 4.62s

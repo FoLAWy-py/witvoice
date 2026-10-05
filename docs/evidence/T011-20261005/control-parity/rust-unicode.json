@@ -1,0 +1,32 @@
+{
+    "task":  "T011",
+    "owner":  "/root",
+    "name":  "rust-unicode",
+    "exe":  "D:\\Software\\WitvoiceToolchain\\Rust\\cargo\\bin\\cargo.exe",
+    "argv":  [
+                 "test",
+                 "--locked",
+                 "-p",
+                 "witvoice-contracts",
+                 "--test",
+                 "worker_wire",
+                 "--",
+                 "--nocapture"
+             ],
+    "cwd":  "D:\\Project\\witvoice",
+    "host":  "5.1.26100.7462",
+    "started_utc":  "2026-10-05T14:03:08.4972913Z",
+    "finished_utc":  "2026-10-05T14:03:13.7841625Z",
+    "wall_seconds":  5.2876870999999994,
+    "exit":  0,
+    "hardware":  "NOT_RUN",
+    "model":  "NOT_RUN",
+    "stdout":  {
+                   "bytes":  512,
+                   "sha256":  "0b038c997ebc4fc5269bbd06ba27ebb626e70548e467d6740a3d41323587f55a"
+               },
+    "stderr":  {
+                   "bytes":  265,
+                   "sha256":  "e2758d3df46c5ae11082c5a2ff89afae5f3a50f5e86b4ff7dfc40d3167ab0951"
+               }
+}

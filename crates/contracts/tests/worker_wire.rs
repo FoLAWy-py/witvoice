@@ -183,3 +183,19 @@ fn ready_event_rejects_unverified_backend_shape_and_empty_proof() {
         response["event"]["args"]["capabilities"][field] = saved;
     }
 }
+
+#[test]
+fn control_strings_require_unicode_scalars_and_accept_valid_pairs() {
+    let fixture = r#"{"protocol_version":1,"request_id":"00000000-0000-0000-0000-000000000001","binding":{"session_tag":"72623859790382856","epoch":9},"event":{"kind":"Ready","args":{"capabilities":{"engine_id":"meanvc2","model_sha256":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","backend":"cuda","native_input_rate":16000,"native_output_rate":16000,"chunk_samples":2560,"lookahead_samples":640,"conditioning_schema":"TEXT","duration_preserving":false,"capability_test_run_id":"codec_fixture_not_model","model_memory_budget_bytes":"1","device_memory_budget_bytes":null}}}}"#;
+    for invalid in [r"\ud800", r"\udfff", r"a\ud800b", r"\ud800\ud800"] {
+        let bytes = fixture.replace("TEXT", invalid);
+        assert_eq!(
+            decode_worker_response(bytes.as_bytes(), &binding()).unwrap_err(),
+            ErrorCode::InvalidArgument
+        );
+    }
+    for valid in [r"\ud834\udd1e", "中文𝄞"] {
+        let bytes = fixture.replace("TEXT", valid);
+        assert!(decode_worker_response(bytes.as_bytes(), &binding()).is_ok());
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "task":  "T011",
+    "owner":  "/root",
+    "name":  "python-repro-after",
+    "exe":  "C:\\Users\\22198\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "argv":  [
+                 ".local/t011-control-parity/after.py"
+             ],
+    "cwd":  "D:\\Project\\witvoice",
+    "host":  "5.1.26100.7462",
+    "started_utc":  "2026-10-05T14:03:14.3655584Z",
+    "finished_utc":  "2026-10-05T14:03:14.7332479Z",
+    "wall_seconds":  0.36751649999999997,
+    "exit":  0,
+    "hardware":  "NOT_RUN",
+    "model":  "NOT_RUN",
+    "stdout":  {
+                   "bytes":  47,
+                   "sha256":  "0526dc6e90d24f855152262c0dff6b3f27c5350924c57aacf2f1f15b93a4540e"
+               },
+    "stderr":  {
+                   "bytes":  0,
+                   "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+               }
+}

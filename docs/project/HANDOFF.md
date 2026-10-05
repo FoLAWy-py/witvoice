@@ -1,3 +1,6 @@
+当前整合（2026-10-05 14:07Z）：T009 exact-owned-mix独立有限preflight通过后实际once4b726af0消费，0.320018s/child1/noTimeout，render1056<=1440，capture Initialize仍0x887c001a beforeStart/marker/read，capturecapacity/cleanupUNKNOWN。完整证据exact-mix-once；不认为闭环/VC通过，不盲重复。音频/GPU/LAN锁已释放。当前用户同范围VB合成持续授权保留，不能扩张为物理录音/语音播放/系统更改。
+
+T010已独立DONE；T011部分冻结7ea5实际185workspace tests/fmt/strictClippy/examples/defaultcheck0，96源全等；Python4control/6PCM0，绑定错误路径exit2保留后正确generate --check0。其后修复独立review真实发现的孤立surrogate差异，Rust6/Python5/controlformat/strictcontractsclippy0；新版尚无wholeworkspace重跑，不继承旧整体PASS。两个writer仅root workers/control和backend platform persistentpipe，路径不重叠，无硬件/GPU/LAN。reviewer/frontend只读中继，audio已STOP。T011 NativePython/Job+gate/真实warmup尚未完成；next_task=T011；M5/M6未通过。以下历史保留，以STATE/TASKS最新状态为准。
 最新整合：T010 formalr1 APPROVED/DONE，冻结1a85ef04，163项有效软件tests/fmt/严格Clippy/examples/defaultcheck全部0；非debug testsupport guard实际101命中预期编译拒绝（不是应用PASS）。完整证据integration/20261005-bounded-final，旧ICE/AV原因UNKNOWN。
 
 VB-CABLE适配once 1d11fbf7用户授权后已消费，实际0.348161s/child1，无timeout；renderPrepare通过1440界限，capture Initialize失败HRESULT -2005139430/0x887c001a，Start/marker/capture read均false，cleanup/capture容量UNKNOWN。原始result/raw归档adapted-once，不重试/换设备。用户已授予同范围有限VB合成测试持续授权；不扩大物理录音/真实语音播放/系统设置/PCM外传。硬件锁已释放，next_task=T011，继续已有MeanVC2 worker协议，M5/M6未过。

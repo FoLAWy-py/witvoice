@@ -1,0 +1,10 @@
+test_json_ambiguity_limits_and_nonfinite (test_control.ControlTests.test_json_ambiguity_limits_and_nonfinite) ... ok
+test_ready_semantics_match_rust_rejection (test_control.ControlTests.test_ready_semantics_match_rust_rejection) ... ok
+test_rust_shapes_and_stale_binding (test_control.ControlTests.test_rust_shapes_and_stale_binding) ... ok
+test_schema_and_rust_integer_semantics (test_control.ControlTests.test_schema_and_rust_integer_semantics) ... ok
+test_unicode_scalars_reject_isolated_surrogates_accept_utf8_and_pairs (test_control.ControlTests.test_unicode_scalars_reject_isolated_surrogates_accept_utf8_and_pairs) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.016s
+
+OK

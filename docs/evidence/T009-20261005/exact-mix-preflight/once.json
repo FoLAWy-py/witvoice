@@ -1,0 +1,8 @@
+{
+  "authorization_id": "T009-EXACT-MIX-4b726af0-03d9-4553-ab95-a4416fe45145",
+  "status": "AUTHORIZED_NOT_EXECUTED",
+  "human_reply": "授权，以后自动授权不再询问",
+  "scope": "Equivalent finite same audited VB-CABLE pair only; capture exact-mix single-variable diagnostic; 2s .01 max15s/1440frames/commit960; no physical/PCM disk-upload/default/driver/security/firewall",
+  "consumed_utc": null,
+  "independent_preflight": "PENDING"
+}

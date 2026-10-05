@@ -1,0 +1,23 @@
+{
+  "source_commit": "7ea5bd743d50c4a586cb0ab94b3b88866772ab59",
+  "owner": "/root",
+  "frozen_input_count": 96,
+  "source_after_all_equal": true,
+  "effective_workspace_tests": 185,
+  "workspace_exit": 0,
+  "fmt_exit": 0,
+  "strict_clippy_exit": 0,
+  "examples_exit": 0,
+  "python_control_tests": 4,
+  "python_control_exit": 0,
+  "python_protocol_tests": 6,
+  "python_protocol_exit": 0,
+  "binding_drift_first": "exit2 wrong nonexistent entry; preserved",
+  "binding_drift_corrected_exit": 0,
+  "default_check_exit": 0,
+  "worker_native": "NOT_IMPLEMENTED",
+  "real_model_warmup": "NOT_RUN",
+  "t011_status": "IN_PROGRESS",
+  "hardware_route": "FAIL_CAPTURE_INITIALIZE",
+  "mac": "UNTESTED"
+}

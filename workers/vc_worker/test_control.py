@@ -55,5 +55,27 @@ class ControlTests(unittest.TestCase):
             with self.assertRaises(ValueError): decode_control(json.dumps(response).encode(),"WorkerResponse")
             cap[key]=saved
 
+    def test_unicode_scalars_reject_isolated_surrogates_accept_utf8_and_pairs(self):
+        response=self.base();del response["command"]
+        cap={"engine_id":"meanvc2","model_sha256":"a"*64,"backend":"cuda",
+             "native_input_rate":16000,"native_output_rate":16000,"chunk_samples":2560,
+             "lookahead_samples":640,"conditioning_schema":"codec_fixture","duration_preserving":False,
+             "capability_test_run_id":"codec_fixture_not_model","model_memory_budget_bytes":"1",
+             "device_memory_budget_bytes":None}
+        response["event"]={"kind":"Ready","args":{"capabilities":cap}}
+        for invalid in ("\ud800", "\udfff", "a\ud800b", "\ud800\ud800"):
+            cap["conditioning_schema"]=invalid
+            with self.subTest(invalid=repr(invalid)), self.assertRaises(ValueError):
+                decode_control(json.dumps(response).encode("utf-8"), "WorkerResponse")
+        for valid in ("中文𝄞", "codec_fixture"):
+            cap["conditioning_schema"]=valid
+            for escaped in (True, False):
+                payload=json.dumps(response,ensure_ascii=escaped).encode("utf-8")
+                self.assertEqual(decode_control(payload,"WorkerResponse"),response)
+        cap["conditioning_schema"]="codec_fixture"
+        response["\ud800"]="value"
+        with self.assertRaises(ValueError):
+            decode_control(json.dumps(response).encode("utf-8"),"WorkerResponse")
+
 
 if __name__ == "__main__": unittest.main()

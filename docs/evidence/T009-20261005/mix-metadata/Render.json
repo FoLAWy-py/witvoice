@@ -1,0 +1,29 @@
+{
+    "task":  "T009",
+    "owner":  "/root",
+    "flow":  "Render",
+    "source_commit":  "31ba5c4b9cc841ffa84c4d883588e915ab1495a2",
+    "binary_sha256":  "1b8e90b8d1664ead28438e647e0cf59a533d8a7f5f2b00b99de19fe3aed50e3e",
+    "selection_sha256":  "05b0de4793bab1bce1028a793052b13d07e894c1e6770d112dd7539c911e4a9b",
+    "argv":  [
+                 "PRIVATE_EXACT_UID_SELECTION",
+                 "--mix-query",
+                 "48000:2:float32"
+             ],
+    "host":  "5.1.26100.7462",
+    "started_utc":  "2026-10-05T13:53:46.4057578Z",
+    "finished_utc":  "2026-10-05T13:53:46.5376656Z",
+    "wall_seconds":  0.12035449999999999,
+    "exit":  0,
+    "timed_out":  false,
+    "initialize_start":  "NOT_RUN",
+    "pcm":  "NOT_ACCESSED",
+    "stdout":  {
+                   "bytes":  710,
+                   "sha256":  "6c2be3a76041b0598fd49b02630b1b2610a8f3ce9e0bd1d9ec1671bf2256a7d9"
+               },
+    "stderr":  {
+                   "bytes":  0,
+                   "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+               }
+}

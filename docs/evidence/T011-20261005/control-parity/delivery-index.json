@@ -1,0 +1,26 @@
+{
+  "owner": "/root",
+  "reviewer": "/root/reviewer_t001",
+  "parent_source": "7ea5bd743d50c4a586cb0ab94b3b88866772ab59",
+  "source_sha256": {
+    "workers/vc_worker/control.py": "39cf858b592fdbb0243011151d2566201b9732b2db685e3943a62e9a1d126016",
+    "workers/vc_worker/test_control.py": "7122a357bce343ae326cdaea8510b2b25c01e1a5108c55505dc22c67418d50e3",
+    "crates/contracts/tests/worker_wire.rs": "98b37ad62a7811d752512034ce49ab501e3a7971a1f80dd4bc8f33a8acf7e884"
+  },
+  "inherited_equal_sha256": {
+    "crates/contracts/src/worker.rs": "6d7dc8d78a67dae9820219f3e6c96d06629ec32ac34bbffb72edca58f9271076",
+    "workers/vc_worker/protocol.py": "a42e0db3d4e74bb15e5e7e3d504e4677a41a04ece8d779a6b075a41009d9b1c6",
+    "workers/vc_worker/test_protocol.py": "982919867b61f8e773cfb5445a394d4ca9c8b5014b61e879e30d07e2f74f50e8",
+    "crates/engines/src/lifecycle.rs": "7a7dc9170df13daf7cdda8f0b337ccfd3159a8ade301d55c4fa583fb9ab6bdc5",
+    "crates/engines/tests/lifecycle.rs": "1ddf6f5211d211f785f3463ef487b9971dbb6791b268eff069b384a59f32f0cb"
+  },
+  "rust_tests": 6,
+  "python_control_tests": 5,
+  "format_exit": 0,
+  "strict_contracts_clippy_exit": 0,
+  "repro_before": "Tool788cc9: accepted isolated surrogate",
+  "repro_after": "python-repro-after.stdout rejected",
+  "parser_failure": "Tool386112; originalverify.ps1 preserved, applicationNOT_RUN",
+  "native_worker": "NOT_REVIEWED_OR_COMPLETE",
+  "whole_workspace_after_unicode_fix": "NOT_RUN"
+}

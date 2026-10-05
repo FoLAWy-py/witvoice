@@ -1,0 +1,8 @@
+    Checking witvoice-contracts v0.1.0 (D:\Project\witvoice\crates\contracts)
+    Checking witvoice-audio v0.1.0 (D:\Project\witvoice\crates\audio)
+    Checking witvoice-platform v0.1.0 (D:\Project\witvoice\crates\platform)
+    Checking witvoice-session v0.1.0 (D:\Project\witvoice\crates\session)
+    Checking witvoice-node v0.1.0 (D:\Project\witvoice\apps\voice-node)
+    Checking witvoice-transport v0.1.0 (D:\Project\witvoice\crates\transport)
+    Checking witvoice-engines v0.1.0 (D:\Project\witvoice\crates\engines)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 12.94s
